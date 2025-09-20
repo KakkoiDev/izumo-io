@@ -1,5 +1,92 @@
 <!doctype html>
-<head></head>
-<body>
-hello, world!
-</body>
+<html lang="en">
+  <head>
+    <title>AI Chatbot</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: red;
+        min-height: 100vh;
+      }
+
+      main {
+        position: relative;
+        z-index: 1;
+        background-color: green;
+        height: 100vh;
+      }
+
+      #messages {
+        background-color: pink;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .ai-message {
+        background-color: royalblue;
+        display: inline-flex;
+        margin-right: auto;
+      }
+
+      .user-message {
+        background-color: royalblue;
+        display: inline-flex;
+        margin-left: auto;
+      }
+
+      #chat-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        gap: 8px;
+      }
+
+      #chat-input {
+        flex-grow: 1;
+      }
+
+      #open-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: orange;
+        z-index: 1;
+      }
+
+      #menu-panel {
+        background-color: blue;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 150px;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div id="messages">
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+      </div>
+      <div id="chat-bar">
+        <input id="chat-input">
+        <button id="send-button">send</button>
+      </div>
+    </main>
+    <aside id="menu">
+      <div id="open-menu">menu</div>    
+      <div id="menu-panel">
+        menu
+      </div>
+    </aside>
+  </body>
+</html>
