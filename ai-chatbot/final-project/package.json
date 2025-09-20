@@ -1,5 +1,9 @@
 {
   "scripts": {
-    "dev": "npx live-server ."
+    "dev": "concurrently \"live-server .\" \"OLLAMA_ORIGINS=* OLLAMA_HOST=127.0.0.1:8081 ollama serve\" \"sleep 10 && OLLAMA_HOST=127.0.0.1:8081 ollama pull qwen2.5:0.5b\""
+  },
+  "dependencies": {
+    "concurrently": "^9.2.1",
+    "live-server": "^1.2.2"
   }
 }
