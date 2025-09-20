@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <title>AI Chatbot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       * {
         margin: 0;
@@ -9,33 +10,41 @@
       }
 
       body {
-        background-color: red;
+        background-color: black;
+        color: white;
         min-height: 100vh;
+        font-family: sans-serif;
       }
 
       main {
         position: relative;
         z-index: 1;
-        background-color: green;
         height: 100vh;
       }
 
       #messages {
-        background-color: pink;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
+        gap: 8px;
+        padding: 24px 8px 36px;
       }
 
-      .ai-message {
-        background-color: royalblue;
+      .ai-message,
+      .user-message {
         display: inline-flex;
+        background: gainsboro;
+        color: black;
+        padding: 8px 8px;
+        border-radius: 4px;
+        
+      }
+      
+      .ai-message {
         margin-right: auto;
       }
 
       .user-message {
-        background-color: royalblue;
-        display: inline-flex;
         margin-left: auto;
       }
 
@@ -45,28 +54,33 @@
         left: 0;
         right: 0;
         display: flex;
-        gap: 8px;
+        gap: 4px;
+        padding: 0 8px;
       }
 
       #chat-input {
         flex-grow: 1;
+        padding: 4px;
+        border-radius: 4px;
+      }
+
+      #send-button {
+        padding: 4px;
       }
 
       #open-menu {
         position: fixed;
         top: 0;
         left: 0;
-        background: orange;
         z-index: 1;
       }
 
       #menu-panel {
-        background-color: blue;
         position: fixed;
         top: 0;
         left: 0;
         bottom: 0;
-        width: 150px;
+        width: 160px;
         z-index: 0;
       }
     </style>
@@ -75,6 +89,70 @@
     <main>
       <div id="messages">
         <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai message</div>
+        <div class="user-message">user message</div>
+        <div class="ai-message">ai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai message</div>
         <div class="user-message">user message</div>
       </div>
       <div id="chat-bar">
