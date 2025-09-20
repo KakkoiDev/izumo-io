@@ -23,11 +23,10 @@
       }
 
       #messages {
-        min-height: 100vh;
         display: flex;
         flex-direction: column;
         gap: 8px;
-        padding: 24px 8px 36px;
+        padding: 24px 8px 40px;
       }
 
       .ai-message,
@@ -55,7 +54,7 @@
         right: 0;
         display: flex;
         gap: 4px;
-        padding: 0 8px;
+        padding: 0 8px 4px;
       }
 
       #chat-input {
@@ -88,72 +87,6 @@
   <body>
     <main>
       <div id="messages">
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai message</div>
-        <div class="user-message">user message</div>
-        <div class="ai-message">ai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai messageai message</div>
-        <div class="user-message">user message</div>
       </div>
       <div id="chat-bar">
         <input id="chat-input">
@@ -166,5 +99,60 @@
         menu
       </div>
     </aside>
+
+    <script>
+      const addMessage = (message) => {
+        // create message div
+        const messageDiv = document.createElement('div')
+        messageDiv.classList.add(message.sender === 'ai' ? 'ai-message' : 'user-message')
+        messageDiv.innerText = message.content
+
+        // append message div to messages
+        messagesDiv.appendChild(messageDiv)
+      }
+
+      // send new message to AI
+      // input: the input element used to send the message
+      // messages: the array of messages
+      const sendMessage = (input, messages) => {
+        const inputValue = input.value
+
+        // if no text in input, don't send
+        if (!inputValue) return
+        
+        // new message
+        const message = {
+          sender: 'user',
+          content: input.value
+        }
+
+        // add to messages list
+        messages.push(message)
+
+        // add to messages div
+        addMessage(message)
+
+        // clear input
+        input.value = ''
+      }
+
+      // array containing all the messages of the conversation
+      const messages = []
+
+      // elements
+      const messagesDiv = document.body.querySelector('#messages')
+      const chatInput = document.body.querySelector('#chat-input')
+      const sendButton = document.body.querySelector('#send-button')
+
+      // generate the divs of all the messages in the conversation
+      for (const message of messages) {
+        addMessage(message)
+      }
+
+      // when click send button, send new user message
+      sendButton.addEventListener('click', () => {
+        sendMessage(chatInput, messages)
+      })
+    </script>
   </body>
 </html>
