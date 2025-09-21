@@ -6,6 +6,13 @@ const openMenuButton = document.body.querySelector('#open-menu')
 const closeMenuButton = document.body.querySelector('#close-menu')
 const menuPanelDiv = document.body.querySelector('#menu-panel')
 
+// variables
+// array containing all the messages of the conversation
+const messages = localStorage.getItem('messages')
+  ? JSON.parse(localStorage.getItem('messages'))
+  : []
+
+
 // scroll to page bottom
 const scrollToBottom = () => window.scrollTo(0, document.body.scrollHeight)
 const addMessage = (message) => {
@@ -24,7 +31,7 @@ const addAssistantThinkingMessage = () => {
   const messageDiv = document.createElement('div')
   messageDiv.id = 'assistant-thinking-message'
   messageDiv.classList.add('assistant-message')
-  messageDiv.innerText = "Thinking"
+  messageDiv.innerText = "🤖 Thinking"
 
   // append message div to messages
   messagesDiv.appendChild(messageDiv)
@@ -78,7 +85,7 @@ const sendMessage = async (input, messages) => {
     })
   });
 
-  // parse reponse to JS object
+  // parse response to JS object
   const assistantData = await assistantResponse.json()
   const assistantMessage = assistantData.message
 
@@ -90,11 +97,7 @@ const sendMessage = async (input, messages) => {
   scrollToBottom()
 }
 
-// array containing all the messages of the conversation
-const messages = localStorage.getItem('messages')
-  ? JSON.parse(localStorage.getItem('messages'))
-  : []
-
+// INIT
 // generate the divs of all the messages in the conversation
 for (const message of messages) {
   addMessage(message)
@@ -118,6 +121,7 @@ requestAnimationFrame(() => {
 sendButton.addEventListener('click', () => {
   sendMessage(chatInput, messages)
 })
+
 // when press "enter" key, send new user message
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Enter') return
