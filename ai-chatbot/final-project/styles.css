@@ -21,7 +21,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 24px 8px 40px;
+  padding: 24px 8px 48px;
 }
 
 .assistant-message,
@@ -77,10 +77,21 @@ main {
   flex-grow: 1;
   padding: 4px;
   border-radius: 4px;
+  font-size: 16px;
 }
 
 #send-button {
   padding: 4px;
+  font-size: 20px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  background: royalblue;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
 }
 
 #open-menu {
