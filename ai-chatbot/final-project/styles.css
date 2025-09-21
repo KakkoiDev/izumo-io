@@ -94,6 +94,11 @@ main {
   line-height: 0;
 }
 
+#send-button:hover {
+  /* 10% lighter royalblue */
+  background: #6d8ce8;
+}
+
 #open-menu {
   position: fixed;
   top: 8px;
@@ -110,6 +115,11 @@ main {
   justify-content: center;
   line-height: 0;
   font-size: 20px;
+}
+
+#open-menu:hover {
+  background: white;
+  color: black;
 }
 
 #menu-panel {
@@ -137,4 +147,50 @@ main {
 
 #menu-panel.show-menu-panel {
   left: 0;
+}
+
+h1 {
+  padding: 8px;
+  text-align: center;
+}
+
+#conversations-list {
+  
+}
+
+#conversations-list .conversation {
+  padding: 8px;
+  border-bottom: 1px solid white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+#conversations-list .conversation:hover {
+  /* black 20% lighter */
+  background: #333333;
+}
+
+#conversations-list .conversation .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  padding-right: 8px;
+}
+
+#conversations-list .conversation .options {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 0;
+  border-radius: 50%;
+}
+
+#conversations-list .conversation .options:hover {
+  background: white;
+  color: black;
 }
