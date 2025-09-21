@@ -2,6 +2,9 @@
 const messagesDiv = document.body.querySelector('#messages')
 const chatInput = document.body.querySelector('#chat-input')
 const sendButton = document.body.querySelector('#send-button')
+const openMenuButton = document.body.querySelector('#open-menu')
+const closeMenuButton = document.body.querySelector('#close-menu')
+const menuPanelDiv = document.body.querySelector('#menu-panel')
 
 // scroll to page bottom
 const scrollToBottom = () => window.scrollTo(0, document.body.scrollHeight)
@@ -99,6 +102,7 @@ for (const message of messages) {
 
 scrollToBottom()
 
+// EVENTS
 // when click send button, send new user message
 sendButton.addEventListener('click', () => {
   sendMessage(chatInput, messages)
@@ -108,4 +112,14 @@ document.addEventListener('keydown', (event) => {
   if (event.key !== 'Enter') return
 
   sendMessage(chatInput, messages)
+})
+
+// when click on open-menu button, open the menu
+openMenuButton.addEventListener('click', () => {
+  menuPanelDiv.classList.add('show-menu-panel')
+})
+
+// when click on close-menu button, close the menu
+closeMenuButton.addEventListener('click', () => {
+  menuPanelDiv.classList.remove('show-menu-panel')
 })

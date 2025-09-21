@@ -14,6 +14,7 @@ main {
   position: relative;
   z-index: 1;
   height: 100vh;
+  background: black;
 }
 
 #messages {
@@ -84,16 +85,45 @@ main {
 
 #open-menu {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 8px;
+  left: 8px;
   z-index: 1;
+  cursor: pointer;
+  background: black;
+  width: 32px;
+  height: 32px;
+  border: 1px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  font-size: 20px;
 }
 
 #menu-panel {
   position: fixed;
   top: 0;
-  left: 0;
+  left: -320px;
   bottom: 0;
-  width: 160px;
-  z-index: 0;
+  max-width: 320px;
+  width: 100%;
+  z-index: 1;
+  background: black;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid white;
+  transition: left 0.1s;
+}
+
+#close-menu {
+  font-size: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 8px;
+}
+
+#menu-panel.show-menu-panel {
+  left: 0;
 }
