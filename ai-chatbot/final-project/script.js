@@ -5,6 +5,7 @@ const sendButton = document.body.querySelector('#send-button')
 const openMenuButton = document.body.querySelector('#open-menu')
 const closeMenuButton = document.body.querySelector('#close-menu')
 const menuPanelDiv = document.body.querySelector('#menu-panel')
+const chatMain = document.body.querySelector('#chat')
 
 // variables
 // array containing all the messages of the conversation
@@ -136,5 +137,10 @@ openMenuButton.addEventListener('click', () => {
 
 // when click on close-menu button, close the menu
 closeMenuButton.addEventListener('click', () => {
+  menuPanelDiv.classList.remove('show-menu-panel')
+})
+
+// when click on the chat area when the menu is opened, close the menu
+chatMain.addEventListener('click', () => {
   menuPanelDiv.classList.remove('show-menu-panel')
 })
