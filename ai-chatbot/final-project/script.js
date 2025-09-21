@@ -100,7 +100,18 @@ for (const message of messages) {
   addMessage(message)
 }
 
-scrollToBottom()
+// Double requestAnimationFrame technique for accurate scrolling
+// Why: Browsers need time to calculate layout after DOM changes before scrollHeight is accurate
+// How it works:
+//   1st rAF: Waits for next paint cycle after DOM manipulation
+//   2nd rAF: Ensures layout calculations are complete
+// This adds ~16-32ms delay (1-2 frames) but guarantees reliable scrolling
+// Reference: https://nolanlawson.com/2018/09/25/accurately-measuring-layout-on-the-web/
+requestAnimationFrame(() => {
+  requestAnimationFrame(() => {
+    scrollToBottom()
+  })
+})
 
 // EVENTS
 // when click send button, send new user message
