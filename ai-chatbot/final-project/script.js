@@ -96,7 +96,10 @@ const displayConversation = () => {
     addMessage(message)
   }
   // Use wrapper to ensure scroll happens after layout calculation
-  afterLayout(scrollToBottom)
+  afterLayout(() => {
+    scrollToBottom()
+    chatInput.focus()
+  })
 }
 
 // Generate title for conversation using AI
