@@ -61,6 +61,28 @@ const switchConversation = (conversationId) => {
   menuPanelDiv.classList.remove('show-menu-panel')
 }
 
+// Delete a conversation
+const deleteConversation = (conversationId) => {
+  // Remove from conversations array
+  conversations = conversations.filter(c => c.id !== conversationId)
+
+  // If deleting current conversation, switch to another
+  if (currentConversationId === conversationId) {
+    if (conversations.length > 0) {
+      currentConversationId = conversations[0].id
+    } else {
+      // Create a new conversation if none left
+      createNewConversation()
+      displayConversation()
+      return
+    }
+  }
+
+  saveConversations()
+  renderConversationsList()
+  displayConversation()
+}
+
 // Clear chat display
 const clearChatDisplay = () => {
   messagesDiv.innerHTML = ''
@@ -120,10 +142,10 @@ const renderConversationsList = () => {
 
     li.innerHTML = `
       <span class="title">${conv.title || DEFAULT_TITLE}</span>
-      <button class="options" popovertarget="options-${currentConversationId}">⋮</button>
-      <div popover id="options-${currentConversationId}">
-        <button popovertarget="options-${currentConversationId}" popovertargetaction="hide">✏️ Rename</button>
-        <button popovertarget="options-${currentConversationId}" popovertargetaction="hide">🗑️ Delete</button>
+      <button class="options" popovertarget="options-${conv.id}">⋮</button>
+      <div popover id="options-${conv.id}">
+        <button class="rename-btn" data-id="${conv.id}" popovertarget="options-${conv.id}" popovertargetaction="hide">✏️ Rename</button>
+        <button class="delete-btn" data-id="${conv.id}" popovertarget="options-${conv.id}" popovertargetaction="hide">🗑️ Delete</button>
       </div>
     `
 
@@ -317,5 +339,11 @@ document.addEventListener('click', (e) => {
     createNewConversation()
     displayConversation()
     menuPanelDiv.classList.remove('show-menu-panel')
+  }
+
+  // Delete conversation button
+  if (e.target.classList.contains('delete-btn')) {
+    const conversationId = e.target.dataset.id
+    deleteConversation(conversationId)
   }
 })
