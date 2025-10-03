@@ -83,6 +83,54 @@ const deleteConversation = (conversationId) => {
   displayConversation()
 }
 
+// Enable editing of conversation title
+const enableTitleEdit = (conversationId) => {
+  const conversationEl = document.querySelector(`.conversation[data-id="${conversationId}"]`)
+  if (!conversationEl) return
+
+  const titleSpan = conversationEl.querySelector('.title')
+  titleSpan.contentEditable = 'true'
+  titleSpan.focus()
+
+  // Move cursor to end of text
+  const range = document.createRange()
+  const selection = window.getSelection()
+  range.selectNodeContents(titleSpan)
+  range.collapse(false)
+  selection.removeAllRanges()
+  selection.addRange(range)
+
+  // Save on each keystroke
+  const saveTitle = () => {
+    const conversation = conversations.find(c => c.id === conversationId)
+    if (conversation) {
+      conversation.title = titleSpan.textContent.trim() || DEFAULT_TITLE
+      saveConversations()
+    }
+  }
+
+  // Handle blur - disable editing
+  const handleBlur = () => {
+    titleSpan.contentEditable = 'false'
+    saveTitle()
+    titleSpan.removeEventListener('blur', handleBlur)
+    titleSpan.removeEventListener('input', saveTitle)
+    titleSpan.removeEventListener('keydown', handleKeydown)
+  }
+
+  // Handle Enter key - blur the element
+  const handleKeydown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      titleSpan.blur()
+    }
+  }
+
+  titleSpan.addEventListener('input', saveTitle)
+  titleSpan.addEventListener('blur', handleBlur)
+  titleSpan.addEventListener('keydown', handleKeydown)
+}
+
 // Clear chat display
 const clearChatDisplay = () => {
   messagesDiv.innerHTML = ''
@@ -348,5 +396,11 @@ document.addEventListener('click', (e) => {
   if (e.target.classList.contains('delete-btn')) {
     const conversationId = e.target.dataset.id
     deleteConversation(conversationId)
+  }
+
+  // Rename conversation button
+  if (e.target.classList.contains('rename-btn')) {
+    const conversationId = e.target.dataset.id
+    enableTitleEdit(conversationId)
   }
 })
