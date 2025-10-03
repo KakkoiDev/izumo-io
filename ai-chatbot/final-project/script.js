@@ -120,7 +120,11 @@ const renderConversationsList = () => {
 
     li.innerHTML = `
       <span class="title">${conv.title || DEFAULT_TITLE}</span>
-      <span class="options">⋮</span>
+      <button class="options" popovertarget="options-${currentConversationId}">⋮</button>
+      <div popover id="options-${currentConversationId}">
+        <button popovertarget="options-${currentConversationId}" popovertargetaction="hide">✏️ Rename</button>
+        <button popovertarget="options-${currentConversationId}" popovertargetaction="hide">🗑️ Delete</button>
+      </div>
     `
 
     conversationsList.appendChild(li)
@@ -298,7 +302,10 @@ chatMain.addEventListener('click', () => {
 // Event delegation for conversation switching
 document.querySelector('#conversations-list').addEventListener('click', (e) => {
   const conversationEl = e.target.closest('.conversation')
-  if (conversationEl && !e.target.closest('.options')) {
+  if (conversationEl &&
+      !e.target.closest('.options') &&
+      !e.target.closest('[popover]')
+     ) {
     const convId = conversationEl.dataset.id
     switchConversation(convId)
   }
