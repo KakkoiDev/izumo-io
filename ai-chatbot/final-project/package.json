@@ -1,9 +1,12 @@
 {
+  "name": "ai-chatbot",
+  "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "concurrently \"live-server .\" \"OLLAMA_ORIGINS=* OLLAMA_HOST=127.0.0.1:8081 ollama serve\" \"sleep 10 && OLLAMA_HOST=127.0.0.1:8081 ollama pull qwen2.5:0.5b\""
+    "dev": "concurrently \"node --watch src/server.js\" \"OLLAMA_ORIGINS=* OLLAMA_HOST=127.0.0.1:8081 ollama serve\" \"sleep 10 && OLLAMA_HOST=127.0.0.1:8081 ollama pull qwen2.5:0.5b\"",
+    "start": "node src/server.js"
   },
-  "dependencies": {
-    "concurrently": "^9.2.1",
-    "live-server": "^1.2.2"
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
