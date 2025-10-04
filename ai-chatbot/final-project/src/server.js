@@ -22,7 +22,7 @@ async function parseBody(req) {
       try {
         resolve(body ? JSON.parse(body) : {})
       } catch (error) {
-        reject(error)
+        reject(new Error(`Invalid JSON: ${error.message}`))
       }
     })
     req.on('error', reject)
@@ -50,9 +50,14 @@ const server = http.createServer(async (req, res) => {
 
     // Create new conversation
     if (req.url === '/api/conversations' && req.method === 'POST') {
-      const { id, title } = await parseBody(req)
-      const conversation = conversations.create(id, title)
-      res.end(JSON.stringify({ conversation }))
+      try {
+        const { id, title } = await parseBody(req)
+        const conversation = conversations.create(id, title)
+        res.end(JSON.stringify({ conversation }))
+      } catch (error) {
+        res.statusCode = 400
+        res.end(JSON.stringify({ error: error.message }))
+      }
       return
     }
 
@@ -71,10 +76,15 @@ const server = http.createServer(async (req, res) => {
 
     // Update conversation title
     if (req.url.match(/^\/api\/conversations\/[^/]+$/) && req.method === 'PUT') {
-      const id = req.url.split('/')[3]
-      const { title } = await parseBody(req)
-      conversations.updateTitle(id, title)
-      res.end(JSON.stringify({ success: true }))
+      try {
+        const id = req.url.split('/')[3]
+        const { title } = await parseBody(req)
+        conversations.updateTitle(id, title)
+        res.end(JSON.stringify({ success: true }))
+      } catch (error) {
+        res.statusCode = 400
+        res.end(JSON.stringify({ error: error.message }))
+      }
       return
     }
 
@@ -88,9 +98,70 @@ const server = http.createServer(async (req, res) => {
 
     // Add message to conversation
     if (req.url === '/api/messages' && req.method === 'POST') {
-      const { conversationId, role, content } = await parseBody(req)
-      const message = messages.create(conversationId, role, content)
-      res.end(JSON.stringify({ message }))
+      try {
+        const { conversationId, role, content } = await parseBody(req)
+        const message = messages.create(conversationId, role, content)
+        res.end(JSON.stringify({ message }))
+      } catch (error) {
+        res.statusCode = 400
+        res.end(JSON.stringify({ error: error.message }))
+      }
+      return
+    }
+
+    // Proxy to Ollama chat endpoint
+    if (req.url === '/api/chat' && req.method === 'POST') {
+      try {
+        const body = await parseBody(req)
+
+        const ollamaReq = http.request('http://localhost:8081/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        }, (ollamaRes) => {
+          res.statusCode = ollamaRes.statusCode
+          res.setHeader('Content-Type', 'application/json; charset=utf-8')
+          ollamaRes.pipe(res)
+        })
+
+        ollamaReq.on('error', (error) => {
+          res.statusCode = 500
+          res.end(JSON.stringify({ error: 'Ollama connection failed', details: error.message }))
+        })
+
+        ollamaReq.write(JSON.stringify(body))
+        ollamaReq.end()
+      } catch (error) {
+        res.statusCode = 400
+        res.end(JSON.stringify({ error: error.message }))
+      }
+      return
+    }
+
+    // Proxy to Ollama generate endpoint
+    if (req.url === '/api/generate' && req.method === 'POST') {
+      try {
+        const body = await parseBody(req)
+
+        const ollamaReq = http.request('http://localhost:8081/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        }, (ollamaRes) => {
+          res.statusCode = ollamaRes.statusCode
+          res.setHeader('Content-Type', 'application/json; charset=utf-8')
+          ollamaRes.pipe(res)
+        })
+
+        ollamaReq.on('error', (error) => {
+          res.statusCode = 500
+          res.end(JSON.stringify({ error: 'Ollama connection failed', details: error.message }))
+        })
+
+        ollamaReq.write(JSON.stringify(body))
+        ollamaReq.end()
+      } catch (error) {
+        res.statusCode = 400
+        res.end(JSON.stringify({ error: error.message }))
+      }
       return
     }
 

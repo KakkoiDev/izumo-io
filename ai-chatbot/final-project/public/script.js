@@ -181,7 +181,7 @@ const generateTitle = async (messages) => {
   try {
     const conversationContent = messages.slice(0, 4).map(m => `${m.role}: ${m.content}`).join('\n')
 
-    const response = await fetch('http://localhost:8081/api/generate', {
+    const response = await fetch(`${API_BASE}/generate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -310,7 +310,7 @@ const sendMessage = async (input) => {
   await api.addMessage(currentConversationId, message.role, message.content)
 
   // send the query to the AI model
-  const assistantResponse = await fetch('http://localhost:8081/api/chat', {
+  const assistantResponse = await fetch(`${API_BASE}/chat`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
