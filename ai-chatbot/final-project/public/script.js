@@ -13,20 +13,58 @@ let currentConversationId = null
 
 // constants
 const DEFAULT_TITLE = 'Untitled'
-const STORAGE_CONVERSATIONS = 'conversations'
-const STORAGE_CURRENT_ID = 'currentConversationId'
+const API_BASE = '/api'
+
+// API Helper functions
+const api = {
+  async getConversations() {
+    const res = await fetch(`${API_BASE}/conversations`)
+    const data = await res.json()
+    return data.conversations
+  },
+
+  async createConversation(id, title) {
+    const res = await fetch(`${API_BASE}/conversations`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, title })
+    })
+    return res.json()
+  },
+
+  async updateTitle(id, title) {
+    await fetch(`${API_BASE}/conversations/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title })
+    })
+  },
+
+  async deleteConversation(id) {
+    await fetch(`${API_BASE}/conversations/${id}`, { method: 'DELETE' })
+  },
+
+  async addMessage(conversationId, role, content) {
+    const res = await fetch(`${API_BASE}/messages`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ conversationId, role, content })
+    })
+    return res.json()
+  }
+}
 
 // CONVERSATION MANAGEMENT FUNCTIONS
 // Create a new conversation
-const createNewConversation = () => {
+const createNewConversation = async () => {
   const newConversation = {
     id: Date.now().toString(),
     title: DEFAULT_TITLE,
     messages: []
   }
+  await api.createConversation(newConversation.id, newConversation.title)
   conversations.push(newConversation)
   currentConversationId = newConversation.id
-  saveConversations()
   renderConversationsList()
   clearChatDisplay()
   return newConversation
@@ -38,31 +76,19 @@ const loadCurrentConversation = () => {
   return conversation ? conversation.messages : []
 }
 
-// Save current conversation state
-const saveCurrentConversation = () => {
-  const conversation = conversations.find(c => c.id === currentConversationId)
-  if (conversation) {
-    saveConversations()
-  }
-}
-
-// Save all conversations to localStorage
-const saveConversations = () => {
-  localStorage.setItem(STORAGE_CONVERSATIONS, JSON.stringify(conversations))
-  localStorage.setItem(STORAGE_CURRENT_ID, currentConversationId)
-}
-
 // Switch to a different conversation
 const switchConversation = (conversationId) => {
   currentConversationId = conversationId
-  localStorage.setItem(STORAGE_CURRENT_ID, currentConversationId)
   renderConversationsList()
   displayConversation()
   menuPanelDiv.classList.remove('show-menu-panel')
 }
 
 // Delete a conversation
-const deleteConversation = (conversationId) => {
+const deleteConversation = async (conversationId) => {
+  // Delete from API
+  await api.deleteConversation(conversationId)
+
   // Remove from conversations array
   conversations = conversations.filter(c => c.id !== conversationId)
 
@@ -72,13 +98,12 @@ const deleteConversation = (conversationId) => {
       currentConversationId = conversations[0].id
     } else {
       // Create a new conversation if none left
-      createNewConversation()
+      await createNewConversation()
       displayConversation()
       return
     }
   }
 
-  saveConversations()
   renderConversationsList()
   displayConversation()
 }
@@ -101,11 +126,12 @@ const enableTitleEdit = (conversationId) => {
   selection.addRange(range)
 
   // Save on each keystroke
-  const saveTitle = () => {
+  const saveTitle = async () => {
     const conversation = conversations.find(c => c.id === conversationId)
     if (conversation) {
-      conversation.title = titleSpan.textContent.trim() || DEFAULT_TITLE
-      saveConversations()
+      const newTitle = titleSpan.textContent.trim() || DEFAULT_TITLE
+      conversation.title = newTitle
+      await api.updateTitle(conversationId, newTitle)
     }
   }
 
@@ -280,8 +306,8 @@ const sendMessage = async (input) => {
   // clear input
   input.value = ''
 
-  // save conversations
-  saveConversations()
+  // save user message to API
+  await api.addMessage(currentConversationId, message.role, message.content)
 
   // send the query to the AI model
   const assistantResponse = await fetch('http://localhost:8081/api/chat', {
@@ -303,47 +329,42 @@ const sendMessage = async (input) => {
   removeAssistantThinkingMessage()
   addMessage(assistantMessage)
 
+  // save assistant message to API
+  await api.addMessage(currentConversationId, assistantMessage.role, assistantMessage.content)
+
   // Generate title on first AI response if untitled
   if (conversation.messages.length === 2 && conversation.title === DEFAULT_TITLE) {
     conversation.title = await generateTitle(conversation.messages)
+    await api.updateTitle(currentConversationId, conversation.title)
     renderConversationsList()
   }
 
-  saveConversations()
   scrollToBottom()
 }
 
 // INITIALIZATION
-const initializeConversations = () => {
-  // Try to load existing conversations
-  const savedConversations = localStorage.getItem(STORAGE_CONVERSATIONS)
-  const savedCurrentId = localStorage.getItem(STORAGE_CURRENT_ID)
+const initializeConversations = async () => {
+  // Load conversations from API
+  const loadedConversations = await api.getConversations()
 
-  if (savedConversations) {
-    conversations = JSON.parse(savedConversations)
-    currentConversationId = savedCurrentId
-
-    // Verify current conversation still exists
-    if (!conversations.find(c => c.id === currentConversationId)) {
-      currentConversationId = conversations.length > 0 ? conversations[0].id : null
-    }
-  }
-
-  // Create first conversation if none exist
-  if (conversations.length === 0) {
-    createNewConversation()
-  }
-
-  // Ensure we have a current conversation
-  if (!currentConversationId && conversations.length > 0) {
+  if (loadedConversations && loadedConversations.length > 0) {
+    // Convert API format to include messages array
+    conversations = loadedConversations.map(c => ({
+      ...c,
+      messages: c.messages || []
+    }))
     currentConversationId = conversations[0].id
+  } else {
+    // Create first conversation if none exist
+    await createNewConversation()
   }
 }
 
 // INIT
-initializeConversations()
-renderConversationsList()
-displayConversation()
+initializeConversations().then(() => {
+  renderConversationsList()
+  displayConversation()
+})
 
 // EVENTS
 // when click send button, send new user message
