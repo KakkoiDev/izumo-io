@@ -1,10 +1,12 @@
+import 'dotenv/config'
 import http from 'node:http'
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { conversations, messages } from './database.js'
 
 // Server configuration
-const PORT = 3000
+const PORT = process.env.PORT || 3000
+const OLLAMA_HOST = process.env.OLLAMA_HOST || '127.0.0.1:8081'
 
 // MIME types for static files (charset=utf-8 fixes emoji/unicode display)
 const TYPES = {
@@ -114,7 +116,7 @@ const server = http.createServer(async (req, res) => {
       try {
         const body = await parseBody(req)
 
-        const ollamaReq = http.request('http://localhost:8081/api/chat', {
+        const ollamaReq = http.request(`http://${OLLAMA_HOST}/api/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' }
         }, (ollamaRes) => {
@@ -142,7 +144,7 @@ const server = http.createServer(async (req, res) => {
       try {
         const body = await parseBody(req)
 
-        const ollamaReq = http.request('http://localhost:8081/api/generate', {
+        const ollamaReq = http.request(`http://${OLLAMA_HOST}/api/generate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' }
         }, (ollamaRes) => {
