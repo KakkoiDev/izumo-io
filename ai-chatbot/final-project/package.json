@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"node --watch src/server.js\" \"OLLAMA_ORIGINS=* OLLAMA_HOST=127.0.0.1:8081 ollama serve\" \"sleep 10 && OLLAMA_HOST=127.0.0.1:8081 ollama pull qwen2.5:0.5b\"",
-    "start": "node src/server.js"
+    "setup": "./scripts/pull-qwen.sh",
+    "dev": "node --watch src/server.js",
+    "dev:all": "concurrently \"npm run dev\" \"npm run ollama\"",
+    "start": "node src/server.js",
+    "ollama": "./scripts/start-ollama.sh",
+    "model:pull": "./scripts/pull-qwen.sh"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"
