@@ -142,6 +142,11 @@ const enableTitleEdit = (conversationId) => {
     }
   }
 
+  // Prevent click events from bubbling when editing
+  const handleClick = (e) => {
+    e.stopPropagation()
+  }
+
   // Handle blur - disable editing
   const handleBlur = () => {
     titleSpan.contentEditable = 'false'
@@ -149,6 +154,7 @@ const enableTitleEdit = (conversationId) => {
     titleSpan.removeEventListener('blur', handleBlur)
     titleSpan.removeEventListener('input', saveTitle)
     titleSpan.removeEventListener('keydown', handleKeydown)
+    titleSpan.removeEventListener('click', handleClick)
   }
 
   // Handle Enter key - blur the element
@@ -162,6 +168,7 @@ const enableTitleEdit = (conversationId) => {
   titleSpan.addEventListener('input', saveTitle)
   titleSpan.addEventListener('blur', handleBlur)
   titleSpan.addEventListener('keydown', handleKeydown)
+  titleSpan.addEventListener('click', handleClick)
 }
 
 // Clear chat display
