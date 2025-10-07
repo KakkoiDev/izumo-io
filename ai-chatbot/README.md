@@ -1,5 +1,7 @@
 # AI Chatbot
 
+![demo](./ai-chatbot-demo.png)
+
 This is a 10 weeks class to learn how to do your own AI chatbot.
 
 It will take you from absolute beginner to building full-stack app using:
