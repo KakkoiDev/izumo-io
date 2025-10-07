@@ -86,6 +86,13 @@ const switchConversation = (conversationId) => {
 
 // Delete a conversation
 const deleteConversation = async (conversationId) => {
+  // Close any open popovers first (fixes popover state bug)
+  document.querySelectorAll('[popover]').forEach(popover => {
+    if (popover.matches(':popover-open')) {
+      popover.hidePopover()
+    }
+  })
+
   // Delete from API
   await api.deleteConversation(conversationId)
 
