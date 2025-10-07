@@ -173,6 +173,20 @@ const server = http.createServer(async (req, res) => {
     return
   }
 
+  // Serve files from node_modules
+  if (req.url.startsWith('/node_modules/')) {
+    const filePath = path.join(import.meta.dirname, '..', req.url)
+    try {
+      const content = await fs.readFile(filePath)
+      res.setHeader('Content-Type', 'text/javascript; charset=utf-8')
+      res.end(content)
+    } catch {
+      res.statusCode = 404
+      res.end('Not Found')
+    }
+    return
+  }
+
   // Handle static files (HTML, CSS, JS)
   // Strip query parameters (for LiveReload compatibility)
   const urlPath = req.url.split('?')[0]

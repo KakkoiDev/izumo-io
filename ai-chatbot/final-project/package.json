@@ -15,6 +15,7 @@
     "livereload": "^0.10.3"
   },
   "dependencies": {
-    "dotenv": "^17.2.3"
+    "dotenv": "^17.2.3",
+    "marked": "^16.4.0"
   }
 }

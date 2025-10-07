@@ -36,6 +36,12 @@ main {
 
 .assistant-message {
   margin-right: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.assistant-message.thinking {
+  flex-direction: row;
 }
 
 .user-message {
@@ -244,4 +250,71 @@ h1 {
 
 #new-conversation-btn:hover {
   background: #6d8ce8;
+}
+
+/* Markdown styling in messages */
+.assistant-message pre {
+  background: silver;
+  padding: 12px;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+
+.assistant-message code {
+  background: silver;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+.assistant-message pre code {
+  background: none;
+  padding: 0;
+}
+
+.assistant-message ul,
+.assistant-message ol {
+  margin: 8px 0;
+  padding-left: 24px;
+}
+
+.assistant-message li {
+  margin: 4px 0;
+}
+
+.assistant-message a {
+  color: royalblue;
+  text-decoration: underline;
+}
+
+.assistant-message a:hover {
+  color: #6d8ce8;
+}
+
+.assistant-message blockquote {
+  border-left: 3px solid #444;
+  padding-left: 12px;
+  margin: 8px 0;
+  color: #ccc;
+}
+
+.assistant-message h1,
+.assistant-message h2,
+.assistant-message h3,
+.assistant-message h4 {
+  margin: 12px 0 8px 0;
+}
+
+.assistant-message p {
+  margin: 8px 0;
+}
+
+.assistant-message p:first-child {
+  margin-top: 0;
+}
+
+.assistant-message p:last-child {
+  margin-bottom: 0;
 }

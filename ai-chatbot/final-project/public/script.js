@@ -1,3 +1,5 @@
+import { marked } from '/node_modules/marked/lib/marked.esm.js'
+
 // elements
 const messagesDiv = document.body.querySelector('#messages')
 const chatInput = document.body.querySelector('#chat-input')
@@ -271,7 +273,13 @@ const addMessage = (message) => {
   // create message div
   const messageDiv = document.createElement('div')
   messageDiv.classList.add(message.role === 'assistant' ? 'assistant-message' : 'user-message')
-  messageDiv.innerText = message.content
+
+  // Parse markdown for assistant messages, plain text for user messages
+  if (message.role === 'assistant') {
+    messageDiv.innerHTML = marked.parse(message.content)
+  } else {
+    messageDiv.innerText = message.content
+  }
 
   // append message div to messages
   messagesDiv.appendChild(messageDiv)
@@ -282,7 +290,7 @@ const addAssistantThinkingMessage = () => {
   // create message div
   const messageDiv = document.createElement('div')
   messageDiv.id = 'assistant-thinking-message'
-  messageDiv.classList.add('assistant-message')
+  messageDiv.classList.add('assistant-message', 'thinking')
   messageDiv.innerText = "🤖 Thinking"
 
   // append message div to messages
