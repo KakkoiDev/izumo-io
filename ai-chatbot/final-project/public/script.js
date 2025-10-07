@@ -151,6 +151,10 @@ const enableTitleEdit = (conversationId) => {
   const handleBlur = () => {
     titleSpan.contentEditable = 'false'
     saveTitle()
+
+    // Reset scroll position to show beginning of text
+    titleSpan.scrollLeft = 0
+
     titleSpan.removeEventListener('blur', handleBlur)
     titleSpan.removeEventListener('input', saveTitle)
     titleSpan.removeEventListener('keydown', handleKeydown)
