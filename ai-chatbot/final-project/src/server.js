@@ -174,8 +174,10 @@ const server = http.createServer(async (req, res) => {
   }
 
   // Handle static files (HTML, CSS, JS)
+  // Strip query parameters (for LiveReload compatibility)
+  const urlPath = req.url.split('?')[0]
   // Map '/' to 'index.html', everything else to its path in public/
-  const filePath = path.join(import.meta.dirname, '../public', req.url === '/' ? 'index.html' : req.url)
+  const filePath = path.join(import.meta.dirname, '../public', urlPath === '/' ? 'index.html' : urlPath)
 
   try {
     // Read file from disk

@@ -4,14 +4,15 @@
   "type": "module",
   "scripts": {
     "setup": "./scripts/pull-qwen.sh",
-    "dev": "node --watch src/server.js",
-    "dev:all": "concurrently \"npm run dev\" \"npm run ollama\"",
+    "dev": "concurrently \"node --watch src/server.js\" \"./scripts/livereload.sh\"",
+    "dev:all": "concurrently \"node --watch src/server.js\" \"./scripts/livereload.sh\" \"npm run ollama\"",
     "start": "node src/server.js",
     "ollama": "./scripts/start-ollama.sh",
     "model:pull": "./scripts/pull-qwen.sh"
   },
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "livereload": "^0.10.3"
   },
   "dependencies": {
     "dotenv": "^17.2.3"
