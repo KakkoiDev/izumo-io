@@ -80,9 +80,8 @@ chatbot-project/
 - [VS Code Getting Started](https://code.visualstudio.com/docs/getstarted/getting-started)
 
 ### Video Tutorials
-- "How the Internet Works" - Basic networking concepts
-- "Git and GitHub for Beginners" - Version control fundamentals
-- "Setting Up a Development Environment" - Best practices
+- ["How the Internet Works" - Basic networking concepts](https://www.youtube.com/watch?v=7_LPdttKXPc)
+- ["Git and GitHub for Beginners" - Version control fundamentals](https://www.youtube.com/watch?v=r8jQ9hVA2qs)
 
 ### Practice Challenges
 1. **Environment Test**: Create a simple HTML page that displays your name and favorite programming quote
