@@ -44,6 +44,10 @@ Each lesson is in its own directory with detailed instructions:
 9. [Enhanced Features & UX](./lesson-09/)
 10. [Local Deployment & Portfolio](./lesson-10/)
 
+## Resources
+
+- **[Technical Dictionary](./DICTIONARY.md)** - English/Japanese glossary of all technical terms (150+ terms with hiragana pronunciation)
+
 ## Getting Started
 
 1. Join Discord: [https://discord.gg/YrtdssGUJa](https://discord.gg/YrtdssGUJa)
