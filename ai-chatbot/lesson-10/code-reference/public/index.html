@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>AI Chatbot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2280%22>🤖</text></svg>">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main id="chat">
+      <div id="messages">
+      </div>
+      <div id="chat-bar">
+        <input id="chat-input">
+        <div id="send-button">➤</div>
+      </div>
+    </main>
+    <aside id="menu">
+      <div id="open-menu">☰</div>    
+      <div id="menu-panel">
+        <div id="close-menu">✕</div>
+        <h1>AI Chatbot</h1>
+        <button id="new-conversation-btn">+ New Chat</button>
+        <ul id="conversations-list">
+        </ul>
+      </div>
+    </aside>
+    <script type="module" src="script.js"></script>
+    <!-- LiveReload for development (comment out in production) -->
+    <script src="http://localhost:35729/livereload.js?snipver=1"></script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "ai-chatbot",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "setup": "./scripts/pull-qwen.sh",
+    "dev": "concurrently \"node --watch src/server.js\" \"./scripts/livereload.sh\"",
+    "dev:all": "concurrently \"node --watch src/server.js\" \"./scripts/livereload.sh\" \"npm run ollama\"",
+    "start": "node src/server.js",
+    "ollama": "./scripts/start-ollama.sh",
+    "model:pull": "./scripts/pull-qwen.sh"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "livereload": "^0.10.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "marked": "^16.4.0"
+  }
+}
