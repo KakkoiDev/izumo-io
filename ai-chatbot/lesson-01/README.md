@@ -20,11 +20,11 @@ By the end of this lesson, you will:
 - **Project Structure**: How to organize a web development project
 
 ### Tools Introduced
-- **VS Code**: Primary code editor
+- [**VS Code**](https://code.visualstudio.com/download): Primary code editor
 - **Terminal**: Command line interface
-- **Git & GitHub**: Version control and collaboration
-- **Ollama**: Local AI assistant setup
-- **Gemini CLI**: Cloud AI integration for development
+- **[Git](https://git-scm.com/downloads) & [GitHub](https://github.com/)**: Version control and collaboration
+- **[Ollama](https://ollama.com/)**: Local AI assistant setup
+- **[Gemini CLI](https://github.com/google-gemini/gemini-cli)**: Cloud AI integration for development
 
 ## This Week's Tasks
 
