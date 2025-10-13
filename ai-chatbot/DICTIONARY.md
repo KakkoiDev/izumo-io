@@ -45,7 +45,7 @@ Terms are organized by week for easy reference as you progress through the cours
 |---------|---------|----------|---------|
 | HTML | えいちてぃーえむえる | HTML | HyperText Markup Language - web structure |
 | Tag | たぐ | タグ | HTML element marker (`<div>`, `</div>`) |
-| Element | えれめんと | 要素 | HTML component with opening/closing tags |
+| Element | ようそ | 要素 | HTML component with opening/closing tags |
 | Attribute | ぞくせい | 属性 | Property of HTML element (id, class, src) |
 | DOCTYPE | どっくたいぷ | ドックタイプ | Document type declaration |
 | Head | へっど | ヘッド | HTML section for metadata |
@@ -450,3 +450,112 @@ Terms are organized by week for easy reference as you progress through the cours
 | Check | かくにんする | 確認する | Verify |
 | Search | けんさくする | 検索する | Look up information |
 
+
+---
+
+## Learning & Education Terms
+
+### Course & Lesson Structure
+
+| English | Hiragana | Japanese | Context |
+|---------|---------|----------|---------|
+| Course | こーす | コース | Series of lessons on a topic |
+| Lesson | れっすん | レッスン | Single teaching session |
+| Week | しゅう | 週 | Time period for lesson completion |
+| Curriculum | かりきゅらむ | カリキュラム | Course structure and content |
+| Objective | もくひょう | 目標 | Learning goal |
+| Task | たすく | タスク | Assignment to complete |
+| Homework | しゅくだい | 宿題 | Work to do outside class |
+| Practice | れんしゅう | 練習 | Repeated exercises to improve |
+| Challenge | ちゃれんじ | チャレンジ | Difficult task to test skills |
+| Exercise | えくささいず | エクササイズ | Practice activity |
+
+### Learning Process
+
+| English | Hiragana | Japanese | Context |
+|---------|---------|----------|---------|
+| Learn | まなぶ | 学ぶ | Acquire knowledge or skill |
+| Study | べんきょうする | 勉強する | Focus on learning material |
+| Understand | りかいする | 理解する | Comprehend meaning |
+| Practice | じっせんする | 実践する | Apply what you learned |
+| Build | こうちくする | 構築する | Create something step by step |
+| Master | しゅうとくする | 習得する | Fully learn a skill |
+| Review | ふくしゅうする | 復習する | Go over learned material again |
+| Progress | しんちょく | 進捗 | How far you've advanced |
+| Complete | かんりょうする | 完了する | Finish a task |
+
+### Educational Content
+
+| English | Hiragana | Japanese | Context |
+|---------|---------|----------|---------|
+| Tutorial | ちゅーとりある | チュートリアル | Step-by-step guide |
+| Guide | がいど | ガイド | Instructions or directions |
+| Reference | りふぁれんす | リファレンス | Material to look up information |
+| Resource | りそーす | リソース | Learning material or tool |
+| Example | れい | 例 | Sample or demonstration |
+| Beginner | しょしんしゃ | 初心者 | Person new to a subject |
+| Advanced | こうきゅう | 高級 | Higher level of difficulty |
+| Prerequisite | ぜんていじょうけん | 前提条件 | Required before starting |
+
+### Community & Support
+
+| English | Hiragana | Japanese | Context |
+|---------|---------|----------|---------|
+| Community | こみゅにてぃ | コミュニティ | Group of learners |
+| Discord | でぃすこーど | Discord | Communication platform |
+| Mentor | めんたー | メンター | Experienced guide |
+| Peer | ぴあ | ピア | Fellow learner |
+| Help | たすけ | 助け | Assistance |
+| Support | さぽーと | サポート | Aid or assistance |
+| Question | しつもん | 質問 | Inquiry for information |
+| Answer | こたえ | 答え | Response to question |
+| Share | きょうゆうする | 共有する | Make available to others |
+| Join | さんかする | 参加する | Become part of group |
+
+### Project & Documentation
+
+| English | Hiragana | Japanese | Context |
+|---------|---------|----------|---------|
+| Setup | せっとあっぷ | セットアップ | Initial configuration |
+| Installation | いんすとーる | インストール | Process of installing software |
+| Configuration | こうせい | 構成 | How something is set up |
+| Environment | かんきょう | 環境 | Development workspace setup |
+| Structure | こうぞう | 構造 | Organization of components |
+| Foundation | きそ | 基礎 | Basic elements |
+| Architecture | あーきてくちゃ | アーキテクチャ | System design |
+| Specification | しようしょ | 仕様書 | Detailed requirements document |
+| Planning | けいかく | 計画 | Preparation before work |
+| Design | せっけい | 設計 | Plan for how to build |
+
+### Skills & Concepts
+
+| English | Hiragana | Japanese | Context |
+|---------|---------|----------|---------|
+| Skill | すきる | スキル | Ability or competence |
+| Knowledge | ちしき | 知識 | Understanding and information |
+| Experience | けいけん | 経験 | Practical familiarity |
+| Career | きゃりあ | キャリア | Professional path |
+| Philosophy | りねん | 理念 | Guiding principles |
+| Hands-on | じっせん | 実践 | Practical doing |
+| Real-world | じつよう | 実用 | Practical application |
+| Practical | じっせんてき | 実践的 | Applicable in practice |
+| Professional | ぷろふぇっしょなる | プロフェッショナル | Expert level |
+
+### Troubleshooting & Common Issues
+
+| English | Hiragana | Japanese | Context |
+|---------|---------|----------|---------|
+| Troubleshooting | とらぶるしゅーてぃんぐ | トラブルシューティング | Solving problems |
+| Issue | もんだい | 問題 | Problem or difficulty |
+| Solution | かいけつさく | 解決策 | Way to solve problem |
+| Common | いっぱんてき | 一般的 | Frequent or typical |
+| Problem | もんだい | 問題 | Something wrong |
+| Resolve | かいけつする | 解決する | Fix a problem |
+| Configure | せっていする | 設定する | Set up options |
+| Restart | さいきどうする | 再起動する | Start again |
+| Verify | かくにんする | 確認する | Check correctness |
+| Compatibility | ごかんせい | 互換性 | Ability to work together |
+
+---
+
+*Last Updated: 2025-10-14*
