@@ -193,11 +193,11 @@ Terms are organized by week for easy reference as you progress through the cours
 |---------|---------|----------|---------|
 | DOM | でぃーおーえむ | DOM | Document Object Model - HTML structure in memory |
 | Query Selector | くえりーせれくたー | クエリセレクタ | Find HTML element by CSS selector |
-| Element | えれめんと | 要素 | HTML node in DOM |
+| Element | ようそ | 要素 | HTML node in DOM |
 | Event | いべんと | イベント | Action that happens (click, keypress) |
 | Event Listener | いべんとりすなー | イベントリスナー | Code that runs when event occurs |
 | Callback | こーるばっく | コールバック | Function passed as argument |
-| Create Element | えれめんとさくせい | 要素作成 | Make new HTML element with JavaScript |
+| Create Element | ようそさくせい | 要素作成 | Make new HTML element with JavaScript |
 | Append | ついか | 追加 | Add element to DOM |
 
 ### Storage & Data
