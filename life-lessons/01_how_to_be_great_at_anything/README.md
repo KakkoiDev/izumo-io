@@ -70,8 +70,8 @@ Part of understanding the problem includes understanding the constraints you hav
 - Quality (Well, you know, how good should the final product be)
 
 <figure>
-    <image src="./quality-triangle.jpg" alt="Quality Triangle" style="width:420px">
-    <figcaption>Image taken from [PPM Express](https://www.ppm.express/glossary/quality-triangle)</figcaption>
+    <img src="./quality-triangle.jpg" alt="Quality Triangle" style="width:420px">
+    <figcaption>Image taken from <a href="https://www.ppm.express/glossary/quality-triangle">PPM Express</a></figcaption>
 </figure>
 
 You can only pick 2. If you are low on time and budget, then you have to give up on quality. If you want a high quality product delivered quickly, then the cost will go up, etc...
