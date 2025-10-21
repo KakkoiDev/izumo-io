@@ -88,7 +88,9 @@ If this is an already solved problem, check out what others have already tried t
 
 Don't be too attached to your ideas. Don't worry if your idea is not the one that was chosen for a particular project. What matters is that the problem got fixed in the best way possible. Rejoice and learn from it!
 
-ALWAYS try to keep your solutions simple. Simple solutions are often cheaper to create and easier to maintain/upgrade. Really smart people find simple solutions to complex problems.
+ALWAYS try to keep your solutions simple. Simple solutions are often cheaper to create and easier to maintain/upgrade.
+
+> Really smart people find simple solutions to complex problems.
 
 #### Verify That Your Solution Is Reliable
 
