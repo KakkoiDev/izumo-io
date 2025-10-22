@@ -19,7 +19,7 @@ Our philosophy:
 
 Build a full-stack AI chatbot from absolute beginner to production-ready application.
 
-👉 **[Start the AI Chatbot Course →](./ai-chatbot/)**
+👉 **[Start the AI Chatbot Course →](./courses/ai-chatbot/)**
 
 ## Community
 
@@ -31,3 +31,5 @@ Join our Discord server to:
 - Access additional resources
 
 **[Join Discord: https://discord.gg/YrtdssGUJa](https://discord.gg/YrtdssGUJa)**
+
+Update an existing md file.
