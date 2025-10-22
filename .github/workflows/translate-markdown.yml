@@ -1,0 +1,113 @@
+name: Translate Markdown to Japanese
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - '**.md'
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+    - name: Checkout PR branch
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        pip install google-genai
+    
+    - name: Get changed .md files
+      id: changed-files
+      run: |
+        git fetch origin ${{ github.base_ref }}
+        changed_files=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep '\.md$' | grep -v '_jp\.md$' || true)
+        echo "files<<EOF" >> $GITHUB_OUTPUT
+        echo "$changed_files" >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+    
+    - name: Translate files
+      env:
+        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      run: |
+        cat << 'SCRIPT' > translate.py
+        import os
+        import sys
+        from google import genai
+        from pathlib import Path
+        
+        client = genai.Client(api_key=os.environ['GEMINI_API_KEY'])
+        
+        files = """${{ steps.changed-files.outputs.files }}""".strip().split('\n')
+        files = [f for f in files if f]  # Remove empty strings
+        
+        translated_files = []
+        
+        for file_path in files:
+            if not file_path or not os.path.exists(file_path):
+                continue
+                
+            print(f"Translating {file_path}...")
+            
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            prompt = f"""Translate the following markdown document to Japanese. 
+            Preserve all markdown formatting, code blocks, links, and structure exactly.
+            Only translate the text content, not code, URLs, or markdown syntax.
+            
+            Document:
+            {content}"""
+            
+            response = client.models.generate_content(
+                model='gemini-2.5-flash',
+                contents=prompt
+            )
+            translated = response.text
+            
+            # Create Japanese version filename
+            path = Path(file_path)
+            jp_filename = path.stem + '_jp' + path.suffix
+            jp_path = path.parent / jp_filename
+            
+            with open(jp_path, 'w', encoding='utf-8') as f:
+                f.write(translated)
+            
+            translated_files.append(str(jp_path))
+            print(f"Created {jp_path}")
+        
+        # Save list of translated files for commit message
+        with open('translated_files.txt', 'w') as f:
+            f.write('\n'.join(translated_files))
+        SCRIPT
+        
+        python translate.py
+    
+    - name: Commit translations
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add '*_jp.md'
+        
+        if git diff --staged --quiet; then
+          echo "No translations to commit"
+        else
+          # Read translated files list
+          translated_list=$(cat translated_files.txt)
+          
+          # Create commit with title and body
+          git commit -m "Autogenerate Japanese translation" -m "$translated_list"
+          git push
+        fi
