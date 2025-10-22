@@ -19,7 +19,7 @@ Our philosophy:
 
 Build a full-stack AI chatbot from absolute beginner to production-ready application.
 
-👉 **[Start the AI Chatbot Course →](./ai-chatbot/)**
+👉 **[Start the AI Chatbot Course →](./courses/ai-chatbot/)**
 
 ## Community
 
