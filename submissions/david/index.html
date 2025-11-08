@@ -1,51 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IA Izumo ChatBot</title>
-<style>
-    body {
-        display: flex;
-        margin: 0;
-    }
-
-     .main-wrapper {
-        display: flex;
-        width: 100%;        
-        flex-direction: column;
-    }
-
-    .navbar {
-        background-color: red;
-        min-height: 100vh;
-        width: 200px;
-    }
-
-    .main {
-        background-color: blue;
-        height: 100%;
-        width: 100%;
-        
-    }
-
-    .input {
-        background-color: olive;
-        height: 100px;
-        
-    }
-
-    .tasks {
-        width: 150px;
-    }
-   
-    .blue { 
-        background-color: blue;
-    }
-
-    
-</style>
 
 </head>
 <body>
@@ -53,20 +12,10 @@
 
     <div class="main-wrapper">
         <div class="main">MAIN</div>
-        <div class="input">input</div>
+        <div class="input" id="divInput">input</div>
     </div>
     <div class="tasks"> Tasks</div>
-    
-    <script>
 
-
-       const bgColor = document.querySelectorAll('div')
-
-       for (const d of bgColor) {
-            d.style.backgroundColor = "blue"
-       }
-        
-    </script>
-    
+    <script src="js/script.js"></script>
 </body>
 </html>
