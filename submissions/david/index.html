@@ -11,10 +11,10 @@
     <div class="navbar">NAV</div>
 
     <div class="main-wrapper">
-        <div class="main" id="mainDiv">MAIN</div>
+        <div class="main" id="mainDiv"></div>
         <div class="input" id="divInput"></div>
     </div>
-    <div class="tasks"> Tasks</div>
+    <!-- <div class="tasks"> Tasks</div> -->
 
     <script>
         //select DIV to insert chat elements
@@ -25,17 +25,21 @@
         // get value TEXTAREA 
             const userTxtDivValue = document.getElementById('txtAreaInput').value
 
-            // create a DIV with the value
+            // create a HTML elements with the value
             const userTxtDiv = document.createElement("DIV")
-            userTxtDiv.value = "txt"
             userTxtDiv.className = "userTxtDiv"
 
-            //ADD DIV on MAN div
+            const pTextUser = document.createElement("p")
+            const pTextUserValue = document.createTextNode(userTxtDivValue)
             
+
+            //ADD DIV on MAN div
+            pTextUser.appendChild(pTextUserValue)
+            userTxtDiv.appendChild(pTextUser)
             mainDiv.appendChild(userTxtDiv)
 
 
-            console.log(userTxtDivValue, userTxtDiv)
+            txtInput.value = ""
         }
 
 
