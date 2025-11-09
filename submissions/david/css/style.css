@@ -4,7 +4,7 @@ body {
     }
 
 p {
-    margin: 20px 20px 20px;
+        margin: 20px 20px 20px;
 }
 
 .main-wrapper {
@@ -73,13 +73,13 @@ p {
     }
 
 .userTxtDiv {
-    background-color: #3d3d3d;
-    display: flex;
-    font-size: 16px;
-    color: #ffffff;
-    border-radius: 20px;
-    margin: 20px;
-    width: max-content;
-    justify-self: right;
-}
+        background-color: #3d3d3d;
+        display: flex;
+        font-size: 16px;
+        color: #ffffff;
+        border-radius: 20px;
+        margin: 20px;
+        width: max-content;
+        justify-self: right;
+    }
    
