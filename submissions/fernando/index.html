@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Page Title</title>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+        }
+        .main-wrapper{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .navbar {
+            background-color: royalblue;
+            min-height: 100vh;
+            width: 200px;
+        }
+        .main {
+            background-color: black;
+            color: white;
+            width: 100%;
+            height: 100%;
+        }
+        .input {
+            background-color: lightblue;
+            min-height: 20vh;
+        }
+        .blue {
+            background-color: blue;
+        }
+        #message {
+            background-color: pink;
+            color: black;
+        }
+        #messageInput {
+            width: 90%;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">navbar</div>
+    <div class="main-wrapper">
+        <div class="main">
+            <div id="message">
+            </div>
+        </div>
+        <div class="input">
+            <textarea id="messageInput" rows="5"></textarea>
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            let messageInput = document.getElementById("messageInput");
+            let messageDiv = document.querySelector('#message');
+            messageDiv.innerText = messageInput.value;
+            messageInput.value = "";
+        }
+
+        // submit with Enter
+        document.getElementById("messageInput").addEventListener("keydown", function(e) {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+    
+</body>
+</html>
