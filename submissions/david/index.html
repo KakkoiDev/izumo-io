@@ -4,18 +4,64 @@
     <link rel="stylesheet" href="css/style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA Izumo ChatBot</title>
+    <title>AI Izumo ChatBot</title>
 
 </head>
 <body>
     <div class="navbar">NAV</div>
 
     <div class="main-wrapper">
-        <div class="main">MAIN</div>
-        <div class="input" id="divInput">input</div>
+        <div class="main" id="mainDiv">MAIN</div>
+        <div class="input" id="divInput"></div>
     </div>
     <div class="tasks"> Tasks</div>
 
-    <script src="js/script.js"></script>
+    <script>
+        //select DIV to insert chat elements
+        const divInput = document.getElementById("divInput")
+        const mainDiv = document.getElementById("mainDiv")
+
+        function getTxtValue() {
+        // get value TEXTAREA 
+            const userTxtDivValue = document.getElementById('txtAreaInput').value
+
+            // create a DIV with the value
+            const userTxtDiv = document.createElement("DIV")
+            userTxtDiv.value = "txt"
+            userTxtDiv.className = "userTxtDiv"
+
+            //ADD DIV on MAN div
+            
+            mainDiv.appendChild(userTxtDiv)
+
+
+            console.log(userTxtDivValue, userTxtDiv)
+        }
+
+
+        // create new DIV 
+        const txtDiv = document.createElement("div");
+        txtDiv.className = "txtDiv"
+                    
+        //crete INPUT TEXT
+        const txtInput = document.createElement("textarea")
+        txtInput.id = "txtAreaInput"
+        txtInput.className = "txtArea"
+        txtInput.placeholder = "type here..."
+
+
+
+        // SUBMIT button
+        const btnSend = document.createElement("input")
+        btnSend.type = "submit"
+        btnSend.value = "SEND"
+        btnSend.className = "btn"
+        btnSend.onclick = getTxtValue
+
+        //ADD elements on DOM
+        txtDiv.appendChild(txtInput)
+        txtDiv.appendChild(btnSend)
+        divInput.appendChild(txtDiv)
+    </script>
 </body>
 </html>

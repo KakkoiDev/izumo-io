@@ -16,7 +16,7 @@ body {
     }
 
 .main {
-        background-color: blue;
+        background-color: #d3d2d2;
         height: 100%;
         width: 100%;
         
@@ -26,36 +26,55 @@ body {
         background-color: #afafaf;
         height: 100px;
         
+        
     }
 
 .tasks {
         width: 150px;
     }
-   
-input[type="text"] {
-    height: 40px;
-    width: 70%;
-    border-radius: 6px;
-    padding-left: 4px;
-    border: 1px solid #ccc;
-    transition: 0.5s;
-    outline: none;
-    margin-left: 25px;
-    align-self: center;
+
+.btn {
+        margin: 25px 25px 25px 0px;
+        height: 40px;
+        width: 100px;
+        border-radius: 10px;
+        
     }
 
-input[type="text"]:hover {     
+.txtDiv {
+        display: flex;
+    }
+
+.txtArea {
+        height: 40px;
+        width: 100%;
+        border-radius: 6px;
+        padding-left: 4px;
+        border: 1px solid #ccc;
+        transition: 0.5s;
+        outline: none;
+        margin: 25px;
+        align-self: center;
+        resize: none;
+}
+
+.txtArea:hover {     
         transition: all 0.5s ease;
         box-shadow: 0 0 5px #2966e7;
     }
 
-input[type="text"]:focus {
+.txtArea:focus {
         border: 1px solid #2966e7;
     }
 
-    .btn {
-        margin: 0px 20px;
-        height: 40px;
-        width: 100px;
-        border-radius: 10px;
-    }
+.userTxtDiv {
+    background-color: #c200fd;
+    display: flex;
+    width: 50%;
+    height: 200px;
+    border-radius: 20px;
+    right: 150px;
+    margin: 20px;
+    
+}
+   
