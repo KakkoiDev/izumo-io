@@ -19,25 +19,31 @@ And if it breaks, do you know why? Do you know where the error comes from?
 
 ## It is performant
 
-Is your system fast enough? Does it fell snappy?
+Is your system fast enough? Does it feel snappy?
 
 What if we scale it up? More operations, longer processes, will it still be fast?
 
-Sure your hardware has to be be up to the task, but is your code using its resources efficiently?
+Sure your hardware has to be up to the task, but is your code using its resources efficiently?
 
-For example, do you have any `On2` operations in your code? `On2` is big O notation for a loop within a loop.
+For example, do you have any `On^2` operations in your code? `On^2` is big O notation for a loop within a loop.
+
+If you are doing network calls, are you doing them all at once? Or are you doing them only when they are needed?
+
+Same for expensive calculations, how are you managing them? Do they delay the loading of the software? Do you process them in the background?
 
 ## Is it easy to change
 
 Ease of change, aka maintainability, requires 2 things:
-- Easy to ready code
-- Well tested code
+- It is easy to ready
+- It is well tested
 
 Easy to read means that anyone reading your code will have a pretty good idea of how it works.
 So it should be written as simply as possible, with a few comments to explain what you intend it to do.
+
 Also, organizing your files well can help.
 
 Well tested code means that you have a way to check that your code does what it is supposed to do.
+
 We often do this with automated tests. Automated tests are functions that check that our code does what it is supposed to do, automatically.
 That way, we can have a high degree of confidence that our code does what we want it to do right now.
 That it will handle wrong input and edge cases if they ever occur.
