@@ -33,7 +33,7 @@
         .blue {
             background-color: blue;
         }
-        #message {
+        .message {
             background-color: pink;
             color: black;
         }
@@ -46,21 +46,21 @@
     <div class="navbar">navbar</div>
     <div class="main-wrapper">
         <div class="main">
-            <div id="message">
-            </div>
         </div>
         <div class="input">
             <textarea id="messageInput" rows="5"></textarea>
-            <button onclick="sendMessage(messageInput, messageDiv)">Send</button>
+            <button onclick="sendMessage(messageInput, mainDiv)">Send</button>
         </div>
     </div>
 
     <script>
         let messageInput = document.getElementById("messageInput");
-        let messageDiv = document.querySelector('#message');
-        function sendMessage(messageInput, messageDiv) {
-
-            messageDiv.innerText = messageInput.value;
+        let mainDiv = document.querySelector('.main');
+        function sendMessage(messageInput, mainDiv) {
+            let newMessage = document.createElement("div");
+            newMessage.innerText = messageInput.value;
+            newMessage.classList.add("message");
+            mainDiv.appendChild(newMessage);
             messageInput.value = "";
         }
 
@@ -68,7 +68,7 @@
         messageInput.addEventListener("keydown", function(e) {
             if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
-                sendMessage(messageInput, messageDiv);
+                sendMessage(messageInput, mainDiv);
             }
         });
     </script>
