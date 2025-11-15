@@ -1,13 +1,16 @@
 function getTxtValue() {
-  // get value TEXTAREA
-  const userTxtDivValue = document.getElementById("txtAreaInput").value;
+  // get element TEXTAREA
+  const userValue = document.getElementById("txtAreaInput");
+
+  //get value from TEXTarea
+  const userTxtValue = userValue.value;
 
   // create a HTML elements with the value
   const userTxtDiv = document.createElement("DIV");
   userTxtDiv.className = "userTxtDiv";
 
   const pTextUser = document.createElement("p");
-  const pTextUserValue = document.createTextNode(userTxtDivValue);
+  const pTextUserValue = document.createTextNode(userTxtValue);
 
   //ADD DIV on MAN div
   pTextUser.appendChild(pTextUserValue);
@@ -15,5 +18,8 @@ function getTxtValue() {
   mainDiv.appendChild(userTxtDiv);
 
   // clear text input
-  txtInput.value = "";
+  userValue.value = "";
+
+  // cursor go back on text area
+  userValue.focus();
 }
