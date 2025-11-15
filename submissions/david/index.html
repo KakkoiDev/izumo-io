@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="css/style.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Izumo ChatBot</title>
-
-</head>
-<body>
+  </head>
+  <body>
     <div class="navbar">NAV</div>
 
     <div class="main-wrapper">
-        <div class="main" id="mainDiv"></div>
-        <div class="input" id="divInput"></div>
+      <div class="main" id="mainDiv"></div>
+      <div class="input" id="divInput">
+        <textarea
+          id="txtAreaInput"
+          class="txtArea"
+          placeholder="type here..."
+        ></textarea>
+        <button class="btn" onclick="getTxtValue()">Send</button>
+      </div>
     </div>
     <!-- <div class="tasks"> Tasks</div> -->
 
-    <script src="js/scripts.js">  
-    </script>
-</body>
+    <script src="js/scripts.js"></script>
+  </body>
 </html>
