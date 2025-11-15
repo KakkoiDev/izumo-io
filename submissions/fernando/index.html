@@ -26,6 +26,7 @@
             height: 100%;
         }
         .input {
+            display: flex;
             background-color: lightblue;
             min-height: 20vh;
         }
@@ -37,7 +38,7 @@
             color: black;
         }
         #messageInput {
-            width: 90%;
+            width: 100%;
         }
     </style>
 </head>
@@ -50,23 +51,24 @@
         </div>
         <div class="input">
             <textarea id="messageInput" rows="5"></textarea>
-            <button onclick="sendMessage()">Send</button>
+            <button onclick="sendMessage(messageInput, messageDiv)">Send</button>
         </div>
     </div>
 
     <script>
-        function sendMessage() {
-            let messageInput = document.getElementById("messageInput");
-            let messageDiv = document.querySelector('#message');
+        let messageInput = document.getElementById("messageInput");
+        let messageDiv = document.querySelector('#message');
+        function sendMessage(messageInput, messageDiv) {
+
             messageDiv.innerText = messageInput.value;
             messageInput.value = "";
         }
 
         // submit with Enter
-        document.getElementById("messageInput").addEventListener("keydown", function(e) {
+        messageInput.addEventListener("keydown", function(e) {
             if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
-                sendMessage();
+                sendMessage(messageInput, messageDiv);
             }
         });
     </script>
