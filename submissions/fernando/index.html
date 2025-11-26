@@ -23,21 +23,33 @@
             background-color: black;
             color: white;
             width: 100%;
-            height: 100%;
+            height: 80vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
         }
         .input {
+            display: flex;
             background-color: lightblue;
             min-height: 20vh;
         }
         .blue {
             background-color: blue;
         }
-        #message {
+        .message {
             background-color: pink;
             color: black;
+            max-width: 100%;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            display: inline-block;
+            margin: 10px;
+            align-self: flex-end;
         }
         #messageInput {
-            width: 90%;
+            width: 100%;
         }
     </style>
 </head>
@@ -45,28 +57,29 @@
     <div class="navbar">navbar</div>
     <div class="main-wrapper">
         <div class="main">
-            <div id="message">
-            </div>
         </div>
         <div class="input">
             <textarea id="messageInput" rows="5"></textarea>
-            <button onclick="sendMessage()">Send</button>
+            <button onclick="sendMessage(messageInput, mainDiv)">Send</button>
         </div>
     </div>
 
     <script>
-        function sendMessage() {
-            let messageInput = document.getElementById("messageInput");
-            let messageDiv = document.querySelector('#message');
-            messageDiv.innerText = messageInput.value;
+        let messageInput = document.getElementById("messageInput");
+        let mainDiv = document.querySelector('.main');
+        function sendMessage(messageInput, mainDiv) {
+            let newMessage = document.createElement("div");
+            newMessage.innerText = messageInput.value;
+            newMessage.classList.add("message");
+            mainDiv.appendChild(newMessage);
             messageInput.value = "";
         }
 
         // submit with Enter
-        document.getElementById("messageInput").addEventListener("keydown", function(e) {
+        messageInput.addEventListener("keydown", function(e) {
             if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
-                sendMessage();
+                sendMessage(messageInput, mainDiv);
             }
         });
     </script>
