@@ -23,7 +23,7 @@
             background-color: black;
             color: white;
             width: 100%;
-            height: 80vh;
+            height: 100%;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -33,6 +33,8 @@
             display: flex;
             background-color: lightblue;
             min-height: 20vh;
+            position: sticky;
+            bottom: 0;
         }
         .blue {
             background-color: blue;
@@ -60,14 +62,15 @@
         </div>
         <div class="input">
             <textarea id="messageInput" rows="5"></textarea>
-            <button onclick="sendMessage(messageInput, mainDiv)">Send</button>
+            <button onclick="sendMessage()">Send</button>
         </div>
     </div>
 
     <script>
-        let messageInput = document.getElementById("messageInput");
-        let mainDiv = document.querySelector('.main');
-        function sendMessage(messageInput, mainDiv) {
+       
+        function sendMessage() {
+            let messageInput = document.getElementById("messageInput");
+            let mainDiv = document.querySelector('.main');
             let newMessage = document.createElement("div");
             newMessage.innerText = messageInput.value;
             newMessage.classList.add("message");
@@ -79,7 +82,7 @@
         messageInput.addEventListener("keydown", function(e) {
             if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
-                sendMessage(messageInput, mainDiv);
+                sendMessage();
             }
         });
     </script>
