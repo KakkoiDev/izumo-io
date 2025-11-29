@@ -76,3 +76,13 @@ p {
   justify-self: right;
 }
 
+.aiDiv{ 
+  background-color: #3d3d3d;
+  display: flex;
+  font-size: 16px;
+  color: #ffffff;
+  border-radius: 20px;
+  margin: 20px;
+  width: max-content;
+  justify-self: left;
+}
