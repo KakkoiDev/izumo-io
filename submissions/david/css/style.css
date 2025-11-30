@@ -63,6 +63,7 @@ p {
   height: 40px;
   width: 100px;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 /* TEXTAREA */
@@ -157,4 +158,17 @@ p {
   .main {
     padding-bottom: 150px;
   }
+}
+
+
+.chat-item {
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #111;
+  margin-bottom: 8px;
+}
+
+.chat-item:hover {
+  background-color: #222;
 }
