@@ -1,63 +1,86 @@
+/* RESET */
+* {
+  box-sizing: border-box;
+}
+
 body {
   display: flex;
   margin: 0;
+  background-color: #252525;
+  font-family: Arial, sans-serif;
+  color: white;
 }
 
+/* TEXTS */
 p {
-  margin: 20px 20px 20px;
+  margin: 1rem;
 }
 
+/* MAIN WRAPPER */
 .main-wrapper {
   display: flex;
   width: 100%;
   flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
+/* NAVBAR */
 .navbar {
-  background-color: #000000;
+  background-color: #000;
   min-height: 100vh;
   width: 200px;
-  color: #ffffff;
+  min-width: 200px;
+  padding: 1rem;
+  flex-shrink: 0;
 }
 
+/* MAIN CONTENT */
 .main {
   background-color: #252525;
-  height: 100%;
-  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-bottom: 120px; /* evita que textarea esconda mensagens */
 }
 
+/* INPUT SECTION */
 .input {
   background-color: #252525;
-  height: 100px;
   display: flex;
-}
-
-.tasks {
-  width: 150px;
+  padding: 1rem;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  position: fixed;
+  bottom: 0;
+  width: calc(100% - 200px);
+  border-top: 1px solid #444;
 }
 
 .btn {
-  margin: 25px 25px 25px 0px;
   height: 40px;
   width: 100px;
   border-radius: 10px;
 }
 
+/* TEXTAREA */
 .txtArea {
-  height: 40px;
-  width: 100%;
+  flex: 1;
+  min-height: 40px;
+  max-height: 150px;
   border-radius: 6px;
-  padding-left: 4px;
   border: 1px solid #ccc;
-  transition: 0.5s;
+  background-color: #1e1e1e;
+  padding: 10px;
+  color: white;
+  resize: vertical;
   outline: none;
-  margin: 25px;
-  align-self: center;
-  resize: none;
+  transition: 0.3s;
 }
 
 .txtArea:hover {
-  transition: all 0.5s ease;
   box-shadow: 0 0 5px #2966e7;
 }
 
@@ -65,24 +88,73 @@ p {
   border: 1px solid #2966e7;
 }
 
-.userTxtDiv {
+/* MESSAGES */
+.userTxtDiv,
+.aiDiv {
   background-color: #3d3d3d;
-  display: flex;
+  display: inline-block;
   font-size: 16px;
-  color: #ffffff;
   border-radius: 20px;
-  margin: 20px;
-  width: max-content;
-  justify-self: right;
+  margin: 1rem;
+  padding: 0.8rem 1.2rem;
+  max-width: 80%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-.aiDiv{ 
-  background-color: #3d3d3d;
-  display: flex;
-  font-size: 16px;
-  color: #ffffff;
-  border-radius: 20px;
-  margin: 20px;
-  width: max-content;
-  justify-self: left;
+.userTxtDiv {
+  align-self: flex-end;
+  text-align: right;
+}
+
+.aiDiv {
+  align-self: flex-start;
+}
+
+/* SPINNER */
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 4px solid #ddd;
+  border-top-color: #333;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 900px) {
+  .navbar {
+    position: fixed;
+    width: 100%;
+    min-width: 100%;
+    height: 60px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+  }
+
+  body {
+    flex-direction: column;
+  }
+
+  .main-wrapper {
+    margin-top: 60px;
+  }
+
+  .input {
+    width: 100%;
+    left: 0;
+  }
+
+  .main {
+    padding-bottom: 150px;
+  }
 }

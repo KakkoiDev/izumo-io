@@ -1,62 +1,56 @@
 function getTxtValue() {
-  // get element TEXTAREA
+  const mainDiv = document.getElementById("mainDiv");
+  const spinner = document.getElementById("spinner");
   const userValue = document.getElementById("txtAreaInput");
 
-  //get value from TEXTarea
-  const userTxtValue = userValue.value;
+  const userTxtValue = userValue.value.trim();
+  if (!userTxtValue) return;
 
-  // Ollama serve send mesage
-   fetch('http://192.168.1.244:11434/api/generate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'dolphin3:latest', // MODEL
-          prompt: userTxtValue,  //messege
-          stream: false,
-        }),
-      })
-      .then(response => response.json())
-      .then(data => {
-          console.log(data)
-
-          //ollama retur
-          const aiResponse = data.response
-
-          //HTML element for AI message
-          const aiDiv = document.createElement("DIV");
-          aiDiv.className = "aiDiv"
-
-          const pAi = document.createElement("p")
-          pAi.textContent = aiResponse
-
-          //put elements on screen
-          aiDiv.appendChild(pAi)
-          mainDiv.appendChild(aiDiv)
-
-        }) // response
-      .catch(error => console.error('Error:', error));
-
-
-  // create a HTML elements with the value
-  const userTxtDiv = document.createElement("DIV");
+  // show messages to user
+  const userTxtDiv = document.createElement("div");
   userTxtDiv.className = "userTxtDiv";
-
-  const pTextUser = document.createElement("p");
-  const pTextUserValue = document.createTextNode(userTxtValue);
-
-  //ADD DIV on MAN div
-  pTextUser.appendChild(pTextUserValue);
-  userTxtDiv.appendChild(pTextUser);
+  userTxtDiv.innerHTML = `<p>${userTxtValue}</p>`;
   mainDiv.appendChild(userTxtDiv);
 
-  // clear text input
-  userValue.value = "";
+  // show spinner
+  spinner.style.display = "block";
 
-  // cursor go back on text area
+  // send reguest to  API
+  fetch("http://192.168.1.244:11434/api/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "dolphin3:latest",
+      prompt: userTxtValue,
+      stream: false,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      spinner.style.display = "none"; // hide spinner
+
+      const aiResponse = data.response || "(sem resposta)";
+      const aiDiv = document.createElement("div");
+      aiDiv.className = "aiDiv";
+
+      // break lines on \n\n
+      aiDiv.innerHTML = `<p>${aiResponse.replace(/\n/g, "<br>")}</p>`;
+
+      mainDiv.appendChild(aiDiv);
+    })
+    .catch((err) => {
+      spinner.style.display = "none";
+      console.error(err);
+
+      const errDiv = document.createElement("div");
+      errDiv.className = "aiDiv error";
+      errDiv.innerHTML = "<p>Erro ao conectar ao servidor.</p>";
+      mainDiv.appendChild(errDiv);
+    });
+
+  // clear textArea and focus
+  userValue.value = "";
   userValue.focus();
 }
 
 window.getTxtValue = getTxtValue;
-
