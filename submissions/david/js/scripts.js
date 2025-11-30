@@ -1,6 +1,5 @@
 function getTxtValue() {
   const mainDiv = document.getElementById("mainDiv");
-  const spinner = document.getElementById("spinner");
   const userValue = document.getElementById("txtAreaInput");
 
   const userTxtValue = userValue.value.trim();
@@ -12,10 +11,20 @@ function getTxtValue() {
   userTxtDiv.innerHTML = `<p>${userTxtValue}</p>`;
   mainDiv.appendChild(userTxtDiv);
 
-  // show spinner
-  spinner.style.display = "block";
+  // AI PLACEHOLDER and SPINNER 
+  const aiDiv = document.createElement("div");
+  aiDiv.className = "aiDiv";
 
-  // send reguest to  API
+  const spinner = document.createElement("div");
+  spinner.className = "spinner";
+
+  aiDiv.appendChild(spinner);
+  mainDiv.appendChild(aiDiv);
+
+  // Scroll down when add AI messages
+  mainDiv.scrollTop = mainDiv.scrollHeight;
+
+  // send reguest to  API server
   fetch("http://192.168.1.244:11434/api/generate", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -27,25 +36,24 @@ function getTxtValue() {
   })
     .then((response) => response.json())
     .then((data) => {
-      spinner.style.display = "none"; // hide spinner
-
       const aiResponse = data.response || "(sem resposta)";
-      const aiDiv = document.createElement("div");
-      aiDiv.className = "aiDiv";
 
-      // break lines on \n\n
-      aiDiv.innerHTML = `<p>${aiResponse.replace(/\n/g, "<br>")}</p>`;
+      // remove spinner
+      aiDiv.removeChild(spinner);
 
-      mainDiv.appendChild(aiDiv);
+      // add response text
+      const p = document.createElement("p");
+      p.innerHTML = aiResponse.replace(/\n/g, "<br>");
+
+      aiDiv.appendChild(p);
+
+      mainDiv.scrollTop = mainDiv.scrollHeight;
+
     })
     .catch((err) => {
-      spinner.style.display = "none";
+       aiDiv.removeChild(spinner);
+      aiDiv.innerHTML = "<p>Erro ao conectar ao servidor.</p>";
       console.error(err);
-
-      const errDiv = document.createElement("div");
-      errDiv.className = "aiDiv error";
-      errDiv.innerHTML = "<p>Erro ao conectar ao servidor.</p>";
-      mainDiv.appendChild(errDiv);
     });
 
   // clear textArea and focus
