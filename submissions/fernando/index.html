@@ -51,7 +51,7 @@
             margin: 10px;
             align-self: flex-end;
         }
-        .aiAnswer {
+        .ai-answer {
             align-self: flex-start;
             background-color: palegreen;
         }
@@ -77,13 +77,13 @@
         const messageInputElement = document.getElementById("messageInput");
         const mainDiv = document.querySelector('.main');
 
-        async function fetchOllamaAnswer(userInput) {
+        async function fetchOllamaAnswer(content) {
             const options = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     model: OLLAMA_MODEL_NAME,
-                    messages: [{ role: "user", content: userInput }],
+                    messages: [{ role: "user", content }],
                     stream: false
                 })
             };
@@ -101,11 +101,13 @@
         async function sendMessage() {
             const userMessage = messageInputElement.value;
             messageInputElement.value = "";
+            // display userMessage: add div element inside mainDiv, formatted as .message
             mainDiv.appendChild(Object.assign(document.createElement("div"), {innerText: userMessage, className: "message"}));
             mainDiv.scrollTop = mainDiv.scrollHeight;
             
             const aiAnswer = await fetchOllamaAnswer(userMessage);
-            mainDiv.appendChild(Object.assign(document.createElement("div"), {innerText: aiAnswer, className: "message aiAnswer"}));
+            // display aiAnswer: add div element inside mainDiv, formatted as .message and .ai-answer
+            mainDiv.appendChild(Object.assign(document.createElement("div"), {innerText: aiAnswer, className: "message ai-answer"}));
             mainDiv.scrollTop = mainDiv.scrollHeight;
         }
         // submit with Enter
