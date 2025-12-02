@@ -42,7 +42,7 @@ p {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding-bottom: 120px; /* evita que textarea esconda mensagens */
+  padding-bottom: 120px; /* AVOID TEXTAREA TO HIDDEN */
 }
 
 /* INPUT SECTION */
@@ -55,7 +55,7 @@ p {
   flex-wrap: wrap;
   position: fixed;
   bottom: 0;
-  width: calc(100% - 200px);
+  width: calc(100% - 200px); /* make container use all width minus 200px. I used this because the side have 200px */
   border-top: 1px solid #444;
 }
 
@@ -67,7 +67,7 @@ p {
 }
 
 /* TEXTAREA */
-.txtArea {
+.txt-area {
   flex: 1;
   min-height: 40px;
   max-height: 150px;
@@ -81,16 +81,16 @@ p {
   transition: 0.3s;
 }
 
-.txtArea:hover {
+.txt-area:hover {
   box-shadow: 0 0 5px #2966e7;
 }
 
-.txtArea:focus {
+.txt-area:focus {
   border: 1px solid #2966e7;
 }
 
 /* MESSAGES */
-.userTxtDiv,
+.user-txt-div,
 .aiDiv {
   background-color: #3d3d3d;
   display: inline-block;
@@ -103,7 +103,7 @@ p {
   overflow-wrap: break-word;
 }
 
-.userTxtDiv {
+.user-txt-div {
   align-self: flex-end;
   text-align: right;
 }

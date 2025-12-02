@@ -1,3 +1,6 @@
+/* i used MySQL 9.5 */
+
+
 /* create chat tables */
 
 CREATE TABLE chats (

@@ -1,6 +1,3 @@
-// scripts.js (para rodar no navegador)
-// Remova qualquer `require()` ou import CommonJS — isto é código só para Node.
-
 let currentChatId = null;
 
 async function getTxtValue() {
@@ -12,7 +9,7 @@ async function getTxtValue() {
 
   // show message from user
   const userTxtDiv = document.createElement("div");
-  userTxtDiv.className = "userTxtDiv";
+  userTxtDiv.className = "user-txt-div";
   userTxtDiv.innerHTML = `<p>${escapeHtml(userTxtValue).replace(/\n/g, "<br>")}</p>`;
   mainDiv.appendChild(userTxtDiv);
 
@@ -87,7 +84,7 @@ async function getTxtValue() {
           text: aiResponse
         })
       });
-      // atualizar lista de chats (opcional)
+      // update chats (opcional)
       renderChatList().catch(console.error);
     } catch (err) {
       console.error("Erro ao salvar mensagem da IA:", err);
@@ -130,7 +127,7 @@ async function loadChatIntoScreen(chatId) {
   const messages = await res.json(); // <-- use () !
   messages.forEach(msg => {
     const div = document.createElement("div");
-    div.className = msg.role === "user" ? "userTxtDiv" : "aiDiv";
+    div.className = msg.role === "user" ? "user-txt-div" : "aiDiv";
     div.innerHTML = `<p>${escapeHtml(msg.text).replace(/\n/g, "<br>")}</p>`;
     mainDiv.appendChild(div);
   });
