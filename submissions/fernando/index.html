@@ -99,7 +99,12 @@
         }
        
         async function sendMessage() {
-            const userMessage = messageInputElement.value;
+            const userMessage = messageInputElement.value.trim();
+            if (!userMessage) {
+                console.log('Empty message...')
+                return
+            }
+
             messageInputElement.value = "";
             // display userMessage: add div element inside mainDiv, formatted as .message
             mainDiv.appendChild(Object.assign(document.createElement("div"), {innerText: userMessage, className: "message"}));
