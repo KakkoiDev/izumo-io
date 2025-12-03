@@ -67,7 +67,7 @@
         </div>
         <div class="input">
             <textarea id="messageInput" rows="5"></textarea>
-            <button onclick="sendMessage()">Send</button>
+            <button id="sendButton" onclick="sendMessage()">Send</button>
         </div>
     </div>
 
@@ -75,6 +75,7 @@
         const OLLAMA_API_URL = "http://localhost:11434/api/chat";
         const OLLAMA_MODEL_NAME = "gemma3:270m";
         const messageInputElement = document.getElementById("messageInput");
+        const sendButtonElement = document.getElementById("sendButton");
         const mainDiv = document.querySelector('.main');
 
         async function fetchOllamaAnswer(content) {
@@ -105,7 +106,10 @@
                 return
             }
 
-            messageInputElement.value = "";
+            messageInputElement.value = "Thinking...";
+            messageInputElement.disabled = true;
+            sendButtonElement.disabled = true;
+
             // display userMessage: add div element inside mainDiv, formatted as .message
             mainDiv.appendChild(Object.assign(document.createElement("div"), {innerText: userMessage, className: "message"}));
             mainDiv.scrollTop = mainDiv.scrollHeight;
@@ -114,6 +118,10 @@
             // display aiAnswer: add div element inside mainDiv, formatted as .message and .ai-answer
             mainDiv.appendChild(Object.assign(document.createElement("div"), {innerText: aiAnswer, className: "message ai-answer"}));
             mainDiv.scrollTop = mainDiv.scrollHeight;
+
+            messageInputElement.value = "";
+            messageInputElement.disabled = false;
+            sendButtonElement.disabled = false;
         }
         // submit with Enter
         messageInputElement.addEventListener("keydown", function(e) {
