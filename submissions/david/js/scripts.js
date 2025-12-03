@@ -15,7 +15,7 @@ async function getTxtValue() {
 
   // AI placeholder + spinner
   const aiDiv = document.createElement("div");
-  aiDiv.className = "aiDiv";
+  aiDiv.className = "ai-div";
   const spinner = document.createElement("div");
   spinner.className = "spinner";
   aiDiv.appendChild(spinner);
@@ -64,7 +64,7 @@ async function getTxtValue() {
     });
 
     const data = await response.json();
-    const aiResponse = data.response || "(sem resposta)";
+    const aiResponse = data.response || "(no response)";
 
     // remove spinner and show AI text
     aiDiv.removeChild(spinner);
@@ -87,14 +87,14 @@ async function getTxtValue() {
       // update chats (opcional)
       renderChatList().catch(console.error);
     } catch (err) {
-      console.error("Erro ao salvar mensagem da IA:", err);
+      console.error("Error can't save IA message:", err);
     }
 
   } catch (err) {
     // network / fetch error
     console.error("Erro ao chamar AI:", err);
     if (aiDiv.contains(spinner)) aiDiv.removeChild(spinner);
-    aiDiv.innerHTML = "<p>Erro ao conectar ao servidor de IA.</p>";
+    aiDiv.innerHTML = "<p>Error to connect AI server.</p>";
   }
 
   // clear input and focus
@@ -127,7 +127,7 @@ async function loadChatIntoScreen(chatId) {
   const messages = await res.json(); // <-- use () !
   messages.forEach(msg => {
     const div = document.createElement("div");
-    div.className = msg.role === "user" ? "user-txt-div" : "aiDiv";
+    div.className = msg.role === "user" ? "user-txt-div" : "ai-div";
     div.innerHTML = `<p>${escapeHtml(msg.text).replace(/\n/g, "<br>")}</p>`;
     mainDiv.appendChild(div);
   });
