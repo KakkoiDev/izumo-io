@@ -4,61 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>あなたのAI</title>
-    <style>
-        body {
-            display: flex;
-            margin: 0;
-        }
-        .main-wrapper{
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 100vh;
-        }
-        .navbar {
-            background-color: royalblue;
-            min-height: 100vh;
-            width: 200px;
-        }
-        .main {
-            background-color: black;
-            color: white;
-            width: 100%;
-            height: 100%;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-        .input {
-            display: flex;
-            background-color: lightblue;
-            min-height: 20vh;
-            position: sticky;
-            bottom: 0;
-        }
-        .blue {
-            background-color: blue;
-        }
-        .message {
-            background-color: pink;
-            color: black;
-            max-width: 100%;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            display: inline-block;
-            margin: 10px;
-            align-self: flex-end;
-        }
-        .ai-answer {
-            align-self: flex-start;
-            background-color: palegreen;
-        }
-        #messageInput {
-            width: 100%;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="navbar">あなたのAI</div>
@@ -71,85 +17,6 @@
         </div>
     </div>
 
-    <script>
-        const OLLAMA_API_URL = "http://localhost:11434/api/chat";
-        const OLLAMA_MODEL_NAME = "gemma3:270m";
-        const messageInputElement = document.getElementById("messageInput");
-        const sendButtonElement = document.getElementById("sendButton");
-        const mainDiv = document.querySelector('.main');
-
-        // Get all msgs from screen and return as an array: [{ role: "user" or "assistant", content: "msg text"},　...]
-        function combineMessages() {
-            const messagesCombined = [];
-            const allMessageElements = mainDiv.querySelectorAll(".message");
-
-            allMessageElements.forEach(e => {
-                const role = e.classList.contains("ai-answer") ? "assistant" : "user";
-
-                messagesCombined.push({
-                    role,
-                    content: e.innerText.trim()
-                });
-            });
-
-            return messagesCombined;
-        }
-
-        async function fetchOllamaAnswer(messages) {
-            const options = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    model: OLLAMA_MODEL_NAME,
-                    messages,
-                    stream: false
-                })
-            };
-            try {
-                const response = await fetch(OLLAMA_API_URL, options);
-                if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-                const result = await response.json();
-                return result.message.content;
-            } catch (error) {
-                console.error("AI Ollama fetching failed:", error);
-                return "Sorry, あなたのAI is currently unavailable.";
-            }
-        }
-       
-        async function sendMessage() {
-            const userMessage = messageInputElement.value.trim();
-            if (!userMessage) {
-                console.log('Empty message...')
-                return
-            }
-
-            messageInputElement.value = "Thinking...";
-            messageInputElement.disabled = true;
-            sendButtonElement.disabled = true;
-
-            // display userMessage: add div element inside mainDiv, formatted as .message
-            mainDiv.appendChild(Object.assign(document.createElement("div"), {innerText: userMessage, className: "message"}));
-            mainDiv.scrollTop = mainDiv.scrollHeight;
-
-            const messages = combineMessages();
-            const aiAnswer = await fetchOllamaAnswer(messages);
-
-            // display aiAnswer: add div element inside mainDiv, formatted as .message and .ai-answer
-            mainDiv.appendChild(Object.assign(document.createElement("div"), {innerText: aiAnswer, className: "message ai-answer"}));
-            mainDiv.scrollTop = mainDiv.scrollHeight;
-
-            messageInputElement.value = "";
-            messageInputElement.disabled = false;
-            sendButtonElement.disabled = false;
-        }
-        // sendMessage with Enter
-        messageInputElement.addEventListener("keydown", function(e) {
-            if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
-        });
-    </script>
-    
+    <script src="script.js"></script>
 </body>
 </html>
