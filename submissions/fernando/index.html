@@ -78,13 +78,30 @@
         const sendButtonElement = document.getElementById("sendButton");
         const mainDiv = document.querySelector('.main');
 
-        async function fetchOllamaAnswer(content) {
+        // Get all msgs from screen and return as an array: [{ role: "user" or "assistant", content: "msg text"},　...]
+        function combineMessages() {
+            const messagesCombined = [];
+            const allMessageElements = mainDiv.querySelectorAll(".message");
+
+            allMessageElements.forEach(e => {
+                const role = e.classList.contains("ai-answer") ? "assistant" : "user";
+
+                messagesCombined.push({
+                    role,
+                    content: e.innerText.trim()
+                });
+            });
+
+            return messagesCombined;
+        }
+
+        async function fetchOllamaAnswer(messages) {
             const options = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     model: OLLAMA_MODEL_NAME,
-                    messages: [{ role: "user", content }],
+                    messages,
                     stream: false
                 })
             };
@@ -113,8 +130,10 @@
             // display userMessage: add div element inside mainDiv, formatted as .message
             mainDiv.appendChild(Object.assign(document.createElement("div"), {innerText: userMessage, className: "message"}));
             mainDiv.scrollTop = mainDiv.scrollHeight;
-            
-            const aiAnswer = await fetchOllamaAnswer(userMessage);
+
+            const messages = combineMessages();
+            const aiAnswer = await fetchOllamaAnswer(messages);
+
             // display aiAnswer: add div element inside mainDiv, formatted as .message and .ai-answer
             mainDiv.appendChild(Object.assign(document.createElement("div"), {innerText: aiAnswer, className: "message ai-answer"}));
             mainDiv.scrollTop = mainDiv.scrollHeight;
@@ -123,7 +142,7 @@
             messageInputElement.disabled = false;
             sendButtonElement.disabled = false;
         }
-        // submit with Enter
+        // sendMessage with Enter
         messageInputElement.addEventListener("keydown", function(e) {
             if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
