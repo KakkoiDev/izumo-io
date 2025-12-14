@@ -68,8 +68,6 @@ p {
   flex-wrap: wrap;
   position: sticky;
   bottom: 0;
-  width: calc(100% - 200px); /* make container use all width minus 200px. I used this because the side have 200px */
-  border-top: 1px solid #444;
 }
 
 .btn {
