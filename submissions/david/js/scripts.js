@@ -6,7 +6,7 @@ const textarea = document.getElementById("txtAreaInput");
 textarea.addEventListener("keydown", (e) => {
   if (e.key === "Enter" && !e.shiftKey) {
     e.preventDefault(); // avoid new line
-    getTxtValue();      // call function to send
+    getTxtValue(); // call function to send
   }
 });
 
@@ -17,7 +17,7 @@ function scrollToBottom() {
 
   main.scrollTo({
     top: main.scrollHeight,
-    behavior: "smooth"
+    behavior: "smooth",
   });
 }
 
@@ -31,7 +31,10 @@ async function getTxtValue() {
   // show message from user
   const userTxtDiv = document.createElement("div");
   userTxtDiv.className = "user-txt-div";
-  userTxtDiv.innerHTML = `<p>${escapeHtml(userTxtValue).replace(/\n/g, "<br>")}</p>`;
+  userTxtDiv.innerHTML = `<p>${escapeHtml(userTxtValue).replace(
+    /\n/g,
+    "<br>"
+  )}</p>`;
   mainDiv.appendChild(userTxtDiv);
   scrollToBottom();
 
@@ -43,15 +46,13 @@ async function getTxtValue() {
   aiDiv.appendChild(spinner);
   mainDiv.appendChild(aiDiv);
 
-  
-
   // DATABASE: create chat if first message
   if (!currentChatId) {
     const chatTitle = userTxtValue.substring(0, 25) + "...";
     const res = await fetch("http://127.0.0.1:3000/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: chatTitle })
+      body: JSON.stringify({ title: chatTitle }),
     });
     const chatData = await res.json();
     currentChatId = chatData.id;
@@ -67,8 +68,8 @@ async function getTxtValue() {
       body: JSON.stringify({
         chat_id: currentChatId,
         role: "user",
-        text: userTxtValue
-      })
+        text: userTxtValue,
+      }),
     });
   } catch (err) {
     console.error("Erro ao salvar mensagem do usuário:", err);
@@ -82,8 +83,8 @@ async function getTxtValue() {
       body: JSON.stringify({
         model: "dolphin3:latest",
         prompt: userTxtValue,
-        stream: false
-      })
+        stream: false,
+      }),
     });
 
     const data = await response.json();
@@ -94,7 +95,7 @@ async function getTxtValue() {
     const p = document.createElement("p");
     p.innerHTML = escapeHtml(aiResponse).replace(/\n/g, "<br>");
     aiDiv.appendChild(p);
-    scrollToBottom()
+    scrollToBottom();
 
     // save AI message to DB
     try {
@@ -104,15 +105,14 @@ async function getTxtValue() {
         body: JSON.stringify({
           chat_id: currentChatId,
           role: "ai",
-          text: aiResponse
-        })
+          text: aiResponse,
+        }),
       });
       // update chats (opcional)
       renderChatList().catch(console.error);
     } catch (err) {
       console.error("Error can't save IA message:", err);
     }
-
   } catch (err) {
     // network / fetch error
     console.error("Erro ao chamar AI:", err);
@@ -132,7 +132,7 @@ async function renderChatList() {
   const res = await fetch("http://127.0.0.1:3000/api/chats");
   const chats = await res.json();
   chatList.innerHTML = "";
-  chats.forEach(chat => {
+  chats.forEach((chat) => {
     const item = document.createElement("div");
     item.className = "chat-item";
     item.textContent = chat.title;
@@ -148,13 +148,13 @@ async function loadChatIntoScreen(chatId) {
   mainDiv.innerHTML = "";
   const res = await fetch(`http://127.0.0.1:3000/api/chat/${chatId}`);
   const messages = await res.json(); // <-- use () !
-  messages.forEach(msg => {
+  messages.forEach((msg) => {
     const div = document.createElement("div");
     div.className = msg.role === "user" ? "user-txt-div" : "ai-div";
     div.innerHTML = `<p>${escapeHtml(msg.text).replace(/\n/g, "<br>")}</p>`;
     mainDiv.appendChild(div);
   });
-  scrollToBottom()
+  scrollToBottom();
 }
 
 // small helper to avoid XSS when inserting text

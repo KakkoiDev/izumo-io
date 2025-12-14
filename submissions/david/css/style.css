@@ -24,7 +24,6 @@ p {
   height: 100vh;
   overflow: hidden;
   margin-top: 60px;
-  
 }
 
 /* NAVBAR */
@@ -48,8 +47,8 @@ p {
   padding-bottom: 140px; /* AVOID TEXTAREA TO HIDDEN */
   overscroll-behavior: contain; /* auto scrool more smooth */
   /* hidde scrool bar */
-  scrollbar-width: none;      /* Firefox */
-  -ms-overflow-style: none;   /* IE/Edge antigo */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge antigo */
 }
 
 /* hidde scrool bar */
@@ -166,7 +165,6 @@ p {
     padding-bottom: 150px;
   }
 }
-
 
 .chat-item {
   padding: 10px;
