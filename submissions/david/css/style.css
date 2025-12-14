@@ -21,8 +21,10 @@ p {
   display: flex;
   width: 100%;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
   overflow: hidden;
+  margin-top: 60px;
+  
 }
 
 /* NAVBAR */
@@ -42,7 +44,18 @@ p {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding-bottom: 120px; /* AVOID TEXTAREA TO HIDDEN */
+  padding: 1rem;
+  padding-bottom: 140px; /* AVOID TEXTAREA TO HIDDEN */
+  overscroll-behavior: contain; /* auto scrool more smooth */
+  /* hidde scrool bar */
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* IE/Edge antigo */
+}
+
+/* hidde scrool bar */
+.main::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }
 
 /* INPUT SECTION */
@@ -53,7 +66,7 @@ p {
   gap: 1rem;
   align-items: center;
   flex-wrap: wrap;
-  position: fixed;
+  position: sticky;
   bottom: 0;
   width: calc(100% - 200px); /* make container use all width minus 200px. I used this because the side have 200px */
   border-top: 1px solid #444;
@@ -144,10 +157,6 @@ p {
 
   body {
     flex-direction: column;
-  }
-
-  .main-wrapper {
-    margin-top: 60px;
   }
 
   .input {

@@ -1,7 +1,18 @@
 let currentChatId = null;
 
+//function to auto scrooll
+function scrollToBottom() {
+  const main = document.getElementById("main");
+  if (!main) return;
+
+  main.scrollTo({
+    top: main.scrollHeight,
+    behavior: "smooth"
+  });
+}
+
 async function getTxtValue() {
-  const mainDiv = document.getElementById("mainDiv");
+  const mainDiv = document.getElementById("main");
   const userValue = document.getElementById("txtAreaInput");
 
   const userTxtValue = userValue.value.trim();
@@ -12,6 +23,7 @@ async function getTxtValue() {
   userTxtDiv.className = "user-txt-div";
   userTxtDiv.innerHTML = `<p>${escapeHtml(userTxtValue).replace(/\n/g, "<br>")}</p>`;
   mainDiv.appendChild(userTxtDiv);
+  scrollToBottom();
 
   // AI placeholder + spinner
   const aiDiv = document.createElement("div");
@@ -20,7 +32,8 @@ async function getTxtValue() {
   spinner.className = "spinner";
   aiDiv.appendChild(spinner);
   mainDiv.appendChild(aiDiv);
-  mainDiv.scrollTop = mainDiv.scrollHeight;
+
+  
 
   // DATABASE: create chat if first message
   if (!currentChatId) {
@@ -71,7 +84,7 @@ async function getTxtValue() {
     const p = document.createElement("p");
     p.innerHTML = escapeHtml(aiResponse).replace(/\n/g, "<br>");
     aiDiv.appendChild(p);
-    mainDiv.scrollTop = mainDiv.scrollHeight;
+    scrollToBottom()
 
     // save AI message to DB
     try {
@@ -121,7 +134,7 @@ async function renderChatList() {
 // Load a chat and render messages
 async function loadChatIntoScreen(chatId) {
   currentChatId = chatId;
-  const mainDiv = document.getElementById("mainDiv");
+  const mainDiv = document.getElementById("main");
   mainDiv.innerHTML = "";
   const res = await fetch(`http://127.0.0.1:3000/api/chat/${chatId}`);
   const messages = await res.json(); // <-- use () !
@@ -131,7 +144,7 @@ async function loadChatIntoScreen(chatId) {
     div.innerHTML = `<p>${escapeHtml(msg.text).replace(/\n/g, "<br>")}</p>`;
     mainDiv.appendChild(div);
   });
-  mainDiv.scrollTop = mainDiv.scrollHeight;
+  scrollToBottom()
 }
 
 // small helper to avoid XSS when inserting text
