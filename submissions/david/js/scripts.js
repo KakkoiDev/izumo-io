@@ -1,5 +1,15 @@
 let currentChatId = null;
 
+//send using ENTER key
+const textarea = document.getElementById("txtAreaInput");
+
+textarea.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault(); // avoid new line
+    getTxtValue();      // call function to send
+  }
+});
+
 //function to auto scrooll
 function scrollToBottom() {
   const main = document.getElementById("main");
