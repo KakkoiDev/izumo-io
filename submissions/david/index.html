@@ -1,71 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel="stylesheet" href="css/style.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Izumo ChatBot</title>
-
-</head>
-<body>
-    <div class="navbar">NAV</div>
+  </head>
+  <body>
+    <div class="navbar">
+      <h3>Chats</h3>
+      <div id="chatList"></div>
+    </div>
 
     <div class="main-wrapper">
-        <div class="main" id="mainDiv"></div>
-        <div class="input" id="divInput"></div>
+      <div class="main" id="mainDiv">
+        <div id="spinner" class="spinner" style="display: none"></div>
+      </div>
+      <div class="input" id="divInput">
+        <textarea
+          id="txtAreaInput"
+          class="txtArea"
+          placeholder="type here..."
+        ></textarea>
+        <button class="btn" onclick="getTxtValue()">Send</button>
+      </div>
     </div>
     <!-- <div class="tasks"> Tasks</div> -->
 
-    <script>
-        //select DIV to insert chat elements
-        const divInput = document.getElementById("divInput")
-        const mainDiv = document.getElementById("mainDiv")
-
-        function getTxtValue() {
-        // get value TEXTAREA 
-            const userTxtDivValue = document.getElementById('txtAreaInput').value
-
-            // create a HTML elements with the value
-            const userTxtDiv = document.createElement("DIV")
-            userTxtDiv.className = "userTxtDiv"
-
-            const pTextUser = document.createElement("p")
-            const pTextUserValue = document.createTextNode(userTxtDivValue)
-            
-
-            //ADD DIV on MAN div
-            pTextUser.appendChild(pTextUserValue)
-            userTxtDiv.appendChild(pTextUser)
-            mainDiv.appendChild(userTxtDiv)
-
-            // clear text input
-            txtInput.value = ""
-        }
-
-
-        // create new DIV 
-        const txtDiv = document.createElement("div");
-        txtDiv.className = "txtDiv"
-                    
-        //crete INPUT TEXT
-        const txtInput = document.createElement("textarea")
-        txtInput.id = "txtAreaInput"
-        txtInput.className = "txtArea"
-        txtInput.placeholder = "type here..."
-
-
-
-        // SUBMIT button
-        const btnSend = document.createElement("input")
-        btnSend.type = "submit"
-        btnSend.value = "SEND"
-        btnSend.className = "btn"
-        btnSend.onclick = getTxtValue
-
-        //ADD elements on DOM
-        txtDiv.appendChild(txtInput)
-        txtDiv.appendChild(btnSend)
-        divInput.appendChild(txtDiv)
-    </script>
-</body>
+    <script type="module" src="./js/scripts.js"></script>
+  </body>
 </html>
