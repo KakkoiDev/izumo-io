@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>あなたのAI</title>
+    <title>Page Title</title>
     <style>
         body {
             display: flex;
@@ -13,7 +13,6 @@
             display: flex;
             flex-direction: column;
             width: 100%;
-            height: 100vh;
         }
         .navbar {
             background-color: royalblue;
@@ -24,7 +23,7 @@
             background-color: black;
             color: white;
             width: 100%;
-            height: 100%;
+            height: 80vh;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -34,8 +33,6 @@
             display: flex;
             background-color: lightblue;
             min-height: 20vh;
-            position: sticky;
-            bottom: 0;
         }
         .blue {
             background-color: blue;
@@ -51,68 +48,38 @@
             margin: 10px;
             align-self: flex-end;
         }
-        .aiAnswer {
-            align-self: flex-start;
-            background-color: palegreen;
-        }
         #messageInput {
             width: 100%;
         }
     </style>
 </head>
 <body>
-    <div class="navbar">あなたのAI</div>
+    <div class="navbar">navbar</div>
     <div class="main-wrapper">
         <div class="main">
         </div>
         <div class="input">
             <textarea id="messageInput" rows="5"></textarea>
-            <button onclick="sendMessage()">Send</button>
+            <button onclick="sendMessage(messageInput, mainDiv)">Send</button>
         </div>
     </div>
 
     <script>
-        const OLLAMA_API_URL = "http://localhost:11434/api/chat";
-        const OLLAMA_MODEL_NAME = "gemma3:270m";
-        const messageInputElement = document.getElementById("messageInput");
-        const mainDiv = document.querySelector('.main');
+        let messageInput = document.getElementById("messageInput");
+        let mainDiv = document.querySelector('.main');
+        function sendMessage(messageInput, mainDiv) {
+            let newMessage = document.createElement("div");
+            newMessage.innerText = messageInput.value;
+            newMessage.classList.add("message");
+            mainDiv.appendChild(newMessage);
+            messageInput.value = "";
+        }
 
-        async function fetchOllamaAnswer(userInput) {
-            const options = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    model: OLLAMA_MODEL_NAME,
-                    messages: [{ role: "user", content: userInput }],
-                    stream: false
-                })
-            };
-            try {
-                const response = await fetch(OLLAMA_API_URL, options);
-                if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
-                const result = await response.json();
-                return result.message.content;
-            } catch (error) {
-                console.error("AI Ollama fetching failed:", error);
-                return "Sorry, あなたのAI is currently unavailable.";
-            }
-        }
-       
-        async function sendMessage() {
-            const userMessage = messageInputElement.value;
-            messageInputElement.value = "";
-            mainDiv.appendChild(Object.assign(document.createElement("div"), {innerText: userMessage, className: "message"}));
-            mainDiv.scrollTop = mainDiv.scrollHeight;
-            
-            const aiAnswer = await fetchOllamaAnswer(userMessage);
-            mainDiv.appendChild(Object.assign(document.createElement("div"), {innerText: aiAnswer, className: "message aiAnswer"}));
-            mainDiv.scrollTop = mainDiv.scrollHeight;
-        }
         // submit with Enter
-        messageInputElement.addEventListener("keydown", function(e) {
+        messageInput.addEventListener("keydown", function(e) {
             if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
-                sendMessage();
+                sendMessage(messageInput, mainDiv);
             }
         });
     </script>
