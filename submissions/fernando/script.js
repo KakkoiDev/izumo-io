@@ -4,6 +4,15 @@ const messageInputElement = document.getElementById("messageInput");
 const sendButtonElement = document.getElementById("sendButton");
 const mainDiv = document.querySelector('.main');
 
+// Clear current chat
+function refreshChat() {
+    if (!confirm("Clear current chat?")) return;
+
+    mainDiv.innerHTML = "";
+    messageInputElement.value = "";
+    messageInputElement.focus();
+}
+
 // Combine all msgs from screen as an array: [{ role: "user" or "assistant", content: "msg text"},　...]
 function combineMessages() {
     const messagesCombined = [];
@@ -67,6 +76,7 @@ async function sendMessage() {
     messageInputElement.value = "";
     messageInputElement.disabled = false;
     sendButtonElement.disabled = false;
+    messageInputElement.focus();
 }
 // sendMessage with Enter
 messageInputElement.addEventListener("keydown", function(e) {
