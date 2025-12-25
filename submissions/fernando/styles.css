@@ -13,7 +13,7 @@ body {
 .navbar {
     background-color: black;
     height: 100vh;
-    width: 180px;
+    width: 8rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,8 +34,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 20vh;
-    margin-top: auto;
+    height: 10rem;
 }
 .refresh-btn {
     width: 48px;
@@ -61,8 +60,8 @@ body {
 .input {
     display: flex;
     align-items: center;
-    min-height: 20vh;
-    max-height: 20vh;
+    justify-content: center;
+    height: 12rem;
     position: sticky;
     bottom: 0;
 }
@@ -86,8 +85,8 @@ body {
 }
 #messageInput {
     width: 100%;
-    height: 80%;
-    margin: 16px;
+    height: 8rem;
+    margin: 1rem;
     padding: 8px;
     border: 2px solid;
     border-radius: 4px;
@@ -106,7 +105,7 @@ body {
     pointer-events: none;
 }
 #sendButton {
-    margin: 0px 20px 0px 10px;
+    margin-right: 1rem;
     padding: 0 22px;
     height: 42px;
     background: darkcyan;
