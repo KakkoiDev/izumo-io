@@ -1,0 +1,21 @@
+{% include "header.html" %}
+
+    <section class="page-header">
+      <h1>{{ theory_title }}</h1>
+      <p>{{ theory_desc }}</p>
+    </section>
+
+    <div class="theory-grid">
+      {% for lesson in theory_lessons %}
+      <div class="theory-card">
+        <span class="lesson-id">{{ lesson.id }}</span>
+        <h3>{{ lesson.title }}</h3>
+        <p>{{ lesson.desc }}</p>
+        {% if lesson.analogy %}
+        <p class="theory-analogy">{{ lesson.analogy }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+{% include "footer.html" %}

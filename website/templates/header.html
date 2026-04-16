@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="{{ HTML_LANG }}" data-page="{{ PAGE_FILE }}" data-lang-paths='{"en":"{{ EN_BASE }}","ja":"{{ JA_BASE }}"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>{% if PAGE_TITLE %}{{ PAGE_TITLE }} - {% endif %}Izumo.io</title>
+  <link rel="stylesheet" href="{{ STATIC_PATH }}style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">Izumo.io</a>
+    <div class="nav-links" id="nav-links">
+      <a href="tech-lessons.html">{{ nav_tech }}</a>
+      <a href="theory-lessons.html">{{ nav_theory }}</a>
+      <a href="videos.html">{{ nav_videos }}</a>
+    </div>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      {{ LANG_OPTIONS }}
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>

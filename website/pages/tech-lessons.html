@@ -1,0 +1,30 @@
+{% include "header.html" %}
+
+    <section class="page-header">
+      <h1>{{ tech_title }}</h1>
+      <p>{{ tech_desc }}</p>
+    </section>
+
+    {% for phase in tech_phases %}
+    <section class="phase">
+      <h2>{{ phase.title }}</h2>
+      <p class="phase-subtitle">{{ phase.subtitle }}</p>
+      <p class="phase-analogy">{{ phase.analogy }}</p>
+      <div class="lesson-grid">
+        {% for lesson in tech_lessons %}
+        {% if lesson.phase == phase.id %}
+        <div class="lesson-card{% if lesson.status == "coming-soon" %} coming-soon{% endif %}">
+          <span class="lesson-id">{{ lesson.id }}</span>
+          <h3>{{ lesson.title }}</h3>
+          <p>{{ lesson.desc }}</p>
+          {% if lesson.status == "coming-soon" %}
+          <span class="badge">{{ coming_soon }}</span>
+          {% endif %}
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+    {% endfor %}
+
+{% include "footer.html" %}

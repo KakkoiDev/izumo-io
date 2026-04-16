@@ -1,0 +1,40 @@
+{% include "header.html" %}
+
+    <section class="hero">
+      <h1>{{ hero_title }}</h1>
+      <p class="hero-sub">{{ hero_subtitle }}</p>
+      <a href="tech-lessons.html" class="btn">{{ start_learning }}</a>
+    </section>
+
+    <section class="philosophy">
+      <h2>{{ philosophy_title }}</h2>
+      <ul class="philosophy-list">
+        <li>{{ philosophy_2080 }}</li>
+        <li>{{ philosophy_hands_on }}</li>
+        <li>{{ philosophy_analogies }}</li>
+        <li>{{ philosophy_zero }}</li>
+      </ul>
+    </section>
+
+    <section class="sections-grid">
+      <a href="tech-lessons.html" class="section-card">
+        <h3>{{ nav_tech }}</h3>
+        <p>{{ tech_desc }}</p>
+      </a>
+      <a href="theory-lessons.html" class="section-card">
+        <h3>{{ nav_theory }}</h3>
+        <p>{{ theory_desc }}</p>
+      </a>
+      <a href="videos.html" class="section-card">
+        <h3>{{ nav_videos }}</h3>
+        <p>{{ videos_desc }}</p>
+      </a>
+    </section>
+
+    <section class="community">
+      <h2>{{ community_title }}</h2>
+      <p>{{ community_desc }}</p>
+      <a href="{{ DISCORD_URL }}" class="btn btn-outline">{{ discord_cta }}</a>
+    </section>
+
+{% include "footer.html" %}

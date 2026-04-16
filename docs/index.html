@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" data-page="index.html" data-lang-paths='{"en":"./","ja":"ja/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Izumo.io</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">Izumo.io</a>
+    <div class="nav-links" id="nav-links">
+      <a href="tech-lessons.html">Tech Lessons</a>
+      <a href="theory-lessons.html">Theory</a>
+      <a href="videos.html">Videos</a>
+    </div>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <section class="hero">
+      <h1>Learn to Build the Web</h1>
+      <p class="hero-sub">Hands-on lessons teaching the 20% that covers 80% of real-world development. From your first HTML page to a full-stack AI application.</p>
+      <a href="tech-lessons.html" class="btn">Start Learning</a>
+    </section>
+
+    <section class="philosophy">
+      <h2>Our Approach</h2>
+      <ul class="philosophy-list">
+        <li>Learn the 20% that covers 80% of real-world work</li>
+        <li>Build real projects from day one</li>
+        <li>Understand through real-world analogies</li>
+        <li>Start from absolute zero, no prerequisites</li>
+      </ul>
+    </section>
+
+    <section class="sections-grid">
+      <a href="tech-lessons.html" class="section-card">
+        <h3>Tech Lessons</h3>
+        <p>Hands-on lessons from HTML to full-stack AI applications. Build real projects step by step.</p>
+      </a>
+      <a href="theory-lessons.html" class="section-card">
+        <h3>Theory</h3>
+        <p>The thinking behind great software and great developers.</p>
+      </a>
+      <a href="videos.html" class="section-card">
+        <h3>Videos</h3>
+        <p>Watch previous lesson recordings on YouTube.</p>
+      </a>
+    </section>
+
+    <section class="community">
+      <h2>Join the Community</h2>
+      <p>Learn together, ask questions, share your progress.</p>
+      <a href="https://discord.gg/YrtdssGUJa" class="btn btn-outline">Join our Discord</a>
+    </section>
+
+  </main>
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumoio">GitHub</a>
+    </div>
+    <p>2026 Izumo.io</p>
+  </footer>
+  <script src="static/script.js"></script>
+</body>
+</html>
+
