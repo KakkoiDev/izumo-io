@@ -135,6 +135,18 @@ UI = {
         'en': 'Join our Discord',
         'ja': 'Discord\u306b\u53c2\u52a0\u3059\u308b',
     },
+    'nav_resources': {
+        'en': 'Resources',
+        'ja': '\u30ea\u30bd\u30fc\u30b9',
+    },
+    'resources_title': {
+        'en': 'Resources',
+        'ja': '\u30ea\u30bd\u30fc\u30b9',
+    },
+    'resources_desc': {
+        'en': 'Curated tools and platforms to level up your skills.',
+        'ja': '\u30b9\u30ad\u30eb\u30a2\u30c3\u30d7\u306e\u305f\u3081\u306e\u53b3\u9078\u30c4\u30fc\u30eb\u3068\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0\u3002',
+    },
 }
 
 PAGE_TITLES = {
@@ -142,6 +154,7 @@ PAGE_TITLES = {
     'tech-lessons.html': {'en': 'Technical Lessons', 'ja': '\u6280\u8853\u30ec\u30c3\u30b9\u30f3'},
     'theory-lessons.html': {'en': 'Theory & Life Lessons', 'ja': '\u7406\u8ad6\u3068\u30e9\u30a4\u30d5\u30ec\u30c3\u30b9\u30f3'},
     'videos.html': {'en': 'Lesson Videos', 'ja': '\u30ec\u30c3\u30b9\u30f3\u52d5\u753b'},
+    'resources.html': {'en': 'Resources', 'ja': '\u30ea\u30bd\u30fc\u30b9'},
 }
 
 TECH_PHASES = [
@@ -443,6 +456,21 @@ VIDEOS = [
      'desc_ja': '2026\u5e744\u670816\u65e5\u6c34\u66dc\u65e5 - KakkoiSchool \u30b7\u30fc\u30ba\u30f32\u30b9\u30bf\u30fc\u30c8\uff01'},
 ]
 
+RESOURCES = [
+    {'url': 'https://exercism.org/',
+     'domain': 'exercism.org',
+     'title_en': 'Exercism',
+     'title_ja': 'Exercism',
+     'desc_en': 'Free coding exercises in 70+ languages with mentoring. Practice fundamentals through real challenges.',
+     'desc_ja': '70\u4ee5\u4e0a\u306e\u8a00\u8a9e\u3067\u7121\u6599\u306e\u30b3\u30fc\u30c7\u30a3\u30f3\u30b0\u6f14\u7fd2\u3068\u30e1\u30f3\u30bf\u30ea\u30f3\u30b0\u3002\u5b9f\u969b\u306e\u8ab2\u984c\u3067\u57fa\u790e\u3092\u7df4\u7fd2\u3002'},
+    {'url': 'https://www.hellointerview.com/',
+     'domain': 'hellointerview.com',
+     'title_en': 'Hello Interview',
+     'title_ja': 'Hello Interview',
+     'desc_en': 'System design and coding interview preparation. Learn how real-world systems are built and evaluated.',
+     'desc_ja': '\u30b7\u30b9\u30c6\u30e0\u8a2d\u8a08\u3068\u30b3\u30fc\u30c7\u30a3\u30f3\u30b0\u9762\u63a5\u306e\u6e96\u5099\u3002\u5b9f\u969b\u306e\u30b7\u30b9\u30c6\u30e0\u304c\u3069\u3046\u69cb\u7bc9\u30fb\u8a55\u4fa1\u3055\u308c\u308b\u304b\u3092\u5b66\u3076\u3002'},
+]
+
 
 # -- Build logic ------------------------------------------------------------
 
@@ -492,6 +520,7 @@ def build_context(lang, page_file):
     tech_lessons = localize_list(TECH_LESSONS, lang)
     theory_lessons = localize_list(THEORY_LESSONS, lang)
     videos = localize_list(VIDEOS, lang)
+    resources = localize_list(RESOURCES, lang)
 
     lang_options = ''
     for l in LANGS:
@@ -517,6 +546,7 @@ def build_context(lang, page_file):
         'tech_lessons': tech_lessons,
         'theory_lessons': theory_lessons,
         'videos': videos,
+        'resources': resources,
     }
 
 
