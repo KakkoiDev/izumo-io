@@ -322,10 +322,10 @@ graph TD
     A["Margin (outer spacing)"] --> B["Border (visible edge)"]
     B --> C["Padding (inner spacing)"]
     C --> D["Content (text, images)"]
-    style A fill:#f9f,stroke:#333
-    style B fill:#f66,stroke:#333
-    style C fill:#6f6,stroke:#333
-    style D fill:#66f,stroke:#333
+    style A fill:#e9b8f6,stroke:#888,color:#1a1a1a
+    style B fill:#f6a0a0,stroke:#888,color:#1a1a1a
+    style C fill:#a0d6a0,stroke:#888,color:#1a1a1a
+    style D fill:#a0b8f6,stroke:#888,color:#1a1a1a
 </div>
 
 <div class="takeaways">
@@ -374,10 +374,10 @@ graph TD
     A["Margin (outer spacing)"] --> B["Border (visible edge)"]
     B --> C["Padding (inner spacing)"]
     C --> D["Content (text, images)"]
-    style A fill:#f9f,stroke:#333
-    style B fill:#f66,stroke:#333
-    style C fill:#6f6,stroke:#333
-    style D fill:#66f,stroke:#333
+    style A fill:#e9b8f6,stroke:#888,color:#1a1a1a
+    style B fill:#f6a0a0,stroke:#888,color:#1a1a1a
+    style C fill:#a0d6a0,stroke:#888,color:#1a1a1a
+    style D fill:#a0b8f6,stroke:#888,color:#1a1a1a
 </div>
 
 <div class="takeaways">
@@ -3051,9 +3051,9 @@ function getExpensiveItemPrices(products) {
 graph TD
     A["Maintainability (easy to change)"] --> B["Performance (fast enough)"]
     B --> C["Correctness (it works)"]
-    style A fill:#4CAF50,stroke:#333
-    style B fill:#2196F3,stroke:#333
-    style C fill:#FF9800,stroke:#333
+    style A fill:#4CAF50,stroke:#888,color:#1a1a1a
+    style B fill:#2196F3,stroke:#888,color:#1a1a1a
+    style C fill:#FF9800,stroke:#888,color:#1a1a1a
 </div>
 
 <div class="takeaways">
@@ -3091,9 +3091,9 @@ function getExpensiveItemPrices(products) {
 graph TD
     A["Maintainability (easy to change)"] --> B["Performance (fast enough)"]
     B --> C["Correctness (it works)"]
-    style A fill:#4CAF50,stroke:#333
-    style B fill:#2196F3,stroke:#333
-    style C fill:#FF9800,stroke:#333
+    style A fill:#4CAF50,stroke:#888,color:#1a1a1a
+    style B fill:#2196F3,stroke:#888,color:#1a1a1a
+    style C fill:#FF9800,stroke:#888,color:#1a1a1a
 </div>
 
 <div class="takeaways">
@@ -3126,10 +3126,10 @@ graph TD
     A["Stage 1: Don't know what you don't know"] -->|exposure| B["Stage 2: Know what you don't know"]
     B -->|practice| C["Stage 3: Can do it with effort"]
     C -->|repetition| D["Stage 4: Automatic skill"]
-    style A fill:#ff6b6b,stroke:#333
-    style B fill:#ffa726,stroke:#333
-    style C fill:#66bb6a,stroke:#333
-    style D fill:#42a5f5,stroke:#333
+    style A fill:#ff6b6b,stroke:#888,color:#1a1a1a
+    style B fill:#ffa726,stroke:#888,color:#1a1a1a
+    style C fill:#66bb6a,stroke:#888,color:#1a1a1a
+    style D fill:#42a5f5,stroke:#888,color:#1a1a1a
 </div>
 
 <div class="takeaways">
@@ -3160,10 +3160,10 @@ graph TD
     A["Stage 1: Don't know what you don't know"] -->|exposure| B["Stage 2: Know what you don't know"]
     B -->|practice| C["Stage 3: Can do it with effort"]
     C -->|repetition| D["Stage 4: Automatic skill"]
-    style A fill:#ff6b6b,stroke:#333
-    style B fill:#ffa726,stroke:#333
-    style C fill:#66bb6a,stroke:#333
-    style D fill:#42a5f5,stroke:#333
+    style A fill:#ff6b6b,stroke:#888,color:#1a1a1a
+    style B fill:#ffa726,stroke:#888,color:#1a1a1a
+    style C fill:#66bb6a,stroke:#888,color:#1a1a1a
+    style D fill:#42a5f5,stroke:#888,color:#1a1a1a
 </div>
 
 <div class="takeaways">
