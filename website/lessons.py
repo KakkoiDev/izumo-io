@@ -2603,8 +2603,8 @@ flowchart LR
 <h2>Step 1: Understand</h2>
 <p>Restate the problem in your own words. Identify the inputs, the expected outputs, and the constraints. Ask questions until you are certain you understand what is being asked.</p>
 
-<h2>Step 2: Plan</h2>
-<p>Break the problem into smaller sub-problems. Write pseudocode or draw a diagram. Identify patterns you have seen before. Start with the simplest case.</p>
+<h2>Step 2: Plan (Specs Before Code)</h2>
+<p>Break the problem into smaller sub-problems. Write pseudocode or draw a diagram. In professional settings, this means writing specifications before touching the code. A wireframe for the UI, a schema for the database, an API contract. Designing the system properly upfront saves months of rework later.</p>
 <pre><code>// Problem: Find the most frequent word in a text
 // Plan:
 // 1. Split text into words
@@ -2614,6 +2614,9 @@ flowchart LR
 
 <h2>Step 3: Implement</h2>
 <p>Write code for each sub-problem one at a time. Test each piece before moving on. When stuck, go back to Step 1 - you probably do not fully understand the problem yet.</p>
+
+<h2>Architecture Over Coding</h2>
+<p>Good HTML structure is the foundation of a maintainable application. The same is true for any system. Choosing the right architecture before writing code prevents major restructuring later. Always wireframe, always plan, always validate your design with others before building.</p>
 
 <div class="mermaid">
 flowchart TD
@@ -2634,8 +2637,8 @@ flowchart TD
 <h2>Key Takeaways</h2>
 <ul>
 <li>Understand the problem completely before writing any code</li>
+<li>Write specs and wireframes before implementation. Architecture over coding</li>
 <li>Break complex problems into smaller, manageable sub-problems</li>
-<li>Write pseudocode as a bridge between thinking and coding</li>
 <li>When stuck, revisit your understanding - the bug is often in your assumptions</li>
 </ul>
 </div>
@@ -2647,8 +2650,8 @@ flowchart TD
 <h2>ステップ1: 理解する</h2>
 <p>問題を自分の言葉で言い換えます。入力、期待される出力、制約を特定します。何を求められているか確信できるまで質問しましょう。</p>
 
-<h2>ステップ2: 計画する</h2>
-<p>問題をより小さなサブ問題に分解します。擬似コードを書くか図を描きます。以前見たパターンを特定します。最もシンプルなケースから始めます。</p>
+<h2>ステップ2: 計画する (コードの前に仕様を)</h2>
+<p>問題をより小さなサブ問題に分解します。擬似コードを書くか図を描きます。プロの現場ではこれは仕様書を書くことを意味します。UIのワイヤーフレーム、データベースのスキーマ、APIの契約。最初にシステムを適切に設計することで、後の数ヶ月分のやり直しを防げます。</p>
 <pre><code>// Problem: Find the most frequent word in a text
 // Plan:
 // 1. Split text into words
@@ -2658,6 +2661,9 @@ flowchart TD
 
 <h2>ステップ3: 実装する</h2>
 <p>各サブ問題のコードを一つずつ書きます。次に進む前に各部分をテストします。行き詰まったらステップ1に戻りましょう。おそらく問題を完全に理解していません。</p>
+
+<h2>コーディングよりアーキテクチャ</h2>
+<p>良いHTML構造はメンテナンス可能なアプリケーションの基盤です。あらゆるシステムでも同じです。コードを書く前に適切なアーキテクチャを選ぶことで、後の大規模な再構築を防げます。常にワイヤーフレームを作り、計画し、構築前に設計を他の人と検証しましょう。</p>
 
 <div class="mermaid">
 flowchart TD
@@ -2678,8 +2684,8 @@ flowchart TD
 <h2>まとめ</h2>
 <ul>
 <li>コードを書く前に問題を完全に理解しましょう</li>
+<li>実装前に仕様書とワイヤーフレームを書く。コーディングよりアーキテクチャ</li>
 <li>複雑な問題をより小さく管理しやすいサブ問題に分解しましょう</li>
-<li>擬似コードは思考とコーディングの橋渡しとして書きましょう</li>
 <li>行き詰まったら理解を見直しましょう。バグは仮定の中にあることが多いです</li>
 </ul>
 </div>
@@ -3255,6 +3261,582 @@ flowchart TB
 <li>静的サイト生成はシンプルさ、速度、信頼性を提供します</li>
 <li>アーキテクチャの決定は学んだ原則(KISS、20/80)に従うべきです</li>
 <li>既存プロジェクトの分析は理解を深める最良の方法の一つです</li>
+</ul>
+</div>
+""",
+    },
+    'R11': {
+        'en': """
+<h1>R11: Adaptability</h1>
+<p class="lesson-intro">The tech industry moves faster than any other. Frameworks rise and fall in years. Companies reorganize, pivot, or get acquired. The developers who thrive are the ones who treat change as opportunity, not threat.</p>
+
+<h2>Why Change is Constant</h2>
+<p>New tools emerge constantly. Job requirements shift as technology advances. The skills that got you hired may not be the skills that keep you relevant in five years. This is not a flaw of the industry, it is its nature.</p>
+
+<h2>Build Transferable Skills</h2>
+<p>Fundamentals outlast frameworks. Understanding how HTTP works matters more than memorizing Express.js methods. Learning to think in data structures matters more than knowing one specific database. Invest in foundations, and the frameworks become easy to pick up.</p>
+
+<div class="mermaid">
+flowchart TD
+    A[Fundamentals] --> B[Learn framework A]
+    A --> C[Learn framework B]
+    A --> D[Learn framework C]
+    B --> E[Job 1]
+    C --> F[Job 2]
+    D --> G[Job 3]
+    H[Only framework A] --> E
+    H -.->|stuck| F
+</div>
+
+<h2>Practical Advice</h2>
+<ul>
+<li>Document your learning process for future transitions</li>
+<li>Build a portfolio that shows adaptability, not just one tech stack</li>
+<li>Network and stay connected with the developer community</li>
+<li>Embrace change as a chance to grow</li>
+</ul>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>The tech industry rewards adaptability over deep specialization in one tool</li>
+<li>Fundamentals (HTTP, data structures, algorithms) outlast any framework</li>
+<li>Be prepared to change jobs, teams, and tech stacks multiple times in your career</li>
+<li>Each change is a learning opportunity that makes you more versatile</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>R11: 適応力</h1>
+<p class="lesson-intro">IT業界は他のどの業界よりも速く動きます。フレームワークは数年で生まれては消えます。企業は再編され、方向転換し、買収されます。変化を脅威ではなく機会として捉える開発者が成功します。</p>
+
+<h2>変化が常にある理由</h2>
+<p>新しいツールが常に登場します。技術の進歩とともに仕事の要件も変わります。あなたを採用させたスキルが、5年後もあなたを有用にし続けるとは限りません。これは業界の欠陥ではなく、その本質です。</p>
+
+<h2>移転可能なスキルを築く</h2>
+<p>基礎はフレームワークより長持ちします。HTTPの仕組みを理解することは、Express.jsのメソッドを暗記するより重要です。データ構造で考えることを学ぶことは、特定のデータベースを知ることより重要です。基礎に投資すれば、フレームワークは簡単に習得できます。</p>
+
+<div class="mermaid">
+flowchart TD
+    A[Fundamentals] --> B[Learn framework A]
+    A --> C[Learn framework B]
+    A --> D[Learn framework C]
+    B --> E[Job 1]
+    C --> F[Job 2]
+    D --> G[Job 3]
+    H[Only framework A] --> E
+    H -.->|stuck| F
+</div>
+
+<h2>実践的なアドバイス</h2>
+<ul>
+<li>将来の転職に備えて学習プロセスを記録する</li>
+<li>一つの技術スタックだけでなく適応力を示すポートフォリオを作る</li>
+<li>開発者コミュニティとつながりを保つ</li>
+<li>変化を成長のチャンスとして受け入れる</li>
+</ul>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>IT業界は一つのツールの深い専門性より適応力を評価する</li>
+<li>基礎(HTTP、データ構造、アルゴリズム)はどのフレームワークより長持ちする</li>
+<li>キャリアの中で職場、チーム、技術スタックを何度も変える準備をしておく</li>
+<li>それぞれの変化はあなたをより多才にする学びの機会</li>
+</ul>
+</div>
+""",
+    },
+    'R12': {
+        'en': """
+<h1>R12: Work-Life Balance</h1>
+<p class="lesson-intro">Software development is intellectually engaging and easy to lose yourself in. Remote work blurs the line between office and home. But a career lasts 40+ years. You cannot sprint a marathon. Sustainable pace wins.</p>
+
+<h2>When to Push</h2>
+<p>There are times when extra effort is justified: product launches, critical production bugs, career-defining opportunities. Crunch happens. The key is that it should be the exception, not the rule.</p>
+
+<h2>When to Step Back</h2>
+<p>Regular weeks should be sustainable. Consistent 60+ hour weeks, working every weekend, no time for learning or hobbies - these are red flags. Rested developers write better code. Quality beats quantity of hours.</p>
+
+<div class="mermaid">
+flowchart LR
+    A[Sustainable Pace] --> B[Good Code]
+    A --> C[Clear Thinking]
+    A --> D[Long Career]
+    E[Chronic Overwork] --> F[Bugs]
+    E --> G[Burnout]
+    E --> H[Quit]
+</div>
+
+<h2>Protect Your Time</h2>
+<ul>
+<li>Define work hours and stick to them</li>
+<li>Create physical separation between work and personal space</li>
+<li>Turn off work notifications after hours</li>
+<li>Invest in hobbies unrelated to technology</li>
+<li>Sleep, exercise, relationships come before code</li>
+</ul>
+
+<h2>Signs of Imbalance</h2>
+<ul>
+<li>Dreading Monday or work in general</li>
+<li>No hobbies or interests outside work</li>
+<li>Strained relationships due to work hours</li>
+<li>Declining physical or mental health</li>
+</ul>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>A career is a marathon, not a sprint. Sustainable pace wins</li>
+<li>Know when to push (launches, emergencies) and when to step back (every other day)</li>
+<li>Rested developers write better code than exhausted ones working double hours</li>
+<li>Life experiences outside of code make you a better developer</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>R12: ワークライフバランス</h1>
+<p class="lesson-intro">ソフトウェア開発は知的に刺激的で、没頭しやすい仕事です。リモートワークはオフィスと家庭の境界を曖昧にします。しかしキャリアは40年以上続きます。マラソンを全力疾走することはできません。持続可能なペースが勝ちます。</p>
+
+<h2>頑張るべき時</h2>
+<p>余分な努力が正当化される時があります。製品リリース、本番環境の重大バグ、キャリアを決定する機会。修羅場は起こります。重要なのは、それが例外であって日常ではないことです。</p>
+
+<h2>引くべき時</h2>
+<p>通常の週は持続可能であるべきです。恒常的な週60時間以上の労働、毎週末の仕事、学習や趣味の時間がない。これらは警告サインです。休息を取った開発者はより良いコードを書きます。時間の量より質が勝ります。</p>
+
+<div class="mermaid">
+flowchart LR
+    A[Sustainable Pace] --> B[Good Code]
+    A --> C[Clear Thinking]
+    A --> D[Long Career]
+    E[Chronic Overwork] --> F[Bugs]
+    E --> G[Burnout]
+    E --> H[Quit]
+</div>
+
+<h2>自分の時間を守る</h2>
+<ul>
+<li>勤務時間を決めて守る</li>
+<li>仕事と個人の空間を物理的に分離する</li>
+<li>勤務時間外は仕事の通知をオフにする</li>
+<li>テクノロジーと関係ない趣味に投資する</li>
+<li>睡眠、運動、人間関係はコードより優先</li>
+</ul>
+
+<h2>バランスが崩れているサイン</h2>
+<ul>
+<li>月曜日や仕事全般が憂鬱</li>
+<li>仕事以外の趣味や関心がない</li>
+<li>仕事時間のせいで人間関係が悪化</li>
+<li>身体的または精神的な健康の低下</li>
+</ul>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>キャリアはマラソンであり短距離走ではない。持続可能なペースが勝つ</li>
+<li>頑張るべき時(リリース、緊急事態)と引くべき時(それ以外の日)を知る</li>
+<li>休息を取った開発者は、倍の時間働く疲れた開発者より良いコードを書く</li>
+<li>コード以外の人生経験があなたをより良い開発者にする</li>
+</ul>
+</div>
+""",
+    },
+    'R13': {
+        'en': """
+<h1>R13: Workplace Politics</h1>
+<p class="lesson-intro">Workplace politics exists in every organization. It is not something you can ignore. Understanding how to navigate it protects your work, your reputation, and your mental health.</p>
+
+<h2>Protect Yourself</h2>
+<ul>
+<li>Document your contributions: commit messages, emails, project notes</li>
+<li>CC relevant people on important communications</li>
+<li>Keep a work journal of accomplishments</li>
+<li>Present your work in team meetings</li>
+</ul>
+
+<h2>Build Alliances</h2>
+<ul>
+<li>Form genuine relationships with colleagues</li>
+<li>Help others succeed. Reciprocity matters</li>
+<li>Find mentors who advocate for you</li>
+<li>Build reputation through consistent quality work</li>
+</ul>
+
+<div class="mermaid">
+flowchart TD
+    A[Your Work] --> B[Document It]
+    B --> C[Share It]
+    C --> D[Recognition]
+    A --> E[Stay Silent]
+    E --> F[Others Take Credit]
+    F --> G[Frustration]
+    G --> H{Toxic?}
+    H -->|Yes| I[Leave]
+    H -->|No| J[Start Documenting]
+    J --> B
+</div>
+
+<h2>Red Flags</h2>
+<ul>
+<li>Someone consistently takes credit for team work</li>
+<li>Your ideas appear as others' proposals</li>
+<li>Information you share is used against you</li>
+<li>Culture rewards politics over performance</li>
+</ul>
+
+<h2>When to Leave</h2>
+<p>If the culture is toxic, your mental health is suffering, and there is no path forward despite your efforts, it may be time to move on. Better opportunities exist that align with your values.</p>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Document your work. Git commits, emails, and meeting notes are your proof</li>
+<li>Build genuine alliances. Helping others creates reciprocity</li>
+<li>Do not engage in gossip or backstabbing. Focus on results</li>
+<li>Know when a toxic environment is not worth fixing. Leaving is a valid strategy</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>R13: 職場の人間関係</h1>
+<p class="lesson-intro">職場の政治はあらゆる組織に存在します。無視できるものではありません。うまく対処する方法を理解することが、あなたの仕事、評判、そして心の健康を守ります。</p>
+
+<h2>自分を守る</h2>
+<ul>
+<li>自分の貢献を記録する: コミットメッセージ、メール、プロジェクトノート</li>
+<li>重要なやり取りでは関係者をCCに入れる</li>
+<li>成果の業務日誌をつける</li>
+<li>チームミーティングで自分の仕事を発表する</li>
+</ul>
+
+<h2>味方を作る</h2>
+<ul>
+<li>同僚と本物の関係を築く</li>
+<li>他人の成功を助ける。互恵性が大切</li>
+<li>あなたを支持してくれるメンターを見つける</li>
+<li>一貫した品質の仕事で評判を築く</li>
+</ul>
+
+<div class="mermaid">
+flowchart TD
+    A[Your Work] --> B[Document It]
+    B --> C[Share It]
+    C --> D[Recognition]
+    A --> E[Stay Silent]
+    E --> F[Others Take Credit]
+    F --> G[Frustration]
+    G --> H{Toxic?}
+    H -->|Yes| I[Leave]
+    H -->|No| J[Start Documenting]
+    J --> B
+</div>
+
+<h2>危険信号</h2>
+<ul>
+<li>誰かがチームの仕事の手柄を一貫して横取りする</li>
+<li>あなたのアイデアが他人の提案として出てくる</li>
+<li>共有した情報があなたに不利に使われる</li>
+<li>実績ではなく政治力が評価される文化</li>
+</ul>
+
+<h2>去るべき時</h2>
+<p>文化が有害で、精神的に苦しく、努力しても前進の道がない場合、次に進む時かもしれません。あなたの価値観に合うより良い機会が存在します。</p>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>仕事を記録する。Gitコミット、メール、議事録はあなたの証拠</li>
+<li>本物の味方を作る。他人を助けることで互恵性が生まれる</li>
+<li>陰口や裏工作に参加しない。結果に集中する</li>
+<li>有害な環境は直す価値がない場合もある。去ることは有効な戦略</li>
+</ul>
+</div>
+""",
+    },
+    'R14': {
+        'en': """
+<h1>R14: Communication & Teamwork</h1>
+<p class="lesson-intro">You can be the best coder in the world, but projects fail without clear communication. Brilliant code nobody understands is useless. Career growth requires influence, not just technical skill.</p>
+
+<h2>Communication Skills</h2>
+<ul>
+<li><strong>Writing</strong>: documentation, commit messages, code comments, emails</li>
+<li><strong>Speaking</strong>: explaining technical concepts to non-technical people</li>
+<li><strong>Listening</strong>: understanding requirements and user needs</li>
+<li><strong>Presenting</strong>: demos, technical talks, architecture reviews</li>
+</ul>
+
+<h2>Teamwork Skills</h2>
+<ul>
+<li><strong>Code reviews</strong>: give constructive feedback, accept criticism gracefully</li>
+<li><strong>Collaboration</strong>: pair programming, knowledge sharing</li>
+<li><strong>Mentorship</strong>: help junior developers grow</li>
+<li><strong>Conflict resolution</strong>: navigate disagreements productively</li>
+</ul>
+
+<div class="mermaid">
+flowchart LR
+    A[Technical Skill] --> C[Good Developer]
+    B[Communication] --> C
+    C --> D[Team Impact]
+    D --> E[Career Growth]
+    A --> F[Lone Wolf]
+    F --> G[Limited Impact]
+</div>
+
+<h2>Why Developers Fail Despite Skills</h2>
+<ul>
+<li>Poor communication creates misunderstandings and rework</li>
+<li>"Lone wolf" mentality limits your impact</li>
+<li>Inability to explain decisions loses trust</li>
+<li>Not listening to user feedback builds the wrong thing</li>
+</ul>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Technical skills get you hired. Communication skills get you promoted</li>
+<li>Practice explaining code to non-programmers</li>
+<li>Write clear documentation. Your future self and teammates will thank you</li>
+<li>Code reviews are about learning, not judging</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>R14: コミュニケーションとチームワーク</h1>
+<p class="lesson-intro">世界最高のコーダーでも、明確なコミュニケーションなしではプロジェクトは失敗します。誰にも理解できない優れたコードは無意味です。キャリアの成長には技術力だけでなく影響力が必要です。</p>
+
+<h2>コミュニケーションスキル</h2>
+<ul>
+<li><strong>書く</strong>: ドキュメント、コミットメッセージ、コードコメント、メール</li>
+<li><strong>話す</strong>: 非技術者に技術的な概念を説明する</li>
+<li><strong>聞く</strong>: 要件とユーザーのニーズを理解する</li>
+<li><strong>発表する</strong>: デモ、技術トーク、アーキテクチャレビュー</li>
+</ul>
+
+<h2>チームワークスキル</h2>
+<ul>
+<li><strong>コードレビュー</strong>: 建設的なフィードバックをし、批判を素直に受け入れる</li>
+<li><strong>協力</strong>: ペアプログラミング、知識共有</li>
+<li><strong>メンタリング</strong>: ジュニア開発者の成長を助ける</li>
+<li><strong>対立解決</strong>: 意見の相違を生産的に乗り越える</li>
+</ul>
+
+<div class="mermaid">
+flowchart LR
+    A[Technical Skill] --> C[Good Developer]
+    B[Communication] --> C
+    C --> D[Team Impact]
+    D --> E[Career Growth]
+    A --> F[Lone Wolf]
+    F --> G[Limited Impact]
+</div>
+
+<h2>スキルがあっても失敗する理由</h2>
+<ul>
+<li>コミュニケーション不足が誤解とやり直しを生む</li>
+<li>「一匹狼」の思考があなたのインパクトを制限する</li>
+<li>決定を説明できないと信頼を失う</li>
+<li>ユーザーのフィードバックを聞かないと間違ったものを作る</li>
+</ul>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>技術力で採用される。コミュニケーション力で昇進する</li>
+<li>非プログラマーにコードを説明する練習をする</li>
+<li>明確なドキュメントを書く。未来の自分とチームメイトが感謝する</li>
+<li>コードレビューは審判ではなく学びの場</li>
+</ul>
+</div>
+""",
+    },
+    'R15': {
+        'en': """
+<h1>R15: Working with AI</h1>
+<p class="lesson-intro">AI is fundamentally changing software development. AI coding assistants are now standard tools. Many routine tasks are automated. The role of developers is evolving. Resistance to AI will limit your career. Embracing it will accelerate it.</p>
+
+<h2>AI as a Tool</h2>
+<ul>
+<li>Use AI coding assistants for boilerplate and repetitive code</li>
+<li>Focus your human energy on architecture, design, and complex problems</li>
+<li>Use AI to learn faster and explore new technologies</li>
+<li>Let AI handle the details while you handle the decisions</li>
+</ul>
+
+<h2>Skills That Matter More Now</h2>
+<ul>
+<li><strong>Critical thinking</strong>: evaluate AI suggestions for correctness</li>
+<li><strong>Architecture</strong>: design systems AI can help implement</li>
+<li><strong>Communication</strong>: translate requirements into clear prompts</li>
+<li><strong>Domain knowledge</strong>: understand the problem space deeply</li>
+<li><strong>Code review</strong>: verify and improve AI-generated code</li>
+</ul>
+
+<div class="mermaid">
+flowchart TD
+    A[Developer + AI] --> B[Architecture Decisions]
+    A --> C[AI Generates Code]
+    C --> D[Developer Reviews]
+    D --> E{Correct?}
+    E -->|Yes| F[Ship]
+    E -->|No| G[Developer Fixes]
+    G --> D
+    H[Developer Without AI] --> I[Write Everything]
+    I --> J[Slower Output]
+</div>
+
+<h2>What AI Cannot Replace</h2>
+<ul>
+<li>Understanding business requirements and user needs</li>
+<li>Making architectural trade-off decisions</li>
+<li>Debugging complex cross-system issues</li>
+<li>Team collaboration and mentorship</li>
+<li>Ethical considerations and security awareness</li>
+</ul>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>AI is a force multiplier, not a replacement. Use it to 10x your output</li>
+<li>Learn prompt engineering. Better prompts produce better results</li>
+<li>Focus on skills AI cannot replace: judgment, empathy, architecture</li>
+<li>The developers who thrive will be those who work with AI, not against it</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>R15: AIとの協働</h1>
+<p class="lesson-intro">AIはソフトウェア開発を根本的に変えています。AIコーディングアシスタントは今や標準ツールです。多くのルーティン作業が自動化されています。開発者の役割は進化しています。AIへの抵抗はキャリアを制限します。受け入れることでキャリアが加速します。</p>
+
+<h2>ツールとしてのAI</h2>
+<ul>
+<li>定型的で反復的なコードにAIコーディングアシスタントを使う</li>
+<li>人間のエネルギーはアーキテクチャ、設計、複雑な問題に集中する</li>
+<li>AIを使ってより速く学び、新しい技術を探索する</li>
+<li>詳細はAIに任せ、判断はあなたが行う</li>
+</ul>
+
+<h2>今より重要になるスキル</h2>
+<ul>
+<li><strong>批判的思考</strong>: AIの提案の正しさを評価する</li>
+<li><strong>アーキテクチャ</strong>: AIが実装を助けられるシステムを設計する</li>
+<li><strong>コミュニケーション</strong>: 要件を明確なプロンプトに変換する</li>
+<li><strong>ドメイン知識</strong>: 問題空間を深く理解する</li>
+<li><strong>コードレビュー</strong>: AI生成コードを検証し改善する</li>
+</ul>
+
+<div class="mermaid">
+flowchart TD
+    A[Developer + AI] --> B[Architecture Decisions]
+    A --> C[AI Generates Code]
+    C --> D[Developer Reviews]
+    D --> E{Correct?}
+    E -->|Yes| F[Ship]
+    E -->|No| G[Developer Fixes]
+    G --> D
+    H[Developer Without AI] --> I[Write Everything]
+    I --> J[Slower Output]
+</div>
+
+<h2>AIが代替できないもの</h2>
+<ul>
+<li>ビジネス要件とユーザーニーズの理解</li>
+<li>アーキテクチャのトレードオフの判断</li>
+<li>複雑なシステム間の問題のデバッグ</li>
+<li>チームの協力とメンタリング</li>
+<li>倫理的配慮とセキュリティ意識</li>
+</ul>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>AIは代替ではなく力の倍増器。アウトプットを10倍にするために使う</li>
+<li>プロンプトエンジニアリングを学ぶ。良いプロンプトが良い結果を生む</li>
+<li>AIが代替できないスキルに集中する: 判断力、共感力、アーキテクチャ</li>
+<li>成功する開発者はAIに抵抗せず、AIと共に働く人</li>
+</ul>
+</div>
+""",
+    },
+    'R16': {
+        'en': """
+<h1>R16: Shipping is a Skill</h1>
+<p class="lesson-intro">Many developers can code, but fewer can ship. Finishing a project, polishing it, documenting it, and presenting it professionally is a separate skill from writing code. It is what separates hobby projects from portfolio pieces.</p>
+
+<h2>What Shipping Means</h2>
+<p>Shipping is not just pushing code. It means the project works, is documented, can be set up by someone else, and tells a clear story of what it does and why.</p>
+
+<h2>The Checklist</h2>
+<ul>
+<li>README with clear setup instructions</li>
+<li>The application actually runs without errors</li>
+<li>Demo environment or screenshots that work</li>
+<li>Architecture decisions documented</li>
+<li>Known limitations acknowledged</li>
+</ul>
+
+<div class="mermaid">
+flowchart LR
+    A[Code Works] --> B[Add Documentation]
+    B --> C[Test Setup Process]
+    C --> D[Create Demo]
+    D --> E[Portfolio Ready]
+    A --> F[No Docs]
+    F --> G[Nobody Uses It]
+</div>
+
+<h2>Presenting Your Work</h2>
+<p>Practice explaining technical concepts to non-technical audiences. Your portfolio should tell the story of your growth. Each project should show what problem it solves, how you built it, and what you learned.</p>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>A finished project with documentation beats an impressive unfinished one</li>
+<li>Always include a README. If someone cannot set it up, it does not count</li>
+<li>Practice the skill of finishing. Most people abandon projects at 80%</li>
+<li>Your portfolio tells your story. Make each project tell it well</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>R16: 完成させる力</h1>
+<p class="lesson-intro">多くの開発者はコードを書けますが、完成させられる人は少ないです。プロジェクトを仕上げ、磨き、ドキュメントを書き、プロフェッショナルに発表すること。これはコードを書くこととは別のスキルです。趣味のプロジェクトとポートフォリオ作品を分けるものです。</p>
+
+<h2>完成させるとは</h2>
+<p>完成させるとはコードをプッシュするだけではありません。プロジェクトが動き、ドキュメントがあり、他の人がセットアップでき、何をするものか、なぜ作ったかの明確なストーリーがあることです。</p>
+
+<h2>チェックリスト</h2>
+<ul>
+<li>明確なセットアップ手順のあるREADME</li>
+<li>アプリケーションが実際にエラーなく動作する</li>
+<li>動作するデモ環境またはスクリーンショット</li>
+<li>アーキテクチャの決定が文書化されている</li>
+<li>既知の制限が認識されている</li>
+</ul>
+
+<div class="mermaid">
+flowchart LR
+    A[Code Works] --> B[Add Documentation]
+    B --> C[Test Setup Process]
+    C --> D[Create Demo]
+    D --> E[Portfolio Ready]
+    A --> F[No Docs]
+    F --> G[Nobody Uses It]
+</div>
+
+<h2>仕事の発表</h2>
+<p>非技術者に技術的な概念を説明する練習をしましょう。ポートフォリオはあなたの成長の物語を伝えるべきです。各プロジェクトで、どんな問題を解決し、どう作り、何を学んだかを示しましょう。</p>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>ドキュメント付きの完成したプロジェクトは、印象的だが未完成のものに勝る</li>
+<li>必ずREADMEを含める。セットアップできなければカウントされない</li>
+<li>完成させるスキルを練習する。ほとんどの人は80%でプロジェクトを放棄する</li>
+<li>ポートフォリオはあなたの物語。各プロジェクトでそれをうまく伝える</li>
 </ul>
 </div>
 """,
