@@ -3841,6 +3841,94 @@ flowchart LR
 </div>
 """,
     },
+    'R17': {
+        'en': """
+<h1>R17: The Importance of English</h1>
+<p class="lesson-intro">English is the lingua franca of the technology world. You do not need to speak it perfectly, but having a good working mastery of it is one of the highest-leverage skills you can develop as a developer. It is the language that most documentation, tutorials, forums, job postings, and open source projects use.</p>
+
+<h2>Why English Matters in Tech</h2>
+<p>Programming languages themselves are written in English: function, return, class, import, export. Error messages are in English. Stack Overflow answers are in English. The official documentation for React, Node.js, Python, and nearly every major technology is written first in English. If you cannot read it, you are always waiting for someone else to translate it for you.</p>
+
+<h2>Access to Resources</h2>
+<p>The vast majority of learning material is in English. Tutorials, blog posts, conference talks, podcasts, books. When a new framework is released, the documentation comes in English first. Translations may follow weeks or months later, if at all. English proficiency means you learn from the source, not from a delayed copy.</p>
+
+<h2>Communication and Career</h2>
+<p>International teams communicate in English. Remote jobs often require it. Code reviews, pull request descriptions, commit messages, technical specifications - all written in English in most companies. Being able to express technical ideas clearly in English opens doors that technical skill alone cannot.</p>
+
+<div class="mermaid">
+flowchart TD
+    A[English Proficiency] --> B[Read docs directly]
+    A --> C[Join global communities]
+    A --> D[International job market]
+    A --> E[Contribute to open source]
+    F[Limited English] --> G[Wait for translations]
+    F --> H[Local job market only]
+    F --> I[Miss early knowledge]
+</div>
+
+<h2>How to Improve</h2>
+<ul>
+<li>Read documentation in English instead of translated versions</li>
+<li>Watch tech talks and tutorials in English (subtitles are fine)</li>
+<li>Write your commit messages, comments, and READMEs in English</li>
+<li>Participate in English-speaking communities (GitHub, Discord, forums)</li>
+<li>Do not aim for perfection. Aim for clear communication</li>
+</ul>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>English is the common language of the tech industry. Fluency is not required, but working proficiency is</li>
+<li>Most documentation, tutorials, and resources are published in English first</li>
+<li>English proficiency expands your job market from local to global</li>
+<li>Practice daily by reading docs, writing commits, and engaging in communities in English</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>R17: 英語の重要性</h1>
+<p class="lesson-intro">英語はテクノロジー世界の共通語です。完璧に話す必要はありませんが、実用的なレベルで使いこなせることは、開発者として身につけられる最もレバレッジの高いスキルの一つです。ドキュメント、チュートリアル、フォーラム、求人、オープンソースプロジェクトのほとんどが英語で書かれています。</p>
+
+<h2>なぜ英語がテックで重要か</h2>
+<p>プログラミング言語自体が英語で書かれています: function, return, class, import, export。エラーメッセージは英語です。Stack Overflowの回答は英語です。React、Node.js、Pythonなどほぼ全ての主要技術の公式ドキュメントは最初に英語で書かれます。読めなければ、誰かが翻訳してくれるのを常に待つことになります。</p>
+
+<h2>リソースへのアクセス</h2>
+<p>学習教材の大部分は英語です。チュートリアル、ブログ記事、カンファレンストーク、ポッドキャスト、書籍。新しいフレームワークがリリースされると、ドキュメントはまず英語で出ます。翻訳は数週間から数ヶ月後、あるいは全く出ないこともあります。英語力があれば、遅延したコピーではなくソースから直接学べます。</p>
+
+<h2>コミュニケーションとキャリア</h2>
+<p>国際チームは英語でコミュニケーションします。リモートの仕事では英語が求められることが多いです。コードレビュー、プルリクエスト、コミットメッセージ、技術仕様書 - ほとんどの企業で英語で書かれます。技術的なアイデアを英語で明確に表現できることは、技術力だけでは開けないドアを開きます。</p>
+
+<div class="mermaid">
+flowchart TD
+    A[English Proficiency] --> B[Read docs directly]
+    A --> C[Join global communities]
+    A --> D[International job market]
+    A --> E[Contribute to open source]
+    F[Limited English] --> G[Wait for translations]
+    F --> H[Local job market only]
+    F --> I[Miss early knowledge]
+</div>
+
+<h2>英語力を伸ばす方法</h2>
+<ul>
+<li>翻訳版ではなく英語のドキュメントを読む</li>
+<li>テックトークやチュートリアルを英語で視聴する(字幕OK)</li>
+<li>コミットメッセージ、コメント、READMEを英語で書く</li>
+<li>英語のコミュニティに参加する(GitHub、Discord、フォーラム)</li>
+<li>完璧を目指さない。明確なコミュニケーションを目指す</li>
+</ul>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>英語はIT業界の共通語。流暢さは不要だが、実務レベルの習熟は必要</li>
+<li>ドキュメント、チュートリアル、リソースの大半は英語で最初に公開される</li>
+<li>英語力は就職市場をローカルからグローバルに広げる</li>
+<li>毎日の練習: ドキュメントを読み、コミットを書き、英語コミュニティに参加する</li>
+</ul>
+</div>
+""",
+    },
     'T23': {
         'en': """
 <h1>T23: React Foundations</h1>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ja" data-page="r17.html" data-lang-paths='{"en":"../../lessons/","ja":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>英語の重要性 - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../theory-lessons.html">理論レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="r16.html">前へ</a>
+          
+        </div>
+      </nav>
+      
+<h1>R17: 英語の重要性</h1>
+<p class="lesson-intro">英語はテクノロジー世界の共通語です。完璧に話す必要はありませんが、実用的なレベルで使いこなせることは、開発者として身につけられる最もレバレッジの高いスキルの一つです。ドキュメント、チュートリアル、フォーラム、求人、オープンソースプロジェクトのほとんどが英語で書かれています。</p>
+
+<h2>なぜ英語がテックで重要か</h2>
+<p>プログラミング言語自体が英語で書かれています: function, return, class, import, export。エラーメッセージは英語です。Stack Overflowの回答は英語です。React、Node.js、Pythonなどほぼ全ての主要技術の公式ドキュメントは最初に英語で書かれます。読めなければ、誰かが翻訳してくれるのを常に待つことになります。</p>
+
+<h2>リソースへのアクセス</h2>
+<p>学習教材の大部分は英語です。チュートリアル、ブログ記事、カンファレンストーク、ポッドキャスト、書籍。新しいフレームワークがリリースされると、ドキュメントはまず英語で出ます。翻訳は数週間から数ヶ月後、あるいは全く出ないこともあります。英語力があれば、遅延したコピーではなくソースから直接学べます。</p>
+
+<h2>コミュニケーションとキャリア</h2>
+<p>国際チームは英語でコミュニケーションします。リモートの仕事では英語が求められることが多いです。コードレビュー、プルリクエスト、コミットメッセージ、技術仕様書 - ほとんどの企業で英語で書かれます。技術的なアイデアを英語で明確に表現できることは、技術力だけでは開けないドアを開きます。</p>
+
+<div class="mermaid">
+flowchart TD
+    A[English Proficiency] --> B[Read docs directly]
+    A --> C[Join global communities]
+    A --> D[International job market]
+    A --> E[Contribute to open source]
+    F[Limited English] --> G[Wait for translations]
+    F --> H[Local job market only]
+    F --> I[Miss early knowledge]
+</div>
+
+<h2>英語力を伸ばす方法</h2>
+<ul>
+<li>翻訳版ではなく英語のドキュメントを読む</li>
+<li>テックトークやチュートリアルを英語で視聴する(字幕OK)</li>
+<li>コミットメッセージ、コメント、READMEを英語で書く</li>
+<li>英語のコミュニティに参加する(GitHub、Discord、フォーラム)</li>
+<li>完璧を目指さない。明確なコミュニケーションを目指す</li>
+</ul>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>英語はIT業界の共通語。流暢さは不要だが、実務レベルの習熟は必要</li>
+<li>ドキュメント、チュートリアル、リソースの大半は英語で最初に公開される</li>
+<li>英語力は就職市場をローカルからグローバルに広げる</li>
+<li>毎日の練習: ドキュメントを読み、コミットを書き、英語コミュニティに参加する</li>
+</ul>
+</div>
+
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+
