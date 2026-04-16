@@ -67,13 +67,6 @@
     &lt;button type="submit"&gt;Send&lt;/button&gt;
 &lt;/form&gt;</code></pre>
 
-<h2>DetailsとSummary</h2>
-<p><code>&lt;details&gt;</code>と<code>&lt;summary&gt;</code>要素はJavaScriptゼロで展開可能なセクションを作成します。</p>
-<pre><code>&lt;details&gt;
-    &lt;summary&gt;Click to expand&lt;/summary&gt;
-    &lt;p&gt;Hidden content revealed on click.&lt;/p&gt;
-&lt;/details&gt;</code></pre>
-
 <div class="mermaid">
 flowchart LR
     A[User fills form] --> B{Valid?}
@@ -84,8 +77,15 @@ flowchart LR
     F --> A
 </div>
 
+<h2>DetailsとSummary</h2>
+<p><code>&lt;details&gt;</code>と<code>&lt;summary&gt;</code>要素はJavaScriptゼロで展開可能なセクションを作成します。</p>
+<pre><code>&lt;details&gt;
+    &lt;summary&gt;Click to expand&lt;/summary&gt;
+    &lt;p&gt;Hidden content revealed on click.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>フォームはaction属性とmethod属性でデータの送信先と方法を制御します</li>
 <li>入力タイプにはtext、email、password、numberなどがあります</li>

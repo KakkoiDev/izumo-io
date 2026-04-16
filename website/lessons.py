@@ -77,7 +77,7 @@ flowchart LR
 <p><code>&lt;!DOCTYPE html&gt;</code>はブラウザにHTML5標準を使用するよう指示します。これがないと、ブラウザは古い互換モードで表示する場合があります。</p>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>HTMLファイルは.html拡張子を持つプレーンテキストファイルです</li>
 <li>ブラウザはインタプリタです。HTMLを読み取って結果を表示します</li>
@@ -173,7 +173,7 @@ graph TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>見出しh1-h6はコンテンツの階層を作ります。順番に使いましょう</li>
 <li>リンクはaタグとhref属性でリンク先URLを指定します</li>
@@ -207,13 +207,6 @@ graph TD
     &lt;button type="submit"&gt;Send&lt;/button&gt;
 &lt;/form&gt;</code></pre>
 
-<h2>Details and Summary</h2>
-<p>The <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> elements create expandable sections with zero JavaScript.</p>
-<pre><code>&lt;details&gt;
-    &lt;summary&gt;Click to expand&lt;/summary&gt;
-    &lt;p&gt;Hidden content revealed on click.&lt;/p&gt;
-&lt;/details&gt;</code></pre>
-
 <div class="mermaid">
 flowchart LR
     A[User fills form] --> B{Valid?}
@@ -223,6 +216,13 @@ flowchart LR
     B -->|No| F[Show error message]
     F --> A
 </div>
+
+<h2>Details and Summary</h2>
+<p>The <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> elements create expandable sections with zero JavaScript.</p>
+<pre><code>&lt;details&gt;
+    &lt;summary&gt;Click to expand&lt;/summary&gt;
+    &lt;p&gt;Hidden content revealed on click.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
 
 <div class="takeaways">
 <h2>Key Takeaways</h2>
@@ -257,13 +257,6 @@ flowchart LR
     &lt;button type="submit"&gt;Send&lt;/button&gt;
 &lt;/form&gt;</code></pre>
 
-<h2>DetailsとSummary</h2>
-<p><code>&lt;details&gt;</code>と<code>&lt;summary&gt;</code>要素はJavaScriptゼロで展開可能なセクションを作成します。</p>
-<pre><code>&lt;details&gt;
-    &lt;summary&gt;Click to expand&lt;/summary&gt;
-    &lt;p&gt;Hidden content revealed on click.&lt;/p&gt;
-&lt;/details&gt;</code></pre>
-
 <div class="mermaid">
 flowchart LR
     A[User fills form] --> B{Valid?}
@@ -274,8 +267,15 @@ flowchart LR
     F --> A
 </div>
 
+<h2>DetailsとSummary</h2>
+<p><code>&lt;details&gt;</code>と<code>&lt;summary&gt;</code>要素はJavaScriptゼロで展開可能なセクションを作成します。</p>
+<pre><code>&lt;details&gt;
+    &lt;summary&gt;Click to expand&lt;/summary&gt;
+    &lt;p&gt;Hidden content revealed on click.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>フォームはaction属性とmethod属性でデータの送信先と方法を制御します</li>
 <li>入力タイプにはtext、email、password、numberなどがあります</li>
@@ -381,7 +381,7 @@ graph TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>CSSセレクタはタグ名、クラス(.name)、ID(#name)で要素を対象にします</li>
 <li>ボックスモデルは4層構造: content、padding、border、margin</li>
@@ -495,7 +495,7 @@ flowchart TB
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>Flexboxは一次元レイアウト向け(行または列)</li>
 <li>Gridは二次元レイアウト向け(行と列を同時に)</li>
@@ -593,7 +593,7 @@ stateDiagram-v2
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>トランジションは2つの状態間の変化を滑らかにアニメーションします</li>
 <li>キーフレームアニメーションで複数ステップの複雑な動きを実現できます</li>
@@ -699,7 +699,7 @@ graph TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>変更する変数にはlet、変わらない値にはconstを使います</li>
 <li>console.log()はデバッグの最良の味方です</li>
@@ -797,7 +797,7 @@ graph TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>querySelectorとquerySelectorAllはCSSセレクタ構文で要素を検索します</li>
 <li>createElementとappendChildで新しいDOMノードを動的に構築できます</li>
@@ -915,7 +915,7 @@ flowchart TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>JavaScriptバリデーションはHTML5組み込みバリデーション以上のカスタムロジックを提供します</li>
 <li>dialog要素は外部ライブラリなしでネイティブモーダルウィンドウを提供します</li>
@@ -1025,7 +1025,7 @@ graph LR
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>配列は0から始まるインデックスでアクセスする順序付きリストです</li>
 <li>オブジェクトは文字列キーでアクセスするキーバリューストアです</li>
@@ -1129,7 +1129,7 @@ flowchart LR
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>localStorageはページリロードやブラウザ再起動後もデータを保持します</li>
 <li>全ての値は文字列として格納されます。複雑なデータにはJSONを使います</li>
@@ -1245,7 +1245,7 @@ sequenceDiagram
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>fetch()はHTTPリクエストを送信しPromiseを返します</li>
 <li>async/awaitで非同期コードが読みやすく保守しやすくなります</li>
@@ -1351,7 +1351,7 @@ flowchart TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>SPAは1つのHTMLファイルを読み込み、JavaScriptでコンテンツを動的に入れ替えます</li>
 <li>ハッシュルーティングはURLフラグメントでどのビューを表示するか決定します</li>
@@ -1463,7 +1463,7 @@ stateDiagram-v2
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>Service Workerはバックグラウンドで実行され、ネットワークリクエストを傍受します</li>
 <li>インストール時にアセットをキャッシュしてオフライン機能を有効にします</li>
@@ -1579,7 +1579,7 @@ sequenceDiagram
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>遅延読み込みはビューポートに入るまで非表示コンテンツの読み込みを延期します</li>
 <li>scriptタグにdefer属性を使ってレンダリングブロックを回避します</li>
@@ -1687,7 +1687,7 @@ flowchart LR
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>Node.jsはブラウザの外でサーバー上のJavaScriptを実行します</li>
 <li>http.createServerでリクエストとレスポンスを処理するサーバーを作成します</li>
@@ -1803,7 +1803,7 @@ flowchart TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>RESTはURLをリソース識別子、HTTPメソッドをアクションとして使います</li>
 <li>GETは読取、POSTは作成、PUTは更新、DELETEは削除</li>
@@ -1941,7 +1941,7 @@ flowchart LR
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>JSONファイルは小さなプロジェクトのシンプルなデータベースとして機能します</li>
 <li>CRUDはCreate、Read、Update、Deleteの4つの基本データ操作の略です</li>
@@ -2079,7 +2079,7 @@ erDiagram
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>SQLiteは単一ファイルに完全なリレーショナルデータベースを格納します</li>
 <li>SQLはSELECT、JOIN、WHEREなどで強力なクエリを提供します</li>
@@ -2185,7 +2185,7 @@ sequenceDiagram
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>平文パスワードは絶対に保存しない。必ずbcryptなどでハッシュします</li>
 <li>セッションはCookieに保存された一意のセッションIDでログインユーザーを追跡します</li>
@@ -2307,7 +2307,7 @@ sequenceDiagram
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>OllamaはシンプルなAPIでオープンソースのLLMをローカル実行します</li>
 <li>Chat APIはroleとcontentフィールドを持つメッセージの配列を受け取ります</li>
@@ -2431,7 +2431,7 @@ flowchart TB
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>フルスタックアプリはフロントエンド、バックエンド、データ層を1つのシステムに接続します</li>
 <li>サーバーはユーザーインターフェースとAIモデルの間の橋渡しをします</li>
@@ -2499,7 +2499,7 @@ flowchart LR
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>ITは4つのアクションに集約されます: 収集、送信、処理、保存</li>
 <li>全てのアプリケーションはこの4つの操作の組み合わせです</li>
@@ -2585,7 +2585,7 @@ flowchart LR
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>Webは明確な役割分離を持つクライアント-サーバーモデルに従います</li>
 <li>HTTPはクライアントとサーバーの通信方法を定義するプロトコルです</li>
@@ -2675,7 +2675,7 @@ flowchart TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>コードを書く前に問題を完全に理解しましょう</li>
 <li>複雑な問題をより小さく管理しやすいサブ問題に分解しましょう</li>
@@ -2763,7 +2763,7 @@ graph LR
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>結果の80%は努力の20%から生まれます。高インパクトな作業に集中しましょう</li>
 <li>高度なトピックを追う前に基礎をマスターしましょう</li>
@@ -2839,7 +2839,7 @@ graph LR
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>毎日の練習は時折のマラソンセッションに勝ります</li>
 <li>小さな一貫した改善が時間とともに大きな成果に複利します</li>
@@ -2913,7 +2913,7 @@ flowchart TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>採用は最も抵抗の少ない道に従います。あらゆる場所で摩擦を減らしましょう</li>
 <li>プロセスの余分なステップは全てユーザーが離脱する機会です</li>
@@ -3009,7 +3009,7 @@ flowchart LR
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>最良のコードは書く必要がなかったコードです</li>
 <li>シンプルな解決策は理解、デバッグ、保守が容易です</li>
@@ -3091,7 +3091,7 @@ graph TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>コード品質には3つのレベルがあります: 正しい、十分に速い、変更しやすい</li>
 <li>正確性は譲れません。動かないコードには価値がありません</li>
@@ -3161,7 +3161,7 @@ graph TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>学習は無意識の無能から無意識の有能まで4段階で進みます</li>
 <li>フラストレーションを感じる段階2(知らないことを知る)は実際には進歩の証です</li>
@@ -3249,7 +3249,7 @@ flowchart TB
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2>まとめ</h2>
 <ul>
 <li>実際のプロジェクトは複数のコンセプトを組み合わせます。HTML、CSS、JS、ビルドツール</li>
 <li>静的サイト生成はシンプルさ、速度、信頼性を提供します</li>
