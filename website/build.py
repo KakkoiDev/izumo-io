@@ -460,6 +460,7 @@ def build_context(lang, page_file):
         'lang': lang,
         'HTML_LANG': lang,
         'STATIC_PATH': '../static/' if is_ja else 'static/',
+        'NAV_PREFIX': '',
         'EN_BASE': '../' if is_ja else './',
         'JA_BASE': './' if is_ja else 'ja/',
         'PAGE_FILE': page_file,
@@ -505,13 +506,15 @@ def build_lesson_context(lang, lesson_id, page_file):
         selected = ' selected' if l == lang else ''
         lang_options += f'<option value="{l}"{selected}>{LANG_LABELS[l]}</option>'
 
+    slug = lesson_id.lower()
     return {
         'lang': lang,
         'HTML_LANG': lang,
         'STATIC_PATH': '../../static/' if is_ja else '../static/',
-        'EN_BASE': '../../' if is_ja else '../',
-        'JA_BASE': './' if is_ja else '../ja/lessons/',
-        'PAGE_FILE': page_file,
+        'NAV_PREFIX': '../' ,
+        'EN_BASE': '../../lessons/' if is_ja else './',
+        'JA_BASE': './' if is_ja else '../../ja/lessons/',
+        'PAGE_FILE': f'{slug}.html',
         'PAGE_TITLE': page_title,
         'LANG_OPTIONS': lang_options,
         'HAS_MERMAID': True,
