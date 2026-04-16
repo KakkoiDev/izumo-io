@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ja" data-page="lessons/r03.html" data-lang-paths='{"en":"../../","ja":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>問題解決 - KakkoiSchool</title>
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="tech-lessons.html">技術レッスン</a>
+      <a href="theory-lessons.html">理論</a>
+      <a href="videos.html">動画</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../theory-lessons.html">理論レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="r02.html">前へ</a>
+          <a href="r04.html">次へ</a>
+        </div>
+      </nav>
+      
+<h1>R03: 問題解決</h1>
+<p class="lesson-intro">プログラミングはキーボードを使った問題解決です。コードを書く前に、問題を理解し、解決戦略を見つけ、段階的に実装する必要があります。いきなりコードを書くのは設計図なしに家を建てるようなもので、時間と材料を無駄にします。</p>
+
+<h2>ステップ1: 理解する</h2>
+<p>問題を自分の言葉で言い換えます。入力、期待される出力、制約を特定します。何を求められているか確信できるまで質問しましょう。</p>
+
+<h2>ステップ2: 計画する</h2>
+<p>問題をより小さなサブ問題に分解します。擬似コードを書くか図を描きます。以前見たパターンを特定します。最もシンプルなケースから始めます。</p>
+<pre><code>// Problem: Find the most frequent word in a text
+// Plan:
+// 1. Split text into words
+// 2. Count occurrences of each word
+// 3. Find the word with highest count
+// 4. Return that word</code></pre>
+
+<h2>ステップ3: 実装する</h2>
+<p>各サブ問題のコードを一つずつ書きます。次に進む前に各部分をテストします。行き詰まったらステップ1に戻りましょう。おそらく問題を完全に理解していません。</p>
+
+<div class="mermaid">
+flowchart TD
+    A[Problem] --> B[Understand]
+    B --> C{Clear?}
+    C -->|No| D[Ask questions]
+    D --> B
+    C -->|Yes| E[Plan solution]
+    E --> F[Break into sub-problems]
+    F --> G[Implement step by step]
+    G --> H{Works?}
+    H -->|No| I[Debug]
+    I --> B
+    H -->|Yes| J[Solution]
+</div>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>コードを書く前に問題を完全に理解しましょう</li>
+<li>複雑な問題をより小さく管理しやすいサブ問題に分解しましょう</li>
+<li>擬似コードは思考とコーディングの橋渡しとして書きましょう</li>
+<li>行き詰まったら理解を見直しましょう。バグは仮定の中にあることが多いです</li>
+</ul>
+</div>
+
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumoio">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja" data-page="lessons/t11.html" data-lang-paths='{"en":"../../","ja":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>データの永続化 - KakkoiSchool</title>
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="tech-lessons.html">技術レッスン</a>
+      <a href="theory-lessons.html">理論</a>
+      <a href="videos.html">動画</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t10.html">前へ</a>
+          <a href="t12.html">次へ</a>
+        </div>
+      </nav>
+      
+<h1>T11: データの永続化</h1>
+<p class="lesson-intro">Webページは閉じると全てを忘れます。localStorageはブラウザがあなたのWebサイト用に保持するノートのようなものです。タブを閉じてもデータは残ります。JSONはJavaScriptオブジェクトを保存可能な文字列に変換し、元に戻すための共通形式です。</p>
+
+<h2>localStorage API</h2>
+<p>localStorageはキーバリューペアを文字列として格納します。ページのリロードやブラウザの再起動後も持続し、ドメインあたり約5MBの容量があります。</p>
+<pre><code>// Save data
+localStorage.setItem("username", "Alice");
+
+// Read data
+const name = localStorage.getItem("username");
+
+// Remove data
+localStorage.removeItem("username");
+
+// Clear all
+localStorage.clear();</code></pre>
+
+<h2>JSONの活用</h2>
+<p>localStorageは文字列のみ格納するため、<code>JSON.stringify()</code>でオブジェクトを保存し、<code>JSON.parse()</code>で読み戻します。</p>
+<pre><code>const tasks = [
+    { id: 1, text: "Learn HTML", done: true },
+    { id: 2, text: "Learn CSS", done: false }
+];
+
+// Save
+localStorage.setItem("tasks", JSON.stringify(tasks));
+
+// Load
+const saved = JSON.parse(localStorage.getItem("tasks") || "[]");</code></pre>
+
+<div class="mermaid">
+flowchart LR
+    A[JS Object] -->|JSON.stringify| B[JSON String]
+    B -->|setItem| C[localStorage]
+    C -->|getItem| D[JSON String]
+    D -->|JSON.parse| E[JS Object]
+    C -->|persists across| F[Page Reloads]
+    C -->|persists across| G[Browser Restart]
+</div>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>localStorageはページリロードやブラウザ再起動後もデータを保持します</li>
+<li>全ての値は文字列として格納されます。複雑なデータにはJSONを使います</li>
+<li>JSON.stringifyでオブジェクトを文字列に、JSON.parseで元に戻します</li>
+<li>localStorageはドメインあたり5MB制限があります。小さなデータ専用です</li>
+</ul>
+</div>
+
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumoio">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

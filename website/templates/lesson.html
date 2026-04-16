@@ -1,0 +1,14 @@
+{% include "header.html" %}
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="{{ back_url }}">{{ back_label }}</a>
+        <div class="lesson-pager">
+          {% if prev_url %}<a href="{{ prev_url }}">{{ prev_label }}</a>{% endif %}
+          {% if next_url %}<a href="{{ next_url }}">{{ next_label }}</a>{% endif %}
+        </div>
+      </nav>
+      <!-- LESSON_CONTENT -->
+    </article>
+
+{% include "footer.html" %}

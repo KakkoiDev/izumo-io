@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" data-page="lessons/t02.html" data-lang-paths='{"en":"../","ja":"../ja/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>HTML Tags - KakkoiSchool</title>
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="tech-lessons.html">Tech Lessons</a>
+      <a href="theory-lessons.html">Theory</a>
+      <a href="videos.html">Videos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t01.html">Previous</a>
+          <a href="t03.html">Next</a>
+        </div>
+      </nav>
+      
+<h1>T02: HTML Tags</h1>
+<p class="lesson-intro">HTML tags are like labels on boxes. Each tag tells the browser what kind of content is inside. A heading tag says "this is a title," a paragraph tag says "this is a block of text." The browser uses these labels to display content appropriately.</p>
+
+<h2>Headings and Text</h2>
+<p>HTML provides six levels of headings, from <code>&lt;h1&gt;</code> (most important) to <code>&lt;h6&gt;</code> (least). Paragraphs use the <code>&lt;p&gt;</code> tag.</p>
+<pre><code>&lt;h1&gt;Main Title&lt;/h1&gt;
+&lt;h2&gt;Section Title&lt;/h2&gt;
+&lt;h3&gt;Subsection&lt;/h3&gt;
+&lt;p&gt;A paragraph of text goes here.&lt;/p&gt;</code></pre>
+
+<h2>Links and Images</h2>
+<p>The anchor tag <code>&lt;a&gt;</code> creates clickable links. The image tag <code>&lt;img&gt;</code> embeds pictures. Note that img is a self-closing tag.</p>
+<pre><code>&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;
+&lt;img src="photo.jpg" alt="A description"&gt;</code></pre>
+
+<h2>Lists</h2>
+<p>Unordered lists use <code>&lt;ul&gt;</code> with <code>&lt;li&gt;</code> items (bullet points). Ordered lists use <code>&lt;ol&gt;</code> (numbered items).</p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;First item&lt;/li&gt;
+    &lt;li&gt;Second item&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+<div class="mermaid">
+graph TD
+    A[html] --> B[head]
+    A --> C[body]
+    B --> D[title]
+    C --> E[h1]
+    C --> F[p]
+    C --> G[ul]
+    G --> H[li]
+    G --> I[li]
+    C --> J[a]
+    C --> K[img]
+</div>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Headings h1-h6 create a content hierarchy - use them in order</li>
+<li>Links use the a tag with an href attribute for the destination URL</li>
+<li>Images use the img tag with src and alt attributes</li>
+<li>Lists come in two flavors: ul for bullets, ol for numbers</li>
+</ul>
+</div>
+
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumoio">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

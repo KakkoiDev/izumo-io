@@ -13,14 +13,20 @@
       <div class="lesson-grid">
         {% for lesson in tech_lessons %}
         {% if lesson.phase == phase.id %}
-        <div class="lesson-card{% if lesson.status == "coming-soon" %} coming-soon{% endif %}">
+        {% if lesson.status == "coming-soon" %}
+        <div class="lesson-card coming-soon">
           <span class="lesson-id">{{ lesson.id }}</span>
           <h3>{{ lesson.title }}</h3>
           <p>{{ lesson.desc }}</p>
-          {% if lesson.status == "coming-soon" %}
           <span class="badge">{{ coming_soon }}</span>
-          {% endif %}
         </div>
+        {% else %}
+        <a href="lessons/{{ lesson.id | slugify }}.html" class="lesson-card">
+          <span class="lesson-id">{{ lesson.id }}</span>
+          <h3>{{ lesson.title }}</h3>
+          <p>{{ lesson.desc }}</p>
+        </a>
+        {% endif %}
         {% endif %}
         {% endfor %}
       </div>

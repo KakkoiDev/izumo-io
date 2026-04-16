@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja" data-page="lessons/t16.html" data-lang-paths='{"en":"../../","ja":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Node.jsサーバー - KakkoiSchool</title>
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="tech-lessons.html">技術レッスン</a>
+      <a href="theory-lessons.html">理論</a>
+      <a href="videos.html">動画</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t15.html">前へ</a>
+          <a href="t17.html">次へ</a>
+        </div>
+      </nav>
+      
+<h1>T16: Node.jsサーバー</h1>
+<p class="lesson-intro">これまでHTMLファイルをブラウザで直接開いていました。Webサーバーはリクエストを待ち受けてレスポンスを返すプログラムです。Node.jsならブラウザと同じJavaScriptでサーバーを書けます。チーム全員と同じ言語を話す受付を雇うようなものです。</p>
+
+<h2>HTTPサーバーの作成</h2>
+<pre><code>const http = require("http");
+const fs = require("fs");
+const path = require("path");
+
+const server = http.createServer((req, res) =&gt; {
+    const filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
+    const ext = path.extname(filePath);
+    const contentTypes = {
+        ".html": "text/html",
+        ".css": "text/css",
+        ".js": "text/javascript"
+    };
+
+    fs.readFile(filePath, (err, content) =&gt; {
+        if (err) {
+            res.writeHead(404);
+            res.end("Not Found");
+            return;
+        }
+        res.writeHead(200, { "Content-Type": contentTypes[ext] || "text/plain" });
+        res.end(content);
+    });
+});
+
+server.listen(3000, () =&gt; console.log("Server on http://localhost:3000"));</code></pre>
+
+<h2>静的ファイルの配信</h2>
+<p>サーバーは"public"フォルダからファイルを読み取り、正しいContent-Typeヘッダー付きでブラウザに送信します。</p>
+
+<div class="mermaid">
+flowchart LR
+    A[Browser] -->|HTTP Request| B[Node.js Server]
+    B -->|Read file| C[File System]
+    C -->|File contents| B
+    B -->|HTTP Response| A
+    B -->|404| D[Not Found]
+</div>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Node.jsはブラウザの外でサーバー上のJavaScriptを実行します</li>
+<li>http.createServerでリクエストとレスポンスを処理するサーバーを作成します</li>
+<li>Content-Typeヘッダーがブラウザにレスポンスの解釈方法を伝えます</li>
+<li>静的ファイル配信はURLパスをディスク上のファイルにマッピングします</li>
+</ul>
+</div>
+
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumoio">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

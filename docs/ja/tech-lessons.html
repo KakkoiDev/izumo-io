@@ -4,17 +4,28 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <title>技術レッスン - Izumo.io</title>
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>技術レッスン - KakkoiSchool</title>
   <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
   <nav class="site-nav">
-    <a href="index.html" class="logo">Izumo.io</a>
+    <a href="index.html" class="logo">KakkoiSchool</a>
     <div class="nav-links" id="nav-links">
       <a href="tech-lessons.html">技術レッスン</a>
       <a href="theory-lessons.html">理論</a>
       <a href="videos.html">動画</a>
     </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
     <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
       <option value="en">English</option><option value="ja" selected>日本語</option>
     </select>
@@ -38,57 +49,63 @@
       <div class="lesson-grid">
         
         
-        <div class="lesson-card">
+        
+        <a href="lessons/t01.html" class="lesson-card">
           <span class="lesson-id">T01</span>
           <h3>Hello World</h3>
           <p>初めてのウェブページ。ファイルを作成し、ブラウザで開く。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t02.html" class="lesson-card">
           <span class="lesson-id">T02</span>
           <h3>HTMLタグ</h3>
           <p>基本要素: 見出し、段落、リスト、リンク、画像。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t03.html" class="lesson-card">
           <span class="lesson-id">T03</span>
           <h3>HTMLフォームとブロック</h3>
           <p>インタラクティブなHTML: input, select, textarea, バリデーション, details/summary。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t04.html" class="lesson-card">
           <span class="lesson-id">T04</span>
           <h3>CSS基礎</h3>
           <p>見た目を整える: セレクタ、色、フォント、ボックスモデル。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t05.html" class="lesson-card">
           <span class="lesson-id">T05</span>
           <h3>CSSレイアウト</h3>
           <p>ページの構成: flexbox, grid, レスポンシブデザイン, メディアクエリ。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t06.html" class="lesson-card">
           <span class="lesson-id">T06</span>
           <h3>CSSの限界に挑む</h3>
           <p>CSSだけのインタラクティブ: アニメーション, トランジション, :target, アコーディオン/タブ。</p>
-          
-        </div>
+        </a>
+        
         
         
         
@@ -149,84 +166,93 @@
         
         
         
-        <div class="lesson-card">
+        
+        <a href="lessons/t07.html" class="lesson-card">
           <span class="lesson-id">T07</span>
           <h3>JavaScript入門</h3>
           <p>JSの第一歩: console.log, 変数, 型, 関数。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t08.html" class="lesson-card">
           <span class="lesson-id">T08</span>
           <h3>DOM操作</h3>
           <p>ページの制御: querySelector, createElement, イベント。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t09.html" class="lesson-card">
           <span class="lesson-id">T09</span>
           <h3>フォームとダイアログ</h3>
           <p>ユーザー入力の処理: JSフォームバリデーション, ダイアログ要素。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t10.html" class="lesson-card">
           <span class="lesson-id">T10</span>
           <h3>データ構造</h3>
           <p>情報の整理: 配列, オブジェクト, ループ, 動的リスト。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t11.html" class="lesson-card">
           <span class="lesson-id">T11</span>
           <h3>データの永続化</h3>
           <p>データの記憶: localStorage, JSON parse/stringify。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t12.html" class="lesson-card">
           <span class="lesson-id">T12</span>
           <h3>Fetch API</h3>
           <p>サーバーとの通信: HTTPリクエスト, async/await, Promise。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t13.html" class="lesson-card">
           <span class="lesson-id">T13</span>
           <h3>動的サイト: ルーティング</h3>
           <p>1ページで複数のビュー: ハッシュルーティング, コンポーネント, 状態管理。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t14.html" class="lesson-card">
           <span class="lesson-id">T14</span>
           <h3>動的サイト: オフライン</h3>
           <p>インターネットなしで動作: サービスワーカー, PWA, キャッシュ。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t15.html" class="lesson-card">
           <span class="lesson-id">T15</span>
           <h3>動的サイト: 仕上げ</h3>
           <p>プロダクション品質: パフォーマンス, 遅延読み込み, エラー処理。</p>
-          
-        </div>
+        </a>
+        
         
         
         
@@ -287,48 +313,53 @@
         
         
         
-        <div class="lesson-card">
+        
+        <a href="lessons/t16.html" class="lesson-card">
           <span class="lesson-id">T16</span>
           <h3>Node.jsサーバー</h3>
           <p>厨房を作る: HTTPサーバー, ファイル配信, リクエスト処理。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t17.html" class="lesson-card">
           <span class="lesson-id">T17</span>
           <h3>APIエンドポイント</h3>
           <p>メニュー: REST設計, JSONレスポンス, ルーティング。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t18.html" class="lesson-card">
           <span class="lesson-id">T18</span>
           <h3>JSONデータベース</h3>
           <p>レシピブック: ファイルの読み書き, JSONでCRUD。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t19.html" class="lesson-card">
           <span class="lesson-id">T19</span>
           <h3>SQLite</h3>
           <p>ファイリングキャビネット: SQL, テーブル, CRUD, スキーマ, 外部キー。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t20.html" class="lesson-card">
           <span class="lesson-id">T20</span>
           <h3>認証</h3>
           <p>ID確認: セッション, クッキー, パスワードハッシュ, ログイン/ログアウト。</p>
-          
-        </div>
+        </a>
+        
         
         
         
@@ -389,21 +420,23 @@
         
         
         
-        <div class="lesson-card">
+        
+        <a href="lessons/t21.html" class="lesson-card">
           <span class="lesson-id">T21</span>
           <h3>Ollamaとチャット</h3>
           <p>ロボットシェフ: ローカルLLMのセットアップ, チャットAPI, チャットインターフェース。</p>
-          
-        </div>
+        </a>
         
         
         
-        <div class="lesson-card">
+        
+        
+        <a href="lessons/t22.html" class="lesson-card">
           <span class="lesson-id">T22</span>
           <h3>フルスタックAIアプリ</h3>
           <p>レストラン全体: フロントエンド, バックエンド, AI, データベースをつなぐ。</p>
-          
-        </div>
+        </a>
+        
         
         
         
@@ -464,14 +497,15 @@
         
         
         
+        
         <div class="lesson-card coming-soon">
           <span class="lesson-id">T23</span>
           <h3>React</h3>
           <p>コンポーネントベースのUI開発。</p>
-          
           <span class="badge">近日公開</span>
-          
         </div>
+        
+        
         
         
         
@@ -479,10 +513,9 @@
           <span class="lesson-id">T24</span>
           <h3>TypeScript</h3>
           <p>JavaScriptの型安全性。</p>
-          
           <span class="badge">近日公開</span>
-          
         </div>
+        
         
         
       </div>
@@ -490,12 +523,13 @@
     
 
   </main>
+  
   <footer>
     <div class="footer-links">
       <a href="https://discord.gg/YrtdssGUJa">Discord</a>
       <a href="https://github.com/KakkoiDev/izumoio">GitHub</a>
     </div>
-    <p>2026 Izumo.io</p>
+    <p>2026 KakkoiSchool</p>
   </footer>
   <script src="../static/script.js"></script>
 </body>

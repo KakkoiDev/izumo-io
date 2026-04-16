@@ -4,17 +4,28 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <title>Izumo.io</title>
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>KakkoiSchool</title>
   <link rel="stylesheet" href="static/style.css">
 </head>
 <body>
   <nav class="site-nav">
-    <a href="index.html" class="logo">Izumo.io</a>
+    <a href="index.html" class="logo">KakkoiSchool</a>
     <div class="nav-links" id="nav-links">
       <a href="tech-lessons.html">Tech Lessons</a>
       <a href="theory-lessons.html">Theory</a>
       <a href="videos.html">Videos</a>
     </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
     <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
       <option value="en" selected>English</option><option value="ja">日本語</option>
     </select>
@@ -59,16 +70,17 @@
     <section class="community">
       <h2>Join the Community</h2>
       <p>Learn together, ask questions, share your progress.</p>
-      <a href="https://discord.gg/YrtdssGUJa" class="btn btn-outline">Join our Discord</a>
+      <a href="https://discord.gg/YrtdssGUJa" class="btn btn-outline" target="_blank" rel="noopener">Join our Discord</a>
     </section>
 
   </main>
+  
   <footer>
     <div class="footer-links">
       <a href="https://discord.gg/YrtdssGUJa">Discord</a>
       <a href="https://github.com/KakkoiDev/izumoio">GitHub</a>
     </div>
-    <p>2026 Izumo.io</p>
+    <p>2026 KakkoiSchool</p>
   </footer>
   <script src="static/script.js"></script>
 </body>

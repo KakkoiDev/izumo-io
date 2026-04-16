@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Izumo.io static site builder. Outputs to docs/ for GitHub Pages."""
+"""KakkoiSchool static site builder. Outputs to docs/ for GitHub Pages."""
 
 import os
 import re
@@ -10,6 +10,7 @@ from datetime import datetime
 from pathlib import Path
 
 from engine import Engine
+from lessons import LESSONS
 
 ROOT = Path(__file__).parent
 TEMPLATES = ROOT / 'templates'
@@ -29,10 +30,26 @@ def t(data, lang):
 
 
 UI = {
-    'site_name': {'en': 'Izumo.io', 'ja': 'Izumo.io'},
+    'site_name': {'en': 'KakkoiSchool', 'ja': 'KakkoiSchool'},
     'site_tagline': {
         'en': 'From zero to full stack developer',
         'ja': '\u30bc\u30ed\u304b\u3089\u30d5\u30eb\u30b9\u30bf\u30c3\u30af\u958b\u767a\u8005\u3078',
+    },
+    'back_to_tech': {
+        'en': 'Back to Tech Lessons',
+        'ja': '\u6280\u8853\u30ec\u30c3\u30b9\u30f3\u306b\u623b\u308b',
+    },
+    'back_to_theory': {
+        'en': 'Back to Theory Lessons',
+        'ja': '\u7406\u8ad6\u30ec\u30c3\u30b9\u30f3\u306b\u623b\u308b',
+    },
+    'prev_lesson': {
+        'en': 'Previous',
+        'ja': '\u524d\u3078',
+    },
+    'next_lesson': {
+        'en': 'Next',
+        'ja': '\u6b21\u3078',
     },
     'hero_title': {
         'en': 'Learn to Build the Web',
@@ -368,8 +385,8 @@ THEORY_LESSONS = [
      'analogy_en': 'Exploring an unknown map',
      'analogy_ja': '\u672a\u77e5\u306e\u5730\u56f3\u3092\u63a2\u7d22\u3059\u308b'},
     {'id': 'R10',
-     'title_en': 'Izumo.io Case Study',
-     'title_ja': 'Izumo.io\u30b1\u30fc\u30b9\u30b9\u30bf\u30c7\u30a3',
+     'title_en': 'KakkoiSchool Case Study',
+     'title_ja': 'KakkoiSchool\u30b1\u30fc\u30b9\u30b9\u30bf\u30c7\u30a3',
      'desc_en': 'Analyzing our own course. What decisions were made, what worked, what did not.',
      'desc_ja': '\u79c1\u305f\u3061\u306e\u30b3\u30fc\u30b9\u3092\u5206\u6790\u3002\u4f55\u3092\u6c7a\u5b9a\u3057\u3001\u4f55\u304c\u3046\u307e\u304f\u3044\u304d\u3001\u4f55\u304c\u3046\u307e\u304f\u3044\u304b\u306a\u304b\u3063\u305f\u304b\u3002',
      'analogy_en': 'Learning from our own journey',
@@ -448,6 +465,7 @@ def build_context(lang, page_file):
         'PAGE_FILE': page_file,
         'PAGE_TITLE': page_title,
         'LANG_OPTIONS': lang_options,
+        'HAS_MERMAID': False,
         'COPYRIGHT_YEAR': str(datetime.now().year),
         'DISCORD_URL': 'https://discord.gg/YrtdssGUJa',
         'GITHUB_URL': 'https://github.com/KakkoiDev/izumoio',
@@ -456,6 +474,57 @@ def build_context(lang, page_file):
         'tech_lessons': tech_lessons,
         'theory_lessons': theory_lessons,
         'videos': videos,
+    }
+
+
+def build_lesson_context(lang, lesson_id, page_file):
+    """Build template context for a lesson page."""
+    is_ja = lang == 'ja'
+    ui = {k: t(v, lang) for k, v in UI.items()}
+
+    # Find lesson metadata for title
+    all_lessons = TECH_LESSONS + THEORY_LESSONS
+    lesson_meta = next((l for l in all_lessons if l['id'] == lesson_id), {})
+    title_key = f'title_{lang}' if f'title_{lang}' in lesson_meta else 'title_en'
+    page_title = lesson_meta.get(title_key, lesson_id)
+
+    is_tech = lesson_id.startswith('T')
+    back_url = '../tech-lessons.html' if is_tech else '../theory-lessons.html'
+    back_label = ui.get('back_to_tech', '') if is_tech else ui.get('back_to_theory', '')
+
+    # Compute prev/next within same group
+    group = [l for l in (TECH_LESSONS if is_tech else THEORY_LESSONS)
+             if l.get('status') != 'coming-soon']
+    ids = [l['id'] for l in group]
+    idx = ids.index(lesson_id) if lesson_id in ids else -1
+    prev_url = f'{ids[idx - 1].lower()}.html' if idx > 0 else ''
+    next_url = f'{ids[idx + 1].lower()}.html' if 0 <= idx < len(ids) - 1 else ''
+
+    lang_options = ''
+    for l in LANGS:
+        selected = ' selected' if l == lang else ''
+        lang_options += f'<option value="{l}"{selected}>{LANG_LABELS[l]}</option>'
+
+    return {
+        'lang': lang,
+        'HTML_LANG': lang,
+        'STATIC_PATH': '../../static/' if is_ja else '../static/',
+        'EN_BASE': '../../' if is_ja else '../',
+        'JA_BASE': './' if is_ja else '../ja/lessons/',
+        'PAGE_FILE': page_file,
+        'PAGE_TITLE': page_title,
+        'LANG_OPTIONS': lang_options,
+        'HAS_MERMAID': True,
+        'COPYRIGHT_YEAR': str(datetime.now().year),
+        'DISCORD_URL': 'https://discord.gg/YrtdssGUJa',
+        'GITHUB_URL': 'https://github.com/KakkoiDev/izumoio',
+        'back_url': back_url,
+        'back_label': back_label,
+        'prev_url': prev_url,
+        'prev_label': ui.get('prev_lesson', ''),
+        'next_url': next_url,
+        'next_label': ui.get('next_lesson', ''),
+        **ui,
     }
 
 
@@ -482,7 +551,9 @@ def _build_to(out):
         shutil.copytree(STATIC, out / 'static')
 
     engine = Engine()
+    placeholder = '<!-- LESSON_CONTENT -->'
 
+    # -- Regular pages --
     for src in sorted(PAGES.glob('*.html')):
         for lang in LANGS:
             html = resolve_includes(src.read_text())
@@ -496,6 +567,35 @@ def _build_to(out):
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.write_text(html)
             print(f'  {dest.relative_to(out)}')
+
+    # -- Lesson pages --
+    lesson_tpl_raw = (TEMPLATES / 'lesson.html').read_text()
+    lesson_tpl = resolve_includes(lesson_tpl_raw)
+
+    for lesson_id, content in sorted(LESSONS.items()):
+        # Skip coming-soon lessons with no content
+        if not content.get('en'):
+            continue
+        slug = lesson_id.lower()
+        page_file = f'lessons/{slug}.html'
+
+        for lang in LANGS:
+            lesson_html = content.get(lang, content.get('en', ''))
+            ctx = build_lesson_context(lang, lesson_id, page_file)
+            rendered = engine.render(lesson_tpl, ctx)
+            rendered = rendered.replace(placeholder, lesson_html)
+
+            if lang == 'en':
+                dest = out / 'lessons' / f'{slug}.html'
+            else:
+                dest = out / lang / 'lessons' / f'{slug}.html'
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.write_text(rendered)
+
+        print(f'  lessons/{slug}.html')
+
+    # -- CNAME for custom domain --
+    (out / 'CNAME').write_text('school.kakkoi.dev\n')
 
     # GitHub Pages needs this to skip Jekyll processing
     (out / '.nojekyll').write_text('')
