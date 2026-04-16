@@ -437,10 +437,10 @@ THEORY_LESSONS = [
 
 VIDEOS = [
     {'youtube_id': 'MmaJ_VucH18',
-     'title_en': 'AI Chatbot Course Introduction',
-     'title_ja': 'AI\u30c1\u30e3\u30c3\u30c8\u30dc\u30c3\u30c8\u30b3\u30fc\u30b9\u7d39\u4ecb',
-     'desc_en': 'Overview of the 10-week AI chatbot course.',
-     'desc_ja': '10\u9031\u9593AI\u30c1\u30e3\u30c3\u30c8\u30dc\u30c3\u30c8\u30b3\u30fc\u30b9\u306e\u6982\u8981\u3002'},
+     'title_en': 'KakkoiSchool Season 2 Start',
+     'title_ja': 'KakkoiSchool \u30b7\u30fc\u30ba\u30f32\u958b\u59cb',
+     'desc_en': 'Wednesday April 16 2026 - KakkoiSchool Season 2 kicks off!',
+     'desc_ja': '2026\u5e744\u670816\u65e5\u6c34\u66dc\u65e5 - KakkoiSchool \u30b7\u30fc\u30ba\u30f32\u30b9\u30bf\u30fc\u30c8\uff01'},
 ]
 
 
