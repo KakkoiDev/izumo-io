@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ja" data-page="t25.html" data-lang-paths='{"en":"../../lessons/","ja":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>TypeScript - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t24.html">前へ</a>
+          <a href="t26.html">次へ</a>
+        </div>
+      </nav>
+      
+<h1>T25: TypeScript</h1>
+<p class="lesson-intro">TypeScriptはJavaScriptの上に型システムを追加します。型は契約のようなもので、料理を作る前にレストランに食事制限を伝えるのに似ています。データがどんな形であるべきかを指定すると、TypeScriptがコード実行前にミスを検出します。</p>
+
+<h2>型アノテーション</h2>
+<p>TypeScriptでは変数、関数パラメータ、戻り値に型を注釈できます。コンパイラがビルド時にこれらをチェックし、実行前にエラーを報告します。</p>
+<pre><code>// Basic type annotations
+let name: string = "Ramen";
+let price: number = 850;
+let available: boolean = true;
+
+// Function with typed parameters and return
+function formatPrice(amount: number, currency: string): string {
+    return `${currency}${amount.toLocaleString()}`;
+}
+
+// Arrays
+let tags: string[] = ["spicy", "popular"];
+
+// Type error caught at compile time
+// price = "free";  // Error: Type 'string' is not assignable to type 'number'</code></pre>
+
+<h2>インターフェースとオブジェクト</h2>
+<p>インターフェースはオブジェクトの形を定義します。コードベース全体で構造の一貫性を強制する設計図として機能します。</p>
+<pre><code>interface MenuItem {
+    id: number;
+    name: string;
+    price: number;
+    category: string;
+    available: boolean;
+}
+
+function displayItem(item: MenuItem): string {
+    return `${item.name} - $${item.price}`;
+}
+
+// TypeScript ensures you pass the right shape
+const ramen: MenuItem = {
+    id: 1,
+    name: "Tonkotsu Ramen",
+    price: 850,
+    category: "noodles",
+    available: true,
+};</code></pre>
+
+<h2>Reactコンポーネントの型付け</h2>
+<p>TypeScriptとReactは相性が良いです。propsにインターフェースを、stateにジェネリクスを使って型付けし、コンポーネントの契約でエラーを検出します。</p>
+<pre><code>interface MenuCardProps {
+    name: string;
+    price: number;
+    onOrder: (name: string) =&gt; void;
+}
+
+function MenuCard({ name, price, onOrder }: MenuCardProps) {
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;{name}&lt;/h3&gt;
+            &lt;p&gt;${price}&lt;/p&gt;
+            &lt;button onClick={() =&gt; onOrder(name)}&gt;Order&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Typed useState
+const [items, setItems] = useState&lt;MenuItem[]&gt;([]);</code></pre>
+
+<h2>ユニオン型とジェネリクス</h2>
+<p>ユニオン型は値が複数の型のいずれかであることを許可します。ジェネリクスは型安全性を保ちながら、任意の型で動作する再利用可能なコードを書くことができます。</p>
+
+<div class="mermaid">
+flowchart LR
+    A[.ts File] --> B[TypeScript Compiler]
+    B --> C{Types Valid?}
+    C -->|Yes| D[.js File]
+    D --> E[Browser]
+    C -->|No| F[Type Errors]
+    F -->|Fix| A
+    style B fill:#3178c6,stroke:#235a9e,color:#1a1a1a
+    style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style D fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style F fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+</div>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>TypeScriptはコンパイル時に型エラーを検出し、ブラウザでの実行前にミスを防ぐ</li>
+<li>インターフェースはオブジェクトの形を定義し、一貫したデータ構造を強制する</li>
+<li>Reactのpropsとstateを型付けすることで、安全で自己文書化されたコンポーネントになる</li>
+<li>ユニオン型とジェネリクスは型安全性を保ちながら柔軟性を提供する</li>
+</ul>
+</div>
+
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

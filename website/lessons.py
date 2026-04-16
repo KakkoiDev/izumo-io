@@ -3841,4 +3841,1214 @@ flowchart LR
 </div>
 """,
     },
+    'T23': {
+        'en': """
+<h1>T23: React Foundations</h1>
+<p class="lesson-intro">React lets you build UIs from reusable pieces called components. Think of components as Lego bricks - custom HTML tags you define yourself. Instead of telling the browser step-by-step what to change, you describe what the screen should look like, and React figures out the updates.</p>
+
+<h2>From Imperative to Declarative</h2>
+<p>With vanilla JavaScript, you manually find elements and update them. React flips this: you declare the desired UI state, and React handles the DOM updates for you.</p>
+<pre><code>// Vanilla JS - imperative: you manage every step
+const btn = document.getElementById("counter-btn");
+let count = 0;
+btn.addEventListener("click", () =&gt; {
+    count++;
+    btn.textContent = `Clicked ${count} times`;
+});
+
+// React - declarative: describe the result, React updates the DOM
+function Counter() {
+    const [count, setCount] = React.useState(0);
+    return (
+        &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+            Clicked {count} times
+        &lt;/button&gt;
+    );
+}</code></pre>
+
+<h2>Components, JSX, and Props</h2>
+<p>A component is a function that returns JSX - a syntax that looks like HTML but lives inside JavaScript. Props are inputs passed from parent to child, like function arguments.</p>
+<pre><code>function MenuItem({ name, price }) {
+    return (
+        &lt;div className="menu-item"&gt;
+            &lt;span&gt;{name}&lt;/span&gt;
+            &lt;span&gt;${price}&lt;/span&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Rendering a list with .map() and keys
+function MenuList({ items }) {
+    return (
+        &lt;ul&gt;
+            {items.map(item =&gt; (
+                &lt;MenuItem key={item.id} name={item.name} price={item.price} /&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}</code></pre>
+
+<h2>Handling Events</h2>
+<p>React uses camelCase event handlers like <code>onClick</code> and <code>onChange</code> directly on JSX elements. The handler receives a synthetic event object that works consistently across browsers.</p>
+
+<div class="mermaid">
+flowchart TD
+    A[App] --> B[Header]
+    A --> C[MenuList]
+    A --> D[Footer]
+    C --> E[MenuItem 1]
+    C --> F[MenuItem 2]
+    C --> G[MenuItem 3]
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style F fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style G fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+</div>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Components are reusable functions that return JSX, like custom HTML tags</li>
+<li>React is declarative - describe what the UI should look like, not how to update it</li>
+<li>Props pass data from parent to child components, making them configurable</li>
+<li>Always provide a unique key prop when rendering lists with .map()</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T23: Reactの基礎</h1>
+<p class="lesson-intro">Reactはコンポーネントという再利用可能なパーツからUIを構築します。コンポーネントはレゴブロックのようなもので、自分で定義するカスタムHTMLタグです。ブラウザに一つずつ変更を指示する代わりに、画面がどう見えるべきかを記述すれば、Reactが更新を処理します。</p>
+
+<h2>命令型から宣言型へ</h2>
+<p>素のJavaScriptでは、要素を手動で探して更新します。Reactはこれを逆転させます。望ましいUIの状態を宣言すれば、ReactがDOM更新を処理します。</p>
+<pre><code>// Vanilla JS - imperative: you manage every step
+const btn = document.getElementById("counter-btn");
+let count = 0;
+btn.addEventListener("click", () =&gt; {
+    count++;
+    btn.textContent = `Clicked ${count} times`;
+});
+
+// React - declarative: describe the result, React updates the DOM
+function Counter() {
+    const [count, setCount] = React.useState(0);
+    return (
+        &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+            Clicked {count} times
+        &lt;/button&gt;
+    );
+}</code></pre>
+
+<h2>コンポーネント、JSX、Props</h2>
+<p>コンポーネントはJSXを返す関数です。JSXはHTMLに似た構文ですがJavaScriptの中に存在します。Propsは親から子に渡される入力で、関数の引数のようなものです。</p>
+<pre><code>function MenuItem({ name, price }) {
+    return (
+        &lt;div className="menu-item"&gt;
+            &lt;span&gt;{name}&lt;/span&gt;
+            &lt;span&gt;${price}&lt;/span&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Rendering a list with .map() and keys
+function MenuList({ items }) {
+    return (
+        &lt;ul&gt;
+            {items.map(item =&gt; (
+                &lt;MenuItem key={item.id} name={item.name} price={item.price} /&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}</code></pre>
+
+<h2>イベント処理</h2>
+<p>Reactは<code>onClick</code>や<code>onChange</code>のようなキャメルケースのイベントハンドラをJSX要素に直接使用します。ハンドラはブラウザ間で一貫して動作する合成イベントオブジェクトを受け取ります。</p>
+
+<div class="mermaid">
+flowchart TD
+    A[App] --> B[Header]
+    A --> C[MenuList]
+    A --> D[Footer]
+    C --> E[MenuItem 1]
+    C --> F[MenuItem 2]
+    C --> G[MenuItem 3]
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style F fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style G fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+</div>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>コンポーネントはJSXを返す再利用可能な関数で、カスタムHTMLタグのようなもの</li>
+<li>Reactは宣言型 - UIがどう見えるべきかを記述し、更新方法は記述しない</li>
+<li>Propsは親から子コンポーネントにデータを渡し、設定可能にする</li>
+<li>.map()でリストをレンダリングする際は必ず一意のkeyプロパティを指定する</li>
+</ul>
+</div>
+""",
+    },
+    'T24': {
+        'en': """
+<h1>T24: React State &amp; Effects</h1>
+<p class="lesson-intro">State is a component's personal notebook - private data that persists across renders and triggers re-renders when updated. Effects are like alarm clocks that go off after the component renders, letting you synchronize with external systems like APIs or timers.</p>
+
+<h2>useState: Component Memory</h2>
+<p>The <code>useState</code> hook gives a component its own memory. It returns the current value and a setter function. When the setter is called, React re-renders the component with the new value.</p>
+<pre><code>import { useState } from "react";
+
+function Counter() {
+    const [count, setCount] = useState(0);
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;+1&lt;/button&gt;
+            &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+
+<h2>useEffect: Side Effects</h2>
+<p>The <code>useEffect</code> hook runs code after render. The dependency array controls when it re-runs. An empty array means "run once on mount." Including variables means "re-run when these change."</p>
+<pre><code>import { useState, useEffect } from "react";
+
+function MenuPage() {
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() =&gt; {
+        fetch("/api/menu")
+            .then(res =&gt; res.json())
+            .then(data =&gt; {
+                setItems(data);
+                setLoading(false);
+            });
+    }, []); // Empty array = run once on mount
+
+    if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
+    return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
+}</code></pre>
+
+<h2>Lifting State Up</h2>
+<p>When two sibling components need to share data, move the state to their common parent. The parent owns the state and passes it down as props. This is React's primary data-sharing pattern.</p>
+
+<div class="mermaid">
+flowchart TD
+    A[Render Component] --> B[useEffect Runs]
+    B --> C[User Interacts]
+    C --> D[State Changes via setState]
+    D --> E[Re-render]
+    E --> B
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style B fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style D fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+    style E fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
+</div>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>useState gives components memory that persists across renders</li>
+<li>useEffect runs side effects after render, controlled by the dependency array</li>
+<li>An empty dependency array means the effect runs only once on mount</li>
+<li>Lift state to the nearest common parent when siblings need to share data</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T24: Reactのステートとエフェクト</h1>
+<p class="lesson-intro">ステートはコンポーネントの個人的なノートです。レンダリング間で保持され、更新時に再レンダリングを引き起こすプライベートデータです。エフェクトはコンポーネントのレンダリング後に鳴る目覚まし時計のようなもので、APIやタイマーなどの外部システムと同期できます。</p>
+
+<h2>useState: コンポーネントのメモリ</h2>
+<p><code>useState</code>フックはコンポーネントに独自のメモリを与えます。現在の値とセッター関数を返します。セッターが呼ばれると、Reactは新しい値でコンポーネントを再レンダリングします。</p>
+<pre><code>import { useState } from "react";
+
+function Counter() {
+    const [count, setCount] = useState(0);
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;+1&lt;/button&gt;
+            &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+
+<h2>useEffect: 副作用</h2>
+<p><code>useEffect</code>フックはレンダリング後にコードを実行します。依存配列が再実行のタイミングを制御します。空の配列は「マウント時に一度だけ実行」を意味します。変数を含めると「これらが変更されたら再実行」になります。</p>
+<pre><code>import { useState, useEffect } from "react";
+
+function MenuPage() {
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() =&gt; {
+        fetch("/api/menu")
+            .then(res =&gt; res.json())
+            .then(data =&gt; {
+                setItems(data);
+                setLoading(false);
+            });
+    }, []); // Empty array = run once on mount
+
+    if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
+    return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
+}</code></pre>
+
+<h2>ステートのリフトアップ</h2>
+<p>2つの兄弟コンポーネントがデータを共有する必要がある場合、ステートを共通の親に移動します。親がステートを所有し、propsとして子に渡します。これがReactの主要なデータ共有パターンです。</p>
+
+<div class="mermaid">
+flowchart TD
+    A[Render Component] --> B[useEffect Runs]
+    B --> C[User Interacts]
+    C --> D[State Changes via setState]
+    D --> E[Re-render]
+    E --> B
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style B fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style D fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+    style E fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
+</div>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>useStateはレンダリング間で保持されるメモリをコンポーネントに与える</li>
+<li>useEffectはレンダリング後に副作用を実行し、依存配列で制御する</li>
+<li>空の依存配列はエフェクトがマウント時に一度だけ実行されることを意味する</li>
+<li>兄弟コンポーネントがデータを共有する場合、最も近い共通の親にステートをリフトアップする</li>
+</ul>
+</div>
+""",
+    },
+    'T25': {
+        'en': """
+<h1>T25: TypeScript</h1>
+<p class="lesson-intro">TypeScript adds a type system on top of JavaScript. Types are like a contract - similar to telling a restaurant your dietary restrictions before they cook. You specify what shape your data should have, and TypeScript catches mistakes before your code ever runs.</p>
+
+<h2>Type Annotations</h2>
+<p>TypeScript lets you annotate variables, function parameters, and return values with types. The compiler checks these at build time and reports errors before execution.</p>
+<pre><code>// Basic type annotations
+let name: string = "Ramen";
+let price: number = 850;
+let available: boolean = true;
+
+// Function with typed parameters and return
+function formatPrice(amount: number, currency: string): string {
+    return `${currency}${amount.toLocaleString()}`;
+}
+
+// Arrays
+let tags: string[] = ["spicy", "popular"];
+
+// Type error caught at compile time
+// price = "free";  // Error: Type 'string' is not assignable to type 'number'</code></pre>
+
+<h2>Interfaces and Objects</h2>
+<p>Interfaces define the shape of an object. They act as blueprints that enforce structure consistency across your codebase.</p>
+<pre><code>interface MenuItem {
+    id: number;
+    name: string;
+    price: number;
+    category: string;
+    available: boolean;
+}
+
+function displayItem(item: MenuItem): string {
+    return `${item.name} - $${item.price}`;
+}
+
+// TypeScript ensures you pass the right shape
+const ramen: MenuItem = {
+    id: 1,
+    name: "Tonkotsu Ramen",
+    price: 850,
+    category: "noodles",
+    available: true,
+};</code></pre>
+
+<h2>Typing React Components</h2>
+<p>TypeScript and React work well together. You type props with interfaces and state with generics, catching errors in your component contracts.</p>
+<pre><code>interface MenuCardProps {
+    name: string;
+    price: number;
+    onOrder: (name: string) =&gt; void;
+}
+
+function MenuCard({ name, price, onOrder }: MenuCardProps) {
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;{name}&lt;/h3&gt;
+            &lt;p&gt;${price}&lt;/p&gt;
+            &lt;button onClick={() =&gt; onOrder(name)}&gt;Order&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Typed useState
+const [items, setItems] = useState&lt;MenuItem[]&gt;([]);</code></pre>
+
+<h2>Union Types and Generics</h2>
+<p>Union types let a value be one of several types. Generics let you write reusable code that works with any type while preserving type safety.</p>
+
+<div class="mermaid">
+flowchart LR
+    A[.ts File] --> B[TypeScript Compiler]
+    B --> C{Types Valid?}
+    C -->|Yes| D[.js File]
+    D --> E[Browser]
+    C -->|No| F[Type Errors]
+    F -->|Fix| A
+    style B fill:#3178c6,stroke:#235a9e,color:#1a1a1a
+    style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style D fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style F fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+</div>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>TypeScript catches type errors at compile time, before code runs in the browser</li>
+<li>Interfaces define object shapes, enforcing consistent data structures</li>
+<li>React props and state can be typed for safer, self-documenting components</li>
+<li>Union types and generics provide flexibility while keeping type safety</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T25: TypeScript</h1>
+<p class="lesson-intro">TypeScriptはJavaScriptの上に型システムを追加します。型は契約のようなもので、料理を作る前にレストランに食事制限を伝えるのに似ています。データがどんな形であるべきかを指定すると、TypeScriptがコード実行前にミスを検出します。</p>
+
+<h2>型アノテーション</h2>
+<p>TypeScriptでは変数、関数パラメータ、戻り値に型を注釈できます。コンパイラがビルド時にこれらをチェックし、実行前にエラーを報告します。</p>
+<pre><code>// Basic type annotations
+let name: string = "Ramen";
+let price: number = 850;
+let available: boolean = true;
+
+// Function with typed parameters and return
+function formatPrice(amount: number, currency: string): string {
+    return `${currency}${amount.toLocaleString()}`;
+}
+
+// Arrays
+let tags: string[] = ["spicy", "popular"];
+
+// Type error caught at compile time
+// price = "free";  // Error: Type 'string' is not assignable to type 'number'</code></pre>
+
+<h2>インターフェースとオブジェクト</h2>
+<p>インターフェースはオブジェクトの形を定義します。コードベース全体で構造の一貫性を強制する設計図として機能します。</p>
+<pre><code>interface MenuItem {
+    id: number;
+    name: string;
+    price: number;
+    category: string;
+    available: boolean;
+}
+
+function displayItem(item: MenuItem): string {
+    return `${item.name} - $${item.price}`;
+}
+
+// TypeScript ensures you pass the right shape
+const ramen: MenuItem = {
+    id: 1,
+    name: "Tonkotsu Ramen",
+    price: 850,
+    category: "noodles",
+    available: true,
+};</code></pre>
+
+<h2>Reactコンポーネントの型付け</h2>
+<p>TypeScriptとReactは相性が良いです。propsにインターフェースを、stateにジェネリクスを使って型付けし、コンポーネントの契約でエラーを検出します。</p>
+<pre><code>interface MenuCardProps {
+    name: string;
+    price: number;
+    onOrder: (name: string) =&gt; void;
+}
+
+function MenuCard({ name, price, onOrder }: MenuCardProps) {
+    return (
+        &lt;div&gt;
+            &lt;h3&gt;{name}&lt;/h3&gt;
+            &lt;p&gt;${price}&lt;/p&gt;
+            &lt;button onClick={() =&gt; onOrder(name)}&gt;Order&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Typed useState
+const [items, setItems] = useState&lt;MenuItem[]&gt;([]);</code></pre>
+
+<h2>ユニオン型とジェネリクス</h2>
+<p>ユニオン型は値が複数の型のいずれかであることを許可します。ジェネリクスは型安全性を保ちながら、任意の型で動作する再利用可能なコードを書くことができます。</p>
+
+<div class="mermaid">
+flowchart LR
+    A[.ts File] --> B[TypeScript Compiler]
+    B --> C{Types Valid?}
+    C -->|Yes| D[.js File]
+    D --> E[Browser]
+    C -->|No| F[Type Errors]
+    F -->|Fix| A
+    style B fill:#3178c6,stroke:#235a9e,color:#1a1a1a
+    style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style D fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style F fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+</div>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>TypeScriptはコンパイル時に型エラーを検出し、ブラウザでの実行前にミスを防ぐ</li>
+<li>インターフェースはオブジェクトの形を定義し、一貫したデータ構造を強制する</li>
+<li>Reactのpropsとstateを型付けすることで、安全で自己文書化されたコンポーネントになる</li>
+<li>ユニオン型とジェネリクスは型安全性を保ちながら柔軟性を提供する</li>
+</ul>
+</div>
+""",
+    },
+    'T26': {
+        'en': """
+<h1>T26: Next.js Routing &amp; Rendering</h1>
+<p class="lesson-intro">Next.js is like upgrading from a food truck (React SPA) to a proper restaurant with a built-in address system. It adds file-based routing, server-side rendering, and a clear structure so you do not have to wire everything together yourself.</p>
+
+<h2>File-Based Routing</h2>
+<p>In Next.js, the file system is the router. Create a file at <code>app/about/page.tsx</code> and it becomes the <code>/about</code> route. No router configuration needed - compare this to the hash-based routing from T13.</p>
+<pre><code>// Directory structure = URL structure
+app/
+  page.tsx          // "/" route
+  about/
+    page.tsx        // "/about" route
+  menu/
+    page.tsx        // "/menu" route
+    [id]/
+      page.tsx      // "/menu/123" dynamic route
+
+// app/menu/page.tsx
+export default function MenuPage() {
+    return (
+        &lt;main&gt;
+            &lt;h1&gt;Our Menu&lt;/h1&gt;
+            &lt;p&gt;Browse our selection below.&lt;/p&gt;
+        &lt;/main&gt;
+    );
+}</code></pre>
+
+<h2>Server vs Client Components</h2>
+<p>Next.js components are server components by default. They run on the server, can fetch data directly, and send only HTML to the browser. Add <code>"use client"</code> at the top when you need interactivity like state or event handlers.</p>
+<pre><code>// Server component (default) - runs on server, no JS sent to browser
+export default async function MenuList() {
+    const items = await fetch("https://api.example.com/menu").then(r =&gt; r.json());
+    return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
+}
+
+// Client component - needs "use client" for interactivity
+"use client";
+import { useState } from "react";
+
+export default function AddToCart({ itemId }: { itemId: number }) {
+    const [added, setAdded] = useState(false);
+    return (
+        &lt;button onClick={() =&gt; setAdded(true)}&gt;
+            {added ? "Added" : "Add to Cart"}
+        &lt;/button&gt;
+    );
+}</code></pre>
+
+<h2>Layouts</h2>
+<p>A <code>layout.tsx</code> wraps all pages in its directory and below. It persists across navigation, keeping shared UI like headers and sidebars mounted.</p>
+
+<h2>When to Use What</h2>
+<p>Use server components for static content and data fetching. Use client components only when you need useState, useEffect, onClick, or browser-only APIs.</p>
+
+<div class="mermaid">
+flowchart TB
+    A[Browser Request] --> B[Next.js Server]
+    B --> C[Server Components Rendered]
+    C --> D[HTML Sent to Browser]
+    D --> E[Client Components Hydrated]
+    E --> F[Interactive Page Ready]
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style B fill:#333333,stroke:#1a1a1a,color:#ffffff
+    style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style F fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
+</div>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>File-based routing maps directory structure to URLs - no configuration needed</li>
+<li>Components are server-rendered by default, sending only HTML to the browser</li>
+<li>Add "use client" only when a component needs state, effects, or event handlers</li>
+<li>Layouts wrap child pages and persist across navigation for shared UI</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T26: Next.jsのルーティングとレンダリング</h1>
+<p class="lesson-intro">Next.jsはフードトラック(React SPA)から住所システム付きの本格的なレストランへのアップグレードのようなものです。ファイルベースのルーティング、サーバーサイドレンダリング、明確な構造を追加するので、全てを自分で接続する必要がありません。</p>
+
+<h2>ファイルベースルーティング</h2>
+<p>Next.jsではファイルシステムがルーターです。<code>app/about/page.tsx</code>にファイルを作成すると、それが<code>/about</code>ルートになります。ルーター設定は不要です。T13のハッシュベースルーティングと比較してみてください。</p>
+<pre><code>// Directory structure = URL structure
+app/
+  page.tsx          // "/" route
+  about/
+    page.tsx        // "/about" route
+  menu/
+    page.tsx        // "/menu" route
+    [id]/
+      page.tsx      // "/menu/123" dynamic route
+
+// app/menu/page.tsx
+export default function MenuPage() {
+    return (
+        &lt;main&gt;
+            &lt;h1&gt;Our Menu&lt;/h1&gt;
+            &lt;p&gt;Browse our selection below.&lt;/p&gt;
+        &lt;/main&gt;
+    );
+}</code></pre>
+
+<h2>サーバーコンポーネント vs クライアントコンポーネント</h2>
+<p>Next.jsのコンポーネントはデフォルトでサーバーコンポーネントです。サーバーで実行され、データを直接取得でき、HTMLのみをブラウザに送信します。ステートやイベントハンドラなどのインタラクティブ性が必要な場合は、先頭に<code>"use client"</code>を追加します。</p>
+<pre><code>// Server component (default) - runs on server, no JS sent to browser
+export default async function MenuList() {
+    const items = await fetch("https://api.example.com/menu").then(r =&gt; r.json());
+    return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
+}
+
+// Client component - needs "use client" for interactivity
+"use client";
+import { useState } from "react";
+
+export default function AddToCart({ itemId }: { itemId: number }) {
+    const [added, setAdded] = useState(false);
+    return (
+        &lt;button onClick={() =&gt; setAdded(true)}&gt;
+            {added ? "Added" : "Add to Cart"}
+        &lt;/button&gt;
+    );
+}</code></pre>
+
+<h2>レイアウト</h2>
+<p><code>layout.tsx</code>はそのディレクトリ以下の全ページをラップします。ナビゲーション間で保持され、ヘッダーやサイドバーなどの共有UIをマウントしたままにします。</p>
+
+<h2>使い分けガイド</h2>
+<p>静的コンテンツやデータ取得にはサーバーコンポーネントを使用します。useState、useEffect、onClick、ブラウザ専用APIが必要な場合のみクライアントコンポーネントを使用します。</p>
+
+<div class="mermaid">
+flowchart TB
+    A[Browser Request] --> B[Next.js Server]
+    B --> C[Server Components Rendered]
+    C --> D[HTML Sent to Browser]
+    D --> E[Client Components Hydrated]
+    E --> F[Interactive Page Ready]
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style B fill:#333333,stroke:#1a1a1a,color:#ffffff
+    style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style F fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
+</div>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>ファイルベースルーティングはディレクトリ構造をURLにマッピングする。設定不要</li>
+<li>コンポーネントはデフォルトでサーバーレンダリングされ、HTMLのみをブラウザに送信する</li>
+<li>"use client"はコンポーネントがステート、エフェクト、イベントハンドラを必要とする場合のみ追加する</li>
+<li>レイアウトは子ページをラップし、共有UIのためにナビゲーション間で保持される</li>
+</ul>
+</div>
+""",
+    },
+    'T27': {
+        'en': """
+<h1>T27: Next.js Data &amp; API</h1>
+<p class="lesson-intro">Server components fetch data like a chef going directly to the pantry instead of sending a waiter back and forth. No useEffect, no loading spinners for initial data - the component itself is async, fetches what it needs, and renders the complete HTML on the server.</p>
+
+<h2>Fetching Data in Server Components</h2>
+<p>Server components can be async functions. You await data directly in the component body. No useEffect, no useState for loading states - the HTML arrives fully rendered.</p>
+<pre><code>// app/menu/page.tsx - Server component (default)
+interface MenuItem {
+    id: number;
+    name: string;
+    price: number;
+}
+
+export default async function MenuPage() {
+    const res = await fetch("https://api.example.com/menu", {
+        cache: "no-store",  // Always get fresh data
+    });
+    const items: MenuItem[] = await res.json();
+
+    return (
+        &lt;main&gt;
+            &lt;h1&gt;Menu&lt;/h1&gt;
+            &lt;ul&gt;
+                {items.map(item =&gt; (
+                    &lt;li key={item.id}&gt;
+                        {item.name} - ${item.price}
+                    &lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+        &lt;/main&gt;
+    );
+}</code></pre>
+
+<h2>API Routes</h2>
+<p>Next.js API routes live in <code>route.ts</code> files. They handle GET, POST, and other HTTP methods as named exports. Compare this to the Express routes from T17 - same concept, different syntax.</p>
+<pre><code>// app/api/menu/route.ts
+import { NextResponse } from "next/server";
+
+const menu = [
+    { id: 1, name: "Tonkotsu Ramen", price: 850 },
+    { id: 2, name: "Gyoza", price: 400 },
+];
+
+export async function GET() {
+    return NextResponse.json(menu);
+}
+
+export async function POST(request: Request) {
+    const body = await request.json();
+    const newItem = { id: menu.length + 1, ...body };
+    menu.push(newItem);
+    return NextResponse.json(newItem, { status: 201 });
+}</code></pre>
+
+<h2>Putting It All Together</h2>
+<p>A typical Next.js page fetches data on the server, renders HTML, and sends it to the browser. Client components handle interactivity like adding items or submitting forms, calling API routes as needed.</p>
+
+<div class="mermaid">
+sequenceDiagram
+    participant Browser
+    participant Server as Next.js Server
+    participant DB as Database
+    Browser->>Server: Page request
+    Server->>DB: Query data
+    DB-->>Server: Results
+    Server-->>Browser: Rendered HTML
+    Note over Browser: Page visible immediately
+    Browser->>Server: Client API call (POST)
+    Server->>DB: Insert data
+    DB-->>Server: Confirmation
+    Server-->>Browser: JSON response
+</div>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Server components can be async - fetch data directly without useEffect or loading state</li>
+<li>API routes use named exports (GET, POST) in route.ts files for clean endpoint definitions</li>
+<li>Server-rendered pages arrive fully built, improving initial load performance</li>
+<li>Client-side API calls handle mutations and interactive features after hydration</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T27: Next.jsのデータとAPI</h1>
+<p class="lesson-intro">サーバーコンポーネントのデータ取得は、ウェイターを往復させる代わりにシェフが直接パントリーに行くようなものです。useEffectもローディングスピナーも不要です。コンポーネント自体がasyncで、必要なデータを取得し、サーバーで完全なHTMLをレンダリングします。</p>
+
+<h2>サーバーコンポーネントでのデータ取得</h2>
+<p>サーバーコンポーネントはasync関数にできます。コンポーネント本体で直接データをawaitします。useEffectもローディングステート用のuseStateも不要で、HTMLは完全にレンダリングされた状態で届きます。</p>
+<pre><code>// app/menu/page.tsx - Server component (default)
+interface MenuItem {
+    id: number;
+    name: string;
+    price: number;
+}
+
+export default async function MenuPage() {
+    const res = await fetch("https://api.example.com/menu", {
+        cache: "no-store",  // Always get fresh data
+    });
+    const items: MenuItem[] = await res.json();
+
+    return (
+        &lt;main&gt;
+            &lt;h1&gt;Menu&lt;/h1&gt;
+            &lt;ul&gt;
+                {items.map(item =&gt; (
+                    &lt;li key={item.id}&gt;
+                        {item.name} - ${item.price}
+                    &lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+        &lt;/main&gt;
+    );
+}</code></pre>
+
+<h2>APIルート</h2>
+<p>Next.jsのAPIルートは<code>route.ts</code>ファイルに記述します。GET、POST、その他のHTTPメソッドを名前付きエクスポートとして処理します。T17のExpressルートと比較してみてください。同じ概念で、構文が異なります。</p>
+<pre><code>// app/api/menu/route.ts
+import { NextResponse } from "next/server";
+
+const menu = [
+    { id: 1, name: "Tonkotsu Ramen", price: 850 },
+    { id: 2, name: "Gyoza", price: 400 },
+];
+
+export async function GET() {
+    return NextResponse.json(menu);
+}
+
+export async function POST(request: Request) {
+    const body = await request.json();
+    const newItem = { id: menu.length + 1, ...body };
+    menu.push(newItem);
+    return NextResponse.json(newItem, { status: 201 });
+}</code></pre>
+
+<h2>全体の組み立て</h2>
+<p>典型的なNext.jsページはサーバーでデータを取得し、HTMLをレンダリングしてブラウザに送信します。クライアントコンポーネントはアイテムの追加やフォーム送信などのインタラクティブ機能を処理し、必要に応じてAPIルートを呼び出します。</p>
+
+<div class="mermaid">
+sequenceDiagram
+    participant Browser
+    participant Server as Next.js Server
+    participant DB as Database
+    Browser->>Server: Page request
+    Server->>DB: Query data
+    DB-->>Server: Results
+    Server-->>Browser: Rendered HTML
+    Note over Browser: Page visible immediately
+    Browser->>Server: Client API call (POST)
+    Server->>DB: Insert data
+    DB-->>Server: Confirmation
+    Server-->>Browser: JSON response
+</div>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>サーバーコンポーネントはasyncにでき、useEffectやローディングステートなしでデータを直接取得する</li>
+<li>APIルートはroute.tsファイルで名前付きエクスポート(GET, POST)を使い、クリーンなエンドポイント定義ができる</li>
+<li>サーバーレンダリングされたページは完全に構築された状態で届き、初期読み込みのパフォーマンスが向上する</li>
+<li>クライアントサイドのAPI呼び出しはハイドレーション後にミューテーションとインタラクティブ機能を処理する</li>
+</ul>
+</div>
+""",
+    },
+    'T28': {
+        'en': """
+<h1>T28: Nest.js Architecture</h1>
+<p class="lesson-intro">Nest.js is like an operations manual for a restaurant chain. Modules are departments, Controllers are the waiters taking orders, Services are the chefs doing the real work, and Dependency Injection is the manager who assigns chefs to stations without waiters needing to know the details.</p>
+
+<h2>Why a Framework?</h2>
+<p>Raw Node.js from T16 works for small apps, but at scale you need structure. Nest.js provides clear separation of concerns, enforced patterns, and built-in support for testing and modularity.</p>
+
+<h2>Modules, Controllers, Services</h2>
+<p>Every Nest.js app is organized into modules. Each module groups related controllers (handle HTTP) and services (handle business logic). Decorators like <code>@Controller</code> and <code>@Injectable</code> tell the framework what each class does.</p>
+<pre><code>// menu.module.ts
+import { Module } from "@nestjs/common";
+import { MenuController } from "./menu.controller";
+import { MenuService } from "./menu.service";
+
+@Module({
+    controllers: [MenuController],
+    providers: [MenuService],
+})
+export class MenuModule {}
+
+// menu.controller.ts
+import { Controller, Get, Post, Body } from "@nestjs/common";
+import { MenuService } from "./menu.service";
+
+@Controller("menu")
+export class MenuController {
+    constructor(private readonly menuService: MenuService) {}
+
+    @Get()
+    findAll() {
+        return this.menuService.findAll();
+    }
+
+    @Post()
+    create(@Body() body: { name: string; price: number }) {
+        return this.menuService.create(body);
+    }
+}
+
+// menu.service.ts
+import { Injectable } from "@nestjs/common";
+
+@Injectable()
+export class MenuService {
+    private items = [
+        { id: 1, name: "Tonkotsu Ramen", price: 850 },
+    ];
+
+    findAll() {
+        return this.items;
+    }
+
+    create(data: { name: string; price: number }) {
+        const item = { id: this.items.length + 1, ...data };
+        this.items.push(item);
+        return item;
+    }
+}</code></pre>
+
+<h2>Dependency Injection</h2>
+<p>The controller does not create its own service. It declares what it needs in the constructor, and the framework provides it. This makes testing easy - you can swap in mock services without changing controller code.</p>
+<pre><code>// The controller declares its dependency
+constructor(private readonly menuService: MenuService) {}
+
+// Nest.js automatically creates and injects the MenuService instance
+// In tests, you can provide a mock instead:
+// { provide: MenuService, useValue: mockMenuService }</code></pre>
+
+<h2>Decorators and TypeScript</h2>
+<p>Nest.js uses TypeScript decorators extensively. <code>@Controller</code>, <code>@Get</code>, <code>@Post</code>, <code>@Body</code>, <code>@Injectable</code> - these annotations define behavior without cluttering your logic.</p>
+
+<div class="mermaid">
+flowchart TD
+    A[HTTP Request] --> B["@Controller: MenuController"]
+    B -->|"@Get /menu"| C["@Injectable: MenuService"]
+    C -->|getAll| D[(Database)]
+    D -->|results| C
+    C -->|data| B
+    B -->|JSON response| A
+    subgraph MenuModule
+        B
+        C
+    end
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style B fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+    style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style D fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+</div>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Nest.js enforces structure with modules, controllers, and services as the three pillars</li>
+<li>Controllers handle HTTP routing, services handle business logic - never mix them</li>
+<li>Dependency injection lets the framework wire components together, simplifying testing</li>
+<li>TypeScript decorators define behavior declaratively without cluttering your logic</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T28: Nest.jsのアーキテクチャ</h1>
+<p class="lesson-intro">Nest.jsはレストランチェーンの運営マニュアルのようなものです。モジュールは部署、コントローラーは注文を受けるウェイター、サービスは実際に調理するシェフ、そして依存性注入はウェイターが詳細を知る必要なくシェフを配置するマネージャーです。</p>
+
+<h2>フレームワークが必要な理由</h2>
+<p>T16の素のNode.jsは小さなアプリには十分ですが、スケールするには構造が必要です。Nest.jsは明確な関心の分離、強制されたパターン、テストとモジュール性の組み込みサポートを提供します。</p>
+
+<h2>モジュール、コントローラー、サービス</h2>
+<p>全てのNest.jsアプリはモジュールに整理されます。各モジュールは関連するコントローラー(HTTPを処理)とサービス(ビジネスロジックを処理)をグループ化します。<code>@Controller</code>や<code>@Injectable</code>のようなデコレータが各クラスの役割をフレームワークに伝えます。</p>
+<pre><code>// menu.module.ts
+import { Module } from "@nestjs/common";
+import { MenuController } from "./menu.controller";
+import { MenuService } from "./menu.service";
+
+@Module({
+    controllers: [MenuController],
+    providers: [MenuService],
+})
+export class MenuModule {}
+
+// menu.controller.ts
+import { Controller, Get, Post, Body } from "@nestjs/common";
+import { MenuService } from "./menu.service";
+
+@Controller("menu")
+export class MenuController {
+    constructor(private readonly menuService: MenuService) {}
+
+    @Get()
+    findAll() {
+        return this.menuService.findAll();
+    }
+
+    @Post()
+    create(@Body() body: { name: string; price: number }) {
+        return this.menuService.create(body);
+    }
+}
+
+// menu.service.ts
+import { Injectable } from "@nestjs/common";
+
+@Injectable()
+export class MenuService {
+    private items = [
+        { id: 1, name: "Tonkotsu Ramen", price: 850 },
+    ];
+
+    findAll() {
+        return this.items;
+    }
+
+    create(data: { name: string; price: number }) {
+        const item = { id: this.items.length + 1, ...data };
+        this.items.push(item);
+        return item;
+    }
+}</code></pre>
+
+<h2>依存性注入</h2>
+<p>コントローラーは自分でサービスを作成しません。コンストラクタで必要なものを宣言し、フレームワークがそれを提供します。これによりテストが容易になります。コントローラーのコードを変更せずにモックサービスに差し替えられます。</p>
+<pre><code>// The controller declares its dependency
+constructor(private readonly menuService: MenuService) {}
+
+// Nest.js automatically creates and injects the MenuService instance
+// In tests, you can provide a mock instead:
+// { provide: MenuService, useValue: mockMenuService }</code></pre>
+
+<h2>デコレータとTypeScript</h2>
+<p>Nest.jsはTypeScriptのデコレータを多用します。<code>@Controller</code>、<code>@Get</code>、<code>@Post</code>、<code>@Body</code>、<code>@Injectable</code>。これらのアノテーションがロジックを散らかすことなく振る舞いを定義します。</p>
+
+<div class="mermaid">
+flowchart TD
+    A[HTTP Request] --> B["@Controller: MenuController"]
+    B -->|"@Get /menu"| C["@Injectable: MenuService"]
+    C -->|getAll| D[(Database)]
+    D -->|results| C
+    C -->|data| B
+    B -->|JSON response| A
+    subgraph MenuModule
+        B
+        C
+    end
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style B fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+    style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style D fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+</div>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>Nest.jsはモジュール、コントローラー、サービスの3本柱で構造を強制する</li>
+<li>コントローラーはHTTPルーティング、サービスはビジネスロジックを処理する。混在させないこと</li>
+<li>依存性注入によりフレームワークがコンポーネントを接続し、テストが簡単になる</li>
+<li>TypeScriptデコレータがロジックを散らかすことなく宣言的に振る舞いを定義する</li>
+</ul>
+</div>
+""",
+    },
+    'T29': {
+        'en': """
+<h1>T29: Nest.js Data &amp; Auth</h1>
+<p class="lesson-intro">DTOs are like order tickets that ensure the waiter writes exactly what the kitchen understands. Guards are the bouncer checking IDs at the door. Together with database integration, they form the data and security layer of a Nest.js application.</p>
+
+<h2>DTOs and Validation</h2>
+<p>A Data Transfer Object defines the expected shape of incoming data. Combined with class-validator decorators, it automatically rejects invalid requests. Compare this to the manual validation from T17 - Nest.js handles it declaratively.</p>
+<pre><code>// create-menu-item.dto.ts
+import { IsString, IsNumber, Min, MaxLength } from "class-validator";
+
+export class CreateMenuItemDto {
+    @IsString()
+    @MaxLength(100)
+    name: string;
+
+    @IsNumber()
+    @Min(0)
+    price: number;
+
+    @IsString()
+    category: string;
+}
+
+// menu.controller.ts
+import { Controller, Post, Body } from "@nestjs/common";
+
+@Controller("menu")
+export class MenuController {
+    constructor(private readonly menuService: MenuService) {}
+
+    @Post()
+    create(@Body() dto: CreateMenuItemDto) {
+        // dto is already validated - invalid requests never reach here
+        return this.menuService.create(dto);
+    }
+}</code></pre>
+
+<h2>Database Integration</h2>
+<p>Nest.js works with the SQLite database pattern from T19, but through a repository layer. The service interacts with the database, keeping data access separate from HTTP handling.</p>
+
+<h2>Authentication Guards</h2>
+<p>A guard is a class that decides whether a request should proceed. It checks authentication tokens before the controller ever sees the request. Apply it to specific routes or entire controllers with the <code>@UseGuards</code> decorator.</p>
+<pre><code>// auth.guard.ts
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+    canActivate(context: ExecutionContext): boolean {
+        const request = context.switchToHttp().getRequest();
+        const token = request.headers["authorization"];
+        if (!token || !this.validateToken(token)) {
+            throw new UnauthorizedException("Invalid or missing token");
+        }
+        return true;
+    }
+
+    private validateToken(token: string): boolean {
+        // Token validation logic
+        return token.startsWith("Bearer ");
+    }
+}
+
+// Using the guard on a controller
+import { Controller, Get, UseGuards } from "@nestjs/common";
+
+@Controller("admin/menu")
+@UseGuards(AuthGuard)
+export class AdminMenuController {
+    constructor(private readonly menuService: MenuService) {}
+
+    @Get()
+    findAll() {
+        return this.menuService.findAll();
+    }
+}</code></pre>
+
+<div class="mermaid">
+sequenceDiagram
+    participant Client
+    participant Guard as AuthGuard
+    participant Controller
+    participant DTO as DTO Validation
+    participant Service
+    participant DB as Database
+    Client->>Guard: Request with token
+    Guard->>Guard: Validate token
+    Guard->>Controller: Authorized
+    Controller->>DTO: Validate body
+    DTO->>Service: Valid data
+    Service->>DB: Query/Insert
+    DB-->>Service: Result
+    Service-->>Controller: Response data
+    Controller-->>Client: JSON response
+</div>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>DTOs with class-validator decorators handle validation declaratively - no manual checks needed</li>
+<li>The repository pattern keeps database access in services, separate from controllers</li>
+<li>Guards run before controllers, enforcing authentication at the framework level</li>
+<li>Decorators like @UseGuards and @Body wire security and validation without cluttering logic</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T29: Nest.jsのデータと認証</h1>
+<p class="lesson-intro">DTOはウェイターがキッチンに理解できる内容を正確に書く注文票のようなものです。ガードはドアでIDをチェックする用心棒です。データベース統合と合わせて、Nest.jsアプリケーションのデータとセキュリティ層を形成します。</p>
+
+<h2>DTOとバリデーション</h2>
+<p>Data Transfer Objectは受信データの期待される形を定義します。class-validatorデコレータと組み合わせることで、無効なリクエストを自動的に拒否します。T17の手動バリデーションと比較してください。Nest.jsは宣言的に処理します。</p>
+<pre><code>// create-menu-item.dto.ts
+import { IsString, IsNumber, Min, MaxLength } from "class-validator";
+
+export class CreateMenuItemDto {
+    @IsString()
+    @MaxLength(100)
+    name: string;
+
+    @IsNumber()
+    @Min(0)
+    price: number;
+
+    @IsString()
+    category: string;
+}
+
+// menu.controller.ts
+import { Controller, Post, Body } from "@nestjs/common";
+
+@Controller("menu")
+export class MenuController {
+    constructor(private readonly menuService: MenuService) {}
+
+    @Post()
+    create(@Body() dto: CreateMenuItemDto) {
+        // dto is already validated - invalid requests never reach here
+        return this.menuService.create(dto);
+    }
+}</code></pre>
+
+<h2>データベース統合</h2>
+<p>Nest.jsはT19のSQLiteデータベースパターンと連携しますが、リポジトリ層を通して行います。サービスがデータベースとやり取りし、データアクセスをHTTP処理から分離します。</p>
+
+<h2>認証ガード</h2>
+<p>ガードはリクエストを続行すべきかを判断するクラスです。コントローラーがリクエストを見る前に認証トークンをチェックします。<code>@UseGuards</code>デコレータで特定のルートまたはコントローラー全体に適用します。</p>
+<pre><code>// auth.guard.ts
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+    canActivate(context: ExecutionContext): boolean {
+        const request = context.switchToHttp().getRequest();
+        const token = request.headers["authorization"];
+        if (!token || !this.validateToken(token)) {
+            throw new UnauthorizedException("Invalid or missing token");
+        }
+        return true;
+    }
+
+    private validateToken(token: string): boolean {
+        // Token validation logic
+        return token.startsWith("Bearer ");
+    }
+}
+
+// Using the guard on a controller
+import { Controller, Get, UseGuards } from "@nestjs/common";
+
+@Controller("admin/menu")
+@UseGuards(AuthGuard)
+export class AdminMenuController {
+    constructor(private readonly menuService: MenuService) {}
+
+    @Get()
+    findAll() {
+        return this.menuService.findAll();
+    }
+}</code></pre>
+
+<div class="mermaid">
+sequenceDiagram
+    participant Client
+    participant Guard as AuthGuard
+    participant Controller
+    participant DTO as DTO Validation
+    participant Service
+    participant DB as Database
+    Client->>Guard: Request with token
+    Guard->>Guard: Validate token
+    Guard->>Controller: Authorized
+    Controller->>DTO: Validate body
+    DTO->>Service: Valid data
+    Service->>DB: Query/Insert
+    DB-->>Service: Result
+    Service-->>Controller: Response data
+    Controller-->>Client: JSON response
+</div>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>DTOとclass-validatorデコレータが宣言的にバリデーションを処理し、手動チェックが不要になる</li>
+<li>リポジトリパターンでデータベースアクセスをサービスに保ち、コントローラーから分離する</li>
+<li>ガードはコントローラーの前に実行され、フレームワークレベルで認証を強制する</li>
+<li>@UseGuardsや@Bodyのようなデコレータがロジックを散らかすことなくセキュリティとバリデーションを接続する</li>
+</ul>
+</div>
+""",
+    },
 }

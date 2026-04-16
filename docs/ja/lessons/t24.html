@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ja" data-page="t24.html" data-lang-paths='{"en":"../../lessons/","ja":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Reactの状態とエフェクト - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t23.html">前へ</a>
+          <a href="t25.html">次へ</a>
+        </div>
+      </nav>
+      
+<h1>T24: Reactのステートとエフェクト</h1>
+<p class="lesson-intro">ステートはコンポーネントの個人的なノートです。レンダリング間で保持され、更新時に再レンダリングを引き起こすプライベートデータです。エフェクトはコンポーネントのレンダリング後に鳴る目覚まし時計のようなもので、APIやタイマーなどの外部システムと同期できます。</p>
+
+<h2>useState: コンポーネントのメモリ</h2>
+<p><code>useState</code>フックはコンポーネントに独自のメモリを与えます。現在の値とセッター関数を返します。セッターが呼ばれると、Reactは新しい値でコンポーネントを再レンダリングします。</p>
+<pre><code>import { useState } from "react";
+
+function Counter() {
+    const [count, setCount] = useState(0);
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;+1&lt;/button&gt;
+            &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+
+<h2>useEffect: 副作用</h2>
+<p><code>useEffect</code>フックはレンダリング後にコードを実行します。依存配列が再実行のタイミングを制御します。空の配列は「マウント時に一度だけ実行」を意味します。変数を含めると「これらが変更されたら再実行」になります。</p>
+<pre><code>import { useState, useEffect } from "react";
+
+function MenuPage() {
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() =&gt; {
+        fetch("/api/menu")
+            .then(res =&gt; res.json())
+            .then(data =&gt; {
+                setItems(data);
+                setLoading(false);
+            });
+    }, []); // Empty array = run once on mount
+
+    if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
+    return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
+}</code></pre>
+
+<h2>ステートのリフトアップ</h2>
+<p>2つの兄弟コンポーネントがデータを共有する必要がある場合、ステートを共通の親に移動します。親がステートを所有し、propsとして子に渡します。これがReactの主要なデータ共有パターンです。</p>
+
+<div class="mermaid">
+flowchart TD
+    A[Render Component] --> B[useEffect Runs]
+    B --> C[User Interacts]
+    C --> D[State Changes via setState]
+    D --> E[Re-render]
+    E --> B
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style B fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style D fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+    style E fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
+</div>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>useStateはレンダリング間で保持されるメモリをコンポーネントに与える</li>
+<li>useEffectはレンダリング後に副作用を実行し、依存配列で制御する</li>
+<li>空の依存配列はエフェクトがマウント時に一度だけ実行されることを意味する</li>
+<li>兄弟コンポーネントがデータを共有する場合、最も近い共通の親にステートをリフトアップする</li>
+</ul>
+</div>
+
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

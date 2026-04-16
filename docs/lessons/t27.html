@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en" data-page="t27.html" data-lang-paths='{"en":"./","ja":"../../ja/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Next.js: Data & API - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t26.html">Previous</a>
+          <a href="t28.html">Next</a>
+        </div>
+      </nav>
+      
+<h1>T27: Next.js Data &amp; API</h1>
+<p class="lesson-intro">Server components fetch data like a chef going directly to the pantry instead of sending a waiter back and forth. No useEffect, no loading spinners for initial data - the component itself is async, fetches what it needs, and renders the complete HTML on the server.</p>
+
+<h2>Fetching Data in Server Components</h2>
+<p>Server components can be async functions. You await data directly in the component body. No useEffect, no useState for loading states - the HTML arrives fully rendered.</p>
+<pre><code>// app/menu/page.tsx - Server component (default)
+interface MenuItem {
+    id: number;
+    name: string;
+    price: number;
+}
+
+export default async function MenuPage() {
+    const res = await fetch("https://api.example.com/menu", {
+        cache: "no-store",  // Always get fresh data
+    });
+    const items: MenuItem[] = await res.json();
+
+    return (
+        &lt;main&gt;
+            &lt;h1&gt;Menu&lt;/h1&gt;
+            &lt;ul&gt;
+                {items.map(item =&gt; (
+                    &lt;li key={item.id}&gt;
+                        {item.name} - ${item.price}
+                    &lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+        &lt;/main&gt;
+    );
+}</code></pre>
+
+<h2>API Routes</h2>
+<p>Next.js API routes live in <code>route.ts</code> files. They handle GET, POST, and other HTTP methods as named exports. Compare this to the Express routes from T17 - same concept, different syntax.</p>
+<pre><code>// app/api/menu/route.ts
+import { NextResponse } from "next/server";
+
+const menu = [
+    { id: 1, name: "Tonkotsu Ramen", price: 850 },
+    { id: 2, name: "Gyoza", price: 400 },
+];
+
+export async function GET() {
+    return NextResponse.json(menu);
+}
+
+export async function POST(request: Request) {
+    const body = await request.json();
+    const newItem = { id: menu.length + 1, ...body };
+    menu.push(newItem);
+    return NextResponse.json(newItem, { status: 201 });
+}</code></pre>
+
+<h2>Putting It All Together</h2>
+<p>A typical Next.js page fetches data on the server, renders HTML, and sends it to the browser. Client components handle interactivity like adding items or submitting forms, calling API routes as needed.</p>
+
+<div class="mermaid">
+sequenceDiagram
+    participant Browser
+    participant Server as Next.js Server
+    participant DB as Database
+    Browser->>Server: Page request
+    Server->>DB: Query data
+    DB-->>Server: Results
+    Server-->>Browser: Rendered HTML
+    Note over Browser: Page visible immediately
+    Browser->>Server: Client API call (POST)
+    Server->>DB: Insert data
+    DB-->>Server: Confirmation
+    Server-->>Browser: JSON response
+</div>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Server components can be async - fetch data directly without useEffect or loading state</li>
+<li>API routes use named exports (GET, POST) in route.ts files for clean endpoint definitions</li>
+<li>Server-rendered pages arrive fully built, improving initial load performance</li>
+<li>Client-side API calls handle mutations and interactive features after hydration</li>
+</ul>
+</div>
+
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+
