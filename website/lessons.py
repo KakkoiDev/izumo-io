@@ -3179,8 +3179,8 @@ graph TD
     },
     'R10': {
         'en': """
-<h1>R10: Izumo.io Case Study</h1>
-<p class="lesson-intro">The best way to understand web development is to analyze a real project. Izumo.io - the very course you are taking - is itself a full-stack web application. Let us examine how it applies every concept you have learned: HTML for structure, CSS for design, JavaScript for interactivity, a server for delivery, and a build system to tie it all together.</p>
+<h1>R10: KakkoiSchool Case Study</h1>
+<p class="lesson-intro">The best way to understand web development is to analyze a real project. KakkoiSchool - the very course you are taking - is itself a full-stack web application. Let us examine how it applies every concept you have learned: HTML for structure, CSS for design, JavaScript for interactivity, a server for delivery, and a build system to tie it all together.</p>
 
 <h2>Course Architecture</h2>
 <p>The course website is built with a Python build system that generates static HTML pages from templates and lesson content. This approach combines the simplicity of static files with the power of a templating engine.</p>
@@ -3222,8 +3222,8 @@ flowchart TB
 </div>
 """,
         'ja': """
-<h1>R10: Izumo.ioケーススタディ</h1>
-<p class="lesson-intro">Web開発を理解する最良の方法は実際のプロジェクトを分析することです。Izumo.io、つまりあなたが受講しているこのコース自体がフルスタックWebアプリケーションです。学んだ全てのコンセプトがどう適用されているか見てみましょう: 構造のHTML、デザインのCSS、対話性のJavaScript、配信のサーバー、全てを結ぶビルドシステム。</p>
+<h1>R10: KakkoiSchoolケーススタディ</h1>
+<p class="lesson-intro">Web開発を理解する最良の方法は実際のプロジェクトを分析することです。KakkoiSchool、つまりあなたが受講しているこのコース自体がフルスタックWebアプリケーションです。学んだ全てのコンセプトがどう適用されているか見てみましょう: 構造のHTML、デザインのCSS、対話性のJavaScript、配信のサーバー、全てを結ぶビルドシステム。</p>
 
 <h2>コースアーキテクチャ</h2>
 <p>コースのWebサイトはPythonビルドシステムで構築されており、テンプレートとレッスンコンテンツから静的HTMLページを生成します。このアプローチは静的ファイルのシンプルさとテンプレートエンジンの力を組み合わせています。</p>
