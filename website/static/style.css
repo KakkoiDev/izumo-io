@@ -558,8 +558,11 @@ a.theory-card:hover {
   gap: 1.5rem;
 }
 
+h1 > a.heading-anchor,
+h2 > a.heading-anchor,
+h3 > a.heading-anchor,
 a.heading-anchor {
-  color: inherit;
+  color: var(--text);
   text-decoration: none;
 }
 
