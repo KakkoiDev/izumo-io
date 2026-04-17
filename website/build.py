@@ -564,7 +564,6 @@ def resolve_includes(html):
     return html
 
 
-_HEADING_RE = re.compile(r'<(h[1-3])([^>]*)>(.*?)</\1>', re.DOTALL)
 _SLUG_SANITIZE_RE = re.compile(
     r'[^a-z0-9\u3040-\u309f\u30a0-\u30ff\u4e00-\u9fff\u3005]+'
 )
@@ -577,11 +576,27 @@ def _heading_slug(text):
     return slug
 
 
-def add_heading_anchors(html):
-    """Add id and clickable anchor link to every h1/h2/h3 in lesson HTML."""
+def add_heading_anchors(html, levels=(1, 2, 3)):
+    """Add id and clickable anchor link to every heading at the given levels.
+
+    Skips headings that already have an id and headings nested inside an <a>.
+    """
     used = {}
+    pattern = re.compile(
+        r'<(h[' + ''.join(str(l) for l in levels) + r'])([^>]*)>(.*?)</\1>',
+        re.DOTALL,
+    )
+
+    def in_anchor(start):
+        # Look backwards for the most recent unclosed <a ...>
+        before = html[:start]
+        last_open = before.rfind('<a ')
+        last_close = before.rfind('</a>')
+        return last_open > last_close
 
     def replace(match):
+        if in_anchor(match.start()):
+            return match.group(0)
         tag, attrs, content = match.group(1), match.group(2) or '', match.group(3)
         if re.search(r'\bid\s*=', attrs):
             return match.group(0)
@@ -597,7 +612,7 @@ def add_heading_anchors(html):
             f'</{tag}>'
         )
 
-    return _HEADING_RE.sub(replace, html)
+    return pattern.sub(replace, html)
 
 
 def localize_list(items, lang):
@@ -749,6 +764,7 @@ def _build_to(out):
             html = resolve_includes(src.read_text())
             ctx = build_context(lang, src.name)
             html = engine.render(html, ctx)
+            html = add_heading_anchors(html)
 
             if lang == 'en':
                 dest = out / src.name

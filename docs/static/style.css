@@ -558,16 +558,12 @@ a.theory-card:hover {
   gap: 1.5rem;
 }
 
-.lesson h1 > a.heading-anchor,
-.lesson h2 > a.heading-anchor,
-.lesson h3 > a.heading-anchor {
+a.heading-anchor {
   color: inherit;
   text-decoration: none;
 }
 
-.lesson h1 > a.heading-anchor::after,
-.lesson h2 > a.heading-anchor::after,
-.lesson h3 > a.heading-anchor::after {
+a.heading-anchor::after {
   content: " #";
   color: var(--text-muted);
   opacity: 0;
@@ -576,18 +572,14 @@ a.theory-card:hover {
   transition: opacity 0.2s;
 }
 
-.lesson h1:hover > a.heading-anchor::after,
-.lesson h2:hover > a.heading-anchor::after,
-.lesson h3:hover > a.heading-anchor::after,
-.lesson h1 > a.heading-anchor:focus::after,
-.lesson h2 > a.heading-anchor:focus::after,
-.lesson h3 > a.heading-anchor:focus::after {
+h1:hover > a.heading-anchor::after,
+h2:hover > a.heading-anchor::after,
+h3:hover > a.heading-anchor::after,
+a.heading-anchor:focus::after {
   opacity: 0.7;
 }
 
-.lesson h1 > a.heading-anchor:hover,
-.lesson h2 > a.heading-anchor:hover,
-.lesson h3 > a.heading-anchor:hover {
+a.heading-anchor:hover {
   color: var(--accent);
 }
 
