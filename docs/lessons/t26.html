@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T26: Next.js Routing &amp; Rendering</h1>
+<h1 id="t26-next-js-routing-amp-rendering"><a class="heading-anchor" href="#t26-next-js-routing-amp-rendering">T26: Next.js Routing &amp; Rendering</a></h1>
 <p class="lesson-intro">Next.js is like upgrading from a food truck (React SPA) to a proper restaurant with a built-in address system. It adds file-based routing, server-side rendering, and a clear structure so you do not have to wire everything together yourself.</p>
 
-<h2>File-Based Routing</h2>
+<h2 id="file-based-routing"><a class="heading-anchor" href="#file-based-routing">File-Based Routing</a></h2>
 <p>In Next.js, the file system is the router. Create a file at <code>app/about/page.tsx</code> and it becomes the <code>/about</code> route. No router configuration needed - compare this to the hash-based routing from T13.</p>
 <pre><code>// Directory structure = URL structure
 app/
@@ -72,7 +72,7 @@ export default function MenuPage() {
     );
 }</code></pre>
 
-<h2>Server vs Client Components</h2>
+<h2 id="server-vs-client-components"><a class="heading-anchor" href="#server-vs-client-components">Server vs Client Components</a></h2>
 <p>Next.js components are server components by default. They run on the server, can fetch data directly, and send only HTML to the browser. Add <code>"use client"</code> at the top when you need interactivity like state or event handlers.</p>
 <pre><code>// Server component (default) - runs on server, no JS sent to browser
 export default async function MenuList() {
@@ -93,10 +93,10 @@ export default function AddToCart({ itemId }: { itemId: number }) {
     );
 }</code></pre>
 
-<h2>Layouts</h2>
+<h2 id="layouts"><a class="heading-anchor" href="#layouts">Layouts</a></h2>
 <p>A <code>layout.tsx</code> wraps all pages in its directory and below. It persists across navigation, keeping shared UI like headers and sidebars mounted.</p>
 
-<h2>When to Use What</h2>
+<h2 id="when-to-use-what"><a class="heading-anchor" href="#when-to-use-what">When to Use What</a></h2>
 <p>Use server components for static content and data fetching. Use client components only when you need useState, useEffect, onClick, or browser-only APIs.</p>
 
 <div class="mermaid">
@@ -114,7 +114,7 @@ flowchart TB
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>File-based routing maps directory structure to URLs - no configuration needed</li>
 <li>Components are server-rendered by default, sending only HTML to the browser</li>
@@ -123,6 +123,13 @@ flowchart TB
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t25.html">Previous</a>
+          <a href="t27.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

@@ -47,13 +47,13 @@
         </div>
       </nav>
       
-<h1>R02: Web Architecture</h1>
+<h1 id="r02-web-architecture"><a class="heading-anchor" href="#r02-web-architecture">R02: Web Architecture</a></h1>
 <p class="lesson-intro">The web works like a restaurant. The client (your browser) is the customer sitting at a table. The server is the kitchen. HTTP is the waiter carrying orders back and forth. The customer never enters the kitchen, and the kitchen never sits at the table. Each has a clear role.</p>
 
-<h2>Client-Server Model</h2>
+<h2 id="client-server-model"><a class="heading-anchor" href="#client-server-model">Client-Server Model</a></h2>
 <p>The client makes requests and displays responses. The server receives requests, processes them, and sends back data. This separation of concerns is fundamental to web architecture.</p>
 
-<h2>How a Web Request Works</h2>
+<h2 id="how-a-web-request-works"><a class="heading-anchor" href="#how-a-web-request-works">How a Web Request Works</a></h2>
 <p>When you type a URL: the browser looks up the server's address (DNS), opens a connection (TCP), sends a request (HTTP), and the server responds with HTML, CSS, JS, or data.</p>
 <pre><code>Client: "GET /menu please"
 Server: "Here is the menu page (200 OK)"
@@ -61,7 +61,7 @@ Server: "Here is the menu page (200 OK)"
 Client: "POST /order with {item: 'pasta'}"
 Server: "Order received (201 Created)"</code></pre>
 
-<h2>Beyond Simple Pages</h2>
+<h2 id="beyond-simple-pages"><a class="heading-anchor" href="#beyond-simple-pages">Beyond Simple Pages</a></h2>
 <p>Modern web apps add layers: CDNs cache content closer to users, load balancers distribute traffic across multiple servers, and databases persist the data.</p>
 
 <div class="mermaid">
@@ -79,7 +79,7 @@ flowchart LR
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>The web follows a client-server model with clear separation of roles</li>
 <li>HTTP is the protocol that defines how clients and servers communicate</li>
@@ -88,6 +88,13 @@ flowchart LR
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../theory-lessons.html">Back to Theory Lessons</a>
+        <div class="lesson-pager">
+          <a href="r01.html">Previous</a>
+          <a href="r03.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

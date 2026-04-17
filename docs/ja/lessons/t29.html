@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T29: Nest.jsのデータと認証</h1>
+<h1 id="t29-nest-jsのデータと認証"><a class="heading-anchor" href="#t29-nest-jsのデータと認証">T29: Nest.jsのデータと認証</a></h1>
 <p class="lesson-intro">DTOはウェイターがキッチンに理解できる内容を正確に書く注文票のようなものです。ガードはドアでIDをチェックする用心棒です。データベース統合と合わせて、Nest.jsアプリケーションのデータとセキュリティ層を形成します。</p>
 
-<h2>DTOとバリデーション</h2>
+<h2 id="dtoとバリデーション"><a class="heading-anchor" href="#dtoとバリデーション">DTOとバリデーション</a></h2>
 <p>Data Transfer Objectは受信データの期待される形を定義します。class-validatorデコレータと組み合わせることで、無効なリクエストを自動的に拒否します。T17の手動バリデーションと比較してください。Nest.jsは宣言的に処理します。</p>
 <pre><code>// create-menu-item.dto.ts
 import { IsString, IsNumber, Min, MaxLength } from "class-validator";
@@ -82,10 +82,10 @@ export class MenuController {
     }
 }</code></pre>
 
-<h2>データベース統合</h2>
+<h2 id="データベース統合"><a class="heading-anchor" href="#データベース統合">データベース統合</a></h2>
 <p>Nest.jsはT19のSQLiteデータベースパターンと連携しますが、リポジトリ層を通して行います。サービスがデータベースとやり取りし、データアクセスをHTTP処理から分離します。</p>
 
-<h2>認証ガード</h2>
+<h2 id="認証ガード"><a class="heading-anchor" href="#認証ガード">認証ガード</a></h2>
 <p>ガードはリクエストを続行すべきかを判断するクラスです。コントローラーがリクエストを見る前に認証トークンをチェックします。<code>@UseGuards</code>デコレータで特定のルートまたはコントローラー全体に適用します。</p>
 <pre><code>// auth.guard.ts
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
@@ -141,7 +141,7 @@ sequenceDiagram
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>DTOとclass-validatorデコレータが宣言的にバリデーションを処理し、手動チェックが不要になる</li>
 <li>リポジトリパターンでデータベースアクセスをサービスに保ち、コントローラーから分離する</li>
@@ -150,6 +150,13 @@ sequenceDiagram
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t28.html">前へ</a>
+          
+        </div>
+      </nav>
     </article>
 
   </main>

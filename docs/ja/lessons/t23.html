@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T23: Reactの基礎</h1>
+<h1 id="t23-reactの基礎"><a class="heading-anchor" href="#t23-reactの基礎">T23: Reactの基礎</a></h1>
 <p class="lesson-intro">Reactはコンポーネントという再利用可能なパーツからUIを構築します。コンポーネントはレゴブロックのようなもので、自分で定義するカスタムHTMLタグです。ブラウザに一つずつ変更を指示する代わりに、画面がどう見えるべきかを記述すれば、Reactが更新を処理します。</p>
 
-<h2>命令型から宣言型へ</h2>
+<h2 id="命令型から宣言型へ"><a class="heading-anchor" href="#命令型から宣言型へ">命令型から宣言型へ</a></h2>
 <p>素のJavaScriptでは、要素を手動で探して更新します。Reactはこれを逆転させます。望ましいUIの状態を宣言すれば、ReactがDOM更新を処理します。</p>
 <pre><code>// Vanilla JS - imperative: you manage every step
 const btn = document.getElementById("counter-btn");
@@ -70,7 +70,7 @@ function Counter() {
     );
 }</code></pre>
 
-<h2>コンポーネント、JSX、Props</h2>
+<h2 id="コンポーネント-jsx-props"><a class="heading-anchor" href="#コンポーネント-jsx-props">コンポーネント、JSX、Props</a></h2>
 <p>コンポーネントはJSXを返す関数です。JSXはHTMLに似た構文ですがJavaScriptの中に存在します。Propsは親から子に渡される入力で、関数の引数のようなものです。</p>
 <pre><code>function MenuItem({ name, price }) {
     return (
@@ -92,7 +92,7 @@ function MenuList({ items }) {
     );
 }</code></pre>
 
-<h2>イベント処理</h2>
+<h2 id="イベント処理"><a class="heading-anchor" href="#イベント処理">イベント処理</a></h2>
 <p>Reactは<code>onClick</code>や<code>onChange</code>のようなキャメルケースのイベントハンドラをJSX要素に直接使用します。ハンドラはブラウザ間で一貫して動作する合成イベントオブジェクトを受け取ります。</p>
 
 <div class="mermaid">
@@ -111,7 +111,7 @@ flowchart TD
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>コンポーネントはJSXを返す再利用可能な関数で、カスタムHTMLタグのようなもの</li>
 <li>Reactは宣言型 - UIがどう見えるべきかを記述し、更新方法は記述しない</li>
@@ -120,6 +120,13 @@ flowchart TD
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t22.html">前へ</a>
+          <a href="t24.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

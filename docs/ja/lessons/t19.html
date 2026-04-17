@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T19: SQLite</h1>
+<h1 id="t19-sqlite"><a class="heading-anchor" href="#t19-sqlite">T19: SQLite</a></h1>
 <p class="lesson-intro">SQLiteは単一ファイルにデータを格納する本格的なデータベースエンジンです。SQL(構造化問合せ言語)はそれと対話する言語です。JSONファイルがノートなら、SQLiteはラベル、カテゴリ、相互参照を備えた適切なファイルキャビネットです。同時アクセスとデータ整合性を自動的に処理します。</p>
 
-<h2>テーブルの作成</h2>
+<h2 id="テーブルの作成"><a class="heading-anchor" href="#テーブルの作成">テーブルの作成</a></h2>
 <pre><code>CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE posts (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );</code></pre>
 
-<h2>SQLによるCRUD</h2>
+<h2 id="sqlによるcrud"><a class="heading-anchor" href="#sqlによるcrud">SQLによるCRUD</a></h2>
 <pre><code>-- Create
 INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com');
 
@@ -80,7 +80,7 @@ UPDATE users SET name = 'Bob' WHERE id = 1;
 -- Delete
 DELETE FROM users WHERE id = 1;</code></pre>
 
-<h2>Node.jsでのSQLite使用</h2>
+<h2 id="node-jsでのsqlite使用"><a class="heading-anchor" href="#node-jsでのsqlite使用">Node.jsでのSQLite使用</a></h2>
 <pre><code>const Database = require("better-sqlite3");
 const db = new Database("app.db");
 
@@ -105,7 +105,7 @@ erDiagram
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>SQLiteは単一ファイルに完全なリレーショナルデータベースを格納します</li>
 <li>SQLはSELECT、JOIN、WHEREなどで強力なクエリを提供します</li>
@@ -114,6 +114,13 @@ erDiagram
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t18.html">前へ</a>
+          <a href="t20.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

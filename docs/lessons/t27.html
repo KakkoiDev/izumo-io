@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T27: Next.js Data &amp; API</h1>
+<h1 id="t27-next-js-data-amp-api"><a class="heading-anchor" href="#t27-next-js-data-amp-api">T27: Next.js Data &amp; API</a></h1>
 <p class="lesson-intro">Server components fetch data like a chef going directly to the pantry instead of sending a waiter back and forth. No useEffect, no loading spinners for initial data - the component itself is async, fetches what it needs, and renders the complete HTML on the server.</p>
 
-<h2>Fetching Data in Server Components</h2>
+<h2 id="fetching-data-in-server-components"><a class="heading-anchor" href="#fetching-data-in-server-components">Fetching Data in Server Components</a></h2>
 <p>Server components can be async functions. You await data directly in the component body. No useEffect, no useState for loading states - the HTML arrives fully rendered.</p>
 <pre><code>// app/menu/page.tsx - Server component (default)
 interface MenuItem {
@@ -79,7 +79,7 @@ export default async function MenuPage() {
     );
 }</code></pre>
 
-<h2>API Routes</h2>
+<h2 id="api-routes"><a class="heading-anchor" href="#api-routes">API Routes</a></h2>
 <p>Next.js API routes live in <code>route.ts</code> files. They handle GET, POST, and other HTTP methods as named exports. Compare this to the Express routes from T17 - same concept, different syntax.</p>
 <pre><code>// app/api/menu/route.ts
 import { NextResponse } from "next/server";
@@ -100,7 +100,7 @@ export async function POST(request: Request) {
     return NextResponse.json(newItem, { status: 201 });
 }</code></pre>
 
-<h2>Putting It All Together</h2>
+<h2 id="putting-it-all-together"><a class="heading-anchor" href="#putting-it-all-together">Putting It All Together</a></h2>
 <p>A typical Next.js page fetches data on the server, renders HTML, and sends it to the browser. Client components handle interactivity like adding items or submitting forms, calling API routes as needed.</p>
 
 <div class="mermaid">
@@ -120,7 +120,7 @@ sequenceDiagram
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>Server components can be async - fetch data directly without useEffect or loading state</li>
 <li>API routes use named exports (GET, POST) in route.ts files for clean endpoint definitions</li>
@@ -129,6 +129,13 @@ sequenceDiagram
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t26.html">Previous</a>
+          <a href="t28.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

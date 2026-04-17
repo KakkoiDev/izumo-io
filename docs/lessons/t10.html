@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T10: Data Structures</h1>
+<h1 id="t10-data-structures"><a class="heading-anchor" href="#t10-data-structures">T10: Data Structures</a></h1>
 <p class="lesson-intro">Data structures are containers for organizing information. Arrays are like numbered lists where order matters. Objects are like labeled filing cabinets where you look up information by name. Choosing the right structure makes your code simpler and faster.</p>
 
-<h2>Arrays</h2>
+<h2 id="arrays"><a class="heading-anchor" href="#arrays">Arrays</a></h2>
 <p>Arrays store ordered collections. Access items by their index (starting from 0). Arrays have powerful built-in methods for transforming data.</p>
 <pre><code>const fruits = ["apple", "banana", "cherry"];
 console.log(fruits[0]); // "apple"
@@ -62,7 +62,7 @@ const expensive = prices.filter(p =&gt; p &gt; 15);
 const doubled = prices.map(p =&gt; p * 2);
 const total = prices.reduce((sum, p) =&gt; sum + p, 0);</code></pre>
 
-<h2>Objects</h2>
+<h2 id="objects"><a class="heading-anchor" href="#objects">Objects</a></h2>
 <p>Objects store key-value pairs. Keys are strings (or symbols), values can be anything.</p>
 <pre><code>const user = {
     name: "Alice",
@@ -75,7 +75,7 @@ const total = prices.reduce((sum, p) =&gt; sum + p, 0);</code></pre>
 console.log(user.name);
 console.log(user["age"]);</code></pre>
 
-<h2>Loops</h2>
+<h2 id="loops"><a class="heading-anchor" href="#loops">Loops</a></h2>
 <p>Iterate over arrays with <code>for...of</code> and objects with <code>for...in</code> or <code>Object.entries()</code>.</p>
 <pre><code>for (const fruit of fruits) { console.log(fruit); }
 for (const [key, value] of Object.entries(user)) { console.log(key, value); }</code></pre>
@@ -91,7 +91,7 @@ graph LR
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>Arrays are ordered lists accessed by numeric index starting at 0</li>
 <li>Objects are key-value stores accessed by string keys</li>
@@ -100,6 +100,13 @@ graph LR
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t09.html">Previous</a>
+          <a href="t11.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

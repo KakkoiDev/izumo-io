@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T09: Forms and Dialog</h1>
+<h1 id="t09-forms-and-dialog"><a class="heading-anchor" href="#t09-forms-and-dialog">T09: Forms and Dialog</a></h1>
 <p class="lesson-intro">HTML forms collect data, but JavaScript validates and processes it. The dialog element gives you native modal windows without any library. Together they create a smooth data collection experience - like a smart receptionist who checks your paperwork before filing it.</p>
 
-<h2>JavaScript Form Validation</h2>
+<h2 id="javascript-form-validation"><a class="heading-anchor" href="#javascript-form-validation">JavaScript Form Validation</a></h2>
 <p>While HTML has built-in validation (required, type), JavaScript gives you full control over validation logic and custom error messages.</p>
 <pre><code>const form = document.querySelector("#myForm");
 form.addEventListener("submit", function(event) {
@@ -67,7 +67,7 @@ function showError(message) {
     errorDiv.style.display = "block";
 }</code></pre>
 
-<h2>The Dialog Element</h2>
+<h2 id="the-dialog-element"><a class="heading-anchor" href="#the-dialog-element">The Dialog Element</a></h2>
 <p>The <code>&lt;dialog&gt;</code> element provides native modal and non-modal dialogs. Use <code>showModal()</code> for modals with backdrop, or <code>show()</code> for non-modal.</p>
 <pre><code>&lt;dialog id="confirm"&gt;
     &lt;p&gt;Are you sure?&lt;/p&gt;
@@ -95,7 +95,7 @@ flowchart TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>JavaScript validation gives you custom logic beyond HTML5 built-in validation</li>
 <li>The dialog element provides native modal windows without external libraries</li>
@@ -104,6 +104,13 @@ flowchart TD
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t08.html">Previous</a>
+          <a href="t10.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

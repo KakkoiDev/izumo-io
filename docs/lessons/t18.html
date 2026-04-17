@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T18: JSON Database</h1>
+<h1 id="t18-json-database"><a class="heading-anchor" href="#t18-json-database">T18: JSON Database</a></h1>
 <p class="lesson-intro">Before learning a real database, you can use a JSON file as a simple data store. Read the file, parse it, modify the data, and write it back. It is like a notebook where you write down and cross out entries - simple but effective for small applications.</p>
 
-<h2>Reading and Writing db.json</h2>
+<h2 id="reading-and-writing-db-json"><a class="heading-anchor" href="#reading-and-writing-db-json">Reading and Writing db.json</a></h2>
 <pre><code>const fs = require("fs");
 const DB_PATH = "./db.json";
 
@@ -63,7 +63,7 @@ function writeDB(data) {
     fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
 }</code></pre>
 
-<h2>CRUD Operations</h2>
+<h2 id="crud-operations"><a class="heading-anchor" href="#crud-operations">CRUD Operations</a></h2>
 <pre><code>// Create
 function addUser(user) {
     const db = readDB();
@@ -105,7 +105,7 @@ flowchart LR
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>A JSON file can serve as a simple database for small projects</li>
 <li>CRUD stands for Create, Read, Update, Delete - the four basic data operations</li>
@@ -114,6 +114,13 @@ flowchart LR
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t17.html">Previous</a>
+          <a href="t19.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

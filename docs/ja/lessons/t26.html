@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T26: Next.jsのルーティングとレンダリング</h1>
+<h1 id="t26-next-jsのルーティングとレンダリング"><a class="heading-anchor" href="#t26-next-jsのルーティングとレンダリング">T26: Next.jsのルーティングとレンダリング</a></h1>
 <p class="lesson-intro">Next.jsはフードトラック(React SPA)から住所システム付きの本格的なレストランへのアップグレードのようなものです。ファイルベースのルーティング、サーバーサイドレンダリング、明確な構造を追加するので、全てを自分で接続する必要がありません。</p>
 
-<h2>ファイルベースルーティング</h2>
+<h2 id="ファイルベースルーティング"><a class="heading-anchor" href="#ファイルベースルーティング">ファイルベースルーティング</a></h2>
 <p>Next.jsではファイルシステムがルーターです。<code>app/about/page.tsx</code>にファイルを作成すると、それが<code>/about</code>ルートになります。ルーター設定は不要です。T13のハッシュベースルーティングと比較してみてください。</p>
 <pre><code>// Directory structure = URL structure
 app/
@@ -72,7 +72,7 @@ export default function MenuPage() {
     );
 }</code></pre>
 
-<h2>サーバーコンポーネント vs クライアントコンポーネント</h2>
+<h2 id="サーバーコンポーネント-vs-クライアントコンポーネント"><a class="heading-anchor" href="#サーバーコンポーネント-vs-クライアントコンポーネント">サーバーコンポーネント vs クライアントコンポーネント</a></h2>
 <p>Next.jsのコンポーネントはデフォルトでサーバーコンポーネントです。サーバーで実行され、データを直接取得でき、HTMLのみをブラウザに送信します。ステートやイベントハンドラなどのインタラクティブ性が必要な場合は、先頭に<code>"use client"</code>を追加します。</p>
 <pre><code>// Server component (default) - runs on server, no JS sent to browser
 export default async function MenuList() {
@@ -93,10 +93,10 @@ export default function AddToCart({ itemId }: { itemId: number }) {
     );
 }</code></pre>
 
-<h2>レイアウト</h2>
+<h2 id="レイアウト"><a class="heading-anchor" href="#レイアウト">レイアウト</a></h2>
 <p><code>layout.tsx</code>はそのディレクトリ以下の全ページをラップします。ナビゲーション間で保持され、ヘッダーやサイドバーなどの共有UIをマウントしたままにします。</p>
 
-<h2>使い分けガイド</h2>
+<h2 id="使い分けガイド"><a class="heading-anchor" href="#使い分けガイド">使い分けガイド</a></h2>
 <p>静的コンテンツやデータ取得にはサーバーコンポーネントを使用します。useState、useEffect、onClick、ブラウザ専用APIが必要な場合のみクライアントコンポーネントを使用します。</p>
 
 <div class="mermaid">
@@ -114,7 +114,7 @@ flowchart TB
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>ファイルベースルーティングはディレクトリ構造をURLにマッピングする。設定不要</li>
 <li>コンポーネントはデフォルトでサーバーレンダリングされ、HTMLのみをブラウザに送信する</li>
@@ -123,6 +123,13 @@ flowchart TB
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t25.html">前へ</a>
+          <a href="t27.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

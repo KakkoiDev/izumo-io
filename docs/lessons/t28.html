@@ -47,13 +47,13 @@
         </div>
       </nav>
       
-<h1>T28: Nest.js Architecture</h1>
+<h1 id="t28-nest-js-architecture"><a class="heading-anchor" href="#t28-nest-js-architecture">T28: Nest.js Architecture</a></h1>
 <p class="lesson-intro">Nest.js is like an operations manual for a restaurant chain. Modules are departments, Controllers are the waiters taking orders, Services are the chefs doing the real work, and Dependency Injection is the manager who assigns chefs to stations without waiters needing to know the details.</p>
 
-<h2>Why a Framework?</h2>
+<h2 id="why-a-framework"><a class="heading-anchor" href="#why-a-framework">Why a Framework?</a></h2>
 <p>Raw Node.js from T16 works for small apps, but at scale you need structure. Nest.js provides clear separation of concerns, enforced patterns, and built-in support for testing and modularity.</p>
 
-<h2>Modules, Controllers, Services</h2>
+<h2 id="modules-controllers-services"><a class="heading-anchor" href="#modules-controllers-services">Modules, Controllers, Services</a></h2>
 <p>Every Nest.js app is organized into modules. Each module groups related controllers (handle HTTP) and services (handle business logic). Decorators like <code>@Controller</code> and <code>@Injectable</code> tell the framework what each class does.</p>
 <pre><code>// menu.module.ts
 import { Module } from "@nestjs/common";
@@ -105,7 +105,7 @@ export class MenuService {
     }
 }</code></pre>
 
-<h2>Dependency Injection</h2>
+<h2 id="dependency-injection"><a class="heading-anchor" href="#dependency-injection">Dependency Injection</a></h2>
 <p>The controller does not create its own service. It declares what it needs in the constructor, and the framework provides it. This makes testing easy - you can swap in mock services without changing controller code.</p>
 <pre><code>// The controller declares its dependency
 constructor(private readonly menuService: MenuService) {}
@@ -114,7 +114,7 @@ constructor(private readonly menuService: MenuService) {}
 // In tests, you can provide a mock instead:
 // { provide: MenuService, useValue: mockMenuService }</code></pre>
 
-<h2>Decorators and TypeScript</h2>
+<h2 id="decorators-and-typescript"><a class="heading-anchor" href="#decorators-and-typescript">Decorators and TypeScript</a></h2>
 <p>Nest.js uses TypeScript decorators extensively. <code>@Controller</code>, <code>@Get</code>, <code>@Post</code>, <code>@Body</code>, <code>@Injectable</code> - these annotations define behavior without cluttering your logic.</p>
 
 <div class="mermaid">
@@ -136,7 +136,7 @@ flowchart TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>Nest.js enforces structure with modules, controllers, and services as the three pillars</li>
 <li>Controllers handle HTTP routing, services handle business logic - never mix them</li>
@@ -145,6 +145,13 @@ flowchart TD
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t27.html">Previous</a>
+          <a href="t29.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

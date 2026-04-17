@@ -47,23 +47,23 @@
         </div>
       </nav>
       
-<h1>T08: DOM操作</h1>
+<h1 id="t08-dom操作"><a class="heading-anchor" href="#t08-dom操作">T08: DOM操作</a></h1>
 <p class="lesson-intro">DOM(ドキュメントオブジェクトモデル)はHTMLページのブラウザ内でのライブ表現です。積み木で作った木のようなもので、JavaScriptでユーザーが見ている間にブロックを追加、削除、並べ替えできます。全ての要素はアクセスして変更できるノードです。</p>
 
-<h2>要素の選択</h2>
+<h2 id="要素の選択"><a class="heading-anchor" href="#要素の選択">要素の選択</a></h2>
 <p>要素を変更するには、まず見つける必要があります。<code>querySelector</code>メソッドはCSSセレクタ構文で要素を取得します。</p>
 <pre><code>const title = document.querySelector("h1");
 const items = document.querySelectorAll(".item");
 const form = document.querySelector("#signup-form");</code></pre>
 
-<h2>要素の作成と変更</h2>
+<h2 id="要素の作成と変更"><a class="heading-anchor" href="#要素の作成と変更">要素の作成と変更</a></h2>
 <p><code>createElement</code>で新しい要素を作成し、内容を設定してページに追加します。</p>
 <pre><code>const card = document.createElement("div");
 card.className = "card";
 card.textContent = "New card content";
 document.querySelector(".container").appendChild(card);</code></pre>
 
-<h2>イベント処理</h2>
+<h2 id="イベント処理"><a class="heading-anchor" href="#イベント処理">イベント処理</a></h2>
 <p>イベントでページがユーザーの操作に応答します。クリック、ホバー、入力、それぞれがリッスンできるイベントを発火します。</p>
 <pre><code>const button = document.querySelector("#submit");
 button.addEventListener("click", function(event) {
@@ -85,7 +85,7 @@ graph TD
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>querySelectorとquerySelectorAllはCSSセレクタ構文で要素を検索します</li>
 <li>createElementとappendChildで新しいDOMノードを動的に構築できます</li>
@@ -94,6 +94,13 @@ graph TD
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t07.html">前へ</a>
+          <a href="t09.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

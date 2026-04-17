@@ -488,6 +488,13 @@ THEORY_LESSONS = [
      'desc_ja': '\u82f1\u8a9e\u306f\u6280\u8853\u4e16\u754c\u306e\u5171\u901a\u8a9e\u3002\u82f1\u8a9e\u3092\u8eab\u306b\u3064\u3051\u308b\u3053\u3068\u3067\u30ea\u30bd\u30fc\u30b9\u3001\u30b3\u30df\u30e5\u30cb\u30b1\u30fc\u30b7\u30e7\u30f3\u3001\u30ad\u30e3\u30ea\u30a2\u306e\u6a5f\u4f1a\u304c\u5e83\u304c\u308b\u3002',
      'analogy_en': 'The common language of the global kitchen',
      'analogy_ja': '\u30b0\u30ed\u30fc\u30d0\u30eb\u30ad\u30c3\u30c1\u30f3\u306e\u5171\u901a\u8a00\u8a9e'},
+    {'id': 'R18',
+     'title_en': 'Documentation is Your Best Friend',
+     'title_ja': '\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u306f\u6700\u826f\u306e\u53cb',
+     'desc_en': 'It is ok to not know everything. Your job is to fix problems. Use docs, Google, and AI without shame. Pride slows you down.',
+     'desc_ja': '\u5168\u3066\u3092\u77e5\u308b\u5fc5\u8981\u306f\u306a\u3044\u3002\u4ed5\u4e8b\u306f\u554f\u984c\u3092\u89e3\u6c7a\u3059\u308b\u3053\u3068\u3002\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u3001Google\u3001AI\u3092\u6065\u305a\u304b\u3057\u304c\u3089\u305a\u4f7f\u304a\u3046\u3002\u30d7\u30e9\u30a4\u30c9\u306f\u90aa\u9b54\u306b\u306a\u308b\u3002',
+     'analogy_en': 'Even surgeons check the reference before operating',
+     'analogy_ja': '\u5916\u79d1\u533b\u3067\u3055\u3048\u624b\u8853\u524d\u306b\u53c2\u8003\u66f8\u3092\u78ba\u8a8d\u3059\u308b'},
 ]
 
 VIDEOS = [
@@ -523,6 +530,24 @@ RESOURCES = [
      'title_ja': 'Hello Interview',
      'desc_en': 'System design and coding interview preparation. Learn how real-world systems are built and evaluated.',
      'desc_ja': '\u30b7\u30b9\u30c6\u30e0\u8a2d\u8a08\u3068\u30b3\u30fc\u30c7\u30a3\u30f3\u30b0\u9762\u63a5\u306e\u6e96\u5099\u3002\u5b9f\u969b\u306e\u30b7\u30b9\u30c6\u30e0\u304c\u3069\u3046\u69cb\u7bc9\u30fb\u8a55\u4fa1\u3055\u308c\u308b\u304b\u3092\u5b66\u3076\u3002'},
+    {'url': 'https://react.dev/',
+     'domain': 'react.dev',
+     'title_en': 'React',
+     'title_ja': 'React',
+     'desc_en': 'The official React documentation. Learn components, hooks, and modern patterns from the team that builds React.',
+     'desc_ja': 'React\u516c\u5f0f\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u3002React\u3092\u4f5c\u308b\u30c1\u30fc\u30e0\u304b\u3089\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u3001\u30d5\u30c3\u30af\u3001\u30e2\u30c0\u30f3\u306a\u30d1\u30bf\u30fc\u30f3\u3092\u5b66\u3076\u3002'},
+    {'url': 'https://www.typescriptlang.org/docs/',
+     'domain': 'typescriptlang.org',
+     'title_en': 'TypeScript',
+     'title_ja': 'TypeScript',
+     'desc_en': 'The official TypeScript handbook. Add type safety to JavaScript and catch bugs before they ship.',
+     'desc_ja': 'TypeScript\u516c\u5f0f\u30cf\u30f3\u30c9\u30d6\u30c3\u30af\u3002JavaScript\u306b\u578b\u5b89\u5168\u6027\u3092\u8ffd\u52a0\u3057\u3001\u30d0\u30b0\u3092\u30ea\u30ea\u30fc\u30b9\u524d\u306b\u6355\u307e\u3048\u308b\u3002'},
+    {'url': 'https://nestjs.com/',
+     'domain': 'nestjs.com',
+     'title_en': 'Nest.js',
+     'title_ja': 'Nest.js',
+     'desc_en': 'Progressive Node.js framework for scalable server-side applications. Modules, decorators, and dependency injection done right.',
+     'desc_ja': '\u30b9\u30b1\u30fc\u30e9\u30d6\u30eb\u306a\u30b5\u30fc\u30d0\u30fc\u30b5\u30a4\u30c9\u30a2\u30d7\u30ea\u306e\u305f\u3081\u306eNode.js\u30d5\u30ec\u30fc\u30e0\u30ef\u30fc\u30af\u3002\u30e2\u30b8\u30e5\u30fc\u30eb\u3001\u30c7\u30b3\u30ec\u30fc\u30bf\u30fc\u3001\u4f9d\u5b58\u6027\u6ce8\u5165\u3092\u9069\u5207\u306b\u5b9f\u88c5\u3002'},
 ]
 
 
@@ -537,6 +562,42 @@ def resolve_includes(html):
             break
         html = new
     return html
+
+
+_HEADING_RE = re.compile(r'<(h[1-3])([^>]*)>(.*?)</\1>', re.DOTALL)
+_SLUG_SANITIZE_RE = re.compile(
+    r'[^a-z0-9\u3040-\u309f\u30a0-\u30ff\u4e00-\u9fff\u3005]+'
+)
+
+
+def _heading_slug(text):
+    """Turn heading text into a URL-safe slug. Keeps Japanese characters."""
+    text = re.sub(r'<[^>]+>', '', text).strip().lower()
+    slug = _SLUG_SANITIZE_RE.sub('-', text).strip('-')
+    return slug
+
+
+def add_heading_anchors(html):
+    """Add id and clickable anchor link to every h1/h2/h3 in lesson HTML."""
+    used = {}
+
+    def replace(match):
+        tag, attrs, content = match.group(1), match.group(2) or '', match.group(3)
+        if re.search(r'\bid\s*=', attrs):
+            return match.group(0)
+        base = _heading_slug(content)
+        if not base:
+            return match.group(0)
+        count = used.get(base, 0)
+        used[base] = count + 1
+        slug = base if count == 0 else f'{base}-{count + 1}'
+        return (
+            f'<{tag}{attrs} id="{slug}">'
+            f'<a class="heading-anchor" href="#{slug}">{content}</a>'
+            f'</{tag}>'
+        )
+
+    return _HEADING_RE.sub(replace, html)
 
 
 def localize_list(items, lang):
@@ -710,6 +771,7 @@ def _build_to(out):
 
         for lang in LANGS:
             lesson_html = content.get(lang, content.get('en', ''))
+            lesson_html = add_heading_anchors(lesson_html)
             ctx = build_lesson_context(lang, lesson_id, page_file)
             rendered = engine.render(lesson_tpl, ctx)
             rendered = rendered.replace(placeholder, lesson_html)

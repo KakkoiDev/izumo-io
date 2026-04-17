@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T24: Reactのステートとエフェクト</h1>
+<h1 id="t24-reactのステートとエフェクト"><a class="heading-anchor" href="#t24-reactのステートとエフェクト">T24: Reactのステートとエフェクト</a></h1>
 <p class="lesson-intro">ステートはコンポーネントの個人的なノートです。レンダリング間で保持され、更新時に再レンダリングを引き起こすプライベートデータです。エフェクトはコンポーネントのレンダリング後に鳴る目覚まし時計のようなもので、APIやタイマーなどの外部システムと同期できます。</p>
 
-<h2>useState: コンポーネントのメモリ</h2>
+<h2 id="usestate-コンポーネントのメモリ"><a class="heading-anchor" href="#usestate-コンポーネントのメモリ">useState: コンポーネントのメモリ</a></h2>
 <p><code>useState</code>フックはコンポーネントに独自のメモリを与えます。現在の値とセッター関数を返します。セッターが呼ばれると、Reactは新しい値でコンポーネントを再レンダリングします。</p>
 <pre><code>import { useState } from "react";
 
@@ -66,7 +66,7 @@ function Counter() {
     );
 }</code></pre>
 
-<h2>useEffect: 副作用</h2>
+<h2 id="useeffect-副作用"><a class="heading-anchor" href="#useeffect-副作用">useEffect: 副作用</a></h2>
 <p><code>useEffect</code>フックはレンダリング後にコードを実行します。依存配列が再実行のタイミングを制御します。空の配列は「マウント時に一度だけ実行」を意味します。変数を含めると「これらが変更されたら再実行」になります。</p>
 <pre><code>import { useState, useEffect } from "react";
 
@@ -87,7 +87,7 @@ function MenuPage() {
     return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
 }</code></pre>
 
-<h2>ステートのリフトアップ</h2>
+<h2 id="ステートのリフトアップ"><a class="heading-anchor" href="#ステートのリフトアップ">ステートのリフトアップ</a></h2>
 <p>2つの兄弟コンポーネントがデータを共有する必要がある場合、ステートを共通の親に移動します。親がステートを所有し、propsとして子に渡します。これがReactの主要なデータ共有パターンです。</p>
 
 <div class="mermaid">
@@ -105,7 +105,7 @@ flowchart TD
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>useStateはレンダリング間で保持されるメモリをコンポーネントに与える</li>
 <li>useEffectはレンダリング後に副作用を実行し、依存配列で制御する</li>
@@ -114,6 +114,13 @@ flowchart TD
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t23.html">前へ</a>
+          <a href="t25.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

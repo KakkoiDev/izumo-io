@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T06: CSSの限界に挑戦</h1>
+<h1 id="t06-cssの限界に挑戦"><a class="heading-anchor" href="#t06-cssの限界に挑戦">T06: CSSの限界に挑戦</a></h1>
 <p class="lesson-intro">CSSは色を変えるだけではありません。トランジション、アニメーション、賢いセレクタで、JavaScriptなしにインタラクティブなコンポーネントを構築できます。絵筆が彫刻もできると気づくようなものです。</p>
 
-<h2>トランジション</h2>
+<h2 id="トランジション"><a class="heading-anchor" href="#トランジション">トランジション</a></h2>
 <p>トランジションはプロパティの変化を滑らかにアニメーションします。どのプロパティを、どれくらいの時間で、どのイージングで変化させるかを指定します。</p>
 <pre><code>.button {
     background: #3498db;
@@ -61,7 +61,7 @@
     transform: scale(1.05);
 }</code></pre>
 
-<h2>キーフレームアニメーション</h2>
+<h2 id="キーフレームアニメーション"><a class="heading-anchor" href="#キーフレームアニメーション">キーフレームアニメーション</a></h2>
 <p>より複雑な動きには、時間の異なるポイントでの状態を定義するキーフレームを使います。</p>
 <pre><code>@keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
@@ -69,7 +69,7 @@
 }
 .card { animation: fadeIn 0.5s ease-out; }</code></pre>
 
-<h2>純粋CSSアコーディオン</h2>
+<h2 id="純粋cssアコーディオン"><a class="heading-anchor" href="#純粋cssアコーディオン">純粋CSSアコーディオン</a></h2>
 <p><code>:target</code>擬似クラスでURLハッシュに基づいて表示を切り替え、JavaScriptなしのインタラクティブなコンポーネントを作成できます。</p>
 <pre><code>.panel { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
 .panel:target { max-height: 500px; }</code></pre>
@@ -85,7 +85,7 @@ stateDiagram-v2
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>トランジションは2つの状態間の変化を滑らかにアニメーションします</li>
 <li>キーフレームアニメーションで複数ステップの複雑な動きを実現できます</li>
@@ -94,6 +94,13 @@ stateDiagram-v2
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t05.html">前へ</a>
+          <a href="t07.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

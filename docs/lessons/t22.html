@@ -47,13 +47,13 @@
         </div>
       </nav>
       
-<h1>T22: Full Stack AI App</h1>
+<h1 id="t22-full-stack-ai-app"><a class="heading-anchor" href="#t22-full-stack-ai-app">T22: Full Stack AI App</a></h1>
 <p class="lesson-intro">This is where everything comes together. A full-stack application connects the frontend (what users see) to the backend (server logic and data) to the AI layer (intelligent responses). Think of it as building a complete restaurant - the dining room, the kitchen, and the chef all working in harmony.</p>
 
-<h2>Architecture Overview</h2>
+<h2 id="architecture-overview"><a class="heading-anchor" href="#architecture-overview">Architecture Overview</a></h2>
 <p>The frontend sends user input to your Node.js server. The server manages sessions, validates data, and forwards prompts to Ollama. Responses flow back through the same chain.</p>
 
-<h2>Connecting the Layers</h2>
+<h2 id="connecting-the-layers"><a class="heading-anchor" href="#connecting-the-layers">Connecting the Layers</a></h2>
 <pre><code>// Server: Bridge between frontend and AI
 app.post("/api/chat", authenticate, async (req, res) =&gt; {
     const { message } = req.body;
@@ -98,7 +98,7 @@ flowchart TB
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>Full-stack apps connect frontend, backend, and data layers into one system</li>
 <li>The server acts as a bridge between the user interface and AI model</li>
@@ -107,6 +107,13 @@ flowchart TB
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t21.html">Previous</a>
+          <a href="t23.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

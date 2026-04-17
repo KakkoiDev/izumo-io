@@ -47,23 +47,23 @@
         </div>
       </nav>
       
-<h1>T08: DOM Manipulation</h1>
+<h1 id="t08-dom-manipulation"><a class="heading-anchor" href="#t08-dom-manipulation">T08: DOM Manipulation</a></h1>
 <p class="lesson-intro">The DOM (Document Object Model) is the browser's live representation of your HTML page. Think of it as a tree made of building blocks - JavaScript lets you add, remove, and rearrange those blocks while the user watches. Every element is a node you can reach and modify.</p>
 
-<h2>Selecting Elements</h2>
+<h2 id="selecting-elements"><a class="heading-anchor" href="#selecting-elements">Selecting Elements</a></h2>
 <p>Before you can change an element, you need to find it. The <code>querySelector</code> method uses CSS selector syntax to grab elements.</p>
 <pre><code>const title = document.querySelector("h1");
 const items = document.querySelectorAll(".item");
 const form = document.querySelector("#signup-form");</code></pre>
 
-<h2>Creating and Modifying Elements</h2>
+<h2 id="creating-and-modifying-elements"><a class="heading-anchor" href="#creating-and-modifying-elements">Creating and Modifying Elements</a></h2>
 <p>Create new elements with <code>createElement</code>, set their content, and append them to the page.</p>
 <pre><code>const card = document.createElement("div");
 card.className = "card";
 card.textContent = "New card content";
 document.querySelector(".container").appendChild(card);</code></pre>
 
-<h2>Event Handling</h2>
+<h2 id="event-handling"><a class="heading-anchor" href="#event-handling">Event Handling</a></h2>
 <p>Events let your page respond to user actions. Click, hover, type - each triggers an event you can listen for.</p>
 <pre><code>const button = document.querySelector("#submit");
 button.addEventListener("click", function(event) {
@@ -85,7 +85,7 @@ graph TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>querySelector and querySelectorAll find elements using CSS selector syntax</li>
 <li>createElement and appendChild let you build new DOM nodes dynamically</li>
@@ -94,6 +94,13 @@ graph TD
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t07.html">Previous</a>
+          <a href="t09.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

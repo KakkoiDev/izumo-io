@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T09: フォームとダイアログ</h1>
+<h1 id="t09-フォームとダイアログ"><a class="heading-anchor" href="#t09-フォームとダイアログ">T09: フォームとダイアログ</a></h1>
 <p class="lesson-intro">HTMLフォームはデータを収集しますが、JavaScriptがそれを検証・処理します。dialog要素はライブラリなしでネイティブモーダルウィンドウを提供します。この組み合わせでスムーズなデータ収集体験を作れます。書類を提出する前にチェックしてくれる賢い受付のようなものです。</p>
 
-<h2>JavaScriptフォームバリデーション</h2>
+<h2 id="javascriptフォームバリデーション"><a class="heading-anchor" href="#javascriptフォームバリデーション">JavaScriptフォームバリデーション</a></h2>
 <p>HTMLには組み込みバリデーション(required, type)がありますが、JavaScriptはバリデーションロジックとカスタムエラーメッセージを完全に制御できます。</p>
 <pre><code>const form = document.querySelector("#myForm");
 form.addEventListener("submit", function(event) {
@@ -67,7 +67,7 @@ function showError(message) {
     errorDiv.style.display = "block";
 }</code></pre>
 
-<h2>Dialog要素</h2>
+<h2 id="dialog要素"><a class="heading-anchor" href="#dialog要素">Dialog要素</a></h2>
 <p><code>&lt;dialog&gt;</code>要素はネイティブのモーダル/非モーダルダイアログを提供します。<code>showModal()</code>で背景付きモーダル、<code>show()</code>で非モーダルを表示します。</p>
 <pre><code>&lt;dialog id="confirm"&gt;
     &lt;p&gt;Are you sure?&lt;/p&gt;
@@ -95,7 +95,7 @@ flowchart TD
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>JavaScriptバリデーションはHTML5組み込みバリデーション以上のカスタムロジックを提供します</li>
 <li>dialog要素は外部ライブラリなしでネイティブモーダルウィンドウを提供します</li>
@@ -104,6 +104,13 @@ flowchart TD
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t08.html">前へ</a>
+          <a href="t10.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

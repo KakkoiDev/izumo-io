@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T20: 認証</h1>
+<h1 id="t20-認証"><a class="heading-anchor" href="#t20-認証">T20: 認証</a></h1>
 <p class="lesson-intro">認証は「あなたは誰ですか?」という質問に答えます。クラブの入口でIDをチェックするドアマンのようなものです。セッション、Cookie、パスワードハッシュが連携してユーザーを安全に検証します。これを間違えるとユーザーを危険にさらすことになります。</p>
 
-<h2>パスワードハッシュ</h2>
+<h2 id="パスワードハッシュ"><a class="heading-anchor" href="#パスワードハッシュ">パスワードハッシュ</a></h2>
 <p>パスワードを平文で保存してはいけません。bcryptのような強力なアルゴリズムでハッシュします。ハッシュは一方向関数です。パスワードを照合できますが、元に戻すことはできません。</p>
 <pre><code>const bcrypt = require("bcrypt");
 
@@ -61,7 +61,7 @@ const hash = await bcrypt.hash("userPassword123", 10);
 const match = await bcrypt.compare("userPassword123", hash);
 if (match) { console.log("Access granted"); }</code></pre>
 
-<h2>セッションとCookie</h2>
+<h2 id="セッションとcookie"><a class="heading-anchor" href="#セッションとcookie">セッションとCookie</a></h2>
 <p>ログイン後、サーバーはセッションを作成しCookieでセッションIDを送信します。ブラウザはその後の全リクエストでこのCookieを送信して身元を証明します。</p>
 <pre><code>// On login success
 const sessionId = crypto.randomUUID();
@@ -89,7 +89,7 @@ sequenceDiagram
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>平文パスワードは絶対に保存しない。必ずbcryptなどでハッシュします</li>
 <li>セッションはCookieに保存された一意のセッションIDでログインユーザーを追跡します</li>
@@ -98,6 +98,13 @@ sequenceDiagram
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t19.html">前へ</a>
+          <a href="t21.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

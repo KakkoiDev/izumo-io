@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T20: Authentication</h1>
+<h1 id="t20-authentication"><a class="heading-anchor" href="#t20-authentication">T20: Authentication</a></h1>
 <p class="lesson-intro">Authentication answers the question "who are you?" It is like a bouncer at a club checking IDs. Sessions, cookies, and password hashing work together to verify users securely. Get this wrong, and you expose your users to real harm.</p>
 
-<h2>Password Hashing</h2>
+<h2 id="password-hashing"><a class="heading-anchor" href="#password-hashing">Password Hashing</a></h2>
 <p>Never store passwords in plain text. Hash them with a strong algorithm like bcrypt. A hash is a one-way function - you can verify a password against it but cannot reverse it.</p>
 <pre><code>const bcrypt = require("bcrypt");
 
@@ -61,7 +61,7 @@ const hash = await bcrypt.hash("userPassword123", 10);
 const match = await bcrypt.compare("userPassword123", hash);
 if (match) { console.log("Access granted"); }</code></pre>
 
-<h2>Sessions and Cookies</h2>
+<h2 id="sessions-and-cookies"><a class="heading-anchor" href="#sessions-and-cookies">Sessions and Cookies</a></h2>
 <p>After login, the server creates a session and sends a session ID via a cookie. The browser sends this cookie with every subsequent request to prove identity.</p>
 <pre><code>// On login success
 const sessionId = crypto.randomUUID();
@@ -89,7 +89,7 @@ sequenceDiagram
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>Never store plain text passwords - always hash with bcrypt or similar</li>
 <li>Sessions track logged-in users via a unique session ID stored in a cookie</li>
@@ -98,6 +98,13 @@ sequenceDiagram
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t19.html">Previous</a>
+          <a href="t21.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

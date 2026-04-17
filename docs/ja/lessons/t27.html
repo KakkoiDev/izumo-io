@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T27: Next.jsのデータとAPI</h1>
+<h1 id="t27-next-jsのデータとapi"><a class="heading-anchor" href="#t27-next-jsのデータとapi">T27: Next.jsのデータとAPI</a></h1>
 <p class="lesson-intro">サーバーコンポーネントのデータ取得は、ウェイターを往復させる代わりにシェフが直接パントリーに行くようなものです。useEffectもローディングスピナーも不要です。コンポーネント自体がasyncで、必要なデータを取得し、サーバーで完全なHTMLをレンダリングします。</p>
 
-<h2>サーバーコンポーネントでのデータ取得</h2>
+<h2 id="サーバーコンポーネントでのデータ取得"><a class="heading-anchor" href="#サーバーコンポーネントでのデータ取得">サーバーコンポーネントでのデータ取得</a></h2>
 <p>サーバーコンポーネントはasync関数にできます。コンポーネント本体で直接データをawaitします。useEffectもローディングステート用のuseStateも不要で、HTMLは完全にレンダリングされた状態で届きます。</p>
 <pre><code>// app/menu/page.tsx - Server component (default)
 interface MenuItem {
@@ -79,7 +79,7 @@ export default async function MenuPage() {
     );
 }</code></pre>
 
-<h2>APIルート</h2>
+<h2 id="apiルート"><a class="heading-anchor" href="#apiルート">APIルート</a></h2>
 <p>Next.jsのAPIルートは<code>route.ts</code>ファイルに記述します。GET、POST、その他のHTTPメソッドを名前付きエクスポートとして処理します。T17のExpressルートと比較してみてください。同じ概念で、構文が異なります。</p>
 <pre><code>// app/api/menu/route.ts
 import { NextResponse } from "next/server";
@@ -100,7 +100,7 @@ export async function POST(request: Request) {
     return NextResponse.json(newItem, { status: 201 });
 }</code></pre>
 
-<h2>全体の組み立て</h2>
+<h2 id="全体の組み立て"><a class="heading-anchor" href="#全体の組み立て">全体の組み立て</a></h2>
 <p>典型的なNext.jsページはサーバーでデータを取得し、HTMLをレンダリングしてブラウザに送信します。クライアントコンポーネントはアイテムの追加やフォーム送信などのインタラクティブ機能を処理し、必要に応じてAPIルートを呼び出します。</p>
 
 <div class="mermaid">
@@ -120,7 +120,7 @@ sequenceDiagram
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>サーバーコンポーネントはasyncにでき、useEffectやローディングステートなしでデータを直接取得する</li>
 <li>APIルートはroute.tsファイルで名前付きエクスポート(GET, POST)を使い、クリーンなエンドポイント定義ができる</li>
@@ -129,6 +129,13 @@ sequenceDiagram
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t26.html">前へ</a>
+          <a href="t28.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

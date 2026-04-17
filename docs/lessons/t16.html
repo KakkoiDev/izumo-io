@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T16: Node.js Server</h1>
+<h1 id="t16-node-js-server"><a class="heading-anchor" href="#t16-node-js-server">T16: Node.js Server</a></h1>
 <p class="lesson-intro">Until now, you have been opening HTML files directly in the browser. A web server is a program that listens for requests and sends back responses. Node.js lets you write that server in JavaScript - the same language you already know from the browser. It is like hiring a receptionist who speaks the same language as your entire team.</p>
 
-<h2>Creating an HTTP Server</h2>
+<h2 id="creating-an-http-server"><a class="heading-anchor" href="#creating-an-http-server">Creating an HTTP Server</a></h2>
 <pre><code>const http = require("http");
 const fs = require("fs");
 const path = require("path");
@@ -77,7 +77,7 @@ const server = http.createServer((req, res) =&gt; {
 
 server.listen(3000, () =&gt; console.log("Server on http://localhost:3000"));</code></pre>
 
-<h2>Serving Static Files</h2>
+<h2 id="serving-static-files"><a class="heading-anchor" href="#serving-static-files">Serving Static Files</a></h2>
 <p>The server reads files from the "public" folder and sends them to the browser with the correct content type header.</p>
 
 <div class="mermaid">
@@ -90,7 +90,7 @@ flowchart LR
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>Node.js runs JavaScript outside the browser on your server</li>
 <li>http.createServer creates a server that handles requests and responses</li>
@@ -99,6 +99,13 @@ flowchart LR
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t15.html">Previous</a>
+          <a href="t17.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

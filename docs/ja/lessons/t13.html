@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T13: 動的サイト - ルーティング</h1>
+<h1 id="t13-動的サイト-ルーティング"><a class="heading-anchor" href="#t13-動的サイト-ルーティング">T13: 動的サイト - ルーティング</a></h1>
 <p class="lesson-intro">従来のWebサイトでは各ページが別々のHTMLファイルです。シングルページアプリケーション(SPA)は一度読み込んでコンテンツを動的に入れ替えます。ハッシュルーティングはURLフラグメント(#の後の部分)でどのビューを表示するか決定します。新しい本を取りに行かずにページをめくるようなものです。</p>
 
-<h2>ハッシュベースルーティング</h2>
+<h2 id="ハッシュベースルーティング"><a class="heading-anchor" href="#ハッシュベースルーティング">ハッシュベースルーティング</a></h2>
 <p>URLのハッシュ部分(#の後)はページリロードを引き起こしません。ハッシュの変更をリッスンして異なるコンテンツを描画できます。</p>
 <pre><code>const routes = {
     "#/": renderHome,
@@ -67,7 +67,7 @@ function router() {
 window.addEventListener("hashchange", router);
 window.addEventListener("load", router);</code></pre>
 
-<h2>動的コンテンツ描画</h2>
+<h2 id="動的コンテンツ描画"><a class="heading-anchor" href="#動的コンテンツ描画">動的コンテンツ描画</a></h2>
 <pre><code>function renderHome() {
     document.querySelector("#app").innerHTML = `
         &lt;h1&gt;Home&lt;/h1&gt;
@@ -89,7 +89,7 @@ flowchart TD
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>SPAは1つのHTMLファイルを読み込み、JavaScriptでコンテンツを動的に入れ替えます</li>
 <li>ハッシュルーティングはURLフラグメントでどのビューを表示するか決定します</li>
@@ -98,6 +98,13 @@ flowchart TD
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t12.html">前へ</a>
+          <a href="t14.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

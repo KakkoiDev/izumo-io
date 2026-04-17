@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T14: 動的サイト - オフライン対応</h1>
+<h1 id="t14-動的サイト-オフライン対応"><a class="heading-anchor" href="#t14-動的サイト-オフライン対応">T14: 動的サイト - オフライン対応</a></h1>
 <p class="lesson-intro">Service Workerはバックグラウンドで動作するスクリプトで、Webページとは別に実行されます。ネットワークリクエストを傍受し、オフライン時にキャッシュからレスポンスを返せます。ブラウザ内に住むプログラム可能なプロキシサーバーと考えてください。ネットワークから取得するかキャッシュから返すかを判断します。</p>
 
-<h2>Service Workerの登録</h2>
+<h2 id="service-workerの登録"><a class="heading-anchor" href="#service-workerの登録">Service Workerの登録</a></h2>
 <pre><code>// In your main JS file
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/sw.js")
@@ -58,7 +58,7 @@ if ("serviceWorker" in navigator) {
         .catch(err =&gt; console.error("SW failed:", err));
 }</code></pre>
 
-<h2>Service Workerファイル</h2>
+<h2 id="service-workerファイル"><a class="heading-anchor" href="#service-workerファイル">Service Workerファイル</a></h2>
 <pre><code>// sw.js
 const CACHE_NAME = "v1";
 const ASSETS = ["/", "/index.html", "/style.css", "/app.js"];
@@ -77,7 +77,7 @@ self.addEventListener("fetch", event =&gt; {
     );
 });</code></pre>
 
-<h2>PWAマニフェスト</h2>
+<h2 id="pwaマニフェスト"><a class="heading-anchor" href="#pwaマニフェスト">PWAマニフェスト</a></h2>
 <p><code>manifest.json</code>ファイルを追加してモバイルデバイスでアプリとしてインストール可能にします。</p>
 
 <div class="mermaid">
@@ -92,7 +92,7 @@ stateDiagram-v2
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>Service Workerはバックグラウンドで実行され、ネットワークリクエストを傍受します</li>
 <li>インストール時にアセットをキャッシュしてオフライン機能を有効にします</li>
@@ -101,6 +101,13 @@ stateDiagram-v2
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t13.html">前へ</a>
+          <a href="t15.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

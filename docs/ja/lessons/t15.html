@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T15: 動的サイト - 仕上げ</h1>
+<h1 id="t15-動的サイト-仕上げ"><a class="heading-anchor" href="#t15-動的サイト-仕上げ">T15: 動的サイト - 仕上げ</a></h1>
 <p class="lesson-intro">パフォーマンスは機能です。読み込みが遅いサイトからユーザーは離脱します。サイトの仕上げとは、何を読み込むか、いつ読み込むか、どう読み込むかの最適化です。人気料理を事前に準備し、珍しい注文だけオンデマンドで調理するレストランのようなものです。</p>
 
-<h2>遅延読み込み</h2>
+<h2 id="遅延読み込み"><a class="heading-anchor" href="#遅延読み込み">遅延読み込み</a></h2>
 <p>画像やコンテンツをビューポートに入った時だけ読み込みます。<code>loading="lazy"</code>属性で画像をネイティブに処理できます。</p>
 <pre><code>&lt;img src="photo.jpg" loading="lazy" alt="Lazy loaded"&gt;
 
@@ -65,7 +65,7 @@ const observer = new IntersectionObserver((entries) =&gt; {
     });
 });</code></pre>
 
-<h2>パフォーマンステクニック</h2>
+<h2 id="パフォーマンステクニック"><a class="heading-anchor" href="#パフォーマンステクニック">パフォーマンステクニック</a></h2>
 <p>レンダリングをブロックするリソースを最小化します。重要でないJavaScriptを遅延させます。効率的なセレクタを使い、DOMサイズを削減します。</p>
 <pre><code>&lt;!-- Defer non-critical JS --&gt;
 &lt;script src="app.js" defer&gt;&lt;/script&gt;
@@ -73,7 +73,7 @@ const observer = new IntersectionObserver((entries) =&gt; {
 &lt;!-- Preload critical resources --&gt;
 &lt;link rel="preload" href="font.woff2" as="font" crossorigin&gt;</code></pre>
 
-<h2>コード分割</h2>
+<h2 id="コード分割"><a class="heading-anchor" href="#コード分割">コード分割</a></h2>
 <p>現在のビューに必要なJavaScriptだけを読み込みます。ユーザーがナビゲートした時に追加モジュールをインポートします。</p>
 <pre><code>async function loadModule(name) {
     const module = await import(`./modules/${name}.js`);
@@ -94,7 +94,7 @@ sequenceDiagram
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>遅延読み込みはビューポートに入るまで非表示コンテンツの読み込みを延期します</li>
 <li>scriptタグにdefer属性を使ってレンダリングブロックを回避します</li>
@@ -103,6 +103,13 @@ sequenceDiagram
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t14.html">前へ</a>
+          <a href="t16.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

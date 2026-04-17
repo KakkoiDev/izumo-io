@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T21: OllamaとChat</h1>
+<h1 id="t21-ollamaとchat"><a class="heading-anchor" href="#t21-ollamaとchat">T21: OllamaとChat</a></h1>
 <p class="lesson-intro">大規模言語モデル(LLM)はローカルマシンで動作できるようになりました。Ollamaはオープンソースモデルのダウンロードと配信を簡単にします。WebアプリをローカルLLMに接続すれば、外部サービスにデータを送らずにAI機能を実現できます。自分のコンピュータに住む賢いアシスタントを持つようなものです。</p>
 
-<h2>Ollamaのセットアップ</h2>
+<h2 id="ollamaのセットアップ"><a class="heading-anchor" href="#ollamaのセットアップ">Ollamaのセットアップ</a></h2>
 <p>Ollamaをインストールし、モデルをプルすると、localhost:11434でAPIが提供されます。</p>
 <pre><code># Install and run
 # ollama pull llama3
@@ -58,7 +58,7 @@
 
 # The API is now available at http://localhost:11434</code></pre>
 
-<h2>Chat API統合</h2>
+<h2 id="chat-api統合"><a class="heading-anchor" href="#chat-api統合">Chat API統合</a></h2>
 <pre><code>async function chat(messages) {
     const response = await fetch("http://localhost:11434/api/chat", {
         method: "POST",
@@ -79,7 +79,7 @@ const reply = await chat([
     { role: "user", content: "Explain HTML in one sentence." }
 ]);</code></pre>
 
-<h2>チャットインターフェースの構築</h2>
+<h2 id="チャットインターフェースの構築"><a class="heading-anchor" href="#チャットインターフェースの構築">チャットインターフェースの構築</a></h2>
 <p>会話履歴をメッセージオブジェクトの配列として保存します。新しいメッセージを追加し、コンテキスト維持のために完全な履歴を送信します。</p>
 
 <div class="mermaid">
@@ -97,7 +97,7 @@ sequenceDiagram
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>OllamaはシンプルなAPIでオープンソースのLLMをローカル実行します</li>
 <li>Chat APIはroleとcontentフィールドを持つメッセージの配列を受け取ります</li>
@@ -106,6 +106,13 @@ sequenceDiagram
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t20.html">前へ</a>
+          <a href="t22.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

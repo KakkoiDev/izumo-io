@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T21: Ollama and Chat</h1>
+<h1 id="t21-ollama-and-chat"><a class="heading-anchor" href="#t21-ollama-and-chat">T21: Ollama and Chat</a></h1>
 <p class="lesson-intro">Large Language Models (LLMs) can now run locally on your machine. Ollama makes it easy to download and serve open-source models. Connecting your web app to a local LLM gives you AI-powered features without sending data to external services - like having a smart assistant living on your own computer.</p>
 
-<h2>Setting Up Ollama</h2>
+<h2 id="setting-up-ollama"><a class="heading-anchor" href="#setting-up-ollama">Setting Up Ollama</a></h2>
 <p>Install Ollama, pull a model, and it serves an API on localhost:11434.</p>
 <pre><code># Install and run
 # ollama pull llama3
@@ -58,7 +58,7 @@
 
 # The API is now available at http://localhost:11434</code></pre>
 
-<h2>Chat API Integration</h2>
+<h2 id="chat-api-integration"><a class="heading-anchor" href="#chat-api-integration">Chat API Integration</a></h2>
 <pre><code>async function chat(messages) {
     const response = await fetch("http://localhost:11434/api/chat", {
         method: "POST",
@@ -79,7 +79,7 @@ const reply = await chat([
     { role: "user", content: "Explain HTML in one sentence." }
 ]);</code></pre>
 
-<h2>Building a Chat Interface</h2>
+<h2 id="building-a-chat-interface"><a class="heading-anchor" href="#building-a-chat-interface">Building a Chat Interface</a></h2>
 <p>Store the conversation history as an array of message objects. Append each new message and send the full history to maintain context.</p>
 
 <div class="mermaid">
@@ -97,7 +97,7 @@ sequenceDiagram
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>Ollama runs open-source LLMs locally with a simple API</li>
 <li>The chat API takes an array of messages with role and content fields</li>
@@ -106,6 +106,13 @@ sequenceDiagram
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t20.html">Previous</a>
+          <a href="t22.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

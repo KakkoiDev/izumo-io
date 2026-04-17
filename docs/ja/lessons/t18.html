@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T18: JSONデータベース</h1>
+<h1 id="t18-jsonデータベース"><a class="heading-anchor" href="#t18-jsonデータベース">T18: JSONデータベース</a></h1>
 <p class="lesson-intro">本格的なデータベースを学ぶ前に、JSONファイルをシンプルなデータストアとして使えます。ファイルを読み取り、パースし、データを変更し、書き戻します。エントリを書いたり消したりするノートのようなものです。シンプルですが小さなアプリケーションには効果的です。</p>
 
-<h2>db.jsonの読み書き</h2>
+<h2 id="db-jsonの読み書き"><a class="heading-anchor" href="#db-jsonの読み書き">db.jsonの読み書き</a></h2>
 <pre><code>const fs = require("fs");
 const DB_PATH = "./db.json";
 
@@ -63,7 +63,7 @@ function writeDB(data) {
     fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
 }</code></pre>
 
-<h2>CRUD操作</h2>
+<h2 id="crud操作"><a class="heading-anchor" href="#crud操作">CRUD操作</a></h2>
 <pre><code>// Create
 function addUser(user) {
     const db = readDB();
@@ -105,7 +105,7 @@ flowchart LR
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>JSONファイルは小さなプロジェクトのシンプルなデータベースとして機能します</li>
 <li>CRUDはCreate、Read、Update、Deleteの4つの基本データ操作の略です</li>
@@ -114,6 +114,13 @@ flowchart LR
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t17.html">前へ</a>
+          <a href="t19.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T11: Persistence</h1>
+<h1 id="t11-persistence"><a class="heading-anchor" href="#t11-persistence">T11: Persistence</a></h1>
 <p class="lesson-intro">Web pages forget everything when you close them. LocalStorage is like a notebook the browser keeps for your website - data persists even after closing the tab. JSON is the universal format for converting JavaScript objects into storable strings and back.</p>
 
-<h2>localStorage API</h2>
+<h2 id="localstorage-api"><a class="heading-anchor" href="#localstorage-api">localStorage API</a></h2>
 <p>LocalStorage stores key-value pairs as strings. It persists across page reloads and browser restarts, with about 5MB of space per domain.</p>
 <pre><code>// Save data
 localStorage.setItem("username", "Alice");
@@ -64,7 +64,7 @@ localStorage.removeItem("username");
 // Clear all
 localStorage.clear();</code></pre>
 
-<h2>Working with JSON</h2>
+<h2 id="working-with-json"><a class="heading-anchor" href="#working-with-json">Working with JSON</a></h2>
 <p>Since localStorage only stores strings, use <code>JSON.stringify()</code> to save objects and <code>JSON.parse()</code> to read them back.</p>
 <pre><code>const tasks = [
     { id: 1, text: "Learn HTML", done: true },
@@ -88,7 +88,7 @@ flowchart LR
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>localStorage persists data across page reloads and browser restarts</li>
 <li>All values are stored as strings - use JSON for complex data</li>
@@ -97,6 +97,13 @@ flowchart LR
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t10.html">Previous</a>
+          <a href="t12.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T13: Dynamic Site - Routing</h1>
+<h1 id="t13-dynamic-site-routing"><a class="heading-anchor" href="#t13-dynamic-site-routing">T13: Dynamic Site - Routing</a></h1>
 <p class="lesson-intro">In a traditional website, each page is a separate HTML file. A Single Page Application (SPA) loads once and swaps content dynamically. Hash routing uses the URL fragment (the part after #) to determine which view to show - like chapters in a book that you flip to without getting a new book.</p>
 
-<h2>Hash-Based Routing</h2>
+<h2 id="hash-based-routing"><a class="heading-anchor" href="#hash-based-routing">Hash-Based Routing</a></h2>
 <p>The hash portion of the URL (after #) does not trigger a page reload. We can listen for hash changes and render different content.</p>
 <pre><code>const routes = {
     "#/": renderHome,
@@ -67,7 +67,7 @@ function router() {
 window.addEventListener("hashchange", router);
 window.addEventListener("load", router);</code></pre>
 
-<h2>Dynamic Content Rendering</h2>
+<h2 id="dynamic-content-rendering"><a class="heading-anchor" href="#dynamic-content-rendering">Dynamic Content Rendering</a></h2>
 <pre><code>function renderHome() {
     document.querySelector("#app").innerHTML = `
         &lt;h1&gt;Home&lt;/h1&gt;
@@ -89,7 +89,7 @@ flowchart TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>SPAs load one HTML file and swap content dynamically via JavaScript</li>
 <li>Hash routing uses the URL fragment to determine which view to display</li>
@@ -98,6 +98,13 @@ flowchart TD
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t12.html">Previous</a>
+          <a href="t14.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

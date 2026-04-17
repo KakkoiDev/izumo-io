@@ -47,13 +47,13 @@
         </div>
       </nav>
       
-<h1>T22: フルスタックAIアプリ</h1>
+<h1 id="t22-フルスタックaiアプリ"><a class="heading-anchor" href="#t22-フルスタックaiアプリ">T22: フルスタックAIアプリ</a></h1>
 <p class="lesson-intro">ここで全てが繋がります。フルスタックアプリケーションはフロントエンド(ユーザーが見るもの)、バックエンド(サーバーロジックとデータ)、AI層(インテリジェントな応答)を接続します。完全なレストランを建てるようなもので、ダイニング、キッチン、シェフが調和して動きます。</p>
 
-<h2>アーキテクチャ概要</h2>
+<h2 id="アーキテクチャ概要"><a class="heading-anchor" href="#アーキテクチャ概要">アーキテクチャ概要</a></h2>
 <p>フロントエンドはユーザー入力をNode.jsサーバーに送信します。サーバーはセッション管理、データ検証を行い、プロンプトをOllamaに転送します。レスポンスは同じ経路を通って戻ります。</p>
 
-<h2>層の接続</h2>
+<h2 id="層の接続"><a class="heading-anchor" href="#層の接続">層の接続</a></h2>
 <pre><code>// Server: Bridge between frontend and AI
 app.post("/api/chat", authenticate, async (req, res) =&gt; {
     const { message } = req.body;
@@ -98,7 +98,7 @@ flowchart TB
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>フルスタックアプリはフロントエンド、バックエンド、データ層を1つのシステムに接続します</li>
 <li>サーバーはユーザーインターフェースとAIモデルの間の橋渡しをします</li>
@@ -107,6 +107,13 @@ flowchart TB
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t21.html">前へ</a>
+          <a href="t23.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

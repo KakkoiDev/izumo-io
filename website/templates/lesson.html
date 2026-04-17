@@ -9,6 +9,13 @@
         </div>
       </nav>
       <!-- LESSON_CONTENT -->
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="{{ back_url }}">{{ back_label }}</a>
+        <div class="lesson-pager">
+          {% if prev_url %}<a href="{{ prev_url }}">{{ prev_label }}</a>{% endif %}
+          {% if next_url %}<a href="{{ next_url }}">{{ next_label }}</a>{% endif %}
+        </div>
+      </nav>
     </article>
 
 {% include "footer.html" %}

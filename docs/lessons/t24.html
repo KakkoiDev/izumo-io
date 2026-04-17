@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T24: React State &amp; Effects</h1>
+<h1 id="t24-react-state-amp-effects"><a class="heading-anchor" href="#t24-react-state-amp-effects">T24: React State &amp; Effects</a></h1>
 <p class="lesson-intro">State is a component's personal notebook - private data that persists across renders and triggers re-renders when updated. Effects are like alarm clocks that go off after the component renders, letting you synchronize with external systems like APIs or timers.</p>
 
-<h2>useState: Component Memory</h2>
+<h2 id="usestate-component-memory"><a class="heading-anchor" href="#usestate-component-memory">useState: Component Memory</a></h2>
 <p>The <code>useState</code> hook gives a component its own memory. It returns the current value and a setter function. When the setter is called, React re-renders the component with the new value.</p>
 <pre><code>import { useState } from "react";
 
@@ -66,7 +66,7 @@ function Counter() {
     );
 }</code></pre>
 
-<h2>useEffect: Side Effects</h2>
+<h2 id="useeffect-side-effects"><a class="heading-anchor" href="#useeffect-side-effects">useEffect: Side Effects</a></h2>
 <p>The <code>useEffect</code> hook runs code after render. The dependency array controls when it re-runs. An empty array means "run once on mount." Including variables means "re-run when these change."</p>
 <pre><code>import { useState, useEffect } from "react";
 
@@ -87,7 +87,7 @@ function MenuPage() {
     return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
 }</code></pre>
 
-<h2>Lifting State Up</h2>
+<h2 id="lifting-state-up"><a class="heading-anchor" href="#lifting-state-up">Lifting State Up</a></h2>
 <p>When two sibling components need to share data, move the state to their common parent. The parent owns the state and passes it down as props. This is React's primary data-sharing pattern.</p>
 
 <div class="mermaid">
@@ -105,7 +105,7 @@ flowchart TD
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>useState gives components memory that persists across renders</li>
 <li>useEffect runs side effects after render, controlled by the dependency array</li>
@@ -114,6 +114,13 @@ flowchart TD
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t23.html">Previous</a>
+          <a href="t25.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

@@ -3929,6 +3929,102 @@ flowchart TD
 </div>
 """,
     },
+    'R18': {
+        'en': """
+<h1>R18: Documentation is Your Best Friend</h1>
+<p class="lesson-intro">Nobody remembers everything. Not senior developers. Not framework authors. Not principal engineers at Google. What separates effective developers from stuck ones is not how much they memorize, but how fast they find what they need. Documentation, search engines, and AI are not cheat sheets. Using them is the job.</p>
+
+<h2>It is OK to Not Know Everything</h2>
+<p>The field is too large. New tools ship every week. Frameworks change APIs. Best practices evolve. Trying to hold it all in your head is a losing game. A surgeon does not memorize every drug interaction, she looks them up before prescribing. A pilot does not memorize every checklist, he reads it on each flight. Doing the job well means using the tools that help you do the job well.</p>
+
+<h2>Your Job is to Fix Problems</h2>
+<p>You are not paid to recite function signatures from memory. You are paid to ship working software. When you are stuck, the question is not "am I smart enough" but "what is the fastest path to a working solution?" That path almost always goes through documentation, search engines, AI assistants, source code, or a teammate.</p>
+
+<h2>The Tools of the Trade</h2>
+<ul>
+<li><strong>Official documentation.</strong> Start here. It is written by the people who built the thing.</li>
+<li><strong>Search engines.</strong> Stack Overflow, blog posts, and GitHub issues have solved most problems already.</li>
+<li><strong>AI assistants.</strong> Explain the problem in plain words. Ask for examples. Iterate.</li>
+<li><strong>Source code.</strong> When docs fail, read the implementation. It never lies.</li>
+<li><strong>Your team.</strong> A five-minute conversation can save five hours of searching.</li>
+</ul>
+
+<h2>Pride is the Enemy</h2>
+<p>The developer who refuses to search because "I should know this" wastes hours. The developer who refuses to ask because "it looks bad" ships slower. The developer who refuses AI because "it is cheating" falls behind. Looking things up is not weakness. Asking for help is not failure. The only thing that matters is the final result: working software, delivered on time.</p>
+
+<div class="mermaid">
+flowchart TD
+    A[Stuck on a problem] --> B{How long?}
+    B -->|Minutes| C[Read the docs]
+    B -->|Tens of minutes| D[Search Google]
+    B -->|Hours| E[Ask AI or a teammate]
+    C --> F[Ship it]
+    D --> F
+    E --> F
+</div>
+
+<h2>The Mindset Shift</h2>
+<p>Stop treating "I do not know" as a personal failure. Treat it as the starting point of every task. The senior developer is not the one who knows everything. The senior developer is the one who finds answers fast, evaluates them well, and moves on. Fluency with the tools of discovery is the real skill.</p>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Nobody knows everything. The field is too large to memorize</li>
+<li>Your job is to deliver working software, not to recite from memory</li>
+<li>Documentation, search, AI, source code, and teammates are all legitimate tools</li>
+<li>Pride slows you down. Looking things up is not weakness, it is the job</li>
+<li>The final result is what matters</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>R18: ドキュメントは最良の友</h1>
+<p class="lesson-intro">全てを覚えている人はいません。シニア開発者もそうです。フレームワークの作者もそうです。Googleのプリンシパルエンジニアもそうです。優れた開発者と行き詰まる開発者の違いは、どれだけ暗記しているかではなく、必要な情報をどれだけ速く見つけられるかです。ドキュメント、検索エンジン、AIはズルの道具ではありません。それらを使うことが仕事なのです。</p>
+
+<h2>全てを知る必要はない</h2>
+<p>この分野は広すぎます。新しいツールは毎週リリースされます。フレームワークのAPIは変わります。ベストプラクティスも進化します。全部頭に入れようとするのは勝てない勝負です。外科医は薬の相互作用を全て暗記しません、処方前に確認します。パイロットはチェックリストを暗記しません、毎回読み上げます。良い仕事をするとは、仕事を助けるツールを使うことです。</p>
+
+<h2>仕事は問題を解決すること</h2>
+<p>関数の引数を暗記から言えるように給料が払われているわけではありません。動くソフトウェアを納品することに給料が払われています。行き詰まったとき、問うべきは「自分は賢いか」ではなく「動く解決策への最短ルートは何か」です。そのルートはほとんどの場合、ドキュメント、検索エンジン、AIアシスタント、ソースコード、またはチームメイトを通ります。</p>
+
+<h2>プロの道具</h2>
+<ul>
+<li><strong>公式ドキュメント。</strong>まずここから。作った人が書いています。</li>
+<li><strong>検索エンジン。</strong>Stack Overflow、ブログ記事、GitHub Issuesがほとんどの問題を解決済みです。</li>
+<li><strong>AIアシスタント。</strong>問題を普通の言葉で説明する。例を求める。繰り返す。</li>
+<li><strong>ソースコード。</strong>ドキュメントが役立たないとき、実装を読む。コードは嘘をつきません。</li>
+<li><strong>チーム。</strong>5分の会話が5時間の検索を節約します。</li>
+</ul>
+
+<h2>プライドは敵</h2>
+<p>「知ってるはず」と言って検索を拒む開発者は時間を無駄にします。「見栄えが悪い」と言って質問を拒む開発者は納品が遅れます。「ズルだ」と言ってAIを拒む開発者は取り残されます。調べるのは弱さではありません。助けを求めるのは失敗ではありません。大事なのは最終成果だけです。納期通りに動くソフトウェアを納品すること。</p>
+
+<div class="mermaid">
+flowchart TD
+    A[Stuck on a problem] --> B{How long?}
+    B -->|Minutes| C[Read the docs]
+    B -->|Tens of minutes| D[Search Google]
+    B -->|Hours| E[Ask AI or a teammate]
+    C --> F[Ship it]
+    D --> F
+    E --> F
+</div>
+
+<h2>マインドセットの転換</h2>
+<p>「知らない」を個人的な失敗として扱うのをやめましょう。全てのタスクの出発点として扱います。シニア開発者は全てを知っている人ではありません。シニア開発者は答えを速く見つけ、適切に評価し、前に進む人です。発見のツールの熟練こそが本当のスキルです。</p>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>全てを知っている人はいない。この分野は暗記するには広すぎる</li>
+<li>仕事は動くソフトウェアを納品すること。暗記の披露ではない</li>
+<li>ドキュメント、検索、AI、ソースコード、チームメイト。全て正当なツール</li>
+<li>プライドは邪魔。調べることは弱さではなく、それが仕事</li>
+<li>最終成果こそが全て</li>
+</ul>
+</div>
+""",
+    },
     'T23': {
         'en': """
 <h1>T23: React Foundations</h1>

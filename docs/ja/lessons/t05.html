@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T05: CSSレイアウト - 配置の技術</h1>
+<h1 id="t05-cssレイアウト-配置の技術"><a class="heading-anchor" href="#t05-cssレイアウト-配置の技術">T05: CSSレイアウト - 配置の技術</a></h1>
 <p class="lesson-intro">かつてページ上の要素配置は大変でした。FlexboxとGridが全てを変えました。Flexboxは一列に並べること(本棚の本のように)、Gridは行と列で整理すること(スプレッドシートのように)と考えてください。</p>
 
-<h2>Flexbox</h2>
+<h2 id="flexbox"><a class="heading-anchor" href="#flexbox">Flexbox</a></h2>
 <p>Flexboxは一度に一方向で動作します。コンテナに<code>display: flex</code>を設定し、子要素の配置と余白の配分を制御します。</p>
 <pre><code>.nav {
     display: flex;
@@ -63,7 +63,7 @@
     flex: 1;
 }</code></pre>
 
-<h2>CSS Grid</h2>
+<h2 id="css-grid"><a class="heading-anchor" href="#css-grid">CSS Grid</a></h2>
 <p>Gridは二方向を同時に扱います。行と列を定義し、グリッドセルにアイテムを配置します。</p>
 <pre><code>.layout {
     display: grid;
@@ -73,7 +73,7 @@
     min-height: 100vh;
 }</code></pre>
 
-<h2>レスポンシブデザイン</h2>
+<h2 id="レスポンシブデザイン"><a class="heading-anchor" href="#レスポンシブデザイン">レスポンシブデザイン</a></h2>
 <p>メディアクエリで画面サイズに応じた異なるスタイルを適用できます。モバイルファーストとは小さい画面用の基本スタイルを書き、大きい画面用に複雑さを加えるアプローチです。</p>
 <pre><code>@media (min-width: 768px) {
     .layout { grid-template-columns: 250px 1fr; }
@@ -93,7 +93,7 @@ flowchart TB
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>Flexboxは一次元レイアウト向け(行または列)</li>
 <li>Gridは二次元レイアウト向け(行と列を同時に)</li>
@@ -102,6 +102,13 @@ flowchart TB
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t04.html">前へ</a>
+          <a href="t06.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

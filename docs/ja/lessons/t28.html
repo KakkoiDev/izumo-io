@@ -47,13 +47,13 @@
         </div>
       </nav>
       
-<h1>T28: Nest.jsのアーキテクチャ</h1>
+<h1 id="t28-nest-jsのアーキテクチャ"><a class="heading-anchor" href="#t28-nest-jsのアーキテクチャ">T28: Nest.jsのアーキテクチャ</a></h1>
 <p class="lesson-intro">Nest.jsはレストランチェーンの運営マニュアルのようなものです。モジュールは部署、コントローラーは注文を受けるウェイター、サービスは実際に調理するシェフ、そして依存性注入はウェイターが詳細を知る必要なくシェフを配置するマネージャーです。</p>
 
-<h2>フレームワークが必要な理由</h2>
+<h2 id="フレームワークが必要な理由"><a class="heading-anchor" href="#フレームワークが必要な理由">フレームワークが必要な理由</a></h2>
 <p>T16の素のNode.jsは小さなアプリには十分ですが、スケールするには構造が必要です。Nest.jsは明確な関心の分離、強制されたパターン、テストとモジュール性の組み込みサポートを提供します。</p>
 
-<h2>モジュール、コントローラー、サービス</h2>
+<h2 id="モジュール-コントローラー-サービス"><a class="heading-anchor" href="#モジュール-コントローラー-サービス">モジュール、コントローラー、サービス</a></h2>
 <p>全てのNest.jsアプリはモジュールに整理されます。各モジュールは関連するコントローラー(HTTPを処理)とサービス(ビジネスロジックを処理)をグループ化します。<code>@Controller</code>や<code>@Injectable</code>のようなデコレータが各クラスの役割をフレームワークに伝えます。</p>
 <pre><code>// menu.module.ts
 import { Module } from "@nestjs/common";
@@ -105,7 +105,7 @@ export class MenuService {
     }
 }</code></pre>
 
-<h2>依存性注入</h2>
+<h2 id="依存性注入"><a class="heading-anchor" href="#依存性注入">依存性注入</a></h2>
 <p>コントローラーは自分でサービスを作成しません。コンストラクタで必要なものを宣言し、フレームワークがそれを提供します。これによりテストが容易になります。コントローラーのコードを変更せずにモックサービスに差し替えられます。</p>
 <pre><code>// The controller declares its dependency
 constructor(private readonly menuService: MenuService) {}
@@ -114,7 +114,7 @@ constructor(private readonly menuService: MenuService) {}
 // In tests, you can provide a mock instead:
 // { provide: MenuService, useValue: mockMenuService }</code></pre>
 
-<h2>デコレータとTypeScript</h2>
+<h2 id="デコレータとtypescript"><a class="heading-anchor" href="#デコレータとtypescript">デコレータとTypeScript</a></h2>
 <p>Nest.jsはTypeScriptのデコレータを多用します。<code>@Controller</code>、<code>@Get</code>、<code>@Post</code>、<code>@Body</code>、<code>@Injectable</code>。これらのアノテーションがロジックを散らかすことなく振る舞いを定義します。</p>
 
 <div class="mermaid">
@@ -136,7 +136,7 @@ flowchart TD
 </div>
 
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>Nest.jsはモジュール、コントローラー、サービスの3本柱で構造を強制する</li>
 <li>コントローラーはHTTPルーティング、サービスはビジネスロジックを処理する。混在させないこと</li>
@@ -145,6 +145,13 @@ flowchart TD
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t27.html">前へ</a>
+          <a href="t29.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>

@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T15: Dynamic Site - Polish</h1>
+<h1 id="t15-dynamic-site-polish"><a class="heading-anchor" href="#t15-dynamic-site-polish">T15: Dynamic Site - Polish</a></h1>
 <p class="lesson-intro">Performance is a feature. Users abandon sites that load slowly. Polishing your site means optimizing what loads, when it loads, and how it loads. Like a restaurant that prepares popular dishes in advance and only cooks rare orders on demand.</p>
 
-<h2>Lazy Loading</h2>
+<h2 id="lazy-loading"><a class="heading-anchor" href="#lazy-loading">Lazy Loading</a></h2>
 <p>Load images and content only when they enter the viewport. The <code>loading="lazy"</code> attribute handles images natively.</p>
 <pre><code>&lt;img src="photo.jpg" loading="lazy" alt="Lazy loaded"&gt;
 
@@ -65,7 +65,7 @@ const observer = new IntersectionObserver((entries) =&gt; {
     });
 });</code></pre>
 
-<h2>Performance Techniques</h2>
+<h2 id="performance-techniques"><a class="heading-anchor" href="#performance-techniques">Performance Techniques</a></h2>
 <p>Minimize render-blocking resources. Defer non-critical JavaScript. Use efficient selectors and reduce DOM size.</p>
 <pre><code>&lt;!-- Defer non-critical JS --&gt;
 &lt;script src="app.js" defer&gt;&lt;/script&gt;
@@ -73,7 +73,7 @@ const observer = new IntersectionObserver((entries) =&gt; {
 &lt;!-- Preload critical resources --&gt;
 &lt;link rel="preload" href="font.woff2" as="font" crossorigin&gt;</code></pre>
 
-<h2>Code Splitting</h2>
+<h2 id="code-splitting"><a class="heading-anchor" href="#code-splitting">Code Splitting</a></h2>
 <p>Load only the JavaScript needed for the current view. Import additional modules when the user navigates to them.</p>
 <pre><code>async function loadModule(name) {
     const module = await import(`./modules/${name}.js`);
@@ -94,7 +94,7 @@ sequenceDiagram
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>Lazy loading defers non-visible content until it enters the viewport</li>
 <li>Use defer attribute on script tags to avoid render-blocking</li>
@@ -103,6 +103,13 @@ sequenceDiagram
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t14.html">Previous</a>
+          <a href="t16.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

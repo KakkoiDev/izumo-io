@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T14: Dynamic Site - Offline</h1>
+<h1 id="t14-dynamic-site-offline"><a class="heading-anchor" href="#t14-dynamic-site-offline">T14: Dynamic Site - Offline</a></h1>
 <p class="lesson-intro">Service Workers are scripts that run in the background, separate from your web page. They intercept network requests and can serve cached responses when offline. Think of a Service Worker as a programmable proxy server living inside the browser - it decides whether to fetch from the network or serve from cache.</p>
 
-<h2>Registering a Service Worker</h2>
+<h2 id="registering-a-service-worker"><a class="heading-anchor" href="#registering-a-service-worker">Registering a Service Worker</a></h2>
 <pre><code>// In your main JS file
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("/sw.js")
@@ -58,7 +58,7 @@ if ("serviceWorker" in navigator) {
         .catch(err =&gt; console.error("SW failed:", err));
 }</code></pre>
 
-<h2>The Service Worker File</h2>
+<h2 id="the-service-worker-file"><a class="heading-anchor" href="#the-service-worker-file">The Service Worker File</a></h2>
 <pre><code>// sw.js
 const CACHE_NAME = "v1";
 const ASSETS = ["/", "/index.html", "/style.css", "/app.js"];
@@ -77,7 +77,7 @@ self.addEventListener("fetch", event =&gt; {
     );
 });</code></pre>
 
-<h2>PWA Manifest</h2>
+<h2 id="pwa-manifest"><a class="heading-anchor" href="#pwa-manifest">PWA Manifest</a></h2>
 <p>Add a <code>manifest.json</code> file to make your site installable as an app on mobile devices.</p>
 
 <div class="mermaid">
@@ -92,7 +92,7 @@ stateDiagram-v2
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>Service Workers run in the background and intercept network requests</li>
 <li>Cache assets during install to enable offline functionality</li>
@@ -101,6 +101,13 @@ stateDiagram-v2
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t13.html">Previous</a>
+          <a href="t15.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>

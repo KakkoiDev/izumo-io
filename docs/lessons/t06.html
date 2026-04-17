@@ -47,10 +47,10 @@
         </div>
       </nav>
       
-<h1>T06: CSS to the Limit</h1>
+<h1 id="t06-css-to-the-limit"><a class="heading-anchor" href="#t06-css-to-the-limit">T06: CSS to the Limit</a></h1>
 <p class="lesson-intro">CSS can do far more than change colors. With transitions, animations, and clever selectors, you can build interactive components without a single line of JavaScript. It is like discovering that your paintbrush can also sculpt.</p>
 
-<h2>Transitions</h2>
+<h2 id="transitions"><a class="heading-anchor" href="#transitions">Transitions</a></h2>
 <p>Transitions smoothly animate property changes. Specify which property to animate, how long it takes, and the easing function.</p>
 <pre><code>.button {
     background: #3498db;
@@ -61,7 +61,7 @@
     transform: scale(1.05);
 }</code></pre>
 
-<h2>Keyframe Animations</h2>
+<h2 id="keyframe-animations"><a class="heading-anchor" href="#keyframe-animations">Keyframe Animations</a></h2>
 <p>For more complex motion, define keyframes with specific states at different points in time.</p>
 <pre><code>@keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
@@ -69,7 +69,7 @@
 }
 .card { animation: fadeIn 0.5s ease-out; }</code></pre>
 
-<h2>Pure CSS Accordion</h2>
+<h2 id="pure-css-accordion"><a class="heading-anchor" href="#pure-css-accordion">Pure CSS Accordion</a></h2>
 <p>The <code>:target</code> pseudo-class lets you toggle visibility based on URL hash, creating interactive components without JavaScript.</p>
 <pre><code>.panel { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
 .panel:target { max-height: 500px; }</code></pre>
@@ -85,7 +85,7 @@ stateDiagram-v2
 </div>
 
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
 <li>Transitions animate changes between two states smoothly</li>
 <li>Keyframe animations allow multi-step, complex motion sequences</li>
@@ -94,6 +94,13 @@ stateDiagram-v2
 </ul>
 </div>
 
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t05.html">Previous</a>
+          <a href="t07.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>
