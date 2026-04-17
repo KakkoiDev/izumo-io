@@ -13,13 +13,33 @@ Our philosophy:
 - **Career-ready skills**: Practical knowledge you'll use in your job
 - **Community support**: Learn together with peers and mentors
 
-## Current Courses
+## Primary curriculum
 
-### 🤖 AI Chatbot (10-Week Course)
+The main learning path lives on the **[KakkoiSchool website](https://kakkoischool.com)**: 29 tech lessons (T01-T29) covering HTML, CSS, JavaScript, Node.js, AI, React, TypeScript, Next.js, and Nest.js, plus 17 theory lessons (R01-R17) on problem-solving, architecture, and career skills. Bilingual (English / Japanese).
 
-Build a full-stack AI chatbot from absolute beginner to production-ready application.
+Start there. The courses below are optional deep-dives.
 
-👉 **[Start the AI Chatbot Course →](./courses/ai-chatbot/)**
+## Reference courses
+
+Full-length reference courses preserved in this repo for learners who want to push deeper after the website curriculum, or for in-person class attendees who get pointed here for extra material.
+
+These are markdown-only (not web-rendered). Read them directly on GitHub.
+
+### AI Chatbot (10-Week Course)
+
+Build a full-stack AI chatbot from absolute beginner to production-ready application. Predates the website curriculum; now superseded by T16-T22 but kept as a cohesive project-based reference.
+
+[Start the AI Chatbot Course](./courses/ai-chatbot/)
+
+### Postgres from Zero (80 lessons, 18 modules)
+
+Deep-dive into Postgres 17 as a full application platform: SQL fundamentals, performance, JSONB, transactions, full-text search, vectors, row-level security, Postgres-as-backend via PostgREST / pg_graphql. Complements T19 (SQLite) and T29 (Nest.js data).
+
+[Start the Postgres Course](./courses/postgres/)
+
+## Submissions
+
+`/submissions/` is where students open pull requests with their own project work. Fork this repo, do the lessons, push your results under `/submissions/<your-handle>/`, then open a PR. Other learners and the maintainers will review.
 
 ## Community
 
@@ -31,5 +51,3 @@ Join our Discord server to:
 - Access additional resources
 
 **[Join Discord: https://discord.gg/YrtdssGUJa](https://discord.gg/YrtdssGUJa)**
-
-Update an existing md file.
