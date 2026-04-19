@@ -4025,6 +4025,134 @@ flowchart TD
 </div>
 """,
     },
+    'R19': {
+        'en': """
+<h1>R19: A Business Runs on Money</h1>
+<p class="lesson-intro">Strip away the mission statements and the marketing copy. What actually keeps a business alive is cash flowing in faster than cash flowing out. Salaries, rent, servers, taxes. None of it pays itself. A company that stops making money stops existing. This is not cynical. This is gravity. Pretending otherwise is the fastest way to build something that ships beautifully and dies quietly.</p>
+
+<h2>The Three Hard Truths</h2>
+<p>Every business, from a two-person startup to a public giant, is built on three goals that do not change:</p>
+<ul>
+<li><strong>Make money.</strong> Revenue must cover rent, salaries, and expenses. There is no flat line. You go up or you go down.</li>
+<li><strong>Keep customers paying.</strong> Not "build the perfect product." Build one that customers find worth paying for, over and over.</li>
+<li><strong>Sustain itself.</strong> Venture capital runs out. Technical debt compounds. Complexity grows. The goal is staying alive long enough to adapt.</li>
+</ul>
+
+<h2>The Mission Statement is a Face</h2>
+<p>Most companies have a "vision" or "mission." A curated sentence written by marketing to give a human face to the machine. This is not wrong or evil. People need purpose, and purpose attracts customers and employees. But do not confuse the face with the engine. The engine is money. The mission is the cover art on the album.</p>
+
+<h2>Why This Matters to You</h2>
+<p>If you treat a ticket as a box to check, you produce code that technically satisfies the requirements and quietly fails the business. You miss that the customer is a bank still on Internet Explorer. You miss that 60% of users are on mobile and the design never specified a mobile breakpoint. You miss that "out of scope: auto-save" was a guess by someone who never asked the real user. Code that does not serve the business becomes cost. Cost the company pays to fix, refactor, or rewrite.</p>
+
+<h2>Evidence Beats Feelings</h2>
+<p>When you push back on a decision, bring data. "I think this is wrong" goes nowhere. "Our users are 60% mobile and this blocks them" wins the argument. The flip side is also true. Overbearing top-down orders with no reasoning produce apathetic teams. "The boss said so, I think he is wrong, but I do not care anymore" is how preventable bugs ship. Both sides owe each other the respect of evidence.</p>
+
+<h2>Example: The Save Button</h2>
+<p>A ticket lands on your desk: add a save button. You could add a column, create an endpoint, wire the button, write a test, and close the ticket. You would be done. You would also have shipped something blind.</p>
+<p>A developer who holds the business in mind asks different questions:</p>
+<ul>
+<li>Who is the customer? What browser and device do they use?</li>
+<li>Why is auto-save "out of scope"? Who decided, and based on what?</li>
+<li>Does a similar feature already exist that we could reuse?</li>
+<li>What happens if the server is down when the user clicks save?</li>
+<li>Does the design work on mobile, where most users are?</li>
+</ul>
+<p>The answers might change the ticket entirely. Or confirm it. Either way, the work you ship fits the business, not just the ticket.</p>
+
+<div class="mermaid">
+flowchart TD
+    A[Business Reality] --> B[Make money]
+    A --> C[Keep customers paying]
+    A --> D[Sustain over time]
+    B --> E[Your code must serve these]
+    C --> E
+    D --> E
+    E --> F[Who is the user?]
+    E --> G[Why this requirement?]
+    E --> H[What is the cost of failure?]
+    F --> I[Better decisions]
+    G --> I
+    H --> I
+</div>
+
+<h2>Respect Goes Both Ways</h2>
+<p>Rigid hierarchies scale. Startups run on multidisciplinary individuals. Neither is wrong. What breaks either model is a lack of open exchange between the people deciding and the people building. Suits and developers who can push back on each other, with evidence, produce better products than teams where one side dictates and the other obeys. Thinking long-term about what is best for everyone is what earns respect.</p>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>A business survives on money. Make it, keep it, sustain it. Everything else is secondary</li>
+<li>Mission statements are a face, not the engine. Do not confuse the two</li>
+<li>Treating tickets as checkboxes produces cost. Understand the customer and the why</li>
+<li>Push back with evidence, not feelings. Demand the same from above</li>
+<li>Respect and open dialogue between leadership and builders produce better products than top-down orders</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>R19: ビジネスはお金で動く</h1>
+<p class="lesson-intro">ミッションステートメントやマーケティングコピーを剥がしましょう。会社を実際に生かしているのは、出ていくお金より入ってくるお金の方が多いという事実です。給料、家賃、サーバー、税金。どれも自動では払われません。お金を作れなくなった会社は存在を終えます。これは冷笑ではなく、重力と同じ事実です。目を背けるほど、美しく出荷して静かに死ぬ製品を作るのが早くなります。</p>
+
+<h2>三つの厳しい真実</h2>
+<p>2人のスタートアップから上場大企業まで、全てのビジネスは変わらない3つの目標の上に成り立っています:</p>
+<ul>
+<li><strong>お金を作る。</strong>売上が家賃、給料、経費を賄う必要がある。横ばいはない。上がるか、下がるか。</li>
+<li><strong>顧客に払い続けてもらう。</strong>「完璧な製品を作る」ではない。顧客が何度でも払う価値があると感じる製品を作ること。</li>
+<li><strong>持続する。</strong>ベンチャーキャピタルは尽きる。技術的負債は積もる。複雑さは増す。目標は、適応できる期間だけ生き延びること。</li>
+</ul>
+
+<h2>ミッションステートメントは顔</h2>
+<p>多くの企業は「ビジョン」や「ミッション」を持っています。マーケティングが書き上げた一文で、機械に人間の顔を与えるためのものです。これは悪いことではありません。人は目的を必要とし、目的は顧客と従業員を引きつけます。しかし、顔とエンジンを混同してはいけません。エンジンはお金です。ミッションはアルバムのジャケットです。</p>
+
+<h2>なぜこれがあなたに関係するか</h2>
+<p>チケットをただのチェックボックスとして扱えば、要件は技術的に満たすが、ビジネスには静かに失敗するコードを生みます。顧客がInternet Explorerを使い続ける銀行であることを見落とす。ユーザーの60%がモバイルで、デザインにモバイル対応がないことを見落とす。「オートセーブは対象外」が、本当のユーザーに一度も聞かなかった誰かの推測だったことを見落とす。ビジネスに貢献しないコードはコストになります。会社が修正、リファクタ、書き直しで払うコストです。</p>
+
+<h2>根拠は感情に勝つ</h2>
+<p>決定に反対するときは、データを持ってきましょう。「間違っていると思います」は何も動かしません。「ユーザーの60%はモバイルで、これは彼らをブロックします」は議論に勝ちます。逆も真なりです。根拠のないトップダウンの命令は、無関心なチームを生みます。「上司が言ったからやる。間違っていると思うが、もう気にしない」が、防げたバグが出荷される瞬間です。両方の側が、根拠という敬意をお互いに払うべきです。</p>
+
+<h2>例: 保存ボタン</h2>
+<p>「保存ボタンを追加」というチケットが来ます。カラムを追加し、エンドポイントを作り、ボタンを配線し、テストを書き、チケットを閉じる。完了です。そして盲目的に出荷しました。</p>
+<p>ビジネスを念頭に置く開発者は、別の質問をします:</p>
+<ul>
+<li>顧客は誰か?どのブラウザとデバイスを使っているか?</li>
+<li>なぜオートセーブは「対象外」なのか?誰が、何を根拠に決めたか?</li>
+<li>似た機能は既に存在し、再利用できるか?</li>
+<li>ユーザーが保存を押したときにサーバーが落ちていたら?</li>
+<li>デザインはモバイルで機能するか?ユーザーの大半はそこにいる</li>
+</ul>
+<p>答え次第で、チケットが根本から変わるかもしれません。あるいは正しいと確認するかもしれません。どちらにせよ、出荷する仕事はチケットではなくビジネスに合っています。</p>
+
+<div class="mermaid">
+flowchart TD
+    A[Business Reality] --> B[Make money]
+    A --> C[Keep customers paying]
+    A --> D[Sustain over time]
+    B --> E[Your code must serve these]
+    C --> E
+    D --> E
+    E --> F[Who is the user?]
+    E --> G[Why this requirement?]
+    E --> H[What is the cost of failure?]
+    F --> I[Better decisions]
+    G --> I
+    H --> I
+</div>
+
+<h2>敬意は双方向</h2>
+<p>固い階層はスケールします。スタートアップは多才な個人で動きます。どちらも間違いではありません。両方のモデルを壊すのは、決める人と作る人の間の率直なやりとりの欠如です。スーツと開発者が根拠を持って互いに押し返せるチームは、一方が命令し他方が従うチームより良い製品を作ります。全員にとって何が長期的に最善かを考えることが、敬意を得る道です。</p>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>ビジネスはお金で生き延びる。作り、保ち、持続させる。他はすべて二次的</li>
+<li>ミッションステートメントは顔であり、エンジンではない。混同しない</li>
+<li>チケットをチェックボックスとして扱うとコストを生む。顧客と理由を理解する</li>
+<li>感情ではなく根拠で反対する。上にも同じことを要求する</li>
+<li>リーダーと作り手の間の敬意と対話が、トップダウンの命令よりも良い製品を生む</li>
+</ul>
+</div>
+""",
+    },
     'T23': {
         'en': """
 <h1>T23: React Foundations</h1>
