@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt" data-page="resources.html" data-lang-paths='{"en":"../","ja":"../ja/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Resources - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="tech-lessons.html">Tech Lessons</a>
+      <a href="theory-lessons.html">Theory</a>
+      <a href="videos.html">Videos</a>
+      <a href="resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <section class="page-header">
+      <h1 id="resources"><a class="heading-anchor" href="#resources">Resources</a></h1>
+      <p>Curated tools and platforms to level up your skills.</p>
+    </section>
+
+    <div class="resources-grid">
+      
+      <a href="https://exercism.org/" class="resource-card" target="_blank" rel="noopener">
+        <h3>Exercism</h3>
+        <p>Free coding exercises in 70+ languages with mentoring. Practice fundamentals through real challenges.</p>
+        <span class="resource-url">exercism.org</span>
+      </a>
+      
+      <a href="https://www.w3schools.com/" class="resource-card" target="_blank" rel="noopener">
+        <h3>W3Schools</h3>
+        <p>Tutorials and references for HTML, CSS, JavaScript, and more. Great for quick lookups and interactive examples.</p>
+        <span class="resource-url">w3schools.com</span>
+      </a>
+      
+      <a href="https://developer.mozilla.org/en-US/" class="resource-card" target="_blank" rel="noopener">
+        <h3>MDN Web Docs</h3>
+        <p>The definitive reference for web technologies. In-depth documentation for HTML, CSS, JavaScript, and Web APIs.</p>
+        <span class="resource-url">developer.mozilla.org</span>
+      </a>
+      
+      <a href="https://www.hellointerview.com/" class="resource-card" target="_blank" rel="noopener">
+        <h3>Hello Interview</h3>
+        <p>System design and coding interview preparation. Learn how real-world systems are built and evaluated.</p>
+        <span class="resource-url">hellointerview.com</span>
+      </a>
+      
+      <a href="https://react.dev/" class="resource-card" target="_blank" rel="noopener">
+        <h3>React</h3>
+        <p>The official React documentation. Learn components, hooks, and modern patterns from the team that builds React.</p>
+        <span class="resource-url">react.dev</span>
+      </a>
+      
+      <a href="https://www.typescriptlang.org/docs/" class="resource-card" target="_blank" rel="noopener">
+        <h3>TypeScript</h3>
+        <p>The official TypeScript handbook. Add type safety to JavaScript and catch bugs before they ship.</p>
+        <span class="resource-url">typescriptlang.org</span>
+      </a>
+      
+      <a href="https://nestjs.com/" class="resource-card" target="_blank" rel="noopener">
+        <h3>Nest.js</h3>
+        <p>Progressive Node.js framework for scalable server-side applications. Modules, decorators, and dependency injection done right.</p>
+        <span class="resource-url">nestjs.com</span>
+      </a>
+      
+    </div>
+
+  </main>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

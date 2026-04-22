@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt" data-page="t16.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Dynamic Site: Routing - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t15.html">Previous</a>
+          <a href="t17.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="t16-dynamic-site-routing"><a class="heading-anchor" href="#t16-dynamic-site-routing">T16: Dynamic Site - Routing</a></h1>
+<p class="lesson-intro">In a traditional website, each page is a separate HTML file. A Single Page Application (SPA) loads once and swaps content dynamically. Hash routing uses the URL fragment (the part after #) to determine which view to show - like chapters in a book that you flip to without getting a new book.</p>
+<h2 id="hash-based-routing"><a class="heading-anchor" href="#hash-based-routing">Hash-Based Routing</a></h2>
+<p>The hash portion of the URL (after #) does not trigger a page reload. We can listen for hash changes and render different content.</p>
+<pre><code>const routes = {
+    &quot;#/&quot;: renderHome,
+    &quot;#/about&quot;: renderAbout,
+    &quot;#/contact&quot;: renderContact
+};
+
+function router() {
+    const hash = window.location.hash || &quot;#/&quot;;
+    const renderFn = routes[hash] || renderNotFound;
+    renderFn();
+}
+
+window.addEventListener(&quot;hashchange&quot;, router);
+window.addEventListener(&quot;load&quot;, router);
+</code></pre>
+<h2 id="dynamic-content-rendering"><a class="heading-anchor" href="#dynamic-content-rendering">Dynamic Content Rendering</a></h2>
+<pre><code>function renderHome() {
+    document.querySelector(&quot;#app&quot;).innerHTML = `
+        &lt;h1&gt;Home&lt;/h1&gt;
+        &lt;p&gt;Welcome to the site.&lt;/p&gt;
+        &lt;a href=&quot;#/about&quot;&gt;About Us&lt;/a&gt;
+    `;
+}
+</code></pre>
+<div class="mermaid">
+flowchart TD
+    A[User clicks link] --> B[URL hash changes]
+    B --> C[hashchange event fires]
+    C --> D{Match route?}
+    D -->|Yes| E[Render matched view]
+    D -->|No| F[Render 404 page]
+    E --> G[Update #app content]
+    F --> G
+    G --> H[Page stays loaded]
+
+</div>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>SPAs load one HTML file and swap content dynamically via JavaScript</li>
+<li>Hash routing uses the URL fragment to determine which view to display</li>
+<li>The hashchange event fires whenever the URL hash changes</li>
+<li>A route map object connects hash patterns to render functions</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t15.html">Previous</a>
+          <a href="t17.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

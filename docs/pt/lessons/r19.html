@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt" data-page="r19.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>A Business Runs on Money - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../theory-lessons.html">Back to Theory Lessons</a>
+        <div class="lesson-pager">
+          <a href="r18.html">Previous</a>
+          <a href="r20.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="r19-a-business-runs-on-money"><a class="heading-anchor" href="#r19-a-business-runs-on-money">R19: A Business Runs on Money</a></h1>
+<p class="lesson-intro">Strip away the mission statements and the marketing copy. What actually keeps a business alive is cash flowing in faster than cash flowing out. Salaries, rent, servers, taxes. None of it pays itself. A company that stops making money stops existing. This is not cynical. This is gravity. Pretending otherwise is the fastest way to build something that ships beautifully and dies quietly.</p>
+<h2 id="the-three-hard-truths"><a class="heading-anchor" href="#the-three-hard-truths">The Three Hard Truths</a></h2>
+<p>Every business, from a two-person startup to a public giant, is built on three goals that do not change:</p>
+<ul>
+<li><strong>Make money.</strong> Revenue must cover rent, salaries, and expenses. There is no flat line. You go up or you go down.</li>
+<li><strong>Keep customers paying.</strong> Not "build the perfect product." Build one that customers find worth paying for, over and over.</li>
+<li><strong>Sustain itself.</strong> Venture capital runs out. Technical debt compounds. Complexity grows. The goal is staying alive long enough to adapt.</li>
+</ul>
+<h2 id="the-mission-statement-is-a-face"><a class="heading-anchor" href="#the-mission-statement-is-a-face">The Mission Statement is a Face</a></h2>
+<p>Most companies have a "vision" or "mission." A curated sentence written by marketing to give a human face to the machine. This is not wrong or evil. People need purpose, and purpose attracts customers and employees. But do not confuse the face with the engine. The engine is money. The mission is the cover art on the album.</p>
+<h2 id="why-this-matters-to-you"><a class="heading-anchor" href="#why-this-matters-to-you">Why This Matters to You</a></h2>
+<p>If you treat a ticket as a box to check, you produce code that technically satisfies the requirements and quietly fails the business. You miss that the customer is a bank still on Internet Explorer. You miss that 60% of users are on mobile and the design never specified a mobile breakpoint. You miss that "out of scope: auto-save" was a guess by someone who never asked the real user. Code that does not serve the business becomes cost. Cost the company pays to fix, refactor, or rewrite.</p>
+<h2 id="evidence-beats-feelings"><a class="heading-anchor" href="#evidence-beats-feelings">Evidence Beats Feelings</a></h2>
+<p>When you push back on a decision, bring data. "I think this is wrong" goes nowhere. "Our users are 60% mobile and this blocks them" wins the argument. The flip side is also true. Overbearing top-down orders with no reasoning produce apathetic teams. "The boss said so, I think he is wrong, but I do not care anymore" is how preventable bugs ship. Both sides owe each other the respect of evidence.</p>
+<h2 id="example-the-save-button"><a class="heading-anchor" href="#example-the-save-button">Example: The Save Button</a></h2>
+<p>A ticket lands on your desk: add a save button. You could add a column, create an endpoint, wire the button, write a test, and close the ticket. You would be done. You would also have shipped something blind.</p>
+<p>A developer who holds the business in mind asks different questions:</p>
+<ul>
+<li>Who is the customer? What browser and device do they use?</li>
+<li>Why is auto-save "out of scope"? Who decided, and based on what?</li>
+<li>Does a similar feature already exist that we could reuse?</li>
+<li>What happens if the server is down when the user clicks save?</li>
+<li>Does the design work on mobile, where most users are?</li>
+</ul>
+<p>The answers might change the ticket entirely. Or confirm it. Either way, the work you ship fits the business, not just the ticket.</p>
+<div class="mermaid">
+flowchart TD
+    A[Business Reality] --> B[Make money]
+    A --> C[Keep customers paying]
+    A --> D[Sustain over time]
+    B --> E[Your code must serve these]
+    C --> E
+    D --> E
+    E --> F[Who is the user?]
+    E --> G[Why this requirement?]
+    E --> H[What is the cost of failure?]
+    F --> I[Better decisions]
+    G --> I
+    H --> I
+
+</div>
+<h2 id="respect-goes-both-ways"><a class="heading-anchor" href="#respect-goes-both-ways">Respect Goes Both Ways</a></h2>
+<p>Rigid hierarchies scale. Startups run on multidisciplinary individuals. Neither is wrong. What breaks either model is a lack of open exchange between the people deciding and the people building. Suits and developers who can push back on each other, with evidence, produce better products than teams where one side dictates and the other obeys. Thinking long-term about what is best for everyone is what earns respect.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>A business survives on money. Make it, keep it, sustain it. Everything else is secondary</li>
+<li>Mission statements are a face, not the engine. Do not confuse the two</li>
+<li>Treating tickets as checkboxes produces cost. Understand the customer and the why</li>
+<li>Push back with evidence, not feelings. Demand the same from above</li>
+<li>Respect and open dialogue between leadership and builders produce better products than top-down orders</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../theory-lessons.html">Back to Theory Lessons</a>
+        <div class="lesson-pager">
+          <a href="r18.html">Previous</a>
+          <a href="r20.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

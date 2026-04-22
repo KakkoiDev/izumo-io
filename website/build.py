@@ -36,8 +36,8 @@ LANG_LABELS = {'en': 'English', 'ja': '日本語', 'pt': 'Português'}
 # -- Content data ----------------------------------------------------------
 
 def t(data, lang):
-    """Get localized value with EN fallback."""
-    return data.get(lang, data.get('en', ''))
+    """Get localized value with EN fallback. Empty strings fall back too."""
+    return data.get(lang) or data.get('en', '')
 
 
 
@@ -130,16 +130,51 @@ def localize_list(items, lang):
                 base = key.rsplit('_', 1)[0]
                 if base not in seen:
                     seen.add(base)
-                    loc[base] = item.get(f'{base}_{lang}', item.get(f'{base}_en', ''))
+                    loc[base] = item.get(f'{base}_{lang}') or item.get(f'{base}_en', '')
             else:
                 loc[key] = item[key]
         result.append(loc)
     return result
 
 
+def _lang_paths(current_lang, is_lesson):
+    """Compute the href base each language should link to from the current page.
+
+    Non-EN languages live in a subfolder (docs/ja/, docs/pt/). EN lives at
+    the root (docs/). Lesson pages are one level deeper inside lessons/.
+    """
+    result = {}
+    for target in LANGS:
+        if not is_lesson:
+            if current_lang == target:
+                result[target] = './'
+            elif current_lang == 'en':
+                result[target] = f'{target}/'
+            elif target == 'en':
+                result[target] = '../'
+            else:
+                result[target] = f'../{target}/'
+        else:
+            if current_lang == target:
+                result[target] = './'
+            elif target == 'en':
+                result[target] = '../../lessons/'
+            elif current_lang == 'en':
+                result[target] = f'../{target}/lessons/'
+            else:
+                result[target] = f'../../{target}/lessons/'
+    return result
+
+
+def _lang_paths_json(paths):
+    """Serialize a {lang: href} dict for use in data-lang-paths."""
+    import json
+    return json.dumps(paths, ensure_ascii=False, separators=(',', ':'))
+
+
 def build_context(lang, page_file):
     """Build template context for rendering a page."""
-    is_ja = lang == 'ja'
+    is_root = lang == 'en'
 
     ui = {k: t(v, lang) for k, v in UI.items()}
 
@@ -157,13 +192,14 @@ def build_context(lang, page_file):
         selected = ' selected' if l == lang else ''
         lang_options += f'<option value="{l}"{selected}>{LANG_LABELS[l]}</option>'
 
+    paths = _lang_paths(lang, is_lesson=False)
+
     return {
         'lang': lang,
         'HTML_LANG': lang,
-        'STATIC_PATH': '../static/' if is_ja else 'static/',
+        'STATIC_PATH': 'static/' if is_root else '../static/',
         'NAV_PREFIX': '',
-        'EN_BASE': '../' if is_ja else './',
-        'JA_BASE': './' if is_ja else 'ja/',
+        'LANG_PATHS_JSON': _lang_paths_json(paths),
         'PAGE_FILE': page_file,
         'PAGE_TITLE': page_title,
         'LANG_OPTIONS': lang_options,
@@ -182,14 +218,15 @@ def build_context(lang, page_file):
 
 def build_lesson_context(lang, lesson_id, page_file):
     """Build template context for a lesson page."""
-    is_ja = lang == 'ja'
+    is_root = lang == 'en'
     ui = {k: t(v, lang) for k, v in UI.items()}
 
-    # Find lesson metadata for title
+    # Find lesson metadata for title, preferring current lang then EN fallback.
     all_lessons = TECH_LESSONS + THEORY_LESSONS
     lesson_meta = next((l for l in all_lessons if l['id'] == lesson_id), {})
-    title_key = f'title_{lang}' if f'title_{lang}' in lesson_meta else 'title_en'
-    page_title = lesson_meta.get(title_key, lesson_id)
+    page_title = (lesson_meta.get(f'title_{lang}')
+                  or lesson_meta.get('title_en')
+                  or lesson_id)
 
     is_tech = lesson_id.startswith('T')
     back_url = '../tech-lessons.html' if is_tech else '../theory-lessons.html'
@@ -208,14 +245,15 @@ def build_lesson_context(lang, lesson_id, page_file):
         selected = ' selected' if l == lang else ''
         lang_options += f'<option value="{l}"{selected}>{LANG_LABELS[l]}</option>'
 
+    paths = _lang_paths(lang, is_lesson=True)
+
     slug = lesson_id.lower()
     return {
         'lang': lang,
         'HTML_LANG': lang,
-        'STATIC_PATH': '../../static/' if is_ja else '../static/',
+        'STATIC_PATH': '../static/' if is_root else '../../static/',
         'NAV_PREFIX': '../' ,
-        'EN_BASE': '../../lessons/' if is_ja else './',
-        'JA_BASE': './' if is_ja else '../../ja/lessons/',
+        'LANG_PATHS_JSON': _lang_paths_json(paths),
         'PAGE_FILE': f'{slug}.html',
         'PAGE_TITLE': page_title,
         'LANG_OPTIONS': lang_options,
@@ -286,7 +324,7 @@ def _build_to(out):
         page_file = f'lessons/{slug}.html'
 
         for lang in LANGS:
-            lesson_html = content.get(lang, content.get('en', ''))
+            lesson_html = content.get(lang) or content.get('en', '')
             lesson_html = add_heading_anchors(lesson_html)
             ctx = build_lesson_context(lang, lesson_id, page_file)
             rendered = engine.render(lesson_tpl, ctx)

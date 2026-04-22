@@ -30,7 +30,9 @@ ROOT = Path(__file__).parent.parent
 CONTENT = ROOT / 'content'
 
 # Languages we render. Ordered: EN first (source of truth), then others.
-LANG_CODES = ['en', 'ja']
+# EN is authoritative; other languages fall back to EN at render time when a
+# string or markdown body is missing/empty.
+LANG_CODES = ['en', 'ja', 'pt']
 
 
 # -------- markdown rendering --------

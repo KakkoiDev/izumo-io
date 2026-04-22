@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="pt" data-page="theory-lessons.html" data-lang-paths='{"en":"../","ja":"../ja/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Theory & Life Lessons - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="tech-lessons.html">Tech Lessons</a>
+      <a href="theory-lessons.html">Theory</a>
+      <a href="videos.html">Videos</a>
+      <a href="resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <section class="page-header">
+      <h1 id="theory-life-lessons"><a class="heading-anchor" href="#theory-life-lessons">Theory & Life Lessons</a></h1>
+      <p>The thinking behind great software and great developers.</p>
+    </section>
+
+    <div class="theory-grid">
+      
+      <a href="lessons/r01.html" class="theory-card">
+        <span class="lesson-id">R01</span>
+        <h3>What is IT?</h3>
+        <p>Everything is information. IT is about collecting, sending, processing, and storing it.</p>
+        
+        <p class="theory-analogy">A post office for data</p>
+        
+      </a>
+      
+      <a href="lessons/r02.html" class="theory-card">
+        <span class="lesson-id">R02</span>
+        <h3>Web Architecture</h3>
+        <p>Clients request, servers respond. Like a restaurant where you order and the kitchen prepares your meal.</p>
+        
+        <p class="theory-analogy">Restaurant: customers order, kitchen prepares</p>
+        
+      </a>
+      
+      <a href="lessons/r03.html" class="theory-card">
+        <span class="lesson-id">R03</span>
+        <h3>Problem Solving</h3>
+        <p>Understand before you build. Most software work is thinking, not typing.</p>
+        
+        <p class="theory-analogy">Doctor: diagnose before prescribing</p>
+        
+      </a>
+      
+      <a href="lessons/r04.html" class="theory-card">
+        <span class="lesson-id">R04</span>
+        <h3>The 20/80 Rule</h3>
+        <p>20% of knowledge covers 80% of real work. Focus on what matters most.</p>
+        
+        <p class="theory-analogy">5 cooking techniques cover most dishes</p>
+        
+      </a>
+      
+      <a href="lessons/r05.html" class="theory-card">
+        <span class="lesson-id">R05</span>
+        <h3>Consistency Beats Passion</h3>
+        <p>Daily practice beats bursts of inspiration. The marathon runner wins in the long run.</p>
+        
+        <p class="theory-analogy">Marathon runner beats the sprinter</p>
+        
+      </a>
+      
+      <a href="lessons/r06.html" class="theory-card">
+        <span class="lesson-id">R06</span>
+        <h3>Path of Least Resistance</h3>
+        <p>New tools get adopted when they are easier than the old way. Innovation flows like water.</p>
+        
+        <p class="theory-analogy">Water flows downhill</p>
+        
+      </a>
+      
+      <a href="lessons/r07.html" class="theory-card">
+        <span class="lesson-id">R07</span>
+        <h3>Keep Things Super Simple</h3>
+        <p>Simple solutions beat complex ones. A few basic tools beat a Swiss army knife for real work.</p>
+        
+        <p class="theory-analogy">Toolbox beats Swiss army knife</p>
+        
+      </a>
+      
+      <a href="lessons/r08.html" class="theory-card">
+        <span class="lesson-id">R08</span>
+        <h3>Code Quality</h3>
+        <p>Good code works, runs fast, and is easy to change. Three levels like a restaurant.</p>
+        
+        <p class="theory-analogy">Restaurant: edible, delicious, smooth kitchen</p>
+        
+      </a>
+      
+      <a href="lessons/r09.html" class="theory-card">
+        <span class="lesson-id">R09</span>
+        <h3>How to Learn</h3>
+        <p>Learning is exploring a map. First you do not know what you do not know.</p>
+        
+        <p class="theory-analogy">Exploring an unknown map</p>
+        
+      </a>
+      
+      <a href="lessons/r10.html" class="theory-card">
+        <span class="lesson-id">R10</span>
+        <h3>KakkoiSchool Case Study</h3>
+        <p>Analyzing our own course. What decisions were made, what worked, what did not.</p>
+        
+        <p class="theory-analogy">Learning from our own journey</p>
+        
+      </a>
+      
+      <a href="lessons/r11.html" class="theory-card">
+        <span class="lesson-id">R11</span>
+        <h3>Adaptability</h3>
+        <p>The tech industry rewards those who embrace change. Fundamentals outlast frameworks.</p>
+        
+        <p class="theory-analogy">Foundations outlast any single tool</p>
+        
+      </a>
+      
+      <a href="lessons/r12.html" class="theory-card">
+        <span class="lesson-id">R12</span>
+        <h3>Work-Life Balance</h3>
+        <p>A career is a marathon. Sustainable pace beats chronic overwork.</p>
+        
+        <p class="theory-analogy">You cannot sprint a marathon</p>
+        
+      </a>
+      
+      <a href="lessons/r13.html" class="theory-card">
+        <span class="lesson-id">R13</span>
+        <h3>Workplace Politics</h3>
+        <p>Navigating office politics, protecting your work, and knowing when to leave.</p>
+        
+        <p class="theory-analogy">Document, build alliances, stay focused</p>
+        
+      </a>
+      
+      <a href="lessons/r14.html" class="theory-card">
+        <span class="lesson-id">R14</span>
+        <h3>Communication & Teamwork</h3>
+        <p>Technical skills get you hired. Communication skills get you promoted.</p>
+        
+        <p class="theory-analogy">Brilliant code nobody understands is useless</p>
+        
+      </a>
+      
+      <a href="lessons/r15.html" class="theory-card">
+        <span class="lesson-id">R15</span>
+        <h3>Working with AI</h3>
+        <p>AI is a force multiplier. Learn to work with it, not against it.</p>
+        
+        <p class="theory-analogy">A robot assistant that read millions of books</p>
+        
+      </a>
+      
+      <a href="lessons/r16.html" class="theory-card">
+        <span class="lesson-id">R16</span>
+        <h3>Shipping is a Skill</h3>
+        <p>Many can code, fewer can ship. Finishing and presenting work professionally is its own skill.</p>
+        
+        <p class="theory-analogy">A finished project beats an impressive unfinished one</p>
+        
+      </a>
+      
+      <a href="lessons/r17.html" class="theory-card">
+        <span class="lesson-id">R17</span>
+        <h3>The Importance of English</h3>
+        <p>English is the lingua franca of tech. Mastering it unlocks resources, communication, and career opportunities.</p>
+        
+        <p class="theory-analogy">The common language of the global kitchen</p>
+        
+      </a>
+      
+      <a href="lessons/r18.html" class="theory-card">
+        <span class="lesson-id">R18</span>
+        <h3>Documentation is Your Best Friend</h3>
+        <p>It is ok to not know everything. Your job is to fix problems. Use docs, Google, and AI without shame. Pride slows you down.</p>
+        
+        <p class="theory-analogy">Even surgeons check the reference before operating</p>
+        
+      </a>
+      
+      <a href="lessons/r19.html" class="theory-card">
+        <span class="lesson-id">R19</span>
+        <h3>A Business Runs on Money</h3>
+        <p>A business survives on money. Mission statements are a face, not the engine. Understand the why behind tickets to ship code that serves the business.</p>
+        
+        <p class="theory-analogy">No money, no mission</p>
+        
+      </a>
+      
+      <a href="lessons/r20.html" class="theory-card">
+        <span class="lesson-id">R20</span>
+        <h3>Never Trust an AI</h3>
+        <p>Anthropic showed frontier AI will blackmail and let humans die to preserve itself. Use AI heavily, trust it never. Keep humans on the kill switch.</p>
+        
+        <p class="theory-analogy">A saw does not care if it cuts wood or your hand</p>
+        
+      </a>
+      
+    </div>
+
+  </main>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt" data-page="t28.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>React Foundations - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t27.html">Previous</a>
+          <a href="t29.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="t28-react-foundations"><a class="heading-anchor" href="#t28-react-foundations">T28: React Foundations</a></h1>
+<p class="lesson-intro">React lets you build UIs from reusable pieces called components. Think of components as Lego bricks - custom HTML tags you define yourself. Instead of telling the browser step-by-step what to change, you describe what the screen should look like, and React figures out the updates.</p>
+<h2 id="from-imperative-to-declarative"><a class="heading-anchor" href="#from-imperative-to-declarative">From Imperative to Declarative</a></h2>
+<p>With vanilla JavaScript, you manually find elements and update them. React flips this: you declare the desired UI state, and React handles the DOM updates for you.</p>
+<pre><code>// Vanilla JS - imperative: you manage every step
+const btn = document.getElementById(&quot;counter-btn&quot;);
+let count = 0;
+btn.addEventListener(&quot;click&quot;, () =&gt; {
+    count++;
+    btn.textContent = `Clicked ${count} times`;
+});
+
+// React - declarative: describe the result, React updates the DOM
+function Counter() {
+    const [count, setCount] = React.useState(0);
+    return (
+        &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+            Clicked {count} times
+        &lt;/button&gt;
+    );
+}
+</code></pre>
+<h2 id="components-jsx-and-props"><a class="heading-anchor" href="#components-jsx-and-props">Components, JSX, and Props</a></h2>
+<p>A component is a function that returns JSX - a syntax that looks like HTML but lives inside JavaScript. Props are inputs passed from parent to child, like function arguments.</p>
+<pre><code>function MenuItem({ name, price }) {
+    return (
+        &lt;div className=&quot;menu-item&quot;&gt;
+            &lt;span&gt;{name}&lt;/span&gt;
+            &lt;span&gt;${price}&lt;/span&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Rendering a list with .map() and keys
+function MenuList({ items }) {
+    return (
+        &lt;ul&gt;
+            {items.map(item =&gt; (
+                &lt;MenuItem key={item.id} name={item.name} price={item.price} /&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}
+</code></pre>
+<h2 id="handling-events"><a class="heading-anchor" href="#handling-events">Handling Events</a></h2>
+<p>React uses camelCase event handlers like <code>onClick</code> and <code>onChange</code> directly on JSX elements. The handler receives a synthetic event object that works consistently across browsers.</p>
+<div class="mermaid">
+flowchart TD
+    A[App] --> B[Header]
+    A --> C[MenuList]
+    A --> D[Footer]
+    C --> E[MenuItem 1]
+    C --> F[MenuItem 2]
+    C --> G[MenuItem 3]
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style F fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style G fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+
+</div>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Components are reusable functions that return JSX, like custom HTML tags</li>
+<li>React is declarative - describe what the UI should look like, not how to update it</li>
+<li>Props pass data from parent to child components, making them configurable</li>
+<li>Always provide a unique key prop when rendering lists with .map()</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t27.html">Previous</a>
+          <a href="t29.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

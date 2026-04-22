@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt" data-page="t33.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Nest.js: Architecture - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t32.html">Previous</a>
+          <a href="t34.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="t33-nest-js-architecture"><a class="heading-anchor" href="#t33-nest-js-architecture">T33: Nest.js Architecture</a></h1>
+<p class="lesson-intro">Nest.js is like an operations manual for a restaurant chain. Modules are departments, Controllers are the waiters taking orders, Services are the chefs doing the real work, and Dependency Injection is the manager who assigns chefs to stations without waiters needing to know the details.</p>
+<h2 id="why-a-framework"><a class="heading-anchor" href="#why-a-framework">Why a Framework?</a></h2>
+<p>Raw Node.js from T21 works for small apps, but at scale you need structure. Nest.js provides clear separation of concerns, enforced patterns, and built-in support for testing and modularity.</p>
+<h2 id="modules-controllers-services"><a class="heading-anchor" href="#modules-controllers-services">Modules, Controllers, Services</a></h2>
+<p>Every Nest.js app is organized into modules. Each module groups related controllers (handle HTTP) and services (handle business logic). Decorators like <code>@Controller</code> and <code>@Injectable</code> tell the framework what each class does.</p>
+<pre><code>// menu.module.ts
+import { Module } from &quot;@nestjs/common&quot;;
+import { MenuController } from &quot;./menu.controller&quot;;
+import { MenuService } from &quot;./menu.service&quot;;
+
+@Module({
+    controllers: [MenuController],
+    providers: [MenuService],
+})
+export class MenuModule {}
+
+// menu.controller.ts
+import { Controller, Get, Post, Body } from &quot;@nestjs/common&quot;;
+import { MenuService } from &quot;./menu.service&quot;;
+
+@Controller(&quot;menu&quot;)
+export class MenuController {
+    constructor(private readonly menuService: MenuService) {}
+
+    @Get()
+    findAll() {
+        return this.menuService.findAll();
+    }
+
+    @Post()
+    create(@Body() body: { name: string; price: number }) {
+        return this.menuService.create(body);
+    }
+}
+
+// menu.service.ts
+import { Injectable } from &quot;@nestjs/common&quot;;
+
+@Injectable()
+export class MenuService {
+    private items = [
+        { id: 1, name: &quot;Tonkotsu Ramen&quot;, price: 850 },
+    ];
+
+    findAll() {
+        return this.items;
+    }
+
+    create(data: { name: string; price: number }) {
+        const item = { id: this.items.length + 1, ...data };
+        this.items.push(item);
+        return item;
+    }
+}
+</code></pre>
+<h2 id="dependency-injection"><a class="heading-anchor" href="#dependency-injection">Dependency Injection</a></h2>
+<p>The controller does not create its own service. It declares what it needs in the constructor, and the framework provides it. This makes testing easy - you can swap in mock services without changing controller code.</p>
+<pre><code>// The controller declares its dependency
+constructor(private readonly menuService: MenuService) {}
+
+// Nest.js automatically creates and injects the MenuService instance
+// In tests, you can provide a mock instead:
+// { provide: MenuService, useValue: mockMenuService }
+</code></pre>
+<h2 id="decorators-and-typescript"><a class="heading-anchor" href="#decorators-and-typescript">Decorators and TypeScript</a></h2>
+<p>Nest.js uses TypeScript decorators extensively. <code>@Controller</code>, <code>@Get</code>, <code>@Post</code>, <code>@Body</code>, <code>@Injectable</code> - these annotations define behavior without cluttering your logic.</p>
+<div class="mermaid">
+flowchart TD
+    A[HTTP Request] --> B["@Controller: MenuController"]
+    B -->|"@Get /menu"| C["@Injectable: MenuService"]
+    C -->|getAll| D[(Database)]
+    D -->|results| C
+    C -->|data| B
+    B -->|JSON response| A
+    subgraph MenuModule
+        B
+        C
+    end
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style B fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+    style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style D fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+
+</div>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Nest.js enforces structure with modules, controllers, and services as the three pillars</li>
+<li>Controllers handle HTTP routing, services handle business logic - never mix them</li>
+<li>Dependency injection lets the framework wire components together, simplifying testing</li>
+<li>TypeScript decorators define behavior declaratively without cluttering your logic</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t32.html">Previous</a>
+          <a href="t34.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

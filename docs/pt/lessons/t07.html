@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt" data-page="t07.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>CSS Basics - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t06.html">Previous</a>
+          <a href="t08.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="t07-css-basics"><a class="heading-anchor" href="#t07-css-basics">T07: CSS Basics</a></h1>
+<p class="lesson-intro">If HTML is the skeleton of a web page, CSS is the skin, clothing, and makeup. CSS (Cascading Style Sheets) controls how elements look - their colors, fonts, spacing, and size. The "cascading" part means styles can override each other in a predictable order.</p>
+<h2 id="selectors-and-properties"><a class="heading-anchor" href="#selectors-and-properties">Selectors and Properties</a></h2>
+<p>CSS rules consist of a selector (which elements to style) and declarations (how to style them). Selectors can target tags, classes, or IDs.</p>
+<pre><code>/* Tag selector */
+h1 { color: navy; }
+
+/* Class selector */
+.highlight { background-color: yellow; }
+
+/* ID selector */
+#main-title { font-size: 2rem; }
+
+/* Combined */
+p.intro { font-style: italic; }
+</code></pre>
+<h2 id="colors-and-fonts"><a class="heading-anchor" href="#colors-and-fonts">Colors and Fonts</a></h2>
+<p>Colors can be specified by name, hex code, or rgb values. Font properties control the typeface, size, weight, and line height.</p>
+<pre><code>body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333333;
+    background-color: rgb(245, 245, 245);
+}
+</code></pre>
+<h2 id="the-box-model"><a class="heading-anchor" href="#the-box-model">The Box Model</a></h2>
+<p>Every HTML element is a rectangular box. From inside out: content, padding, border, margin. Understanding this model is essential to controlling layout.</p>
+<div class="mermaid">
+graph TD
+    A["Margin (outer spacing)"] --> B["Border (visible edge)"]
+    B --> C["Padding (inner spacing)"]
+    C --> D["Content (text, images)"]
+    style A fill:#e9b8f6,stroke:#888,color:#1a1a1a
+    style B fill:#f6a0a0,stroke:#888,color:#1a1a1a
+    style C fill:#a0d6a0,stroke:#888,color:#1a1a1a
+    style D fill:#a0b8f6,stroke:#888,color:#1a1a1a
+
+</div>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>CSS selectors target elements by tag name, class (.name), or ID (#name)</li>
+<li>The box model has four layers: content, padding, border, margin</li>
+<li>Use box-sizing: border-box to make width include padding and border</li>
+<li>Specificity determines which CSS rule wins when multiple rules conflict</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t06.html">Previous</a>
+          <a href="t08.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="pt" data-page="t36.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Web Components II - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t35.html">Previous</a>
+          <a href="t37.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="t36-web-components-ii-templates-slots-lifecycle-amp-lit"><a class="heading-anchor" href="#t36-web-components-ii-templates-slots-lifecycle-amp-lit">T36: Web Components II - Templates, Slots, Lifecycle &amp; Lit</a></h1>
+<p class="lesson-intro">A real component needs three more things. <strong>Templates</strong> keep inert markup off-stage until needed. <strong>Slots</strong> let parents inject content like React children. <strong>Lifecycle</strong> callbacks are the element's life stages - birth, insertion, attribute change, removal. Once you know all of this, Lit becomes the espresso machine that hides the ceremony.</p>
+<h2 id="the-element"><a class="heading-anchor" href="#the-element">The <template> Element</a></h2>
+<p>A <code>&lt;template&gt;</code> holds markup that the browser parses but does not render. Use it as a mold: clone its content into a shadow root instead of building strings.</p>
+<pre><code>&lt;template id=&quot;tpl-user-card&quot;&gt;
+    &lt;style&gt;
+        :host { display: block; padding: 1rem; border: 1px solid #ddd; }
+        h2 { margin: 0; }
+    &lt;/style&gt;
+    &lt;h2&gt;&lt;/h2&gt;
+    &lt;p&gt;&lt;/p&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+class UserCard extends HTMLElement {
+    connectedCallback() {
+        const tpl = document.getElementById(&quot;tpl-user-card&quot;);
+        const root = this.attachShadow({ mode: &quot;open&quot; });
+        root.appendChild(tpl.content.cloneNode(true));
+        root.querySelector(&quot;h2&quot;).textContent = this.getAttribute(&quot;name&quot;);
+        root.querySelector(&quot;p&quot;).textContent  = this.getAttribute(&quot;role&quot;);
+    }
+}
+customElements.define(&quot;user-card&quot;, UserCard);
+&lt;/script&gt;
+</code></pre>
+<h2 id="slots-content-projection"><a class="heading-anchor" href="#slots-content-projection">Slots: Content Projection</a></h2>
+<p>A slot is a hole in your shadow tree where the parent's light DOM is projected. Anything the user puts between your tags shows up wherever you placed the <code>&lt;slot&gt;</code>. Named slots let you have multiple injection points.</p>
+<pre><code>// Inside the component's shadow root
+&lt;style&gt;
+    header { font-weight: bold; }
+    footer { font-size: 0.85rem; color: #666; }
+&lt;/style&gt;
+&lt;header&gt;&lt;slot name=&quot;title&quot;&gt;Default title&lt;/slot&gt;&lt;/header&gt;
+&lt;section&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/section&gt;
+&lt;footer&gt;&lt;slot name=&quot;footer&quot;&gt;&lt;/slot&gt;&lt;/footer&gt;
+
+// Usage from the page
+&lt;fancy-card&gt;
+    &lt;span slot=&quot;title&quot;&gt;My Card&lt;/span&gt;
+    &lt;p&gt;Body content lands in the default slot.&lt;/p&gt;
+    &lt;small slot=&quot;footer&quot;&gt;Updated today&lt;/small&gt;
+&lt;/fancy-card&gt;
+</code></pre>
+<h2 id="lifecycle-callbacks"><a class="heading-anchor" href="#lifecycle-callbacks">Lifecycle Callbacks</a></h2>
+<p>Every custom element has the same five life stages. Do setup in <code>connectedCallback</code>, tear it down in <code>disconnectedCallback</code>. React to attribute changes in <code>attributeChangedCallback</code> - but only for the attributes listed in <code>observedAttributes</code>.</p>
+<pre><code>class Timer extends HTMLElement {
+    static observedAttributes = [&quot;interval&quot;];
+
+    connectedCallback() {
+        this._id = setInterval(() =&gt; this._tick(), this._ms());
+        this._tick();
+    }
+
+    disconnectedCallback() {
+        clearInterval(this._id);
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === &quot;interval&quot; &amp;&amp; this._id) {
+            clearInterval(this._id);
+            this._id = setInterval(() =&gt; this._tick(), this._ms());
+        }
+    }
+
+    _ms() { return Number(this.getAttribute(&quot;interval&quot;)) || 1000; }
+    _tick() { this.textContent = new Date().toLocaleTimeString(); }
+}
+customElements.define(&quot;live-clock&quot;, Timer);
+</code></pre>
+<div class="mermaid">
+sequenceDiagram
+    participant Browser
+    participant El as Custom Element
+    Browser->>El: constructor()
+    Browser->>El: connectedCallback()
+    Note over El: inserted in DOM<br/>setup resources
+    Browser->>El: attributeChangedCallback(name, old, new)
+    Note over El: reconcile state
+    Browser->>El: disconnectedCallback()
+    Note over El: removed from DOM<br/>clean up resources
+
+</div>
+<h2 id="lit-the-sugar-layer"><a class="heading-anchor" href="#lit-the-sugar-layer">Lit: The Sugar Layer</a></h2>
+<p>Vanilla Web Components work but are verbose. <strong>Lit</strong> (5KB, from Google) removes boilerplate with reactive properties, tagged-template rendering, and scoped styles. A Lit component <em>is</em> a native custom element - it just wrote less code to get there.</p>
+<pre><code>import { LitElement, html, css } from &quot;lit&quot;;
+
+class UserCard extends LitElement {
+    static properties = {
+        name: { type: String },
+        role: { type: String },
+    };
+
+    static styles = css`
+        :host { display: block; padding: 1rem; border: 1px solid #ddd; }
+        h2    { margin: 0; font-size: 1rem; }
+        p     { margin: 0.25rem 0 0; color: #666; }
+    `;
+
+    render() {
+        return html`
+            &lt;h2&gt;${this.name}&lt;/h2&gt;
+            &lt;p&gt;${this.role}&lt;/p&gt;
+        `;
+    }
+}
+customElements.define(&quot;user-card&quot;, UserCard);
+
+// Usage
+// &lt;user-card name=&quot;Alice&quot; role=&quot;Engineer&quot;&gt;&lt;/user-card&gt;
+</code></pre>
+<h2 id="common-footguns"><a class="heading-anchor" href="#common-footguns">Common Footguns</a></h2>
+<ul>
+<li><strong>Setup in constructor</strong>: the element is not in the DOM yet. Do it in connectedCallback.</li>
+<li><strong>Forgetting observedAttributes</strong>: attributeChangedCallback will not fire without it.</li>
+<li><strong>Leaking listeners</strong>: everything added in connectedCallback must be removed in disconnectedCallback.</li>
+<li><strong>Shadow DOM and forms</strong>: form inputs in a shadow root do not automatically participate in the parent form. Use ElementInternals + static formAssociated = true.</li>
+</ul>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>&lt;template&gt; holds inert markup you clone into shadow roots instead of building strings</li>
+<li>&lt;slot&gt; projects parent content into your component. Named slots give multiple injection points</li>
+<li>Five lifecycle callbacks: constructor, connectedCallback, attributeChangedCallback, disconnectedCallback, adoptedCallback</li>
+<li>observedAttributes declares which attributes trigger attributeChangedCallback</li>
+<li>Lit is a thin sugar layer over native Web Components. Same standards, much less boilerplate</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t35.html">Previous</a>
+          <a href="t37.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+
