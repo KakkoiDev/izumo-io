@@ -230,6 +230,24 @@ TECH_PHASES = [
         'analogy_en': 'Lego bricks built into the browser. Snap together, no framework required',
         'analogy_ja': 'ブラウザに組み込まれたレゴブロック。フレームワーク不要で組み合わせる',
     },
+    {
+        'id': 9,
+        'title_en': 'Phase 9: The Command Line (Terminal)',
+        'title_ja': 'フェーズ9: コマンドライン (ターミナル)',
+        'subtitle_en': 'Direct line to the machine - text beats clicks at scale',
+        'subtitle_ja': 'マシンへの直通回線 - 大量作業ではテキストがクリックに勝る',
+        'analogy_en': 'Buttons are for tourists. Commands are for residents',
+        'analogy_ja': 'ボタンは観光客向け。コマンドは住人向け',
+    },
+    {
+        'id': 10,
+        'title_en': 'Phase 10: The Blueprint (System Design)',
+        'title_ja': 'フェーズ10: 設計図 (システム設計)',
+        'subtitle_en': 'Architect large systems: scale, storage, caching, trade-offs',
+        'subtitle_ja': '大規模システムの設計: スケール、ストレージ、キャッシング、トレードオフ',
+        'analogy_en': 'Architects draw blueprints before anyone pours concrete',
+        'analogy_ja': '建築家はコンクリートを流す前に設計図を描く',
+    },
 ]
 
 TECH_LESSONS = [
@@ -406,6 +424,33 @@ TECH_LESSONS = [
      'title_ja': 'Web Components II',
      'desc_en': 'Templates, slots, lifecycle callbacks, and Lit as the sugar layer.',
      'desc_ja': 'テンプレート、スロット、ライフサイクル、シュガーレイヤーとしてのLit。'},
+    # Phase 9: Command Line
+    {'id': 'T34', 'phase': 9, 'status': 'available',
+     'title_en': 'Terminal Basics',
+     'title_ja': 'ターミナルの基礎',
+     'desc_en': 'Navigate, create, delete files. Read the manual. Learn the PATH and speed tricks.',
+     'desc_ja': 'ナビゲート、作成、削除。マニュアルを読む。PATHとスピード技。'},
+    {'id': 'T35', 'phase': 9, 'status': 'available',
+     'title_en': 'Pipes & Power Tools',
+     'title_ja': 'パイプとパワーツール',
+     'desc_en': 'stdin/stdout/stderr, pipes, grep/find/sed/awk, chaining, small shell scripts.',
+     'desc_ja': 'stdin/stdout/stderr、パイプ、grep/find/sed/awk、連結、小さなシェルスクリプト。'},
+    # Phase 10: System Design
+    {'id': 'T36', 'phase': 10, 'status': 'available',
+     'title_en': 'System Design: The Framework',
+     'title_ja': 'システム設計: フレームワーク',
+     'desc_en': 'Requirements, entities, API, high-level design, deep dives, trade-offs.',
+     'desc_ja': '要件、エンティティ、API、高レベル設計、ディープダイブ、トレードオフ。'},
+    {'id': 'T37', 'phase': 10, 'status': 'available',
+     'title_en': 'System Design: Scale & Storage',
+     'title_ja': 'システム設計: スケールとストレージ',
+     'desc_en': 'Vertical vs horizontal, SQL vs NoSQL, replication, sharding, CAP theorem.',
+     'desc_ja': '垂直 vs 水平、SQL vs NoSQL、レプリケーション、シャーディング、CAP定理。'},
+    {'id': 'T38', 'phase': 10, 'status': 'available',
+     'title_en': 'System Design: Caching, Queues & Patterns',
+     'title_ja': 'システム設計: キャッシング、キュー、パターン',
+     'desc_en': 'Cache-aside, queues, load balancers, CDNs, monolith vs microservices, numbers to know.',
+     'desc_ja': 'cache-aside、キュー、ロードバランサ、CDN、モノリス vs マイクロサービス、暗記すべき数字。'},
 ]
 
 THEORY_LESSONS = [

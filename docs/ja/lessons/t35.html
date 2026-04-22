@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ja" data-page="t35.html" data-lang-paths='{"en":"../../lessons/","ja":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>パイプとパワーツール - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t34.html">前へ</a>
+          <a href="t36.html">次へ</a>
+        </div>
+      </nav>
+      
+<h1 id="t35-パイプとパワーツール"><a class="heading-anchor" href="#t35-パイプとパワーツール">T35: パイプとパワーツール</a></h1>
+<p class="lesson-intro">ターミナルが不器用なファイルブラウザから超能力に変わる瞬間は、パイプを理解した時です。各コマンドは小さな専門家。パイプ<code>|</code>はダクトテープで、専門家を組み立てラインに繋げます。5つのコマンドをパイプで繋げば、スプレッドシートマクロ、Pythonスクリプト、午後の仕事を置き換えられます。</p>
+
+<h2 id="標準ストリーム"><a class="heading-anchor" href="#標準ストリーム">標準ストリーム</a></h2>
+<p>全てのプログラムは3つのチャネルを持ちます。<strong>stdin</strong>は入力。<strong>stdout</strong>は通常の出力先。<strong>stderr</strong>はエラー出力先。シェルはそれぞれ独立にリダイレクトできます。</p>
+<pre><code>echo "hello" &gt; greet.txt        # stdout TO a file (overwrite)
+echo "world" &gt;&gt; greet.txt       # stdout APPEND to a file
+sort &lt; names.txt                 # stdin FROM a file
+command 2&gt; errors.log            # stderr TO a file
+command &gt; out.log 2&gt;&amp;1          # stdout and stderr together
+command &gt; /dev/null 2&gt;&amp;1         # discard all output</code></pre>
+
+<h2 id="パイプ"><a class="heading-anchor" href="#パイプ">パイプ</a></h2>
+<p>パイプは1つのコマンドのstdoutを次のコマンドのstdinに繋ぎます。文章のように左から右に読みます。</p>
+<pre><code># Show the 5 largest files in this folder
+ls -lS | head -n 5
+
+# Count how many .ts files the project has
+find src -name "*.ts" | wc -l
+
+# Find every TODO in your code
+grep -rn "TODO" src/ | less
+
+# Top 10 commands you use most
+history | awk '{print $2}' | sort | uniq -c | sort -rn | head</code></pre>
+
+<div class="mermaid">
+flowchart LR
+    H[history] -->|stdout| A[awk print command]
+    A -->|stdout| S1[sort]
+    S1 -->|stdout| U[uniq -c]
+    U -->|stdout| S2[sort -rn]
+    S2 -->|stdout| Hd[head]
+</div>
+
+<h2 id="必須の専門家たち"><a class="heading-anchor" href="#必須の専門家たち">必須の専門家たち</a></h2>
+<p>プロが研ぎ続ける標準キット:</p>
+<ul>
+<li><code>grep pattern file</code> - パターンに一致する行を探す。<code>-r</code>で再帰、<code>-i</code>で大文字小文字無視、<code>-n</code>で行番号</li>
+<li><code>find path -name "*.ext"</code> - 名前、種類、サイズ、年齢でファイルを探す</li>
+<li><code>sort</code>と<code>uniq</code> - 行をソート、重複を除去(<code>uniq -c</code>でカウント)</li>
+<li><code>wc -l</code> - 行数カウント。「いくつ?」への素早い答え</li>
+<li><code>head -n 20</code> / <code>tail -n 20</code> - 先頭/末尾の行。<code>tail -f</code>は成長するログを追う</li>
+<li><code>cut -d, -f1</code> - CSV風データから列を抽出</li>
+<li><code>sed 's/old/new/g'</code> - 検索と置換。素早い置換のためのストリームエディタ</li>
+<li><code>awk '{print $2}'</code> - 列を意識したテキスト処理</li>
+</ul>
+
+<h2 id="コマンドを繋げる"><a class="heading-anchor" href="#コマンドを繋げる">コマンドを繋げる</a></h2>
+<p>3つの演算子がパイプ無しでコマンドを順序付けます。</p>
+<pre><code>cmd1 ; cmd2          # run cmd1, then cmd2 regardless of outcome
+cmd1 &amp;&amp; cmd2         # run cmd2 ONLY if cmd1 succeeded
+cmd1 || cmd2         # run cmd2 ONLY if cmd1 failed
+
+# Practical example
+npm test &amp;&amp; git push                     # push only if tests pass
+mkdir build || echo "already exists"      # fallback message</code></pre>
+
+<h2 id="小さなシェルスクリプト"><a class="heading-anchor" href="#小さなシェルスクリプト">小さなシェルスクリプト</a></h2>
+<p>毎日同じパイプを実行するなら、保存しましょう。シェルスクリプトは<code>#!/usr/bin/env bash</code>ヘッダ付きのテキストファイルで、<code>chmod +x</code>で実行可能にします。</p>
+<pre><code>#!/usr/bin/env bash
+# backup.sh - copy the project into a timestamped tarball
+
+set -euo pipefail                       # fail fast on errors
+
+name="$(basename "$PWD")"
+stamp="$(date +%Y%m%d-%H%M%S)"
+tar -czf "../${name}-${stamp}.tar.gz" .
+echo "Saved ../${name}-${stamp}.tar.gz"</code></pre>
+<pre><code>chmod +x backup.sh
+./backup.sh                             # run it</code></pre>
+
+<h2 id="長時間ジョブの実行"><a class="heading-anchor" href="#長時間ジョブの実行">長時間ジョブの実行</a></h2>
+<p>数分かかるジョブもあります。つきっきりは嫌です。</p>
+<pre><code>long-command &amp;                  # run in background
+jobs                             # list background jobs in this shell
+long-command &gt; out.log 2&gt;&amp;1 &amp;   # background + capture output
+ps aux | grep node               # find running processes
+kill 12345                       # ask a process to stop
+kill -9 12345                    # force it to stop</code></pre>
+
+<div class="takeaways">
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
+<ul>
+<li>3つのストリーム: stdin、stdout、stderr。&lt;、&gt;、&gt;&gt;、2&gt;でリダイレクト</li>
+<li>パイプ|は1つのコマンドのstdoutを次のstdinに繋ぐ。左から右に読む</li>
+<li>パワーキット: grep、find、sort、uniq、wc、head、tail、cut、sed、awk。1日1つ学ぶ</li>
+<li>;(常に)、&amp;&amp;(成功時)、||(失敗時)で複数ステップコマンドを安全に繋ぐ</li>
+<li>2回実行したパイプはスクリプトに保存。chmod +xで実行可能にする</li>
+</ul>
+</div>
+
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t34.html">前へ</a>
+          <a href="t36.html">次へ</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

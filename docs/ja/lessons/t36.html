@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ja" data-page="t36.html" data-lang-paths='{"en":"../../lessons/","ja":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>システム設計: フレームワーク - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t35.html">前へ</a>
+          <a href="t37.html">次へ</a>
+        </div>
+      </nav>
+      
+<h1 id="t36-システム設計-デリバリーフレームワーク"><a class="heading-anchor" href="#t36-システム設計-デリバリーフレームワーク">T36: システム設計 - デリバリーフレームワーク</a></h1>
+<p class="lesson-intro">建築家はコンクリートを流す前に設計図を描きます。システム設計はソフトウェアの設計図を描くこと。何をするか、何でできているか、部品がどう組み合うか。面接や実プロジェクトで最も難しいのは、データベースやキャッシュを知ることではなく、質問の順序を知ることです。このレッスンでその順序を教えます。</p>
+
+<h2 id="6つのステップ"><a class="heading-anchor" href="#6つのステップ">6つのステップ</a></h2>
+<p>良いシステム設計の会話は、ほぼ順に6つのフェーズを進みます。厳守することで、形が見える前に詳細に溺れることを防ぎます。</p>
+<ol>
+<li><strong>要件</strong>(約5分) - システムが何をすべきか、どれくらいうまくやるか</li>
+<li><strong>コアエンティティ</strong>(約2分) - システムが扱う名詞</li>
+<li><strong>API</strong>(約5分) - ユーザーに見える契約</li>
+<li><strong>高レベル設計</strong>(約10-15分) - 要件を満たす箱と矢印</li>
+<li><strong>ディープダイブ</strong>(約10分) - ボトルネックを直し、厳しい目標を満たす</li>
+<li><strong>トレードオフ</strong> - コスト、速度、一貫性、複雑さの間の明示的な選択</li>
+</ol>
+
+<div class="mermaid">
+flowchart LR
+    R[1. Requirements<br/>functional + non-functional]
+    E[2. Core Entities<br/>the nouns]
+    A[3. API<br/>the contract]
+    H[4. High-Level Design<br/>boxes + arrows]
+    D[5. Deep Dives<br/>fix bottlenecks]
+    T[6. Trade-offs<br/>cost vs speed vs consistency]
+    R --> E --> A --> H --> D --> T
+    D -.iterate.-> H
+</div>
+
+<h2 id="ステップ1-要件"><a class="heading-anchor" href="#ステップ1-要件">ステップ1: 要件</a></h2>
+<p><strong>機能要件</strong>(ユーザーができること)と<strong>非機能要件</strong>(どれくらいうまく動くか)に分けます。非機能要件は定量化する。「低遅延」は役に立たず、「p99 &lt; 200ms」は設計図です。</p>
+<pre><code>// Example: Design a URL shortener (tinyurl-style)
+
+Functional:
+- Users can submit a long URL and get back a short code
+- Visiting /{code} redirects to the original URL
+- Users can see click counts for their links
+
+Non-functional:
+- 100M new links / day, 10:1 read/write ratio
+- Redirects at p99 &lt; 100ms globally
+- 99.99% availability for redirects
+- Short codes must be unguessable</code></pre>
+
+<h2 id="ステップ2-コアエンティティ"><a class="heading-anchor" href="#ステップ2-コアエンティティ">ステップ2: コアエンティティ</a></h2>
+<p>名詞を挙げます。リストは小さく - 進めながら増やします。各エンティティは後にAPIとデータモデルの両方に現れます。</p>
+<pre><code>Link { id, short_code, long_url, owner_id, created_at, click_count }
+User { id, email, password_hash }</code></pre>
+
+<h2 id="ステップ3-api"><a class="heading-anchor" href="#ステップ3-api">ステップ3: API</a></h2>
+<p>理由がなければRESTをデフォルトに。4-5エンドポイントで十分。リクエストボディのユーザーIDは信用しない。認証から取ります。</p>
+<pre><code>POST /links       { long_url } -&gt; { short_code }
+GET  /{code}                    -&gt; 302 redirect
+GET  /links        (auth)       -&gt; list my links + counts
+DELETE /links/{id} (auth)</code></pre>
+
+<h2 id="ステップ4-高レベル設計"><a class="heading-anchor" href="#ステップ4-高レベル設計">ステップ4: 高レベル設計</a></h2>
+<p>APIを実装する箱を描きます。シンプルに保つ。複雑さは、それが満たす要件を指し示せた時だけ正当化されます。</p>
+
+<div class="mermaid">
+flowchart LR
+    Client -->|HTTPS| LB[Load Balancer]
+    LB --> App[App Servers]
+    App --> DB[(Primary DB<br/>links, users)]
+    App --> Cache[(Cache<br/>code -&gt; long_url)]
+</div>
+
+<h2 id="ステップ5-ディープダイブ"><a class="heading-anchor" href="#ステップ5-ディープダイブ">ステップ5: ディープダイブ</a></h2>
+<p>非機能目標を順に歩き直します。各項目について、それを実現するコンポーネントを指すか、追加します。</p>
+<ul>
+<li><strong>グローバルp99 &lt; 100ms</strong>: 前段にCDN/エッジキャッシュ。リダイレクトはキャッシュルックアップに。</li>
+<li><strong>推測不可能なコード</strong>: 安全な乱数から8文字base62、衝突時リトライ。自動増分IDは不可。</li>
+<li><strong>1日1億書き込み</strong>: 書き込みスループットは約1200/秒。単一Postgresで捌ける。メトリクスがシャードを要求した時だけシャード。</li>
+<li><strong>クリック数</strong>: リダイレクトごとにDB書き込みしない。キューに発行、非同期でバッチ書き込み。</li>
+</ul>
+
+<h2 id="ステップ6-トレードオフ-声に出して言う"><a class="heading-anchor" href="#ステップ6-トレードオフ-声に出して言う">ステップ6: トレードオフ - 声に出して言う</a></h2>
+<p>全ての決定は1つのドアを閉じ、別のドアを開けます。選択を可視化しましょう。</p>
+<ul>
+<li>非同期クリック数は<strong>リアルタイム精度を失う</strong>代わりに、<strong>リダイレクト遅延を得る</strong></li>
+<li>CDNキャッシュは<strong>削除時の古さ</strong>と引き換えに、<strong>エッジ速度を得る</strong></li>
+<li>ランダムコードは<strong>少し空間を無駄にする</strong>代わりに、<strong>セキュリティを得る</strong></li>
+</ul>
+
+<div class="takeaways">
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
+<ul>
+<li>6ステップを順に進む: 要件、エンティティ、API、高レベル、ディープダイブ、トレードオフ</li>
+<li>非機能要件は定量化する。「速い」はノイズ、「p99 &lt; 200ms」は目標</li>
+<li>機能要件を満たす最もシンプルな設計から始め、追加する全ての箱を正当化する</li>
+<li>ディープダイブこそ本番 - 非機能リストを歩き、各ギャップを埋める</li>
+<li>トレードオフは声に出す。全てのアーキテクチャ選択は1つのドアを閉じて別のドアを開ける</li>
+</ul>
+</div>
+
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t35.html">前へ</a>
+          <a href="t37.html">次へ</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

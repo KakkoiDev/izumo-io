@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ja" data-page="t37.html" data-lang-paths='{"en":"../../lessons/","ja":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>システム設計: スケールとストレージ - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t36.html">前へ</a>
+          <a href="t38.html">次へ</a>
+        </div>
+      </nav>
+      
+<h1 id="t37-システム設計-スケール-データベース-シャーディング"><a class="heading-anchor" href="#t37-システム設計-スケール-データベース-シャーディング">T37: システム設計 - スケール、データベース、シャーディング</a></h1>
+<p class="lesson-intro">小さなサーバー1台でも、多くの人が思うより多くのトラフィックを捌けます。しかしある時点で単一サーバーは汗をかき、単一データベースは窒息し、仕事を複数マシンに分ける必要が出ます。スケーリングとは分割の技術です。まずコピーを追加(レプリカ)、次にデータ自体を分割(シャード)。コツは、数字が強いる時だけやることです。</p>
+
+<h2 id="垂直-vs-水平"><a class="heading-anchor" href="#垂直-vs-水平">垂直 vs 水平</a></h2>
+<p><strong>垂直</strong>スケーリング = より大きなマシンを買う。CPU増、RAM増。単純で、限界までは有効、天井がある。<strong>水平</strong>スケーリング = マシンを増やして負荷を共有。複雑、天井なし、現実のプロダクトが生き残る方法。</p>
+<pre><code># Vertical: one strong server
+[ 8 vCPU | 32 GB RAM ]  -&gt;  [ 32 vCPU | 256 GB RAM ]
+
+# Horizontal: many modest servers behind a load balancer
+Client -&gt; LB -&gt; [ app1 ] [ app2 ] [ app3 ] ... [ appN ]</code></pre>
+<p>経験則: まず垂直。安くて簡単。垂直が限界、または冗長性が必要な時に水平へ。</p>
+
+<h2 id="sql-vs-nosql-データの形で選ぶ"><a class="heading-anchor" href="#sql-vs-nosql-データの形で選ぶ">SQL vs NoSQL: データの形で選ぶ</a></h2>
+<p><strong>SQL</strong>(Postgres、MySQL)はデータの形と関係が既知でトランザクションが必要な時に正解。<strong>NoSQL</strong>は多くの形をカバー: ドキュメント(MongoDB)はネストされたオブジェクト、キーバリュー(Redis、DynamoDB)はIDによる高速ルックアップ、ワイドカラム(Cassandra)は巨大なイベントストリーム。NoSQLは「スケール」ではなく具体的な理由で選ぶ。</p>
+<pre><code>// Orders, invoices, bookings     -&gt; SQL
+// User sessions, short-lived KV  -&gt; Redis
+// Logs, clicks, time series      -&gt; Cassandra / Clickhouse
+// Nested catalog documents       -&gt; MongoDB
+// Full-text search               -&gt; Elasticsearch / Meilisearch</code></pre>
+
+<h2 id="レプリケーション-読み込みスケールと安全性のコピー"><a class="heading-anchor" href="#レプリケーション-読み込みスケールと安全性のコピー">レプリケーション: 読み込みスケールと安全性のコピー</a></h2>
+<p>大半のアプリは書き込みの10-100倍読みます。解決策: 1つの<strong>プライマリ</strong>が書き込みを処理し、複数の<strong>レプリカ</strong>が読み込みを提供。レプリカはプライマリ障害にも耐えます。</p>
+<pre><code>Writes --&gt; [Primary]
+              |--&gt; [Replica 1] --&gt; Reads
+              |--&gt; [Replica 2] --&gt; Reads
+              |--&gt; [Replica 3] --&gt; Reads</code></pre>
+<p>落とし穴: レプリケーションはデフォルトで非同期。書き込み直後のレプリカ読み込みは古いデータを返すかも。read-your-writesが必要なら、そのリードをプライマリにルーティング。</p>
+
+<h2 id="シャーディング-1つのdbでは足りない時"><a class="heading-anchor" href="#シャーディング-1つのdbでは足りない時">シャーディング: 1つのDBでは足りない時</a></h2>
+<p>シャーディングは行を複数DBに分割します。各DBが1スライスを持ちます。<strong>シャードキー</strong>を選び、ハッシュしてルーティング。</p>
+
+<div class="mermaid">
+flowchart LR
+    C[Client write user_id=1234]
+    H{hash user_id % 4}
+    S0[(Shard 0<br/>keys 0)]
+    S1[(Shard 1<br/>keys 1)]
+    S2[(Shard 2<br/>keys 2)]
+    S3[(Shard 3<br/>keys 3)]
+    C --> H
+    H -->|mod 0| S0
+    H -->|mod 1| S1
+    H -->|mod 2| S2
+    H -->|mod 3| S3
+</div>
+
+<p>シャーディングには高いコストがあります。シャードを跨ぐクエリはscatter-gatherになります。最も多いクエリに合うシャードキーを選びましょう。Twitter風アプリなら<code>user_id</code>でシャーディングして1ユーザーのタイムラインを1シャードに。</p>
+
+<h2 id="コンシステントハッシュ-痛みなく成長"><a class="heading-anchor" href="#コンシステントハッシュ-痛みなく成長">コンシステントハッシュ: 痛みなく成長</a></h2>
+<p>単純なhash-modはシャードを追加すると壊れる。<code>hash % 4</code>が<code>hash % 5</code>になり、ほぼ全てのキーが家を変えます。<strong>コンシステントハッシュ</strong>はシャードをリングに配置。各キーはリング上の点に着地し、時計回りに最も近いシャードへ。シャード追加/削除は隣だけを動かします。</p>
+<pre><code>                 Shard A
+                    *
+      *                      *
+  Shard D                  Shard B
+      *                      *
+                    *
+                 Shard C
+
+Key hashes to a point on the ring -&gt; served by next shard clockwise.
+Add Shard E between B and C -&gt; only keys between B and E move.</code></pre>
+
+<h2 id="cap定理-2つ選ぶ-実際は2つのうち1つ"><a class="heading-anchor" href="#cap定理-2つ選ぶ-実際は2つのうち1つ">CAP定理: 2つ選ぶ(実際は2つのうち1つ)</a></h2>
+<p>分散システムでは一貫性(Consistency)、可用性(Availability)、分断耐性(Partition tolerance)を持てる。ネットワークは好むと好まざるとに関わらず分断するので、本当の選択は分断時の一貫性 vs 可用性です。</p>
+<ul>
+<li><strong>CPシステム</strong>(銀行、在庫、決済): 不一致になるくらいなら書き込みを拒否。ユーザーは「再試行」を見るかも。</li>
+<li><strong>APシステム</strong>(ソーシャルフィード、DM、キャッシュ): どちら側の書き込みも受け入れ、後で調整。ユーザーは少し古いデータを見る。</li>
+</ul>
+
+<div class="takeaways">
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
+<ul>
+<li>まず垂直スケール、次に水平。現代のマシンは思うより強力</li>
+<li>具体的なNoSQLの形が必要でない限りSQLを選ぶ。「スケール」だけでは理由にならない</li>
+<li>レプリケーションは読みスケールとフェイルオーバーを提供。レプリカの短期の古さを受け入れるか、重要リードはプライマリへ</li>
+<li>シャーディングは最後の手段。共通クエリに合うシャードキーを選び、他はscatter-gatherの痛みを覚悟</li>
+<li>コンシステントハッシュはシャード変更を安くする。シャード数が変わるなら必ず使う</li>
+<li>CAPは分断時に選択を強いる: 書き込み拒否(CP)か古い読み込み受容(AP)。どちらが必要か把握</li>
+</ul>
+</div>
+
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t36.html">前へ</a>
+          <a href="t38.html">次へ</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

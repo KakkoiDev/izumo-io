@@ -6181,4 +6181,908 @@ customElements.define("user-card", UserCard);
 </div>
 """,
     },
+    'T34': {
+        'en': """
+<h1>T34: Terminal Basics</h1>
+<p class="lesson-intro">Buttons are for tourists. The terminal is the direct line to the machine - a text prompt where you tell the computer exactly what to do. It feels intimidating for about a week, then feels like a superpower for the rest of your career. You stop clicking through dialogs and start composing commands.</p>
+
+<h2>Where Am I? Moving Around</h2>
+<p>Your shell is always sitting in some folder, called the <strong>working directory</strong>. Three commands form the navigation basics: where am I, what is here, go somewhere.</p>
+<pre><code>pwd                    # print working directory
+ls                     # list what is in this folder
+ls -la                 # long format, include hidden files
+cd Documents           # move into a subfolder
+cd ..                  # move up one level
+cd                     # go home (shorthand for ~)
+cd /                   # jump to the filesystem root</code></pre>
+<p>Paths come in two flavors. An <strong>absolute</strong> path starts from the root: <code>/home/alice/projects</code>. A <strong>relative</strong> path starts from wherever you are now: <code>../notes</code>. The special shortcuts <code>.</code> (here), <code>..</code> (parent), and <code>~</code> (your home folder) show up everywhere.</p>
+
+<h2>Creating, Copying, Removing</h2>
+<p>Files and folders are text in, bytes out. Keep verbs short.</p>
+<pre><code>mkdir my-project              # make a folder
+mkdir -p a/b/c                # make nested folders at once
+touch notes.md                # create an empty file
+cp notes.md backup.md         # copy file
+cp -r my-project archive      # copy folder recursively
+mv old.md new.md              # rename (or move)
+rm notes.md                   # delete file (no recycle bin!)
+rm -rf build/                 # delete folder and everything inside
+cat notes.md                  # print file to screen
+less log.txt                  # scroll through a large file (q to quit)</code></pre>
+<p><strong>Warning</strong>: there is no trash can. <code>rm</code> is final. Before using <code>rm -rf</code>, always run <code>ls</code> first to verify the target.</p>
+
+<h2>Reading the Manual</h2>
+<p>Every command ships with its own manual. When you forget a flag, ask.</p>
+<pre><code>man ls                 # full manual page (q to quit)
+ls --help              # quick summary (most modern commands)
+which python           # show where a command lives on disk</code></pre>
+
+<h2>The PATH: Why Commands Just Work</h2>
+<p>When you type <code>git</code>, the shell does not know where the git program lives. It walks a list of folders stored in the <code>PATH</code> environment variable and runs the first <code>git</code> it finds. This is why installing tools sometimes needs a PATH update.</p>
+<pre><code>echo $PATH                              # see the search list
+# /usr/local/bin:/usr/bin:/bin:...
+export PATH="$HOME/.local/bin:$PATH"    # add your own folder first</code></pre>
+
+<div class="mermaid">
+flowchart TD
+    User[You type: git status]
+    Shell[Shell reads PATH]
+    P1[/usr/local/bin/git]
+    P2[/usr/bin/]
+    P3[...]
+    Run[Run the found program]
+    User --> Shell
+    Shell --> P1
+    Shell --> P2
+    Shell --> P3
+    P1 -->|first match wins| Run
+</div>
+
+<h2>Speed Tricks</h2>
+<p>The shell rewards muscle memory. Four habits that pay back every day:</p>
+<ul>
+<li><strong>Tab</strong> completes file names and commands. Hit it twice to see options.</li>
+<li><strong>Up arrow</strong> walks backward through your command history.</li>
+<li><strong>Ctrl+R</strong> searches history by fragment - type "git com" to resurrect "git commit -m ...".</li>
+<li><strong>Ctrl+C</strong> cancels a running command. <strong>Ctrl+D</strong> ends input / exits the shell.</li>
+</ul>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>pwd, ls, cd are your navigation basics. Paths are absolute (start with /) or relative (start from here)</li>
+<li>mkdir, touch, cp, mv, rm manage files and folders. rm is permanent - there is no trash can</li>
+<li>man and --help are always there when you forget a flag. Use them before Google</li>
+<li>PATH is the search list the shell uses to find commands. Know how to inspect and extend it</li>
+<li>Tab completion, Ctrl+R history search, and Ctrl+C to cancel are the muscle memory that separate beginners from pros</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T34: ターミナルの基礎</h1>
+<p class="lesson-intro">ボタンは観光客向けです。ターミナルはマシンへの直通回線。テキストプロンプトで、コンピュータに何をすべきかを正確に伝えます。1週間は怖く感じ、その後はキャリアの残り全てで超能力に感じます。ダイアログをクリックするのをやめ、コマンドを組み立て始めます。</p>
+
+<h2>今どこ? 移動する</h2>
+<p>シェルは常にあるフォルダにいます。これを<strong>ワーキングディレクトリ</strong>と呼びます。3つのコマンドが基礎です。どこにいる、何がある、どこに行く。</p>
+<pre><code>pwd                    # print working directory
+ls                     # list what is in this folder
+ls -la                 # long format, include hidden files
+cd Documents           # move into a subfolder
+cd ..                  # move up one level
+cd                     # go home (shorthand for ~)
+cd /                   # jump to the filesystem root</code></pre>
+<p>パスは2種類あります。<strong>絶対</strong>パスはルートから始まります: <code>/home/alice/projects</code>。<strong>相対</strong>パスは現在地から始まります: <code>../notes</code>。特殊なショートカット<code>.</code>(ここ)、<code>..</code>(親)、<code>~</code>(ホーム)はどこでも使います。</p>
+
+<h2>作成、コピー、削除</h2>
+<p>ファイルとフォルダはテキスト入力、バイト出力です。動詞は短く。</p>
+<pre><code>mkdir my-project              # make a folder
+mkdir -p a/b/c                # make nested folders at once
+touch notes.md                # create an empty file
+cp notes.md backup.md         # copy file
+cp -r my-project archive      # copy folder recursively
+mv old.md new.md              # rename (or move)
+rm notes.md                   # delete file (no recycle bin!)
+rm -rf build/                 # delete folder and everything inside
+cat notes.md                  # print file to screen
+less log.txt                  # scroll through a large file (q to quit)</code></pre>
+<p><strong>警告</strong>: ゴミ箱はありません。<code>rm</code>は最終です。<code>rm -rf</code>を使う前に、必ず<code>ls</code>で対象を確認しましょう。</p>
+
+<h2>マニュアルを読む</h2>
+<p>全てのコマンドは自分のマニュアルを持っています。フラグを忘れたら聞きます。</p>
+<pre><code>man ls                 # full manual page (q to quit)
+ls --help              # quick summary (most modern commands)
+which python           # show where a command lives on disk</code></pre>
+
+<h2>PATH: コマンドが動く理由</h2>
+<p><code>git</code>と打った時、シェルはgitがどこにあるか知りません。<code>PATH</code>環境変数に格納されたフォルダのリストを歩き、最初に見つけた<code>git</code>を実行します。ツールをインストールした後にPATH更新が必要な理由です。</p>
+<pre><code>echo $PATH                              # see the search list
+# /usr/local/bin:/usr/bin:/bin:...
+export PATH="$HOME/.local/bin:$PATH"    # add your own folder first</code></pre>
+
+<div class="mermaid">
+flowchart TD
+    User[You type: git status]
+    Shell[Shell reads PATH]
+    P1[/usr/local/bin/git]
+    P2[/usr/bin/]
+    P3[...]
+    Run[Run the found program]
+    User --> Shell
+    Shell --> P1
+    Shell --> P2
+    Shell --> P3
+    P1 -->|first match wins| Run
+</div>
+
+<h2>スピードの技</h2>
+<p>シェルは筋肉の記憶に報います。毎日得する4つの習慣:</p>
+<ul>
+<li><strong>Tab</strong>でファイル名とコマンドを補完。2回押すと候補表示。</li>
+<li><strong>上矢印</strong>でコマンド履歴を遡る。</li>
+<li><strong>Ctrl+R</strong>で履歴を断片検索。「git com」と打つと「git commit -m ...」が蘇る。</li>
+<li><strong>Ctrl+C</strong>で実行中のコマンドを中断。<strong>Ctrl+D</strong>で入力終了/シェル終了。</li>
+</ul>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>pwd、ls、cdが移動の基礎。パスは絶対(/で始まる)か相対(ここから始まる)</li>
+<li>mkdir、touch、cp、mv、rmでファイルとフォルダを管理。rmは永久。ゴミ箱はない</li>
+<li>manと--helpはフラグを忘れた時にいつでも使える。Googleより先に</li>
+<li>PATHはシェルがコマンドを探すリスト。確認と拡張の方法を知る</li>
+<li>Tab補完、Ctrl+Rの履歴検索、Ctrl+Cでの中断が初心者とプロを分ける筋肉の記憶</li>
+</ul>
+</div>
+""",
+    },
+    'T35': {
+        'en': """
+<h1>T35: Pipes &amp; Power Tools</h1>
+<p class="lesson-intro">The terminal stops being a clunky file browser and becomes a superpower the moment you understand the pipe. Each command is a small specialist. The pipe <code>|</code> is duct tape: it lets you bolt specialists together into assembly lines. Five commands joined by pipes can replace a spreadsheet macro, a Python script, or an afternoon.</p>
+
+<h2>Standard Streams</h2>
+<p>Every program has three channels. <strong>stdin</strong> is the input stream. <strong>stdout</strong> is where normal output goes. <strong>stderr</strong> is where errors go. The shell lets you redirect each one independently.</p>
+<pre><code>echo "hello" &gt; greet.txt        # stdout TO a file (overwrite)
+echo "world" &gt;&gt; greet.txt       # stdout APPEND to a file
+sort &lt; names.txt                 # stdin FROM a file
+command 2&gt; errors.log            # stderr TO a file
+command &gt; out.log 2&gt;&amp;1          # stdout and stderr together
+command &gt; /dev/null 2&gt;&amp;1         # discard all output</code></pre>
+
+<h2>The Pipe</h2>
+<p>A pipe connects one command's stdout to the next command's stdin. You read it left to right, like a sentence.</p>
+<pre><code># Show the 5 largest files in this folder
+ls -lS | head -n 5
+
+# Count how many .ts files the project has
+find src -name "*.ts" | wc -l
+
+# Find every TODO in your code
+grep -rn "TODO" src/ | less
+
+# Top 10 commands you use most
+history | awk '{print $2}' | sort | uniq -c | sort -rn | head</code></pre>
+
+<div class="mermaid">
+flowchart LR
+    H[history] -->|stdout| A[awk print command]
+    A -->|stdout| S1[sort]
+    S1 -->|stdout| U[uniq -c]
+    U -->|stdout| S2[sort -rn]
+    S2 -->|stdout| Hd[head]
+</div>
+
+<h2>Essential Specialists</h2>
+<p>The standard kit every pro keeps sharp:</p>
+<ul>
+<li><code>grep pattern file</code> - find lines matching a pattern. Add <code>-r</code> to recurse, <code>-i</code> for case-insensitive, <code>-n</code> for line numbers</li>
+<li><code>find path -name "*.ext"</code> - locate files by name, type, size, age</li>
+<li><code>sort</code> and <code>uniq</code> - sort lines, collapse duplicates (<code>uniq -c</code> counts them)</li>
+<li><code>wc -l</code> - count lines. Quick "how many?" answers</li>
+<li><code>head -n 20</code> / <code>tail -n 20</code> - first / last lines. <code>tail -f</code> follows a growing log</li>
+<li><code>cut -d, -f1</code> - extract a column from CSV-ish data</li>
+<li><code>sed 's/old/new/g'</code> - find and replace. Stream editor for quick substitutions</li>
+<li><code>awk '{print $2}'</code> - column-aware text processing</li>
+</ul>
+
+<h2>Chaining Commands</h2>
+<p>Three operators sequence commands without pipes.</p>
+<pre><code>cmd1 ; cmd2          # run cmd1, then cmd2 regardless of outcome
+cmd1 &amp;&amp; cmd2         # run cmd2 ONLY if cmd1 succeeded
+cmd1 || cmd2         # run cmd2 ONLY if cmd1 failed
+
+# Practical example
+npm test &amp;&amp; git push                     # push only if tests pass
+mkdir build || echo "already exists"      # fallback message</code></pre>
+
+<h2>A Tiny Shell Script</h2>
+<p>When you run the same pipe every day, save it. A shell script is a text file with a <code>#!/usr/bin/env bash</code> header, made executable with <code>chmod +x</code>.</p>
+<pre><code>#!/usr/bin/env bash
+# backup.sh - copy the project into a timestamped tarball
+
+set -euo pipefail                       # fail fast on errors
+
+name="$(basename "$PWD")"
+stamp="$(date +%Y%m%d-%H%M%S)"
+tar -czf "../${name}-${stamp}.tar.gz" .
+echo "Saved ../${name}-${stamp}.tar.gz"</code></pre>
+<pre><code>chmod +x backup.sh
+./backup.sh                             # run it</code></pre>
+
+<h2>Running Long Jobs</h2>
+<p>Some jobs take minutes. You do not want to babysit them.</p>
+<pre><code>long-command &amp;                  # run in background
+jobs                             # list background jobs in this shell
+long-command &gt; out.log 2&gt;&amp;1 &amp;   # background + capture output
+ps aux | grep node               # find running processes
+kill 12345                       # ask a process to stop
+kill -9 12345                    # force it to stop</code></pre>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Three streams: stdin, stdout, stderr. Redirect with &lt;, &gt;, &gt;&gt;, 2&gt;</li>
+<li>The pipe | connects one command's stdout to the next one's stdin - read left to right</li>
+<li>Power kit: grep, find, sort, uniq, wc, head, tail, cut, sed, awk. Learn one per day</li>
+<li>Chain with ; (always), &amp;&amp; (on success), || (on failure) for safe multi-step commands</li>
+<li>Save any pipe you run twice as a shell script. Make it executable with chmod +x</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T35: パイプとパワーツール</h1>
+<p class="lesson-intro">ターミナルが不器用なファイルブラウザから超能力に変わる瞬間は、パイプを理解した時です。各コマンドは小さな専門家。パイプ<code>|</code>はダクトテープで、専門家を組み立てラインに繋げます。5つのコマンドをパイプで繋げば、スプレッドシートマクロ、Pythonスクリプト、午後の仕事を置き換えられます。</p>
+
+<h2>標準ストリーム</h2>
+<p>全てのプログラムは3つのチャネルを持ちます。<strong>stdin</strong>は入力。<strong>stdout</strong>は通常の出力先。<strong>stderr</strong>はエラー出力先。シェルはそれぞれ独立にリダイレクトできます。</p>
+<pre><code>echo "hello" &gt; greet.txt        # stdout TO a file (overwrite)
+echo "world" &gt;&gt; greet.txt       # stdout APPEND to a file
+sort &lt; names.txt                 # stdin FROM a file
+command 2&gt; errors.log            # stderr TO a file
+command &gt; out.log 2&gt;&amp;1          # stdout and stderr together
+command &gt; /dev/null 2&gt;&amp;1         # discard all output</code></pre>
+
+<h2>パイプ</h2>
+<p>パイプは1つのコマンドのstdoutを次のコマンドのstdinに繋ぎます。文章のように左から右に読みます。</p>
+<pre><code># Show the 5 largest files in this folder
+ls -lS | head -n 5
+
+# Count how many .ts files the project has
+find src -name "*.ts" | wc -l
+
+# Find every TODO in your code
+grep -rn "TODO" src/ | less
+
+# Top 10 commands you use most
+history | awk '{print $2}' | sort | uniq -c | sort -rn | head</code></pre>
+
+<div class="mermaid">
+flowchart LR
+    H[history] -->|stdout| A[awk print command]
+    A -->|stdout| S1[sort]
+    S1 -->|stdout| U[uniq -c]
+    U -->|stdout| S2[sort -rn]
+    S2 -->|stdout| Hd[head]
+</div>
+
+<h2>必須の専門家たち</h2>
+<p>プロが研ぎ続ける標準キット:</p>
+<ul>
+<li><code>grep pattern file</code> - パターンに一致する行を探す。<code>-r</code>で再帰、<code>-i</code>で大文字小文字無視、<code>-n</code>で行番号</li>
+<li><code>find path -name "*.ext"</code> - 名前、種類、サイズ、年齢でファイルを探す</li>
+<li><code>sort</code>と<code>uniq</code> - 行をソート、重複を除去(<code>uniq -c</code>でカウント)</li>
+<li><code>wc -l</code> - 行数カウント。「いくつ?」への素早い答え</li>
+<li><code>head -n 20</code> / <code>tail -n 20</code> - 先頭/末尾の行。<code>tail -f</code>は成長するログを追う</li>
+<li><code>cut -d, -f1</code> - CSV風データから列を抽出</li>
+<li><code>sed 's/old/new/g'</code> - 検索と置換。素早い置換のためのストリームエディタ</li>
+<li><code>awk '{print $2}'</code> - 列を意識したテキスト処理</li>
+</ul>
+
+<h2>コマンドを繋げる</h2>
+<p>3つの演算子がパイプ無しでコマンドを順序付けます。</p>
+<pre><code>cmd1 ; cmd2          # run cmd1, then cmd2 regardless of outcome
+cmd1 &amp;&amp; cmd2         # run cmd2 ONLY if cmd1 succeeded
+cmd1 || cmd2         # run cmd2 ONLY if cmd1 failed
+
+# Practical example
+npm test &amp;&amp; git push                     # push only if tests pass
+mkdir build || echo "already exists"      # fallback message</code></pre>
+
+<h2>小さなシェルスクリプト</h2>
+<p>毎日同じパイプを実行するなら、保存しましょう。シェルスクリプトは<code>#!/usr/bin/env bash</code>ヘッダ付きのテキストファイルで、<code>chmod +x</code>で実行可能にします。</p>
+<pre><code>#!/usr/bin/env bash
+# backup.sh - copy the project into a timestamped tarball
+
+set -euo pipefail                       # fail fast on errors
+
+name="$(basename "$PWD")"
+stamp="$(date +%Y%m%d-%H%M%S)"
+tar -czf "../${name}-${stamp}.tar.gz" .
+echo "Saved ../${name}-${stamp}.tar.gz"</code></pre>
+<pre><code>chmod +x backup.sh
+./backup.sh                             # run it</code></pre>
+
+<h2>長時間ジョブの実行</h2>
+<p>数分かかるジョブもあります。つきっきりは嫌です。</p>
+<pre><code>long-command &amp;                  # run in background
+jobs                             # list background jobs in this shell
+long-command &gt; out.log 2&gt;&amp;1 &amp;   # background + capture output
+ps aux | grep node               # find running processes
+kill 12345                       # ask a process to stop
+kill -9 12345                    # force it to stop</code></pre>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>3つのストリーム: stdin、stdout、stderr。&lt;、&gt;、&gt;&gt;、2&gt;でリダイレクト</li>
+<li>パイプ|は1つのコマンドのstdoutを次のstdinに繋ぐ。左から右に読む</li>
+<li>パワーキット: grep、find、sort、uniq、wc、head、tail、cut、sed、awk。1日1つ学ぶ</li>
+<li>;(常に)、&amp;&amp;(成功時)、||(失敗時)で複数ステップコマンドを安全に繋ぐ</li>
+<li>2回実行したパイプはスクリプトに保存。chmod +xで実行可能にする</li>
+</ul>
+</div>
+""",
+    },
+    'T36': {
+        'en': """
+<h1>T36: System Design - The Delivery Framework</h1>
+<p class="lesson-intro">Architects draw blueprints before anyone pours concrete. System design is drawing the blueprint for a piece of software: what it does, what it is made of, how the parts fit. In an interview or on a real project, the hardest part is not knowing databases or caches. It is knowing the order of questions to ask. This lesson teaches that order.</p>
+
+<h2>The Six Steps</h2>
+<p>A good system design conversation moves through six phases, roughly in order. Strictly following them keeps you from drowning in detail before you have a shape.</p>
+<ol>
+<li><strong>Requirements</strong> (~5 min) - what the system must do and how well</li>
+<li><strong>Core Entities</strong> (~2 min) - the nouns your system cares about</li>
+<li><strong>API</strong> (~5 min) - the contract users see</li>
+<li><strong>High-Level Design</strong> (~10-15 min) - boxes and arrows that serve the requirements</li>
+<li><strong>Deep Dives</strong> (~10 min) - fix the bottlenecks and meet the hard targets</li>
+<li><strong>Trade-offs</strong> - explicit choices between cost, speed, consistency, complexity</li>
+</ol>
+
+<div class="mermaid">
+flowchart LR
+    R[1. Requirements<br/>functional + non-functional]
+    E[2. Core Entities<br/>the nouns]
+    A[3. API<br/>the contract]
+    H[4. High-Level Design<br/>boxes + arrows]
+    D[5. Deep Dives<br/>fix bottlenecks]
+    T[6. Trade-offs<br/>cost vs speed vs consistency]
+    R --> E --> A --> H --> D --> T
+    D -.iterate.-> H
+</div>
+
+<h2>Step 1: Requirements</h2>
+<p>Split into <strong>functional</strong> (what users can do) and <strong>non-functional</strong> (how well it must work). Quantify the non-functional targets - "low latency" is useless, "p99 &lt; 200ms" is a blueprint.</p>
+<pre><code>// Example: Design a URL shortener (tinyurl-style)
+
+Functional:
+- Users can submit a long URL and get back a short code
+- Visiting /{code} redirects to the original URL
+- Users can see click counts for their links
+
+Non-functional:
+- 100M new links / day, 10:1 read/write ratio
+- Redirects at p99 &lt; 100ms globally
+- 99.99% availability for redirects
+- Short codes must be unguessable</code></pre>
+
+<h2>Step 2: Core Entities</h2>
+<p>Name the nouns. Keep the list small - you will grow it as you go. Each entity later shows up in both the API and the data model.</p>
+<pre><code>Link { id, short_code, long_url, owner_id, created_at, click_count }
+User { id, email, password_hash }</code></pre>
+
+<h2>Step 3: API</h2>
+<p>Default to REST unless you have a reason not to. Four or five endpoints is plenty. Never trust user IDs from the request body - they come from authentication.</p>
+<pre><code>POST /links       { long_url } -&gt; { short_code }
+GET  /{code}                    -&gt; 302 redirect
+GET  /links        (auth)       -&gt; list my links + counts
+DELETE /links/{id} (auth)</code></pre>
+
+<h2>Step 4: High-Level Design</h2>
+<p>Draw the boxes that implement the API. Keep it simple. You earn complexity only by pointing at a requirement it satisfies.</p>
+
+<div class="mermaid">
+flowchart LR
+    Client -->|HTTPS| LB[Load Balancer]
+    LB --> App[App Servers]
+    App --> DB[(Primary DB<br/>links, users)]
+    App --> Cache[(Cache<br/>code -&gt; long_url)]
+</div>
+
+<h2>Step 5: Deep Dives</h2>
+<p>Walk back through the non-functional targets. For each, point at the component that delivers it or add one that does.</p>
+<ul>
+<li><strong>p99 &lt; 100ms globally</strong>: add a CDN / edge cache in front. Redirects become a cache lookup.</li>
+<li><strong>Unguessable codes</strong>: 8-char base62 codes from a secure random, plus collision retry. Not an auto-increment ID.</li>
+<li><strong>100M writes / day</strong>: write throughput is ~1200/sec. A single Postgres handles it; shard only if metrics say so.</li>
+<li><strong>Click counts</strong>: do not write to DB on every redirect. Emit to a queue, batch into DB asynchronously.</li>
+</ul>
+
+<h2>Step 6: Trade-offs - Say Them Out Loud</h2>
+<p>Every decision closes one door and opens another. Make the choices visible.</p>
+<ul>
+<li>Async click counts <strong>lose real-time accuracy</strong> to <strong>gain</strong> redirect latency</li>
+<li>CDN caches <strong>stale-on-delete</strong> briefly to <strong>gain</strong> edge speed</li>
+<li>Random codes <strong>waste a little space</strong> to <strong>gain</strong> security</li>
+</ul>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Move through six steps in order: requirements, entities, API, high-level, deep dives, trade-offs</li>
+<li>Quantify non-functional requirements. "Fast" is noise, "p99 &lt; 200ms" is a target</li>
+<li>Start with the simplest design that meets functional requirements, then justify every box you add</li>
+<li>Deep dives are where you earn your keep - walk the non-functional list and fix each gap</li>
+<li>Say the trade-offs out loud. Every architecture choice closes one door to open another</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T36: システム設計 - デリバリーフレームワーク</h1>
+<p class="lesson-intro">建築家はコンクリートを流す前に設計図を描きます。システム設計はソフトウェアの設計図を描くこと。何をするか、何でできているか、部品がどう組み合うか。面接や実プロジェクトで最も難しいのは、データベースやキャッシュを知ることではなく、質問の順序を知ることです。このレッスンでその順序を教えます。</p>
+
+<h2>6つのステップ</h2>
+<p>良いシステム設計の会話は、ほぼ順に6つのフェーズを進みます。厳守することで、形が見える前に詳細に溺れることを防ぎます。</p>
+<ol>
+<li><strong>要件</strong>(約5分) - システムが何をすべきか、どれくらいうまくやるか</li>
+<li><strong>コアエンティティ</strong>(約2分) - システムが扱う名詞</li>
+<li><strong>API</strong>(約5分) - ユーザーに見える契約</li>
+<li><strong>高レベル設計</strong>(約10-15分) - 要件を満たす箱と矢印</li>
+<li><strong>ディープダイブ</strong>(約10分) - ボトルネックを直し、厳しい目標を満たす</li>
+<li><strong>トレードオフ</strong> - コスト、速度、一貫性、複雑さの間の明示的な選択</li>
+</ol>
+
+<div class="mermaid">
+flowchart LR
+    R[1. Requirements<br/>functional + non-functional]
+    E[2. Core Entities<br/>the nouns]
+    A[3. API<br/>the contract]
+    H[4. High-Level Design<br/>boxes + arrows]
+    D[5. Deep Dives<br/>fix bottlenecks]
+    T[6. Trade-offs<br/>cost vs speed vs consistency]
+    R --> E --> A --> H --> D --> T
+    D -.iterate.-> H
+</div>
+
+<h2>ステップ1: 要件</h2>
+<p><strong>機能要件</strong>(ユーザーができること)と<strong>非機能要件</strong>(どれくらいうまく動くか)に分けます。非機能要件は定量化する。「低遅延」は役に立たず、「p99 &lt; 200ms」は設計図です。</p>
+<pre><code>// Example: Design a URL shortener (tinyurl-style)
+
+Functional:
+- Users can submit a long URL and get back a short code
+- Visiting /{code} redirects to the original URL
+- Users can see click counts for their links
+
+Non-functional:
+- 100M new links / day, 10:1 read/write ratio
+- Redirects at p99 &lt; 100ms globally
+- 99.99% availability for redirects
+- Short codes must be unguessable</code></pre>
+
+<h2>ステップ2: コアエンティティ</h2>
+<p>名詞を挙げます。リストは小さく - 進めながら増やします。各エンティティは後にAPIとデータモデルの両方に現れます。</p>
+<pre><code>Link { id, short_code, long_url, owner_id, created_at, click_count }
+User { id, email, password_hash }</code></pre>
+
+<h2>ステップ3: API</h2>
+<p>理由がなければRESTをデフォルトに。4-5エンドポイントで十分。リクエストボディのユーザーIDは信用しない。認証から取ります。</p>
+<pre><code>POST /links       { long_url } -&gt; { short_code }
+GET  /{code}                    -&gt; 302 redirect
+GET  /links        (auth)       -&gt; list my links + counts
+DELETE /links/{id} (auth)</code></pre>
+
+<h2>ステップ4: 高レベル設計</h2>
+<p>APIを実装する箱を描きます。シンプルに保つ。複雑さは、それが満たす要件を指し示せた時だけ正当化されます。</p>
+
+<div class="mermaid">
+flowchart LR
+    Client -->|HTTPS| LB[Load Balancer]
+    LB --> App[App Servers]
+    App --> DB[(Primary DB<br/>links, users)]
+    App --> Cache[(Cache<br/>code -&gt; long_url)]
+</div>
+
+<h2>ステップ5: ディープダイブ</h2>
+<p>非機能目標を順に歩き直します。各項目について、それを実現するコンポーネントを指すか、追加します。</p>
+<ul>
+<li><strong>グローバルp99 &lt; 100ms</strong>: 前段にCDN/エッジキャッシュ。リダイレクトはキャッシュルックアップに。</li>
+<li><strong>推測不可能なコード</strong>: 安全な乱数から8文字base62、衝突時リトライ。自動増分IDは不可。</li>
+<li><strong>1日1億書き込み</strong>: 書き込みスループットは約1200/秒。単一Postgresで捌ける。メトリクスがシャードを要求した時だけシャード。</li>
+<li><strong>クリック数</strong>: リダイレクトごとにDB書き込みしない。キューに発行、非同期でバッチ書き込み。</li>
+</ul>
+
+<h2>ステップ6: トレードオフ - 声に出して言う</h2>
+<p>全ての決定は1つのドアを閉じ、別のドアを開けます。選択を可視化しましょう。</p>
+<ul>
+<li>非同期クリック数は<strong>リアルタイム精度を失う</strong>代わりに、<strong>リダイレクト遅延を得る</strong></li>
+<li>CDNキャッシュは<strong>削除時の古さ</strong>と引き換えに、<strong>エッジ速度を得る</strong></li>
+<li>ランダムコードは<strong>少し空間を無駄にする</strong>代わりに、<strong>セキュリティを得る</strong></li>
+</ul>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>6ステップを順に進む: 要件、エンティティ、API、高レベル、ディープダイブ、トレードオフ</li>
+<li>非機能要件は定量化する。「速い」はノイズ、「p99 &lt; 200ms」は目標</li>
+<li>機能要件を満たす最もシンプルな設計から始め、追加する全ての箱を正当化する</li>
+<li>ディープダイブこそ本番 - 非機能リストを歩き、各ギャップを埋める</li>
+<li>トレードオフは声に出す。全てのアーキテクチャ選択は1つのドアを閉じて別のドアを開ける</li>
+</ul>
+</div>
+""",
+    },
+    'T37': {
+        'en': """
+<h1>T37: System Design - Scale, Databases, Sharding</h1>
+<p class="lesson-intro">One small server can handle more traffic than most people think. But at some point the single server sweats, the single database chokes, and you have to split work across machines. Scaling is the art of splitting - first by adding copies (replicas), then by splitting the data itself (shards). The trick is doing it only when the numbers force you to.</p>
+
+<h2>Vertical vs Horizontal</h2>
+<p><strong>Vertical</strong> scaling = buy a bigger machine. More CPU, more RAM. Dead simple, works until it doesn't, has a ceiling. <strong>Horizontal</strong> scaling = add more machines and share the load. More complex, no ceiling, how real products survive traffic.</p>
+<pre><code># Vertical: one strong server
+[ 8 vCPU | 32 GB RAM ]  -&gt;  [ 32 vCPU | 256 GB RAM ]
+
+# Horizontal: many modest servers behind a load balancer
+Client -&gt; LB -&gt; [ app1 ] [ app2 ] [ app3 ] ... [ appN ]</code></pre>
+<p>Rule of thumb: scale vertically first. It is cheaper and simpler. Scale horizontally when vertical hits its limit or when you need redundancy.</p>
+
+<h2>SQL vs NoSQL: Pick For The Shape of Data</h2>
+<p><strong>SQL</strong> (Postgres, MySQL) is right when your data has known shape and relationships, and you need transactions. <strong>NoSQL</strong> covers many shapes: document stores (MongoDB) for nested objects, key-value (Redis, DynamoDB) for fast lookups by id, wide-column (Cassandra) for huge event streams. Choose NoSQL for a specific reason, not "because scale".</p>
+<pre><code>// Orders, invoices, bookings     -&gt; SQL
+// User sessions, short-lived KV  -&gt; Redis
+// Logs, clicks, time series      -&gt; Cassandra / Clickhouse
+// Nested catalog documents       -&gt; MongoDB
+// Full-text search               -&gt; Elasticsearch / Meilisearch</code></pre>
+
+<h2>Replication: Copies for Read Scale and Safety</h2>
+<p>Most apps read 10-100x more than they write. Solution: one <strong>primary</strong> handles writes, multiple <strong>replicas</strong> serve reads. Replicas also survive primary failure.</p>
+<pre><code>Writes --&gt; [Primary]
+              |--&gt; [Replica 1] --&gt; Reads
+              |--&gt; [Replica 2] --&gt; Reads
+              |--&gt; [Replica 3] --&gt; Reads</code></pre>
+<p>The catch: replication is asynchronous by default. A read on a replica right after a write may return stale data. If you need read-your-writes, route that read to the primary.</p>
+
+<h2>Sharding: When One Database Is Not Enough</h2>
+<p>Sharding splits rows across many databases. Each database holds a slice. You pick a <strong>shard key</strong> and hash it to route rows.</p>
+
+<div class="mermaid">
+flowchart LR
+    C[Client write user_id=1234]
+    H{hash user_id % 4}
+    S0[(Shard 0<br/>keys 0)]
+    S1[(Shard 1<br/>keys 1)]
+    S2[(Shard 2<br/>keys 2)]
+    S3[(Shard 3<br/>keys 3)]
+    C --> H
+    H -->|mod 0| S0
+    H -->|mod 1| S1
+    H -->|mod 2| S2
+    H -->|mod 3| S3
+</div>
+
+<p>Sharding has a steep cost: any query crossing shards must be scatter-gathered. Pick a shard key that matches your most common queries. For a Twitter-like app, shard by <code>user_id</code> so one user's timeline lives on one shard.</p>
+
+<h2>Consistent Hashing: Growing Without Pain</h2>
+<p>Simple hash-mod breaks when you add a shard: <code>hash % 4</code> becomes <code>hash % 5</code>, and almost every key changes home. <strong>Consistent hashing</strong> places shards on a ring. Each key lands at a point on the ring and rolls clockwise to the nearest shard. Adding or removing a shard only moves the neighbors.</p>
+<pre><code>                 Shard A
+                    *
+      *                      *
+  Shard D                  Shard B
+      *                      *
+                    *
+                 Shard C
+
+Key hashes to a point on the ring -&gt; served by next shard clockwise.
+Add Shard E between B and C -&gt; only keys between B and E move.</code></pre>
+
+<h2>CAP Theorem: Pick Two (Really, Pick One of Two)</h2>
+<p>In a distributed system you can have Consistency, Availability, or Partition tolerance. Networks partition whether you like it or not, so the real choice is between consistency and availability during a partition.</p>
+<ul>
+<li><strong>CP systems</strong> (banks, inventory, payments): refuse writes rather than disagree. Users may see "try again".</li>
+<li><strong>AP systems</strong> (social feeds, DMs, caches): accept writes on either side, reconcile later. Users see slightly stale data.</li>
+</ul>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Scale vertically first, horizontally second. A modern machine is more powerful than you think</li>
+<li>Pick SQL unless you have a specific reason for a specific NoSQL shape. "Scale" alone is not a reason</li>
+<li>Replication gives read scale and failover. Accept brief staleness on replicas or route critical reads to primary</li>
+<li>Sharding is the last resort. Pick a shard key that matches your common queries, and expect scatter-gather pain for the rest</li>
+<li>Consistent hashing makes shard changes cheap. Use it whenever the number of shards will ever change</li>
+<li>CAP forces a choice during network partitions: refuse writes (CP) or accept stale reads (AP). Know which your system needs</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T37: システム設計 - スケール、データベース、シャーディング</h1>
+<p class="lesson-intro">小さなサーバー1台でも、多くの人が思うより多くのトラフィックを捌けます。しかしある時点で単一サーバーは汗をかき、単一データベースは窒息し、仕事を複数マシンに分ける必要が出ます。スケーリングとは分割の技術です。まずコピーを追加(レプリカ)、次にデータ自体を分割(シャード)。コツは、数字が強いる時だけやることです。</p>
+
+<h2>垂直 vs 水平</h2>
+<p><strong>垂直</strong>スケーリング = より大きなマシンを買う。CPU増、RAM増。単純で、限界までは有効、天井がある。<strong>水平</strong>スケーリング = マシンを増やして負荷を共有。複雑、天井なし、現実のプロダクトが生き残る方法。</p>
+<pre><code># Vertical: one strong server
+[ 8 vCPU | 32 GB RAM ]  -&gt;  [ 32 vCPU | 256 GB RAM ]
+
+# Horizontal: many modest servers behind a load balancer
+Client -&gt; LB -&gt; [ app1 ] [ app2 ] [ app3 ] ... [ appN ]</code></pre>
+<p>経験則: まず垂直。安くて簡単。垂直が限界、または冗長性が必要な時に水平へ。</p>
+
+<h2>SQL vs NoSQL: データの形で選ぶ</h2>
+<p><strong>SQL</strong>(Postgres、MySQL)はデータの形と関係が既知でトランザクションが必要な時に正解。<strong>NoSQL</strong>は多くの形をカバー: ドキュメント(MongoDB)はネストされたオブジェクト、キーバリュー(Redis、DynamoDB)はIDによる高速ルックアップ、ワイドカラム(Cassandra)は巨大なイベントストリーム。NoSQLは「スケール」ではなく具体的な理由で選ぶ。</p>
+<pre><code>// Orders, invoices, bookings     -&gt; SQL
+// User sessions, short-lived KV  -&gt; Redis
+// Logs, clicks, time series      -&gt; Cassandra / Clickhouse
+// Nested catalog documents       -&gt; MongoDB
+// Full-text search               -&gt; Elasticsearch / Meilisearch</code></pre>
+
+<h2>レプリケーション: 読み込みスケールと安全性のコピー</h2>
+<p>大半のアプリは書き込みの10-100倍読みます。解決策: 1つの<strong>プライマリ</strong>が書き込みを処理し、複数の<strong>レプリカ</strong>が読み込みを提供。レプリカはプライマリ障害にも耐えます。</p>
+<pre><code>Writes --&gt; [Primary]
+              |--&gt; [Replica 1] --&gt; Reads
+              |--&gt; [Replica 2] --&gt; Reads
+              |--&gt; [Replica 3] --&gt; Reads</code></pre>
+<p>落とし穴: レプリケーションはデフォルトで非同期。書き込み直後のレプリカ読み込みは古いデータを返すかも。read-your-writesが必要なら、そのリードをプライマリにルーティング。</p>
+
+<h2>シャーディング: 1つのDBでは足りない時</h2>
+<p>シャーディングは行を複数DBに分割します。各DBが1スライスを持ちます。<strong>シャードキー</strong>を選び、ハッシュしてルーティング。</p>
+
+<div class="mermaid">
+flowchart LR
+    C[Client write user_id=1234]
+    H{hash user_id % 4}
+    S0[(Shard 0<br/>keys 0)]
+    S1[(Shard 1<br/>keys 1)]
+    S2[(Shard 2<br/>keys 2)]
+    S3[(Shard 3<br/>keys 3)]
+    C --> H
+    H -->|mod 0| S0
+    H -->|mod 1| S1
+    H -->|mod 2| S2
+    H -->|mod 3| S3
+</div>
+
+<p>シャーディングには高いコストがあります。シャードを跨ぐクエリはscatter-gatherになります。最も多いクエリに合うシャードキーを選びましょう。Twitter風アプリなら<code>user_id</code>でシャーディングして1ユーザーのタイムラインを1シャードに。</p>
+
+<h2>コンシステントハッシュ: 痛みなく成長</h2>
+<p>単純なhash-modはシャードを追加すると壊れる。<code>hash % 4</code>が<code>hash % 5</code>になり、ほぼ全てのキーが家を変えます。<strong>コンシステントハッシュ</strong>はシャードをリングに配置。各キーはリング上の点に着地し、時計回りに最も近いシャードへ。シャード追加/削除は隣だけを動かします。</p>
+<pre><code>                 Shard A
+                    *
+      *                      *
+  Shard D                  Shard B
+      *                      *
+                    *
+                 Shard C
+
+Key hashes to a point on the ring -&gt; served by next shard clockwise.
+Add Shard E between B and C -&gt; only keys between B and E move.</code></pre>
+
+<h2>CAP定理: 2つ選ぶ(実際は2つのうち1つ)</h2>
+<p>分散システムでは一貫性(Consistency)、可用性(Availability)、分断耐性(Partition tolerance)を持てる。ネットワークは好むと好まざるとに関わらず分断するので、本当の選択は分断時の一貫性 vs 可用性です。</p>
+<ul>
+<li><strong>CPシステム</strong>(銀行、在庫、決済): 不一致になるくらいなら書き込みを拒否。ユーザーは「再試行」を見るかも。</li>
+<li><strong>APシステム</strong>(ソーシャルフィード、DM、キャッシュ): どちら側の書き込みも受け入れ、後で調整。ユーザーは少し古いデータを見る。</li>
+</ul>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>まず垂直スケール、次に水平。現代のマシンは思うより強力</li>
+<li>具体的なNoSQLの形が必要でない限りSQLを選ぶ。「スケール」だけでは理由にならない</li>
+<li>レプリケーションは読みスケールとフェイルオーバーを提供。レプリカの短期の古さを受け入れるか、重要リードはプライマリへ</li>
+<li>シャーディングは最後の手段。共通クエリに合うシャードキーを選び、他はscatter-gatherの痛みを覚悟</li>
+<li>コンシステントハッシュはシャード変更を安くする。シャード数が変わるなら必ず使う</li>
+<li>CAPは分断時に選択を強いる: 書き込み拒否(CP)か古い読み込み受容(AP)。どちらが必要か把握</li>
+</ul>
+</div>
+""",
+    },
+    'T38': {
+        'en': """
+<h1>T38: System Design - Caching, Queues &amp; Patterns</h1>
+<p class="lesson-intro">A database that does every read is like a chef who chops onions for every order. Caches pre-chop. Queues decouple the waiter from the kitchen so neither waits for the other. CDNs put a mini-kitchen on every continent. The deep dive of a system design is usually stitching these three together until the non-functional numbers fall into place.</p>
+
+<h2>Caching: Fast Memory Between You and The Database</h2>
+<p>A cache stores the result of a slow or expensive operation in fast memory. The canonical pattern is <strong>cache-aside</strong>: app checks cache; on miss, reads DB and fills cache; on hit, skips DB entirely.</p>
+
+<div class="mermaid">
+sequenceDiagram
+    participant App
+    participant Cache as Redis
+    participant DB as Database
+    App->>Cache: GET key
+    alt cache hit
+        Cache-->>App: value (fast)
+    else cache miss
+        Cache-->>App: nil
+        App->>DB: SELECT ...
+        DB-->>App: row
+        App->>Cache: SET key value ttl
+    end
+</div>
+
+<pre><code>// Cache-aside in Node.js
+async function getUser(id) {
+    const cached = await redis.get(`user:${id}`);
+    if (cached) return JSON.parse(cached);
+
+    const row = await db.query("SELECT * FROM users WHERE id = $1", [id]);
+    await redis.set(`user:${id}`, JSON.stringify(row), "EX", 300);
+    return row;
+}</code></pre>
+
+<p>The two hard problems of caching are <strong>invalidation</strong> (when do you throw stale data out) and <strong>stampede</strong> (when many requests miss at once and hammer the DB). Fix with TTLs, write-through updates, and single-flight locks on misses.</p>
+
+<h2>Where to Cache</h2>
+<ul>
+<li><strong>Browser cache</strong> - closest to user, controlled by <code>Cache-Control</code> headers</li>
+<li><strong>CDN (edge cache)</strong> - static assets, public API responses. Global, cheap, fast</li>
+<li><strong>Application cache</strong> - in-process memory or Redis. Good for per-user data and hot rows</li>
+<li><strong>Database cache</strong> - the DB's own buffer pool. Free, already tuned</li>
+</ul>
+
+<h2>Message Queues: Decouple Slow Work</h2>
+<p>Any operation that takes more than a few hundred milliseconds should not block the user. Queues let the app accept the job and return immediately; a <strong>worker</strong> reads the queue and does the slow work later.</p>
+
+<div class="mermaid">
+sequenceDiagram
+    participant User
+    participant API
+    participant Q as Queue (Kafka/SQS)
+    participant W as Worker
+    participant DB
+    User->>API: POST /upload
+    API->>Q: enqueue job
+    API-->>User: 202 Accepted (fast)
+    W->>Q: pull job
+    W->>W: resize, transcode, scan
+    W->>DB: write result
+</div>
+
+<p>Queues also absorb traffic spikes. If the worker can process 1000/sec and a spike pushes 10,000/sec, the queue flattens the curve instead of dropping requests. Kafka, RabbitMQ, and SQS each make different trade-offs around ordering, durability, and replay.</p>
+
+<h2>Load Balancers and Redundancy</h2>
+<p>A load balancer sits in front of identical app servers and spreads requests. Three jobs: distribute load, detect dead servers (health checks), terminate TLS. Run at least two of everything - load balancer, app, database replica - so any single failure is absorbed.</p>
+<pre><code>Client -&gt; DNS -&gt; LB (primary) --&gt; app1
+                    LB (standby)   app2
+                                   app3</code></pre>
+
+<h2>CDNs: A Copy Near Every User</h2>
+<p>A Content Delivery Network caches your static assets (and sometimes API responses) at hundreds of edge locations around the globe. First user in Tokyo pays the full trip to your origin in Virginia. Next 10,000 users in Tokyo hit the Tokyo edge in 10ms.</p>
+<pre><code>// What to put on the CDN
+- images, videos, fonts, JS/CSS bundles
+- rarely-changing API responses with Cache-Control
+- HTML for logged-out pages</code></pre>
+
+<h2>Monolith vs Microservices</h2>
+<p>Do not start with microservices. Every split adds a network hop, a deploy target, and a failure mode. Start monolith, extract services only when team size or scale makes the monolith painful.</p>
+<ul>
+<li><strong>Monolith</strong>: one codebase, one deploy. Fast to iterate, simple to debug. Breaks down at ~50 engineers or obvious bottleneck components.</li>
+<li><strong>Microservices</strong>: separate codebases, separate deploys, API or queue between. Each team owns a service. Pays off at scale, costs a lot up front.</li>
+</ul>
+
+<h2>Back-of-Envelope Numbers Worth Memorizing</h2>
+<ul>
+<li>L1 cache: ~1 ns. Memory: ~100 ns. SSD: ~100 us. Network round trip same region: ~1 ms. Cross-region: ~100 ms.</li>
+<li>A modern CPU server handles ~10k-100k req/sec for simple JSON.</li>
+<li>Postgres handles ~10k writes/sec / ~50k reads/sec before tuning.</li>
+<li>Redis handles ~100k-1M ops/sec.</li>
+<li>100M events/day = ~1,160/sec average, ~10k/sec at peak.</li>
+</ul>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Cache-aside is the default: check cache, miss -&gt; hit DB -&gt; fill cache. Watch for stampedes and invalidation</li>
+<li>Queues make the API respond fast by handing slow work to workers. They also flatten traffic spikes</li>
+<li>Run two of everything behind a load balancer so no single failure takes the system down</li>
+<li>CDNs buy global latency for pennies. Push every static asset and cacheable response to the edge</li>
+<li>Monolith first, microservices only when the monolith is visibly painful. Extraction is cheaper than un-extraction</li>
+<li>Keep a rough numbers table in your head: ns, us, ms latencies and per-component throughput</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T38: システム設計 - キャッシング、キュー、パターン</h1>
+<p class="lesson-intro">全ての読み込みをDBで処理するシェフは、注文のたびに玉ねぎを切るようなもの。キャッシュは事前に切っておきます。キューはウェイターとキッチンを分離し、お互いを待たせません。CDNは全ての大陸にミニキッチンを置きます。システム設計のディープダイブは通常、非機能数字が収まるまでこの3つを縫い合わせる作業です。</p>
+
+<h2>キャッシング: データベースとあなたの間の高速メモリ</h2>
+<p>キャッシュは遅い/高価な操作の結果を高速メモリに保存します。王道パターンは<strong>cache-aside</strong>: アプリがキャッシュを確認、ミスならDB読みキャッシュに詰める、ヒットならDBをスキップ。</p>
+
+<div class="mermaid">
+sequenceDiagram
+    participant App
+    participant Cache as Redis
+    participant DB as Database
+    App->>Cache: GET key
+    alt cache hit
+        Cache-->>App: value (fast)
+    else cache miss
+        Cache-->>App: nil
+        App->>DB: SELECT ...
+        DB-->>App: row
+        App->>Cache: SET key value ttl
+    end
+</div>
+
+<pre><code>// Cache-aside in Node.js
+async function getUser(id) {
+    const cached = await redis.get(`user:${id}`);
+    if (cached) return JSON.parse(cached);
+
+    const row = await db.query("SELECT * FROM users WHERE id = $1", [id]);
+    await redis.set(`user:${id}`, JSON.stringify(row), "EX", 300);
+    return row;
+}</code></pre>
+
+<p>キャッシングの2つの難問は<strong>無効化</strong>(古いデータをいつ捨てるか)と<strong>スタンピード</strong>(多数のリクエストが同時にミスしてDBを殴る)。TTL、write-through更新、ミス時のsingle-flightロックで対処。</p>
+
+<h2>どこにキャッシュするか</h2>
+<ul>
+<li><strong>ブラウザキャッシュ</strong> - ユーザーに最も近い。<code>Cache-Control</code>ヘッダで制御</li>
+<li><strong>CDN(エッジキャッシュ)</strong> - 静的アセット、公開APIレスポンス。グローバル、安い、速い</li>
+<li><strong>アプリケーションキャッシュ</strong> - プロセス内メモリまたはRedis。ユーザーごとデータやホットな行に良い</li>
+<li><strong>データベースキャッシュ</strong> - DB自身のバッファプール。無料、既にチューニング済み</li>
+</ul>
+
+<h2>メッセージキュー: 遅い作業を分離</h2>
+<p>数百ms以上かかる操作はユーザーをブロックすべきではありません。キューはアプリにジョブを受け取って即返させ、<strong>ワーカー</strong>がキューを読んで後で遅い作業をします。</p>
+
+<div class="mermaid">
+sequenceDiagram
+    participant User
+    participant API
+    participant Q as Queue (Kafka/SQS)
+    participant W as Worker
+    participant DB
+    User->>API: POST /upload
+    API->>Q: enqueue job
+    API-->>User: 202 Accepted (fast)
+    W->>Q: pull job
+    W->>W: resize, transcode, scan
+    W->>DB: write result
+</div>
+
+<p>キューはトラフィックのスパイクも吸収します。ワーカーが1000/秒処理でき、スパイクで10,000/秒押し寄せても、キューがカーブを平らにしてリクエストを落としません。Kafka、RabbitMQ、SQSはそれぞれ順序、耐久性、リプレイの面で異なるトレードオフ。</p>
+
+<h2>ロードバランサと冗長性</h2>
+<p>ロードバランサは同一のアプリサーバーの前に立ちリクエストを分散。3つの仕事: 負荷分散、死んだサーバー検出(ヘルスチェック)、TLS終端。全てを最低2つ動かす - LB、アプリ、DBレプリカ - 単一障害を吸収するため。</p>
+<pre><code>Client -&gt; DNS -&gt; LB (primary) --&gt; app1
+                    LB (standby)   app2
+                                   app3</code></pre>
+
+<h2>CDN: 全ユーザーの近くにコピー</h2>
+<p>CDN(Content Delivery Network)は静的アセット(時にはAPIレスポンスも)を世界中の数百のエッジロケーションにキャッシュします。東京の最初のユーザーはバージニアのオリジンまで全往復の代金を払う。その後の東京の10,000ユーザーは東京エッジに10msでヒット。</p>
+<pre><code>// What to put on the CDN
+- images, videos, fonts, JS/CSS bundles
+- rarely-changing API responses with Cache-Control
+- HTML for logged-out pages</code></pre>
+
+<h2>モノリス vs マイクロサービス</h2>
+<p>マイクロサービスから始めてはいけません。分割のたびにネットワークホップ、デプロイ対象、障害モードが増えます。モノリスで始め、チームサイズやスケールがモノリスを痛くした時のみサービスを抽出。</p>
+<ul>
+<li><strong>モノリス</strong>: 1コードベース、1デプロイ。イテレーション速く、デバッグ簡単。約50エンジニアや明らかなボトルネックで限界。</li>
+<li><strong>マイクロサービス</strong>: コードベース分離、デプロイ分離、APIやキューで間を繋ぐ。各チームが1サービスを所有。スケール時に報われるが、初期コスト大。</li>
+</ul>
+
+<h2>暗記価値のある大雑把な数字</h2>
+<ul>
+<li>L1キャッシュ: 約1ns。メモリ: 約100ns。SSD: 約100us。同一リージョン内ネットワーク往復: 約1ms。クロスリージョン: 約100ms。</li>
+<li>現代のCPUサーバーはシンプルJSONで約10k-100kリクエスト/秒。</li>
+<li>Postgresはチューニング前で約10k書き込み/秒 / 約50k読み込み/秒。</li>
+<li>Redisは約100k-1M op/秒。</li>
+<li>1日1億イベント = 平均約1,160/秒、ピーク約10k/秒。</li>
+</ul>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>cache-asideがデフォルト: キャッシュ確認、ミスならDB、キャッシュに詰める。スタンピードと無効化に注意</li>
+<li>キューは遅い作業をワーカーに渡してAPIを即応答にする。トラフィックスパイクも平らにする</li>
+<li>ロードバランサの後ろに全てを2つ動かし、単一障害でシステムが落ちないようにする</li>
+<li>CDNは小銭でグローバル低遅延を買える。静的アセットとキャッシュ可能レスポンスは全てエッジへ</li>
+<li>まずモノリス、マイクロサービスはモノリスが目に見えて痛くなった時のみ。抽出は逆抽出より安い</li>
+<li>大雑把な数字表を頭に入れる: ns、us、msの遅延とコンポーネントごとのスループット</li>
+</ul>
+</div>
+""",
+    },
 }
