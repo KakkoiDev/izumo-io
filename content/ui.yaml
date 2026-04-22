@@ -1,0 +1,122 @@
+# UI strings. Each key has a value per supported language.
+# Site build reads this at compile time.
+
+site_name:
+  en: "KakkoiSchool"
+  ja: "KakkoiSchool"
+
+site_tagline:
+  en: "From zero to full stack developer"
+  ja: "ゼロからフルスタック開発者へ"
+
+back_to_tech:
+  en: "Back to Tech Lessons"
+  ja: "技術レッスンに戻る"
+
+back_to_theory:
+  en: "Back to Theory Lessons"
+  ja: "理論レッスンに戻る"
+
+prev_lesson:
+  en: "Previous"
+  ja: "前へ"
+
+next_lesson:
+  en: "Next"
+  ja: "次へ"
+
+hero_title:
+  en: "Learn to Build the Web"
+  ja: "ウェブ開発を学ぼう"
+
+hero_subtitle:
+  en: "Hands-on lessons teaching the 20% that covers 80% of real-world development. From your first HTML page to a full-stack AI application."
+  ja: "実践的なレッスンで、現場の80%をカバーする20%を学ぶ。初めてのHTMLページからフルスタックAIアプリケーションまで。"
+
+nav_tech:
+  en: "Tech Lessons"
+  ja: "技術レッスン"
+
+nav_theory:
+  en: "Theory"
+  ja: "理論"
+
+nav_videos:
+  en: "Videos"
+  ja: "動画"
+
+coming_soon:
+  en: "Coming Soon"
+  ja: "近日公開"
+
+tech_title:
+  en: "Technical Lessons"
+  ja: "技術レッスン"
+
+tech_desc:
+  en: "Hands-on lessons from HTML to full-stack AI applications. Build real projects step by step."
+  ja: "HTMLからフルスタックAIアプリまでの実践レッスン。ステップバイステップで実際のプロジェクトを構築。"
+
+theory_title:
+  en: "Theory & Life Lessons"
+  ja: "理論とライフレッスン"
+
+theory_desc:
+  en: "The thinking behind great software and great developers."
+  ja: "優れたソフトウェアと優れた開発者の背後にある考え方。"
+
+videos_title:
+  en: "Lesson Videos"
+  ja: "レッスン動画"
+
+videos_desc:
+  en: "Watch previous lesson recordings on YouTube."
+  ja: "YouTubeで過去のレッスンを視聴。"
+
+start_learning:
+  en: "Start Learning"
+  ja: "学習を始める"
+
+philosophy_title:
+  en: "Our Approach"
+  ja: "私たちのアプローチ"
+
+philosophy_2080:
+  en: "Learn the 20% that covers 80% of real-world work"
+  ja: "現場の80%をカバーする20%を学ぶ"
+
+philosophy_hands_on:
+  en: "Build real projects from day one"
+  ja: "初日から実際のプロジェクトを構築する"
+
+philosophy_analogies:
+  en: "Understand through real-world analogies"
+  ja: "現実世界のアナロジーで理解する"
+
+philosophy_zero:
+  en: "Start from absolute zero, no prerequisites"
+  ja: "完全なゼロから、前提条件なし"
+
+community_title:
+  en: "Join the Community"
+  ja: "コミュニティに参加"
+
+community_desc:
+  en: "Learn together, ask questions, share your progress."
+  ja: "一緒に学び、質問し、進捗を共有しよう。"
+
+discord_cta:
+  en: "Join our Discord"
+  ja: "Discordに参加する"
+
+nav_resources:
+  en: "Resources"
+  ja: "リソース"
+
+resources_title:
+  en: "Resources"
+  ja: "リソース"
+
+resources_desc:
+  en: "Curated tools and platforms to level up your skills."
+  ja: "スキルアップのための厳選ツールとプラットフォーム。"
