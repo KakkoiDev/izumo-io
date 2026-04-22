@@ -4,149 +4,149 @@
 site_name:
   en: "KakkoiSchool"
   ja: "KakkoiSchool"
-  pt: ""
+  pt: "KakkoiSchool"
 
 site_tagline:
   en: "From zero to full stack developer"
   ja: "ゼロからフルスタック開発者へ"
-  pt: ""
+  pt: "De zero a desenvolvedor full stack"
 
 back_to_tech:
   en: "Back to Tech Lessons"
   ja: "技術レッスンに戻る"
-  pt: ""
+  pt: "Voltar para as Aulas Técnicas"
 
 back_to_theory:
   en: "Back to Theory Lessons"
   ja: "理論レッスンに戻る"
-  pt: ""
+  pt: "Voltar para as Aulas Teóricas"
 
 prev_lesson:
   en: "Previous"
   ja: "前へ"
-  pt: ""
+  pt: "Anterior"
 
 next_lesson:
   en: "Next"
   ja: "次へ"
-  pt: ""
+  pt: "Próxima"
 
 hero_title:
   en: "Learn to Build the Web"
   ja: "ウェブ開発を学ぼう"
-  pt: ""
+  pt: "Aprenda a Construir a Web"
 
 hero_subtitle:
   en: "Hands-on lessons teaching the 20% that covers 80% of real-world development. From your first HTML page to a full-stack AI application."
   ja: "実践的なレッスンで、現場の80%をカバーする20%を学ぶ。初めてのHTMLページからフルスタックAIアプリケーションまで。"
-  pt: ""
+  pt: "Aulas práticas ensinando os 20% que cobrem 80% do desenvolvimento do mundo real. Da sua primeira página HTML a uma aplicação de IA full stack."
 
 nav_tech:
   en: "Tech Lessons"
   ja: "技術レッスン"
-  pt: ""
+  pt: "Aulas Técnicas"
 
 nav_theory:
   en: "Theory"
   ja: "理論"
-  pt: ""
+  pt: "Teoria"
 
 nav_videos:
   en: "Videos"
   ja: "動画"
-  pt: ""
+  pt: "Vídeos"
 
 coming_soon:
   en: "Coming Soon"
   ja: "近日公開"
-  pt: ""
+  pt: "Em Breve"
 
 tech_title:
   en: "Technical Lessons"
   ja: "技術レッスン"
-  pt: ""
+  pt: "Aulas Técnicas"
 
 tech_desc:
   en: "Hands-on lessons from HTML to full-stack AI applications. Build real projects step by step."
   ja: "HTMLからフルスタックAIアプリまでの実践レッスン。ステップバイステップで実際のプロジェクトを構築。"
-  pt: ""
+  pt: "Aulas práticas de HTML a aplicações de IA full stack. Construa projetos reais passo a passo."
 
 theory_title:
   en: "Theory & Life Lessons"
   ja: "理論とライフレッスン"
-  pt: ""
+  pt: "Teoria e Lições de Vida"
 
 theory_desc:
   en: "The thinking behind great software and great developers."
   ja: "優れたソフトウェアと優れた開発者の背後にある考え方。"
-  pt: ""
+  pt: "O pensamento por trás de grandes softwares e grandes desenvolvedores."
 
 videos_title:
   en: "Lesson Videos"
   ja: "レッスン動画"
-  pt: ""
+  pt: "Vídeos das Aulas"
 
 videos_desc:
   en: "Watch previous lesson recordings on YouTube."
   ja: "YouTubeで過去のレッスンを視聴。"
-  pt: ""
+  pt: "Assista às gravações das aulas anteriores no YouTube."
 
 start_learning:
   en: "Start Learning"
   ja: "学習を始める"
-  pt: ""
+  pt: "Começar a Aprender"
 
 philosophy_title:
   en: "Our Approach"
   ja: "私たちのアプローチ"
-  pt: ""
+  pt: "Nossa Abordagem"
 
 philosophy_2080:
   en: "Learn the 20% that covers 80% of real-world work"
   ja: "現場の80%をカバーする20%を学ぶ"
-  pt: ""
+  pt: "Aprenda os 20% que cobrem 80% do trabalho no mundo real"
 
 philosophy_hands_on:
   en: "Build real projects from day one"
   ja: "初日から実際のプロジェクトを構築する"
-  pt: ""
+  pt: "Construa projetos reais desde o primeiro dia"
 
 philosophy_analogies:
   en: "Understand through real-world analogies"
   ja: "現実世界のアナロジーで理解する"
-  pt: ""
+  pt: "Entenda através de analogias do mundo real"
 
 philosophy_zero:
   en: "Start from absolute zero, no prerequisites"
   ja: "完全なゼロから、前提条件なし"
-  pt: ""
+  pt: "Comece do zero absoluto, sem pré-requisitos"
 
 community_title:
   en: "Join the Community"
   ja: "コミュニティに参加"
-  pt: ""
+  pt: "Entre na Comunidade"
 
 community_desc:
   en: "Learn together, ask questions, share your progress."
   ja: "一緒に学び、質問し、進捗を共有しよう。"
-  pt: ""
+  pt: "Aprenda junto, faça perguntas, compartilhe seu progresso."
 
 discord_cta:
   en: "Join our Discord"
   ja: "Discordに参加する"
-  pt: ""
+  pt: "Entre no nosso Discord"
 
 nav_resources:
   en: "Resources"
   ja: "リソース"
-  pt: ""
+  pt: "Recursos"
 
 resources_title:
   en: "Resources"
   ja: "リソース"
-  pt: ""
+  pt: "Recursos"
 
 resources_desc:
   en: "Curated tools and platforms to level up your skills."
   ja: "スキルアップのための厳選ツールとプラットフォーム。"
-  pt: ""
+  pt: "Ferramentas e plataformas selecionadas para subir de nível."
