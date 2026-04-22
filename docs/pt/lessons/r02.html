@@ -46,20 +46,20 @@
           <a href="r03.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="r02-web-architecture"><a class="heading-anchor" href="#r02-web-architecture">R02: Web Architecture</a></h1>
-<p class="lesson-intro">The web works like a restaurant. The client (your browser) is the customer sitting at a table. The server is the kitchen. HTTP is the waiter carrying orders back and forth. The customer never enters the kitchen, and the kitchen never sits at the table. Each has a clear role.</p>
-<h2 id="client-server-model"><a class="heading-anchor" href="#client-server-model">Client-Server Model</a></h2>
-<p>The client makes requests and displays responses. The server receives requests, processes them, and sends back data. This separation of concerns is fundamental to web architecture.</p>
-<h2 id="how-a-web-request-works"><a class="heading-anchor" href="#how-a-web-request-works">How a Web Request Works</a></h2>
-<p>When you type a URL: the browser looks up the server's address (DNS), opens a connection (TCP), sends a request (HTTP), and the server responds with HTML, CSS, JS, or data.</p>
+      <h1 id="r02-arquitetura-web"><a class="heading-anchor" href="#r02-arquitetura-web">R02: Arquitetura Web</a></h1>
+<p class="lesson-intro">A web funciona como um restaurante. O cliente (seu navegador) é o freguês sentado à mesa. O servidor é a cozinha. HTTP é o garçom que leva pedidos e respostas para lá e para cá. O cliente nunca entra na cozinha, e a cozinha nunca se senta à mesa. Cada um tem um papel claro.</p>
+<h2 id="modelo-cliente-servidor"><a class="heading-anchor" href="#modelo-cliente-servidor">Modelo Cliente-Servidor</a></h2>
+<p>O cliente faz requisições e exibe respostas. O servidor recebe requisições, as processa e devolve dados. Essa separação de responsabilidades é fundamental na arquitetura web.</p>
+<h2 id="como-funciona-uma-requisi-o-web"><a class="heading-anchor" href="#como-funciona-uma-requisi-o-web">Como Funciona uma Requisição Web</a></h2>
+<p>Quando você digita uma URL: o navegador descobre o endereço do servidor (DNS), abre uma conexão (TCP), envia uma requisição (HTTP) e o servidor responde com HTML, CSS, JS ou dados.</p>
 <pre><code>Client: &quot;GET /menu please&quot;
 Server: &quot;Here is the menu page (200 OK)&quot;
 
 Client: &quot;POST /order with {item: 'pasta'}&quot;
 Server: &quot;Order received (201 Created)&quot;
 </code></pre>
-<h2 id="beyond-simple-pages"><a class="heading-anchor" href="#beyond-simple-pages">Beyond Simple Pages</a></h2>
-<p>Modern web apps add layers: CDNs cache content closer to users, load balancers distribute traffic across multiple servers, and databases persist the data.</p>
+<h2 id="al-m-de-p-ginas-simples"><a class="heading-anchor" href="#al-m-de-p-ginas-simples">Além de Páginas Simples</a></h2>
+<p>Apps web modernos adicionam camadas: CDNs cacheiam conteúdo mais perto dos usuários, load balancers distribuem tráfego entre vários servidores, e bancos de dados persistem os dados.</p>
 <div class="mermaid">
 flowchart LR
     A[Client / Browser] -->|HTTP Request| B[Server]
@@ -77,10 +77,10 @@ flowchart LR
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>The web follows a client-server model with clear separation of roles</li>
-<li>HTTP is the protocol that defines how clients and servers communicate</li>
-<li>The browser handles display, the server handles logic and data</li>
-<li>DNS translates domain names into server IP addresses</li>
+<li>A web segue o modelo cliente-servidor com separação clara de papéis</li>
+<li>HTTP é o protocolo que define como clientes e servidores se comunicam</li>
+<li>O navegador cuida da exibição, o servidor cuida da lógica e dos dados</li>
+<li>DNS traduz nomes de domínio em endereços IP de servidores</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
