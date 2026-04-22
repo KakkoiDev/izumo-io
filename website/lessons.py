@@ -7211,4 +7211,194 @@ sequenceDiagram
 </div>
 """,
     },
+    'T39': {
+        'en': """
+<h1>T39: Environment Setup</h1>
+<p class="lesson-intro">Every craftsman sets up the workbench before the first cut. To build for the web you need three tools on your computer: an editor to write code, a runtime to execute JavaScript outside the browser, and a browser to view the result. One afternoon of setup saves a thousand frustrations later. Do it once, forget it forever.</p>
+
+<h2>What You Are Installing</h2>
+<ul>
+<li><strong>Visual Studio Code</strong> - the editor. Free, from Microsoft, runs on Windows, Mac, Linux. Works for HTML, CSS, JavaScript, and every language you will touch in this course.</li>
+<li><strong>Node.js</strong> - a JavaScript runtime. Lets you run .js files from your terminal without a browser. Comes with <code>npm</code>, the package manager that installs third-party libraries.</li>
+<li><strong>A modern browser</strong> - Chrome or Firefox. The built-in browser devtools are how you inspect pages, debug JavaScript, and simulate network conditions.</li>
+</ul>
+
+<h2>Install VS Code</h2>
+<p>Go to <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a> and download the installer for your operating system. Accept the defaults. When prompted during install, check <strong>Add to PATH</strong> and <strong>Register as editor for supported file types</strong>.</p>
+<p>After install, open VS Code and look around:</p>
+<ul>
+<li>Left bar: Explorer (file tree), Search, Source Control (git), Extensions</li>
+<li><strong>Cmd/Ctrl + P</strong> - quick file open. Type a filename fragment</li>
+<li><strong>Cmd/Ctrl + Shift + P</strong> - command palette. Type any command by name</li>
+<li><strong>Ctrl + `</strong> (backtick) - open the integrated terminal inside VS Code</li>
+</ul>
+
+<h2>Install Node.js</h2>
+<p>Go to <a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a> and download the <strong>LTS</strong> (Long-Term Support) version. Accept defaults. LTS is the boring-reliable choice; avoid the "Current" channel for learning.</p>
+<p>On Mac, if you already use Homebrew, <code>brew install node</code> works. On Linux, your distro's package manager is fine, but node's version may be old; consider <a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a> for flexibility later.</p>
+
+<h2>Verify Everything Works</h2>
+<p>Open VS Code, then open the integrated terminal (<strong>Ctrl + `</strong>). Run these four commands. Each should print a version number.</p>
+<pre><code>node -v      # v20.x.x or newer
+npm -v       # 10.x.x or newer
+code -v      # VS Code version
+git --version  # any version works</code></pre>
+<p>If any command prints "command not found", close all terminal windows, open a new one, and try again. The installer updated your <code>PATH</code>, and PATH only applies to new terminals. Still broken? Restart the computer.</p>
+
+<h2>Your First File</h2>
+<p>Let's prove the whole chain works end to end.</p>
+<ol>
+<li>In VS Code, open a folder: <strong>File &gt; Open Folder</strong>. Pick or create a folder called <code>learning</code>.</li>
+<li>Create a new file named <code>hello.html</code>.</li>
+<li>Paste this in and save with Cmd/Ctrl + S:</li>
+</ol>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Hello&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;It works!&lt;/h1&gt;
+    &lt;script&gt;
+        console.log("Also in the browser console.");
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Open the file in your browser (double-click it, or drag it onto the browser). Open devtools with <strong>F12</strong> and switch to the Console tab. You should see the log line.</p>
+
+<div class="mermaid">
+flowchart LR
+    VSC[VS Code<br/>write code]
+    Disk[hello.html on disk]
+    Browser[Browser<br/>renders + runs JS]
+    DevTools[DevTools F12<br/>inspect + debug]
+    Terminal[VS Code terminal<br/>node, npm, git]
+    VSC -->|Save| Disk
+    Disk -->|Open| Browser
+    Browser --> DevTools
+    VSC -.->|Ctrl+backtick| Terminal
+    Terminal -.->|node, npm| Disk
+</div>
+
+<h2>Extensions Worth Installing</h2>
+<p>Open the Extensions panel in VS Code (square icon on the left bar). Install these four:</p>
+<ul>
+<li><strong>Prettier - Code formatter</strong> - auto-formats on save so every file looks consistent</li>
+<li><strong>ESLint</strong> - highlights JavaScript bugs and style issues as you type</li>
+<li><strong>Live Server</strong> - right-click any .html file -&gt; "Open with Live Server" for auto-refresh on save</li>
+<li><strong>GitLens</strong> - enhanced git integration; see who last changed every line</li>
+</ul>
+<p>To enable format-on-save, open settings (Cmd/Ctrl + ,), search "format on save", and check the box.</p>
+
+<h2>Operating System Notes</h2>
+<ul>
+<li><strong>Windows</strong>: install Git for Windows from <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>. The default "Git Bash" terminal gives you a Linux-like shell that is much nicer than cmd.exe for this course.</li>
+<li><strong>Mac</strong>: install <a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a> first. Then <code>brew install git node</code> is the whole setup.</li>
+<li><strong>Linux</strong>: you likely have git already. <code>sudo apt install git nodejs npm</code> (Ubuntu/Debian) or <code>nvm</code> for newer versions.</li>
+</ul>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Three tools: VS Code (editor), Node.js LTS (runtime), a modern browser with devtools</li>
+<li>Verify with node -v, npm -v, git --version, code -v. All four should print versions</li>
+<li>Learn VS Code shortcuts early: Cmd/Ctrl+P (quick open), Cmd/Ctrl+Shift+P (command palette), Ctrl+backtick (terminal)</li>
+<li>Install Prettier, ESLint, Live Server, GitLens. Enable format-on-save</li>
+<li>If a command is "not found", open a fresh terminal. If still broken, restart. PATH updates need a new shell</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T39: 環境セットアップ</h1>
+<p class="lesson-intro">職人は最初の切削の前に作業台を整えます。Webを作るために、コンピュータには3つの道具が必要です。コードを書くエディタ、ブラウザ外でJavaScriptを実行するランタイム、結果を見るブラウザ。午後1回のセットアップが後の千の苛立ちを救います。一度やって永遠に忘れましょう。</p>
+
+<h2>何をインストールするか</h2>
+<ul>
+<li><strong>Visual Studio Code</strong> - エディタ。無料、Microsoft製、Windows/Mac/Linuxで動作。HTML、CSS、JavaScript、このコースで触る全ての言語に対応。</li>
+<li><strong>Node.js</strong> - JavaScriptランタイム。ブラウザなしでターミナルから.jsファイルを実行できる。サードパーティライブラリをインストールする<code>npm</code>が付属。</li>
+<li><strong>モダンブラウザ</strong> - ChromeまたはFirefox。組み込みのデベロッパーツールでページを検査、JavaScriptをデバッグ、ネットワーク状況をシミュレートします。</li>
+</ul>
+
+<h2>VS Codeをインストール</h2>
+<p><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a>に行き、OSのインストーラをダウンロード。デフォルトを受け入れる。インストール中に聞かれたら<strong>Add to PATH</strong>と<strong>Register as editor for supported file types</strong>をチェック。</p>
+<p>インストール後、VS Codeを開いて見回します:</p>
+<ul>
+<li>左バー: エクスプローラ(ファイルツリー)、検索、ソース管理(git)、拡張機能</li>
+<li><strong>Cmd/Ctrl + P</strong> - クイックファイルオープン。ファイル名の一部を入力</li>
+<li><strong>Cmd/Ctrl + Shift + P</strong> - コマンドパレット。任意のコマンドを名前で入力</li>
+<li><strong>Ctrl + `</strong>(バッククォート) - VS Code内の統合ターミナルを開く</li>
+</ul>
+
+<h2>Node.jsをインストール</h2>
+<p><a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a>に行き、<strong>LTS</strong>(長期サポート)版をダウンロード。デフォルトを受け入れる。LTSは退屈で信頼できる選択。学習中は「Current」チャネルは避けましょう。</p>
+<p>MacでHomebrewを使っているなら<code>brew install node</code>で十分。Linuxではディストリのパッケージマネージャでも良いが、nodeのバージョンが古いかも。後の柔軟性のために<a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a>の使用を検討。</p>
+
+<h2>全てが動くか確認</h2>
+<p>VS Codeを開き、統合ターミナルを開く(<strong>Ctrl + `</strong>)。この4つのコマンドを実行。各々がバージョン番号を表示するはず。</p>
+<pre><code>node -v      # v20.x.x or newer
+npm -v       # 10.x.x or newer
+code -v      # VS Code version
+git --version  # any version works</code></pre>
+<p>どれかが「command not found」を出したら、全てのターミナルウィンドウを閉じて新しいのを開き、もう一度試す。インストーラは<code>PATH</code>を更新するが、PATHは新しいターミナルにのみ適用される。それでも壊れているなら、コンピュータを再起動。</p>
+
+<h2>最初のファイル</h2>
+<p>チェーン全体がエンドtoエンドで動くことを証明しましょう。</p>
+<ol>
+<li>VS Codeで<strong>File &gt; Open Folder</strong>からフォルダを開く。<code>learning</code>というフォルダを作るか選ぶ。</li>
+<li><code>hello.html</code>という新ファイルを作成。</li>
+<li>これを貼り付けてCmd/Ctrl + Sで保存:</li>
+</ol>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Hello&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;It works!&lt;/h1&gt;
+    &lt;script&gt;
+        console.log("Also in the browser console.");
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>ファイルをブラウザで開く(ダブルクリックかブラウザにドラッグ)。<strong>F12</strong>でデベロッパーツールを開き、Consoleタブに切り替え。ログ行が見えるはず。</p>
+
+<div class="mermaid">
+flowchart LR
+    VSC[VS Code<br/>write code]
+    Disk[hello.html on disk]
+    Browser[Browser<br/>renders + runs JS]
+    DevTools[DevTools F12<br/>inspect + debug]
+    Terminal[VS Code terminal<br/>node, npm, git]
+    VSC -->|Save| Disk
+    Disk -->|Open| Browser
+    Browser --> DevTools
+    VSC -.->|Ctrl+backtick| Terminal
+    Terminal -.->|node, npm| Disk
+</div>
+
+<h2>入れる価値のある拡張機能</h2>
+<p>VS Codeの拡張機能パネルを開く(左バーの四角いアイコン)。この4つをインストール:</p>
+<ul>
+<li><strong>Prettier - Code formatter</strong> - 保存時に自動フォーマット。全ファイルが一貫した見た目に</li>
+<li><strong>ESLint</strong> - 入力中にJavaScriptのバグとスタイル問題をハイライト</li>
+<li><strong>Live Server</strong> - 任意の.htmlファイルを右クリック -&gt; 「Open with Live Server」で保存時自動リロード</li>
+<li><strong>GitLens</strong> - git統合の強化。各行を最後に誰が変えたか見える</li>
+</ul>
+<p>保存時フォーマットを有効にするには、設定(Cmd/Ctrl + ,)を開き、「format on save」を検索してチェック。</p>
+
+<h2>OS別の注意</h2>
+<ul>
+<li><strong>Windows</strong>: <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>からGit for Windowsをインストール。デフォルトの「Git Bash」ターミナルがcmd.exeよりこのコースに親切なLinux風シェルを提供。</li>
+<li><strong>Mac</strong>: まず<a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a>をインストール。あとは<code>brew install git node</code>でセットアップ完了。</li>
+<li><strong>Linux</strong>: gitは既にあるはず。<code>sudo apt install git nodejs npm</code>(Ubuntu/Debian)、または新しいバージョンには<code>nvm</code>。</li>
+</ul>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>3つの道具: VS Code(エディタ)、Node.js LTS(ランタイム)、デベロッパーツール付きモダンブラウザ</li>
+<li>node -v、npm -v、git --version、code -vで確認。4つ全てがバージョンを表示するはず</li>
+<li>VS Codeのショートカットを早く覚える: Cmd/Ctrl+P(クイック開く)、Cmd/Ctrl+Shift+P(コマンドパレット)、Ctrl+バッククォート(ターミナル)</li>
+<li>Prettier、ESLint、Live Server、GitLensをインストール。保存時フォーマットを有効に</li>
+<li>コマンドが「not found」なら新しいターミナルを開く。まだ壊れているなら再起動。PATH更新は新シェルが必要</li>
+</ul>
+</div>
+""",
+    },
 }
