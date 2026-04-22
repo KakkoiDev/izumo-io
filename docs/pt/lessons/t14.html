@@ -46,10 +46,10 @@
           <a href="t15.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t14-persistence"><a class="heading-anchor" href="#t14-persistence">T14: Persistence</a></h1>
-<p class="lesson-intro">Web pages forget everything when you close them. LocalStorage is like a notebook the browser keeps for your website - data persists even after closing the tab. JSON is the universal format for converting JavaScript objects into storable strings and back.</p>
-<h2 id="localstorage-api"><a class="heading-anchor" href="#localstorage-api">localStorage API</a></h2>
-<p>LocalStorage stores key-value pairs as strings. It persists across page reloads and browser restarts, with about 5MB of space per domain.</p>
+      <h1 id="t14-persist-ncia"><a class="heading-anchor" href="#t14-persist-ncia">T14: Persistência</a></h1>
+<p class="lesson-intro">Páginas web esquecem tudo quando você fecha. O localStorage é como um caderno que o navegador mantém para seu site - os dados persistem mesmo depois de fechar a aba. JSON é o formato universal para converter objetos JavaScript em strings armazenáveis e de volta.</p>
+<h2 id="api-localstorage"><a class="heading-anchor" href="#api-localstorage">API localStorage</a></h2>
+<p>O localStorage armazena pares chave-valor como strings. Persiste entre recargas de página e reinícios do navegador, com cerca de 5MB de espaço por domínio.</p>
 <pre><code>// Save data
 localStorage.setItem(&quot;username&quot;, &quot;Alice&quot;);
 
@@ -62,8 +62,8 @@ localStorage.removeItem(&quot;username&quot;);
 // Clear all
 localStorage.clear();
 </code></pre>
-<h2 id="working-with-json"><a class="heading-anchor" href="#working-with-json">Working with JSON</a></h2>
-<p>Since localStorage only stores strings, use <code>JSON.stringify()</code> to save objects and <code>JSON.parse()</code> to read them back.</p>
+<h2 id="trabalhando-com-json"><a class="heading-anchor" href="#trabalhando-com-json">Trabalhando com JSON</a></h2>
+<p>Como o localStorage só armazena strings, use <code>JSON.stringify()</code> para salvar objetos e <code>JSON.parse()</code> para ler de volta.</p>
 <pre><code>const tasks = [
     { id: 1, text: &quot;Learn HTML&quot;, done: true },
     { id: 2, text: &quot;Learn CSS&quot;, done: false }
@@ -88,10 +88,10 @@ flowchart LR
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>localStorage persists data across page reloads and browser restarts</li>
-<li>All values are stored as strings - use JSON for complex data</li>
-<li>JSON.stringify converts objects to strings, JSON.parse converts back</li>
-<li>localStorage has a 5MB limit per domain - use it for small data only</li>
+<li>localStorage persiste dados entre recargas de página e reinícios do navegador</li>
+<li>Todos os valores são armazenados como strings - use JSON para dados complexos</li>
+<li>JSON.stringify converte objetos para strings, JSON.parse converte de volta</li>
+<li>localStorage tem limite de 5MB por domínio - use só para dados pequenos</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

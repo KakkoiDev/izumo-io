@@ -46,10 +46,10 @@
           <a href="t13.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t12-forms-and-dialog"><a class="heading-anchor" href="#t12-forms-and-dialog">T12: Forms and Dialog</a></h1>
-<p class="lesson-intro">HTML forms collect data, but JavaScript validates and processes it. The dialog element gives you native modal windows without any library. Together they create a smooth data collection experience - like a smart receptionist who checks your paperwork before filing it.</p>
-<h2 id="javascript-form-validation"><a class="heading-anchor" href="#javascript-form-validation">JavaScript Form Validation</a></h2>
-<p>While HTML has built-in validation (required, type), JavaScript gives you full control over validation logic and custom error messages.</p>
+      <h1 id="t12-formul-rios-e-dialog"><a class="heading-anchor" href="#t12-formul-rios-e-dialog">T12: Formulários e Dialog</a></h1>
+<p class="lesson-intro">Formulários HTML coletam dados, mas o JavaScript os valida e processa. O elemento dialog dá janelas modais nativas sem biblioteca alguma. Juntos criam uma experiência de coleta de dados fluida - como uma recepcionista esperta que confere seus papéis antes de arquivar.</p>
+<h2 id="valida-o-de-formul-rio-com-javascript"><a class="heading-anchor" href="#valida-o-de-formul-rio-com-javascript">Validação de Formulário com JavaScript</a></h2>
+<p>Enquanto o HTML tem validação embutida (required, type), o JavaScript te dá controle total sobre a lógica de validação e mensagens de erro personalizadas.</p>
 <pre><code>const form = document.querySelector(&quot;#myForm&quot;);
 form.addEventListener(&quot;submit&quot;, function(event) {
     const email = form.querySelector(&quot;#email&quot;).value;
@@ -65,8 +65,8 @@ function showError(message) {
     errorDiv.style.display = &quot;block&quot;;
 }
 </code></pre>
-<h2 id="the-dialog-element"><a class="heading-anchor" href="#the-dialog-element">The Dialog Element</a></h2>
-<p>The <code>&lt;dialog&gt;</code> element provides native modal and non-modal dialogs. Use <code>showModal()</code> for modals with backdrop, or <code>show()</code> for non-modal.</p>
+<h2 id="o-elemento-dialog"><a class="heading-anchor" href="#o-elemento-dialog">O Elemento Dialog</a></h2>
+<p>O elemento <code>&lt;dialog&gt;</code> oferece diálogos modais e não modais nativos. Use <code>showModal()</code> para modais com fundo, ou <code>show()</code> para não modal.</p>
 <pre><code>&lt;dialog id=&quot;confirm&quot;&gt;
     &lt;p&gt;Are you sure?&lt;/p&gt;
     &lt;button id=&quot;yes&quot;&gt;Yes&lt;/button&gt;
@@ -95,10 +95,10 @@ flowchart TD
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>JavaScript validation gives you custom logic beyond HTML5 built-in validation</li>
-<li>The dialog element provides native modal windows without external libraries</li>
-<li>Use showModal() for modal dialogs and show() for non-modal ones</li>
-<li>Always provide clear error messages that tell users how to fix the problem</li>
+<li>Validação em JavaScript te dá lógica personalizada além da validação embutida do HTML5</li>
+<li>O elemento dialog oferece janelas modais nativas sem bibliotecas externas</li>
+<li>Use showModal() para diálogos modais e show() para não modais</li>
+<li>Sempre forneça mensagens de erro claras que dizem ao usuário como consertar o problema</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

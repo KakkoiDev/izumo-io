@@ -46,23 +46,23 @@
           <a href="t12.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t11-dom-manipulation"><a class="heading-anchor" href="#t11-dom-manipulation">T11: DOM Manipulation</a></h1>
-<p class="lesson-intro">The DOM (Document Object Model) is the browser's live representation of your HTML page. Think of it as a tree made of building blocks - JavaScript lets you add, remove, and rearrange those blocks while the user watches. Every element is a node you can reach and modify.</p>
-<h2 id="selecting-elements"><a class="heading-anchor" href="#selecting-elements">Selecting Elements</a></h2>
-<p>Before you can change an element, you need to find it. The <code>querySelector</code> method uses CSS selector syntax to grab elements.</p>
+      <h1 id="t11-manipula-o-do-dom"><a class="heading-anchor" href="#t11-manipula-o-do-dom">T11: Manipulação do DOM</a></h1>
+<p class="lesson-intro">O DOM (Document Object Model) é a representação viva do navegador da sua página HTML. Pense numa árvore feita de blocos de construção - o JavaScript deixa você adicionar, remover e rearranjar esses blocos enquanto o usuário assiste. Cada elemento é um nó que você pode alcançar e modificar.</p>
+<h2 id="selecionando-elementos"><a class="heading-anchor" href="#selecionando-elementos">Selecionando Elementos</a></h2>
+<p>Antes de mudar um elemento, você precisa encontrá-lo. O método <code>querySelector</code> usa sintaxe de seletor CSS para pegar elementos.</p>
 <pre><code>const title = document.querySelector(&quot;h1&quot;);
 const items = document.querySelectorAll(&quot;.item&quot;);
 const form = document.querySelector(&quot;#signup-form&quot;);
 </code></pre>
-<h2 id="creating-and-modifying-elements"><a class="heading-anchor" href="#creating-and-modifying-elements">Creating and Modifying Elements</a></h2>
-<p>Create new elements with <code>createElement</code>, set their content, and append them to the page.</p>
+<h2 id="criando-e-modificando-elementos"><a class="heading-anchor" href="#criando-e-modificando-elementos">Criando e Modificando Elementos</a></h2>
+<p>Crie novos elementos com <code>createElement</code>, defina o conteúdo e anexe à página.</p>
 <pre><code>const card = document.createElement(&quot;div&quot;);
 card.className = &quot;card&quot;;
 card.textContent = &quot;New card content&quot;;
 document.querySelector(&quot;.container&quot;).appendChild(card);
 </code></pre>
-<h2 id="event-handling"><a class="heading-anchor" href="#event-handling">Event Handling</a></h2>
-<p>Events let your page respond to user actions. Click, hover, type - each triggers an event you can listen for.</p>
+<h2 id="tratando-eventos"><a class="heading-anchor" href="#tratando-eventos">Tratando Eventos</a></h2>
+<p>Eventos permitem que sua página responda às ações do usuário. Clicar, passar o mouse, digitar - cada um dispara um evento que você pode escutar.</p>
 <pre><code>const button = document.querySelector(&quot;#submit&quot;);
 button.addEventListener(&quot;click&quot;, function(event) {
     event.preventDefault();
@@ -85,10 +85,10 @@ graph TD
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>querySelector and querySelectorAll find elements using CSS selector syntax</li>
-<li>createElement and appendChild let you build new DOM nodes dynamically</li>
-<li>addEventListener connects user actions to your JavaScript functions</li>
-<li>Always use event.preventDefault() when you want to stop default browser behavior</li>
+<li>querySelector e querySelectorAll encontram elementos usando sintaxe de seletor CSS</li>
+<li>createElement e appendChild permitem construir novos nós do DOM dinamicamente</li>
+<li>addEventListener conecta ações do usuário às suas funções JavaScript</li>
+<li>Sempre use event.preventDefault() quando quiser impedir o comportamento padrão do navegador</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
