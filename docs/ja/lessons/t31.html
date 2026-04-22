@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ja" data-page="t31.html" data-lang-paths='{"en":"../../lessons/","ja":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>GitHubとコラボレーション - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t30.html">前へ</a>
+          <a href="t32.html">次へ</a>
+        </div>
+      </nav>
+      
+<h1 id="t31-githubとコラボレーション"><a class="heading-anchor" href="#t31-githubとコラボレーション">T31: GitHubとコラボレーション</a></h1>
+<p class="lesson-intro">Gitは机の上の個人用タイムマシン。GitHubは多くのタイムトラベラーが集まり、メモを比べ、一緒に作る共有工房です。同じリポジトリが2か所に存在します。あなたのラップトップとクラウドです。プッシュとプルでそれらを同期します。</p>
+
+<h2 id="リモート-コピーのありか"><a class="heading-anchor" href="#リモート-コピーのありか">リモート: コピーのありか</a></h2>
+<p><strong>リモート</strong>は別の場所にあるリポジトリのコピーを指す名前付きURLです。慣習的にメインリモートは<code>origin</code>と呼ばれます。コミットをoriginへ押し上げ、originから引き下ろします。</p>
+<pre><code># 既存のGitHubリポジトリから開始
+git clone https://github.com/you/my-project.git
+cd my-project
+git remote -v                  # リモート一覧
+
+# またはローカルリポジトリを新しいGitHubリポジトリへ
+git remote add origin https://github.com/you/my-project.git
+git branch -M main
+git push -u origin main        # -uでデフォルトupstreamを設定</code></pre>
+
+<h2 id="プッシュとプル"><a class="heading-anchor" href="#プッシュとプル">プッシュとプル</a></h2>
+<p>プッシュはローカルのコミットをリモートへアップロードします。プルはリモートのコミットを現在のブランチにダウンロードしてマージします。新しい作業を始める前に必ずプルし、最新の上に積み上げましょう。</p>
+<pre><code>git pull                       # originからfetch + merge
+git push                       # コミットを送信
+
+# 新ブランチの初プッシュ
+git push -u origin feature/login</code></pre>
+
+<h2 id="github-flow-初心者向けワークフロー"><a class="heading-anchor" href="#github-flow-初心者向けワークフロー">GitHub Flow: 初心者向けワークフロー</a></h2>
+<p>GitHub Flowは最もシンプルなプロのワークフローです。ルールは1つ。<strong>main</strong>は常にデプロイ可能。それ以外は全てプルリクエスト後ろの短命ブランチで起こります。</p>
+<ol>
+<li>mainから変更用ブランチを作成</li>
+<li>作業しながらコミット</li>
+<li>ブランチをプッシュし<strong>プルリクエスト</strong>(PR)を開く</li>
+<li>チームメイトがレビュー、CIがテストを自動実行</li>
+<li>グリーンならマージ、ブランチ削除、最新mainをプル</li>
+</ol>
+
+<div class="mermaid">
+gitGraph
+    commit id: "main"
+    branch feature/contact
+    checkout feature/contact
+    commit id: "form markup"
+    commit id: "validation"
+    commit id: "styles"
+    checkout main
+    commit id: "hotfix"
+    checkout feature/contact
+    commit id: "address review"
+    checkout main
+    merge feature/contact tag: "PR #42"
+    commit id: "next feature"
+</div>
+
+<p>ブランチはプルリクエストと同じ期間だけ生き、マージ後に削除されます。<code>PR #42</code>のタグは、そのマージコミット周辺で起きた会話、レビュー、CIチェックの永続的な記録です。</p>
+
+<div class="mermaid">
+sequenceDiagram
+    participant You as Your Laptop
+    participant Origin as GitHub (origin)
+    participant Team as Teammate
+    You->>You: git checkout -b feature/x
+    You->>You: edit, add, commit
+    You->>Origin: git push -u origin feature/x
+    You->>Origin: Open Pull Request
+    Origin->>Team: Review request
+    Team->>Origin: Approve + comments
+    Origin->>Origin: CI runs tests
+    Origin->>Origin: Merge to main
+    Team->>Team: git pull
+    You->>You: git pull (to get merged main)
+</div>
+
+<h2 id="プルリクエスト-コード周辺の会話"><a class="heading-anchor" href="#プルリクエスト-コード周辺の会話">プルリクエスト: コード周辺の会話</a></h2>
+<p>PRはマージボタン以上のものです。何をしたか、なぜか、誰がレビューしたか、どのテストが走ったかの永久記録です。PRの説明は6か月後のチームメイトに説明するように書きましょう。</p>
+<pre><code>## Summary
+Adds a contact form to the landing page.
+
+## Why
+Closes #42. Users had no way to reach us outside Discord.
+
+## Test plan
+- [x] Form validates required fields
+- [x] Submission shows success toast
+- [ ] Confirm email arrives in inbox</code></pre>
+
+<h2 id="マージコンフリクト"><a class="heading-anchor" href="#マージコンフリクト">マージコンフリクト</a></h2>
+<p>2つのブランチが同じ行を編集するとgitは止まって判断を求めます。ファイル内に<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>、<code>=======</code>、<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>でコンフリクトを記します。正しい版を選び、マーカーを削除し、ステージしてコミットします。</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+color: blue;
+=======
+color: green;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</code></pre>
+
+<div class="takeaways">
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
+<ul>
+<li>GitHubはリポジトリのリモートコピーを保存。originが慣習的な名前</li>
+<li>プッシュは上へ、プルは下へ。新しい作業を始める前に必ずプル</li>
+<li>GitHub Flow: mainからブランチ、コミット、プッシュ、PR、レビュー、マージ、ブランチ削除</li>
+<li>PRの説明は読み手のために書く。なぜを説明する</li>
+<li>マージコンフリクトは正常。マーカーを読み、版を選び、再コミット</li>
+</ul>
+</div>
+
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t30.html">前へ</a>
+          <a href="t32.html">次へ</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

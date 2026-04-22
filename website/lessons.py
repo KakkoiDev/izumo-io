@@ -5363,4 +5363,822 @@ sequenceDiagram
 </div>
 """,
     },
+    'T30': {
+        'en': """
+<h1>T30: Git Basics</h1>
+<p class="lesson-intro">Git is a time machine for your code. Every time you finish a small piece of work, you take a snapshot. Later you can rewind, branch into an alternate timeline, or compare any two moments. Think of it as a photographer's workflow: you shoot pictures all day (editing files), pick the keepers (staging), and paste them into a photo album with a caption (committing).</p>
+
+<h2>The Three Areas</h2>
+<p>Git splits your project into three zones. The <strong>working directory</strong> is the folder on disk where you edit. The <strong>staging area</strong> (or index) is where you gather the exact changes you want to save next. The <strong>repository</strong> is the permanent history of every snapshot you have ever committed.</p>
+<pre><code># Start a new repo in the current folder
+git init
+
+# Tell git who you are (once per machine)
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+
+# See what has changed
+git status</code></pre>
+
+<h2>Edit, Stage, Commit</h2>
+<p>The core loop of every day: change files, choose which changes to save, save them with a message. The message is a note to your future self explaining <em>why</em> you made the change.</p>
+<pre><code># After editing some files
+git status                      # what changed?
+git add index.html styles.css   # stage specific files
+git add .                       # or stage everything
+git commit -m "Add contact form layout"
+git log --oneline               # browse history</code></pre>
+
+<h2>Branches: Alternate Timelines</h2>
+<p>A branch is a lightweight pointer to a commit. You spin one up when you want to try something without disturbing the main timeline. When you are happy, you merge it back. When you are not, you throw the branch away at zero cost.</p>
+<pre><code>git branch                     # list branches
+git checkout -b feature/login  # create and switch to new branch
+# ...edit, stage, commit...
+git checkout main              # back to main timeline
+git merge feature/login        # fold the work in
+git branch -d feature/login    # delete the now-merged branch</code></pre>
+
+<div class="mermaid">
+gitGraph
+    commit id: "init"
+    commit id: "add layout"
+    branch feature/login
+    checkout feature/login
+    commit id: "login form"
+    commit id: "auth check"
+    checkout main
+    commit id: "fix typo"
+    merge feature/login
+    commit id: "deploy"
+</div>
+
+<p>Read this diagram left to right. The <code>main</code> line is your default timeline. <code>feature/login</code> splits off, gets two commits, and is merged back in. After the merge, main contains everything from both lines.</p>
+
+<div class="mermaid">
+flowchart LR
+    WD[Working Directory<br/>edited files] -->|git add| SA[Staging Area<br/>the next snapshot]
+    SA -->|git commit| R[Repository<br/>permanent history]
+    R -->|git checkout| WD
+</div>
+
+<h2>Undo Without Fear</h2>
+<p>Because commits are snapshots, almost nothing is ever truly lost. <code>git restore</code> discards unstaged changes. <code>git reset</code> unstages a file. <code>git revert</code> creates a new commit that undoes an old one, keeping history honest.</p>
+<pre><code>git restore styles.css         # throw away edits in one file
+git restore --staged index.html # unstage but keep edits
+git revert abc123              # undo commit abc123 with a new commit</code></pre>
+
+<h2>What to Ignore</h2>
+<p>Some files should never be tracked: secrets, build output, huge binaries, editor junk. List them in a <code>.gitignore</code> file at the repo root.</p>
+<pre><code># .gitignore
+node_modules/
+.env
+*.log
+.DS_Store
+dist/</code></pre>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Git has three zones: working directory, staging area, repository. All commands move content between them</li>
+<li>A commit is a snapshot of every tracked file plus a message explaining why</li>
+<li>Branches are cheap pointers to commits. Create one for every feature or experiment</li>
+<li>Commit messages are letters to your future self. Explain the why, not just the what</li>
+<li>Put secrets and generated files in .gitignore before your first commit</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T30: Gitの基礎</h1>
+<p class="lesson-intro">Gitはコードのタイムマシンです。小さな仕事が終わるたびにスナップショットを撮り、後から巻き戻したり、別の時間軸に分岐したり、任意の2つの瞬間を比較したりできます。写真家の作業に似ています。一日中写真を撮り(ファイルを編集)、良いものを選び(ステージング)、キャプション付きでアルバムに貼る(コミット)。</p>
+
+<h2>3つの領域</h2>
+<p>Gitはプロジェクトを3つのゾーンに分けます。<strong>ワーキングディレクトリ</strong>はディスク上の編集フォルダ。<strong>ステージングエリア</strong>(インデックス)は次に保存する変更を集める場所。<strong>リポジトリ</strong>は過去にコミットした全スナップショットの永久的な履歴です。</p>
+<pre><code># 現在のフォルダで新しいリポジトリを開始
+git init
+
+# 自分を名乗る(マシンごとに1回)
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+
+# 何が変わったか確認
+git status</code></pre>
+
+<h2>編集、ステージ、コミット</h2>
+<p>毎日のコアループ。ファイルを変更し、保存する変更を選び、メッセージ付きで保存します。メッセージは未来の自分への手紙で、<em>なぜ</em>その変更をしたかを説明します。</p>
+<pre><code># ファイル編集後
+git status                      # 何が変わった?
+git add index.html styles.css   # 特定のファイルをステージ
+git add .                       # または全部ステージ
+git commit -m "Add contact form layout"
+git log --oneline               # 履歴を見る</code></pre>
+
+<h2>ブランチ: 別の時間軸</h2>
+<p>ブランチはコミットを指す軽量なポインタです。メインの時間軸を乱さず何かを試したい時に作成します。満足したらマージし、気に入らなければゼロコストでブランチを捨てられます。</p>
+<pre><code>git branch                     # ブランチ一覧
+git checkout -b feature/login  # 新規作成して切り替え
+# ...編集、ステージ、コミット...
+git checkout main              # メインに戻る
+git merge feature/login        # 作業を取り込む
+git branch -d feature/login    # マージ済みブランチを削除</code></pre>
+
+<div class="mermaid">
+gitGraph
+    commit id: "init"
+    commit id: "add layout"
+    branch feature/login
+    checkout feature/login
+    commit id: "login form"
+    commit id: "auth check"
+    checkout main
+    commit id: "fix typo"
+    merge feature/login
+    commit id: "deploy"
+</div>
+
+<p>図を左から右に読みます。<code>main</code>の線がデフォルトの時間軸です。<code>feature/login</code>がそこから分岐し、2つコミットして、またmainに合流します。マージ後、mainは両方の線の内容を全て含みます。</p>
+
+<div class="mermaid">
+flowchart LR
+    WD[Working Directory<br/>edited files] -->|git add| SA[Staging Area<br/>the next snapshot]
+    SA -->|git commit| R[Repository<br/>permanent history]
+    R -->|git checkout| WD
+</div>
+
+<h2>恐れずに取り消す</h2>
+<p>コミットはスナップショットなので、ほぼ何も失われません。<code>git restore</code>は未ステージの変更を破棄。<code>git reset</code>はファイルをアンステージ。<code>git revert</code>は古いコミットを打ち消す新しいコミットを作り、履歴を正直に保ちます。</p>
+<pre><code>git restore styles.css         # 1ファイルの編集を捨てる
+git restore --staged index.html # ステージから外すが編集は保持
+git revert abc123              # abc123を打ち消す新コミット</code></pre>
+
+<h2>無視すべきもの</h2>
+<p>追跡すべきでないファイルがあります。秘密情報、ビルド出力、巨大バイナリ、エディタのゴミなど。リポジトリルートの<code>.gitignore</code>に列挙します。</p>
+<pre><code># .gitignore
+node_modules/
+.env
+*.log
+.DS_Store
+dist/</code></pre>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>Gitには3つのゾーンがある: ワーキングディレクトリ、ステージングエリア、リポジトリ。全コマンドはこの間で内容を動かす</li>
+<li>コミットは追跡中の全ファイルのスナップショットと「なぜ」を説明するメッセージ</li>
+<li>ブランチはコミットへの軽量なポインタ。機能や実験ごとに作る</li>
+<li>コミットメッセージは未来の自分への手紙。何ではなくなぜを書く</li>
+<li>最初のコミット前に秘密情報と生成ファイルを.gitignoreに入れる</li>
+</ul>
+</div>
+""",
+    },
+    'T31': {
+        'en': """
+<h1>T31: GitHub &amp; Collaboration</h1>
+<p class="lesson-intro">Git is your personal time machine on your desk. GitHub is the shared workshop where many time travelers meet, compare notes, and build together. The same repository lives in two places at once: your laptop and the cloud. Pushing and pulling keeps them in sync.</p>
+
+<h2>Remotes: Where the Copy Lives</h2>
+<p>A <strong>remote</strong> is a named URL pointing to a copy of your repository somewhere else. By convention the main remote is called <code>origin</code>. You push commits up to origin and pull commits down from it.</p>
+<pre><code># Start from an existing GitHub repo
+git clone https://github.com/you/my-project.git
+cd my-project
+git remote -v                  # list remotes
+
+# Or push an existing local repo to a new GitHub repo
+git remote add origin https://github.com/you/my-project.git
+git branch -M main
+git push -u origin main        # -u sets the default upstream</code></pre>
+
+<h2>Push and Pull</h2>
+<p>Push uploads your local commits to the remote. Pull downloads and merges remote commits into your current branch. Always pull before you start new work so you are building on the latest.</p>
+<pre><code>git pull                       # fetch + merge from origin
+git push                       # send your commits up
+
+# First push of a new branch
+git push -u origin feature/login</code></pre>
+
+<h2>GitHub Flow: The Beginner-Friendly Workflow</h2>
+<p>GitHub Flow is the simplest pro workflow. One rule: <strong>main</strong> is always deployable. Everything else happens on short-lived branches behind a pull request.</p>
+<ol>
+<li>Create a branch off main for your change</li>
+<li>Commit as you work</li>
+<li>Push the branch and open a <strong>pull request</strong> (PR)</li>
+<li>A teammate reviews, CI runs tests automatically</li>
+<li>Merge when green, delete the branch, pull latest main</li>
+</ol>
+
+<div class="mermaid">
+gitGraph
+    commit id: "main"
+    branch feature/contact
+    checkout feature/contact
+    commit id: "form markup"
+    commit id: "validation"
+    commit id: "styles"
+    checkout main
+    commit id: "hotfix"
+    checkout feature/contact
+    commit id: "address review"
+    checkout main
+    merge feature/contact tag: "PR #42"
+    commit id: "next feature"
+</div>
+
+<p>The branch lives only as long as the pull request. Once merged, it is deleted. The <code>PR #42</code> tag is the lasting record of the conversation, the review, and the CI checks that happened around that merge commit.</p>
+
+<div class="mermaid">
+sequenceDiagram
+    participant You as Your Laptop
+    participant Origin as GitHub (origin)
+    participant Team as Teammate
+    You->>You: git checkout -b feature/x
+    You->>You: edit, add, commit
+    You->>Origin: git push -u origin feature/x
+    You->>Origin: Open Pull Request
+    Origin->>Team: Review request
+    Team->>Origin: Approve + comments
+    Origin->>Origin: CI runs tests
+    Origin->>Origin: Merge to main
+    Team->>Team: git pull
+    You->>You: git pull (to get merged main)
+</div>
+
+<h2>Pull Requests: Conversations Around Code</h2>
+<p>A PR is more than a merge button. It is a permanent record of what you did, why, who reviewed it, and what tests ran. Write PR descriptions like you are explaining the change to a teammate six months from now.</p>
+<pre><code>## Summary
+Adds a contact form to the landing page.
+
+## Why
+Closes #42. Users had no way to reach us outside Discord.
+
+## Test plan
+- [x] Form validates required fields
+- [x] Submission shows success toast
+- [ ] Confirm email arrives in inbox</code></pre>
+
+<h2>Merge Conflicts</h2>
+<p>When two branches edit the same line, git stops and asks you to decide. It marks the conflict in the file with <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. Pick the right version, delete the markers, stage, and commit.</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+color: blue;
+=======
+color: green;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</code></pre>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>GitHub stores a remote copy of your repo. origin is the conventional name</li>
+<li>Push sends commits up, pull brings them down. Pull before starting new work</li>
+<li>GitHub Flow: branch off main, commit, push, open PR, get review, merge, delete branch</li>
+<li>Write pull request descriptions for the reader, not the author. Explain why</li>
+<li>Merge conflicts are normal. Read the markers, choose a version, re-commit</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T31: GitHubとコラボレーション</h1>
+<p class="lesson-intro">Gitは机の上の個人用タイムマシン。GitHubは多くのタイムトラベラーが集まり、メモを比べ、一緒に作る共有工房です。同じリポジトリが2か所に存在します。あなたのラップトップとクラウドです。プッシュとプルでそれらを同期します。</p>
+
+<h2>リモート: コピーのありか</h2>
+<p><strong>リモート</strong>は別の場所にあるリポジトリのコピーを指す名前付きURLです。慣習的にメインリモートは<code>origin</code>と呼ばれます。コミットをoriginへ押し上げ、originから引き下ろします。</p>
+<pre><code># 既存のGitHubリポジトリから開始
+git clone https://github.com/you/my-project.git
+cd my-project
+git remote -v                  # リモート一覧
+
+# またはローカルリポジトリを新しいGitHubリポジトリへ
+git remote add origin https://github.com/you/my-project.git
+git branch -M main
+git push -u origin main        # -uでデフォルトupstreamを設定</code></pre>
+
+<h2>プッシュとプル</h2>
+<p>プッシュはローカルのコミットをリモートへアップロードします。プルはリモートのコミットを現在のブランチにダウンロードしてマージします。新しい作業を始める前に必ずプルし、最新の上に積み上げましょう。</p>
+<pre><code>git pull                       # originからfetch + merge
+git push                       # コミットを送信
+
+# 新ブランチの初プッシュ
+git push -u origin feature/login</code></pre>
+
+<h2>GitHub Flow: 初心者向けワークフロー</h2>
+<p>GitHub Flowは最もシンプルなプロのワークフローです。ルールは1つ。<strong>main</strong>は常にデプロイ可能。それ以外は全てプルリクエスト後ろの短命ブランチで起こります。</p>
+<ol>
+<li>mainから変更用ブランチを作成</li>
+<li>作業しながらコミット</li>
+<li>ブランチをプッシュし<strong>プルリクエスト</strong>(PR)を開く</li>
+<li>チームメイトがレビュー、CIがテストを自動実行</li>
+<li>グリーンならマージ、ブランチ削除、最新mainをプル</li>
+</ol>
+
+<div class="mermaid">
+gitGraph
+    commit id: "main"
+    branch feature/contact
+    checkout feature/contact
+    commit id: "form markup"
+    commit id: "validation"
+    commit id: "styles"
+    checkout main
+    commit id: "hotfix"
+    checkout feature/contact
+    commit id: "address review"
+    checkout main
+    merge feature/contact tag: "PR #42"
+    commit id: "next feature"
+</div>
+
+<p>ブランチはプルリクエストと同じ期間だけ生き、マージ後に削除されます。<code>PR #42</code>のタグは、そのマージコミット周辺で起きた会話、レビュー、CIチェックの永続的な記録です。</p>
+
+<div class="mermaid">
+sequenceDiagram
+    participant You as Your Laptop
+    participant Origin as GitHub (origin)
+    participant Team as Teammate
+    You->>You: git checkout -b feature/x
+    You->>You: edit, add, commit
+    You->>Origin: git push -u origin feature/x
+    You->>Origin: Open Pull Request
+    Origin->>Team: Review request
+    Team->>Origin: Approve + comments
+    Origin->>Origin: CI runs tests
+    Origin->>Origin: Merge to main
+    Team->>Team: git pull
+    You->>You: git pull (to get merged main)
+</div>
+
+<h2>プルリクエスト: コード周辺の会話</h2>
+<p>PRはマージボタン以上のものです。何をしたか、なぜか、誰がレビューしたか、どのテストが走ったかの永久記録です。PRの説明は6か月後のチームメイトに説明するように書きましょう。</p>
+<pre><code>## Summary
+Adds a contact form to the landing page.
+
+## Why
+Closes #42. Users had no way to reach us outside Discord.
+
+## Test plan
+- [x] Form validates required fields
+- [x] Submission shows success toast
+- [ ] Confirm email arrives in inbox</code></pre>
+
+<h2>マージコンフリクト</h2>
+<p>2つのブランチが同じ行を編集するとgitは止まって判断を求めます。ファイル内に<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>、<code>=======</code>、<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>でコンフリクトを記します。正しい版を選び、マーカーを削除し、ステージしてコミットします。</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+color: blue;
+=======
+color: green;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</code></pre>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>GitHubはリポジトリのリモートコピーを保存。originが慣習的な名前</li>
+<li>プッシュは上へ、プルは下へ。新しい作業を始める前に必ずプル</li>
+<li>GitHub Flow: mainからブランチ、コミット、プッシュ、PR、レビュー、マージ、ブランチ削除</li>
+<li>PRの説明は読み手のために書く。なぜを説明する</li>
+<li>マージコンフリクトは正常。マーカーを読み、版を選び、再コミット</li>
+</ul>
+</div>
+""",
+    },
+    'T32': {
+        'en': """
+<h1>T32: Web Components I - Custom Elements &amp; Shadow DOM</h1>
+<p class="lesson-intro">What if you could invent your own HTML tag? <code>&lt;user-card&gt;</code>, <code>&lt;rating-stars&gt;</code>, <code>&lt;search-box&gt;</code>. That is Web Components: a browser-native way to build reusable UI Lego bricks with no framework, no build step. Two ingredients today: Custom Elements define the tag, Shadow DOM seals its insides so nothing leaks in or out.</p>
+
+<h2>Custom Elements</h2>
+<p>A custom element is a class that extends <code>HTMLElement</code>, registered with the browser under a tag name. The tag name <em>must</em> contain a hyphen so the browser can tell it apart from built-ins. Registration is permanent for the page.</p>
+<pre><code>class GreetingBox extends HTMLElement {
+    constructor() {
+        super();
+        this.textContent = "Hello from a custom element!";
+    }
+}
+
+customElements.define("greeting-box", GreetingBox);</code></pre>
+<p>Now this tag works anywhere in your HTML:</p>
+<pre><code>&lt;!-- In any page --&gt;
+&lt;greeting-box&gt;&lt;/greeting-box&gt;</code></pre>
+
+<h2>Reading Attributes</h2>
+<p>A good custom element reads its own attributes to configure itself. Built-in elements do this: <code>&lt;img src="..."&gt;</code>, <code>&lt;a href="..."&gt;</code>. Your elements should too.</p>
+<pre><code>class GreetingBox extends HTMLElement {
+    connectedCallback() {
+        const name = this.getAttribute("name") || "friend";
+        this.textContent = `Hello, ${name}!`;
+    }
+}
+customElements.define("greeting-box", GreetingBox);
+
+// &lt;greeting-box name="Alice"&gt;&lt;/greeting-box&gt;</code></pre>
+
+<h2>Shadow DOM: The Sealed Interior</h2>
+<p>Without Shadow DOM, your component's HTML and CSS live in the global page. A stray <code>h2 { color: red }</code> somewhere else could paint your carefully designed widget red. Shadow DOM attaches a private tree to your element. Outside styles cannot reach in, inside styles cannot leak out.</p>
+<pre><code>class UserCard extends HTMLElement {
+    connectedCallback() {
+        const root = this.attachShadow({ mode: "open" });
+        const name = this.getAttribute("name") || "Anonymous";
+        root.innerHTML = `
+            &lt;style&gt;
+                :host { display: inline-block; padding: 1rem;
+                       border: 1px solid #ddd; border-radius: 8px; }
+                h2 { margin: 0; font-size: 1rem; color: #333; }
+                p  { margin: 0.25rem 0 0; color: #666; }
+            &lt;/style&gt;
+            &lt;h2&gt;${name}&lt;/h2&gt;
+            &lt;p&gt;Welcome back.&lt;/p&gt;
+        `;
+    }
+}
+customElements.define("user-card", UserCard);</code></pre>
+
+<div class="mermaid">
+graph TD
+    Page[Light DOM - the page]
+    Tag["&lt;user-card name='Alice'&gt;"]
+    Shadow[Shadow DOM root]
+    H[h2: Alice]
+    P[p: Welcome back.]
+    Style[scoped &lt;style&gt;]
+    Page --> Tag
+    Tag -.attachShadow.-> Shadow
+    Shadow --> Style
+    Shadow --> H
+    Shadow --> P
+</div>
+
+<h2>:host and ::part</h2>
+<p>Inside the shadow tree, the <code>:host</code> selector styles the custom element itself from the outside looking in. If you want to allow specific parts to be styled from outside, expose them with <code>part="..."</code> and consumers style via <code>::part()</code>.</p>
+<pre><code>&lt;style&gt;
+    :host { display: block; }
+    :host([featured]) { border-color: gold; }
+    button { cursor: pointer; }
+&lt;/style&gt;
+&lt;button part="action"&gt;Click me&lt;/button&gt;
+
+/* In the outer page CSS */
+user-card::part(action) { background: tomato; color: white; }</code></pre>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Extend HTMLElement, register with customElements.define("my-tag", Class) - tag must have a hyphen</li>
+<li>Read attributes with getAttribute to configure the element from HTML</li>
+<li>Shadow DOM seals your internal markup and styles from the rest of the page</li>
+<li>Use :host to style the element itself, ::part to expose styling hooks to outside CSS</li>
+<li>Web Components work in any framework or none - they are platform-native</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T32: Web Components I - カスタム要素とShadow DOM</h1>
+<p class="lesson-intro">もし自分のHTMLタグを発明できたら? <code>&lt;user-card&gt;</code>、<code>&lt;rating-stars&gt;</code>、<code>&lt;search-box&gt;</code>。それがWeb Componentsです。フレームワークもビルドも無しで再利用可能なUIのレゴブロックをブラウザネイティブに作る方法。今日の2つの材料: カスタム要素がタグを定義し、Shadow DOMが中身を密閉して外に漏れないようにします。</p>
+
+<h2>カスタム要素</h2>
+<p>カスタム要素は<code>HTMLElement</code>を継承したクラスで、ブラウザにタグ名で登録します。タグ名には<em>必ず</em>ハイフンが必要で、これによりブラウザは組み込みタグと区別します。登録はページ上で永久的です。</p>
+<pre><code>class GreetingBox extends HTMLElement {
+    constructor() {
+        super();
+        this.textContent = "Hello from a custom element!";
+    }
+}
+
+customElements.define("greeting-box", GreetingBox);</code></pre>
+<p>これでこのタグがHTML内のどこでも使えます:</p>
+<pre><code>&lt;!-- In any page --&gt;
+&lt;greeting-box&gt;&lt;/greeting-box&gt;</code></pre>
+
+<h2>属性を読む</h2>
+<p>良いカスタム要素は自分の属性を読んで自己設定します。組み込み要素もそうです: <code>&lt;img src="..."&gt;</code>、<code>&lt;a href="..."&gt;</code>。あなたの要素も同様にすべきです。</p>
+<pre><code>class GreetingBox extends HTMLElement {
+    connectedCallback() {
+        const name = this.getAttribute("name") || "friend";
+        this.textContent = `Hello, ${name}!`;
+    }
+}
+customElements.define("greeting-box", GreetingBox);
+
+// &lt;greeting-box name="Alice"&gt;&lt;/greeting-box&gt;</code></pre>
+
+<h2>Shadow DOM: 密閉された内部</h2>
+<p>Shadow DOMがないと、コンポーネントのHTMLとCSSはグローバルページに住みます。どこか別の場所の<code>h2 { color: red }</code>があなたの設計したウィジェットを赤く塗りかねません。Shadow DOMは要素にプライベートなツリーをアタッチします。外のスタイルは中に届かず、中のスタイルは外に漏れません。</p>
+<pre><code>class UserCard extends HTMLElement {
+    connectedCallback() {
+        const root = this.attachShadow({ mode: "open" });
+        const name = this.getAttribute("name") || "Anonymous";
+        root.innerHTML = `
+            &lt;style&gt;
+                :host { display: inline-block; padding: 1rem;
+                       border: 1px solid #ddd; border-radius: 8px; }
+                h2 { margin: 0; font-size: 1rem; color: #333; }
+                p  { margin: 0.25rem 0 0; color: #666; }
+            &lt;/style&gt;
+            &lt;h2&gt;${name}&lt;/h2&gt;
+            &lt;p&gt;Welcome back.&lt;/p&gt;
+        `;
+    }
+}
+customElements.define("user-card", UserCard);</code></pre>
+
+<div class="mermaid">
+graph TD
+    Page[Light DOM - the page]
+    Tag["&lt;user-card name='Alice'&gt;"]
+    Shadow[Shadow DOM root]
+    H[h2: Alice]
+    P[p: Welcome back.]
+    Style[scoped &lt;style&gt;]
+    Page --> Tag
+    Tag -.attachShadow.-> Shadow
+    Shadow --> Style
+    Shadow --> H
+    Shadow --> P
+</div>
+
+<h2>:hostと::part</h2>
+<p>シャドウツリー内では、<code>:host</code>セレクタが要素自身を外から見るスタイルを当てます。特定のパーツを外からスタイリングさせたい場合は<code>part="..."</code>で公開し、利用側は<code>::part()</code>で指定します。</p>
+<pre><code>&lt;style&gt;
+    :host { display: block; }
+    :host([featured]) { border-color: gold; }
+    button { cursor: pointer; }
+&lt;/style&gt;
+&lt;button part="action"&gt;Click me&lt;/button&gt;
+
+/* In the outer page CSS */
+user-card::part(action) { background: tomato; color: white; }</code></pre>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>HTMLElementを継承し、customElements.define("my-tag", Class)で登録。タグにはハイフンが必須</li>
+<li>getAttributeで属性を読み、HTMLから要素を設定する</li>
+<li>Shadow DOMは内部のマークアップとスタイルをページの他の部分から密閉する</li>
+<li>:hostで要素自体をスタイリング、::partで外部CSSに公開する</li>
+<li>Web Componentsは任意のフレームワークで、またはフレームワーク無しで動く。プラットフォームネイティブ</li>
+</ul>
+</div>
+""",
+    },
+    'T33': {
+        'en': """
+<h1>T33: Web Components II - Templates, Slots, Lifecycle &amp; Lit</h1>
+<p class="lesson-intro">A real component needs three more things. <strong>Templates</strong> keep inert markup off-stage until needed. <strong>Slots</strong> let parents inject content like React children. <strong>Lifecycle</strong> callbacks are the element's life stages - birth, insertion, attribute change, removal. Once you know all of this, Lit becomes the espresso machine that hides the ceremony.</p>
+
+<h2>The &lt;template&gt; Element</h2>
+<p>A <code>&lt;template&gt;</code> holds markup that the browser parses but does not render. Use it as a mold: clone its content into a shadow root instead of building strings.</p>
+<pre><code>&lt;template id="tpl-user-card"&gt;
+    &lt;style&gt;
+        :host { display: block; padding: 1rem; border: 1px solid #ddd; }
+        h2 { margin: 0; }
+    &lt;/style&gt;
+    &lt;h2&gt;&lt;/h2&gt;
+    &lt;p&gt;&lt;/p&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+class UserCard extends HTMLElement {
+    connectedCallback() {
+        const tpl = document.getElementById("tpl-user-card");
+        const root = this.attachShadow({ mode: "open" });
+        root.appendChild(tpl.content.cloneNode(true));
+        root.querySelector("h2").textContent = this.getAttribute("name");
+        root.querySelector("p").textContent  = this.getAttribute("role");
+    }
+}
+customElements.define("user-card", UserCard);
+&lt;/script&gt;</code></pre>
+
+<h2>Slots: Content Projection</h2>
+<p>A slot is a hole in your shadow tree where the parent's light DOM is projected. Anything the user puts between your tags shows up wherever you placed the <code>&lt;slot&gt;</code>. Named slots let you have multiple injection points.</p>
+<pre><code>// Inside the component's shadow root
+&lt;style&gt;
+    header { font-weight: bold; }
+    footer { font-size: 0.85rem; color: #666; }
+&lt;/style&gt;
+&lt;header&gt;&lt;slot name="title"&gt;Default title&lt;/slot&gt;&lt;/header&gt;
+&lt;section&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/section&gt;
+&lt;footer&gt;&lt;slot name="footer"&gt;&lt;/slot&gt;&lt;/footer&gt;
+
+// Usage from the page
+&lt;fancy-card&gt;
+    &lt;span slot="title"&gt;My Card&lt;/span&gt;
+    &lt;p&gt;Body content lands in the default slot.&lt;/p&gt;
+    &lt;small slot="footer"&gt;Updated today&lt;/small&gt;
+&lt;/fancy-card&gt;</code></pre>
+
+<h2>Lifecycle Callbacks</h2>
+<p>Every custom element has the same five life stages. Do setup in <code>connectedCallback</code>, tear it down in <code>disconnectedCallback</code>. React to attribute changes in <code>attributeChangedCallback</code> - but only for the attributes listed in <code>observedAttributes</code>.</p>
+<pre><code>class Timer extends HTMLElement {
+    static observedAttributes = ["interval"];
+
+    connectedCallback() {
+        this._id = setInterval(() =&gt; this._tick(), this._ms());
+        this._tick();
+    }
+
+    disconnectedCallback() {
+        clearInterval(this._id);
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === "interval" &amp;&amp; this._id) {
+            clearInterval(this._id);
+            this._id = setInterval(() =&gt; this._tick(), this._ms());
+        }
+    }
+
+    _ms() { return Number(this.getAttribute("interval")) || 1000; }
+    _tick() { this.textContent = new Date().toLocaleTimeString(); }
+}
+customElements.define("live-clock", Timer);</code></pre>
+
+<div class="mermaid">
+sequenceDiagram
+    participant Browser
+    participant El as Custom Element
+    Browser->>El: constructor()
+    Browser->>El: connectedCallback()
+    Note over El: inserted in DOM<br/>setup resources
+    Browser->>El: attributeChangedCallback(name, old, new)
+    Note over El: reconcile state
+    Browser->>El: disconnectedCallback()
+    Note over El: removed from DOM<br/>clean up resources
+</div>
+
+<h2>Lit: The Sugar Layer</h2>
+<p>Vanilla Web Components work but are verbose. <strong>Lit</strong> (5KB, from Google) removes boilerplate with reactive properties, tagged-template rendering, and scoped styles. A Lit component <em>is</em> a native custom element - it just wrote less code to get there.</p>
+<pre><code>import { LitElement, html, css } from "lit";
+
+class UserCard extends LitElement {
+    static properties = {
+        name: { type: String },
+        role: { type: String },
+    };
+
+    static styles = css`
+        :host { display: block; padding: 1rem; border: 1px solid #ddd; }
+        h2    { margin: 0; font-size: 1rem; }
+        p     { margin: 0.25rem 0 0; color: #666; }
+    `;
+
+    render() {
+        return html`
+            &lt;h2&gt;${this.name}&lt;/h2&gt;
+            &lt;p&gt;${this.role}&lt;/p&gt;
+        `;
+    }
+}
+customElements.define("user-card", UserCard);
+
+// Usage
+// &lt;user-card name="Alice" role="Engineer"&gt;&lt;/user-card&gt;</code></pre>
+
+<h2>Common Footguns</h2>
+<ul>
+<li><strong>Setup in constructor</strong>: the element is not in the DOM yet. Do it in connectedCallback.</li>
+<li><strong>Forgetting observedAttributes</strong>: attributeChangedCallback will not fire without it.</li>
+<li><strong>Leaking listeners</strong>: everything added in connectedCallback must be removed in disconnectedCallback.</li>
+<li><strong>Shadow DOM and forms</strong>: form inputs in a shadow root do not automatically participate in the parent form. Use ElementInternals + static formAssociated = true.</li>
+</ul>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>&lt;template&gt; holds inert markup you clone into shadow roots instead of building strings</li>
+<li>&lt;slot&gt; projects parent content into your component. Named slots give multiple injection points</li>
+<li>Five lifecycle callbacks: constructor, connectedCallback, attributeChangedCallback, disconnectedCallback, adoptedCallback</li>
+<li>observedAttributes declares which attributes trigger attributeChangedCallback</li>
+<li>Lit is a thin sugar layer over native Web Components. Same standards, much less boilerplate</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T33: Web Components II - テンプレート、スロット、ライフサイクル、Lit</h1>
+<p class="lesson-intro">本物のコンポーネントにはあと3つ必要です。<strong>テンプレート</strong>は不活性なマークアップを必要になるまで舞台裏に置きます。<strong>スロット</strong>は親がReactの子要素のようにコンテンツを注入できるようにします。<strong>ライフサイクル</strong>コールバックは要素のライフステージです。誕生、挿入、属性変更、削除。これらを全て知ったら、Litが儀式を隠すエスプレッソマシンになります。</p>
+
+<h2>&lt;template&gt;要素</h2>
+<p><code>&lt;template&gt;</code>はブラウザが解析するがレンダーしないマークアップを保持します。型として使い、文字列を組むのではなくそのコンテンツをシャドウルートにクローンします。</p>
+<pre><code>&lt;template id="tpl-user-card"&gt;
+    &lt;style&gt;
+        :host { display: block; padding: 1rem; border: 1px solid #ddd; }
+        h2 { margin: 0; }
+    &lt;/style&gt;
+    &lt;h2&gt;&lt;/h2&gt;
+    &lt;p&gt;&lt;/p&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+class UserCard extends HTMLElement {
+    connectedCallback() {
+        const tpl = document.getElementById("tpl-user-card");
+        const root = this.attachShadow({ mode: "open" });
+        root.appendChild(tpl.content.cloneNode(true));
+        root.querySelector("h2").textContent = this.getAttribute("name");
+        root.querySelector("p").textContent  = this.getAttribute("role");
+    }
+}
+customElements.define("user-card", UserCard);
+&lt;/script&gt;</code></pre>
+
+<h2>スロット: コンテンツ投影</h2>
+<p>スロットはシャドウツリー内の穴で、親のライトDOMがそこに投影されます。ユーザーがあなたのタグの間に書いた内容は<code>&lt;slot&gt;</code>を置いた場所に現れます。名前付きスロットで複数の注入点を持てます。</p>
+<pre><code>// Inside the component's shadow root
+&lt;style&gt;
+    header { font-weight: bold; }
+    footer { font-size: 0.85rem; color: #666; }
+&lt;/style&gt;
+&lt;header&gt;&lt;slot name="title"&gt;Default title&lt;/slot&gt;&lt;/header&gt;
+&lt;section&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/section&gt;
+&lt;footer&gt;&lt;slot name="footer"&gt;&lt;/slot&gt;&lt;/footer&gt;
+
+// Usage from the page
+&lt;fancy-card&gt;
+    &lt;span slot="title"&gt;My Card&lt;/span&gt;
+    &lt;p&gt;Body content lands in the default slot.&lt;/p&gt;
+    &lt;small slot="footer"&gt;Updated today&lt;/small&gt;
+&lt;/fancy-card&gt;</code></pre>
+
+<h2>ライフサイクルコールバック</h2>
+<p>全てのカスタム要素は同じ5つのライフステージを持ちます。<code>connectedCallback</code>でセットアップし、<code>disconnectedCallback</code>で片付けます。属性変更には<code>attributeChangedCallback</code>で反応しますが、<code>observedAttributes</code>に列挙したものだけです。</p>
+<pre><code>class Timer extends HTMLElement {
+    static observedAttributes = ["interval"];
+
+    connectedCallback() {
+        this._id = setInterval(() =&gt; this._tick(), this._ms());
+        this._tick();
+    }
+
+    disconnectedCallback() {
+        clearInterval(this._id);
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === "interval" &amp;&amp; this._id) {
+            clearInterval(this._id);
+            this._id = setInterval(() =&gt; this._tick(), this._ms());
+        }
+    }
+
+    _ms() { return Number(this.getAttribute("interval")) || 1000; }
+    _tick() { this.textContent = new Date().toLocaleTimeString(); }
+}
+customElements.define("live-clock", Timer);</code></pre>
+
+<div class="mermaid">
+sequenceDiagram
+    participant Browser
+    participant El as Custom Element
+    Browser->>El: constructor()
+    Browser->>El: connectedCallback()
+    Note over El: inserted in DOM<br/>setup resources
+    Browser->>El: attributeChangedCallback(name, old, new)
+    Note over El: reconcile state
+    Browser->>El: disconnectedCallback()
+    Note over El: removed from DOM<br/>clean up resources
+</div>
+
+<h2>Lit: シュガーレイヤー</h2>
+<p>素のWeb Componentsは動くが冗長です。<strong>Lit</strong>(5KB、Google発)はリアクティブプロパティ、タグ付きテンプレートレンダリング、スコープドスタイルで定型コードを削減します。Litコンポーネントは<em>ネイティブのカスタム要素そのもの</em>で、書くコードが少ないだけです。</p>
+<pre><code>import { LitElement, html, css } from "lit";
+
+class UserCard extends LitElement {
+    static properties = {
+        name: { type: String },
+        role: { type: String },
+    };
+
+    static styles = css`
+        :host { display: block; padding: 1rem; border: 1px solid #ddd; }
+        h2    { margin: 0; font-size: 1rem; }
+        p     { margin: 0.25rem 0 0; color: #666; }
+    `;
+
+    render() {
+        return html`
+            &lt;h2&gt;${this.name}&lt;/h2&gt;
+            &lt;p&gt;${this.role}&lt;/p&gt;
+        `;
+    }
+}
+customElements.define("user-card", UserCard);
+
+// Usage
+// &lt;user-card name="Alice" role="Engineer"&gt;&lt;/user-card&gt;</code></pre>
+
+<h2>よくある罠</h2>
+<ul>
+<li><strong>コンストラクタでセットアップ</strong>: 要素はまだDOMにない。connectedCallbackで行う。</li>
+<li><strong>observedAttributesを忘れる</strong>: これ無しだとattributeChangedCallbackは発火しない。</li>
+<li><strong>リスナーの漏れ</strong>: connectedCallbackで追加したものは全てdisconnectedCallbackで削除する。</li>
+<li><strong>Shadow DOMとフォーム</strong>: シャドウルート内のフォーム入力は親フォームに自動参加しない。ElementInternals + static formAssociated = true を使う。</li>
+</ul>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>&lt;template&gt;は不活性なマークアップを保持し、文字列を組むのではなくシャドウルートにクローンする</li>
+<li>&lt;slot&gt;は親のコンテンツをコンポーネントに投影する。名前付きスロットで複数の注入点</li>
+<li>5つのライフサイクルコールバック: constructor、connectedCallback、attributeChangedCallback、disconnectedCallback、adoptedCallback</li>
+<li>observedAttributesがattributeChangedCallbackを発火させる属性を宣言する</li>
+<li>LitはネイティブWeb Componentsの上の薄いシュガーレイヤー。同じ標準、はるかに少ない定型</li>
+</ul>
+</div>
+""",
+    },
 }

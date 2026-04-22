@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en" data-page="t31.html" data-lang-paths='{"en":"./","ja":"../../ja/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>GitHub & Collaboration - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t30.html">Previous</a>
+          <a href="t32.html">Next</a>
+        </div>
+      </nav>
+      
+<h1 id="t31-github-amp-collaboration"><a class="heading-anchor" href="#t31-github-amp-collaboration">T31: GitHub &amp; Collaboration</a></h1>
+<p class="lesson-intro">Git is your personal time machine on your desk. GitHub is the shared workshop where many time travelers meet, compare notes, and build together. The same repository lives in two places at once: your laptop and the cloud. Pushing and pulling keeps them in sync.</p>
+
+<h2 id="remotes-where-the-copy-lives"><a class="heading-anchor" href="#remotes-where-the-copy-lives">Remotes: Where the Copy Lives</a></h2>
+<p>A <strong>remote</strong> is a named URL pointing to a copy of your repository somewhere else. By convention the main remote is called <code>origin</code>. You push commits up to origin and pull commits down from it.</p>
+<pre><code># Start from an existing GitHub repo
+git clone https://github.com/you/my-project.git
+cd my-project
+git remote -v                  # list remotes
+
+# Or push an existing local repo to a new GitHub repo
+git remote add origin https://github.com/you/my-project.git
+git branch -M main
+git push -u origin main        # -u sets the default upstream</code></pre>
+
+<h2 id="push-and-pull"><a class="heading-anchor" href="#push-and-pull">Push and Pull</a></h2>
+<p>Push uploads your local commits to the remote. Pull downloads and merges remote commits into your current branch. Always pull before you start new work so you are building on the latest.</p>
+<pre><code>git pull                       # fetch + merge from origin
+git push                       # send your commits up
+
+# First push of a new branch
+git push -u origin feature/login</code></pre>
+
+<h2 id="github-flow-the-beginner-friendly-workflow"><a class="heading-anchor" href="#github-flow-the-beginner-friendly-workflow">GitHub Flow: The Beginner-Friendly Workflow</a></h2>
+<p>GitHub Flow is the simplest pro workflow. One rule: <strong>main</strong> is always deployable. Everything else happens on short-lived branches behind a pull request.</p>
+<ol>
+<li>Create a branch off main for your change</li>
+<li>Commit as you work</li>
+<li>Push the branch and open a <strong>pull request</strong> (PR)</li>
+<li>A teammate reviews, CI runs tests automatically</li>
+<li>Merge when green, delete the branch, pull latest main</li>
+</ol>
+
+<div class="mermaid">
+gitGraph
+    commit id: "main"
+    branch feature/contact
+    checkout feature/contact
+    commit id: "form markup"
+    commit id: "validation"
+    commit id: "styles"
+    checkout main
+    commit id: "hotfix"
+    checkout feature/contact
+    commit id: "address review"
+    checkout main
+    merge feature/contact tag: "PR #42"
+    commit id: "next feature"
+</div>
+
+<p>The branch lives only as long as the pull request. Once merged, it is deleted. The <code>PR #42</code> tag is the lasting record of the conversation, the review, and the CI checks that happened around that merge commit.</p>
+
+<div class="mermaid">
+sequenceDiagram
+    participant You as Your Laptop
+    participant Origin as GitHub (origin)
+    participant Team as Teammate
+    You->>You: git checkout -b feature/x
+    You->>You: edit, add, commit
+    You->>Origin: git push -u origin feature/x
+    You->>Origin: Open Pull Request
+    Origin->>Team: Review request
+    Team->>Origin: Approve + comments
+    Origin->>Origin: CI runs tests
+    Origin->>Origin: Merge to main
+    Team->>Team: git pull
+    You->>You: git pull (to get merged main)
+</div>
+
+<h2 id="pull-requests-conversations-around-code"><a class="heading-anchor" href="#pull-requests-conversations-around-code">Pull Requests: Conversations Around Code</a></h2>
+<p>A PR is more than a merge button. It is a permanent record of what you did, why, who reviewed it, and what tests ran. Write PR descriptions like you are explaining the change to a teammate six months from now.</p>
+<pre><code>## Summary
+Adds a contact form to the landing page.
+
+## Why
+Closes #42. Users had no way to reach us outside Discord.
+
+## Test plan
+- [x] Form validates required fields
+- [x] Submission shows success toast
+- [ ] Confirm email arrives in inbox</code></pre>
+
+<h2 id="merge-conflicts"><a class="heading-anchor" href="#merge-conflicts">Merge Conflicts</a></h2>
+<p>When two branches edit the same line, git stops and asks you to decide. It marks the conflict in the file with <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. Pick the right version, delete the markers, stage, and commit.</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+color: blue;
+=======
+color: green;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</code></pre>
+
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>GitHub stores a remote copy of your repo. origin is the conventional name</li>
+<li>Push sends commits up, pull brings them down. Pull before starting new work</li>
+<li>GitHub Flow: branch off main, commit, push, open PR, get review, merge, delete branch</li>
+<li>Write pull request descriptions for the reader, not the author. Explain why</li>
+<li>Merge conflicts are normal. Read the markers, choose a version, re-commit</li>
+</ul>
+</div>
+
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t30.html">Previous</a>
+          <a href="t32.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

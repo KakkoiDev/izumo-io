@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ja" data-page="t30.html" data-lang-paths='{"en":"../../lessons/","ja":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Gitの基礎 - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t29.html">前へ</a>
+          <a href="t31.html">次へ</a>
+        </div>
+      </nav>
+      
+<h1 id="t30-gitの基礎"><a class="heading-anchor" href="#t30-gitの基礎">T30: Gitの基礎</a></h1>
+<p class="lesson-intro">Gitはコードのタイムマシンです。小さな仕事が終わるたびにスナップショットを撮り、後から巻き戻したり、別の時間軸に分岐したり、任意の2つの瞬間を比較したりできます。写真家の作業に似ています。一日中写真を撮り(ファイルを編集)、良いものを選び(ステージング)、キャプション付きでアルバムに貼る(コミット)。</p>
+
+<h2 id="3つの領域"><a class="heading-anchor" href="#3つの領域">3つの領域</a></h2>
+<p>Gitはプロジェクトを3つのゾーンに分けます。<strong>ワーキングディレクトリ</strong>はディスク上の編集フォルダ。<strong>ステージングエリア</strong>(インデックス)は次に保存する変更を集める場所。<strong>リポジトリ</strong>は過去にコミットした全スナップショットの永久的な履歴です。</p>
+<pre><code># 現在のフォルダで新しいリポジトリを開始
+git init
+
+# 自分を名乗る(マシンごとに1回)
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+
+# 何が変わったか確認
+git status</code></pre>
+
+<h2 id="編集-ステージ-コミット"><a class="heading-anchor" href="#編集-ステージ-コミット">編集、ステージ、コミット</a></h2>
+<p>毎日のコアループ。ファイルを変更し、保存する変更を選び、メッセージ付きで保存します。メッセージは未来の自分への手紙で、<em>なぜ</em>その変更をしたかを説明します。</p>
+<pre><code># ファイル編集後
+git status                      # 何が変わった?
+git add index.html styles.css   # 特定のファイルをステージ
+git add .                       # または全部ステージ
+git commit -m "Add contact form layout"
+git log --oneline               # 履歴を見る</code></pre>
+
+<h2 id="ブランチ-別の時間軸"><a class="heading-anchor" href="#ブランチ-別の時間軸">ブランチ: 別の時間軸</a></h2>
+<p>ブランチはコミットを指す軽量なポインタです。メインの時間軸を乱さず何かを試したい時に作成します。満足したらマージし、気に入らなければゼロコストでブランチを捨てられます。</p>
+<pre><code>git branch                     # ブランチ一覧
+git checkout -b feature/login  # 新規作成して切り替え
+# ...編集、ステージ、コミット...
+git checkout main              # メインに戻る
+git merge feature/login        # 作業を取り込む
+git branch -d feature/login    # マージ済みブランチを削除</code></pre>
+
+<div class="mermaid">
+gitGraph
+    commit id: "init"
+    commit id: "add layout"
+    branch feature/login
+    checkout feature/login
+    commit id: "login form"
+    commit id: "auth check"
+    checkout main
+    commit id: "fix typo"
+    merge feature/login
+    commit id: "deploy"
+</div>
+
+<p>図を左から右に読みます。<code>main</code>の線がデフォルトの時間軸です。<code>feature/login</code>がそこから分岐し、2つコミットして、またmainに合流します。マージ後、mainは両方の線の内容を全て含みます。</p>
+
+<div class="mermaid">
+flowchart LR
+    WD[Working Directory<br/>edited files] -->|git add| SA[Staging Area<br/>the next snapshot]
+    SA -->|git commit| R[Repository<br/>permanent history]
+    R -->|git checkout| WD
+</div>
+
+<h2 id="恐れずに取り消す"><a class="heading-anchor" href="#恐れずに取り消す">恐れずに取り消す</a></h2>
+<p>コミットはスナップショットなので、ほぼ何も失われません。<code>git restore</code>は未ステージの変更を破棄。<code>git reset</code>はファイルをアンステージ。<code>git revert</code>は古いコミットを打ち消す新しいコミットを作り、履歴を正直に保ちます。</p>
+<pre><code>git restore styles.css         # 1ファイルの編集を捨てる
+git restore --staged index.html # ステージから外すが編集は保持
+git revert abc123              # abc123を打ち消す新コミット</code></pre>
+
+<h2 id="無視すべきもの"><a class="heading-anchor" href="#無視すべきもの">無視すべきもの</a></h2>
+<p>追跡すべきでないファイルがあります。秘密情報、ビルド出力、巨大バイナリ、エディタのゴミなど。リポジトリルートの<code>.gitignore</code>に列挙します。</p>
+<pre><code># .gitignore
+node_modules/
+.env
+*.log
+.DS_Store
+dist/</code></pre>
+
+<div class="takeaways">
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
+<ul>
+<li>Gitには3つのゾーンがある: ワーキングディレクトリ、ステージングエリア、リポジトリ。全コマンドはこの間で内容を動かす</li>
+<li>コミットは追跡中の全ファイルのスナップショットと「なぜ」を説明するメッセージ</li>
+<li>ブランチはコミットへの軽量なポインタ。機能や実験ごとに作る</li>
+<li>コミットメッセージは未来の自分への手紙。何ではなくなぜを書く</li>
+<li>最初のコミット前に秘密情報と生成ファイルを.gitignoreに入れる</li>
+</ul>
+</div>
+
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t29.html">前へ</a>
+          <a href="t31.html">次へ</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

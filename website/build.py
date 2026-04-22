@@ -212,6 +212,24 @@ TECH_PHASES = [
         'analogy_en': 'Building the corporate kitchen that manages all your franchise branches',
         'analogy_ja': '\u5168\u30d5\u30e9\u30f3\u30c1\u30e3\u30a4\u30ba\u5e97\u3092\u7ba1\u7406\u3059\u308b\u672c\u90e8\u30ad\u30c3\u30c1\u30f3\u3092\u69cb\u7bc9\u3059\u308b',
     },
+    {
+        'id': 7,
+        'title_en': 'Phase 7: The Time Machine (Version Control & Collaboration)',
+        'title_ja': 'フェーズ7: タイムマシン (バージョン管理とコラボレーション)',
+        'subtitle_en': 'Track every change, collaborate without stepping on each other',
+        'subtitle_ja': '全ての変更を記録し、他の開発者と衝突せずに協働する',
+        'analogy_en': 'Git is your time machine. GitHub is the shared workshop where time travelers meet',
+        'analogy_ja': 'Gitはあなたのタイムマシン。GitHubはタイムトラベラーが集まる共有工房',
+    },
+    {
+        'id': 8,
+        'title_en': 'Phase 8: The Lego Kit (Web Components)',
+        'title_ja': 'フェーズ8: レゴキット (Web Components)',
+        'subtitle_en': 'Invent your own HTML tags - platform-native components that work in any framework',
+        'subtitle_ja': '自分のHTMLタグを発明する - どのフレームワークでも動くプラットフォームネイティブなコンポーネント',
+        'analogy_en': 'Lego bricks built into the browser. Snap together, no framework required',
+        'analogy_ja': 'ブラウザに組み込まれたレゴブロック。フレームワーク不要で組み合わせる',
+    },
 ]
 
 TECH_LESSONS = [
@@ -366,6 +384,28 @@ TECH_LESSONS = [
      'title_ja': 'Nest.js: \u30c7\u30fc\u30bf\u3068\u8a8d\u8a3c',
      'desc_en': 'DTOs, validation, database integration, authentication guards.',
      'desc_ja': 'DTO\u3001\u30d0\u30ea\u30c7\u30fc\u30b7\u30e7\u30f3\u3001\u30c7\u30fc\u30bf\u30d9\u30fc\u30b9\u9023\u643a\u3001\u8a8d\u8a3c\u30ac\u30fc\u30c9\u3002'},
+    # Phase 7: Version Control
+    {'id': 'T30', 'phase': 7, 'status': 'available',
+     'title_en': 'Git Basics',
+     'title_ja': 'Gitの基礎',
+     'desc_en': 'The time machine: three areas, commits, branches, undo without fear.',
+     'desc_ja': 'タイムマシン: 3つの領域、コミット、ブランチ、恐れずに取り消す。'},
+    {'id': 'T31', 'phase': 7, 'status': 'available',
+     'title_en': 'GitHub & Collaboration',
+     'title_ja': 'GitHubとコラボレーション',
+     'desc_en': 'The shared workshop: remotes, push/pull, GitHub Flow, pull requests.',
+     'desc_ja': '共有工房: リモート、push/pull、GitHub Flow、プルリクエスト。'},
+    # Phase 8: Web Components
+    {'id': 'T32', 'phase': 8, 'status': 'available',
+     'title_en': 'Web Components I',
+     'title_ja': 'Web Components I',
+     'desc_en': 'Invent your own tags: Custom Elements, Shadow DOM, :host and ::part.',
+     'desc_ja': '自分のタグを発明: カスタム要素、Shadow DOM、:hostと::part。'},
+    {'id': 'T33', 'phase': 8, 'status': 'available',
+     'title_en': 'Web Components II',
+     'title_ja': 'Web Components II',
+     'desc_en': 'Templates, slots, lifecycle callbacks, and Lit as the sugar layer.',
+     'desc_ja': 'テンプレート、スロット、ライフサイクル、シュガーレイヤーとしてのLit。'},
 ]
 
 THEORY_LESSONS = [
