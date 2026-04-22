@@ -137,26 +137,22 @@ def load_all() -> dict:
 
     # TECH_LESSONS / THEORY_LESSONS: rebuild the list-of-dict shape the old
     # build.py used. Metadata lives on the EN file (id, phase, status) and
-    # on each lang's file (title, desc, analogy).
+    # on each lang's file (title, desc, analogy). Collect title/desc/analogy
+    # for every supported language so localize_list can pick the right one.
     tech, theory = [], []
     for lid in lesson_data:
         en_meta = lesson_data[lid].get('en', {}).get('meta', {})
-        ja_meta = lesson_data[lid].get('ja', {}).get('meta', {})
-        entry = {
-            'id': lid,
-            'title_en': en_meta.get('title', ''),
-            'title_ja': ja_meta.get('title', ''),
-            'desc_en': en_meta.get('desc', ''),
-            'desc_ja': ja_meta.get('desc', ''),
-        }
+        entry = {'id': lid}
         if 'phase' in en_meta:
             entry['phase'] = en_meta['phase']
         if 'status' in en_meta:
             entry['status'] = en_meta['status']
-        if 'analogy' in en_meta:
-            entry['analogy_en'] = en_meta['analogy']
-        if 'analogy' in ja_meta:
-            entry['analogy_ja'] = ja_meta['analogy']
+        for lang in LANG_CODES:
+            lang_meta = lesson_data[lid].get(lang, {}).get('meta', {})
+            entry[f'title_{lang}'] = lang_meta.get('title', '')
+            entry[f'desc_{lang}'] = lang_meta.get('desc', '')
+            if 'analogy' in lang_meta:
+                entry[f'analogy_{lang}'] = lang_meta['analogy']
 
         if lid.startswith('T'):
             tech.append(entry)

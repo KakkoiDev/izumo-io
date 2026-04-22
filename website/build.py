@@ -118,15 +118,16 @@ def add_heading_anchors(html, levels=(1, 2, 3)):
 def localize_list(items, lang):
     """Create localized version of a list of dicts.
 
-    Keys ending in _en/_ja get merged into a base key using the
-    requested language with EN fallback.
+    Keys ending in _<lang> (for any lang in LANGS) get merged into a base
+    key using the requested language with EN fallback.
     """
+    suffixes = tuple(f'_{l}' for l in LANGS)
     result = []
     for item in items:
         loc = {}
         seen = set()
         for key in item:
-            if key.endswith('_en') or key.endswith('_ja'):
+            if key.endswith(suffixes):
                 base = key.rsplit('_', 1)[0]
                 if base not in seen:
                     seen.add(base)
