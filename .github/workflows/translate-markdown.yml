@@ -1,10 +1,16 @@
 name: Translate Markdown to Japanese
 
+# NOTE: the content/ tree has its own translator (see translate-content.yml)
+# which is idempotent and handles JA + PT. This workflow only covers
+# markdown outside content/ (READMEs, courses/, docs outside the site),
+# using the older *_jp.md filename convention.
+
 on:
   pull_request:
     types: [opened, synchronize]
     paths:
       - '**.md'
+      - '!content/**.md'
 
 jobs:
   translate:
