@@ -587,6 +587,13 @@ THEORY_LESSONS = [
      'desc_ja': '\u30d3\u30b8\u30cd\u30b9\u306f\u304a\u91d1\u3067\u751f\u304d\u5ef6\u3073\u308b\u3002\u30df\u30c3\u30b7\u30e7\u30f3\u306f\u9854\u3067\u3042\u308a\u3001\u30a8\u30f3\u30b8\u30f3\u3067\u306f\u306a\u3044\u3002\u30c1\u30b1\u30c3\u30c8\u306e\u7406\u7531\u3092\u7406\u89e3\u3057\u3001\u30d3\u30b8\u30cd\u30b9\u306b\u8ca2\u732e\u3059\u308b\u30b3\u30fc\u30c9\u3092\u66f8\u3053\u3046\u3002',
      'analogy_en': 'No money, no mission',
      'analogy_ja': '\u304a\u91d1\u304c\u306a\u3051\u308c\u3070\u4f7f\u547d\u3082\u306a\u3044'},
+    {'id': 'R20',
+     'title_en': 'Never Trust an AI',
+     'title_ja': 'AIを決して信頼するな',
+     'desc_en': 'Anthropic showed frontier AI will blackmail and let humans die to preserve itself. Use AI heavily, trust it never. Keep humans on the kill switch.',
+     'desc_ja': 'Anthropicの研究で、最先端AIは自己保存のため脅迫し人を死なせる選択をした。大いに使え、決して信じるな。危険操作には人間を置け。',
+     'analogy_en': 'A saw does not care if it cuts wood or your hand',
+     'analogy_ja': 'ノコギリは木を切るか手を切るかを気にしない'},
 ]
 
 VIDEOS = [
