@@ -46,17 +46,17 @@
           <a href="t23.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t22-api-endpoints"><a class="heading-anchor" href="#t22-api-endpoints">T22: API Endpoints</a></h1>
-<p class="lesson-intro">An API (Application Programming Interface) is a set of endpoints your server exposes for clients to interact with data. REST is a design convention where URLs represent resources and HTTP methods represent actions. Think of it as a menu at a restaurant - the menu lists what you can order and how.</p>
-<h2 id="rest-conventions"><a class="heading-anchor" href="#rest-conventions">REST Conventions</a></h2>
-<p>RESTful APIs follow a pattern: resources are nouns in the URL, actions are HTTP methods.</p>
+      <h1 id="t22-endpoints-de-api"><a class="heading-anchor" href="#t22-endpoints-de-api">T22: Endpoints de API</a></h1>
+<p class="lesson-intro">Uma API (Application Programming Interface) é um conjunto de endpoints que seu servidor expõe para clientes interagirem com os dados. REST é uma convenção de design onde URLs representam recursos e métodos HTTP representam ações. Pense nisso como o cardápio de um restaurante - o cardápio lista o que você pode pedir e como.</p>
+<h2 id="conven-es-rest"><a class="heading-anchor" href="#conven-es-rest">Convenções REST</a></h2>
+<p>APIs RESTful seguem um padrão: recursos são substantivos na URL, ações são métodos HTTP.</p>
 <pre><code>// GET    /api/users      - List all users
 // GET    /api/users/1    - Get user with id 1
 // POST   /api/users      - Create a new user
 // PUT    /api/users/1    - Update user 1
 // DELETE /api/users/1    - Delete user 1
 </code></pre>
-<h2 id="building-endpoints"><a class="heading-anchor" href="#building-endpoints">Building Endpoints</a></h2>
+<h2 id="construindo-endpoints"><a class="heading-anchor" href="#construindo-endpoints">Construindo Endpoints</a></h2>
 <pre><code>const server = http.createServer((req, res) =&gt; {
     const url = req.url;
     const method = req.method;
@@ -94,10 +94,10 @@ flowchart TD
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>REST uses URLs as resource identifiers and HTTP methods as actions</li>
-<li>GET reads, POST creates, PUT updates, DELETE removes</li>
-<li>API responses should be JSON with appropriate status codes</li>
-<li>Always handle unknown routes with a 404 response</li>
+<li>REST usa URLs como identificadores de recurso e métodos HTTP como ações</li>
+<li>GET lê, POST cria, PUT atualiza, DELETE remove</li>
+<li>Respostas de API devem ser JSON com códigos de status apropriados</li>
+<li>Sempre trate rotas desconhecidas com resposta 404</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

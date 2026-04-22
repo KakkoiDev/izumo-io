@@ -47,8 +47,8 @@
         </div>
       </nav>
       <h1 id="t24-sqlite"><a class="heading-anchor" href="#t24-sqlite">T24: SQLite</a></h1>
-<p class="lesson-intro">SQLite is a real database engine that stores data in a single file. SQL (Structured Query Language) is the language you use to talk to it. If a JSON file is a notebook, SQLite is a proper filing cabinet with labels, categories, and cross-references. It handles concurrent access and data integrity for you.</p>
-<h2 id="creating-tables"><a class="heading-anchor" href="#creating-tables">Creating Tables</a></h2>
+<p class="lesson-intro">SQLite é um motor de banco de verdade que armazena dados num único arquivo. SQL (Structured Query Language) é a linguagem que você usa para falar com ele. Se um arquivo JSON é um caderno, SQLite é um arquivo suspenso organizado com etiquetas, categorias e referências cruzadas. Ele cuida do acesso concorrente e da integridade dos dados por você.</p>
+<h2 id="criando-tabelas"><a class="heading-anchor" href="#criando-tabelas">Criando Tabelas</a></h2>
 <pre><code>CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE posts (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 </code></pre>
-<h2 id="crud-with-sql"><a class="heading-anchor" href="#crud-with-sql">CRUD with SQL</a></h2>
+<h2 id="crud-com-sql"><a class="heading-anchor" href="#crud-com-sql">CRUD com SQL</a></h2>
 <pre><code>-- Create
 INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com');
 
@@ -78,7 +78,7 @@ UPDATE users SET name = 'Bob' WHERE id = 1;
 -- Delete
 DELETE FROM users WHERE id = 1;
 </code></pre>
-<h2 id="using-sqlite-in-node-js"><a class="heading-anchor" href="#using-sqlite-in-node-js">Using SQLite in Node.js</a></h2>
+<h2 id="usando-sqlite-no-node-js"><a class="heading-anchor" href="#usando-sqlite-no-node-js">Usando SQLite no Node.js</a></h2>
 <pre><code>const Database = require(&quot;better-sqlite3&quot;);
 const db = new Database(&quot;app.db&quot;);
 
@@ -105,10 +105,10 @@ erDiagram
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>SQLite stores a full relational database in a single file</li>
-<li>SQL provides powerful querying with SELECT, JOIN, WHERE, and more</li>
-<li>Foreign keys create relationships between tables and enforce data integrity</li>
-<li>Use parameterized queries (?) to prevent SQL injection attacks</li>
+<li>SQLite armazena um banco relacional completo em um único arquivo</li>
+<li>SQL oferece consultas poderosas com SELECT, JOIN, WHERE e mais</li>
+<li>Chaves estrangeiras criam relações entre tabelas e garantem integridade dos dados</li>
+<li>Use queries parametrizadas (?) para prevenir ataques de SQL injection</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

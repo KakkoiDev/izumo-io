@@ -46,9 +46,9 @@
           <a href="t24.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t23-json-database"><a class="heading-anchor" href="#t23-json-database">T23: JSON Database</a></h1>
-<p class="lesson-intro">Before learning a real database, you can use a JSON file as a simple data store. Read the file, parse it, modify the data, and write it back. It is like a notebook where you write down and cross out entries - simple but effective for small applications.</p>
-<h2 id="reading-and-writing-db-json"><a class="heading-anchor" href="#reading-and-writing-db-json">Reading and Writing db.json</a></h2>
+      <h1 id="t23-banco-json"><a class="heading-anchor" href="#t23-banco-json">T23: Banco JSON</a></h1>
+<p class="lesson-intro">Antes de aprender um banco de verdade, você pode usar um arquivo JSON como armazenamento simples. Leia o arquivo, parseie, modifique os dados e escreva de volta. É como um caderno onde você anota e risca entradas - simples mas eficaz para aplicações pequenas.</p>
+<h2 id="lendo-e-escrevendo-db-json"><a class="heading-anchor" href="#lendo-e-escrevendo-db-json">Lendo e Escrevendo db.json</a></h2>
 <pre><code>const fs = require(&quot;fs&quot;);
 const DB_PATH = &quot;./db.json&quot;;
 
@@ -61,7 +61,7 @@ function writeDB(data) {
     fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
 }
 </code></pre>
-<h2 id="crud-operations"><a class="heading-anchor" href="#crud-operations">CRUD Operations</a></h2>
+<h2 id="opera-es-crud"><a class="heading-anchor" href="#opera-es-crud">Operações CRUD</a></h2>
 <pre><code>// Create
 function addUser(user) {
     const db = readDB();
@@ -105,10 +105,10 @@ flowchart LR
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>A JSON file can serve as a simple database for small projects</li>
-<li>CRUD stands for Create, Read, Update, Delete - the four basic data operations</li>
-<li>Always read the full file, modify in memory, then write back</li>
-<li>JSON databases do not scale - use a real database for production</li>
+<li>Um arquivo JSON pode servir como banco simples para projetos pequenos</li>
+<li>CRUD significa Create, Read, Update, Delete - as quatro operações básicas de dados</li>
+<li>Sempre leia o arquivo inteiro, modifique em memória, depois escreva de volta</li>
+<li>Bancos JSON não escalam - use um banco de verdade em produção</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
