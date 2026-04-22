@@ -46,10 +46,10 @@
           <a href="t03.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t02-terminal-basics"><a class="heading-anchor" href="#t02-terminal-basics">T02: Terminal Basics</a></h1>
-<p class="lesson-intro">Buttons are for tourists. The terminal is the direct line to the machine - a text prompt where you tell the computer exactly what to do. It feels intimidating for about a week, then feels like a superpower for the rest of your career. You stop clicking through dialogs and start composing commands.</p>
-<h2 id="where-am-i-moving-around"><a class="heading-anchor" href="#where-am-i-moving-around">Where Am I? Moving Around</a></h2>
-<p>Your shell is always sitting in some folder, called the <strong>working directory</strong>. Three commands form the navigation basics: where am I, what is here, go somewhere.</p>
+      <h1 id="t02-terminal-do-zero"><a class="heading-anchor" href="#t02-terminal-do-zero">T02: Terminal do Zero</a></h1>
+<p class="lesson-intro">Botões são para turistas. O terminal é a linha direta com a máquina - uma prompt de texto onde você diz ao computador exatamente o que fazer. Por uma semana parece intimidador, depois vira superpoder pelo resto da carreira. Você para de clicar em diálogos e começa a compor comandos.</p>
+<h2 id="onde-estou-se-movendo"><a class="heading-anchor" href="#onde-estou-se-movendo">Onde Estou? Se Movendo</a></h2>
+<p>Seu shell está sempre dentro de alguma pasta, chamada <strong>diretório de trabalho</strong>. Três comandos formam o básico de navegação: onde estou, o que tem aqui, vá para algum lugar.</p>
 <pre><code>pwd                    # print working directory
 ls                     # list what is in this folder
 ls -la                 # long format, include hidden files
@@ -58,9 +58,9 @@ cd ..                  # move up one level
 cd                     # go home (shorthand for ~)
 cd /                   # jump to the filesystem root
 </code></pre>
-<p>Paths come in two flavors. An <strong>absolute</strong> path starts from the root: <code>/home/alice/projects</code>. A <strong>relative</strong> path starts from wherever you are now: <code>../notes</code>. The special shortcuts <code>.</code> (here), <code>..</code> (parent), and <code>~</code> (your home folder) show up everywhere.</p>
-<h2 id="creating-copying-removing"><a class="heading-anchor" href="#creating-copying-removing">Creating, Copying, Removing</a></h2>
-<p>Files and folders are text in, bytes out. Keep verbs short.</p>
+<p>Caminhos vêm em dois sabores. Um caminho <strong>absoluto</strong> começa na raiz: <code>/home/alice/projects</code>. Um caminho <strong>relativo</strong> começa de onde você está agora: <code>../notes</code>. Os atalhos especiais <code>.</code> (aqui), <code>..</code> (pai) e <code>~</code> (sua home) aparecem em todo lugar.</p>
+<h2 id="criar-copiar-remover"><a class="heading-anchor" href="#criar-copiar-remover">Criar, Copiar, Remover</a></h2>
+<p>Arquivos e pastas são texto entrando, bytes saindo. Mantenha os verbos curtos.</p>
 <pre><code>mkdir my-project              # make a folder
 mkdir -p a/b/c                # make nested folders at once
 touch notes.md                # create an empty file
@@ -72,15 +72,15 @@ rm -rf build/                 # delete folder and everything inside
 cat notes.md                  # print file to screen
 less log.txt                  # scroll through a large file (q to quit)
 </code></pre>
-<p><strong>Warning</strong>: there is no trash can. <code>rm</code> is final. Before using <code>rm -rf</code>, always run <code>ls</code> first to verify the target.</p>
-<h2 id="reading-the-manual"><a class="heading-anchor" href="#reading-the-manual">Reading the Manual</a></h2>
-<p>Every command ships with its own manual. When you forget a flag, ask.</p>
+<p><strong>Aviso</strong>: não existe lixeira. <code>rm</code> é final. Antes de usar <code>rm -rf</code>, sempre rode <code>ls</code> primeiro para confirmar o alvo.</p>
+<h2 id="ler-o-manual"><a class="heading-anchor" href="#ler-o-manual">Ler o Manual</a></h2>
+<p>Todo comando vem com o próprio manual. Quando esquecer uma flag, pergunte.</p>
 <pre><code>man ls                 # full manual page (q to quit)
 ls --help              # quick summary (most modern commands)
 which python           # show where a command lives on disk
 </code></pre>
-<h2 id="the-path-why-commands-just-work"><a class="heading-anchor" href="#the-path-why-commands-just-work">The PATH: Why Commands Just Work</a></h2>
-<p>When you type <code>git</code>, the shell does not know where the git program lives. It walks a list of folders stored in the <code>PATH</code> environment variable and runs the first <code>git</code> it finds. This is why installing tools sometimes needs a PATH update.</p>
+<h2 id="o-path-por-que-os-comandos-simplesmente-funcionam"><a class="heading-anchor" href="#o-path-por-que-os-comandos-simplesmente-funcionam">O PATH: Por Que os Comandos Simplesmente Funcionam</a></h2>
+<p>Quando você digita <code>git</code>, o shell não sabe onde o programa git fica. Ele percorre uma lista de pastas guardada na variável de ambiente <code>PATH</code> e roda o primeiro <code>git</code> que encontra. É por isso que instalar ferramentas às vezes exige atualização do PATH.</p>
 <pre><code>echo $PATH                              # see the search list
 # /usr/local/bin:/usr/bin:/bin:...
 export PATH=&quot;$HOME/.local/bin:$PATH&quot;    # add your own folder first
@@ -100,22 +100,22 @@ flowchart TD
     P1 -->|first match wins| Run
 
 </div>
-<h2 id="speed-tricks"><a class="heading-anchor" href="#speed-tricks">Speed Tricks</a></h2>
-<p>The shell rewards muscle memory. Four habits that pay back every day:</p>
+<h2 id="truques-de-velocidade"><a class="heading-anchor" href="#truques-de-velocidade">Truques de Velocidade</a></h2>
+<p>O shell recompensa a memória muscular. Quatro hábitos que se pagam todo dia:</p>
 <ul>
-<li><strong>Tab</strong> completes file names and commands. Hit it twice to see options.</li>
-<li><strong>Up arrow</strong> walks backward through your command history.</li>
-<li><strong>Ctrl+R</strong> searches history by fragment - type "git com" to resurrect "git commit -m ...".</li>
-<li><strong>Ctrl+C</strong> cancels a running command. <strong>Ctrl+D</strong> ends input / exits the shell.</li>
+<li><strong>Tab</strong> completa nomes de arquivo e comandos. Aperte duas vezes para ver as opções.</li>
+<li><strong>Seta para cima</strong> volta no histórico de comandos.</li>
+<li><strong>Ctrl+R</strong> busca histórico por fragmento - digite "git com" para ressuscitar "git commit -m ...".</li>
+<li><strong>Ctrl+C</strong> cancela um comando em execução. <strong>Ctrl+D</strong> encerra a entrada / sai do shell.</li>
 </ul>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>pwd, ls, cd are your navigation basics. Paths are absolute (start with /) or relative (start from here)</li>
-<li>mkdir, touch, cp, mv, rm manage files and folders. rm is permanent - there is no trash can</li>
-<li>man and --help are always there when you forget a flag. Use them before Google</li>
-<li>PATH is the search list the shell uses to find commands. Know how to inspect and extend it</li>
-<li>Tab completion, Ctrl+R history search, and Ctrl+C to cancel are the muscle memory that separate beginners from pros</li>
+<li>pwd, ls, cd são o básico de navegação. Caminhos são absolutos (começam com /) ou relativos (começam daqui)</li>
+<li>mkdir, touch, cp, mv, rm gerenciam arquivos e pastas. rm é permanente - não existe lixeira</li>
+<li>man e --help estão sempre aí quando você esquece uma flag. Use antes do Google</li>
+<li>PATH é a lista de busca que o shell usa para achar comandos. Saiba como inspecionar e estender</li>
+<li>Autocompletar com Tab, busca de histórico com Ctrl+R e cancelar com Ctrl+C são a memória muscular que separa iniciantes de profissionais</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

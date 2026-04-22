@@ -46,40 +46,40 @@
           <a href="t02.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t01-environment-setup"><a class="heading-anchor" href="#t01-environment-setup">T01: Environment Setup</a></h1>
-<p class="lesson-intro">Every craftsman sets up the workbench before the first cut. To build for the web you need three tools on your computer: an editor to write code, a runtime to execute JavaScript outside the browser, and a browser to view the result. One afternoon of setup saves a thousand frustrations later. Do it once, forget it forever.</p>
-<h2 id="what-you-are-installing"><a class="heading-anchor" href="#what-you-are-installing">What You Are Installing</a></h2>
+      <h1 id="t01-configura-o-do-ambiente"><a class="heading-anchor" href="#t01-configura-o-do-ambiente">T01: Configuração do Ambiente</a></h1>
+<p class="lesson-intro">Todo artesão arruma a bancada antes do primeiro corte. Para construir para a web você precisa de três ferramentas no computador: um editor para escrever código, um runtime para executar JavaScript fora do navegador e um navegador para ver o resultado. Uma tarde de configuração poupa mil frustrações depois. Faça uma vez, esqueça para sempre.</p>
+<h2 id="o-que-voc-vai-instalar"><a class="heading-anchor" href="#o-que-voc-vai-instalar">O Que Você Vai Instalar</a></h2>
 <ul>
-<li><strong>Visual Studio Code</strong> - the editor. Free, from Microsoft, runs on Windows, Mac, Linux. Works for HTML, CSS, JavaScript, and every language you will touch in this course.</li>
-<li><strong>Node.js</strong> - a JavaScript runtime. Lets you run .js files from your terminal without a browser. Comes with <code>npm</code>, the package manager that installs third-party libraries.</li>
-<li><strong>A modern browser</strong> - Chrome or Firefox. The built-in browser devtools are how you inspect pages, debug JavaScript, and simulate network conditions.</li>
+<li><strong>Visual Studio Code</strong> - o editor. Gratuito, da Microsoft, roda em Windows, Mac, Linux. Funciona para HTML, CSS, JavaScript e toda linguagem que você vai tocar no curso.</li>
+<li><strong>Node.js</strong> - um runtime de JavaScript. Deixa você rodar arquivos .js no terminal sem navegador. Vem com o <code>npm</code>, o gerenciador de pacotes que instala bibliotecas de terceiros.</li>
+<li><strong>Um navegador moderno</strong> - Chrome ou Firefox. As devtools embutidas são como você inspeciona páginas, depura JavaScript e simula condições de rede.</li>
 </ul>
-<h2 id="install-vs-code"><a class="heading-anchor" href="#install-vs-code">Install VS Code</a></h2>
-<p>Go to <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a> and download the installer for your operating system. Accept the defaults. When prompted during install, check <strong>Add to PATH</strong> and <strong>Register as editor for supported file types</strong>.</p>
-<p>After install, open VS Code and look around:</p>
+<h2 id="instalar-o-vs-code"><a class="heading-anchor" href="#instalar-o-vs-code">Instalar o VS Code</a></h2>
+<p>Vá em <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a> e baixe o instalador para o seu sistema operacional. Aceite os padrões. Quando perguntarem durante a instalação, marque <strong>Add to PATH</strong> e <strong>Register as editor for supported file types</strong>.</p>
+<p>Depois de instalar, abra o VS Code e olhe ao redor:</p>
 <ul>
-<li>Left bar: Explorer (file tree), Search, Source Control (git), Extensions</li>
-<li><strong>Cmd/Ctrl + P</strong> - quick file open. Type a filename fragment</li>
-<li><strong>Cmd/Ctrl + Shift + P</strong> - command palette. Type any command by name</li>
-<li><strong>Ctrl + `</strong> (backtick) - open the integrated terminal inside VS Code</li>
+<li>Barra lateral esquerda: Explorer (árvore de arquivos), Search, Source Control (git), Extensions</li>
+<li><strong>Cmd/Ctrl + P</strong> - abrir arquivo rápido. Digite um pedaço do nome</li>
+<li><strong>Cmd/Ctrl + Shift + P</strong> - command palette. Digite qualquer comando pelo nome</li>
+<li><strong>Ctrl + `</strong> (crase) - abre o terminal integrado dentro do VS Code</li>
 </ul>
-<h2 id="install-node-js"><a class="heading-anchor" href="#install-node-js">Install Node.js</a></h2>
-<p>Go to <a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a> and download the <strong>LTS</strong> (Long-Term Support) version. Accept defaults. LTS is the boring-reliable choice; avoid the "Current" channel for learning.</p>
-<p>On Mac, if you already use Homebrew, <code>brew install node</code> works. On Linux, your distro's package manager is fine, but node's version may be old; consider <a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a> for flexibility later.</p>
-<h2 id="verify-everything-works"><a class="heading-anchor" href="#verify-everything-works">Verify Everything Works</a></h2>
-<p>Open VS Code, then open the integrated terminal (<strong>Ctrl + `</strong>). Run these four commands. Each should print a version number.</p>
+<h2 id="instalar-o-node-js"><a class="heading-anchor" href="#instalar-o-node-js">Instalar o Node.js</a></h2>
+<p>Vá em <a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a> e baixe a versão <strong>LTS</strong> (Long-Term Support). Aceite os padrões. LTS é a escolha chata e confiável; evite o canal "Current" para aprendizado.</p>
+<p>No Mac, se você já usa Homebrew, <code>brew install node</code> funciona. No Linux, o gerenciador de pacotes da sua distro serve, mas a versão do node pode ser antiga; considere o <a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a> para flexibilidade depois.</p>
+<h2 id="verificar-se-tudo-funciona"><a class="heading-anchor" href="#verificar-se-tudo-funciona">Verificar Se Tudo Funciona</a></h2>
+<p>Abra o VS Code, depois abra o terminal integrado (<strong>Ctrl + `</strong>). Rode estes quatro comandos. Cada um deve imprimir um número de versão.</p>
 <pre><code>node -v      # v20.x.x or newer
 npm -v       # 10.x.x or newer
 code -v      # VS Code version
 git --version  # any version works
 </code></pre>
-<p>If any command prints "command not found", close all terminal windows, open a new one, and try again. The installer updated your <code>PATH</code>, and PATH only applies to new terminals. Still broken? Restart the computer.</p>
-<h2 id="your-first-file"><a class="heading-anchor" href="#your-first-file">Your First File</a></h2>
-<p>Let's prove the whole chain works end to end.</p>
+<p>Se algum comando imprimir "command not found", feche todas as janelas de terminal, abra uma nova e tente de novo. O instalador atualizou seu <code>PATH</code>, e o PATH só vale para terminais novos. Ainda quebrado? Reinicie o computador.</p>
+<h2 id="seu-primeiro-arquivo"><a class="heading-anchor" href="#seu-primeiro-arquivo">Seu Primeiro Arquivo</a></h2>
+<p>Vamos provar que a cadeia inteira funciona de ponta a ponta.</p>
 <ol>
-<li>In VS Code, open a folder: <strong>File &gt; Open Folder</strong>. Pick or create a folder called <code>learning</code>.</li>
-<li>Create a new file named <code>hello.html</code>.</li>
-<li>Paste this in and save with Cmd/Ctrl + S:</li>
+<li>No VS Code, abra uma pasta: <strong>File &gt; Open Folder</strong>. Escolha ou crie uma pasta chamada <code>learning</code>.</li>
+<li>Crie um novo arquivo chamado <code>hello.html</code>.</li>
+<li>Cole isso e salve com Cmd/Ctrl + S:</li>
 </ol>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -92,7 +92,7 @@ git --version  # any version works
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p>Open the file in your browser (double-click it, or drag it onto the browser). Open devtools with <strong>F12</strong> and switch to the Console tab. You should see the log line.</p>
+<p>Abra o arquivo no navegador (dê dois cliques ou arraste para o navegador). Abra a devtools com <strong>F12</strong> e vá para a aba Console. Você deve ver a linha do log.</p>
 <div class="mermaid">
 flowchart LR
     VSC[VS Code<br/>write code]
@@ -107,29 +107,29 @@ flowchart LR
     Terminal -.->|node, npm| Disk
 
 </div>
-<h2 id="extensions-worth-installing"><a class="heading-anchor" href="#extensions-worth-installing">Extensions Worth Installing</a></h2>
-<p>Open the Extensions panel in VS Code (square icon on the left bar). Install these four:</p>
+<h2 id="extens-es-que-valem-a-pena"><a class="heading-anchor" href="#extens-es-que-valem-a-pena">Extensões Que Valem a Pena</a></h2>
+<p>Abra o painel Extensions do VS Code (ícone de quadrado na barra lateral). Instale estas quatro:</p>
 <ul>
-<li><strong>Prettier - Code formatter</strong> - auto-formats on save so every file looks consistent</li>
-<li><strong>ESLint</strong> - highlights JavaScript bugs and style issues as you type</li>
-<li><strong>Live Server</strong> - right-click any .html file -&gt; "Open with Live Server" for auto-refresh on save</li>
-<li><strong>GitLens</strong> - enhanced git integration; see who last changed every line</li>
+<li><strong>Prettier - Code formatter</strong> - formata automaticamente ao salvar, deixa todos os arquivos consistentes</li>
+<li><strong>ESLint</strong> - destaca bugs e problemas de estilo de JavaScript enquanto você digita</li>
+<li><strong>Live Server</strong> - clique direito em qualquer arquivo .html -&gt; "Open with Live Server" para recarregar ao salvar</li>
+<li><strong>GitLens</strong> - integração git turbinada; veja quem mexeu em cada linha pela última vez</li>
 </ul>
-<p>To enable format-on-save, open settings (Cmd/Ctrl + ,), search "format on save", and check the box.</p>
-<h2 id="operating-system-notes"><a class="heading-anchor" href="#operating-system-notes">Operating System Notes</a></h2>
+<p>Para ativar format-on-save, abra as configurações (Cmd/Ctrl + ,), procure "format on save" e marque a caixa.</p>
+<h2 id="notas-por-sistema-operacional"><a class="heading-anchor" href="#notas-por-sistema-operacional">Notas por Sistema Operacional</a></h2>
 <ul>
-<li><strong>Windows</strong>: install Git for Windows from <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>. The default "Git Bash" terminal gives you a Linux-like shell that is much nicer than cmd.exe for this course.</li>
-<li><strong>Mac</strong>: install <a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a> first. Then <code>brew install git node</code> is the whole setup.</li>
-<li><strong>Linux</strong>: you likely have git already. <code>sudo apt install git nodejs npm</code> (Ubuntu/Debian) or <code>nvm</code> for newer versions.</li>
+<li><strong>Windows</strong>: instale o Git for Windows em <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>. O terminal padrão "Git Bash" dá um shell estilo Linux, muito mais agradável que o cmd.exe para este curso.</li>
+<li><strong>Mac</strong>: instale o <a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a> primeiro. Depois <code>brew install git node</code> finaliza a configuração.</li>
+<li><strong>Linux</strong>: você provavelmente já tem git. <code>sudo apt install git nodejs npm</code> (Ubuntu/Debian) ou <code>nvm</code> para versões novas.</li>
 </ul>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Three tools: VS Code (editor), Node.js LTS (runtime), a modern browser with devtools</li>
-<li>Verify with node -v, npm -v, git --version, code -v. All four should print versions</li>
-<li>Learn VS Code shortcuts early: Cmd/Ctrl+P (quick open), Cmd/Ctrl+Shift+P (command palette), Ctrl+backtick (terminal)</li>
-<li>Install Prettier, ESLint, Live Server, GitLens. Enable format-on-save</li>
-<li>If a command is "not found", open a fresh terminal. If still broken, restart. PATH updates need a new shell</li>
+<li>Três ferramentas: VS Code (editor), Node.js LTS (runtime), um navegador moderno com devtools</li>
+<li>Verifique com node -v, npm -v, git --version, code -v. Todos os quatro devem mostrar versões</li>
+<li>Aprenda atalhos do VS Code cedo: Cmd/Ctrl+P (abrir rápido), Cmd/Ctrl+Shift+P (command palette), Ctrl+crase (terminal)</li>
+<li>Instale Prettier, ESLint, Live Server, GitLens. Ative format-on-save</li>
+<li>Se um comando deu "not found", abra um terminal novo. Se ainda quebrar, reinicie. Atualizações de PATH só valem em shell novo</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

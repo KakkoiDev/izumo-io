@@ -46,10 +46,10 @@
           <a href="t04.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t03-pipes-amp-power-tools"><a class="heading-anchor" href="#t03-pipes-amp-power-tools">T03: Pipes &amp; Power Tools</a></h1>
-<p class="lesson-intro">The terminal stops being a clunky file browser and becomes a superpower the moment you understand the pipe. Each command is a small specialist. The pipe <code>|</code> is duct tape: it lets you bolt specialists together into assembly lines. Five commands joined by pipes can replace a spreadsheet macro, a Python script, or an afternoon.</p>
-<h2 id="standard-streams"><a class="heading-anchor" href="#standard-streams">Standard Streams</a></h2>
-<p>Every program has three channels. <strong>stdin</strong> is the input stream. <strong>stdout</strong> is where normal output goes. <strong>stderr</strong> is where errors go. The shell lets you redirect each one independently.</p>
+      <h1 id="t03-pipes-e-ferramentas-de-poder"><a class="heading-anchor" href="#t03-pipes-e-ferramentas-de-poder">T03: Pipes e Ferramentas de Poder</a></h1>
+<p class="lesson-intro">O terminal deixa de ser um navegador de arquivos desajeitado e vira superpoder no momento em que você entende o pipe. Cada comando é um pequeno especialista. O pipe <code>|</code> é fita adesiva: ele permite parafusar especialistas juntos em linhas de montagem. Cinco comandos unidos por pipes podem substituir uma macro de planilha, um script Python ou uma tarde inteira.</p>
+<h2 id="streams-padr-o"><a class="heading-anchor" href="#streams-padr-o">Streams Padrão</a></h2>
+<p>Todo programa tem três canais. <strong>stdin</strong> é o stream de entrada. <strong>stdout</strong> é para onde vai a saída normal. <strong>stderr</strong> é para onde vão os erros. O shell permite redirecionar cada um de forma independente.</p>
 <pre><code>echo &quot;hello&quot; &gt; greet.txt        # stdout TO a file (overwrite)
 echo &quot;world&quot; &gt;&gt; greet.txt       # stdout APPEND to a file
 sort &lt; names.txt                 # stdin FROM a file
@@ -57,8 +57,8 @@ command 2&gt; errors.log            # stderr TO a file
 command &gt; out.log 2&gt;&amp;1          # stdout and stderr together
 command &gt; /dev/null 2&gt;&amp;1         # discard all output
 </code></pre>
-<h2 id="the-pipe"><a class="heading-anchor" href="#the-pipe">The Pipe</a></h2>
-<p>A pipe connects one command's stdout to the next command's stdin. You read it left to right, like a sentence.</p>
+<h2 id="o-pipe"><a class="heading-anchor" href="#o-pipe">O Pipe</a></h2>
+<p>Um pipe conecta o stdout de um comando ao stdin do próximo. Você lê da esquerda para a direita, como uma frase.</p>
 <pre><code># Show the 5 largest files in this folder
 ls -lS | head -n 5
 
@@ -80,20 +80,20 @@ flowchart LR
     S2 -->|stdout| Hd[head]
 
 </div>
-<h2 id="essential-specialists"><a class="heading-anchor" href="#essential-specialists">Essential Specialists</a></h2>
-<p>The standard kit every pro keeps sharp:</p>
+<h2 id="os-especialistas-essenciais"><a class="heading-anchor" href="#os-especialistas-essenciais">Os Especialistas Essenciais</a></h2>
+<p>O kit padrão que todo profissional mantém afiado:</p>
 <ul>
-<li><code>grep pattern file</code> - find lines matching a pattern. Add <code>-r</code> to recurse, <code>-i</code> for case-insensitive, <code>-n</code> for line numbers</li>
-<li><code>find path -name "*.ext"</code> - locate files by name, type, size, age</li>
-<li><code>sort</code> and <code>uniq</code> - sort lines, collapse duplicates (<code>uniq -c</code> counts them)</li>
-<li><code>wc -l</code> - count lines. Quick "how many?" answers</li>
-<li><code>head -n 20</code> / <code>tail -n 20</code> - first / last lines. <code>tail -f</code> follows a growing log</li>
-<li><code>cut -d, -f1</code> - extract a column from CSV-ish data</li>
-<li><code>sed 's/old/new/g'</code> - find and replace. Stream editor for quick substitutions</li>
-<li><code>awk '{print $2}'</code> - column-aware text processing</li>
+<li><code>grep pattern file</code> - encontra linhas que batem com um padrão. Adicione <code>-r</code> para recursão, <code>-i</code> para ignorar maiúsculas, <code>-n</code> para números de linha</li>
+<li><code>find path -name "*.ext"</code> - localiza arquivos por nome, tipo, tamanho, idade</li>
+<li><code>sort</code> e <code>uniq</code> - ordena linhas, colapsa duplicatas (<code>uniq -c</code> conta)</li>
+<li><code>wc -l</code> - conta linhas. Resposta rápida para "quantos?"</li>
+<li><code>head -n 20</code> / <code>tail -n 20</code> - primeiras / últimas linhas. <code>tail -f</code> segue um log crescendo</li>
+<li><code>cut -d, -f1</code> - extrai uma coluna de dados estilo CSV</li>
+<li><code>sed 's/old/new/g'</code> - busca e substituição. Editor de streams para substituições rápidas</li>
+<li><code>awk '{print $2}'</code> - processamento de texto ciente de colunas</li>
 </ul>
-<h2 id="chaining-commands"><a class="heading-anchor" href="#chaining-commands">Chaining Commands</a></h2>
-<p>Three operators sequence commands without pipes.</p>
+<h2 id="encadeando-comandos"><a class="heading-anchor" href="#encadeando-comandos">Encadeando Comandos</a></h2>
+<p>Três operadores sequenciam comandos sem pipes.</p>
 <pre><code>cmd1 ; cmd2          # run cmd1, then cmd2 regardless of outcome
 cmd1 &amp;&amp; cmd2         # run cmd2 ONLY if cmd1 succeeded
 cmd1 || cmd2         # run cmd2 ONLY if cmd1 failed
@@ -102,8 +102,8 @@ cmd1 || cmd2         # run cmd2 ONLY if cmd1 failed
 npm test &amp;&amp; git push                     # push only if tests pass
 mkdir build || echo &quot;already exists&quot;      # fallback message
 </code></pre>
-<h2 id="a-tiny-shell-script"><a class="heading-anchor" href="#a-tiny-shell-script">A Tiny Shell Script</a></h2>
-<p>When you run the same pipe every day, save it. A shell script is a text file with a <code>#!/usr/bin/env bash</code> header, made executable with <code>chmod +x</code>.</p>
+<h2 id="um-scriptzinho-de-shell"><a class="heading-anchor" href="#um-scriptzinho-de-shell">Um Scriptzinho de Shell</a></h2>
+<p>Quando você roda o mesmo pipe todo dia, salve. Um shell script é um arquivo de texto com o cabeçalho <code>#!/usr/bin/env bash</code>, feito executável com <code>chmod +x</code>.</p>
 <pre><code>#!/usr/bin/env bash
 # backup.sh - copy the project into a timestamped tarball
 
@@ -117,8 +117,8 @@ echo &quot;Saved ../${name}-${stamp}.tar.gz&quot;
 <pre><code>chmod +x backup.sh
 ./backup.sh                             # run it
 </code></pre>
-<h2 id="running-long-jobs"><a class="heading-anchor" href="#running-long-jobs">Running Long Jobs</a></h2>
-<p>Some jobs take minutes. You do not want to babysit them.</p>
+<h2 id="rodando-jobs-demorados"><a class="heading-anchor" href="#rodando-jobs-demorados">Rodando Jobs Demorados</a></h2>
+<p>Alguns jobs levam minutos. Você não quer ficar de babá.</p>
 <pre><code>long-command &amp;                  # run in background
 jobs                             # list background jobs in this shell
 long-command &gt; out.log 2&gt;&amp;1 &amp;   # background + capture output
@@ -129,11 +129,11 @@ kill -9 12345                    # force it to stop
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Three streams: stdin, stdout, stderr. Redirect with &lt;, &gt;, &gt;&gt;, 2&gt;</li>
-<li>The pipe | connects one command's stdout to the next one's stdin - read left to right</li>
-<li>Power kit: grep, find, sort, uniq, wc, head, tail, cut, sed, awk. Learn one per day</li>
-<li>Chain with ; (always), &amp;&amp; (on success), || (on failure) for safe multi-step commands</li>
-<li>Save any pipe you run twice as a shell script. Make it executable with chmod +x</li>
+<li>Três streams: stdin, stdout, stderr. Redirecione com &lt;, &gt;, &gt;&gt;, 2&gt;</li>
+<li>O pipe | conecta o stdout de um comando ao stdin do próximo - leia da esquerda para a direita</li>
+<li>Kit de poder: grep, find, sort, uniq, wc, head, tail, cut, sed, awk. Aprenda um por dia</li>
+<li>Encadeie com ; (sempre), &amp;&amp; (em sucesso), || (em falha) para comandos multi-passo seguros</li>
+<li>Salve como shell script qualquer pipe que você rode duas vezes. Torne executável com chmod +x</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

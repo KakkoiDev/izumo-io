@@ -46,10 +46,10 @@
           <a href="t10.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t09-css-to-the-limit"><a class="heading-anchor" href="#t09-css-to-the-limit">T09: CSS to the Limit</a></h1>
-<p class="lesson-intro">CSS can do far more than change colors. With transitions, animations, and clever selectors, you can build interactive components without a single line of JavaScript. It is like discovering that your paintbrush can also sculpt.</p>
-<h2 id="transitions"><a class="heading-anchor" href="#transitions">Transitions</a></h2>
-<p>Transitions smoothly animate property changes. Specify which property to animate, how long it takes, and the easing function.</p>
+      <h1 id="t09-css-no-limite"><a class="heading-anchor" href="#t09-css-no-limite">T09: CSS no Limite</a></h1>
+<p class="lesson-intro">CSS pode fazer muito mais do que mudar cores. Com transições, animações e seletores espertos, dá para construir componentes interativos sem uma única linha de JavaScript. É como descobrir que o seu pincel também esculpe.</p>
+<h2 id="transi-es"><a class="heading-anchor" href="#transi-es">Transições</a></h2>
+<p>Transições animam mudanças de propriedade de forma suave. Especifique qual propriedade animar, quanto tempo leva e a função de easing.</p>
 <pre><code>.button {
     background: #3498db;
     transition: background 0.3s ease, transform 0.2s ease;
@@ -59,16 +59,16 @@
     transform: scale(1.05);
 }
 </code></pre>
-<h2 id="keyframe-animations"><a class="heading-anchor" href="#keyframe-animations">Keyframe Animations</a></h2>
-<p>For more complex motion, define keyframes with specific states at different points in time.</p>
+<h2 id="anima-es-por-keyframes"><a class="heading-anchor" href="#anima-es-por-keyframes">Animações por Keyframes</a></h2>
+<p>Para movimentos mais complexos, defina keyframes com estados específicos em diferentes pontos no tempo.</p>
 <pre><code>@keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 .card { animation: fadeIn 0.5s ease-out; }
 </code></pre>
-<h2 id="pure-css-accordion"><a class="heading-anchor" href="#pure-css-accordion">Pure CSS Accordion</a></h2>
-<p>The <code>:target</code> pseudo-class lets you toggle visibility based on URL hash, creating interactive components without JavaScript.</p>
+<h2 id="accordion-puro-em-css"><a class="heading-anchor" href="#accordion-puro-em-css">Accordion Puro em CSS</a></h2>
+<p>O pseudo-classe <code>:target</code> permite alternar visibilidade baseado no hash da URL, criando componentes interativos sem JavaScript.</p>
 <pre><code>.panel { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
 .panel:target { max-height: 500px; }
 </code></pre>
@@ -85,10 +85,10 @@ stateDiagram-v2
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Transitions animate changes between two states smoothly</li>
-<li>Keyframe animations allow multi-step, complex motion sequences</li>
-<li>The :target pseudo-class enables JS-free interactive patterns</li>
-<li>Always consider performance - animate transform and opacity, not width or height</li>
+<li>Transições animam mudanças entre dois estados de forma suave</li>
+<li>Animações por keyframe permitem sequências de movimento multi-etapas e complexas</li>
+<li>A pseudo-classe :target habilita padrões interativos sem JS</li>
+<li>Sempre considere performance - anime transform e opacity, não width ou height</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

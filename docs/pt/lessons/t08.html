@@ -46,10 +46,10 @@
           <a href="t09.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t08-css-layout"><a class="heading-anchor" href="#t08-css-layout">T08: CSS Layout</a></h1>
-<p class="lesson-intro">Placing elements on a page used to be painful. Flexbox and Grid changed everything. Think of Flexbox as arranging items in a single line (like books on a shelf), and Grid as organizing items in rows and columns (like a spreadsheet).</p>
+      <h1 id="t08-layout-com-css"><a class="heading-anchor" href="#t08-layout-com-css">T08: Layout com CSS</a></h1>
+<p class="lesson-intro">Posicionar elementos numa página costumava ser doloroso. Flexbox e Grid mudaram tudo. Pense em Flexbox como arrumar itens numa única linha (como livros numa estante) e Grid como organizar itens em linhas e colunas (como uma planilha).</p>
 <h2 id="flexbox"><a class="heading-anchor" href="#flexbox">Flexbox</a></h2>
-<p>Flexbox works in one dimension at a time. Set <code>display: flex</code> on a container, then control how children align and distribute space.</p>
+<p>Flexbox trabalha uma dimensão por vez. Defina <code>display: flex</code> num contêiner e controle como os filhos se alinham e distribuem espaço.</p>
 <pre><code>.nav {
     display: flex;
     justify-content: space-between;
@@ -62,7 +62,7 @@
 }
 </code></pre>
 <h2 id="css-grid"><a class="heading-anchor" href="#css-grid">CSS Grid</a></h2>
-<p>Grid works in two dimensions simultaneously. Define rows and columns, then place items into the grid cells.</p>
+<p>Grid trabalha duas dimensões ao mesmo tempo. Defina linhas e colunas, depois coloque itens nas células da grade.</p>
 <pre><code>.layout {
     display: grid;
     grid-template-columns: 250px 1fr;
@@ -71,8 +71,8 @@
     min-height: 100vh;
 }
 </code></pre>
-<h2 id="responsive-design"><a class="heading-anchor" href="#responsive-design">Responsive Design</a></h2>
-<p>Media queries let you apply different styles based on screen size. Mobile-first means writing base styles for small screens and adding complexity for larger ones.</p>
+<h2 id="design-responsivo"><a class="heading-anchor" href="#design-responsivo">Design Responsivo</a></h2>
+<p>Media queries permitem aplicar estilos diferentes conforme o tamanho da tela. Mobile-first significa escrever estilos base para telas pequenas e adicionar complexidade para telas maiores.</p>
 <pre><code>@media (min-width: 768px) {
     .layout { grid-template-columns: 250px 1fr; }
 }
@@ -93,10 +93,10 @@ flowchart TB
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Flexbox is for one-dimensional layouts (row or column)</li>
-<li>Grid is for two-dimensional layouts (rows and columns together)</li>
-<li>Use media queries for responsive design that adapts to screen size</li>
-<li>Mobile-first approach: start small, add complexity for larger screens</li>
+<li>Flexbox serve para layouts unidimensionais (linha ou coluna)</li>
+<li>Grid serve para layouts bidimensionais (linhas e colunas juntas)</li>
+<li>Use media queries para design responsivo que se adapta ao tamanho da tela</li>
+<li>Abordagem mobile-first: comece pequeno, adicione complexidade para telas maiores</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
