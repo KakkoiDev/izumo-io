@@ -46,10 +46,10 @@
           <a href="t35.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t34-nest-js-data-amp-auth"><a class="heading-anchor" href="#t34-nest-js-data-amp-auth">T34: Nest.js Data &amp; Auth</a></h1>
-<p class="lesson-intro">DTOs are like order tickets that ensure the waiter writes exactly what the kitchen understands. Guards are the bouncer checking IDs at the door. Together with database integration, they form the data and security layer of a Nest.js application.</p>
-<h2 id="dtos-and-validation"><a class="heading-anchor" href="#dtos-and-validation">DTOs and Validation</a></h2>
-<p>A Data Transfer Object defines the expected shape of incoming data. Combined with class-validator decorators, it automatically rejects invalid requests. Compare this to the manual validation from T22 - Nest.js handles it declaratively.</p>
+      <h1 id="t34-dados-e-autentica-o-no-nest-js"><a class="heading-anchor" href="#t34-dados-e-autentica-o-no-nest-js">T34: Dados e Autenticação no Nest.js</a></h1>
+<p class="lesson-intro">DTOs são como comandas de pedido que garantem que o garçom escreve exatamente o que a cozinha entende. Guards são o segurança conferindo identidade na porta. Junto com a integração com banco, eles formam a camada de dados e segurança de uma aplicação Nest.js.</p>
+<h2 id="dtos-e-valida-o"><a class="heading-anchor" href="#dtos-e-valida-o">DTOs e Validação</a></h2>
+<p>Um Data Transfer Object define o formato esperado dos dados que chegam. Combinado com decoradores do class-validator, ele rejeita requisições inválidas automaticamente. Compare com a validação manual do T22 - o Nest.js cuida disso declarativamente.</p>
 <pre><code>// create-menu-item.dto.ts
 import { IsString, IsNumber, Min, MaxLength } from &quot;class-validator&quot;;
 
@@ -80,10 +80,10 @@ export class MenuController {
     }
 }
 </code></pre>
-<h2 id="database-integration"><a class="heading-anchor" href="#database-integration">Database Integration</a></h2>
-<p>Nest.js works with the SQLite database pattern from T24, but through a repository layer. The service interacts with the database, keeping data access separate from HTTP handling.</p>
-<h2 id="authentication-guards"><a class="heading-anchor" href="#authentication-guards">Authentication Guards</a></h2>
-<p>A guard is a class that decides whether a request should proceed. It checks authentication tokens before the controller ever sees the request. Apply it to specific routes or entire controllers with the <code>@UseGuards</code> decorator.</p>
+<h2 id="integra-o-com-banco"><a class="heading-anchor" href="#integra-o-com-banco">Integração com Banco</a></h2>
+<p>Nest.js funciona com o padrão de banco SQLite do T24, mas através de uma camada de repositório. O service interage com o banco, mantendo o acesso a dados separado do tratamento de HTTP.</p>
+<h2 id="guards-de-autentica-o"><a class="heading-anchor" href="#guards-de-autentica-o">Guards de Autenticação</a></h2>
+<p>Um guard é uma classe que decide se uma requisição deve prosseguir. Ele confere tokens de autenticação antes do controller sequer ver a requisição. Aplique em rotas específicas ou controllers inteiros com o decorador <code>@UseGuards</code>.</p>
 <pre><code>// auth.guard.ts
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from &quot;@nestjs/common&quot;;
 
@@ -140,10 +140,10 @@ sequenceDiagram
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>DTOs with class-validator decorators handle validation declaratively - no manual checks needed</li>
-<li>The repository pattern keeps database access in services, separate from controllers</li>
-<li>Guards run before controllers, enforcing authentication at the framework level</li>
-<li>Decorators like @UseGuards and @Body wire security and validation without cluttering logic</li>
+<li>DTOs com decoradores do class-validator cuidam da validação declarativamente - sem checagens manuais</li>
+<li>O padrão de repositório mantém o acesso ao banco nos services, separado dos controllers</li>
+<li>Guards rodam antes dos controllers, impondo autenticação no nível do framework</li>
+<li>Decoradores como @UseGuards e @Body conectam segurança e validação sem sujar a lógica</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

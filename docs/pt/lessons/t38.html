@@ -46,35 +46,35 @@
           <a href="t39.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t38-system-design-scale-databases-sharding"><a class="heading-anchor" href="#t38-system-design-scale-databases-sharding">T38: System Design - Scale, Databases, Sharding</a></h1>
-<p class="lesson-intro">One small server can handle more traffic than most people think. But at some point the single server sweats, the single database chokes, and you have to split work across machines. Scaling is the art of splitting - first by adding copies (replicas), then by splitting the data itself (shards). The trick is doing it only when the numbers force you to.</p>
+      <h1 id="t38-design-de-sistemas-escala-bancos-sharding"><a class="heading-anchor" href="#t38-design-de-sistemas-escala-bancos-sharding">T38: Design de Sistemas - Escala, Bancos, Sharding</a></h1>
+<p class="lesson-intro">Um único servidor pequeno aguenta mais tráfego do que a maioria pensa. Mas em algum momento o único servidor sua, o único banco engasga e você precisa dividir trabalho entre máquinas. Escalar é a arte de dividir - primeiro adicionando cópias (réplicas), depois dividindo os próprios dados (shards). O truque é fazer isso só quando os números forçarem.</p>
 <h2 id="vertical-vs-horizontal"><a class="heading-anchor" href="#vertical-vs-horizontal">Vertical vs Horizontal</a></h2>
-<p><strong>Vertical</strong> scaling = buy a bigger machine. More CPU, more RAM. Dead simple, works until it doesn't, has a ceiling. <strong>Horizontal</strong> scaling = add more machines and share the load. More complex, no ceiling, how real products survive traffic.</p>
+<p>Escala <strong>vertical</strong> = compre uma máquina maior. Mais CPU, mais RAM. Muito simples, funciona até não funcionar, tem teto. Escala <strong>horizontal</strong> = adicione mais máquinas e compartilhe carga. Mais complexo, sem teto, é como produtos de verdade sobrevivem ao tráfego.</p>
 <pre><code># Vertical: one strong server
 [ 8 vCPU | 32 GB RAM ]  -&gt;  [ 32 vCPU | 256 GB RAM ]
 
 # Horizontal: many modest servers behind a load balancer
 Client -&gt; LB -&gt; [ app1 ] [ app2 ] [ app3 ] ... [ appN ]
 </code></pre>
-<p>Rule of thumb: scale vertically first. It is cheaper and simpler. Scale horizontally when vertical hits its limit or when you need redundancy.</p>
-<h2 id="sql-vs-nosql-pick-for-the-shape-of-data"><a class="heading-anchor" href="#sql-vs-nosql-pick-for-the-shape-of-data">SQL vs NoSQL: Pick For The Shape of Data</a></h2>
-<p><strong>SQL</strong> (Postgres, MySQL) is right when your data has known shape and relationships, and you need transactions. <strong>NoSQL</strong> covers many shapes: document stores (MongoDB) for nested objects, key-value (Redis, DynamoDB) for fast lookups by id, wide-column (Cassandra) for huge event streams. Choose NoSQL for a specific reason, not "because scale".</p>
+<p>Regra prática: escale vertical primeiro. É mais barato e simples. Escale horizontal quando o vertical bater o limite ou quando precisar de redundância.</p>
+<h2 id="sql-vs-nosql-escolha-pelo-formato-dos-dados"><a class="heading-anchor" href="#sql-vs-nosql-escolha-pelo-formato-dos-dados">SQL vs NoSQL: Escolha Pelo Formato dos Dados</a></h2>
+<p><strong>SQL</strong> (Postgres, MySQL) é certo quando seus dados têm formato e relações conhecidos e você precisa de transações. <strong>NoSQL</strong> cobre muitos formatos: document stores (MongoDB) para objetos aninhados, key-value (Redis, DynamoDB) para lookups rápidos por id, wide-column (Cassandra) para streams gigantes de eventos. Escolha NoSQL por um motivo específico, não "por causa de escala".</p>
 <pre><code>// Orders, invoices, bookings     -&gt; SQL
 // User sessions, short-lived KV  -&gt; Redis
 // Logs, clicks, time series      -&gt; Cassandra / Clickhouse
 // Nested catalog documents       -&gt; MongoDB
 // Full-text search               -&gt; Elasticsearch / Meilisearch
 </code></pre>
-<h2 id="replication-copies-for-read-scale-and-safety"><a class="heading-anchor" href="#replication-copies-for-read-scale-and-safety">Replication: Copies for Read Scale and Safety</a></h2>
-<p>Most apps read 10-100x more than they write. Solution: one <strong>primary</strong> handles writes, multiple <strong>replicas</strong> serve reads. Replicas also survive primary failure.</p>
+<h2 id="replica-o-c-pias-para-escala-de-leitura-e-seguran-a"><a class="heading-anchor" href="#replica-o-c-pias-para-escala-de-leitura-e-seguran-a">Replicação: Cópias para Escala de Leitura e Segurança</a></h2>
+<p>A maioria dos apps lê 10-100x mais do que escreve. Solução: uma <strong>primary</strong> cuida das escritas, várias <strong>réplicas</strong> servem leituras. Réplicas também sobrevivem a falha da primary.</p>
 <pre><code>Writes --&gt; [Primary]
               |--&gt; [Replica 1] --&gt; Reads
               |--&gt; [Replica 2] --&gt; Reads
               |--&gt; [Replica 3] --&gt; Reads
 </code></pre>
-<p>The catch: replication is asynchronous by default. A read on a replica right after a write may return stale data. If you need read-your-writes, route that read to the primary.</p>
-<h2 id="sharding-when-one-database-is-not-enough"><a class="heading-anchor" href="#sharding-when-one-database-is-not-enough">Sharding: When One Database Is Not Enough</a></h2>
-<p>Sharding splits rows across many databases. Each database holds a slice. You pick a <strong>shard key</strong> and hash it to route rows.</p>
+<p>Pega: replicação é assíncrona por padrão. Uma leitura numa réplica logo após uma escrita pode retornar dados desatualizados. Se precisar de read-your-writes, direcione essa leitura para a primary.</p>
+<h2 id="sharding-quando-um-banco-n-o-suficiente"><a class="heading-anchor" href="#sharding-quando-um-banco-n-o-suficiente">Sharding: Quando Um Banco Não É Suficiente</a></h2>
+<p>Sharding divide linhas entre vários bancos. Cada banco segura uma fatia. Você escolhe uma <strong>shard key</strong> e faz hash para rotear as linhas.</p>
 <div class="mermaid">
 flowchart LR
     C[Client write user_id=1234]
@@ -90,9 +90,9 @@ flowchart LR
     H -->|mod 3| S3
 
 </div>
-<p>Sharding has a steep cost: any query crossing shards must be scatter-gathered. Pick a shard key that matches your most common queries. For a Twitter-like app, shard by <code>user_id</code> so one user's timeline lives on one shard.</p>
-<h2 id="consistent-hashing-growing-without-pain"><a class="heading-anchor" href="#consistent-hashing-growing-without-pain">Consistent Hashing: Growing Without Pain</a></h2>
-<p>Simple hash-mod breaks when you add a shard: <code>hash % 4</code> becomes <code>hash % 5</code>, and almost every key changes home. <strong>Consistent hashing</strong> places shards on a ring. Each key lands at a point on the ring and rolls clockwise to the nearest shard. Adding or removing a shard only moves the neighbors.</p>
+<p>Sharding tem um custo alto: qualquer query que cruza shards precisa ser scatter-gather. Escolha uma shard key que combine com as suas queries mais comuns. Num app tipo Twitter, fazer shard por <code>user_id</code> para que a timeline de um usuário viva num só shard.</p>
+<h2 id="consistent-hashing-crescer-sem-dor"><a class="heading-anchor" href="#consistent-hashing-crescer-sem-dor">Consistent Hashing: Crescer Sem Dor</a></h2>
+<p>Hash-mod simples quebra quando você adiciona um shard: <code>hash % 4</code> vira <code>hash % 5</code> e quase toda chave muda de casa. <strong>Consistent hashing</strong> coloca shards num anel. Cada chave cai num ponto do anel e rola no sentido horário até o shard mais próximo. Adicionar ou remover um shard só move os vizinhos.</p>
 <pre><code>                 Shard A
                     *
       *                      *
@@ -104,21 +104,21 @@ flowchart LR
 Key hashes to a point on the ring -&gt; served by next shard clockwise.
 Add Shard E between B and C -&gt; only keys between B and E move.
 </code></pre>
-<h2 id="cap-theorem-pick-two-really-pick-one-of-two"><a class="heading-anchor" href="#cap-theorem-pick-two-really-pick-one-of-two">CAP Theorem: Pick Two (Really, Pick One of Two)</a></h2>
-<p>In a distributed system you can have Consistency, Availability, or Partition tolerance. Networks partition whether you like it or not, so the real choice is between consistency and availability during a partition.</p>
+<h2 id="teorema-cap-escolha-dois-na-real-um-de-dois"><a class="heading-anchor" href="#teorema-cap-escolha-dois-na-real-um-de-dois">Teorema CAP: Escolha Dois (Na Real, Um de Dois)</a></h2>
+<p>Num sistema distribuído você pode ter Consistência, Disponibilidade (Availability) ou Tolerância a Partição. Redes particionam queira você ou não, então a escolha real é entre consistência e disponibilidade durante uma partição.</p>
 <ul>
-<li><strong>CP systems</strong> (banks, inventory, payments): refuse writes rather than disagree. Users may see "try again".</li>
-<li><strong>AP systems</strong> (social feeds, DMs, caches): accept writes on either side, reconcile later. Users see slightly stale data.</li>
+<li><strong>Sistemas CP</strong> (bancos, estoque, pagamentos): recusam escritas em vez de divergirem. Usuários podem ver "tente de novo".</li>
+<li><strong>Sistemas AP</strong> (feeds sociais, DMs, caches): aceitam escritas dos dois lados, reconciliam depois. Usuários veem dados levemente desatualizados.</li>
 </ul>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Scale vertically first, horizontally second. A modern machine is more powerful than you think</li>
-<li>Pick SQL unless you have a specific reason for a specific NoSQL shape. "Scale" alone is not a reason</li>
-<li>Replication gives read scale and failover. Accept brief staleness on replicas or route critical reads to primary</li>
-<li>Sharding is the last resort. Pick a shard key that matches your common queries, and expect scatter-gather pain for the rest</li>
-<li>Consistent hashing makes shard changes cheap. Use it whenever the number of shards will ever change</li>
-<li>CAP forces a choice during network partitions: refuse writes (CP) or accept stale reads (AP). Know which your system needs</li>
+<li>Escale vertical primeiro, horizontal depois. Uma máquina moderna é mais poderosa do que você pensa</li>
+<li>Escolha SQL a não ser que tenha um motivo específico para um formato específico de NoSQL. "Escala" sozinho não é motivo</li>
+<li>Replicação dá escala de leitura e failover. Aceite breve desatualização nas réplicas ou direcione leituras críticas para a primary</li>
+<li>Sharding é o último recurso. Escolha shard key que case com suas queries comuns, e espere a dor de scatter-gather para o resto</li>
+<li>Consistent hashing barateia mudanças de shard. Use sempre que o número de shards possa mudar</li>
+<li>CAP força escolha durante partições de rede: recusar escritas (CP) ou aceitar leituras desatualizadas (AP). Saiba qual seu sistema precisa</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

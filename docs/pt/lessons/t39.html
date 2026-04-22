@@ -46,10 +46,10 @@
           
         </div>
       </nav>
-      <h1 id="t39-system-design-caching-queues-amp-patterns"><a class="heading-anchor" href="#t39-system-design-caching-queues-amp-patterns">T39: System Design - Caching, Queues &amp; Patterns</a></h1>
-<p class="lesson-intro">A database that does every read is like a chef who chops onions for every order. Caches pre-chop. Queues decouple the waiter from the kitchen so neither waits for the other. CDNs put a mini-kitchen on every continent. The deep dive of a system design is usually stitching these three together until the non-functional numbers fall into place.</p>
-<h2 id="caching-fast-memory-between-you-and-the-database"><a class="heading-anchor" href="#caching-fast-memory-between-you-and-the-database">Caching: Fast Memory Between You and The Database</a></h2>
-<p>A cache stores the result of a slow or expensive operation in fast memory. The canonical pattern is <strong>cache-aside</strong>: app checks cache; on miss, reads DB and fills cache; on hit, skips DB entirely.</p>
+      <h1 id="t39-design-de-sistemas-caching-filas-e-padr-es"><a class="heading-anchor" href="#t39-design-de-sistemas-caching-filas-e-padr-es">T39: Design de Sistemas - Caching, Filas e Padrões</a></h1>
+<p class="lesson-intro">Um banco que faz toda leitura é como um chef que corta cebola a cada pedido. Caches pré-cortam. Filas desacoplam o garçom da cozinha para nenhum esperar o outro. CDNs colocam uma mini cozinha em cada continente. O deep dive de um design de sistemas geralmente é costurar esses três até os números não funcionais caírem no lugar.</p>
+<h2 id="caching-mem-ria-r-pida-entre-voc-e-o-banco"><a class="heading-anchor" href="#caching-mem-ria-r-pida-entre-voc-e-o-banco">Caching: Memória Rápida Entre Você e o Banco</a></h2>
+<p>Um cache guarda o resultado de uma operação lenta ou cara em memória rápida. O padrão canônico é o <strong>cache-aside</strong>: app consulta o cache; em miss, lê o DB e preenche o cache; em hit, pula o DB de vez.</p>
 <div class="mermaid">
 sequenceDiagram
     participant App
@@ -76,16 +76,16 @@ async function getUser(id) {
     return row;
 }
 </code></pre>
-<p>The two hard problems of caching are <strong>invalidation</strong> (when do you throw stale data out) and <strong>stampede</strong> (when many requests miss at once and hammer the DB). Fix with TTLs, write-through updates, and single-flight locks on misses.</p>
-<h2 id="where-to-cache"><a class="heading-anchor" href="#where-to-cache">Where to Cache</a></h2>
+<p>Os dois problemas difíceis de caching são <strong>invalidação</strong> (quando jogar dados desatualizados fora) e <strong>stampede</strong> (quando muitas requisições dão miss ao mesmo tempo e martelam o DB). Corrija com TTLs, atualizações write-through e locks single-flight em misses.</p>
+<h2 id="onde-cachear"><a class="heading-anchor" href="#onde-cachear">Onde Cachear</a></h2>
 <ul>
-<li><strong>Browser cache</strong> - closest to user, controlled by <code>Cache-Control</code> headers</li>
-<li><strong>CDN (edge cache)</strong> - static assets, public API responses. Global, cheap, fast</li>
-<li><strong>Application cache</strong> - in-process memory or Redis. Good for per-user data and hot rows</li>
-<li><strong>Database cache</strong> - the DB's own buffer pool. Free, already tuned</li>
+<li><strong>Cache do navegador</strong> - mais perto do usuário, controlado pelos headers <code>Cache-Control</code></li>
+<li><strong>CDN (cache de borda)</strong> - assets estáticos, respostas de API públicas. Global, barato, rápido</li>
+<li><strong>Cache da aplicação</strong> - memória dentro do processo ou Redis. Bom para dados por usuário e linhas quentes</li>
+<li><strong>Cache do banco</strong> - o buffer pool do próprio DB. De graça, já ajustado</li>
 </ul>
-<h2 id="message-queues-decouple-slow-work"><a class="heading-anchor" href="#message-queues-decouple-slow-work">Message Queues: Decouple Slow Work</a></h2>
-<p>Any operation that takes more than a few hundred milliseconds should not block the user. Queues let the app accept the job and return immediately; a <strong>worker</strong> reads the queue and does the slow work later.</p>
+<h2 id="filas-de-mensagens-desacoplar-trabalho-lento"><a class="heading-anchor" href="#filas-de-mensagens-desacoplar-trabalho-lento">Filas de Mensagens: Desacoplar Trabalho Lento</a></h2>
+<p>Qualquer operação que leva mais que algumas centenas de milissegundos não deve bloquear o usuário. Filas deixam a app aceitar o job e responder na hora; um <strong>worker</strong> lê a fila e faz o trabalho lento depois.</p>
 <div class="mermaid">
 sequenceDiagram
     participant User
@@ -101,43 +101,43 @@ sequenceDiagram
     W->>DB: write result
 
 </div>
-<p>Queues also absorb traffic spikes. If the worker can process 1000/sec and a spike pushes 10,000/sec, the queue flattens the curve instead of dropping requests. Kafka, RabbitMQ, and SQS each make different trade-offs around ordering, durability, and replay.</p>
-<h2 id="load-balancers-and-redundancy"><a class="heading-anchor" href="#load-balancers-and-redundancy">Load Balancers and Redundancy</a></h2>
-<p>A load balancer sits in front of identical app servers and spreads requests. Three jobs: distribute load, detect dead servers (health checks), terminate TLS. Run at least two of everything - load balancer, app, database replica - so any single failure is absorbed.</p>
+<p>Filas também absorvem picos de tráfego. Se o worker processa 1000/seg e um pico joga 10.000/seg, a fila achata a curva em vez de derrubar requisições. Kafka, RabbitMQ e SQS fazem trade-offs diferentes em ordenação, durabilidade e replay.</p>
+<h2 id="load-balancers-e-redund-ncia"><a class="heading-anchor" href="#load-balancers-e-redund-ncia">Load Balancers e Redundância</a></h2>
+<p>Um load balancer fica na frente de servidores de app idênticos e espalha requisições. Três trabalhos: distribuir carga, detectar servidores mortos (health checks), terminar TLS. Rode pelo menos dois de tudo - load balancer, app, réplica de banco - para que qualquer falha isolada seja absorvida.</p>
 <pre><code>Client -&gt; DNS -&gt; LB (primary) --&gt; app1
                     LB (standby)   app2
                                    app3
 </code></pre>
-<h2 id="cdns-a-copy-near-every-user"><a class="heading-anchor" href="#cdns-a-copy-near-every-user">CDNs: A Copy Near Every User</a></h2>
-<p>A Content Delivery Network caches your static assets (and sometimes API responses) at hundreds of edge locations around the globe. First user in Tokyo pays the full trip to your origin in Virginia. Next 10,000 users in Tokyo hit the Tokyo edge in 10ms.</p>
+<h2 id="cdns-uma-c-pia-perto-de-todo-usu-rio"><a class="heading-anchor" href="#cdns-uma-c-pia-perto-de-todo-usu-rio">CDNs: Uma Cópia Perto de Todo Usuário</a></h2>
+<p>Uma CDN (Content Delivery Network) cacheia seus assets estáticos (e às vezes respostas de API) em centenas de pontos de borda pelo mundo. O primeiro usuário em Tóquio paga a viagem completa até a origem na Virgínia. Os próximos 10.000 usuários em Tóquio batem na borda de Tóquio em 10ms.</p>
 <pre><code>// What to put on the CDN
 - images, videos, fonts, JS/CSS bundles
 - rarely-changing API responses with Cache-Control
 - HTML for logged-out pages
 </code></pre>
-<h2 id="monolith-vs-microservices"><a class="heading-anchor" href="#monolith-vs-microservices">Monolith vs Microservices</a></h2>
-<p>Do not start with microservices. Every split adds a network hop, a deploy target, and a failure mode. Start monolith, extract services only when team size or scale makes the monolith painful.</p>
+<h2 id="monolito-vs-microservices"><a class="heading-anchor" href="#monolito-vs-microservices">Monolito vs Microservices</a></h2>
+<p>Não comece com microservices. Cada divisão adiciona um hop de rede, um alvo de deploy e um modo de falha. Comece monolito, extraia services só quando tamanho de time ou escala tornarem o monolito doloroso.</p>
 <ul>
-<li><strong>Monolith</strong>: one codebase, one deploy. Fast to iterate, simple to debug. Breaks down at ~50 engineers or obvious bottleneck components.</li>
-<li><strong>Microservices</strong>: separate codebases, separate deploys, API or queue between. Each team owns a service. Pays off at scale, costs a lot up front.</li>
+<li><strong>Monolito</strong>: um codebase, um deploy. Rápido de iterar, simples de debugar. Quebra em ~50 engenheiros ou em componentes claramente gargalo.</li>
+<li><strong>Microservices</strong>: codebases separados, deploys separados, API ou fila entre eles. Cada time é dono de um service. Compensa em escala, custa caro no começo.</li>
 </ul>
-<h2 id="back-of-envelope-numbers-worth-memorizing"><a class="heading-anchor" href="#back-of-envelope-numbers-worth-memorizing">Back-of-Envelope Numbers Worth Memorizing</a></h2>
+<h2 id="n-meros-de-cabe-a-que-valem-decorar"><a class="heading-anchor" href="#n-meros-de-cabe-a-que-valem-decorar">Números de Cabeça Que Valem Decorar</a></h2>
 <ul>
-<li>L1 cache: ~1 ns. Memory: ~100 ns. SSD: ~100 us. Network round trip same region: ~1 ms. Cross-region: ~100 ms.</li>
-<li>A modern CPU server handles ~10k-100k req/sec for simple JSON.</li>
-<li>Postgres handles ~10k writes/sec / ~50k reads/sec before tuning.</li>
-<li>Redis handles ~100k-1M ops/sec.</li>
-<li>100M events/day = ~1,160/sec average, ~10k/sec at peak.</li>
+<li>Cache L1: ~1 ns. Memória: ~100 ns. SSD: ~100 us. Round trip de rede mesma região: ~1 ms. Cross-region: ~100 ms.</li>
+<li>Um servidor CPU moderno aguenta ~10k-100k req/seg para JSON simples.</li>
+<li>Postgres aguenta ~10k writes/seg / ~50k reads/seg antes de tuning.</li>
+<li>Redis aguenta ~100k-1M ops/seg.</li>
+<li>100M eventos/dia = ~1.160/seg em média, ~10k/seg no pico.</li>
 </ul>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Cache-aside is the default: check cache, miss -&gt; hit DB -&gt; fill cache. Watch for stampedes and invalidation</li>
-<li>Queues make the API respond fast by handing slow work to workers. They also flatten traffic spikes</li>
-<li>Run two of everything behind a load balancer so no single failure takes the system down</li>
-<li>CDNs buy global latency for pennies. Push every static asset and cacheable response to the edge</li>
-<li>Monolith first, microservices only when the monolith is visibly painful. Extraction is cheaper than un-extraction</li>
-<li>Keep a rough numbers table in your head: ns, us, ms latencies and per-component throughput</li>
+<li>Cache-aside é o default: checa cache, miss -&gt; bate no DB -&gt; preenche cache. Cuidado com stampedes e invalidação</li>
+<li>Filas fazem a API responder rápido entregando trabalho lento aos workers. Também achatam picos de tráfego</li>
+<li>Rode dois de tudo atrás de um load balancer para que nenhuma falha isolada derrube o sistema</li>
+<li>CDNs compram latência global por trocado. Empurre todo asset estático e resposta cacheável para a borda</li>
+<li>Monolito primeiro, microservices só quando o monolito estiver visivelmente doendo. Extrair é mais barato que desextrair</li>
+<li>Mantenha uma tabela aproximada de números na cabeça: latências em ns, us, ms e throughput por componente</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

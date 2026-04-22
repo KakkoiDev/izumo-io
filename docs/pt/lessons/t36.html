@@ -46,10 +46,10 @@
           <a href="t37.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t36-web-components-ii-templates-slots-lifecycle-amp-lit"><a class="heading-anchor" href="#t36-web-components-ii-templates-slots-lifecycle-amp-lit">T36: Web Components II - Templates, Slots, Lifecycle &amp; Lit</a></h1>
-<p class="lesson-intro">A real component needs three more things. <strong>Templates</strong> keep inert markup off-stage until needed. <strong>Slots</strong> let parents inject content like React children. <strong>Lifecycle</strong> callbacks are the element's life stages - birth, insertion, attribute change, removal. Once you know all of this, Lit becomes the espresso machine that hides the ceremony.</p>
-<h2 id="the-element"><a class="heading-anchor" href="#the-element">The <template> Element</a></h2>
-<p>A <code>&lt;template&gt;</code> holds markup that the browser parses but does not render. Use it as a mold: clone its content into a shadow root instead of building strings.</p>
+      <h1 id="t36-web-components-ii-templates-slots-ciclo-de-vida-e-lit"><a class="heading-anchor" href="#t36-web-components-ii-templates-slots-ciclo-de-vida-e-lit">T36: Web Components II - Templates, Slots, Ciclo de Vida e Lit</a></h1>
+<p class="lesson-intro">Um componente de verdade precisa de mais três coisas. <strong>Templates</strong> mantêm marcação inerte nos bastidores até precisar. <strong>Slots</strong> deixam pais injetarem conteúdo, como filhos no React. Callbacks de <strong>ciclo de vida</strong> são os estágios de vida do elemento - nascimento, inserção, mudança de atributo, remoção. Depois que você sabe tudo isso, o Lit vira a cafeteira que esconde a cerimônia.</p>
+<h2 id="o-elemento"><a class="heading-anchor" href="#o-elemento">O Elemento <template></a></h2>
+<p>Um <code>&lt;template&gt;</code> guarda marcação que o navegador parseia mas não renderiza. Use como molde: clone o conteúdo dele para uma shadow root em vez de montar strings.</p>
 <pre><code>&lt;template id=&quot;tpl-user-card&quot;&gt;
     &lt;style&gt;
         :host { display: block; padding: 1rem; border: 1px solid #ddd; }
@@ -72,8 +72,8 @@ class UserCard extends HTMLElement {
 customElements.define(&quot;user-card&quot;, UserCard);
 &lt;/script&gt;
 </code></pre>
-<h2 id="slots-content-projection"><a class="heading-anchor" href="#slots-content-projection">Slots: Content Projection</a></h2>
-<p>A slot is a hole in your shadow tree where the parent's light DOM is projected. Anything the user puts between your tags shows up wherever you placed the <code>&lt;slot&gt;</code>. Named slots let you have multiple injection points.</p>
+<h2 id="slots-proje-o-de-conte-do"><a class="heading-anchor" href="#slots-proje-o-de-conte-do">Slots: Projeção de Conteúdo</a></h2>
+<p>Um slot é um buraco na sua shadow tree onde o light DOM do pai é projetado. Qualquer coisa que o usuário coloca entre suas tags aparece onde você colocou o <code>&lt;slot&gt;</code>. Slots nomeados permitem vários pontos de injeção.</p>
 <pre><code>// Inside the component's shadow root
 &lt;style&gt;
     header { font-weight: bold; }
@@ -90,8 +90,8 @@ customElements.define(&quot;user-card&quot;, UserCard);
     &lt;small slot=&quot;footer&quot;&gt;Updated today&lt;/small&gt;
 &lt;/fancy-card&gt;
 </code></pre>
-<h2 id="lifecycle-callbacks"><a class="heading-anchor" href="#lifecycle-callbacks">Lifecycle Callbacks</a></h2>
-<p>Every custom element has the same five life stages. Do setup in <code>connectedCallback</code>, tear it down in <code>disconnectedCallback</code>. React to attribute changes in <code>attributeChangedCallback</code> - but only for the attributes listed in <code>observedAttributes</code>.</p>
+<h2 id="callbacks-de-ciclo-de-vida"><a class="heading-anchor" href="#callbacks-de-ciclo-de-vida">Callbacks de Ciclo de Vida</a></h2>
+<p>Todo custom element tem os mesmos cinco estágios de vida. Faça o setup em <code>connectedCallback</code>, desmonte em <code>disconnectedCallback</code>. Reaja a mudanças de atributo em <code>attributeChangedCallback</code> - mas só para os atributos listados em <code>observedAttributes</code>.</p>
 <pre><code>class Timer extends HTMLElement {
     static observedAttributes = [&quot;interval&quot;];
 
@@ -129,8 +129,8 @@ sequenceDiagram
     Note over El: removed from DOM<br/>clean up resources
 
 </div>
-<h2 id="lit-the-sugar-layer"><a class="heading-anchor" href="#lit-the-sugar-layer">Lit: The Sugar Layer</a></h2>
-<p>Vanilla Web Components work but are verbose. <strong>Lit</strong> (5KB, from Google) removes boilerplate with reactive properties, tagged-template rendering, and scoped styles. A Lit component <em>is</em> a native custom element - it just wrote less code to get there.</p>
+<h2 id="lit-a-camada-de-a-car"><a class="heading-anchor" href="#lit-a-camada-de-a-car">Lit: A Camada de Açúcar</a></h2>
+<p>Web Components puros funcionam mas são verbosos. O <strong>Lit</strong> (5KB, do Google) tira o boilerplate com propriedades reativas, renderização com tagged templates e estilos escopados. Um componente Lit <em>é</em> um custom element nativo - só escreveu menos código para chegar lá.</p>
 <pre><code>import { LitElement, html, css } from &quot;lit&quot;;
 
 class UserCard extends LitElement {
@@ -157,21 +157,21 @@ customElements.define(&quot;user-card&quot;, UserCard);
 // Usage
 // &lt;user-card name=&quot;Alice&quot; role=&quot;Engineer&quot;&gt;&lt;/user-card&gt;
 </code></pre>
-<h2 id="common-footguns"><a class="heading-anchor" href="#common-footguns">Common Footguns</a></h2>
+<h2 id="armadilhas-comuns"><a class="heading-anchor" href="#armadilhas-comuns">Armadilhas Comuns</a></h2>
 <ul>
-<li><strong>Setup in constructor</strong>: the element is not in the DOM yet. Do it in connectedCallback.</li>
-<li><strong>Forgetting observedAttributes</strong>: attributeChangedCallback will not fire without it.</li>
-<li><strong>Leaking listeners</strong>: everything added in connectedCallback must be removed in disconnectedCallback.</li>
-<li><strong>Shadow DOM and forms</strong>: form inputs in a shadow root do not automatically participate in the parent form. Use ElementInternals + static formAssociated = true.</li>
+<li><strong>Setup no constructor</strong>: o elemento ainda não está no DOM. Faça no connectedCallback.</li>
+<li><strong>Esquecer observedAttributes</strong>: attributeChangedCallback não dispara sem ele.</li>
+<li><strong>Listeners vazando</strong>: tudo adicionado no connectedCallback tem que ser removido no disconnectedCallback.</li>
+<li><strong>Shadow DOM e formulários</strong>: inputs de formulário numa shadow root não participam do formulário pai automaticamente. Use ElementInternals + static formAssociated = true.</li>
 </ul>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>&lt;template&gt; holds inert markup you clone into shadow roots instead of building strings</li>
-<li>&lt;slot&gt; projects parent content into your component. Named slots give multiple injection points</li>
-<li>Five lifecycle callbacks: constructor, connectedCallback, attributeChangedCallback, disconnectedCallback, adoptedCallback</li>
-<li>observedAttributes declares which attributes trigger attributeChangedCallback</li>
-<li>Lit is a thin sugar layer over native Web Components. Same standards, much less boilerplate</li>
+<li>&lt;template&gt; guarda marcação inerte que você clona para shadow roots em vez de montar strings</li>
+<li>&lt;slot&gt; projeta conteúdo do pai para dentro do seu componente. Slots nomeados dão vários pontos de injeção</li>
+<li>Cinco callbacks de ciclo de vida: constructor, connectedCallback, attributeChangedCallback, disconnectedCallback, adoptedCallback</li>
+<li>observedAttributes declara quais atributos disparam attributeChangedCallback</li>
+<li>Lit é uma camada fina de açúcar sobre Web Components nativos. Mesmo padrão, muito menos boilerplate</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

@@ -46,17 +46,17 @@
           <a href="t38.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t37-system-design-the-delivery-framework"><a class="heading-anchor" href="#t37-system-design-the-delivery-framework">T37: System Design - The Delivery Framework</a></h1>
-<p class="lesson-intro">Architects draw blueprints before anyone pours concrete. System design is drawing the blueprint for a piece of software: what it does, what it is made of, how the parts fit. In an interview or on a real project, the hardest part is not knowing databases or caches. It is knowing the order of questions to ask. This lesson teaches that order.</p>
-<h2 id="the-six-steps"><a class="heading-anchor" href="#the-six-steps">The Six Steps</a></h2>
-<p>A good system design conversation moves through six phases, roughly in order. Strictly following them keeps you from drowning in detail before you have a shape.</p>
+      <h1 id="t37-design-de-sistemas-o-framework-de-entrega"><a class="heading-anchor" href="#t37-design-de-sistemas-o-framework-de-entrega">T37: Design de Sistemas - O Framework de Entrega</a></h1>
+<p class="lesson-intro">Arquitetos desenham plantas antes que alguém derrame concreto. Design de sistemas é desenhar a planta de um software: o que faz, do que é feito, como as partes se encaixam. Numa entrevista ou num projeto real, a parte mais difícil não é saber de bancos de dados ou caches. É saber a ordem das perguntas a fazer. Esta aula ensina essa ordem.</p>
+<h2 id="os-seis-passos"><a class="heading-anchor" href="#os-seis-passos">Os Seis Passos</a></h2>
+<p>Uma boa conversa de design de sistemas percorre seis fases, mais ou menos nesta ordem. Seguir à risca te impede de afogar em detalhes antes de ter uma forma.</p>
 <ol>
-<li><strong>Requirements</strong> (~5 min) - what the system must do and how well</li>
-<li><strong>Core Entities</strong> (~2 min) - the nouns your system cares about</li>
-<li><strong>API</strong> (~5 min) - the contract users see</li>
-<li><strong>High-Level Design</strong> (~10-15 min) - boxes and arrows that serve the requirements</li>
-<li><strong>Deep Dives</strong> (~10 min) - fix the bottlenecks and meet the hard targets</li>
-<li><strong>Trade-offs</strong> - explicit choices between cost, speed, consistency, complexity</li>
+<li><strong>Requisitos</strong> (~5 min) - o que o sistema precisa fazer e quão bem</li>
+<li><strong>Entidades Principais</strong> (~2 min) - os substantivos que o sistema se importa</li>
+<li><strong>API</strong> (~5 min) - o contrato que os usuários veem</li>
+<li><strong>Design de Alto Nível</strong> (~10-15 min) - caixas e setas que atendem aos requisitos</li>
+<li><strong>Deep Dives</strong> (~10 min) - arruma os gargalos e bate nas metas difíceis</li>
+<li><strong>Trade-offs</strong> - escolhas explícitas entre custo, velocidade, consistência, complexidade</li>
 </ol>
 <div class="mermaid">
 flowchart LR
@@ -70,8 +70,8 @@ flowchart LR
     D -.iterate.-> H
 
 </div>
-<h2 id="step-1-requirements"><a class="heading-anchor" href="#step-1-requirements">Step 1: Requirements</a></h2>
-<p>Split into <strong>functional</strong> (what users can do) and <strong>non-functional</strong> (how well it must work). Quantify the non-functional targets - "low latency" is useless, "p99 &lt; 200ms" is a blueprint.</p>
+<h2 id="passo-1-requisitos"><a class="heading-anchor" href="#passo-1-requisitos">Passo 1: Requisitos</a></h2>
+<p>Divida em <strong>funcionais</strong> (o que usuários podem fazer) e <strong>não funcionais</strong> (quão bem precisa funcionar). Quantifique as metas não funcionais - "baixa latência" é inútil, "p99 &lt; 200ms" é uma planta.</p>
 <pre><code>// Example: Design a URL shortener (tinyurl-style)
 
 Functional:
@@ -85,20 +85,20 @@ Non-functional:
 - 99.99% availability for redirects
 - Short codes must be unguessable
 </code></pre>
-<h2 id="step-2-core-entities"><a class="heading-anchor" href="#step-2-core-entities">Step 2: Core Entities</a></h2>
-<p>Name the nouns. Keep the list small - you will grow it as you go. Each entity later shows up in both the API and the data model.</p>
+<h2 id="passo-2-entidades-principais"><a class="heading-anchor" href="#passo-2-entidades-principais">Passo 2: Entidades Principais</a></h2>
+<p>Nomeie os substantivos. Mantenha a lista curta - você cresce conforme avança. Cada entidade depois aparece tanto na API quanto no modelo de dados.</p>
 <pre><code>Link { id, short_code, long_url, owner_id, created_at, click_count }
 User { id, email, password_hash }
 </code></pre>
-<h2 id="step-3-api"><a class="heading-anchor" href="#step-3-api">Step 3: API</a></h2>
-<p>Default to REST unless you have a reason not to. Four or five endpoints is plenty. Never trust user IDs from the request body - they come from authentication.</p>
+<h2 id="passo-3-api"><a class="heading-anchor" href="#passo-3-api">Passo 3: API</a></h2>
+<p>Vá de REST por padrão, a não ser que tenha um motivo para não. Quatro ou cinco endpoints bastam. Nunca confie no user ID vindo do body da requisição - ele vem da autenticação.</p>
 <pre><code>POST /links       { long_url } -&gt; { short_code }
 GET  /{code}                    -&gt; 302 redirect
 GET  /links        (auth)       -&gt; list my links + counts
 DELETE /links/{id} (auth)
 </code></pre>
-<h2 id="step-4-high-level-design"><a class="heading-anchor" href="#step-4-high-level-design">Step 4: High-Level Design</a></h2>
-<p>Draw the boxes that implement the API. Keep it simple. You earn complexity only by pointing at a requirement it satisfies.</p>
+<h2 id="passo-4-design-de-alto-n-vel"><a class="heading-anchor" href="#passo-4-design-de-alto-n-vel">Passo 4: Design de Alto Nível</a></h2>
+<p>Desenhe as caixas que implementam a API. Mantenha simples. Você ganha o direito à complexidade só apontando para um requisito que ela satisfaz.</p>
 <div class="mermaid">
 flowchart LR
     Client -->|HTTPS| LB[Load Balancer]
@@ -107,29 +107,29 @@ flowchart LR
     App --> Cache[(Cache<br/>code -&gt; long_url)]
 
 </div>
-<h2 id="step-5-deep-dives"><a class="heading-anchor" href="#step-5-deep-dives">Step 5: Deep Dives</a></h2>
-<p>Walk back through the non-functional targets. For each, point at the component that delivers it or add one that does.</p>
+<h2 id="passo-5-deep-dives"><a class="heading-anchor" href="#passo-5-deep-dives">Passo 5: Deep Dives</a></h2>
+<p>Percorra de volta as metas não funcionais. Para cada uma, aponte para o componente que entrega ou adicione um que entregue.</p>
 <ul>
-<li><strong>p99 &lt; 100ms globally</strong>: add a CDN / edge cache in front. Redirects become a cache lookup.</li>
-<li><strong>Unguessable codes</strong>: 8-char base62 codes from a secure random, plus collision retry. Not an auto-increment ID.</li>
-<li><strong>100M writes / day</strong>: write throughput is ~1200/sec. A single Postgres handles it; shard only if metrics say so.</li>
-<li><strong>Click counts</strong>: do not write to DB on every redirect. Emit to a queue, batch into DB asynchronously.</li>
+<li><strong>p99 &lt; 100ms global</strong>: adicione um CDN / cache de borda na frente. Redirects viram lookup no cache.</li>
+<li><strong>Códigos não adivinháveis</strong>: códigos base62 de 8 caracteres a partir de random seguro, mais retry em colisão. Não ID autoincremento.</li>
+<li><strong>100M writes / dia</strong>: throughput de escrita é ~1200/seg. Um único Postgres dá conta; só shard se métricas disserem.</li>
+<li><strong>Contagem de cliques</strong>: não escreva no DB a cada redirect. Emita para uma fila, agrupe no DB assincronamente.</li>
 </ul>
-<h2 id="step-6-trade-offs-say-them-out-loud"><a class="heading-anchor" href="#step-6-trade-offs-say-them-out-loud">Step 6: Trade-offs - Say Them Out Loud</a></h2>
-<p>Every decision closes one door and opens another. Make the choices visible.</p>
+<h2 id="passo-6-trade-offs-diga-em-voz-alta"><a class="heading-anchor" href="#passo-6-trade-offs-diga-em-voz-alta">Passo 6: Trade-offs - Diga em Voz Alta</a></h2>
+<p>Toda decisão fecha uma porta e abre outra. Torne as escolhas visíveis.</p>
 <ul>
-<li>Async click counts <strong>lose real-time accuracy</strong> to <strong>gain</strong> redirect latency</li>
-<li>CDN caches <strong>stale-on-delete</strong> briefly to <strong>gain</strong> edge speed</li>
-<li>Random codes <strong>waste a little space</strong> to <strong>gain</strong> security</li>
+<li>Contagem assíncrona de cliques <strong>perde precisão em tempo real</strong> para <strong>ganhar</strong> latência de redirect</li>
+<li>Caches de CDN ficam <strong>brevemente desatualizados na deleção</strong> para <strong>ganhar</strong> velocidade na borda</li>
+<li>Códigos aleatórios <strong>desperdiçam um pouco de espaço</strong> para <strong>ganhar</strong> segurança</li>
 </ul>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Move through six steps in order: requirements, entities, API, high-level, deep dives, trade-offs</li>
-<li>Quantify non-functional requirements. "Fast" is noise, "p99 &lt; 200ms" is a target</li>
-<li>Start with the simplest design that meets functional requirements, then justify every box you add</li>
-<li>Deep dives are where you earn your keep - walk the non-functional list and fix each gap</li>
-<li>Say the trade-offs out loud. Every architecture choice closes one door to open another</li>
+<li>Passe pelos seis passos em ordem: requisitos, entidades, API, alto nível, deep dives, trade-offs</li>
+<li>Quantifique requisitos não funcionais. "Rápido" é ruído, "p99 &lt; 200ms" é uma meta</li>
+<li>Comece com o design mais simples que atende os requisitos funcionais, depois justifique cada caixa que adicionar</li>
+<li>Deep dives é onde você mostra o que vale - percorra a lista não funcional e arrume cada buraco</li>
+<li>Diga os trade-offs em voz alta. Toda escolha de arquitetura fecha uma porta para abrir outra</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
