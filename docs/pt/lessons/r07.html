@@ -46,11 +46,11 @@
           <a href="r08.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="r07-keep-things-super-simple"><a class="heading-anchor" href="#r07-keep-things-super-simple">R07: Keep Things Super Simple</a></h1>
-<p class="lesson-intro">Complexity is the enemy of reliability. Every line of code you write is a line that can break. The best code is code you did not have to write. Simple solutions are easier to understand, debug, test, and maintain. When in doubt, choose the simpler approach.</p>
-<h2 id="signs-of-unnecessary-complexity"><a class="heading-anchor" href="#signs-of-unnecessary-complexity">Signs of Unnecessary Complexity</a></h2>
-<p>If you need a diagram to explain your file structure, it is too complex. If a new developer cannot understand your code in 10 minutes, it is too complex. If you have more abstraction layers than features, it is too complex.</p>
-<h2 id="simplicity-in-practice"><a class="heading-anchor" href="#simplicity-in-practice">Simplicity in Practice</a></h2>
+      <h1 id="r07-mantenha-tudo-super-simples"><a class="heading-anchor" href="#r07-mantenha-tudo-super-simples">R07: Mantenha Tudo Super Simples</a></h1>
+<p class="lesson-intro">Complexidade é inimiga da confiabilidade. Cada linha de código que você escreve é uma linha que pode quebrar. O melhor código é o código que você não precisou escrever. Soluções simples são mais fáceis de entender, depurar, testar e manter. Na dúvida, escolha a abordagem mais simples.</p>
+<h2 id="sinais-de-complexidade-desnecess-ria"><a class="heading-anchor" href="#sinais-de-complexidade-desnecess-ria">Sinais de Complexidade Desnecessária</a></h2>
+<p>Se você precisa de um diagrama para explicar sua estrutura de arquivos, está complexo demais. Se um desenvolvedor novo não entende seu código em 10 minutos, está complexo demais. Se você tem mais camadas de abstração do que features, está complexo demais.</p>
+<h2 id="simplicidade-na-pr-tica"><a class="heading-anchor" href="#simplicidade-na-pr-tica">Simplicidade na Prática</a></h2>
 <pre><code>// Complex: over-engineered
 class UserServiceFactory {
     createService(type) {
@@ -63,8 +63,8 @@ function getUser(id) {
     return db.users.find(u =&gt; u.id === id);
 }
 </code></pre>
-<h2 id="when-to-add-complexity"><a class="heading-anchor" href="#when-to-add-complexity">When to Add Complexity</a></h2>
-<p>Add complexity only when the simple solution fails under real requirements. Not imagined future requirements. Solve today's problem today. Refactor tomorrow if needed.</p>
+<h2 id="quando-adicionar-complexidade"><a class="heading-anchor" href="#quando-adicionar-complexidade">Quando Adicionar Complexidade</a></h2>
+<p>Adicione complexidade só quando a solução simples falhar diante de requisitos reais. Não requisitos imaginários do futuro. Resolva o problema de hoje hoje. Refatore amanhã se precisar.</p>
 <div class="mermaid">
 flowchart LR
     subgraph Simple
@@ -82,10 +82,10 @@ flowchart LR
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>The best code is code you did not have to write</li>
-<li>Simple solutions are easier to understand, debug, and maintain</li>
-<li>Add complexity only when simple solutions fail under real requirements</li>
-<li>If a new developer cannot understand it in 10 minutes, simplify</li>
+<li>O melhor código é o código que você não precisou escrever</li>
+<li>Soluções simples são mais fáceis de entender, depurar e manter</li>
+<li>Adicione complexidade só quando soluções simples falham diante de requisitos reais</li>
+<li>Se um desenvolvedor novo não entende em 10 minutos, simplifique</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
