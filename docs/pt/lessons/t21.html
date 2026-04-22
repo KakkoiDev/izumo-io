@@ -46,9 +46,9 @@
           <a href="t22.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t21-node-js-server"><a class="heading-anchor" href="#t21-node-js-server">T21: Node.js Server</a></h1>
-<p class="lesson-intro">Until now, you have been opening HTML files directly in the browser. A web server is a program that listens for requests and sends back responses. Node.js lets you write that server in JavaScript - the same language you already know from the browser. It is like hiring a receptionist who speaks the same language as your entire team.</p>
-<h2 id="creating-an-http-server"><a class="heading-anchor" href="#creating-an-http-server">Creating an HTTP Server</a></h2>
+      <h1 id="t21-servidor-node-js"><a class="heading-anchor" href="#t21-servidor-node-js">T21: Servidor Node.js</a></h1>
+<p class="lesson-intro">Até aqui, você estava abrindo arquivos HTML direto no navegador. Um servidor web é um programa que escuta requisições e devolve respostas. Node.js te deixa escrever esse servidor em JavaScript - a mesma linguagem que você já conhece do navegador. É como contratar uma recepcionista que fala a mesma língua do time inteiro.</p>
+<h2 id="criando-um-servidor-http"><a class="heading-anchor" href="#criando-um-servidor-http">Criando um Servidor HTTP</a></h2>
 <pre><code>const http = require(&quot;http&quot;);
 const fs = require(&quot;fs&quot;);
 const path = require(&quot;path&quot;);
@@ -75,8 +75,8 @@ const server = http.createServer((req, res) =&gt; {
 
 server.listen(3000, () =&gt; console.log(&quot;Server on http://localhost:3000&quot;));
 </code></pre>
-<h2 id="serving-static-files"><a class="heading-anchor" href="#serving-static-files">Serving Static Files</a></h2>
-<p>The server reads files from the "public" folder and sends them to the browser with the correct content type header.</p>
+<h2 id="servindo-arquivos-est-ticos"><a class="heading-anchor" href="#servindo-arquivos-est-ticos">Servindo Arquivos Estáticos</a></h2>
+<p>O servidor lê arquivos da pasta "public" e envia para o navegador com o header de content type correto.</p>
 <div class="mermaid">
 flowchart LR
     A[Browser] -->|HTTP Request| B[Node.js Server]
@@ -89,10 +89,10 @@ flowchart LR
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Node.js runs JavaScript outside the browser on your server</li>
-<li>http.createServer creates a server that handles requests and responses</li>
-<li>Content-Type headers tell the browser how to interpret the response</li>
-<li>Static file serving maps URL paths to files on disk</li>
+<li>Node.js roda JavaScript fora do navegador, no seu servidor</li>
+<li>http.createServer cria um servidor que trata requisições e respostas</li>
+<li>Headers Content-Type dizem ao navegador como interpretar a resposta</li>
+<li>Servir arquivos estáticos é mapear caminhos de URL para arquivos no disco</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

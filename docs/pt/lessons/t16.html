@@ -46,10 +46,10 @@
           <a href="t17.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t16-dynamic-site-routing"><a class="heading-anchor" href="#t16-dynamic-site-routing">T16: Dynamic Site - Routing</a></h1>
-<p class="lesson-intro">In a traditional website, each page is a separate HTML file. A Single Page Application (SPA) loads once and swaps content dynamically. Hash routing uses the URL fragment (the part after #) to determine which view to show - like chapters in a book that you flip to without getting a new book.</p>
-<h2 id="hash-based-routing"><a class="heading-anchor" href="#hash-based-routing">Hash-Based Routing</a></h2>
-<p>The hash portion of the URL (after #) does not trigger a page reload. We can listen for hash changes and render different content.</p>
+      <h1 id="t16-site-din-mico-roteamento"><a class="heading-anchor" href="#t16-site-din-mico-roteamento">T16: Site Dinâmico - Roteamento</a></h1>
+<p class="lesson-intro">Num site tradicional, cada página é um arquivo HTML separado. Uma Single Page Application (SPA) carrega uma vez e troca o conteúdo dinamicamente. Hash routing usa o fragmento da URL (a parte depois do #) para determinar qual visualização mostrar - como capítulos de um livro que você vai folheando sem pegar um livro novo.</p>
+<h2 id="roteamento-por-hash"><a class="heading-anchor" href="#roteamento-por-hash">Roteamento por Hash</a></h2>
+<p>A parte do hash da URL (depois do #) não dispara recarga da página. Podemos escutar mudanças no hash e renderizar conteúdo diferente.</p>
 <pre><code>const routes = {
     &quot;#/&quot;: renderHome,
     &quot;#/about&quot;: renderAbout,
@@ -65,7 +65,7 @@ function router() {
 window.addEventListener(&quot;hashchange&quot;, router);
 window.addEventListener(&quot;load&quot;, router);
 </code></pre>
-<h2 id="dynamic-content-rendering"><a class="heading-anchor" href="#dynamic-content-rendering">Dynamic Content Rendering</a></h2>
+<h2 id="renderiza-o-din-mica-de-conte-do"><a class="heading-anchor" href="#renderiza-o-din-mica-de-conte-do">Renderização Dinâmica de Conteúdo</a></h2>
 <pre><code>function renderHome() {
     document.querySelector(&quot;#app&quot;).innerHTML = `
         &lt;h1&gt;Home&lt;/h1&gt;
@@ -89,10 +89,10 @@ flowchart TD
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>SPAs load one HTML file and swap content dynamically via JavaScript</li>
-<li>Hash routing uses the URL fragment to determine which view to display</li>
-<li>The hashchange event fires whenever the URL hash changes</li>
-<li>A route map object connects hash patterns to render functions</li>
+<li>SPAs carregam um arquivo HTML e trocam o conteúdo dinamicamente via JavaScript</li>
+<li>Hash routing usa o fragmento da URL para decidir qual visualização mostrar</li>
+<li>O evento hashchange dispara sempre que o hash da URL muda</li>
+<li>Um objeto de mapa de rotas conecta padrões de hash a funções de renderização</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

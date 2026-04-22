@@ -46,10 +46,10 @@
           <a href="t20.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t19-git-basics"><a class="heading-anchor" href="#t19-git-basics">T19: Git Basics</a></h1>
-<p class="lesson-intro">Git is a time machine for your code. Every time you finish a small piece of work, you take a snapshot. Later you can rewind, branch into an alternate timeline, or compare any two moments. Think of it as a photographer's workflow: you shoot pictures all day (editing files), pick the keepers (staging), and paste them into a photo album with a caption (committing).</p>
-<h2 id="the-three-areas"><a class="heading-anchor" href="#the-three-areas">The Three Areas</a></h2>
-<p>Git splits your project into three zones. The <strong>working directory</strong> is the folder on disk where you edit. The <strong>staging area</strong> (or index) is where you gather the exact changes you want to save next. The <strong>repository</strong> is the permanent history of every snapshot you have ever committed.</p>
+      <h1 id="t19-fundamentos-de-git"><a class="heading-anchor" href="#t19-fundamentos-de-git">T19: Fundamentos de Git</a></h1>
+<p class="lesson-intro">Git é uma máquina do tempo para seu código. Toda vez que você termina um pedacinho de trabalho, você tira um snapshot. Depois você pode rebobinar, criar uma linha do tempo alternativa ou comparar quaisquer dois momentos. Pense no fluxo de um fotógrafo: você bate fotos o dia todo (editando arquivos), escolhe as que valem (staging) e cola no álbum com legenda (commit).</p>
+<h2 id="as-tr-s-reas"><a class="heading-anchor" href="#as-tr-s-reas">As Três Áreas</a></h2>
+<p>Git divide seu projeto em três zonas. O <strong>working directory</strong> (diretório de trabalho) é a pasta em disco onde você edita. A <strong>staging area</strong> (área de preparação, ou index) é onde você junta as mudanças exatas que quer salvar a seguir. O <strong>repository</strong> (repositório) é o histórico permanente de cada snapshot que você já commitou.</p>
 <pre><code># Start a new repo in the current folder
 git init
 
@@ -61,7 +61,7 @@ git config --global user.email &quot;you@example.com&quot;
 git status
 </code></pre>
 <h2 id="edit-stage-commit"><a class="heading-anchor" href="#edit-stage-commit">Edit, Stage, Commit</a></h2>
-<p>The core loop of every day: change files, choose which changes to save, save them with a message. The message is a note to your future self explaining <em>why</em> you made the change.</p>
+<p>O loop central de todo dia: mudar arquivos, escolher quais mudanças salvar, salvar com uma mensagem. A mensagem é um recado para o seu eu futuro explicando <em>por que</em> você fez a mudança.</p>
 <pre><code># After editing some files
 git status                      # what changed?
 git add index.html styles.css   # stage specific files
@@ -69,8 +69,8 @@ git add .                       # or stage everything
 git commit -m &quot;Add contact form layout&quot;
 git log --oneline               # browse history
 </code></pre>
-<h2 id="branches-alternate-timelines"><a class="heading-anchor" href="#branches-alternate-timelines">Branches: Alternate Timelines</a></h2>
-<p>A branch is a lightweight pointer to a commit. You spin one up when you want to try something without disturbing the main timeline. When you are happy, you merge it back. When you are not, you throw the branch away at zero cost.</p>
+<h2 id="branches-linhas-do-tempo-alternativas"><a class="heading-anchor" href="#branches-linhas-do-tempo-alternativas">Branches: Linhas do Tempo Alternativas</a></h2>
+<p>Um branch é um ponteiro leve para um commit. Você cria um quando quer testar algo sem mexer na linha do tempo principal. Quando gosta, faz merge de volta. Quando não, joga o branch fora a custo zero.</p>
 <pre><code>git branch                     # list branches
 git checkout -b feature/login  # create and switch to new branch
 # ...edit, stage, commit...
@@ -92,7 +92,7 @@ gitGraph
     commit id: "deploy"
 
 </div>
-<p>Read this diagram left to right. The <code>main</code> line is your default timeline. <code>feature/login</code> splits off, gets two commits, and is merged back in. After the merge, main contains everything from both lines.</p>
+<p>Leia o diagrama da esquerda para a direita. A linha <code>main</code> é sua linha do tempo padrão. <code>feature/login</code> se separa, ganha dois commits e volta para o merge. Depois do merge, main contém tudo das duas linhas.</p>
 <div class="mermaid">
 flowchart LR
     WD[Working Directory<br/>edited files] -->|git add| SA[Staging Area<br/>the next snapshot]
@@ -100,14 +100,14 @@ flowchart LR
     R -->|git checkout| WD
 
 </div>
-<h2 id="undo-without-fear"><a class="heading-anchor" href="#undo-without-fear">Undo Without Fear</a></h2>
-<p>Because commits are snapshots, almost nothing is ever truly lost. <code>git restore</code> discards unstaged changes. <code>git reset</code> unstages a file. <code>git revert</code> creates a new commit that undoes an old one, keeping history honest.</p>
+<h2 id="desfazer-sem-medo"><a class="heading-anchor" href="#desfazer-sem-medo">Desfazer Sem Medo</a></h2>
+<p>Como commits são snapshots, quase nada se perde de verdade. <code>git restore</code> descarta mudanças não preparadas. <code>git reset</code> tira um arquivo do stage. <code>git revert</code> cria um novo commit que desfaz um antigo, mantendo o histórico honesto.</p>
 <pre><code>git restore styles.css         # throw away edits in one file
 git restore --staged index.html # unstage but keep edits
 git revert abc123              # undo commit abc123 with a new commit
 </code></pre>
-<h2 id="what-to-ignore"><a class="heading-anchor" href="#what-to-ignore">What to Ignore</a></h2>
-<p>Some files should never be tracked: secrets, build output, huge binaries, editor junk. List them in a <code>.gitignore</code> file at the repo root.</p>
+<h2 id="o-que-ignorar"><a class="heading-anchor" href="#o-que-ignorar">O Que Ignorar</a></h2>
+<p>Alguns arquivos nunca devem ser rastreados: segredos, saída de build, binários enormes, lixo do editor. Liste no arquivo <code>.gitignore</code> na raiz do repo.</p>
 <pre><code># .gitignore
 node_modules/
 .env
@@ -118,11 +118,11 @@ dist/
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Git has three zones: working directory, staging area, repository. All commands move content between them</li>
-<li>A commit is a snapshot of every tracked file plus a message explaining why</li>
-<li>Branches are cheap pointers to commits. Create one for every feature or experiment</li>
-<li>Commit messages are letters to your future self. Explain the why, not just the what</li>
-<li>Put secrets and generated files in .gitignore before your first commit</li>
+<li>Git tem três zonas: diretório de trabalho, staging area, repositório. Todos os comandos movem conteúdo entre eles</li>
+<li>Um commit é um snapshot de todo arquivo rastreado mais uma mensagem explicando o porquê</li>
+<li>Branches são ponteiros baratos para commits. Crie um para cada feature ou experimento</li>
+<li>Mensagens de commit são cartas para o seu eu futuro. Explique o porquê, não só o que</li>
+<li>Ponha segredos e arquivos gerados no .gitignore antes do primeiro commit</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

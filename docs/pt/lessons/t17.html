@@ -46,9 +46,9 @@
           <a href="t18.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t17-dynamic-site-offline"><a class="heading-anchor" href="#t17-dynamic-site-offline">T17: Dynamic Site - Offline</a></h1>
-<p class="lesson-intro">Service Workers are scripts that run in the background, separate from your web page. They intercept network requests and can serve cached responses when offline. Think of a Service Worker as a programmable proxy server living inside the browser - it decides whether to fetch from the network or serve from cache.</p>
-<h2 id="registering-a-service-worker"><a class="heading-anchor" href="#registering-a-service-worker">Registering a Service Worker</a></h2>
+      <h1 id="t17-site-din-mico-offline"><a class="heading-anchor" href="#t17-site-din-mico-offline">T17: Site Dinâmico - Offline</a></h1>
+<p class="lesson-intro">Service Workers são scripts que rodam em segundo plano, separados da sua página web. Eles interceptam requisições de rede e podem servir respostas cacheadas quando offline. Pense num Service Worker como um servidor proxy programável morando dentro do navegador - ele decide se busca na rede ou serve do cache.</p>
+<h2 id="registrando-um-service-worker"><a class="heading-anchor" href="#registrando-um-service-worker">Registrando um Service Worker</a></h2>
 <pre><code>// In your main JS file
 if (&quot;serviceWorker&quot; in navigator) {
     navigator.serviceWorker.register(&quot;/sw.js&quot;)
@@ -56,7 +56,7 @@ if (&quot;serviceWorker&quot; in navigator) {
         .catch(err =&gt; console.error(&quot;SW failed:&quot;, err));
 }
 </code></pre>
-<h2 id="the-service-worker-file"><a class="heading-anchor" href="#the-service-worker-file">The Service Worker File</a></h2>
+<h2 id="o-arquivo-do-service-worker"><a class="heading-anchor" href="#o-arquivo-do-service-worker">O Arquivo do Service Worker</a></h2>
 <pre><code>// sw.js
 const CACHE_NAME = &quot;v1&quot;;
 const ASSETS = [&quot;/&quot;, &quot;/index.html&quot;, &quot;/style.css&quot;, &quot;/app.js&quot;];
@@ -75,8 +75,8 @@ self.addEventListener(&quot;fetch&quot;, event =&gt; {
     );
 });
 </code></pre>
-<h2 id="pwa-manifest"><a class="heading-anchor" href="#pwa-manifest">PWA Manifest</a></h2>
-<p>Add a <code>manifest.json</code> file to make your site installable as an app on mobile devices.</p>
+<h2 id="manifest-do-pwa"><a class="heading-anchor" href="#manifest-do-pwa">Manifest do PWA</a></h2>
+<p>Adicione um arquivo <code>manifest.json</code> para tornar seu site instalável como app em dispositivos móveis.</p>
 <div class="mermaid">
 stateDiagram-v2
     [*] --> Installing: register()
@@ -91,10 +91,10 @@ stateDiagram-v2
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Service Workers run in the background and intercept network requests</li>
-<li>Cache assets during install to enable offline functionality</li>
-<li>The fetch event handler decides: serve from cache or fetch from network</li>
-<li>A manifest.json file makes your web app installable on mobile devices</li>
+<li>Service Workers rodam em segundo plano e interceptam requisições de rede</li>
+<li>Cacheie assets durante o install para habilitar funcionalidade offline</li>
+<li>O handler do evento fetch decide: servir do cache ou buscar na rede</li>
+<li>Um arquivo manifest.json torna seu web app instalável em dispositivos móveis</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

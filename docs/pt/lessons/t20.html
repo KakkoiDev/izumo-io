@@ -46,10 +46,10 @@
           <a href="t21.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t20-github-amp-collaboration"><a class="heading-anchor" href="#t20-github-amp-collaboration">T20: GitHub &amp; Collaboration</a></h1>
-<p class="lesson-intro">Git is your personal time machine on your desk. GitHub is the shared workshop where many time travelers meet, compare notes, and build together. The same repository lives in two places at once: your laptop and the cloud. Pushing and pulling keeps them in sync.</p>
-<h2 id="remotes-where-the-copy-lives"><a class="heading-anchor" href="#remotes-where-the-copy-lives">Remotes: Where the Copy Lives</a></h2>
-<p>A <strong>remote</strong> is a named URL pointing to a copy of your repository somewhere else. By convention the main remote is called <code>origin</code>. You push commits up to origin and pull commits down from it.</p>
+      <h1 id="t20-github-e-colabora-o"><a class="heading-anchor" href="#t20-github-e-colabora-o">T20: GitHub e Colaboração</a></h1>
+<p class="lesson-intro">Git é sua máquina do tempo pessoal na sua mesa. GitHub é a oficina compartilhada onde vários viajantes do tempo se encontram, comparam anotações e constroem juntos. O mesmo repositório vive em dois lugares ao mesmo tempo: seu laptop e a nuvem. Push e pull mantêm os dois sincronizados.</p>
+<h2 id="remotes-onde-a-c-pia-vive"><a class="heading-anchor" href="#remotes-onde-a-c-pia-vive">Remotes: Onde a Cópia Vive</a></h2>
+<p>Um <strong>remote</strong> é uma URL nomeada que aponta para uma cópia do seu repositório em outro lugar. Por convenção, o remote principal se chama <code>origin</code>. Você faz push dos commits para o origin e pull dos commits de lá.</p>
 <pre><code># Start from an existing GitHub repo
 git clone https://github.com/you/my-project.git
 cd my-project
@@ -60,22 +60,22 @@ git remote add origin https://github.com/you/my-project.git
 git branch -M main
 git push -u origin main        # -u sets the default upstream
 </code></pre>
-<h2 id="push-and-pull"><a class="heading-anchor" href="#push-and-pull">Push and Pull</a></h2>
-<p>Push uploads your local commits to the remote. Pull downloads and merges remote commits into your current branch. Always pull before you start new work so you are building on the latest.</p>
+<h2 id="push-e-pull"><a class="heading-anchor" href="#push-e-pull">Push e Pull</a></h2>
+<p>Push envia seus commits locais para o remote. Pull baixa e faz merge de commits do remote no seu branch atual. Sempre dê pull antes de começar trabalho novo para construir em cima do mais recente.</p>
 <pre><code>git pull                       # fetch + merge from origin
 git push                       # send your commits up
 
 # First push of a new branch
 git push -u origin feature/login
 </code></pre>
-<h2 id="github-flow-the-beginner-friendly-workflow"><a class="heading-anchor" href="#github-flow-the-beginner-friendly-workflow">GitHub Flow: The Beginner-Friendly Workflow</a></h2>
-<p>GitHub Flow is the simplest pro workflow. One rule: <strong>main</strong> is always deployable. Everything else happens on short-lived branches behind a pull request.</p>
+<h2 id="github-flow-o-fluxo-amig-vel-para-iniciantes"><a class="heading-anchor" href="#github-flow-o-fluxo-amig-vel-para-iniciantes">GitHub Flow: O Fluxo Amigável para Iniciantes</a></h2>
+<p>GitHub Flow é o fluxo profissional mais simples. Uma regra: <strong>main</strong> está sempre pronto para deploy. Todo o resto acontece em branches de vida curta por trás de um pull request.</p>
 <ol>
-<li>Create a branch off main for your change</li>
-<li>Commit as you work</li>
-<li>Push the branch and open a <strong>pull request</strong> (PR)</li>
-<li>A teammate reviews, CI runs tests automatically</li>
-<li>Merge when green, delete the branch, pull latest main</li>
+<li>Crie um branch a partir de main para sua mudança</li>
+<li>Faça commits conforme trabalha</li>
+<li>Push o branch e abra um <strong>pull request</strong> (PR)</li>
+<li>Um colega revisa, o CI roda testes automaticamente</li>
+<li>Merge quando estiver verde, delete o branch, pull o main mais recente</li>
 </ol>
 <div class="mermaid">
 gitGraph
@@ -94,7 +94,7 @@ gitGraph
     commit id: "next feature"
 
 </div>
-<p>The branch lives only as long as the pull request. Once merged, it is deleted. The <code>PR #42</code> tag is the lasting record of the conversation, the review, and the CI checks that happened around that merge commit.</p>
+<p>O branch só vive enquanto o pull request está aberto. Depois do merge, é deletado. A tag <code>PR #42</code> é o registro permanente da conversa, da revisão e dos checks de CI que aconteceram em torno daquele merge commit.</p>
 <div class="mermaid">
 sequenceDiagram
     participant You as Your Laptop
@@ -112,8 +112,8 @@ sequenceDiagram
     You->>You: git pull (to get merged main)
 
 </div>
-<h2 id="pull-requests-conversations-around-code"><a class="heading-anchor" href="#pull-requests-conversations-around-code">Pull Requests: Conversations Around Code</a></h2>
-<p>A PR is more than a merge button. It is a permanent record of what you did, why, who reviewed it, and what tests ran. Write PR descriptions like you are explaining the change to a teammate six months from now.</p>
+<h2 id="pull-requests-conversas-em-torno-de-c-digo"><a class="heading-anchor" href="#pull-requests-conversas-em-torno-de-c-digo">Pull Requests: Conversas em Torno de Código</a></h2>
+<p>Um PR é mais que um botão de merge. É um registro permanente do que você fez, por quê, quem revisou e quais testes rodaram. Escreva descrições de PR como se estivesse explicando a mudança para um colega daqui a seis meses.</p>
 <pre><code>## Summary
 Adds a contact form to the landing page.
 
@@ -125,8 +125,8 @@ Closes #42. Users had no way to reach us outside Discord.
 - [x] Submission shows success toast
 - [ ] Confirm email arrives in inbox
 </code></pre>
-<h2 id="merge-conflicts"><a class="heading-anchor" href="#merge-conflicts">Merge Conflicts</a></h2>
-<p>When two branches edit the same line, git stops and asks you to decide. It marks the conflict in the file with <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. Pick the right version, delete the markers, stage, and commit.</p>
+<h2 id="conflitos-de-merge"><a class="heading-anchor" href="#conflitos-de-merge">Conflitos de Merge</a></h2>
+<p>Quando dois branches editam a mesma linha, o git para e pede para você decidir. Ele marca o conflito no arquivo com <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> e <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. Escolha a versão certa, apague os marcadores, faça stage e commit.</p>
 <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 color: blue;
 =======
@@ -136,11 +136,11 @@ color: green;
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>GitHub stores a remote copy of your repo. origin is the conventional name</li>
-<li>Push sends commits up, pull brings them down. Pull before starting new work</li>
-<li>GitHub Flow: branch off main, commit, push, open PR, get review, merge, delete branch</li>
-<li>Write pull request descriptions for the reader, not the author. Explain why</li>
-<li>Merge conflicts are normal. Read the markers, choose a version, re-commit</li>
+<li>GitHub guarda uma cópia remota do seu repo. origin é o nome convencional</li>
+<li>Push envia commits para cima, pull traz para baixo. Dê pull antes de começar trabalho novo</li>
+<li>GitHub Flow: branch a partir de main, commit, push, abra PR, revisão, merge, delete o branch</li>
+<li>Escreva descrições de pull request para o leitor, não para o autor. Explique o porquê</li>
+<li>Conflitos de merge são normais. Leia os marcadores, escolha uma versão, re-commite</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

@@ -46,10 +46,10 @@
           <a href="t19.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t18-dynamic-site-polish"><a class="heading-anchor" href="#t18-dynamic-site-polish">T18: Dynamic Site - Polish</a></h1>
-<p class="lesson-intro">Performance is a feature. Users abandon sites that load slowly. Polishing your site means optimizing what loads, when it loads, and how it loads. Like a restaurant that prepares popular dishes in advance and only cooks rare orders on demand.</p>
+      <h1 id="t18-site-din-mico-acabamento"><a class="heading-anchor" href="#t18-site-din-mico-acabamento">T18: Site Dinâmico - Acabamento</a></h1>
+<p class="lesson-intro">Performance é uma feature. Usuários abandonam sites lentos. Dar acabamento ao seu site significa otimizar o que carrega, quando carrega e como carrega. Como um restaurante que prepara pratos populares com antecedência e só cozinha os raros sob demanda.</p>
 <h2 id="lazy-loading"><a class="heading-anchor" href="#lazy-loading">Lazy Loading</a></h2>
-<p>Load images and content only when they enter the viewport. The <code>loading="lazy"</code> attribute handles images natively.</p>
+<p>Carregue imagens e conteúdo só quando entrarem no viewport. O atributo <code>loading="lazy"</code> cuida disso nativamente para imagens.</p>
 <pre><code>&lt;img src=&quot;photo.jpg&quot; loading=&quot;lazy&quot; alt=&quot;Lazy loaded&quot;&gt;
 
 // For custom lazy loading with Intersection Observer
@@ -63,8 +63,8 @@ const observer = new IntersectionObserver((entries) =&gt; {
     });
 });
 </code></pre>
-<h2 id="performance-techniques"><a class="heading-anchor" href="#performance-techniques">Performance Techniques</a></h2>
-<p>Minimize render-blocking resources. Defer non-critical JavaScript. Use efficient selectors and reduce DOM size.</p>
+<h2 id="t-cnicas-de-performance"><a class="heading-anchor" href="#t-cnicas-de-performance">Técnicas de Performance</a></h2>
+<p>Minimize recursos que bloqueiam o render. Adie JavaScript não crítico. Use seletores eficientes e reduza o tamanho do DOM.</p>
 <pre><code>&lt;!-- Defer non-critical JS --&gt;
 &lt;script src=&quot;app.js&quot; defer&gt;&lt;/script&gt;
 
@@ -72,7 +72,7 @@ const observer = new IntersectionObserver((entries) =&gt; {
 &lt;link rel=&quot;preload&quot; href=&quot;font.woff2&quot; as=&quot;font&quot; crossorigin&gt;
 </code></pre>
 <h2 id="code-splitting"><a class="heading-anchor" href="#code-splitting">Code Splitting</a></h2>
-<p>Load only the JavaScript needed for the current view. Import additional modules when the user navigates to them.</p>
+<p>Carregue só o JavaScript necessário para a visualização atual. Importe módulos adicionais quando o usuário navegar para eles.</p>
 <pre><code>async function loadModule(name) {
     const module = await import(`./modules/${name}.js`);
     module.init();
@@ -94,10 +94,10 @@ sequenceDiagram
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Lazy loading defers non-visible content until it enters the viewport</li>
-<li>Use defer attribute on script tags to avoid render-blocking</li>
-<li>Preload critical resources like fonts to speed up first paint</li>
-<li>Code splitting loads only the JavaScript needed for the current view</li>
+<li>Lazy loading adia conteúdo não visível até que ele entre no viewport</li>
+<li>Use o atributo defer em tags script para evitar bloqueio de render</li>
+<li>Faça preload de recursos críticos como fontes para acelerar o primeiro pintar</li>
+<li>Code splitting carrega só o JavaScript necessário para a visualização atual</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
