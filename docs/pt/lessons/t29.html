@@ -46,10 +46,10 @@
           <a href="t30.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t29-react-state-amp-effects"><a class="heading-anchor" href="#t29-react-state-amp-effects">T29: React State &amp; Effects</a></h1>
-<p class="lesson-intro">State is a component's personal notebook - private data that persists across renders and triggers re-renders when updated. Effects are like alarm clocks that go off after the component renders, letting you synchronize with external systems like APIs or timers.</p>
-<h2 id="usestate-component-memory"><a class="heading-anchor" href="#usestate-component-memory">useState: Component Memory</a></h2>
-<p>The <code>useState</code> hook gives a component its own memory. It returns the current value and a setter function. When the setter is called, React re-renders the component with the new value.</p>
+      <h1 id="t29-estado-e-efeitos-no-react"><a class="heading-anchor" href="#t29-estado-e-efeitos-no-react">T29: Estado e Efeitos no React</a></h1>
+<p class="lesson-intro">O estado é o caderno pessoal do componente - dados privados que persistem entre renders e disparam re-renderização quando atualizados. Efeitos são como despertadores que tocam depois do componente renderizar, permitindo sincronizar com sistemas externos como APIs ou timers.</p>
+<h2 id="usestate-mem-ria-do-componente"><a class="heading-anchor" href="#usestate-mem-ria-do-componente">useState: Memória do Componente</a></h2>
+<p>O hook <code>useState</code> dá ao componente sua própria memória. Retorna o valor atual e uma função setter. Quando o setter é chamado, o React re-renderiza o componente com o novo valor.</p>
 <pre><code>import { useState } from &quot;react&quot;;
 
 function Counter() {
@@ -64,8 +64,8 @@ function Counter() {
     );
 }
 </code></pre>
-<h2 id="useeffect-side-effects"><a class="heading-anchor" href="#useeffect-side-effects">useEffect: Side Effects</a></h2>
-<p>The <code>useEffect</code> hook runs code after render. The dependency array controls when it re-runs. An empty array means "run once on mount." Including variables means "re-run when these change."</p>
+<h2 id="useeffect-efeitos-colaterais"><a class="heading-anchor" href="#useeffect-efeitos-colaterais">useEffect: Efeitos Colaterais</a></h2>
+<p>O hook <code>useEffect</code> executa código depois do render. O array de dependências controla quando ele roda de novo. Um array vazio significa "rodar uma vez no mount". Incluir variáveis significa "rodar de novo quando essas mudarem".</p>
 <pre><code>import { useState, useEffect } from &quot;react&quot;;
 
 function MenuPage() {
@@ -86,7 +86,7 @@ function MenuPage() {
 }
 </code></pre>
 <h2 id="lifting-state-up"><a class="heading-anchor" href="#lifting-state-up">Lifting State Up</a></h2>
-<p>When two sibling components need to share data, move the state to their common parent. The parent owns the state and passes it down as props. This is React's primary data-sharing pattern.</p>
+<p>Quando dois componentes irmãos precisam compartilhar dados, mova o estado para o pai comum. O pai é dono do estado e passa para baixo como props. Esse é o principal padrão de compartilhamento de dados do React.</p>
 <div class="mermaid">
 flowchart TD
     A[Render Component] --> B[useEffect Runs]
@@ -104,10 +104,10 @@ flowchart TD
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>useState gives components memory that persists across renders</li>
-<li>useEffect runs side effects after render, controlled by the dependency array</li>
-<li>An empty dependency array means the effect runs only once on mount</li>
-<li>Lift state to the nearest common parent when siblings need to share data</li>
+<li>useState dá memória aos componentes, persistindo entre renders</li>
+<li>useEffect roda efeitos colaterais após render, controlado pelo array de dependências</li>
+<li>Um array de dependências vazio significa que o efeito roda só uma vez no mount</li>
+<li>Eleve o estado para o pai comum mais próximo quando irmãos precisarem compartilhar dados</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

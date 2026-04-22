@@ -46,17 +46,17 @@
           <a href="t27.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t26-ollama-and-chat"><a class="heading-anchor" href="#t26-ollama-and-chat">T26: Ollama and Chat</a></h1>
-<p class="lesson-intro">Large Language Models (LLMs) can now run locally on your machine. Ollama makes it easy to download and serve open-source models. Connecting your web app to a local LLM gives you AI-powered features without sending data to external services - like having a smart assistant living on your own computer.</p>
-<h2 id="setting-up-ollama"><a class="heading-anchor" href="#setting-up-ollama">Setting Up Ollama</a></h2>
-<p>Install Ollama, pull a model, and it serves an API on localhost:11434.</p>
+      <h1 id="t26-ollama-e-chat"><a class="heading-anchor" href="#t26-ollama-e-chat">T26: Ollama e Chat</a></h1>
+<p class="lesson-intro">Modelos de linguagem grandes (LLMs) hoje rodam localmente na sua máquina. O Ollama facilita baixar e servir modelos open source. Conectar seu web app a um LLM local te dá features com IA sem enviar dados para serviços externos - como ter um assistente esperto morando no seu próprio computador.</p>
+<h2 id="configurando-o-ollama"><a class="heading-anchor" href="#configurando-o-ollama">Configurando o Ollama</a></h2>
+<p>Instale o Ollama, puxe um modelo e ele serve uma API em localhost:11434.</p>
 <pre><code># Install and run
 # ollama pull llama3
 # ollama serve
 
 # The API is now available at http://localhost:11434
 </code></pre>
-<h2 id="chat-api-integration"><a class="heading-anchor" href="#chat-api-integration">Chat API Integration</a></h2>
+<h2 id="integra-o-com-a-api-de-chat"><a class="heading-anchor" href="#integra-o-com-a-api-de-chat">Integração com a API de Chat</a></h2>
 <pre><code>async function chat(messages) {
     const response = await fetch(&quot;http://localhost:11434/api/chat&quot;, {
         method: &quot;POST&quot;,
@@ -77,8 +77,8 @@ const reply = await chat([
     { role: &quot;user&quot;, content: &quot;Explain HTML in one sentence.&quot; }
 ]);
 </code></pre>
-<h2 id="building-a-chat-interface"><a class="heading-anchor" href="#building-a-chat-interface">Building a Chat Interface</a></h2>
-<p>Store the conversation history as an array of message objects. Append each new message and send the full history to maintain context.</p>
+<h2 id="construindo-uma-interface-de-chat"><a class="heading-anchor" href="#construindo-uma-interface-de-chat">Construindo uma Interface de Chat</a></h2>
+<p>Guarde o histórico da conversa como um array de objetos de mensagem. Anexe cada nova mensagem e envie o histórico completo para manter o contexto.</p>
 <div class="mermaid">
 sequenceDiagram
     participant U as User
@@ -96,10 +96,10 @@ sequenceDiagram
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Ollama runs open-source LLMs locally with a simple API</li>
-<li>The chat API takes an array of messages with role and content fields</li>
-<li>Send the full conversation history for context-aware responses</li>
-<li>Local LLMs keep your data private - no external API calls needed</li>
+<li>Ollama roda LLMs open source localmente com uma API simples</li>
+<li>A API de chat recebe um array de mensagens com campos role e content</li>
+<li>Envie o histórico completo da conversa para respostas cientes do contexto</li>
+<li>LLMs locais mantêm seus dados privados - sem chamadas a API externa</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

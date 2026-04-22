@@ -46,10 +46,10 @@
           <a href="t29.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t28-react-foundations"><a class="heading-anchor" href="#t28-react-foundations">T28: React Foundations</a></h1>
-<p class="lesson-intro">React lets you build UIs from reusable pieces called components. Think of components as Lego bricks - custom HTML tags you define yourself. Instead of telling the browser step-by-step what to change, you describe what the screen should look like, and React figures out the updates.</p>
-<h2 id="from-imperative-to-declarative"><a class="heading-anchor" href="#from-imperative-to-declarative">From Imperative to Declarative</a></h2>
-<p>With vanilla JavaScript, you manually find elements and update them. React flips this: you declare the desired UI state, and React handles the DOM updates for you.</p>
+      <h1 id="t28-fundamentos-de-react"><a class="heading-anchor" href="#t28-fundamentos-de-react">T28: Fundamentos de React</a></h1>
+<p class="lesson-intro">O React permite construir UIs a partir de pedaços reutilizáveis chamados componentes. Pense em componentes como peças de Lego - tags HTML customizadas que você mesmo define. Em vez de dizer ao navegador passo a passo o que mudar, você descreve como a tela deve parecer, e o React descobre as atualizações.</p>
+<h2 id="do-imperativo-ao-declarativo"><a class="heading-anchor" href="#do-imperativo-ao-declarativo">Do Imperativo ao Declarativo</a></h2>
+<p>Com JavaScript puro, você encontra elementos e os atualiza manualmente. O React inverte isso: você declara o estado desejado da UI, e o React cuida das atualizações do DOM por você.</p>
 <pre><code>// Vanilla JS - imperative: you manage every step
 const btn = document.getElementById(&quot;counter-btn&quot;);
 let count = 0;
@@ -68,8 +68,8 @@ function Counter() {
     );
 }
 </code></pre>
-<h2 id="components-jsx-and-props"><a class="heading-anchor" href="#components-jsx-and-props">Components, JSX, and Props</a></h2>
-<p>A component is a function that returns JSX - a syntax that looks like HTML but lives inside JavaScript. Props are inputs passed from parent to child, like function arguments.</p>
+<h2 id="componentes-jsx-e-props"><a class="heading-anchor" href="#componentes-jsx-e-props">Componentes, JSX e Props</a></h2>
+<p>Um componente é uma função que retorna JSX - uma sintaxe que parece HTML mas vive dentro do JavaScript. Props são entradas passadas do pai para o filho, como argumentos de função.</p>
 <pre><code>function MenuItem({ name, price }) {
     return (
         &lt;div className=&quot;menu-item&quot;&gt;
@@ -90,8 +90,8 @@ function MenuList({ items }) {
     );
 }
 </code></pre>
-<h2 id="handling-events"><a class="heading-anchor" href="#handling-events">Handling Events</a></h2>
-<p>React uses camelCase event handlers like <code>onClick</code> and <code>onChange</code> directly on JSX elements. The handler receives a synthetic event object that works consistently across browsers.</p>
+<h2 id="tratando-eventos"><a class="heading-anchor" href="#tratando-eventos">Tratando Eventos</a></h2>
+<p>O React usa handlers de evento em camelCase como <code>onClick</code> e <code>onChange</code> diretamente nos elementos JSX. O handler recebe um objeto de evento sintético que funciona de forma consistente em todos os navegadores.</p>
 <div class="mermaid">
 flowchart TD
     A[App] --> B[Header]
@@ -110,10 +110,10 @@ flowchart TD
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Components are reusable functions that return JSX, like custom HTML tags</li>
-<li>React is declarative - describe what the UI should look like, not how to update it</li>
-<li>Props pass data from parent to child components, making them configurable</li>
-<li>Always provide a unique key prop when rendering lists with .map()</li>
+<li>Componentes são funções reutilizáveis que retornam JSX, como tags HTML customizadas</li>
+<li>React é declarativo - descreva como a UI deve parecer, não como atualizá-la</li>
+<li>Props passam dados do pai para componentes filhos, tornando-os configuráveis</li>
+<li>Sempre forneça uma prop key única ao renderizar listas com .map()</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

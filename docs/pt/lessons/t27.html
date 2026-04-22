@@ -46,11 +46,11 @@
           <a href="t28.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t27-full-stack-ai-app"><a class="heading-anchor" href="#t27-full-stack-ai-app">T27: Full Stack AI App</a></h1>
-<p class="lesson-intro">This is where everything comes together. A full-stack application connects the frontend (what users see) to the backend (server logic and data) to the AI layer (intelligent responses). Think of it as building a complete restaurant - the dining room, the kitchen, and the chef all working in harmony.</p>
-<h2 id="architecture-overview"><a class="heading-anchor" href="#architecture-overview">Architecture Overview</a></h2>
-<p>The frontend sends user input to your Node.js server. The server manages sessions, validates data, and forwards prompts to Ollama. Responses flow back through the same chain.</p>
-<h2 id="connecting-the-layers"><a class="heading-anchor" href="#connecting-the-layers">Connecting the Layers</a></h2>
+      <h1 id="t27-app-full-stack-com-ia"><a class="heading-anchor" href="#t27-app-full-stack-com-ia">T27: App Full Stack com IA</a></h1>
+<p class="lesson-intro">É aqui que tudo se junta. Uma aplicação full stack conecta o frontend (o que os usuários veem) ao backend (lógica do servidor e dados) à camada de IA (respostas inteligentes). Pense em construir um restaurante completo - o salão, a cozinha e o chef trabalhando em harmonia.</p>
+<h2 id="vis-o-geral-da-arquitetura"><a class="heading-anchor" href="#vis-o-geral-da-arquitetura">Visão Geral da Arquitetura</a></h2>
+<p>O frontend envia a entrada do usuário para o seu servidor Node.js. O servidor gerencia sessões, valida dados e encaminha prompts para o Ollama. As respostas voltam pela mesma cadeia.</p>
+<h2 id="conectando-as-camadas"><a class="heading-anchor" href="#conectando-as-camadas">Conectando as Camadas</a></h2>
 <pre><code>// Server: Bridge between frontend and AI
 app.post(&quot;/api/chat&quot;, authenticate, async (req, res) =&gt; {
     const { message } = req.body;
@@ -97,10 +97,10 @@ flowchart TB
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Full-stack apps connect frontend, backend, and data layers into one system</li>
-<li>The server acts as a bridge between the user interface and AI model</li>
-<li>Store conversation history in a database for persistence across sessions</li>
-<li>Authentication protects AI endpoints from unauthorized access</li>
+<li>Apps full stack conectam camadas de frontend, backend e dados num único sistema</li>
+<li>O servidor age como ponte entre a interface do usuário e o modelo de IA</li>
+<li>Armazene o histórico da conversa num banco para persistência entre sessões</li>
+<li>Autenticação protege endpoints de IA contra acesso não autorizado</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
