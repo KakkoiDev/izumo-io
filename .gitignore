@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Node
+node_modules/
+
+# Build scratch
+.docs_build_*/
+docs_md/
+
+# Editor
+.DS_Store
+.idea/
+.vscode/
+
+# Agent artifacts (kept local, managed via aidb)
+.web-bot/
+COACH.md
+REVIEW*.md
+TASK.md
+LEARN.md
+
+# Database / local data
+db.json

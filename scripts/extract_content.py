@@ -199,7 +199,9 @@ def html_to_markdown(html: str) -> str:
             cls = m.group(1).strip()
             txt = _inline_to_md(m.group(2).strip())
             txt = re.sub(r'\s+', ' ', txt).strip()
-            out.append(f'{txt} {{.{cls}}}')
+            # attr_list extension: class attribute for a paragraph must be on
+            # the line following the paragraph using `{: .class }` syntax.
+            out.append(f'{txt}\n{{: .{cls} }}')
         elif kind == 'p':
             txt = _inline_to_md(m.group(1).strip())
             txt = re.sub(r'\s+', ' ', txt).strip()
