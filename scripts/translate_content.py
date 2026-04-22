@@ -20,6 +20,7 @@ from __future__ import annotations
 import os
 import re
 import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -27,6 +28,7 @@ import yaml
 
 try:
     from google import genai  # type: ignore
+    from google.genai.errors import APIError  # type: ignore
 except ImportError:
     print('install google-genai:  pip install google-genai', file=sys.stderr)
     sys.exit(2)
@@ -81,22 +83,39 @@ Source:
 """
 
 
+def _generate_with_retry(prompt: str, attempts: int = 5) -> str:
+    """Call the model with backoff. Re-raise after the last attempt."""
+    last_err: Exception | None = None
+    for i in range(attempts):
+        try:
+            resp = CLIENT.models.generate_content(model=MODEL, contents=prompt)
+            return resp.text or ''
+        except APIError as e:
+            last_err = e
+            # 429 (rate limit) and 5xx (server) are worth retrying.
+            status = getattr(e, 'code', None)
+            retryable = status in (429, 500, 502, 503, 504)
+            if not retryable or i == attempts - 1:
+                raise
+            sleep = 2 ** i  # 1, 2, 4, 8, 16 seconds
+            print(f'  API {status}, retry {i+1}/{attempts-1} in {sleep}s', file=sys.stderr)
+            time.sleep(sleep)
+    # unreachable
+    if last_err:
+        raise last_err
+    return ''
+
+
 def translate_md(source: str, lang_name: str) -> str:
-    resp = CLIENT.models.generate_content(
-        model=MODEL,
-        contents=MD_PROMPT.format(lang_name=lang_name, source=source),
-    )
-    return (resp.text or '').strip() + '\n'
+    text = _generate_with_retry(MD_PROMPT.format(lang_name=lang_name, source=source))
+    return text.strip() + '\n'
 
 
 def translate_field(source: str, lang_name: str) -> str:
     if not source.strip():
         return ''
-    resp = CLIENT.models.generate_content(
-        model=MODEL,
-        contents=FIELD_PROMPT.format(lang_name=lang_name, source=source),
-    )
-    return (resp.text or '').strip()
+    text = _generate_with_retry(FIELD_PROMPT.format(lang_name=lang_name, source=source))
+    return text.strip()
 
 
 # -------- markdown sibling files --------
@@ -129,19 +148,26 @@ def _is_source_md(path: Path) -> bool:
     return '.' not in path.stem
 
 
-def translate_missing_md() -> list[Path]:
+def translate_missing_md() -> tuple[list[Path], list[Path]]:
     created: list[Path] = []
+    failed: list[Path] = []
     sources = sorted(p for p in CONTENT.rglob('*.md') if _is_source_md(p))
     for src in sources:
         for code, name in TARGETS:
             sibling = src.with_name(f'{src.stem}.{code}.md')
             if sibling.exists() and not is_empty_translation(sibling):
                 continue
-            print(f'translate {src.relative_to(ROOT)} -> {sibling.name}')
-            translated = translate_md(src.read_text(encoding='utf-8'), name)
-            sibling.write_text(translated, encoding='utf-8')
-            created.append(sibling)
-    return created
+            print(f'translate {src.relative_to(ROOT)} -> {sibling.name}', flush=True)
+            try:
+                translated = translate_md(src.read_text(encoding='utf-8'), name)
+                sibling.write_text(translated, encoding='utf-8')
+                created.append(sibling)
+                # Gentle rate-limiting between successful calls.
+                time.sleep(0.5)
+            except Exception as e:
+                print(f'  FAILED: {e}', file=sys.stderr, flush=True)
+                failed.append(sibling)
+    return created, failed
 
 
 # -------- YAML files with _en / _ja / _pt fields --------
@@ -163,10 +189,14 @@ def _fill_record(record: dict) -> bool:
             existing = record.get(key, '')
             if existing and existing.strip():
                 continue
-            translated = translate_field(en_val, name)
-            record[key] = translated
-            changed = True
-            print(f'  yaml: {base}_{code} filled')
+            try:
+                translated = translate_field(en_val, name)
+                record[key] = translated
+                changed = True
+                print(f'  yaml: {base}_{code} filled', flush=True)
+                time.sleep(0.3)
+            except Exception as e:
+                print(f'  yaml: {base}_{code} FAILED: {e}', file=sys.stderr, flush=True)
     return changed
 
 
@@ -180,9 +210,13 @@ def _fill_ui_record(lang_map: dict) -> bool:
         existing = lang_map.get(code, '')
         if existing and existing.strip():
             continue
-        translated = translate_field(en_val, name)
-        lang_map[code] = translated
-        changed = True
+        try:
+            translated = translate_field(en_val, name)
+            lang_map[code] = translated
+            changed = True
+            time.sleep(0.3)
+        except Exception as e:
+            print(f'  ui: {code} FAILED: {e}', file=sys.stderr, flush=True)
     return changed
 
 
@@ -220,13 +254,18 @@ def translate_missing_yaml() -> list[Path]:
 
 
 def main() -> int:
-    created = translate_missing_md()
+    created, failed = translate_missing_md()
     updated = translate_missing_yaml()
     print()
-    print(f'markdown files created/refreshed: {len(created)}')
-    print(f'yaml files updated:              {len(updated)}')
-    if not created and not updated:
+    print(f'markdown files created: {len(created)}')
+    print(f'markdown files failed:  {len(failed)}')
+    print(f'yaml files updated:     {len(updated)}')
+    if failed:
+        print('  Failed files will be retried on the next workflow run.')
+    if not created and not updated and not failed:
         print('Nothing to do.')
+    # Always exit 0 so the commit step saves whatever succeeded.
+    # The next run picks up the rest thanks to the idempotent skip-if-exists check.
     return 0
 
 
