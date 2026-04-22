@@ -47,11 +47,12 @@
         </div>
       </nav>
       <h1 id="t01-configura-o-do-ambiente"><a class="heading-anchor" href="#t01-configura-o-do-ambiente">T01: Configuração do Ambiente</a></h1>
-<p class="lesson-intro">Todo artesão arruma a bancada antes do primeiro corte. Para construir para a web você precisa de três ferramentas no computador: um editor para escrever código, um runtime para executar JavaScript fora do navegador e um navegador para ver o resultado. Uma tarde de configuração poupa mil frustrações depois. Faça uma vez, esqueça para sempre.</p>
+<p class="lesson-intro">Todo artesão arruma a bancada antes do primeiro corte. Para construir para a web você precisa de quatro ferramentas no computador: um editor para escrever código, um runtime para executar JavaScript fora do navegador, controle de versão para rastrear cada mudança, e um navegador para ver o resultado. Uma tarde de configuração poupa mil frustrações depois. Faça uma vez, esqueça para sempre.</p>
 <h2 id="o-que-voc-vai-instalar"><a class="heading-anchor" href="#o-que-voc-vai-instalar">O Que Você Vai Instalar</a></h2>
 <ul>
 <li><strong>Visual Studio Code</strong> - o editor. Gratuito, da Microsoft, roda em Windows, Mac, Linux. Funciona para HTML, CSS, JavaScript e toda linguagem que você vai tocar no curso.</li>
 <li><strong>Node.js</strong> - um runtime de JavaScript. Deixa você rodar arquivos .js no terminal sem navegador. Vem com o <code>npm</code>, o gerenciador de pacotes que instala bibliotecas de terceiros.</li>
+<li><strong>Git</strong> - controle de versão. Rastreia cada mudança que você faz e é o jeito como você compartilha código no GitHub. Vem embutido no macOS e na maioria das distros Linux; Windows precisa de um instalador separado (veja as notas de SO no fim desta aula).</li>
 <li><strong>Um navegador moderno</strong> - Chrome ou Firefox. As devtools embutidas são como você inspeciona páginas, depura JavaScript e simula condições de rede.</li>
 </ul>
 <h2 id="instalar-o-vs-code"><a class="heading-anchor" href="#instalar-o-vs-code">Instalar o VS Code</a></h2>
@@ -66,6 +67,17 @@
 <h2 id="instalar-o-node-js"><a class="heading-anchor" href="#instalar-o-node-js">Instalar o Node.js</a></h2>
 <p>Vá em <a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a> e baixe a versão <strong>LTS</strong> (Long-Term Support). Aceite os padrões. LTS é a escolha chata e confiável; evite o canal "Current" para aprendizado.</p>
 <p>No Mac, se você já usa Homebrew, <code>brew install node</code> funciona. No Linux, o gerenciador de pacotes da sua distro serve, mas a versão do node pode ser antiga; considere o <a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a> para flexibilidade depois.</p>
+<h2 id="instalar-o-git"><a class="heading-anchor" href="#instalar-o-git">Instalar o Git</a></h2>
+<p>Git é o sistema de controle de versão que todo codebase profissional usa e é a língua que o GitHub fala. Você vai usar todo dia a partir do T19.</p>
+<ul>
+<li><strong>Windows</strong>: baixe o instalador em <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>. Aceite os padrões. Ele também traz o Git Bash, que você vai querer como terminal no Windows (muito melhor que o <code>cmd.exe</code>).</li>
+<li><strong>Mac</strong>: o macOS já vem com git, mas o primeiro <code>git --version</code> pode pedir pra instalar as Xcode Command Line Tools. Aceite. Alternativamente, <code>brew install git</code> dá uma versão mais nova.</li>
+<li><strong>Linux</strong>: instale pelo gerenciador de pacotes da distro. Exemplo: <code>sudo apt install git</code> no Ubuntu/Debian, <code>sudo dnf install git</code> no Fedora.</li>
+</ul>
+<p>Depois de instalar, diga ao git quem você é. Isso roda uma vez por máquina e assina cada commit que você fizer.</p>
+<pre><code>git config --global user.name &quot;Your Name&quot;
+git config --global user.email &quot;you@example.com&quot;
+</code></pre>
 <h2 id="verificar-se-tudo-funciona"><a class="heading-anchor" href="#verificar-se-tudo-funciona">Verificar Se Tudo Funciona</a></h2>
 <p>Abra o VS Code, depois abra o terminal integrado (<strong>Ctrl + `</strong>). Rode estes quatro comandos. Cada um deve imprimir um número de versão.</p>
 <pre><code>node -v      # v20.x.x or newer
@@ -123,7 +135,7 @@ flowchart LR
 <li><strong>Linux</strong>: você provavelmente já tem git. <code>sudo apt install git nodejs npm</code> (Ubuntu/Debian) ou <code>nvm</code> para versões novas.</li>
 </ul>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
 <ul>
 <li>Três ferramentas: VS Code (editor), Node.js LTS (runtime), um navegador moderno com devtools</li>
 <li>Verifique com node -v, npm -v, git --version, code -v. Todos os quatro devem mostrar versões</li>

@@ -47,11 +47,12 @@
         </div>
       </nav>
       <h1 id="t01-environment-setup"><a class="heading-anchor" href="#t01-environment-setup">T01: Environment Setup</a></h1>
-<p class="lesson-intro">Every craftsman sets up the workbench before the first cut. To build for the web you need three tools on your computer: an editor to write code, a runtime to execute JavaScript outside the browser, and a browser to view the result. One afternoon of setup saves a thousand frustrations later. Do it once, forget it forever.</p>
+<p class="lesson-intro">Every craftsman sets up the workbench before the first cut. To build for the web you need four tools on your computer: an editor to write code, a runtime to execute JavaScript outside the browser, version control to track every change, and a browser to view the result. One afternoon of setup saves a thousand frustrations later. Do it once, forget it forever.</p>
 <h2 id="what-you-are-installing"><a class="heading-anchor" href="#what-you-are-installing">What You Are Installing</a></h2>
 <ul>
 <li><strong>Visual Studio Code</strong> - the editor. Free, from Microsoft, runs on Windows, Mac, Linux. Works for HTML, CSS, JavaScript, and every language you will touch in this course.</li>
 <li><strong>Node.js</strong> - a JavaScript runtime. Lets you run .js files from your terminal without a browser. Comes with <code>npm</code>, the package manager that installs third-party libraries.</li>
+<li><strong>Git</strong> - version control. Tracks every change you make and is the way you share code on GitHub. Ships with macOS and most Linux distros; Windows needs a separate installer (see the OS notes at the bottom of this lesson).</li>
 <li><strong>A modern browser</strong> - Chrome or Firefox. The built-in browser devtools are how you inspect pages, debug JavaScript, and simulate network conditions.</li>
 </ul>
 <h2 id="install-vs-code"><a class="heading-anchor" href="#install-vs-code">Install VS Code</a></h2>
@@ -66,6 +67,17 @@
 <h2 id="install-node-js"><a class="heading-anchor" href="#install-node-js">Install Node.js</a></h2>
 <p>Go to <a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a> and download the <strong>LTS</strong> (Long-Term Support) version. Accept defaults. LTS is the boring-reliable choice; avoid the "Current" channel for learning.</p>
 <p>On Mac, if you already use Homebrew, <code>brew install node</code> works. On Linux, your distro's package manager is fine, but node's version may be old; consider <a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a> for flexibility later.</p>
+<h2 id="install-git"><a class="heading-anchor" href="#install-git">Install Git</a></h2>
+<p>Git is the version-control system every professional codebase uses and the one GitHub speaks. You will use it every day from T19 onwards.</p>
+<ul>
+<li><strong>Windows</strong>: download the installer from <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>. Accept the defaults. This also gives you Git Bash, which you will want as your terminal on Windows (much nicer than <code>cmd.exe</code>).</li>
+<li><strong>Mac</strong>: macOS bundles git, but <code>git --version</code> may prompt to install the Xcode Command Line Tools the first time you run it. Accept. Alternatively, <code>brew install git</code> gives you a newer version.</li>
+<li><strong>Linux</strong>: install via the distro package manager. Example: <code>sudo apt install git</code> on Ubuntu/Debian, <code>sudo dnf install git</code> on Fedora.</li>
+</ul>
+<p>After installing, tell git who you are. This runs once per machine and labels every commit you ever make.</p>
+<pre><code>git config --global user.name &quot;Your Name&quot;
+git config --global user.email &quot;you@example.com&quot;
+</code></pre>
 <h2 id="verify-everything-works"><a class="heading-anchor" href="#verify-everything-works">Verify Everything Works</a></h2>
 <p>Open VS Code, then open the integrated terminal (<strong>Ctrl + `</strong>). Run these four commands. Each should print a version number.</p>
 <pre><code>node -v      # v20.x.x or newer

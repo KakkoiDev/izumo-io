@@ -47,40 +47,117 @@
         </div>
       </nav>
       <h1 id="r10-kakkoischool-case-study"><a class="heading-anchor" href="#r10-kakkoischool-case-study">R10: KakkoiSchool Case Study</a></h1>
-<p class="lesson-intro">The best way to understand web development is to analyze a real project. KakkoiSchool - the very course you are taking - is itself a full-stack web application. Let us examine how it applies every concept you have learned: HTML for structure, CSS for design, JavaScript for interactivity, a server for delivery, and a build system to tie it all together.</p>
-<h2 id="course-architecture"><a class="heading-anchor" href="#course-architecture">Course Architecture</a></h2>
-<p>The course website is built with a Python build system that generates static HTML pages from templates and lesson content. This approach combines the simplicity of static files with the power of a templating engine.</p>
-<h2 id="how-lessons-are-delivered"><a class="heading-anchor" href="#how-lessons-are-delivered">How Lessons Are Delivered</a></h2>
-<p>Lesson content is stored as Python data structures (the file you are reading about right now). A build script processes each lesson, wraps it in a template with navigation and styling, and outputs static HTML files. No server needed at runtime - just files served by any web host.</p>
-<h2 id="design-decisions"><a class="heading-anchor" href="#design-decisions">Design Decisions</a></h2>
-<p>Static site generation was chosen over a dynamic server because: simpler hosting (any file server works), faster load times (no server processing), and better reliability (no server to crash). This is the 20/80 rule and KISS principle in action.</p>
+<p class="lesson-intro">The best way to learn software architecture is to read one. This lesson is the architecture of the site you are reading right now. Not a toy example, not a migration story, just what is actually running in production. Four moving parts do four separate jobs. That separation is what lets sixty lessons in three languages stay easy to edit.</p>
+<h2 id="the-four-parts"><a class="heading-anchor" href="#the-four-parts">The Four Parts</a></h2>
 <div class="mermaid">
-flowchart TB
-    subgraph "Build Time"
-        A[lessons.py] --> B[build.py]
-        C[templates/] --> B
-        D[static/css] --> B
-        B --> E[Generated HTML files]
+flowchart LR
+    subgraph "Content"
+        A[content/*.md<br/>frontmatter + body]
+        B[content/*.yaml<br/>phases, ui, videos, resources]
     end
-    subgraph "Runtime"
-        E --> F[Web Server]
-        F --> G[Browser]
+    subgraph "Translation"
+        T[translate-content.yml<br/>Gemini API]
     end
-    subgraph "Concepts Used"
-        H[HTML structure]
-        I[CSS styling]
-        J[Mermaid diagrams]
-        K[Responsive design]
+    subgraph "Build"
+        C[content_loader.py<br/>parses MD + YAML]
+        D[build.py + engine.py<br/>renders to HTML]
     end
+    subgraph "Deploy"
+        E[build-and-deploy.yml<br/>on push to master]
+        F[GitHub Pages<br/>serves the artifact]
+    end
+    A --> T
+    T -->|fills missing .ja.md / .pt.md| A
+    A --> C
+    B --> C
+    C --> D
+    D --> E
+    E --> F
 
 </div>
+<p>Content is text on disk. Translation fills in missing language siblings. Build turns it into HTML. Deploy puts that HTML on the internet. Each box can be replaced without touching the others.</p>
+<h2 id="part-1-content"><a class="heading-anchor" href="#part-1-content">Part 1: Content</a></h2>
+<p>Every lesson is a folder of sibling markdown files: <code>content/tech/t01.md</code>, <code>content/tech/t01.ja.md</code>, <code>content/tech/t01.pt.md</code>. The English file is the source of truth and carries the full metadata. The translations carry only translated strings.</p>
+<pre><code>---
+id: T01
+phase: 1
+status: available
+title: Environment Setup
+desc: Install VS Code, Node.js, Git, and a browser...
+---
+
+Every craftsman sets up the workbench before the first cut.
+{: .lesson-intro }
+
+## What You Are Installing
+
+- **Visual Studio Code** - the editor...
+
+```mermaid
+flowchart LR
+    A[VS Code] --&gt; B[Disk]
+    B --&gt; C[Browser]
+``` ``` (trailing closer omitted for readability)
+</code></pre>
+<p>The body is plain markdown with three escape hatches: <code>{: .lesson-intro }</code> applies a CSS class, <code>```mermaid</code> fenced blocks become interactive diagrams, and raw <code>&lt;div class="takeaways"&gt;</code> passes through untouched. Nothing else is special.</p>
+<p>Structured data that does not belong in a lesson body lives in YAML. <code>phases.yaml</code> holds the 11 phase definitions with titles, subtitles, and analogies per language. <code>ui.yaml</code> holds every piece of chrome text (nav labels, hero, buttons). <code>videos.yaml</code> and <code>resources.yaml</code> hold the gallery and resource cards. Each YAML record has <code>_en</code>, <code>_ja</code>, <code>_pt</code> fields side by side.</p>
+<h2 id="part-2-translation"><a class="heading-anchor" href="#part-2-translation">Part 2: Translation</a></h2>
+<p>A GitHub Actions workflow (<code>translate-content.yml</code>) watches for pushes that touch <code>content/**/*.md</code> or <code>content/*.yaml</code>. It does one thing: fill gaps.</p>
+<div class="mermaid">
+flowchart TD
+    A[Push touches content/] --> B[Workflow triggers]
+    B --> C[For each EN source file]
+    C --> D{".ja.md sibling exists<br/>and not empty?"}
+    D -->|Yes| E[Skip]
+    D -->|No| F[Translate via Gemini]
+    F --> G[Write sibling file]
+    C --> H{".pt.md sibling exists<br/>and not empty?"}
+    H -->|Yes| E
+    H -->|No| F
+    G --> I[Commit new translations<br/>back to master]
+
+</div>
+<p>The rule is skip-if-exists. A sibling file that is present and non-empty is left alone forever. That one property makes four behaviors emerge for free:</p>
+<ul>
+<li><strong>First English push</strong> creates both translations.</li>
+<li><strong>Hand-written translation</strong> survives every future run because the file is non-empty.</li>
+<li><strong>Refresh a stale machine translation</strong> by deleting it. The next push regenerates just that file.</li>
+<li><strong>Adding a fourth language</strong> is one entry in <code>scripts/translate_content.py</code>'s <code>TARGETS</code> list plus one entry in the build's language list.</li>
+</ul>
+<p>There is no flag saying "human wrote this, do not touch". The presence of the file is the signal. State lives on disk where everyone can see it.</p>
+<h2 id="part-3-build"><a class="heading-anchor" href="#part-3-build">Part 3: Build</a></h2>
+<p><code>website/content_loader.py</code> reads the content tree and reconstructs structured data: a <code>LESSONS</code> dict keyed by ID, a <code>TECH_LESSONS</code> list, a <code>THEORY_LESSONS</code> list, and the YAML data as-is. It parses frontmatter with pyyaml, renders markdown with python-markdown, and post-processes the output to convert <code>```mermaid</code> fenced blocks into <code>&lt;div class="mermaid"&gt;</code> and to add <code>target="_blank" rel="noopener"</code> to external links.</p>
+<p><code>website/build.py</code> takes that data, picks a language, runs each lesson and each page through the template engine (<code>engine.py</code>), and writes the result to <code>docs/</code>. Three languages means three parallel output trees: <code>docs/</code> (English), <code>docs/ja/</code>, <code>docs/pt/</code>. Every lesson has three URLs. Every page in the nav has three URLs. The language switcher in the header links directly across.</p>
+<p>When any lesson's frontmatter is missing a title or any language body is empty, the build falls back to English. This is how Portuguese worked on day one with no translations yet - the tree existed, the content was just the English copy until the pipeline filled it in.</p>
+<h2 id="part-4-deploy"><a class="heading-anchor" href="#part-4-deploy">Part 4: Deploy</a></h2>
+<p><code>build-and-deploy.yml</code> runs on every push to master. It installs Python dependencies from <code>requirements.txt</code>, runs <code>python website/build.py</code>, and hands the <code>docs/</code> output to GitHub Pages via the <code>actions/upload-pages-artifact</code> and <code>actions/deploy-pages</code> actions. GitHub Pages is configured in "Actions" mode, meaning it serves whatever the latest workflow artifact says to serve.</p>
+<p><code>docs/</code> is not tracked in git. Every deploy is a fresh rebuild from source. There is no "did you remember to rebuild before committing?" because there is nothing to commit - the live site is always a function of the current source.</p>
+<p>If the build breaks, CI goes red and Pages keeps serving the last successful deploy. That is the failure mode: the site stays at its last good state until the break is fixed.</p>
+<h2 id="why-it-looks-like-this"><a class="heading-anchor" href="#why-it-looks-like-this">Why It Looks Like This</a></h2>
+<p>Four principles shape every piece:</p>
+<ul>
+<li><strong>Content is not code.</strong> Writing a lesson should feel like writing a document, not editing a source file. Markdown + frontmatter is the lowest-friction format that can still carry structure.</li>
+<li><strong>Build is a function of source.</strong> Given the current <code>content/</code> tree, there is exactly one correct site. No build state is committed. No manual steps are required between a content edit and a deploy.</li>
+<li><strong>Machine work fills gaps, humans override.</strong> Translations are a good default but a human is better. The pipeline never overwrites what a human wrote. Refreshing a machine translation is an explicit act (delete the file).</li>
+<li><strong>Each piece replaceable.</strong> The markdown library, the template engine, the translation API, and the deploy target are four independent choices. Swapping any one out is localized work, not a rewrite.</li>
+</ul>
+<h2 id="reading-the-code-yourself"><a class="heading-anchor" href="#reading-the-code-yourself">Reading the Code Yourself</a></h2>
+<p>Everything is in the public repo at <a href="https://github.com/KakkoiDev/izumo-io" target="_blank" rel="noopener">github.com/KakkoiDev/izumo-io</a>. The four files worth opening first:</p>
+<ul>
+<li><code>website/content_loader.py</code> - 150 lines. Load content, assemble data.</li>
+<li><code>website/build.py</code> - 300 lines. Render pages.</li>
+<li><code>scripts/translate_content.py</code> - idempotent translator.</li>
+<li><code>.github/workflows/build-and-deploy.yml</code> and <code>translate-content.yml</code> - the two workflows.</li>
+</ul>
+<p>All four are short enough to read in one sitting. That was a design goal.</p>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Real projects apply multiple concepts together - HTML, CSS, JS, build tools</li>
-<li>Static site generation offers simplicity, speed, and reliability</li>
-<li>Architecture decisions should follow the principles you have learned (KISS, 20/80)</li>
-<li>Analyzing existing projects is one of the best ways to deepen your understanding</li>
+<li>KakkoiSchool has four separate parts: content on disk, a translation pipeline, a build, and a deploy workflow. Each does one thing</li>
+<li>Content is markdown + YAML. Frontmatter carries metadata, body carries prose, a few HTML escape hatches cover edge cases</li>
+<li>The translation pipeline is idempotent - it fills missing language siblings and never overwrites existing ones. File presence is the state</li>
+<li>The build is a pure function of the content tree. No build artifact is committed. The live site is always a fresh rebuild</li>
+<li>Every piece is replaceable without touching the others. That is what "separation of concerns" earns you at a small scale</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

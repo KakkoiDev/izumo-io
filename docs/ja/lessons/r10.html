@@ -47,40 +47,111 @@
         </div>
       </nav>
       <h1 id="r10-kakkoischoolケーススタディ"><a class="heading-anchor" href="#r10-kakkoischoolケーススタディ">R10: KakkoiSchoolケーススタディ</a></h1>
-<p class="lesson-intro">Web開発を理解する最良の方法は実際のプロジェクトを分析することです。KakkoiSchool、つまりあなたが受講しているこのコース自体がフルスタックWebアプリケーションです。学んだ全てのコンセプトがどう適用されているか見てみましょう: 構造のHTML、デザインのCSS、対話性のJavaScript、配信のサーバー、全てを結ぶビルドシステム。</p>
-<h2 id="コースアーキテクチャ"><a class="heading-anchor" href="#コースアーキテクチャ">コースアーキテクチャ</a></h2>
-<p>コースのWebサイトはPythonビルドシステムで構築されており、テンプレートとレッスンコンテンツから静的HTMLページを生成します。このアプローチは静的ファイルのシンプルさとテンプレートエンジンの力を組み合わせています。</p>
-<h2 id="レッスンの配信方法"><a class="heading-anchor" href="#レッスンの配信方法">レッスンの配信方法</a></h2>
-<p>レッスンコンテンツはPythonデータ構造として格納されています(まさに今読んでいるこのファイルです)。ビルドスクリプトが各レッスンを処理し、ナビゲーションとスタイリングを含むテンプレートで包み、静的HTMLファイルを出力します。実行時にサーバーは不要で、どのWebホストでもファイルを配信するだけです。</p>
-<h2 id="設計上の決定"><a class="heading-anchor" href="#設計上の決定">設計上の決定</a></h2>
-<p>動的サーバーではなく静的サイト生成を選んだ理由: より簡単なホスティング(どのファイルサーバーでも動く)、より速い読み込み(サーバー処理なし)、より高い信頼性(クラッシュするサーバーなし)。これは20/80ルールとKISSの原則の実践です。</p>
+<p class="lesson-intro">ソフトウェアアーキテクチャを学ぶ一番の方法は、実在するものを読むことです。このレッスンは今あなたが読んでいるサイトのアーキテクチャそのものです。おもちゃの例でも、移行物語でもなく、実際に本番で動いているものです。4つの部品が4つの別々の仕事をしています。その分離こそが、60のレッスンを3言語で編集しやすく保つ鍵です。</p>
+<h2 id="4つの部品"><a class="heading-anchor" href="#4つの部品">4つの部品</a></h2>
 <div class="mermaid">
-flowchart TB
-    subgraph "Build Time"
-        A[lessons.py] --> B[build.py]
-        C[templates/] --> B
-        D[static/css] --> B
-        B --> E[Generated HTML files]
+flowchart LR
+    subgraph "Content"
+        A[content/*.md<br/>frontmatter + body]
+        B[content/*.yaml<br/>phases, ui, videos, resources]
     end
-    subgraph "Runtime"
-        E --> F[Web Server]
-        F --> G[Browser]
+    subgraph "Translation"
+        T[translate-content.yml<br/>Gemini API]
     end
-    subgraph "Concepts Used"
-        H[HTML structure]
-        I[CSS styling]
-        J[Mermaid diagrams]
-        K[Responsive design]
+    subgraph "Build"
+        C[content_loader.py<br/>parses MD + YAML]
+        D[build.py + engine.py<br/>renders to HTML]
     end
+    subgraph "Deploy"
+        E[build-and-deploy.yml<br/>on push to master]
+        F[GitHub Pages<br/>serves the artifact]
+    end
+    A --> T
+    T -->|fills missing .ja.md / .pt.md| A
+    A --> C
+    B --> C
+    C --> D
+    D --> E
+    E --> F
 
 </div>
+<p>コンテンツはディスク上のテキスト。翻訳は欠けている言語の兄弟ファイルを埋める。ビルドはHTMLに変換。デプロイがそのHTMLをインターネットに上げる。各ボックスは他に触れずに交換できます。</p>
+<h2 id="第1部-コンテンツ"><a class="heading-anchor" href="#第1部-コンテンツ">第1部: コンテンツ</a></h2>
+<p>全てのレッスンは兄弟マークダウンファイルのフォルダです: <code>content/tech/t01.md</code>、<code>content/tech/t01.ja.md</code>、<code>content/tech/t01.pt.md</code>。英語ファイルが真実の源で、全メタデータを持ちます。翻訳は翻訳された文字列のみを持ちます。</p>
+<pre><code>---
+id: T01
+phase: 1
+status: available
+title: Environment Setup
+desc: Install VS Code, Node.js, Git, and a browser...
+---
+
+Every craftsman sets up the workbench before the first cut.
+{: .lesson-intro }
+
+## What You Are Installing
+
+- **Visual Studio Code** - the editor...
+</code></pre>
+<p>本文は3つの非常口付きの素のマークダウンです: <code>{: .lesson-intro }</code>がCSSクラスを適用、<code>```mermaid</code>フェンスブロックがインタラクティブ図になり、生の<code>&lt;div class="takeaways"&gt;</code>はそのまま通ります。それ以外は特別扱いなし。</p>
+<p>レッスン本文に属さない構造化データはYAMLに住みます。<code>phases.yaml</code>は11フェーズの定義(言語ごとのタイトル、サブタイトル、アナロジー)を保持。<code>ui.yaml</code>はUIテキスト全て(ナビラベル、ヒーロー、ボタン)。<code>videos.yaml</code>と<code>resources.yaml</code>はギャラリーとリソースカードを保持。各YAMLレコードには<code>_en</code>、<code>_ja</code>、<code>_pt</code>フィールドが並びます。</p>
+<h2 id="第2部-翻訳"><a class="heading-anchor" href="#第2部-翻訳">第2部: 翻訳</a></h2>
+<p>GitHub Actionsワークフロー(<code>translate-content.yml</code>)が<code>content/**/*.md</code>または<code>content/*.yaml</code>へのpushを監視します。1つだけやる仕事: ギャップを埋める。</p>
+<div class="mermaid">
+flowchart TD
+    A[Push touches content/] --> B[Workflow triggers]
+    B --> C[For each EN source file]
+    C --> D{".ja.md sibling exists<br/>and not empty?"}
+    D -->|Yes| E[Skip]
+    D -->|No| F[Translate via Gemini]
+    F --> G[Write sibling file]
+    C --> H{".pt.md sibling exists<br/>and not empty?"}
+    H -->|Yes| E
+    H -->|No| F
+    G --> I[Commit new translations<br/>back to master]
+
+</div>
+<p>ルールはskip-if-exists。存在して空でない兄弟ファイルは永遠に放置されます。その1つの性質から4つの挙動が無料で現れます:</p>
+<ul>
+<li><strong>最初の英語push</strong>が両方の翻訳を作成。</li>
+<li><strong>手書き翻訳</strong>はファイルが空でないため、未来の全実行を生き残ります。</li>
+<li><strong>古い機械翻訳の更新</strong>は削除すればOK。次のpushでそのファイルだけ再生成。</li>
+<li><strong>4つ目の言語追加</strong>は<code>scripts/translate_content.py</code>の<code>TARGETS</code>リストに1エントリ + ビルドの言語リストに1エントリ。</li>
+</ul>
+<p>「人間が書いたから触るな」というフラグはありません。ファイルの存在が合図です。状態は誰もが見えるディスク上に住みます。</p>
+<h2 id="第3部-ビルド"><a class="heading-anchor" href="#第3部-ビルド">第3部: ビルド</a></h2>
+<p><code>website/content_loader.py</code>はコンテンツツリーを読み、構造化データを再構築します: IDをキーとする<code>LESSONS</code>辞書、<code>TECH_LESSONS</code>リスト、<code>THEORY_LESSONS</code>リスト、YAMLデータはそのまま。pyyamlでフロントマターをパースし、python-markdownでマークダウンをレンダリング、出力を後処理して<code>```mermaid</code>フェンスブロックを<code>&lt;div class="mermaid"&gt;</code>に変換、外部リンクに<code>target="_blank" rel="noopener"</code>を追加します。</p>
+<p><code>website/build.py</code>はそのデータを取り、言語を選び、各レッスンとページをテンプレートエンジン(<code>engine.py</code>)に通し、結果を<code>docs/</code>に書きます。3言語は3つの並列出力ツリー: <code>docs/</code>(英語)、<code>docs/ja/</code>、<code>docs/pt/</code>。各レッスンは3つのURL。ナビの各ページは3つのURL。ヘッダーの言語スイッチャーが直接切り替えます。</p>
+<p>どのレッスンのフロントマターからタイトルが欠けていても、どの言語の本文が空でも、ビルドは英語にフォールバックします。これがポルトガル語が翻訳0の初日に動いた仕組みです - ツリーは存在し、パイプラインが埋めるまで内容は英語のコピーでした。</p>
+<h2 id="第4部-デプロイ"><a class="heading-anchor" href="#第4部-デプロイ">第4部: デプロイ</a></h2>
+<p><code>build-and-deploy.yml</code>はmasterへの全pushで実行します。<code>requirements.txt</code>からPython依存をインストールし、<code>python website/build.py</code>を走らせ、<code>docs/</code>出力をGitHub Pagesへ<code>actions/upload-pages-artifact</code>と<code>actions/deploy-pages</code>アクション経由で渡します。GitHub Pagesは「Actions」モードに設定され、最新ワークフローアーティファクトが指示するものを配信します。</p>
+<p><code>docs/</code>はgitで追跡していません。全デプロイはソースからの新鮮な再ビルドです。「コミット前に再ビルドした?」はありません。コミットするものがないからです - ライブサイトは常に現在のソースの関数です。</p>
+<p>ビルドが壊れるとCIが赤になりPagesは最後の成功デプロイを配信し続けます。それが失敗モード: 修復されるまで最後の良い状態のまま。</p>
+<h2 id="なぜこう見えるのか"><a class="heading-anchor" href="#なぜこう見えるのか">なぜこう見えるのか</a></h2>
+<p>4つの原則が各部品を形作ります:</p>
+<ul>
+<li><strong>コンテンツはコードではない。</strong>レッスンを書くのはドキュメントを書くように感じるべきで、ソースファイルの編集ではない。マークダウン+フロントマターは構造を運べる最小摩擦形式。</li>
+<li><strong>ビルドはソースの関数。</strong>現在の<code>content/</code>ツリーに対して正しいサイトは1つ。ビルド状態はコミットしない。コンテンツ編集とデプロイの間に手動ステップは不要。</li>
+<li><strong>機械はギャップを埋め、人間が上書きする。</strong>翻訳は良いデフォルトだが人間の方が良い。パイプラインは人間が書いたものを決して上書きしない。機械翻訳のリフレッシュは明示的な行為(ファイル削除)。</li>
+<li><strong>各部品が交換可能。</strong>マークダウンライブラリ、テンプレートエンジン、翻訳API、デプロイ先は4つの独立した選択。どれか1つの差し替えは局所的な作業、書き直しではない。</li>
+</ul>
+<h2 id="コードを自分で読む"><a class="heading-anchor" href="#コードを自分で読む">コードを自分で読む</a></h2>
+<p>全ては公開リポジトリ<a href="https://github.com/KakkoiDev/izumo-io" target="_blank" rel="noopener">github.com/KakkoiDev/izumo-io</a>にあります。最初に開く価値のある4ファイル:</p>
+<ul>
+<li><code>website/content_loader.py</code> - 150行。コンテンツをロード、データを組み立てる。</li>
+<li><code>website/build.py</code> - 300行。ページをレンダリング。</li>
+<li><code>scripts/translate_content.py</code> - 冪等な翻訳ツール。</li>
+<li><code>.github/workflows/build-and-deploy.yml</code>と<code>translate-content.yml</code> - 2つのワークフロー。</li>
+</ul>
+<p>4つとも一度に読めるほど短い。それが設計目標でした。</p>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>実際のプロジェクトは複数のコンセプトを組み合わせます。HTML、CSS、JS、ビルドツール</li>
-<li>静的サイト生成はシンプルさ、速度、信頼性を提供します</li>
-<li>アーキテクチャの決定は学んだ原則(KISS、20/80)に従うべきです</li>
-<li>既存プロジェクトの分析は理解を深める最良の方法の一つです</li>
+<li>KakkoiSchoolは4つの別々の部品を持つ: ディスク上のコンテンツ、翻訳パイプライン、ビルド、デプロイワークフロー。各々が1つの仕事</li>
+<li>コンテンツはマークダウン+YAML。フロントマターがメタデータを運び、本文が散文を運び、いくつかのHTML非常口がエッジケースをカバー</li>
+<li>翻訳パイプラインは冪等 - 欠けている言語兄弟を埋め、既存のものを決して上書きしない。ファイルの存在が状態</li>
+<li>ビルドはコンテンツツリーの純粋関数。ビルド成果物はコミットされない。ライブサイトは常に新鮮な再ビルド</li>
+<li>全部品は他に触れず交換可能。それが小規模での「関心の分離」が報いるもの</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

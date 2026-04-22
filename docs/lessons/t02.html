@@ -89,9 +89,9 @@ export PATH=&quot;$HOME/.local/bin:$PATH&quot;    # add your own folder first
 flowchart TD
     User[You type: git status]
     Shell[Shell reads PATH]
-    P1[/usr/local/bin/git]
-    P2[/usr/bin/]
-    P3[...]
+    P1["/usr/local/bin/git"]
+    P2["/usr/bin/"]
+    P3["..."]
     Run[Run the found program]
     User --> Shell
     Shell --> P1

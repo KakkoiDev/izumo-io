@@ -47,11 +47,12 @@
         </div>
       </nav>
       <h1 id="t01-環境セットアップ"><a class="heading-anchor" href="#t01-環境セットアップ">T01: 環境セットアップ</a></h1>
-<p class="lesson-intro">職人は最初の切削の前に作業台を整えます。Webを作るために、コンピュータには3つの道具が必要です。コードを書くエディタ、ブラウザ外でJavaScriptを実行するランタイム、結果を見るブラウザ。午後1回のセットアップが後の千の苛立ちを救います。一度やって永遠に忘れましょう。</p>
+<p class="lesson-intro">職人は最初の切削の前に作業台を整えます。Webを作るために、コンピュータには4つの道具が必要です。コードを書くエディタ、ブラウザ外でJavaScriptを実行するランタイム、変更を追跡するバージョン管理、結果を見るブラウザ。午後1回のセットアップが後の千の苛立ちを救います。一度やって永遠に忘れましょう。</p>
 <h2 id="何をインストールするか"><a class="heading-anchor" href="#何をインストールするか">何をインストールするか</a></h2>
 <ul>
 <li><strong>Visual Studio Code</strong> - エディタ。無料、Microsoft製、Windows/Mac/Linuxで動作。HTML、CSS、JavaScript、このコースで触る全ての言語に対応。</li>
 <li><strong>Node.js</strong> - JavaScriptランタイム。ブラウザなしでターミナルから.jsファイルを実行できる。サードパーティライブラリをインストールする<code>npm</code>が付属。</li>
+<li><strong>Git</strong> - バージョン管理。全ての変更を追跡し、GitHubでコードを共有する方法です。macOSと大半のLinuxには同梱されています。Windowsは別途インストーラが必要(このレッスン末尾のOSメモを参照)。</li>
 <li><strong>モダンブラウザ</strong> - ChromeまたはFirefox。組み込みのデベロッパーツールでページを検査、JavaScriptをデバッグ、ネットワーク状況をシミュレートします。</li>
 </ul>
 <h2 id="vs-codeをインストール"><a class="heading-anchor" href="#vs-codeをインストール">VS Codeをインストール</a></h2>
@@ -66,6 +67,17 @@
 <h2 id="node-jsをインストール"><a class="heading-anchor" href="#node-jsをインストール">Node.jsをインストール</a></h2>
 <p><a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a>に行き、<strong>LTS</strong>(長期サポート)版をダウンロード。デフォルトを受け入れる。LTSは退屈で信頼できる選択。学習中は「Current」チャネルは避けましょう。</p>
 <p>MacでHomebrewを使っているなら<code>brew install node</code>で十分。Linuxではディストリのパッケージマネージャでも良いが、nodeのバージョンが古いかも。後の柔軟性のために<a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a>の使用を検討。</p>
+<h2 id="gitをインストール"><a class="heading-anchor" href="#gitをインストール">Gitをインストール</a></h2>
+<p>Gitはあらゆるプロのコードベースが使うバージョン管理システムで、GitHubが話す言語でもあります。T19以降、毎日使うことになります。</p>
+<ul>
+<li><strong>Windows</strong>: <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>からインストーラをダウンロード。デフォルトを受け入れる。Git Bashが付いてきますが、これをWindowsのターミナルとして使うのがおすすめです(<code>cmd.exe</code>よりずっと快適)。</li>
+<li><strong>Mac</strong>: macOSにはgitが同梱されていますが、<code>git --version</code>を初めて実行するとXcode Command Line Toolsのインストールを促されることがあります。受け入れましょう。別の選択肢として<code>brew install git</code>で新しいバージョンが手に入ります。</li>
+<li><strong>Linux</strong>: ディストリのパッケージマネージャでインストール。例: Ubuntu/Debianなら<code>sudo apt install git</code>、Fedoraなら<code>sudo dnf install git</code>。</li>
+</ul>
+<p>インストール後、自分が誰かをgitに教えます。マシンごとに1回実行すれば、あなたが作る全コミットに名前が付きます。</p>
+<pre><code>git config --global user.name &quot;Your Name&quot;
+git config --global user.email &quot;you@example.com&quot;
+</code></pre>
 <h2 id="全てが動くか確認"><a class="heading-anchor" href="#全てが動くか確認">全てが動くか確認</a></h2>
 <p>VS Codeを開き、統合ターミナルを開く(<strong>Ctrl + `</strong>)。この4つのコマンドを実行。各々がバージョン番号を表示するはず。</p>
 <pre><code>node -v      # v20.x.x or newer
