@@ -46,10 +46,10 @@
           <a href="t33.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t32-next-js-data-amp-api"><a class="heading-anchor" href="#t32-next-js-data-amp-api">T32: Next.js Data &amp; API</a></h1>
-<p class="lesson-intro">Server components fetch data like a chef going directly to the pantry instead of sending a waiter back and forth. No useEffect, no loading spinners for initial data - the component itself is async, fetches what it needs, and renders the complete HTML on the server.</p>
-<h2 id="fetching-data-in-server-components"><a class="heading-anchor" href="#fetching-data-in-server-components">Fetching Data in Server Components</a></h2>
-<p>Server components can be async functions. You await data directly in the component body. No useEffect, no useState for loading states - the HTML arrives fully rendered.</p>
+      <h1 id="t32-dados-e-api-no-next-js"><a class="heading-anchor" href="#t32-dados-e-api-no-next-js">T32: Dados e API no Next.js</a></h1>
+<p class="lesson-intro">Server components buscam dados como um chef indo direto na despensa em vez de mandar um garçom ir e voltar. Sem useEffect, sem spinners de loading para dados iniciais - o próprio componente é assíncrono, busca o que precisa e renderiza o HTML completo no servidor.</p>
+<h2 id="buscando-dados-em-server-components"><a class="heading-anchor" href="#buscando-dados-em-server-components">Buscando Dados em Server Components</a></h2>
+<p>Server components podem ser funções async. Você faz await nos dados direto no corpo do componente. Sem useEffect, sem useState para estado de loading - o HTML chega totalmente renderizado.</p>
 <pre><code>// app/menu/page.tsx - Server component (default)
 interface MenuItem {
     id: number;
@@ -77,8 +77,8 @@ export default async function MenuPage() {
     );
 }
 </code></pre>
-<h2 id="api-routes"><a class="heading-anchor" href="#api-routes">API Routes</a></h2>
-<p>Next.js API routes live in <code>route.ts</code> files. They handle GET, POST, and other HTTP methods as named exports. Compare this to the Express routes from T22 - same concept, different syntax.</p>
+<h2 id="rotas-de-api"><a class="heading-anchor" href="#rotas-de-api">Rotas de API</a></h2>
+<p>Rotas de API do Next.js moram em arquivos <code>route.ts</code>. Elas tratam GET, POST e outros métodos HTTP como exports nomeados. Compare com as rotas do Express do T22 - mesmo conceito, sintaxe diferente.</p>
 <pre><code>// app/api/menu/route.ts
 import { NextResponse } from &quot;next/server&quot;;
 
@@ -98,8 +98,8 @@ export async function POST(request: Request) {
     return NextResponse.json(newItem, { status: 201 });
 }
 </code></pre>
-<h2 id="putting-it-all-together"><a class="heading-anchor" href="#putting-it-all-together">Putting It All Together</a></h2>
-<p>A typical Next.js page fetches data on the server, renders HTML, and sends it to the browser. Client components handle interactivity like adding items or submitting forms, calling API routes as needed.</p>
+<h2 id="juntando-tudo"><a class="heading-anchor" href="#juntando-tudo">Juntando Tudo</a></h2>
+<p>Uma página típica do Next.js busca dados no servidor, renderiza HTML e envia para o navegador. Client components cuidam da interatividade como adicionar itens ou enviar formulários, chamando rotas de API conforme necessário.</p>
 <div class="mermaid">
 sequenceDiagram
     participant Browser
@@ -119,10 +119,10 @@ sequenceDiagram
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Server components can be async - fetch data directly without useEffect or loading state</li>
-<li>API routes use named exports (GET, POST) in route.ts files for clean endpoint definitions</li>
-<li>Server-rendered pages arrive fully built, improving initial load performance</li>
-<li>Client-side API calls handle mutations and interactive features after hydration</li>
+<li>Server components podem ser async - busque dados diretamente sem useEffect ou estado de loading</li>
+<li>Rotas de API usam exports nomeados (GET, POST) em arquivos route.ts para definições de endpoint limpas</li>
+<li>Páginas renderizadas no servidor chegam completas, melhorando performance do primeiro carregamento</li>
+<li>Chamadas de API no cliente cuidam de mutações e features interativas depois da hidratação</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

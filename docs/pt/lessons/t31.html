@@ -46,10 +46,10 @@
           <a href="t32.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t31-next-js-routing-amp-rendering"><a class="heading-anchor" href="#t31-next-js-routing-amp-rendering">T31: Next.js Routing &amp; Rendering</a></h1>
-<p class="lesson-intro">Next.js is like upgrading from a food truck (React SPA) to a proper restaurant with a built-in address system. It adds file-based routing, server-side rendering, and a clear structure so you do not have to wire everything together yourself.</p>
-<h2 id="file-based-routing"><a class="heading-anchor" href="#file-based-routing">File-Based Routing</a></h2>
-<p>In Next.js, the file system is the router. Create a file at <code>app/about/page.tsx</code> and it becomes the <code>/about</code> route. No router configuration needed - compare this to the hash-based routing from T16.</p>
+      <h1 id="t31-roteamento-e-renderiza-o-no-next-js"><a class="heading-anchor" href="#t31-roteamento-e-renderiza-o-no-next-js">T31: Roteamento e Renderização no Next.js</a></h1>
+<p class="lesson-intro">Next.js é como passar de um food truck (SPA React) para um restaurante de verdade com sistema de endereço embutido. Ele adiciona roteamento baseado em arquivos, renderização no servidor e uma estrutura clara para você não precisar conectar tudo na mão.</p>
+<h2 id="roteamento-baseado-em-arquivos"><a class="heading-anchor" href="#roteamento-baseado-em-arquivos">Roteamento Baseado em Arquivos</a></h2>
+<p>No Next.js, o sistema de arquivos é o roteador. Crie um arquivo em <code>app/about/page.tsx</code> e ele vira a rota <code>/about</code>. Sem configuração de router - compare com o roteamento por hash do T16.</p>
 <pre><code>// Directory structure = URL structure
 app/
   page.tsx          // &quot;/&quot; route
@@ -71,7 +71,7 @@ export default function MenuPage() {
 }
 </code></pre>
 <h2 id="server-vs-client-components"><a class="heading-anchor" href="#server-vs-client-components">Server vs Client Components</a></h2>
-<p>Next.js components are server components by default. They run on the server, can fetch data directly, and send only HTML to the browser. Add <code>"use client"</code> at the top when you need interactivity like state or event handlers.</p>
+<p>Componentes no Next.js são server components por padrão. Rodam no servidor, podem buscar dados diretamente e enviam só HTML para o navegador. Adicione <code>"use client"</code> no topo quando precisar de interatividade como estado ou handlers de evento.</p>
 <pre><code>// Server component (default) - runs on server, no JS sent to browser
 export default async function MenuList() {
     const items = await fetch(&quot;https://api.example.com/menu&quot;).then(r =&gt; r.json());
@@ -92,9 +92,9 @@ export default function AddToCart({ itemId }: { itemId: number }) {
 }
 </code></pre>
 <h2 id="layouts"><a class="heading-anchor" href="#layouts">Layouts</a></h2>
-<p>A <code>layout.tsx</code> wraps all pages in its directory and below. It persists across navigation, keeping shared UI like headers and sidebars mounted.</p>
-<h2 id="when-to-use-what"><a class="heading-anchor" href="#when-to-use-what">When to Use What</a></h2>
-<p>Use server components for static content and data fetching. Use client components only when you need useState, useEffect, onClick, or browser-only APIs.</p>
+<p>Um <code>layout.tsx</code> envelopa todas as páginas no seu diretório e abaixo. Ele persiste entre navegações, mantendo UI compartilhada como headers e sidebars montada.</p>
+<h2 id="quando-usar-cada-um"><a class="heading-anchor" href="#quando-usar-cada-um">Quando Usar Cada Um</a></h2>
+<p>Use server components para conteúdo estático e busca de dados. Use client components só quando precisa de useState, useEffect, onClick ou APIs só de navegador.</p>
 <div class="mermaid">
 flowchart TB
     A[Browser Request] --> B[Next.js Server]
@@ -112,10 +112,10 @@ flowchart TB
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>File-based routing maps directory structure to URLs - no configuration needed</li>
-<li>Components are server-rendered by default, sending only HTML to the browser</li>
-<li>Add "use client" only when a component needs state, effects, or event handlers</li>
-<li>Layouts wrap child pages and persist across navigation for shared UI</li>
+<li>Roteamento baseado em arquivos mapeia estrutura de diretórios em URLs - sem configuração</li>
+<li>Componentes são renderizados no servidor por padrão, enviando só HTML para o navegador</li>
+<li>Adicione "use client" só quando um componente precisa de estado, efeitos ou handlers de evento</li>
+<li>Layouts envelopam páginas filhas e persistem entre navegações para UI compartilhada</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

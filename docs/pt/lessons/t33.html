@@ -46,12 +46,12 @@
           <a href="t34.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t33-nest-js-architecture"><a class="heading-anchor" href="#t33-nest-js-architecture">T33: Nest.js Architecture</a></h1>
-<p class="lesson-intro">Nest.js is like an operations manual for a restaurant chain. Modules are departments, Controllers are the waiters taking orders, Services are the chefs doing the real work, and Dependency Injection is the manager who assigns chefs to stations without waiters needing to know the details.</p>
-<h2 id="why-a-framework"><a class="heading-anchor" href="#why-a-framework">Why a Framework?</a></h2>
-<p>Raw Node.js from T21 works for small apps, but at scale you need structure. Nest.js provides clear separation of concerns, enforced patterns, and built-in support for testing and modularity.</p>
+      <h1 id="t33-arquitetura-do-nest-js"><a class="heading-anchor" href="#t33-arquitetura-do-nest-js">T33: Arquitetura do Nest.js</a></h1>
+<p class="lesson-intro">Nest.js é como um manual de operações para uma rede de restaurantes. Modules são departamentos, Controllers são os garçons anotando pedidos, Services são os chefs fazendo o trabalho de verdade, e Injeção de Dependência é o gerente que aloca chefs nas estações sem os garçons precisarem saber os detalhes.</p>
+<h2 id="por-que-um-framework"><a class="heading-anchor" href="#por-que-um-framework">Por Que um Framework?</a></h2>
+<p>Node.js puro do T21 funciona para apps pequenos, mas em escala você precisa de estrutura. Nest.js oferece separação clara de responsabilidades, padrões impostos e suporte embutido a testes e modularidade.</p>
 <h2 id="modules-controllers-services"><a class="heading-anchor" href="#modules-controllers-services">Modules, Controllers, Services</a></h2>
-<p>Every Nest.js app is organized into modules. Each module groups related controllers (handle HTTP) and services (handle business logic). Decorators like <code>@Controller</code> and <code>@Injectable</code> tell the framework what each class does.</p>
+<p>Todo app Nest.js é organizado em módulos. Cada módulo agrupa controllers relacionados (cuidam de HTTP) e services (cuidam da lógica de negócio). Decoradores como <code>@Controller</code> e <code>@Injectable</code> dizem ao framework o que cada classe faz.</p>
 <pre><code>// menu.module.ts
 import { Module } from &quot;@nestjs/common&quot;;
 import { MenuController } from &quot;./menu.controller&quot;;
@@ -102,8 +102,8 @@ export class MenuService {
     }
 }
 </code></pre>
-<h2 id="dependency-injection"><a class="heading-anchor" href="#dependency-injection">Dependency Injection</a></h2>
-<p>The controller does not create its own service. It declares what it needs in the constructor, and the framework provides it. This makes testing easy - you can swap in mock services without changing controller code.</p>
+<h2 id="inje-o-de-depend-ncia"><a class="heading-anchor" href="#inje-o-de-depend-ncia">Injeção de Dependência</a></h2>
+<p>O controller não cria seu próprio service. Ele declara o que precisa no construtor, e o framework provê. Isso facilita testes - você pode trocar por services mocks sem mudar o código do controller.</p>
 <pre><code>// The controller declares its dependency
 constructor(private readonly menuService: MenuService) {}
 
@@ -111,8 +111,8 @@ constructor(private readonly menuService: MenuService) {}
 // In tests, you can provide a mock instead:
 // { provide: MenuService, useValue: mockMenuService }
 </code></pre>
-<h2 id="decorators-and-typescript"><a class="heading-anchor" href="#decorators-and-typescript">Decorators and TypeScript</a></h2>
-<p>Nest.js uses TypeScript decorators extensively. <code>@Controller</code>, <code>@Get</code>, <code>@Post</code>, <code>@Body</code>, <code>@Injectable</code> - these annotations define behavior without cluttering your logic.</p>
+<h2 id="decoradores-e-typescript"><a class="heading-anchor" href="#decoradores-e-typescript">Decoradores e TypeScript</a></h2>
+<p>Nest.js usa decoradores do TypeScript extensivamente. <code>@Controller</code>, <code>@Get</code>, <code>@Post</code>, <code>@Body</code>, <code>@Injectable</code> - essas anotações definem comportamento sem sujar sua lógica.</p>
 <div class="mermaid">
 flowchart TD
     A[HTTP Request] --> B["@Controller: MenuController"]
@@ -134,10 +134,10 @@ flowchart TD
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Nest.js enforces structure with modules, controllers, and services as the three pillars</li>
-<li>Controllers handle HTTP routing, services handle business logic - never mix them</li>
-<li>Dependency injection lets the framework wire components together, simplifying testing</li>
-<li>TypeScript decorators define behavior declaratively without cluttering your logic</li>
+<li>Nest.js impõe estrutura com modules, controllers e services como os três pilares</li>
+<li>Controllers cuidam de roteamento HTTP, services cuidam de lógica de negócio - nunca misture</li>
+<li>Injeção de dependência deixa o framework conectar componentes, simplificando testes</li>
+<li>Decoradores do TypeScript definem comportamento declarativamente sem sujar sua lógica</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

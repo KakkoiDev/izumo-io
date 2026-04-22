@@ -47,9 +47,9 @@
         </div>
       </nav>
       <h1 id="t30-typescript"><a class="heading-anchor" href="#t30-typescript">T30: TypeScript</a></h1>
-<p class="lesson-intro">TypeScript adds a type system on top of JavaScript. Types are like a contract - similar to telling a restaurant your dietary restrictions before they cook. You specify what shape your data should have, and TypeScript catches mistakes before your code ever runs.</p>
-<h2 id="type-annotations"><a class="heading-anchor" href="#type-annotations">Type Annotations</a></h2>
-<p>TypeScript lets you annotate variables, function parameters, and return values with types. The compiler checks these at build time and reports errors before execution.</p>
+<p class="lesson-intro">TypeScript adiciona um sistema de tipos sobre o JavaScript. Tipos são como um contrato - parecido com avisar num restaurante das suas restrições alimentares antes do cozinheiro começar. Você especifica o formato que seus dados devem ter, e o TypeScript pega erros antes do código rodar.</p>
+<h2 id="anota-es-de-tipo"><a class="heading-anchor" href="#anota-es-de-tipo">Anotações de Tipo</a></h2>
+<p>TypeScript permite anotar variáveis, parâmetros de função e valores de retorno com tipos. O compilador confere em build time e reporta erros antes da execução.</p>
 <pre><code>// Basic type annotations
 let name: string = &quot;Ramen&quot;;
 let price: number = 850;
@@ -66,8 +66,8 @@ let tags: string[] = [&quot;spicy&quot;, &quot;popular&quot;];
 // Type error caught at compile time
 // price = &quot;free&quot;;  // Error: Type 'string' is not assignable to type 'number'
 </code></pre>
-<h2 id="interfaces-and-objects"><a class="heading-anchor" href="#interfaces-and-objects">Interfaces and Objects</a></h2>
-<p>Interfaces define the shape of an object. They act as blueprints that enforce structure consistency across your codebase.</p>
+<h2 id="interfaces-e-objetos"><a class="heading-anchor" href="#interfaces-e-objetos">Interfaces e Objetos</a></h2>
+<p>Interfaces definem o formato de um objeto. Elas agem como plantas que garantem consistência de estrutura pelo seu código.</p>
 <pre><code>interface MenuItem {
     id: number;
     name: string;
@@ -89,8 +89,8 @@ const ramen: MenuItem = {
     available: true,
 };
 </code></pre>
-<h2 id="typing-react-components"><a class="heading-anchor" href="#typing-react-components">Typing React Components</a></h2>
-<p>TypeScript and React work well together. You type props with interfaces and state with generics, catching errors in your component contracts.</p>
+<h2 id="tipando-componentes-react"><a class="heading-anchor" href="#tipando-componentes-react">Tipando Componentes React</a></h2>
+<p>TypeScript e React se dão bem. Você tipa props com interfaces e estado com genéricos, pegando erros nos contratos dos seus componentes.</p>
 <pre><code>interface MenuCardProps {
     name: string;
     price: number;
@@ -110,8 +110,8 @@ function MenuCard({ name, price, onOrder }: MenuCardProps) {
 // Typed useState
 const [items, setItems] = useState&lt;MenuItem[]&gt;([]);
 </code></pre>
-<h2 id="union-types-and-generics"><a class="heading-anchor" href="#union-types-and-generics">Union Types and Generics</a></h2>
-<p>Union types let a value be one of several types. Generics let you write reusable code that works with any type while preserving type safety.</p>
+<h2 id="union-types-e-gen-ricos"><a class="heading-anchor" href="#union-types-e-gen-ricos">Union Types e Genéricos</a></h2>
+<p>Union types permitem que um valor seja um de vários tipos. Genéricos deixam você escrever código reutilizável que funciona com qualquer tipo preservando a segurança.</p>
 <div class="mermaid">
 flowchart LR
     A[.ts File] --> B[TypeScript Compiler]
@@ -129,10 +129,10 @@ flowchart LR
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>TypeScript catches type errors at compile time, before code runs in the browser</li>
-<li>Interfaces define object shapes, enforcing consistent data structures</li>
-<li>React props and state can be typed for safer, self-documenting components</li>
-<li>Union types and generics provide flexibility while keeping type safety</li>
+<li>TypeScript pega erros de tipo em compile time, antes do código rodar no navegador</li>
+<li>Interfaces definem formato de objetos, garantindo estruturas de dados consistentes</li>
+<li>Props e estado do React podem ser tipados para componentes mais seguros e auto-documentados</li>
+<li>Union types e genéricos oferecem flexibilidade mantendo a segurança de tipo</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
