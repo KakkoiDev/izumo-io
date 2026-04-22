@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>HTML Tags - KakkoiSchool</title>
+  <title>Terminal Basics - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,49 +47,78 @@
         </div>
       </nav>
       
-<h1 id="t02-html-tags"><a class="heading-anchor" href="#t02-html-tags">T02: HTML Tags</a></h1>
-<p class="lesson-intro">HTML tags are like labels on boxes. Each tag tells the browser what kind of content is inside. A heading tag says "this is a title," a paragraph tag says "this is a block of text." The browser uses these labels to display content appropriately.</p>
+<h1 id="t02-terminal-basics"><a class="heading-anchor" href="#t02-terminal-basics">T02: Terminal Basics</a></h1>
+<p class="lesson-intro">Buttons are for tourists. The terminal is the direct line to the machine - a text prompt where you tell the computer exactly what to do. It feels intimidating for about a week, then feels like a superpower for the rest of your career. You stop clicking through dialogs and start composing commands.</p>
 
-<h2 id="headings-and-text"><a class="heading-anchor" href="#headings-and-text">Headings and Text</a></h2>
-<p>HTML provides six levels of headings, from <code>&lt;h1&gt;</code> (most important) to <code>&lt;h6&gt;</code> (least). Paragraphs use the <code>&lt;p&gt;</code> tag.</p>
-<pre><code>&lt;h1&gt;Main Title&lt;/h1&gt;
-&lt;h2&gt;Section Title&lt;/h2&gt;
-&lt;h3&gt;Subsection&lt;/h3&gt;
-&lt;p&gt;A paragraph of text goes here.&lt;/p&gt;</code></pre>
+<h2 id="where-am-i-moving-around"><a class="heading-anchor" href="#where-am-i-moving-around">Where Am I? Moving Around</a></h2>
+<p>Your shell is always sitting in some folder, called the <strong>working directory</strong>. Three commands form the navigation basics: where am I, what is here, go somewhere.</p>
+<pre><code>pwd                    # print working directory
+ls                     # list what is in this folder
+ls -la                 # long format, include hidden files
+cd Documents           # move into a subfolder
+cd ..                  # move up one level
+cd                     # go home (shorthand for ~)
+cd /                   # jump to the filesystem root</code></pre>
+<p>Paths come in two flavors. An <strong>absolute</strong> path starts from the root: <code>/home/alice/projects</code>. A <strong>relative</strong> path starts from wherever you are now: <code>../notes</code>. The special shortcuts <code>.</code> (here), <code>..</code> (parent), and <code>~</code> (your home folder) show up everywhere.</p>
 
-<h2 id="links-and-images"><a class="heading-anchor" href="#links-and-images">Links and Images</a></h2>
-<p>The anchor tag <code>&lt;a&gt;</code> creates clickable links. The image tag <code>&lt;img&gt;</code> embeds pictures. Note that img is a self-closing tag.</p>
-<pre><code>&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;
-&lt;img src="photo.jpg" alt="A description"&gt;</code></pre>
+<h2 id="creating-copying-removing"><a class="heading-anchor" href="#creating-copying-removing">Creating, Copying, Removing</a></h2>
+<p>Files and folders are text in, bytes out. Keep verbs short.</p>
+<pre><code>mkdir my-project              # make a folder
+mkdir -p a/b/c                # make nested folders at once
+touch notes.md                # create an empty file
+cp notes.md backup.md         # copy file
+cp -r my-project archive      # copy folder recursively
+mv old.md new.md              # rename (or move)
+rm notes.md                   # delete file (no recycle bin!)
+rm -rf build/                 # delete folder and everything inside
+cat notes.md                  # print file to screen
+less log.txt                  # scroll through a large file (q to quit)</code></pre>
+<p><strong>Warning</strong>: there is no trash can. <code>rm</code> is final. Before using <code>rm -rf</code>, always run <code>ls</code> first to verify the target.</p>
 
-<h2 id="lists"><a class="heading-anchor" href="#lists">Lists</a></h2>
-<p>Unordered lists use <code>&lt;ul&gt;</code> with <code>&lt;li&gt;</code> items (bullet points). Ordered lists use <code>&lt;ol&gt;</code> (numbered items).</p>
-<pre><code>&lt;ul&gt;
-    &lt;li&gt;First item&lt;/li&gt;
-    &lt;li&gt;Second item&lt;/li&gt;
-&lt;/ul&gt;</code></pre>
+<h2 id="reading-the-manual"><a class="heading-anchor" href="#reading-the-manual">Reading the Manual</a></h2>
+<p>Every command ships with its own manual. When you forget a flag, ask.</p>
+<pre><code>man ls                 # full manual page (q to quit)
+ls --help              # quick summary (most modern commands)
+which python           # show where a command lives on disk</code></pre>
+
+<h2 id="the-path-why-commands-just-work"><a class="heading-anchor" href="#the-path-why-commands-just-work">The PATH: Why Commands Just Work</a></h2>
+<p>When you type <code>git</code>, the shell does not know where the git program lives. It walks a list of folders stored in the <code>PATH</code> environment variable and runs the first <code>git</code> it finds. This is why installing tools sometimes needs a PATH update.</p>
+<pre><code>echo $PATH                              # see the search list
+# /usr/local/bin:/usr/bin:/bin:...
+export PATH="$HOME/.local/bin:$PATH"    # add your own folder first</code></pre>
 
 <div class="mermaid">
-graph TD
-    A[html] --> B[head]
-    A --> C[body]
-    B --> D[title]
-    C --> E[h1]
-    C --> F[p]
-    C --> G[ul]
-    G --> H[li]
-    G --> I[li]
-    C --> J[a]
-    C --> K[img]
+flowchart TD
+    User[You type: git status]
+    Shell[Shell reads PATH]
+    P1[/usr/local/bin/git]
+    P2[/usr/bin/]
+    P3[...]
+    Run[Run the found program]
+    User --> Shell
+    Shell --> P1
+    Shell --> P2
+    Shell --> P3
+    P1 -->|first match wins| Run
 </div>
+
+<h2 id="speed-tricks"><a class="heading-anchor" href="#speed-tricks">Speed Tricks</a></h2>
+<p>The shell rewards muscle memory. Four habits that pay back every day:</p>
+<ul>
+<li><strong>Tab</strong> completes file names and commands. Hit it twice to see options.</li>
+<li><strong>Up arrow</strong> walks backward through your command history.</li>
+<li><strong>Ctrl+R</strong> searches history by fragment - type "git com" to resurrect "git commit -m ...".</li>
+<li><strong>Ctrl+C</strong> cancels a running command. <strong>Ctrl+D</strong> ends input / exits the shell.</li>
+</ul>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Headings h1-h6 create a content hierarchy - use them in order</li>
-<li>Links use the a tag with an href attribute for the destination URL</li>
-<li>Images use the img tag with src and alt attributes</li>
-<li>Lists come in two flavors: ul for bullets, ol for numbers</li>
+<li>pwd, ls, cd are your navigation basics. Paths are absolute (start with /) or relative (start from here)</li>
+<li>mkdir, touch, cp, mv, rm manage files and folders. rm is permanent - there is no trash can</li>
+<li>man and --help are always there when you forget a flag. Use them before Google</li>
+<li>PATH is the search list the shell uses to find commands. Know how to inspect and extend it</li>
+<li>Tab completion, Ctrl+R history search, and Ctrl+C to cancel are the muscle memory that separate beginners from pros</li>
 </ul>
 </div>
 

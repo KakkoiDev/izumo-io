@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>CSS Layout - KakkoiSchool</title>
+  <title>HTML Tags - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,58 +47,49 @@
         </div>
       </nav>
       
-<h1 id="t05-css-layout"><a class="heading-anchor" href="#t05-css-layout">T05: CSS Layout</a></h1>
-<p class="lesson-intro">Placing elements on a page used to be painful. Flexbox and Grid changed everything. Think of Flexbox as arranging items in a single line (like books on a shelf), and Grid as organizing items in rows and columns (like a spreadsheet).</p>
+<h1 id="t05-html-tags"><a class="heading-anchor" href="#t05-html-tags">T05: HTML Tags</a></h1>
+<p class="lesson-intro">HTML tags are like labels on boxes. Each tag tells the browser what kind of content is inside. A heading tag says "this is a title," a paragraph tag says "this is a block of text." The browser uses these labels to display content appropriately.</p>
 
-<h2 id="flexbox"><a class="heading-anchor" href="#flexbox">Flexbox</a></h2>
-<p>Flexbox works in one dimension at a time. Set <code>display: flex</code> on a container, then control how children align and distribute space.</p>
-<pre><code>.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-}
+<h2 id="headings-and-text"><a class="heading-anchor" href="#headings-and-text">Headings and Text</a></h2>
+<p>HTML provides six levels of headings, from <code>&lt;h1&gt;</code> (most important) to <code>&lt;h6&gt;</code> (least). Paragraphs use the <code>&lt;p&gt;</code> tag.</p>
+<pre><code>&lt;h1&gt;Main Title&lt;/h1&gt;
+&lt;h2&gt;Section Title&lt;/h2&gt;
+&lt;h3&gt;Subsection&lt;/h3&gt;
+&lt;p&gt;A paragraph of text goes here.&lt;/p&gt;</code></pre>
 
-.nav-item {
-    flex: 1;
-}</code></pre>
+<h2 id="links-and-images"><a class="heading-anchor" href="#links-and-images">Links and Images</a></h2>
+<p>The anchor tag <code>&lt;a&gt;</code> creates clickable links. The image tag <code>&lt;img&gt;</code> embeds pictures. Note that img is a self-closing tag.</p>
+<pre><code>&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;
+&lt;img src="photo.jpg" alt="A description"&gt;</code></pre>
 
-<h2 id="css-grid"><a class="heading-anchor" href="#css-grid">CSS Grid</a></h2>
-<p>Grid works in two dimensions simultaneously. Define rows and columns, then place items into the grid cells.</p>
-<pre><code>.layout {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    grid-template-rows: auto 1fr auto;
-    gap: 1rem;
-    min-height: 100vh;
-}</code></pre>
-
-<h2 id="responsive-design"><a class="heading-anchor" href="#responsive-design">Responsive Design</a></h2>
-<p>Media queries let you apply different styles based on screen size. Mobile-first means writing base styles for small screens and adding complexity for larger ones.</p>
-<pre><code>@media (min-width: 768px) {
-    .layout { grid-template-columns: 250px 1fr; }
-}</code></pre>
+<h2 id="lists"><a class="heading-anchor" href="#lists">Lists</a></h2>
+<p>Unordered lists use <code>&lt;ul&gt;</code> with <code>&lt;li&gt;</code> items (bullet points). Ordered lists use <code>&lt;ol&gt;</code> (numbered items).</p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;First item&lt;/li&gt;
+    &lt;li&gt;Second item&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 
 <div class="mermaid">
-flowchart TB
-    subgraph Flexbox
-        direction LR
-        F1[Item] --- F2[Item] --- F3[Item]
-    end
-    subgraph Grid
-        G1[Header] --- G2[Header]
-        G3[Sidebar] --- G4[Main]
-        G5[Footer] --- G6[Footer]
-    end
+graph TD
+    A[html] --> B[head]
+    A --> C[body]
+    B --> D[title]
+    C --> E[h1]
+    C --> F[p]
+    C --> G[ul]
+    G --> H[li]
+    G --> I[li]
+    C --> J[a]
+    C --> K[img]
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Flexbox is for one-dimensional layouts (row or column)</li>
-<li>Grid is for two-dimensional layouts (rows and columns together)</li>
-<li>Use media queries for responsive design that adapts to screen size</li>
-<li>Mobile-first approach: start small, add complexity for larger screens</li>
+<li>Headings h1-h6 create a content hierarchy - use them in order</li>
+<li>Links use the a tag with an href attribute for the destination URL</li>
+<li>Images use the img tag with src and alt attributes</li>
+<li>Lists come in two flavors: ul for bullets, ol for numbers</li>
 </ul>
 </div>
 

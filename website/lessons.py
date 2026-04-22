@@ -3,7 +3,538 @@
 LESSONS = {
     'T01': {
         'en': """
-<h1>T01: Hello World</h1>
+<h1>T01: Environment Setup</h1>
+<p class="lesson-intro">Every craftsman sets up the workbench before the first cut. To build for the web you need three tools on your computer: an editor to write code, a runtime to execute JavaScript outside the browser, and a browser to view the result. One afternoon of setup saves a thousand frustrations later. Do it once, forget it forever.</p>
+
+<h2>What You Are Installing</h2>
+<ul>
+<li><strong>Visual Studio Code</strong> - the editor. Free, from Microsoft, runs on Windows, Mac, Linux. Works for HTML, CSS, JavaScript, and every language you will touch in this course.</li>
+<li><strong>Node.js</strong> - a JavaScript runtime. Lets you run .js files from your terminal without a browser. Comes with <code>npm</code>, the package manager that installs third-party libraries.</li>
+<li><strong>A modern browser</strong> - Chrome or Firefox. The built-in browser devtools are how you inspect pages, debug JavaScript, and simulate network conditions.</li>
+</ul>
+
+<h2>Install VS Code</h2>
+<p>Go to <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a> and download the installer for your operating system. Accept the defaults. When prompted during install, check <strong>Add to PATH</strong> and <strong>Register as editor for supported file types</strong>.</p>
+<p>After install, open VS Code and look around:</p>
+<ul>
+<li>Left bar: Explorer (file tree), Search, Source Control (git), Extensions</li>
+<li><strong>Cmd/Ctrl + P</strong> - quick file open. Type a filename fragment</li>
+<li><strong>Cmd/Ctrl + Shift + P</strong> - command palette. Type any command by name</li>
+<li><strong>Ctrl + `</strong> (backtick) - open the integrated terminal inside VS Code</li>
+</ul>
+
+<h2>Install Node.js</h2>
+<p>Go to <a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a> and download the <strong>LTS</strong> (Long-Term Support) version. Accept defaults. LTS is the boring-reliable choice; avoid the "Current" channel for learning.</p>
+<p>On Mac, if you already use Homebrew, <code>brew install node</code> works. On Linux, your distro's package manager is fine, but node's version may be old; consider <a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a> for flexibility later.</p>
+
+<h2>Verify Everything Works</h2>
+<p>Open VS Code, then open the integrated terminal (<strong>Ctrl + `</strong>). Run these four commands. Each should print a version number.</p>
+<pre><code>node -v      # v20.x.x or newer
+npm -v       # 10.x.x or newer
+code -v      # VS Code version
+git --version  # any version works</code></pre>
+<p>If any command prints "command not found", close all terminal windows, open a new one, and try again. The installer updated your <code>PATH</code>, and PATH only applies to new terminals. Still broken? Restart the computer.</p>
+
+<h2>Your First File</h2>
+<p>Let's prove the whole chain works end to end.</p>
+<ol>
+<li>In VS Code, open a folder: <strong>File &gt; Open Folder</strong>. Pick or create a folder called <code>learning</code>.</li>
+<li>Create a new file named <code>hello.html</code>.</li>
+<li>Paste this in and save with Cmd/Ctrl + S:</li>
+</ol>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Hello&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;It works!&lt;/h1&gt;
+    &lt;script&gt;
+        console.log("Also in the browser console.");
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>Open the file in your browser (double-click it, or drag it onto the browser). Open devtools with <strong>F12</strong> and switch to the Console tab. You should see the log line.</p>
+
+<div class="mermaid">
+flowchart LR
+    VSC[VS Code<br/>write code]
+    Disk[hello.html on disk]
+    Browser[Browser<br/>renders + runs JS]
+    DevTools[DevTools F12<br/>inspect + debug]
+    Terminal[VS Code terminal<br/>node, npm, git]
+    VSC -->|Save| Disk
+    Disk -->|Open| Browser
+    Browser --> DevTools
+    VSC -.->|Ctrl+backtick| Terminal
+    Terminal -.->|node, npm| Disk
+</div>
+
+<h2>Extensions Worth Installing</h2>
+<p>Open the Extensions panel in VS Code (square icon on the left bar). Install these four:</p>
+<ul>
+<li><strong>Prettier - Code formatter</strong> - auto-formats on save so every file looks consistent</li>
+<li><strong>ESLint</strong> - highlights JavaScript bugs and style issues as you type</li>
+<li><strong>Live Server</strong> - right-click any .html file -&gt; "Open with Live Server" for auto-refresh on save</li>
+<li><strong>GitLens</strong> - enhanced git integration; see who last changed every line</li>
+</ul>
+<p>To enable format-on-save, open settings (Cmd/Ctrl + ,), search "format on save", and check the box.</p>
+
+<h2>Operating System Notes</h2>
+<ul>
+<li><strong>Windows</strong>: install Git for Windows from <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>. The default "Git Bash" terminal gives you a Linux-like shell that is much nicer than cmd.exe for this course.</li>
+<li><strong>Mac</strong>: install <a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a> first. Then <code>brew install git node</code> is the whole setup.</li>
+<li><strong>Linux</strong>: you likely have git already. <code>sudo apt install git nodejs npm</code> (Ubuntu/Debian) or <code>nvm</code> for newer versions.</li>
+</ul>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Three tools: VS Code (editor), Node.js LTS (runtime), a modern browser with devtools</li>
+<li>Verify with node -v, npm -v, git --version, code -v. All four should print versions</li>
+<li>Learn VS Code shortcuts early: Cmd/Ctrl+P (quick open), Cmd/Ctrl+Shift+P (command palette), Ctrl+backtick (terminal)</li>
+<li>Install Prettier, ESLint, Live Server, GitLens. Enable format-on-save</li>
+<li>If a command is "not found", open a fresh terminal. If still broken, restart. PATH updates need a new shell</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T01: 環境セットアップ</h1>
+<p class="lesson-intro">職人は最初の切削の前に作業台を整えます。Webを作るために、コンピュータには3つの道具が必要です。コードを書くエディタ、ブラウザ外でJavaScriptを実行するランタイム、結果を見るブラウザ。午後1回のセットアップが後の千の苛立ちを救います。一度やって永遠に忘れましょう。</p>
+
+<h2>何をインストールするか</h2>
+<ul>
+<li><strong>Visual Studio Code</strong> - エディタ。無料、Microsoft製、Windows/Mac/Linuxで動作。HTML、CSS、JavaScript、このコースで触る全ての言語に対応。</li>
+<li><strong>Node.js</strong> - JavaScriptランタイム。ブラウザなしでターミナルから.jsファイルを実行できる。サードパーティライブラリをインストールする<code>npm</code>が付属。</li>
+<li><strong>モダンブラウザ</strong> - ChromeまたはFirefox。組み込みのデベロッパーツールでページを検査、JavaScriptをデバッグ、ネットワーク状況をシミュレートします。</li>
+</ul>
+
+<h2>VS Codeをインストール</h2>
+<p><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a>に行き、OSのインストーラをダウンロード。デフォルトを受け入れる。インストール中に聞かれたら<strong>Add to PATH</strong>と<strong>Register as editor for supported file types</strong>をチェック。</p>
+<p>インストール後、VS Codeを開いて見回します:</p>
+<ul>
+<li>左バー: エクスプローラ(ファイルツリー)、検索、ソース管理(git)、拡張機能</li>
+<li><strong>Cmd/Ctrl + P</strong> - クイックファイルオープン。ファイル名の一部を入力</li>
+<li><strong>Cmd/Ctrl + Shift + P</strong> - コマンドパレット。任意のコマンドを名前で入力</li>
+<li><strong>Ctrl + `</strong>(バッククォート) - VS Code内の統合ターミナルを開く</li>
+</ul>
+
+<h2>Node.jsをインストール</h2>
+<p><a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a>に行き、<strong>LTS</strong>(長期サポート)版をダウンロード。デフォルトを受け入れる。LTSは退屈で信頼できる選択。学習中は「Current」チャネルは避けましょう。</p>
+<p>MacでHomebrewを使っているなら<code>brew install node</code>で十分。Linuxではディストリのパッケージマネージャでも良いが、nodeのバージョンが古いかも。後の柔軟性のために<a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a>の使用を検討。</p>
+
+<h2>全てが動くか確認</h2>
+<p>VS Codeを開き、統合ターミナルを開く(<strong>Ctrl + `</strong>)。この4つのコマンドを実行。各々がバージョン番号を表示するはず。</p>
+<pre><code>node -v      # v20.x.x or newer
+npm -v       # 10.x.x or newer
+code -v      # VS Code version
+git --version  # any version works</code></pre>
+<p>どれかが「command not found」を出したら、全てのターミナルウィンドウを閉じて新しいのを開き、もう一度試す。インストーラは<code>PATH</code>を更新するが、PATHは新しいターミナルにのみ適用される。それでも壊れているなら、コンピュータを再起動。</p>
+
+<h2>最初のファイル</h2>
+<p>チェーン全体がエンドtoエンドで動くことを証明しましょう。</p>
+<ol>
+<li>VS Codeで<strong>File &gt; Open Folder</strong>からフォルダを開く。<code>learning</code>というフォルダを作るか選ぶ。</li>
+<li><code>hello.html</code>という新ファイルを作成。</li>
+<li>これを貼り付けてCmd/Ctrl + Sで保存:</li>
+</ol>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Hello&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;It works!&lt;/h1&gt;
+    &lt;script&gt;
+        console.log("Also in the browser console.");
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>ファイルをブラウザで開く(ダブルクリックかブラウザにドラッグ)。<strong>F12</strong>でデベロッパーツールを開き、Consoleタブに切り替え。ログ行が見えるはず。</p>
+
+<div class="mermaid">
+flowchart LR
+    VSC[VS Code<br/>write code]
+    Disk[hello.html on disk]
+    Browser[Browser<br/>renders + runs JS]
+    DevTools[DevTools F12<br/>inspect + debug]
+    Terminal[VS Code terminal<br/>node, npm, git]
+    VSC -->|Save| Disk
+    Disk -->|Open| Browser
+    Browser --> DevTools
+    VSC -.->|Ctrl+backtick| Terminal
+    Terminal -.->|node, npm| Disk
+</div>
+
+<h2>入れる価値のある拡張機能</h2>
+<p>VS Codeの拡張機能パネルを開く(左バーの四角いアイコン)。この4つをインストール:</p>
+<ul>
+<li><strong>Prettier - Code formatter</strong> - 保存時に自動フォーマット。全ファイルが一貫した見た目に</li>
+<li><strong>ESLint</strong> - 入力中にJavaScriptのバグとスタイル問題をハイライト</li>
+<li><strong>Live Server</strong> - 任意の.htmlファイルを右クリック -&gt; 「Open with Live Server」で保存時自動リロード</li>
+<li><strong>GitLens</strong> - git統合の強化。各行を最後に誰が変えたか見える</li>
+</ul>
+<p>保存時フォーマットを有効にするには、設定(Cmd/Ctrl + ,)を開き、「format on save」を検索してチェック。</p>
+
+<h2>OS別の注意</h2>
+<ul>
+<li><strong>Windows</strong>: <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>からGit for Windowsをインストール。デフォルトの「Git Bash」ターミナルがcmd.exeよりこのコースに親切なLinux風シェルを提供。</li>
+<li><strong>Mac</strong>: まず<a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a>をインストール。あとは<code>brew install git node</code>でセットアップ完了。</li>
+<li><strong>Linux</strong>: gitは既にあるはず。<code>sudo apt install git nodejs npm</code>(Ubuntu/Debian)、または新しいバージョンには<code>nvm</code>。</li>
+</ul>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>3つの道具: VS Code(エディタ)、Node.js LTS(ランタイム)、デベロッパーツール付きモダンブラウザ</li>
+<li>node -v、npm -v、git --version、code -vで確認。4つ全てがバージョンを表示するはず</li>
+<li>VS Codeのショートカットを早く覚える: Cmd/Ctrl+P(クイック開く)、Cmd/Ctrl+Shift+P(コマンドパレット)、Ctrl+バッククォート(ターミナル)</li>
+<li>Prettier、ESLint、Live Server、GitLensをインストール。保存時フォーマットを有効に</li>
+<li>コマンドが「not found」なら新しいターミナルを開く。まだ壊れているなら再起動。PATH更新は新シェルが必要</li>
+</ul>
+</div>
+""",
+    },    'T02': {
+        'en': """
+<h1>T02: Terminal Basics</h1>
+<p class="lesson-intro">Buttons are for tourists. The terminal is the direct line to the machine - a text prompt where you tell the computer exactly what to do. It feels intimidating for about a week, then feels like a superpower for the rest of your career. You stop clicking through dialogs and start composing commands.</p>
+
+<h2>Where Am I? Moving Around</h2>
+<p>Your shell is always sitting in some folder, called the <strong>working directory</strong>. Three commands form the navigation basics: where am I, what is here, go somewhere.</p>
+<pre><code>pwd                    # print working directory
+ls                     # list what is in this folder
+ls -la                 # long format, include hidden files
+cd Documents           # move into a subfolder
+cd ..                  # move up one level
+cd                     # go home (shorthand for ~)
+cd /                   # jump to the filesystem root</code></pre>
+<p>Paths come in two flavors. An <strong>absolute</strong> path starts from the root: <code>/home/alice/projects</code>. A <strong>relative</strong> path starts from wherever you are now: <code>../notes</code>. The special shortcuts <code>.</code> (here), <code>..</code> (parent), and <code>~</code> (your home folder) show up everywhere.</p>
+
+<h2>Creating, Copying, Removing</h2>
+<p>Files and folders are text in, bytes out. Keep verbs short.</p>
+<pre><code>mkdir my-project              # make a folder
+mkdir -p a/b/c                # make nested folders at once
+touch notes.md                # create an empty file
+cp notes.md backup.md         # copy file
+cp -r my-project archive      # copy folder recursively
+mv old.md new.md              # rename (or move)
+rm notes.md                   # delete file (no recycle bin!)
+rm -rf build/                 # delete folder and everything inside
+cat notes.md                  # print file to screen
+less log.txt                  # scroll through a large file (q to quit)</code></pre>
+<p><strong>Warning</strong>: there is no trash can. <code>rm</code> is final. Before using <code>rm -rf</code>, always run <code>ls</code> first to verify the target.</p>
+
+<h2>Reading the Manual</h2>
+<p>Every command ships with its own manual. When you forget a flag, ask.</p>
+<pre><code>man ls                 # full manual page (q to quit)
+ls --help              # quick summary (most modern commands)
+which python           # show where a command lives on disk</code></pre>
+
+<h2>The PATH: Why Commands Just Work</h2>
+<p>When you type <code>git</code>, the shell does not know where the git program lives. It walks a list of folders stored in the <code>PATH</code> environment variable and runs the first <code>git</code> it finds. This is why installing tools sometimes needs a PATH update.</p>
+<pre><code>echo $PATH                              # see the search list
+# /usr/local/bin:/usr/bin:/bin:...
+export PATH="$HOME/.local/bin:$PATH"    # add your own folder first</code></pre>
+
+<div class="mermaid">
+flowchart TD
+    User[You type: git status]
+    Shell[Shell reads PATH]
+    P1[/usr/local/bin/git]
+    P2[/usr/bin/]
+    P3[...]
+    Run[Run the found program]
+    User --> Shell
+    Shell --> P1
+    Shell --> P2
+    Shell --> P3
+    P1 -->|first match wins| Run
+</div>
+
+<h2>Speed Tricks</h2>
+<p>The shell rewards muscle memory. Four habits that pay back every day:</p>
+<ul>
+<li><strong>Tab</strong> completes file names and commands. Hit it twice to see options.</li>
+<li><strong>Up arrow</strong> walks backward through your command history.</li>
+<li><strong>Ctrl+R</strong> searches history by fragment - type "git com" to resurrect "git commit -m ...".</li>
+<li><strong>Ctrl+C</strong> cancels a running command. <strong>Ctrl+D</strong> ends input / exits the shell.</li>
+</ul>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>pwd, ls, cd are your navigation basics. Paths are absolute (start with /) or relative (start from here)</li>
+<li>mkdir, touch, cp, mv, rm manage files and folders. rm is permanent - there is no trash can</li>
+<li>man and --help are always there when you forget a flag. Use them before Google</li>
+<li>PATH is the search list the shell uses to find commands. Know how to inspect and extend it</li>
+<li>Tab completion, Ctrl+R history search, and Ctrl+C to cancel are the muscle memory that separate beginners from pros</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T02: ターミナルの基礎</h1>
+<p class="lesson-intro">ボタンは観光客向けです。ターミナルはマシンへの直通回線。テキストプロンプトで、コンピュータに何をすべきかを正確に伝えます。1週間は怖く感じ、その後はキャリアの残り全てで超能力に感じます。ダイアログをクリックするのをやめ、コマンドを組み立て始めます。</p>
+
+<h2>今どこ? 移動する</h2>
+<p>シェルは常にあるフォルダにいます。これを<strong>ワーキングディレクトリ</strong>と呼びます。3つのコマンドが基礎です。どこにいる、何がある、どこに行く。</p>
+<pre><code>pwd                    # print working directory
+ls                     # list what is in this folder
+ls -la                 # long format, include hidden files
+cd Documents           # move into a subfolder
+cd ..                  # move up one level
+cd                     # go home (shorthand for ~)
+cd /                   # jump to the filesystem root</code></pre>
+<p>パスは2種類あります。<strong>絶対</strong>パスはルートから始まります: <code>/home/alice/projects</code>。<strong>相対</strong>パスは現在地から始まります: <code>../notes</code>。特殊なショートカット<code>.</code>(ここ)、<code>..</code>(親)、<code>~</code>(ホーム)はどこでも使います。</p>
+
+<h2>作成、コピー、削除</h2>
+<p>ファイルとフォルダはテキスト入力、バイト出力です。動詞は短く。</p>
+<pre><code>mkdir my-project              # make a folder
+mkdir -p a/b/c                # make nested folders at once
+touch notes.md                # create an empty file
+cp notes.md backup.md         # copy file
+cp -r my-project archive      # copy folder recursively
+mv old.md new.md              # rename (or move)
+rm notes.md                   # delete file (no recycle bin!)
+rm -rf build/                 # delete folder and everything inside
+cat notes.md                  # print file to screen
+less log.txt                  # scroll through a large file (q to quit)</code></pre>
+<p><strong>警告</strong>: ゴミ箱はありません。<code>rm</code>は最終です。<code>rm -rf</code>を使う前に、必ず<code>ls</code>で対象を確認しましょう。</p>
+
+<h2>マニュアルを読む</h2>
+<p>全てのコマンドは自分のマニュアルを持っています。フラグを忘れたら聞きます。</p>
+<pre><code>man ls                 # full manual page (q to quit)
+ls --help              # quick summary (most modern commands)
+which python           # show where a command lives on disk</code></pre>
+
+<h2>PATH: コマンドが動く理由</h2>
+<p><code>git</code>と打った時、シェルはgitがどこにあるか知りません。<code>PATH</code>環境変数に格納されたフォルダのリストを歩き、最初に見つけた<code>git</code>を実行します。ツールをインストールした後にPATH更新が必要な理由です。</p>
+<pre><code>echo $PATH                              # see the search list
+# /usr/local/bin:/usr/bin:/bin:...
+export PATH="$HOME/.local/bin:$PATH"    # add your own folder first</code></pre>
+
+<div class="mermaid">
+flowchart TD
+    User[You type: git status]
+    Shell[Shell reads PATH]
+    P1[/usr/local/bin/git]
+    P2[/usr/bin/]
+    P3[...]
+    Run[Run the found program]
+    User --> Shell
+    Shell --> P1
+    Shell --> P2
+    Shell --> P3
+    P1 -->|first match wins| Run
+</div>
+
+<h2>スピードの技</h2>
+<p>シェルは筋肉の記憶に報います。毎日得する4つの習慣:</p>
+<ul>
+<li><strong>Tab</strong>でファイル名とコマンドを補完。2回押すと候補表示。</li>
+<li><strong>上矢印</strong>でコマンド履歴を遡る。</li>
+<li><strong>Ctrl+R</strong>で履歴を断片検索。「git com」と打つと「git commit -m ...」が蘇る。</li>
+<li><strong>Ctrl+C</strong>で実行中のコマンドを中断。<strong>Ctrl+D</strong>で入力終了/シェル終了。</li>
+</ul>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>pwd、ls、cdが移動の基礎。パスは絶対(/で始まる)か相対(ここから始まる)</li>
+<li>mkdir、touch、cp、mv、rmでファイルとフォルダを管理。rmは永久。ゴミ箱はない</li>
+<li>manと--helpはフラグを忘れた時にいつでも使える。Googleより先に</li>
+<li>PATHはシェルがコマンドを探すリスト。確認と拡張の方法を知る</li>
+<li>Tab補完、Ctrl+Rの履歴検索、Ctrl+Cでの中断が初心者とプロを分ける筋肉の記憶</li>
+</ul>
+</div>
+""",
+    },
+    'T03': {
+        'en': """
+<h1>T03: Pipes &amp; Power Tools</h1>
+<p class="lesson-intro">The terminal stops being a clunky file browser and becomes a superpower the moment you understand the pipe. Each command is a small specialist. The pipe <code>|</code> is duct tape: it lets you bolt specialists together into assembly lines. Five commands joined by pipes can replace a spreadsheet macro, a Python script, or an afternoon.</p>
+
+<h2>Standard Streams</h2>
+<p>Every program has three channels. <strong>stdin</strong> is the input stream. <strong>stdout</strong> is where normal output goes. <strong>stderr</strong> is where errors go. The shell lets you redirect each one independently.</p>
+<pre><code>echo "hello" &gt; greet.txt        # stdout TO a file (overwrite)
+echo "world" &gt;&gt; greet.txt       # stdout APPEND to a file
+sort &lt; names.txt                 # stdin FROM a file
+command 2&gt; errors.log            # stderr TO a file
+command &gt; out.log 2&gt;&amp;1          # stdout and stderr together
+command &gt; /dev/null 2&gt;&amp;1         # discard all output</code></pre>
+
+<h2>The Pipe</h2>
+<p>A pipe connects one command's stdout to the next command's stdin. You read it left to right, like a sentence.</p>
+<pre><code># Show the 5 largest files in this folder
+ls -lS | head -n 5
+
+# Count how many .ts files the project has
+find src -name "*.ts" | wc -l
+
+# Find every TODO in your code
+grep -rn "TODO" src/ | less
+
+# Top 10 commands you use most
+history | awk '{print $2}' | sort | uniq -c | sort -rn | head</code></pre>
+
+<div class="mermaid">
+flowchart LR
+    H[history] -->|stdout| A[awk print command]
+    A -->|stdout| S1[sort]
+    S1 -->|stdout| U[uniq -c]
+    U -->|stdout| S2[sort -rn]
+    S2 -->|stdout| Hd[head]
+</div>
+
+<h2>Essential Specialists</h2>
+<p>The standard kit every pro keeps sharp:</p>
+<ul>
+<li><code>grep pattern file</code> - find lines matching a pattern. Add <code>-r</code> to recurse, <code>-i</code> for case-insensitive, <code>-n</code> for line numbers</li>
+<li><code>find path -name "*.ext"</code> - locate files by name, type, size, age</li>
+<li><code>sort</code> and <code>uniq</code> - sort lines, collapse duplicates (<code>uniq -c</code> counts them)</li>
+<li><code>wc -l</code> - count lines. Quick "how many?" answers</li>
+<li><code>head -n 20</code> / <code>tail -n 20</code> - first / last lines. <code>tail -f</code> follows a growing log</li>
+<li><code>cut -d, -f1</code> - extract a column from CSV-ish data</li>
+<li><code>sed 's/old/new/g'</code> - find and replace. Stream editor for quick substitutions</li>
+<li><code>awk '{print $2}'</code> - column-aware text processing</li>
+</ul>
+
+<h2>Chaining Commands</h2>
+<p>Three operators sequence commands without pipes.</p>
+<pre><code>cmd1 ; cmd2          # run cmd1, then cmd2 regardless of outcome
+cmd1 &amp;&amp; cmd2         # run cmd2 ONLY if cmd1 succeeded
+cmd1 || cmd2         # run cmd2 ONLY if cmd1 failed
+
+# Practical example
+npm test &amp;&amp; git push                     # push only if tests pass
+mkdir build || echo "already exists"      # fallback message</code></pre>
+
+<h2>A Tiny Shell Script</h2>
+<p>When you run the same pipe every day, save it. A shell script is a text file with a <code>#!/usr/bin/env bash</code> header, made executable with <code>chmod +x</code>.</p>
+<pre><code>#!/usr/bin/env bash
+# backup.sh - copy the project into a timestamped tarball
+
+set -euo pipefail                       # fail fast on errors
+
+name="$(basename "$PWD")"
+stamp="$(date +%Y%m%d-%H%M%S)"
+tar -czf "../${name}-${stamp}.tar.gz" .
+echo "Saved ../${name}-${stamp}.tar.gz"</code></pre>
+<pre><code>chmod +x backup.sh
+./backup.sh                             # run it</code></pre>
+
+<h2>Running Long Jobs</h2>
+<p>Some jobs take minutes. You do not want to babysit them.</p>
+<pre><code>long-command &amp;                  # run in background
+jobs                             # list background jobs in this shell
+long-command &gt; out.log 2&gt;&amp;1 &amp;   # background + capture output
+ps aux | grep node               # find running processes
+kill 12345                       # ask a process to stop
+kill -9 12345                    # force it to stop</code></pre>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Three streams: stdin, stdout, stderr. Redirect with &lt;, &gt;, &gt;&gt;, 2&gt;</li>
+<li>The pipe | connects one command's stdout to the next one's stdin - read left to right</li>
+<li>Power kit: grep, find, sort, uniq, wc, head, tail, cut, sed, awk. Learn one per day</li>
+<li>Chain with ; (always), &amp;&amp; (on success), || (on failure) for safe multi-step commands</li>
+<li>Save any pipe you run twice as a shell script. Make it executable with chmod +x</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T03: パイプとパワーツール</h1>
+<p class="lesson-intro">ターミナルが不器用なファイルブラウザから超能力に変わる瞬間は、パイプを理解した時です。各コマンドは小さな専門家。パイプ<code>|</code>はダクトテープで、専門家を組み立てラインに繋げます。5つのコマンドをパイプで繋げば、スプレッドシートマクロ、Pythonスクリプト、午後の仕事を置き換えられます。</p>
+
+<h2>標準ストリーム</h2>
+<p>全てのプログラムは3つのチャネルを持ちます。<strong>stdin</strong>は入力。<strong>stdout</strong>は通常の出力先。<strong>stderr</strong>はエラー出力先。シェルはそれぞれ独立にリダイレクトできます。</p>
+<pre><code>echo "hello" &gt; greet.txt        # stdout TO a file (overwrite)
+echo "world" &gt;&gt; greet.txt       # stdout APPEND to a file
+sort &lt; names.txt                 # stdin FROM a file
+command 2&gt; errors.log            # stderr TO a file
+command &gt; out.log 2&gt;&amp;1          # stdout and stderr together
+command &gt; /dev/null 2&gt;&amp;1         # discard all output</code></pre>
+
+<h2>パイプ</h2>
+<p>パイプは1つのコマンドのstdoutを次のコマンドのstdinに繋ぎます。文章のように左から右に読みます。</p>
+<pre><code># Show the 5 largest files in this folder
+ls -lS | head -n 5
+
+# Count how many .ts files the project has
+find src -name "*.ts" | wc -l
+
+# Find every TODO in your code
+grep -rn "TODO" src/ | less
+
+# Top 10 commands you use most
+history | awk '{print $2}' | sort | uniq -c | sort -rn | head</code></pre>
+
+<div class="mermaid">
+flowchart LR
+    H[history] -->|stdout| A[awk print command]
+    A -->|stdout| S1[sort]
+    S1 -->|stdout| U[uniq -c]
+    U -->|stdout| S2[sort -rn]
+    S2 -->|stdout| Hd[head]
+</div>
+
+<h2>必須の専門家たち</h2>
+<p>プロが研ぎ続ける標準キット:</p>
+<ul>
+<li><code>grep pattern file</code> - パターンに一致する行を探す。<code>-r</code>で再帰、<code>-i</code>で大文字小文字無視、<code>-n</code>で行番号</li>
+<li><code>find path -name "*.ext"</code> - 名前、種類、サイズ、年齢でファイルを探す</li>
+<li><code>sort</code>と<code>uniq</code> - 行をソート、重複を除去(<code>uniq -c</code>でカウント)</li>
+<li><code>wc -l</code> - 行数カウント。「いくつ?」への素早い答え</li>
+<li><code>head -n 20</code> / <code>tail -n 20</code> - 先頭/末尾の行。<code>tail -f</code>は成長するログを追う</li>
+<li><code>cut -d, -f1</code> - CSV風データから列を抽出</li>
+<li><code>sed 's/old/new/g'</code> - 検索と置換。素早い置換のためのストリームエディタ</li>
+<li><code>awk '{print $2}'</code> - 列を意識したテキスト処理</li>
+</ul>
+
+<h2>コマンドを繋げる</h2>
+<p>3つの演算子がパイプ無しでコマンドを順序付けます。</p>
+<pre><code>cmd1 ; cmd2          # run cmd1, then cmd2 regardless of outcome
+cmd1 &amp;&amp; cmd2         # run cmd2 ONLY if cmd1 succeeded
+cmd1 || cmd2         # run cmd2 ONLY if cmd1 failed
+
+# Practical example
+npm test &amp;&amp; git push                     # push only if tests pass
+mkdir build || echo "already exists"      # fallback message</code></pre>
+
+<h2>小さなシェルスクリプト</h2>
+<p>毎日同じパイプを実行するなら、保存しましょう。シェルスクリプトは<code>#!/usr/bin/env bash</code>ヘッダ付きのテキストファイルで、<code>chmod +x</code>で実行可能にします。</p>
+<pre><code>#!/usr/bin/env bash
+# backup.sh - copy the project into a timestamped tarball
+
+set -euo pipefail                       # fail fast on errors
+
+name="$(basename "$PWD")"
+stamp="$(date +%Y%m%d-%H%M%S)"
+tar -czf "../${name}-${stamp}.tar.gz" .
+echo "Saved ../${name}-${stamp}.tar.gz"</code></pre>
+<pre><code>chmod +x backup.sh
+./backup.sh                             # run it</code></pre>
+
+<h2>長時間ジョブの実行</h2>
+<p>数分かかるジョブもあります。つきっきりは嫌です。</p>
+<pre><code>long-command &amp;                  # run in background
+jobs                             # list background jobs in this shell
+long-command &gt; out.log 2&gt;&amp;1 &amp;   # background + capture output
+ps aux | grep node               # find running processes
+kill 12345                       # ask a process to stop
+kill -9 12345                    # force it to stop</code></pre>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>3つのストリーム: stdin、stdout、stderr。&lt;、&gt;、&gt;&gt;、2&gt;でリダイレクト</li>
+<li>パイプ|は1つのコマンドのstdoutを次のstdinに繋ぐ。左から右に読む</li>
+<li>パワーキット: grep、find、sort、uniq、wc、head、tail、cut、sed、awk。1日1つ学ぶ</li>
+<li>;(常に)、&amp;&amp;(成功時)、||(失敗時)で複数ステップコマンドを安全に繋ぐ</li>
+<li>2回実行したパイプはスクリプトに保存。chmod +xで実行可能にする</li>
+</ul>
+</div>
+""",
+    },
+    'T04': {
+        'en': """
+<h1>T04: Hello World</h1>
 <p class="lesson-intro">Every journey starts with a single step. In web development, that step is creating your first HTML file and watching it come alive in a browser. Think of it like writing a letter - you write it, then hand it to someone who reads it aloud.</p>
 
 <h2>Your First Web Page</h2>
@@ -45,7 +576,7 @@ flowchart LR
 </div>
 """,
         'ja': """
-<h1>T01: Hello World - はじめの一歩</h1>
+<h1>T04: Hello World - はじめの一歩</h1>
 <p class="lesson-intro">全ての旅は一歩から始まります。Web開発では、最初のHTMLファイルを作成してブラウザで表示することがその一歩です。手紙を書いて誰かに渡すようなものです。あなたが書き、ブラウザが読み上げてくれます。</p>
 
 <h2>最初のWebページ</h2>
@@ -87,9 +618,9 @@ flowchart LR
 </div>
 """,
     },
-    'T02': {
+    'T05': {
         'en': """
-<h1>T02: HTML Tags</h1>
+<h1>T05: HTML Tags</h1>
 <p class="lesson-intro">HTML tags are like labels on boxes. Each tag tells the browser what kind of content is inside. A heading tag says "this is a title," a paragraph tag says "this is a block of text." The browser uses these labels to display content appropriately.</p>
 
 <h2>Headings and Text</h2>
@@ -136,7 +667,7 @@ graph TD
 </div>
 """,
         'ja': """
-<h1>T02: HTMLタグ - 基本要素</h1>
+<h1>T05: HTMLタグ - 基本要素</h1>
 <p class="lesson-intro">HTMLタグは箱に貼るラベルのようなものです。各タグがブラウザにコンテンツの種類を伝えます。見出しタグは「これはタイトル」、段落タグは「これはテキストブロック」と伝えます。ブラウザはこれらのラベルを使って適切に表示します。</p>
 
 <h2>見出しとテキスト</h2>
@@ -183,9 +714,9 @@ graph TD
 </div>
 """,
     },
-    'T03': {
+    'T06': {
         'en': """
-<h1>T03: HTML Forms and Blocks</h1>
+<h1>T06: HTML Forms and Blocks</h1>
 <p class="lesson-intro">Forms are the bridge between users and your application. Like a paper form at a doctor's office, HTML forms collect information from users and send it somewhere for processing. Block elements like details/summary add interactive disclosure without JavaScript.</p>
 
 <h2>Form Elements</h2>
@@ -235,7 +766,7 @@ flowchart LR
 </div>
 """,
         'ja': """
-<h1>T03: HTMLフォームとブロック要素</h1>
+<h1>T06: HTMLフォームとブロック要素</h1>
 <p class="lesson-intro">フォームはユーザーとアプリケーションの架け橋です。病院の問診票のように、HTMLフォームはユーザーから情報を収集し、処理のために送信します。details/summaryなどのブロック要素はJavaScriptなしでインタラクティブな開閉機能を追加します。</p>
 
 <h2>フォーム要素</h2>
@@ -285,9 +816,9 @@ flowchart LR
 </div>
 """,
     },
-    'T04': {
+    'T07': {
         'en': """
-<h1>T04: CSS Basics</h1>
+<h1>T07: CSS Basics</h1>
 <p class="lesson-intro">If HTML is the skeleton of a web page, CSS is the skin, clothing, and makeup. CSS (Cascading Style Sheets) controls how elements look - their colors, fonts, spacing, and size. The "cascading" part means styles can override each other in a predictable order.</p>
 
 <h2>Selectors and Properties</h2>
@@ -339,7 +870,7 @@ graph TD
 </div>
 """,
         'ja': """
-<h1>T04: CSS基礎 - スタイルの世界</h1>
+<h1>T07: CSS基礎 - スタイルの世界</h1>
 <p class="lesson-intro">HTMLがWebページの骨格なら、CSSは肌、服、化粧です。CSS(カスケーディングスタイルシート)は要素の見た目を制御します。色、フォント、余白、サイズなど。「カスケーディング」とは、スタイルが予測可能な順序で上書きされることを意味します。</p>
 
 <h2>セレクタとプロパティ</h2>
@@ -391,9 +922,9 @@ graph TD
 </div>
 """,
     },
-    'T05': {
+    'T08': {
         'en': """
-<h1>T05: CSS Layout</h1>
+<h1>T08: CSS Layout</h1>
 <p class="lesson-intro">Placing elements on a page used to be painful. Flexbox and Grid changed everything. Think of Flexbox as arranging items in a single line (like books on a shelf), and Grid as organizing items in rows and columns (like a spreadsheet).</p>
 
 <h2>Flexbox</h2>
@@ -449,7 +980,7 @@ flowchart TB
 </div>
 """,
         'ja': """
-<h1>T05: CSSレイアウト - 配置の技術</h1>
+<h1>T08: CSSレイアウト - 配置の技術</h1>
 <p class="lesson-intro">かつてページ上の要素配置は大変でした。FlexboxとGridが全てを変えました。Flexboxは一列に並べること(本棚の本のように)、Gridは行と列で整理すること(スプレッドシートのように)と考えてください。</p>
 
 <h2>Flexbox</h2>
@@ -505,9 +1036,9 @@ flowchart TB
 </div>
 """,
     },
-    'T06': {
+    'T09': {
         'en': """
-<h1>T06: CSS to the Limit</h1>
+<h1>T09: CSS to the Limit</h1>
 <p class="lesson-intro">CSS can do far more than change colors. With transitions, animations, and clever selectors, you can build interactive components without a single line of JavaScript. It is like discovering that your paintbrush can also sculpt.</p>
 
 <h2>Transitions</h2>
@@ -555,7 +1086,7 @@ stateDiagram-v2
 </div>
 """,
         'ja': """
-<h1>T06: CSSの限界に挑戦</h1>
+<h1>T09: CSSの限界に挑戦</h1>
 <p class="lesson-intro">CSSは色を変えるだけではありません。トランジション、アニメーション、賢いセレクタで、JavaScriptなしにインタラクティブなコンポーネントを構築できます。絵筆が彫刻もできると気づくようなものです。</p>
 
 <h2>トランジション</h2>
@@ -603,9 +1134,9 @@ stateDiagram-v2
 </div>
 """,
     },
-    'T07': {
+    'T10': {
         'en': """
-<h1>T07: JavaScript Intro</h1>
+<h1>T10: JavaScript Intro</h1>
 <p class="lesson-intro">JavaScript is the programming language of the web. If HTML is the structure and CSS is the style, JavaScript is the behavior. It makes pages interactive - responding to clicks, processing data, and updating content dynamically. Think of it as teaching your web page to think.</p>
 
 <h2>Console and Variables</h2>
@@ -657,7 +1188,7 @@ graph TD
 </div>
 """,
         'ja': """
-<h1>T07: JavaScript入門</h1>
+<h1>T10: JavaScript入門</h1>
 <p class="lesson-intro">JavaScriptはWebのプログラミング言語です。HTMLが構造、CSSがスタイルなら、JavaScriptは振る舞いです。ページをインタラクティブにし、クリックに応答し、データを処理し、コンテンツを動的に更新します。Webページに考えることを教えるようなものです。</p>
 
 <h2>コンソールと変数</h2>
@@ -709,9 +1240,9 @@ graph TD
 </div>
 """,
     },
-    'T08': {
+    'T11': {
         'en': """
-<h1>T08: DOM Manipulation</h1>
+<h1>T11: DOM Manipulation</h1>
 <p class="lesson-intro">The DOM (Document Object Model) is the browser's live representation of your HTML page. Think of it as a tree made of building blocks - JavaScript lets you add, remove, and rearrange those blocks while the user watches. Every element is a node you can reach and modify.</p>
 
 <h2>Selecting Elements</h2>
@@ -759,7 +1290,7 @@ graph TD
 </div>
 """,
         'ja': """
-<h1>T08: DOM操作</h1>
+<h1>T11: DOM操作</h1>
 <p class="lesson-intro">DOM(ドキュメントオブジェクトモデル)はHTMLページのブラウザ内でのライブ表現です。積み木で作った木のようなもので、JavaScriptでユーザーが見ている間にブロックを追加、削除、並べ替えできます。全ての要素はアクセスして変更できるノードです。</p>
 
 <h2>要素の選択</h2>
@@ -807,9 +1338,9 @@ graph TD
 </div>
 """,
     },
-    'T09': {
+    'T12': {
         'en': """
-<h1>T09: Forms and Dialog</h1>
+<h1>T12: Forms and Dialog</h1>
 <p class="lesson-intro">HTML forms collect data, but JavaScript validates and processes it. The dialog element gives you native modal windows without any library. Together they create a smooth data collection experience - like a smart receptionist who checks your paperwork before filing it.</p>
 
 <h2>JavaScript Form Validation</h2>
@@ -867,7 +1398,7 @@ flowchart TD
 </div>
 """,
         'ja': """
-<h1>T09: フォームとダイアログ</h1>
+<h1>T12: フォームとダイアログ</h1>
 <p class="lesson-intro">HTMLフォームはデータを収集しますが、JavaScriptがそれを検証・処理します。dialog要素はライブラリなしでネイティブモーダルウィンドウを提供します。この組み合わせでスムーズなデータ収集体験を作れます。書類を提出する前にチェックしてくれる賢い受付のようなものです。</p>
 
 <h2>JavaScriptフォームバリデーション</h2>
@@ -925,9 +1456,9 @@ flowchart TD
 </div>
 """,
     },
-    'T10': {
+    'T13': {
         'en': """
-<h1>T10: Data Structures</h1>
+<h1>T13: Data Structures</h1>
 <p class="lesson-intro">Data structures are containers for organizing information. Arrays are like numbered lists where order matters. Objects are like labeled filing cabinets where you look up information by name. Choosing the right structure makes your code simpler and faster.</p>
 
 <h2>Arrays</h2>
@@ -981,7 +1512,7 @@ graph LR
 </div>
 """,
         'ja': """
-<h1>T10: データ構造</h1>
+<h1>T13: データ構造</h1>
 <p class="lesson-intro">データ構造は情報を整理するための入れ物です。配列は順序が重要な番号付きリストです。オブジェクトは名前で情報を検索するラベル付きファイルキャビネットです。適切な構造を選ぶことでコードがシンプルかつ高速になります。</p>
 
 <h2>配列</h2>
@@ -1035,9 +1566,9 @@ graph LR
 </div>
 """,
     },
-    'T11': {
+    'T14': {
         'en': """
-<h1>T11: Persistence</h1>
+<h1>T14: Persistence</h1>
 <p class="lesson-intro">Web pages forget everything when you close them. LocalStorage is like a notebook the browser keeps for your website - data persists even after closing the tab. JSON is the universal format for converting JavaScript objects into storable strings and back.</p>
 
 <h2>localStorage API</h2>
@@ -1088,7 +1619,7 @@ flowchart LR
 </div>
 """,
         'ja': """
-<h1>T11: データの永続化</h1>
+<h1>T14: データの永続化</h1>
 <p class="lesson-intro">Webページは閉じると全てを忘れます。localStorageはブラウザがあなたのWebサイト用に保持するノートのようなものです。タブを閉じてもデータは残ります。JSONはJavaScriptオブジェクトを保存可能な文字列に変換し、元に戻すための共通形式です。</p>
 
 <h2>localStorage API</h2>
@@ -1139,9 +1670,9 @@ flowchart LR
 </div>
 """,
     },
-    'T12': {
+    'T15': {
         'en': """
-<h1>T12: Fetch API</h1>
+<h1>T15: Fetch API</h1>
 <p class="lesson-intro">The Fetch API lets your JavaScript talk to servers. It is like sending a letter and waiting for a reply - you make a request, the server processes it, and sends back a response. The async/await syntax makes this asynchronous communication read like synchronous code.</p>
 
 <h2>HTTP Basics</h2>
@@ -1198,7 +1729,7 @@ sequenceDiagram
 </div>
 """,
         'ja': """
-<h1>T12: Fetch API</h1>
+<h1>T15: Fetch API</h1>
 <p class="lesson-intro">Fetch APIはJavaScriptからサーバーと通信する手段です。手紙を送って返事を待つようなもので、リクエストを送り、サーバーが処理し、レスポンスを返します。async/await構文でこの非同期通信を同期的なコードのように読めるようにします。</p>
 
 <h2>HTTPの基本</h2>
@@ -1255,9 +1786,9 @@ sequenceDiagram
 </div>
 """,
     },
-    'T13': {
+    'T16': {
         'en': """
-<h1>T13: Dynamic Site - Routing</h1>
+<h1>T16: Dynamic Site - Routing</h1>
 <p class="lesson-intro">In a traditional website, each page is a separate HTML file. A Single Page Application (SPA) loads once and swaps content dynamically. Hash routing uses the URL fragment (the part after #) to determine which view to show - like chapters in a book that you flip to without getting a new book.</p>
 
 <h2>Hash-Based Routing</h2>
@@ -1309,7 +1840,7 @@ flowchart TD
 </div>
 """,
         'ja': """
-<h1>T13: 動的サイト - ルーティング</h1>
+<h1>T16: 動的サイト - ルーティング</h1>
 <p class="lesson-intro">従来のWebサイトでは各ページが別々のHTMLファイルです。シングルページアプリケーション(SPA)は一度読み込んでコンテンツを動的に入れ替えます。ハッシュルーティングはURLフラグメント(#の後の部分)でどのビューを表示するか決定します。新しい本を取りに行かずにページをめくるようなものです。</p>
 
 <h2>ハッシュベースルーティング</h2>
@@ -1361,9 +1892,9 @@ flowchart TD
 </div>
 """,
     },
-    'T14': {
+    'T17': {
         'en': """
-<h1>T14: Dynamic Site - Offline</h1>
+<h1>T17: Dynamic Site - Offline</h1>
 <p class="lesson-intro">Service Workers are scripts that run in the background, separate from your web page. They intercept network requests and can serve cached responses when offline. Think of a Service Worker as a programmable proxy server living inside the browser - it decides whether to fetch from the network or serve from cache.</p>
 
 <h2>Registering a Service Worker</h2>
@@ -1418,7 +1949,7 @@ stateDiagram-v2
 </div>
 """,
         'ja': """
-<h1>T14: 動的サイト - オフライン対応</h1>
+<h1>T17: 動的サイト - オフライン対応</h1>
 <p class="lesson-intro">Service Workerはバックグラウンドで動作するスクリプトで、Webページとは別に実行されます。ネットワークリクエストを傍受し、オフライン時にキャッシュからレスポンスを返せます。ブラウザ内に住むプログラム可能なプロキシサーバーと考えてください。ネットワークから取得するかキャッシュから返すかを判断します。</p>
 
 <h2>Service Workerの登録</h2>
@@ -1473,9 +2004,9 @@ stateDiagram-v2
 </div>
 """,
     },
-    'T15': {
+    'T18': {
         'en': """
-<h1>T15: Dynamic Site - Polish</h1>
+<h1>T18: Dynamic Site - Polish</h1>
 <p class="lesson-intro">Performance is a feature. Users abandon sites that load slowly. Polishing your site means optimizing what loads, when it loads, and how it loads. Like a restaurant that prepares popular dishes in advance and only cooks rare orders on demand.</p>
 
 <h2>Lazy Loading</h2>
@@ -1532,7 +2063,7 @@ sequenceDiagram
 </div>
 """,
         'ja': """
-<h1>T15: 動的サイト - 仕上げ</h1>
+<h1>T18: 動的サイト - 仕上げ</h1>
 <p class="lesson-intro">パフォーマンスは機能です。読み込みが遅いサイトからユーザーは離脱します。サイトの仕上げとは、何を読み込むか、いつ読み込むか、どう読み込むかの最適化です。人気料理を事前に準備し、珍しい注文だけオンデマンドで調理するレストランのようなものです。</p>
 
 <h2>遅延読み込み</h2>
@@ -1589,9 +2120,383 @@ sequenceDiagram
 </div>
 """,
     },
-    'T16': {
+    'T19': {
         'en': """
-<h1>T16: Node.js Server</h1>
+<h1>T19: Git Basics</h1>
+<p class="lesson-intro">Git is a time machine for your code. Every time you finish a small piece of work, you take a snapshot. Later you can rewind, branch into an alternate timeline, or compare any two moments. Think of it as a photographer's workflow: you shoot pictures all day (editing files), pick the keepers (staging), and paste them into a photo album with a caption (committing).</p>
+
+<h2>The Three Areas</h2>
+<p>Git splits your project into three zones. The <strong>working directory</strong> is the folder on disk where you edit. The <strong>staging area</strong> (or index) is where you gather the exact changes you want to save next. The <strong>repository</strong> is the permanent history of every snapshot you have ever committed.</p>
+<pre><code># Start a new repo in the current folder
+git init
+
+# Tell git who you are (once per machine)
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+
+# See what has changed
+git status</code></pre>
+
+<h2>Edit, Stage, Commit</h2>
+<p>The core loop of every day: change files, choose which changes to save, save them with a message. The message is a note to your future self explaining <em>why</em> you made the change.</p>
+<pre><code># After editing some files
+git status                      # what changed?
+git add index.html styles.css   # stage specific files
+git add .                       # or stage everything
+git commit -m "Add contact form layout"
+git log --oneline               # browse history</code></pre>
+
+<h2>Branches: Alternate Timelines</h2>
+<p>A branch is a lightweight pointer to a commit. You spin one up when you want to try something without disturbing the main timeline. When you are happy, you merge it back. When you are not, you throw the branch away at zero cost.</p>
+<pre><code>git branch                     # list branches
+git checkout -b feature/login  # create and switch to new branch
+# ...edit, stage, commit...
+git checkout main              # back to main timeline
+git merge feature/login        # fold the work in
+git branch -d feature/login    # delete the now-merged branch</code></pre>
+
+<div class="mermaid">
+gitGraph
+    commit id: "init"
+    commit id: "add layout"
+    branch feature/login
+    checkout feature/login
+    commit id: "login form"
+    commit id: "auth check"
+    checkout main
+    commit id: "fix typo"
+    merge feature/login
+    commit id: "deploy"
+</div>
+
+<p>Read this diagram left to right. The <code>main</code> line is your default timeline. <code>feature/login</code> splits off, gets two commits, and is merged back in. After the merge, main contains everything from both lines.</p>
+
+<div class="mermaid">
+flowchart LR
+    WD[Working Directory<br/>edited files] -->|git add| SA[Staging Area<br/>the next snapshot]
+    SA -->|git commit| R[Repository<br/>permanent history]
+    R -->|git checkout| WD
+</div>
+
+<h2>Undo Without Fear</h2>
+<p>Because commits are snapshots, almost nothing is ever truly lost. <code>git restore</code> discards unstaged changes. <code>git reset</code> unstages a file. <code>git revert</code> creates a new commit that undoes an old one, keeping history honest.</p>
+<pre><code>git restore styles.css         # throw away edits in one file
+git restore --staged index.html # unstage but keep edits
+git revert abc123              # undo commit abc123 with a new commit</code></pre>
+
+<h2>What to Ignore</h2>
+<p>Some files should never be tracked: secrets, build output, huge binaries, editor junk. List them in a <code>.gitignore</code> file at the repo root.</p>
+<pre><code># .gitignore
+node_modules/
+.env
+*.log
+.DS_Store
+dist/</code></pre>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Git has three zones: working directory, staging area, repository. All commands move content between them</li>
+<li>A commit is a snapshot of every tracked file plus a message explaining why</li>
+<li>Branches are cheap pointers to commits. Create one for every feature or experiment</li>
+<li>Commit messages are letters to your future self. Explain the why, not just the what</li>
+<li>Put secrets and generated files in .gitignore before your first commit</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T19: Gitの基礎</h1>
+<p class="lesson-intro">Gitはコードのタイムマシンです。小さな仕事が終わるたびにスナップショットを撮り、後から巻き戻したり、別の時間軸に分岐したり、任意の2つの瞬間を比較したりできます。写真家の作業に似ています。一日中写真を撮り(ファイルを編集)、良いものを選び(ステージング)、キャプション付きでアルバムに貼る(コミット)。</p>
+
+<h2>3つの領域</h2>
+<p>Gitはプロジェクトを3つのゾーンに分けます。<strong>ワーキングディレクトリ</strong>はディスク上の編集フォルダ。<strong>ステージングエリア</strong>(インデックス)は次に保存する変更を集める場所。<strong>リポジトリ</strong>は過去にコミットした全スナップショットの永久的な履歴です。</p>
+<pre><code># 現在のフォルダで新しいリポジトリを開始
+git init
+
+# 自分を名乗る(マシンごとに1回)
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+
+# 何が変わったか確認
+git status</code></pre>
+
+<h2>編集、ステージ、コミット</h2>
+<p>毎日のコアループ。ファイルを変更し、保存する変更を選び、メッセージ付きで保存します。メッセージは未来の自分への手紙で、<em>なぜ</em>その変更をしたかを説明します。</p>
+<pre><code># ファイル編集後
+git status                      # 何が変わった?
+git add index.html styles.css   # 特定のファイルをステージ
+git add .                       # または全部ステージ
+git commit -m "Add contact form layout"
+git log --oneline               # 履歴を見る</code></pre>
+
+<h2>ブランチ: 別の時間軸</h2>
+<p>ブランチはコミットを指す軽量なポインタです。メインの時間軸を乱さず何かを試したい時に作成します。満足したらマージし、気に入らなければゼロコストでブランチを捨てられます。</p>
+<pre><code>git branch                     # ブランチ一覧
+git checkout -b feature/login  # 新規作成して切り替え
+# ...編集、ステージ、コミット...
+git checkout main              # メインに戻る
+git merge feature/login        # 作業を取り込む
+git branch -d feature/login    # マージ済みブランチを削除</code></pre>
+
+<div class="mermaid">
+gitGraph
+    commit id: "init"
+    commit id: "add layout"
+    branch feature/login
+    checkout feature/login
+    commit id: "login form"
+    commit id: "auth check"
+    checkout main
+    commit id: "fix typo"
+    merge feature/login
+    commit id: "deploy"
+</div>
+
+<p>図を左から右に読みます。<code>main</code>の線がデフォルトの時間軸です。<code>feature/login</code>がそこから分岐し、2つコミットして、またmainに合流します。マージ後、mainは両方の線の内容を全て含みます。</p>
+
+<div class="mermaid">
+flowchart LR
+    WD[Working Directory<br/>edited files] -->|git add| SA[Staging Area<br/>the next snapshot]
+    SA -->|git commit| R[Repository<br/>permanent history]
+    R -->|git checkout| WD
+</div>
+
+<h2>恐れずに取り消す</h2>
+<p>コミットはスナップショットなので、ほぼ何も失われません。<code>git restore</code>は未ステージの変更を破棄。<code>git reset</code>はファイルをアンステージ。<code>git revert</code>は古いコミットを打ち消す新しいコミットを作り、履歴を正直に保ちます。</p>
+<pre><code>git restore styles.css         # 1ファイルの編集を捨てる
+git restore --staged index.html # ステージから外すが編集は保持
+git revert abc123              # abc123を打ち消す新コミット</code></pre>
+
+<h2>無視すべきもの</h2>
+<p>追跡すべきでないファイルがあります。秘密情報、ビルド出力、巨大バイナリ、エディタのゴミなど。リポジトリルートの<code>.gitignore</code>に列挙します。</p>
+<pre><code># .gitignore
+node_modules/
+.env
+*.log
+.DS_Store
+dist/</code></pre>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>Gitには3つのゾーンがある: ワーキングディレクトリ、ステージングエリア、リポジトリ。全コマンドはこの間で内容を動かす</li>
+<li>コミットは追跡中の全ファイルのスナップショットと「なぜ」を説明するメッセージ</li>
+<li>ブランチはコミットへの軽量なポインタ。機能や実験ごとに作る</li>
+<li>コミットメッセージは未来の自分への手紙。何ではなくなぜを書く</li>
+<li>最初のコミット前に秘密情報と生成ファイルを.gitignoreに入れる</li>
+</ul>
+</div>
+""",
+    },
+    'T20': {
+        'en': """
+<h1>T20: GitHub &amp; Collaboration</h1>
+<p class="lesson-intro">Git is your personal time machine on your desk. GitHub is the shared workshop where many time travelers meet, compare notes, and build together. The same repository lives in two places at once: your laptop and the cloud. Pushing and pulling keeps them in sync.</p>
+
+<h2>Remotes: Where the Copy Lives</h2>
+<p>A <strong>remote</strong> is a named URL pointing to a copy of your repository somewhere else. By convention the main remote is called <code>origin</code>. You push commits up to origin and pull commits down from it.</p>
+<pre><code># Start from an existing GitHub repo
+git clone https://github.com/you/my-project.git
+cd my-project
+git remote -v                  # list remotes
+
+# Or push an existing local repo to a new GitHub repo
+git remote add origin https://github.com/you/my-project.git
+git branch -M main
+git push -u origin main        # -u sets the default upstream</code></pre>
+
+<h2>Push and Pull</h2>
+<p>Push uploads your local commits to the remote. Pull downloads and merges remote commits into your current branch. Always pull before you start new work so you are building on the latest.</p>
+<pre><code>git pull                       # fetch + merge from origin
+git push                       # send your commits up
+
+# First push of a new branch
+git push -u origin feature/login</code></pre>
+
+<h2>GitHub Flow: The Beginner-Friendly Workflow</h2>
+<p>GitHub Flow is the simplest pro workflow. One rule: <strong>main</strong> is always deployable. Everything else happens on short-lived branches behind a pull request.</p>
+<ol>
+<li>Create a branch off main for your change</li>
+<li>Commit as you work</li>
+<li>Push the branch and open a <strong>pull request</strong> (PR)</li>
+<li>A teammate reviews, CI runs tests automatically</li>
+<li>Merge when green, delete the branch, pull latest main</li>
+</ol>
+
+<div class="mermaid">
+gitGraph
+    commit id: "main"
+    branch feature/contact
+    checkout feature/contact
+    commit id: "form markup"
+    commit id: "validation"
+    commit id: "styles"
+    checkout main
+    commit id: "hotfix"
+    checkout feature/contact
+    commit id: "address review"
+    checkout main
+    merge feature/contact tag: "PR #42"
+    commit id: "next feature"
+</div>
+
+<p>The branch lives only as long as the pull request. Once merged, it is deleted. The <code>PR #42</code> tag is the lasting record of the conversation, the review, and the CI checks that happened around that merge commit.</p>
+
+<div class="mermaid">
+sequenceDiagram
+    participant You as Your Laptop
+    participant Origin as GitHub (origin)
+    participant Team as Teammate
+    You->>You: git checkout -b feature/x
+    You->>You: edit, add, commit
+    You->>Origin: git push -u origin feature/x
+    You->>Origin: Open Pull Request
+    Origin->>Team: Review request
+    Team->>Origin: Approve + comments
+    Origin->>Origin: CI runs tests
+    Origin->>Origin: Merge to main
+    Team->>Team: git pull
+    You->>You: git pull (to get merged main)
+</div>
+
+<h2>Pull Requests: Conversations Around Code</h2>
+<p>A PR is more than a merge button. It is a permanent record of what you did, why, who reviewed it, and what tests ran. Write PR descriptions like you are explaining the change to a teammate six months from now.</p>
+<pre><code>## Summary
+Adds a contact form to the landing page.
+
+## Why
+Closes #42. Users had no way to reach us outside Discord.
+
+## Test plan
+- [x] Form validates required fields
+- [x] Submission shows success toast
+- [ ] Confirm email arrives in inbox</code></pre>
+
+<h2>Merge Conflicts</h2>
+<p>When two branches edit the same line, git stops and asks you to decide. It marks the conflict in the file with <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. Pick the right version, delete the markers, stage, and commit.</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+color: blue;
+=======
+color: green;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</code></pre>
+
+<div class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>GitHub stores a remote copy of your repo. origin is the conventional name</li>
+<li>Push sends commits up, pull brings them down. Pull before starting new work</li>
+<li>GitHub Flow: branch off main, commit, push, open PR, get review, merge, delete branch</li>
+<li>Write pull request descriptions for the reader, not the author. Explain why</li>
+<li>Merge conflicts are normal. Read the markers, choose a version, re-commit</li>
+</ul>
+</div>
+""",
+        'ja': """
+<h1>T20: GitHubとコラボレーション</h1>
+<p class="lesson-intro">Gitは机の上の個人用タイムマシン。GitHubは多くのタイムトラベラーが集まり、メモを比べ、一緒に作る共有工房です。同じリポジトリが2か所に存在します。あなたのラップトップとクラウドです。プッシュとプルでそれらを同期します。</p>
+
+<h2>リモート: コピーのありか</h2>
+<p><strong>リモート</strong>は別の場所にあるリポジトリのコピーを指す名前付きURLです。慣習的にメインリモートは<code>origin</code>と呼ばれます。コミットをoriginへ押し上げ、originから引き下ろします。</p>
+<pre><code># 既存のGitHubリポジトリから開始
+git clone https://github.com/you/my-project.git
+cd my-project
+git remote -v                  # リモート一覧
+
+# またはローカルリポジトリを新しいGitHubリポジトリへ
+git remote add origin https://github.com/you/my-project.git
+git branch -M main
+git push -u origin main        # -uでデフォルトupstreamを設定</code></pre>
+
+<h2>プッシュとプル</h2>
+<p>プッシュはローカルのコミットをリモートへアップロードします。プルはリモートのコミットを現在のブランチにダウンロードしてマージします。新しい作業を始める前に必ずプルし、最新の上に積み上げましょう。</p>
+<pre><code>git pull                       # originからfetch + merge
+git push                       # コミットを送信
+
+# 新ブランチの初プッシュ
+git push -u origin feature/login</code></pre>
+
+<h2>GitHub Flow: 初心者向けワークフロー</h2>
+<p>GitHub Flowは最もシンプルなプロのワークフローです。ルールは1つ。<strong>main</strong>は常にデプロイ可能。それ以外は全てプルリクエスト後ろの短命ブランチで起こります。</p>
+<ol>
+<li>mainから変更用ブランチを作成</li>
+<li>作業しながらコミット</li>
+<li>ブランチをプッシュし<strong>プルリクエスト</strong>(PR)を開く</li>
+<li>チームメイトがレビュー、CIがテストを自動実行</li>
+<li>グリーンならマージ、ブランチ削除、最新mainをプル</li>
+</ol>
+
+<div class="mermaid">
+gitGraph
+    commit id: "main"
+    branch feature/contact
+    checkout feature/contact
+    commit id: "form markup"
+    commit id: "validation"
+    commit id: "styles"
+    checkout main
+    commit id: "hotfix"
+    checkout feature/contact
+    commit id: "address review"
+    checkout main
+    merge feature/contact tag: "PR #42"
+    commit id: "next feature"
+</div>
+
+<p>ブランチはプルリクエストと同じ期間だけ生き、マージ後に削除されます。<code>PR #42</code>のタグは、そのマージコミット周辺で起きた会話、レビュー、CIチェックの永続的な記録です。</p>
+
+<div class="mermaid">
+sequenceDiagram
+    participant You as Your Laptop
+    participant Origin as GitHub (origin)
+    participant Team as Teammate
+    You->>You: git checkout -b feature/x
+    You->>You: edit, add, commit
+    You->>Origin: git push -u origin feature/x
+    You->>Origin: Open Pull Request
+    Origin->>Team: Review request
+    Team->>Origin: Approve + comments
+    Origin->>Origin: CI runs tests
+    Origin->>Origin: Merge to main
+    Team->>Team: git pull
+    You->>You: git pull (to get merged main)
+</div>
+
+<h2>プルリクエスト: コード周辺の会話</h2>
+<p>PRはマージボタン以上のものです。何をしたか、なぜか、誰がレビューしたか、どのテストが走ったかの永久記録です。PRの説明は6か月後のチームメイトに説明するように書きましょう。</p>
+<pre><code>## Summary
+Adds a contact form to the landing page.
+
+## Why
+Closes #42. Users had no way to reach us outside Discord.
+
+## Test plan
+- [x] Form validates required fields
+- [x] Submission shows success toast
+- [ ] Confirm email arrives in inbox</code></pre>
+
+<h2>マージコンフリクト</h2>
+<p>2つのブランチが同じ行を編集するとgitは止まって判断を求めます。ファイル内に<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>、<code>=======</code>、<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>でコンフリクトを記します。正しい版を選び、マーカーを削除し、ステージしてコミットします。</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+color: blue;
+=======
+color: green;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</code></pre>
+
+<div class="takeaways">
+<h2>まとめ</h2>
+<ul>
+<li>GitHubはリポジトリのリモートコピーを保存。originが慣習的な名前</li>
+<li>プッシュは上へ、プルは下へ。新しい作業を始める前に必ずプル</li>
+<li>GitHub Flow: mainからブランチ、コミット、プッシュ、PR、レビュー、マージ、ブランチ削除</li>
+<li>PRの説明は読み手のために書く。なぜを説明する</li>
+<li>マージコンフリクトは正常。マーカーを読み、版を選び、再コミット</li>
+</ul>
+</div>
+""",
+    },
+    'T21': {
+        'en': """
+<h1>T21: Node.js Server</h1>
 <p class="lesson-intro">Until now, you have been opening HTML files directly in the browser. A web server is a program that listens for requests and sends back responses. Node.js lets you write that server in JavaScript - the same language you already know from the browser. It is like hiring a receptionist who speaks the same language as your entire team.</p>
 
 <h2>Creating an HTTP Server</h2>
@@ -1644,7 +2549,7 @@ flowchart LR
 </div>
 """,
         'ja': """
-<h1>T16: Node.jsサーバー</h1>
+<h1>T21: Node.jsサーバー</h1>
 <p class="lesson-intro">これまでHTMLファイルをブラウザで直接開いていました。Webサーバーはリクエストを待ち受けてレスポンスを返すプログラムです。Node.jsならブラウザと同じJavaScriptでサーバーを書けます。チーム全員と同じ言語を話す受付を雇うようなものです。</p>
 
 <h2>HTTPサーバーの作成</h2>
@@ -1697,9 +2602,9 @@ flowchart LR
 </div>
 """,
     },
-    'T17': {
+    'T22': {
         'en': """
-<h1>T17: API Endpoints</h1>
+<h1>T22: API Endpoints</h1>
 <p class="lesson-intro">An API (Application Programming Interface) is a set of endpoints your server exposes for clients to interact with data. REST is a design convention where URLs represent resources and HTTP methods represent actions. Think of it as a menu at a restaurant - the menu lists what you can order and how.</p>
 
 <h2>REST Conventions</h2>
@@ -1756,7 +2661,7 @@ flowchart TD
 </div>
 """,
         'ja': """
-<h1>T17: APIエンドポイント</h1>
+<h1>T22: APIエンドポイント</h1>
 <p class="lesson-intro">API(アプリケーションプログラミングインターフェース)はサーバーがクライアントにデータ操作のために公開するエンドポイントの集合です。RESTはURLがリソースを、HTTPメソッドがアクションを表すデザイン規約です。レストランのメニューのようなものです。何を注文できて、どう注文するかがリストされています。</p>
 
 <h2>REST規約</h2>
@@ -1813,9 +2718,9 @@ flowchart TD
 </div>
 """,
     },
-    'T18': {
+    'T23': {
         'en': """
-<h1>T18: JSON Database</h1>
+<h1>T23: JSON Database</h1>
 <p class="lesson-intro">Before learning a real database, you can use a JSON file as a simple data store. Read the file, parse it, modify the data, and write it back. It is like a notebook where you write down and cross out entries - simple but effective for small applications.</p>
 
 <h2>Reading and Writing db.json</h2>
@@ -1883,7 +2788,7 @@ flowchart LR
 </div>
 """,
         'ja': """
-<h1>T18: JSONデータベース</h1>
+<h1>T23: JSONデータベース</h1>
 <p class="lesson-intro">本格的なデータベースを学ぶ前に、JSONファイルをシンプルなデータストアとして使えます。ファイルを読み取り、パースし、データを変更し、書き戻します。エントリを書いたり消したりするノートのようなものです。シンプルですが小さなアプリケーションには効果的です。</p>
 
 <h2>db.jsonの読み書き</h2>
@@ -1951,9 +2856,9 @@ flowchart LR
 </div>
 """,
     },
-    'T19': {
+    'T24': {
         'en': """
-<h1>T19: SQLite</h1>
+<h1>T24: SQLite</h1>
 <p class="lesson-intro">SQLite is a real database engine that stores data in a single file. SQL (Structured Query Language) is the language you use to talk to it. If a JSON file is a notebook, SQLite is a proper filing cabinet with labels, categories, and cross-references. It handles concurrent access and data integrity for you.</p>
 
 <h2>Creating Tables</h2>
@@ -2021,7 +2926,7 @@ erDiagram
 </div>
 """,
         'ja': """
-<h1>T19: SQLite</h1>
+<h1>T24: SQLite</h1>
 <p class="lesson-intro">SQLiteは単一ファイルにデータを格納する本格的なデータベースエンジンです。SQL(構造化問合せ言語)はそれと対話する言語です。JSONファイルがノートなら、SQLiteはラベル、カテゴリ、相互参照を備えた適切なファイルキャビネットです。同時アクセスとデータ整合性を自動的に処理します。</p>
 
 <h2>テーブルの作成</h2>
@@ -2089,9 +2994,9 @@ erDiagram
 </div>
 """,
     },
-    'T20': {
+    'T25': {
         'en': """
-<h1>T20: Authentication</h1>
+<h1>T25: Authentication</h1>
 <p class="lesson-intro">Authentication answers the question "who are you?" It is like a bouncer at a club checking IDs. Sessions, cookies, and password hashing work together to verify users securely. Get this wrong, and you expose your users to real harm.</p>
 
 <h2>Password Hashing</h2>
@@ -2143,7 +3048,7 @@ sequenceDiagram
 </div>
 """,
         'ja': """
-<h1>T20: 認証</h1>
+<h1>T25: 認証</h1>
 <p class="lesson-intro">認証は「あなたは誰ですか?」という質問に答えます。クラブの入口でIDをチェックするドアマンのようなものです。セッション、Cookie、パスワードハッシュが連携してユーザーを安全に検証します。これを間違えるとユーザーを危険にさらすことになります。</p>
 
 <h2>パスワードハッシュ</h2>
@@ -2195,9 +3100,9 @@ sequenceDiagram
 </div>
 """,
     },
-    'T21': {
+    'T26': {
         'en': """
-<h1>T21: Ollama and Chat</h1>
+<h1>T26: Ollama and Chat</h1>
 <p class="lesson-intro">Large Language Models (LLMs) can now run locally on your machine. Ollama makes it easy to download and serve open-source models. Connecting your web app to a local LLM gives you AI-powered features without sending data to external services - like having a smart assistant living on your own computer.</p>
 
 <h2>Setting Up Ollama</h2>
@@ -2257,7 +3162,7 @@ sequenceDiagram
 </div>
 """,
         'ja': """
-<h1>T21: OllamaとChat</h1>
+<h1>T26: OllamaとChat</h1>
 <p class="lesson-intro">大規模言語モデル(LLM)はローカルマシンで動作できるようになりました。Ollamaはオープンソースモデルのダウンロードと配信を簡単にします。WebアプリをローカルLLMに接続すれば、外部サービスにデータを送らずにAI機能を実現できます。自分のコンピュータに住む賢いアシスタントを持つようなものです。</p>
 
 <h2>Ollamaのセットアップ</h2>
@@ -2317,9 +3222,9 @@ sequenceDiagram
 </div>
 """,
     },
-    'T22': {
+    'T27': {
         'en': """
-<h1>T22: Full Stack AI App</h1>
+<h1>T27: Full Stack AI App</h1>
 <p class="lesson-intro">This is where everything comes together. A full-stack application connects the frontend (what users see) to the backend (server logic and data) to the AI layer (intelligent responses). Think of it as building a complete restaurant - the dining room, the kitchen, and the chef all working in harmony.</p>
 
 <h2>Architecture Overview</h2>
@@ -2380,7 +3285,7 @@ flowchart TB
 </div>
 """,
         'ja': """
-<h1>T22: フルスタックAIアプリ</h1>
+<h1>T27: フルスタックAIアプリ</h1>
 <p class="lesson-intro">ここで全てが繋がります。フルスタックアプリケーションはフロントエンド(ユーザーが見るもの)、バックエンド(サーバーロジックとデータ)、AI層(インテリジェントな応答)を接続します。完全なレストランを建てるようなもので、ダイニング、キッチン、シェフが調和して動きます。</p>
 
 <h2>アーキテクチャ概要</h2>
@@ -4153,9 +5058,9 @@ flowchart TD
 </div>
 """,
     },
-    'T23': {
+    'T28': {
         'en': """
-<h1>T23: React Foundations</h1>
+<h1>T28: React Foundations</h1>
 <p class="lesson-intro">React lets you build UIs from reusable pieces called components. Think of components as Lego bricks - custom HTML tags you define yourself. Instead of telling the browser step-by-step what to change, you describe what the screen should look like, and React figures out the updates.</p>
 
 <h2>From Imperative to Declarative</h2>
@@ -4229,7 +5134,7 @@ flowchart TD
 </div>
 """,
         'ja': """
-<h1>T23: Reactの基礎</h1>
+<h1>T28: Reactの基礎</h1>
 <p class="lesson-intro">Reactはコンポーネントという再利用可能なパーツからUIを構築します。コンポーネントはレゴブロックのようなもので、自分で定義するカスタムHTMLタグです。ブラウザに一つずつ変更を指示する代わりに、画面がどう見えるべきかを記述すれば、Reactが更新を処理します。</p>
 
 <h2>命令型から宣言型へ</h2>
@@ -4303,9 +5208,9 @@ flowchart TD
 </div>
 """,
     },
-    'T24': {
+    'T29': {
         'en': """
-<h1>T24: React State &amp; Effects</h1>
+<h1>T29: React State &amp; Effects</h1>
 <p class="lesson-intro">State is a component's personal notebook - private data that persists across renders and triggers re-renders when updated. Effects are like alarm clocks that go off after the component renders, letting you synchronize with external systems like APIs or timers.</p>
 
 <h2>useState: Component Memory</h2>
@@ -4373,7 +5278,7 @@ flowchart TD
 </div>
 """,
         'ja': """
-<h1>T24: Reactのステートとエフェクト</h1>
+<h1>T29: Reactのステートとエフェクト</h1>
 <p class="lesson-intro">ステートはコンポーネントの個人的なノートです。レンダリング間で保持され、更新時に再レンダリングを引き起こすプライベートデータです。エフェクトはコンポーネントのレンダリング後に鳴る目覚まし時計のようなもので、APIやタイマーなどの外部システムと同期できます。</p>
 
 <h2>useState: コンポーネントのメモリ</h2>
@@ -4441,9 +5346,9 @@ flowchart TD
 </div>
 """,
     },
-    'T25': {
+    'T30': {
         'en': """
-<h1>T25: TypeScript</h1>
+<h1>T30: TypeScript</h1>
 <p class="lesson-intro">TypeScript adds a type system on top of JavaScript. Types are like a contract - similar to telling a restaurant your dietary restrictions before they cook. You specify what shape your data should have, and TypeScript catches mistakes before your code ever runs.</p>
 
 <h2>Type Annotations</h2>
@@ -4536,7 +5441,7 @@ flowchart LR
 </div>
 """,
         'ja': """
-<h1>T25: TypeScript</h1>
+<h1>T30: TypeScript</h1>
 <p class="lesson-intro">TypeScriptはJavaScriptの上に型システムを追加します。型は契約のようなもので、料理を作る前にレストランに食事制限を伝えるのに似ています。データがどんな形であるべきかを指定すると、TypeScriptがコード実行前にミスを検出します。</p>
 
 <h2>型アノテーション</h2>
@@ -4629,13 +5534,13 @@ flowchart LR
 </div>
 """,
     },
-    'T26': {
+    'T31': {
         'en': """
-<h1>T26: Next.js Routing &amp; Rendering</h1>
+<h1>T31: Next.js Routing &amp; Rendering</h1>
 <p class="lesson-intro">Next.js is like upgrading from a food truck (React SPA) to a proper restaurant with a built-in address system. It adds file-based routing, server-side rendering, and a clear structure so you do not have to wire everything together yourself.</p>
 
 <h2>File-Based Routing</h2>
-<p>In Next.js, the file system is the router. Create a file at <code>app/about/page.tsx</code> and it becomes the <code>/about</code> route. No router configuration needed - compare this to the hash-based routing from T13.</p>
+<p>In Next.js, the file system is the router. Create a file at <code>app/about/page.tsx</code> and it becomes the <code>/about</code> route. No router configuration needed - compare this to the hash-based routing from T16.</p>
 <pre><code>// Directory structure = URL structure
 app/
   page.tsx          // "/" route
@@ -4708,7 +5613,7 @@ flowchart TB
 </div>
 """,
         'ja': """
-<h1>T26: Next.jsのルーティングとレンダリング</h1>
+<h1>T31: Next.jsのルーティングとレンダリング</h1>
 <p class="lesson-intro">Next.jsはフードトラック(React SPA)から住所システム付きの本格的なレストランへのアップグレードのようなものです。ファイルベースのルーティング、サーバーサイドレンダリング、明確な構造を追加するので、全てを自分で接続する必要がありません。</p>
 
 <h2>ファイルベースルーティング</h2>
@@ -4785,9 +5690,9 @@ flowchart TB
 </div>
 """,
     },
-    'T27': {
+    'T32': {
         'en': """
-<h1>T27: Next.js Data &amp; API</h1>
+<h1>T32: Next.js Data &amp; API</h1>
 <p class="lesson-intro">Server components fetch data like a chef going directly to the pantry instead of sending a waiter back and forth. No useEffect, no loading spinners for initial data - the component itself is async, fetches what it needs, and renders the complete HTML on the server.</p>
 
 <h2>Fetching Data in Server Components</h2>
@@ -4820,7 +5725,7 @@ export default async function MenuPage() {
 }</code></pre>
 
 <h2>API Routes</h2>
-<p>Next.js API routes live in <code>route.ts</code> files. They handle GET, POST, and other HTTP methods as named exports. Compare this to the Express routes from T17 - same concept, different syntax.</p>
+<p>Next.js API routes live in <code>route.ts</code> files. They handle GET, POST, and other HTTP methods as named exports. Compare this to the Express routes from T22 - same concept, different syntax.</p>
 <pre><code>// app/api/menu/route.ts
 import { NextResponse } from "next/server";
 
@@ -4870,7 +5775,7 @@ sequenceDiagram
 </div>
 """,
         'ja': """
-<h1>T27: Next.jsのデータとAPI</h1>
+<h1>T32: Next.jsのデータとAPI</h1>
 <p class="lesson-intro">サーバーコンポーネントのデータ取得は、ウェイターを往復させる代わりにシェフが直接パントリーに行くようなものです。useEffectもローディングスピナーも不要です。コンポーネント自体がasyncで、必要なデータを取得し、サーバーで完全なHTMLをレンダリングします。</p>
 
 <h2>サーバーコンポーネントでのデータ取得</h2>
@@ -4953,13 +5858,13 @@ sequenceDiagram
 </div>
 """,
     },
-    'T28': {
+    'T33': {
         'en': """
-<h1>T28: Nest.js Architecture</h1>
+<h1>T33: Nest.js Architecture</h1>
 <p class="lesson-intro">Nest.js is like an operations manual for a restaurant chain. Modules are departments, Controllers are the waiters taking orders, Services are the chefs doing the real work, and Dependency Injection is the manager who assigns chefs to stations without waiters needing to know the details.</p>
 
 <h2>Why a Framework?</h2>
-<p>Raw Node.js from T16 works for small apps, but at scale you need structure. Nest.js provides clear separation of concerns, enforced patterns, and built-in support for testing and modularity.</p>
+<p>Raw Node.js from T21 works for small apps, but at scale you need structure. Nest.js provides clear separation of concerns, enforced patterns, and built-in support for testing and modularity.</p>
 
 <h2>Modules, Controllers, Services</h2>
 <p>Every Nest.js app is organized into modules. Each module groups related controllers (handle HTTP) and services (handle business logic). Decorators like <code>@Controller</code> and <code>@Injectable</code> tell the framework what each class does.</p>
@@ -5054,7 +5959,7 @@ flowchart TD
 </div>
 """,
         'ja': """
-<h1>T28: Nest.jsのアーキテクチャ</h1>
+<h1>T33: Nest.jsのアーキテクチャ</h1>
 <p class="lesson-intro">Nest.jsはレストランチェーンの運営マニュアルのようなものです。モジュールは部署、コントローラーは注文を受けるウェイター、サービスは実際に調理するシェフ、そして依存性注入はウェイターが詳細を知る必要なくシェフを配置するマネージャーです。</p>
 
 <h2>フレームワークが必要な理由</h2>
@@ -5153,13 +6058,13 @@ flowchart TD
 </div>
 """,
     },
-    'T29': {
+    'T34': {
         'en': """
-<h1>T29: Nest.js Data &amp; Auth</h1>
+<h1>T34: Nest.js Data &amp; Auth</h1>
 <p class="lesson-intro">DTOs are like order tickets that ensure the waiter writes exactly what the kitchen understands. Guards are the bouncer checking IDs at the door. Together with database integration, they form the data and security layer of a Nest.js application.</p>
 
 <h2>DTOs and Validation</h2>
-<p>A Data Transfer Object defines the expected shape of incoming data. Combined with class-validator decorators, it automatically rejects invalid requests. Compare this to the manual validation from T17 - Nest.js handles it declaratively.</p>
+<p>A Data Transfer Object defines the expected shape of incoming data. Combined with class-validator decorators, it automatically rejects invalid requests. Compare this to the manual validation from T22 - Nest.js handles it declaratively.</p>
 <pre><code>// create-menu-item.dto.ts
 import { IsString, IsNumber, Min, MaxLength } from "class-validator";
 
@@ -5191,7 +6096,7 @@ export class MenuController {
 }</code></pre>
 
 <h2>Database Integration</h2>
-<p>Nest.js works with the SQLite database pattern from T19, but through a repository layer. The service interacts with the database, keeping data access separate from HTTP handling.</p>
+<p>Nest.js works with the SQLite database pattern from T24, but through a repository layer. The service interacts with the database, keeping data access separate from HTTP handling.</p>
 
 <h2>Authentication Guards</h2>
 <p>A guard is a class that decides whether a request should proceed. It checks authentication tokens before the controller ever sees the request. Apply it to specific routes or entire controllers with the <code>@UseGuards</code> decorator.</p>
@@ -5259,7 +6164,7 @@ sequenceDiagram
 </div>
 """,
         'ja': """
-<h1>T29: Nest.jsのデータと認証</h1>
+<h1>T34: Nest.jsのデータと認証</h1>
 <p class="lesson-intro">DTOはウェイターがキッチンに理解できる内容を正確に書く注文票のようなものです。ガードはドアでIDをチェックする用心棒です。データベース統合と合わせて、Nest.jsアプリケーションのデータとセキュリティ層を形成します。</p>
 
 <h2>DTOとバリデーション</h2>
@@ -5489,383 +6394,9 @@ flowchart LR
 </div>
 """,
     },
-    'T30': {
+    'T35': {
         'en': """
-<h1>T30: Git Basics</h1>
-<p class="lesson-intro">Git is a time machine for your code. Every time you finish a small piece of work, you take a snapshot. Later you can rewind, branch into an alternate timeline, or compare any two moments. Think of it as a photographer's workflow: you shoot pictures all day (editing files), pick the keepers (staging), and paste them into a photo album with a caption (committing).</p>
-
-<h2>The Three Areas</h2>
-<p>Git splits your project into three zones. The <strong>working directory</strong> is the folder on disk where you edit. The <strong>staging area</strong> (or index) is where you gather the exact changes you want to save next. The <strong>repository</strong> is the permanent history of every snapshot you have ever committed.</p>
-<pre><code># Start a new repo in the current folder
-git init
-
-# Tell git who you are (once per machine)
-git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
-
-# See what has changed
-git status</code></pre>
-
-<h2>Edit, Stage, Commit</h2>
-<p>The core loop of every day: change files, choose which changes to save, save them with a message. The message is a note to your future self explaining <em>why</em> you made the change.</p>
-<pre><code># After editing some files
-git status                      # what changed?
-git add index.html styles.css   # stage specific files
-git add .                       # or stage everything
-git commit -m "Add contact form layout"
-git log --oneline               # browse history</code></pre>
-
-<h2>Branches: Alternate Timelines</h2>
-<p>A branch is a lightweight pointer to a commit. You spin one up when you want to try something without disturbing the main timeline. When you are happy, you merge it back. When you are not, you throw the branch away at zero cost.</p>
-<pre><code>git branch                     # list branches
-git checkout -b feature/login  # create and switch to new branch
-# ...edit, stage, commit...
-git checkout main              # back to main timeline
-git merge feature/login        # fold the work in
-git branch -d feature/login    # delete the now-merged branch</code></pre>
-
-<div class="mermaid">
-gitGraph
-    commit id: "init"
-    commit id: "add layout"
-    branch feature/login
-    checkout feature/login
-    commit id: "login form"
-    commit id: "auth check"
-    checkout main
-    commit id: "fix typo"
-    merge feature/login
-    commit id: "deploy"
-</div>
-
-<p>Read this diagram left to right. The <code>main</code> line is your default timeline. <code>feature/login</code> splits off, gets two commits, and is merged back in. After the merge, main contains everything from both lines.</p>
-
-<div class="mermaid">
-flowchart LR
-    WD[Working Directory<br/>edited files] -->|git add| SA[Staging Area<br/>the next snapshot]
-    SA -->|git commit| R[Repository<br/>permanent history]
-    R -->|git checkout| WD
-</div>
-
-<h2>Undo Without Fear</h2>
-<p>Because commits are snapshots, almost nothing is ever truly lost. <code>git restore</code> discards unstaged changes. <code>git reset</code> unstages a file. <code>git revert</code> creates a new commit that undoes an old one, keeping history honest.</p>
-<pre><code>git restore styles.css         # throw away edits in one file
-git restore --staged index.html # unstage but keep edits
-git revert abc123              # undo commit abc123 with a new commit</code></pre>
-
-<h2>What to Ignore</h2>
-<p>Some files should never be tracked: secrets, build output, huge binaries, editor junk. List them in a <code>.gitignore</code> file at the repo root.</p>
-<pre><code># .gitignore
-node_modules/
-.env
-*.log
-.DS_Store
-dist/</code></pre>
-
-<div class="takeaways">
-<h2>Key Takeaways</h2>
-<ul>
-<li>Git has three zones: working directory, staging area, repository. All commands move content between them</li>
-<li>A commit is a snapshot of every tracked file plus a message explaining why</li>
-<li>Branches are cheap pointers to commits. Create one for every feature or experiment</li>
-<li>Commit messages are letters to your future self. Explain the why, not just the what</li>
-<li>Put secrets and generated files in .gitignore before your first commit</li>
-</ul>
-</div>
-""",
-        'ja': """
-<h1>T30: Gitの基礎</h1>
-<p class="lesson-intro">Gitはコードのタイムマシンです。小さな仕事が終わるたびにスナップショットを撮り、後から巻き戻したり、別の時間軸に分岐したり、任意の2つの瞬間を比較したりできます。写真家の作業に似ています。一日中写真を撮り(ファイルを編集)、良いものを選び(ステージング)、キャプション付きでアルバムに貼る(コミット)。</p>
-
-<h2>3つの領域</h2>
-<p>Gitはプロジェクトを3つのゾーンに分けます。<strong>ワーキングディレクトリ</strong>はディスク上の編集フォルダ。<strong>ステージングエリア</strong>(インデックス)は次に保存する変更を集める場所。<strong>リポジトリ</strong>は過去にコミットした全スナップショットの永久的な履歴です。</p>
-<pre><code># 現在のフォルダで新しいリポジトリを開始
-git init
-
-# 自分を名乗る(マシンごとに1回)
-git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
-
-# 何が変わったか確認
-git status</code></pre>
-
-<h2>編集、ステージ、コミット</h2>
-<p>毎日のコアループ。ファイルを変更し、保存する変更を選び、メッセージ付きで保存します。メッセージは未来の自分への手紙で、<em>なぜ</em>その変更をしたかを説明します。</p>
-<pre><code># ファイル編集後
-git status                      # 何が変わった?
-git add index.html styles.css   # 特定のファイルをステージ
-git add .                       # または全部ステージ
-git commit -m "Add contact form layout"
-git log --oneline               # 履歴を見る</code></pre>
-
-<h2>ブランチ: 別の時間軸</h2>
-<p>ブランチはコミットを指す軽量なポインタです。メインの時間軸を乱さず何かを試したい時に作成します。満足したらマージし、気に入らなければゼロコストでブランチを捨てられます。</p>
-<pre><code>git branch                     # ブランチ一覧
-git checkout -b feature/login  # 新規作成して切り替え
-# ...編集、ステージ、コミット...
-git checkout main              # メインに戻る
-git merge feature/login        # 作業を取り込む
-git branch -d feature/login    # マージ済みブランチを削除</code></pre>
-
-<div class="mermaid">
-gitGraph
-    commit id: "init"
-    commit id: "add layout"
-    branch feature/login
-    checkout feature/login
-    commit id: "login form"
-    commit id: "auth check"
-    checkout main
-    commit id: "fix typo"
-    merge feature/login
-    commit id: "deploy"
-</div>
-
-<p>図を左から右に読みます。<code>main</code>の線がデフォルトの時間軸です。<code>feature/login</code>がそこから分岐し、2つコミットして、またmainに合流します。マージ後、mainは両方の線の内容を全て含みます。</p>
-
-<div class="mermaid">
-flowchart LR
-    WD[Working Directory<br/>edited files] -->|git add| SA[Staging Area<br/>the next snapshot]
-    SA -->|git commit| R[Repository<br/>permanent history]
-    R -->|git checkout| WD
-</div>
-
-<h2>恐れずに取り消す</h2>
-<p>コミットはスナップショットなので、ほぼ何も失われません。<code>git restore</code>は未ステージの変更を破棄。<code>git reset</code>はファイルをアンステージ。<code>git revert</code>は古いコミットを打ち消す新しいコミットを作り、履歴を正直に保ちます。</p>
-<pre><code>git restore styles.css         # 1ファイルの編集を捨てる
-git restore --staged index.html # ステージから外すが編集は保持
-git revert abc123              # abc123を打ち消す新コミット</code></pre>
-
-<h2>無視すべきもの</h2>
-<p>追跡すべきでないファイルがあります。秘密情報、ビルド出力、巨大バイナリ、エディタのゴミなど。リポジトリルートの<code>.gitignore</code>に列挙します。</p>
-<pre><code># .gitignore
-node_modules/
-.env
-*.log
-.DS_Store
-dist/</code></pre>
-
-<div class="takeaways">
-<h2>まとめ</h2>
-<ul>
-<li>Gitには3つのゾーンがある: ワーキングディレクトリ、ステージングエリア、リポジトリ。全コマンドはこの間で内容を動かす</li>
-<li>コミットは追跡中の全ファイルのスナップショットと「なぜ」を説明するメッセージ</li>
-<li>ブランチはコミットへの軽量なポインタ。機能や実験ごとに作る</li>
-<li>コミットメッセージは未来の自分への手紙。何ではなくなぜを書く</li>
-<li>最初のコミット前に秘密情報と生成ファイルを.gitignoreに入れる</li>
-</ul>
-</div>
-""",
-    },
-    'T31': {
-        'en': """
-<h1>T31: GitHub &amp; Collaboration</h1>
-<p class="lesson-intro">Git is your personal time machine on your desk. GitHub is the shared workshop where many time travelers meet, compare notes, and build together. The same repository lives in two places at once: your laptop and the cloud. Pushing and pulling keeps them in sync.</p>
-
-<h2>Remotes: Where the Copy Lives</h2>
-<p>A <strong>remote</strong> is a named URL pointing to a copy of your repository somewhere else. By convention the main remote is called <code>origin</code>. You push commits up to origin and pull commits down from it.</p>
-<pre><code># Start from an existing GitHub repo
-git clone https://github.com/you/my-project.git
-cd my-project
-git remote -v                  # list remotes
-
-# Or push an existing local repo to a new GitHub repo
-git remote add origin https://github.com/you/my-project.git
-git branch -M main
-git push -u origin main        # -u sets the default upstream</code></pre>
-
-<h2>Push and Pull</h2>
-<p>Push uploads your local commits to the remote. Pull downloads and merges remote commits into your current branch. Always pull before you start new work so you are building on the latest.</p>
-<pre><code>git pull                       # fetch + merge from origin
-git push                       # send your commits up
-
-# First push of a new branch
-git push -u origin feature/login</code></pre>
-
-<h2>GitHub Flow: The Beginner-Friendly Workflow</h2>
-<p>GitHub Flow is the simplest pro workflow. One rule: <strong>main</strong> is always deployable. Everything else happens on short-lived branches behind a pull request.</p>
-<ol>
-<li>Create a branch off main for your change</li>
-<li>Commit as you work</li>
-<li>Push the branch and open a <strong>pull request</strong> (PR)</li>
-<li>A teammate reviews, CI runs tests automatically</li>
-<li>Merge when green, delete the branch, pull latest main</li>
-</ol>
-
-<div class="mermaid">
-gitGraph
-    commit id: "main"
-    branch feature/contact
-    checkout feature/contact
-    commit id: "form markup"
-    commit id: "validation"
-    commit id: "styles"
-    checkout main
-    commit id: "hotfix"
-    checkout feature/contact
-    commit id: "address review"
-    checkout main
-    merge feature/contact tag: "PR #42"
-    commit id: "next feature"
-</div>
-
-<p>The branch lives only as long as the pull request. Once merged, it is deleted. The <code>PR #42</code> tag is the lasting record of the conversation, the review, and the CI checks that happened around that merge commit.</p>
-
-<div class="mermaid">
-sequenceDiagram
-    participant You as Your Laptop
-    participant Origin as GitHub (origin)
-    participant Team as Teammate
-    You->>You: git checkout -b feature/x
-    You->>You: edit, add, commit
-    You->>Origin: git push -u origin feature/x
-    You->>Origin: Open Pull Request
-    Origin->>Team: Review request
-    Team->>Origin: Approve + comments
-    Origin->>Origin: CI runs tests
-    Origin->>Origin: Merge to main
-    Team->>Team: git pull
-    You->>You: git pull (to get merged main)
-</div>
-
-<h2>Pull Requests: Conversations Around Code</h2>
-<p>A PR is more than a merge button. It is a permanent record of what you did, why, who reviewed it, and what tests ran. Write PR descriptions like you are explaining the change to a teammate six months from now.</p>
-<pre><code>## Summary
-Adds a contact form to the landing page.
-
-## Why
-Closes #42. Users had no way to reach us outside Discord.
-
-## Test plan
-- [x] Form validates required fields
-- [x] Submission shows success toast
-- [ ] Confirm email arrives in inbox</code></pre>
-
-<h2>Merge Conflicts</h2>
-<p>When two branches edit the same line, git stops and asks you to decide. It marks the conflict in the file with <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. Pick the right version, delete the markers, stage, and commit.</p>
-<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-color: blue;
-=======
-color: green;
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</code></pre>
-
-<div class="takeaways">
-<h2>Key Takeaways</h2>
-<ul>
-<li>GitHub stores a remote copy of your repo. origin is the conventional name</li>
-<li>Push sends commits up, pull brings them down. Pull before starting new work</li>
-<li>GitHub Flow: branch off main, commit, push, open PR, get review, merge, delete branch</li>
-<li>Write pull request descriptions for the reader, not the author. Explain why</li>
-<li>Merge conflicts are normal. Read the markers, choose a version, re-commit</li>
-</ul>
-</div>
-""",
-        'ja': """
-<h1>T31: GitHubとコラボレーション</h1>
-<p class="lesson-intro">Gitは机の上の個人用タイムマシン。GitHubは多くのタイムトラベラーが集まり、メモを比べ、一緒に作る共有工房です。同じリポジトリが2か所に存在します。あなたのラップトップとクラウドです。プッシュとプルでそれらを同期します。</p>
-
-<h2>リモート: コピーのありか</h2>
-<p><strong>リモート</strong>は別の場所にあるリポジトリのコピーを指す名前付きURLです。慣習的にメインリモートは<code>origin</code>と呼ばれます。コミットをoriginへ押し上げ、originから引き下ろします。</p>
-<pre><code># 既存のGitHubリポジトリから開始
-git clone https://github.com/you/my-project.git
-cd my-project
-git remote -v                  # リモート一覧
-
-# またはローカルリポジトリを新しいGitHubリポジトリへ
-git remote add origin https://github.com/you/my-project.git
-git branch -M main
-git push -u origin main        # -uでデフォルトupstreamを設定</code></pre>
-
-<h2>プッシュとプル</h2>
-<p>プッシュはローカルのコミットをリモートへアップロードします。プルはリモートのコミットを現在のブランチにダウンロードしてマージします。新しい作業を始める前に必ずプルし、最新の上に積み上げましょう。</p>
-<pre><code>git pull                       # originからfetch + merge
-git push                       # コミットを送信
-
-# 新ブランチの初プッシュ
-git push -u origin feature/login</code></pre>
-
-<h2>GitHub Flow: 初心者向けワークフロー</h2>
-<p>GitHub Flowは最もシンプルなプロのワークフローです。ルールは1つ。<strong>main</strong>は常にデプロイ可能。それ以外は全てプルリクエスト後ろの短命ブランチで起こります。</p>
-<ol>
-<li>mainから変更用ブランチを作成</li>
-<li>作業しながらコミット</li>
-<li>ブランチをプッシュし<strong>プルリクエスト</strong>(PR)を開く</li>
-<li>チームメイトがレビュー、CIがテストを自動実行</li>
-<li>グリーンならマージ、ブランチ削除、最新mainをプル</li>
-</ol>
-
-<div class="mermaid">
-gitGraph
-    commit id: "main"
-    branch feature/contact
-    checkout feature/contact
-    commit id: "form markup"
-    commit id: "validation"
-    commit id: "styles"
-    checkout main
-    commit id: "hotfix"
-    checkout feature/contact
-    commit id: "address review"
-    checkout main
-    merge feature/contact tag: "PR #42"
-    commit id: "next feature"
-</div>
-
-<p>ブランチはプルリクエストと同じ期間だけ生き、マージ後に削除されます。<code>PR #42</code>のタグは、そのマージコミット周辺で起きた会話、レビュー、CIチェックの永続的な記録です。</p>
-
-<div class="mermaid">
-sequenceDiagram
-    participant You as Your Laptop
-    participant Origin as GitHub (origin)
-    participant Team as Teammate
-    You->>You: git checkout -b feature/x
-    You->>You: edit, add, commit
-    You->>Origin: git push -u origin feature/x
-    You->>Origin: Open Pull Request
-    Origin->>Team: Review request
-    Team->>Origin: Approve + comments
-    Origin->>Origin: CI runs tests
-    Origin->>Origin: Merge to main
-    Team->>Team: git pull
-    You->>You: git pull (to get merged main)
-</div>
-
-<h2>プルリクエスト: コード周辺の会話</h2>
-<p>PRはマージボタン以上のものです。何をしたか、なぜか、誰がレビューしたか、どのテストが走ったかの永久記録です。PRの説明は6か月後のチームメイトに説明するように書きましょう。</p>
-<pre><code>## Summary
-Adds a contact form to the landing page.
-
-## Why
-Closes #42. Users had no way to reach us outside Discord.
-
-## Test plan
-- [x] Form validates required fields
-- [x] Submission shows success toast
-- [ ] Confirm email arrives in inbox</code></pre>
-
-<h2>マージコンフリクト</h2>
-<p>2つのブランチが同じ行を編集するとgitは止まって判断を求めます。ファイル内に<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>、<code>=======</code>、<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>でコンフリクトを記します。正しい版を選び、マーカーを削除し、ステージしてコミットします。</p>
-<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-color: blue;
-=======
-color: green;
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</code></pre>
-
-<div class="takeaways">
-<h2>まとめ</h2>
-<ul>
-<li>GitHubはリポジトリのリモートコピーを保存。originが慣習的な名前</li>
-<li>プッシュは上へ、プルは下へ。新しい作業を始める前に必ずプル</li>
-<li>GitHub Flow: mainからブランチ、コミット、プッシュ、PR、レビュー、マージ、ブランチ削除</li>
-<li>PRの説明は読み手のために書く。なぜを説明する</li>
-<li>マージコンフリクトは正常。マーカーを読み、版を選び、再コミット</li>
-</ul>
-</div>
-""",
-    },
-    'T32': {
-        'en': """
-<h1>T32: Web Components I - Custom Elements &amp; Shadow DOM</h1>
+<h1>T35: Web Components I - Custom Elements &amp; Shadow DOM</h1>
 <p class="lesson-intro">What if you could invent your own HTML tag? <code>&lt;user-card&gt;</code>, <code>&lt;rating-stars&gt;</code>, <code>&lt;search-box&gt;</code>. That is Web Components: a browser-native way to build reusable UI Lego bricks with no framework, no build step. Two ingredients today: Custom Elements define the tag, Shadow DOM seals its insides so nothing leaks in or out.</p>
 
 <h2>Custom Elements</h2>
@@ -5953,7 +6484,7 @@ user-card::part(action) { background: tomato; color: white; }</code></pre>
 </div>
 """,
         'ja': """
-<h1>T32: Web Components I - カスタム要素とShadow DOM</h1>
+<h1>T35: Web Components I - カスタム要素とShadow DOM</h1>
 <p class="lesson-intro">もし自分のHTMLタグを発明できたら? <code>&lt;user-card&gt;</code>、<code>&lt;rating-stars&gt;</code>、<code>&lt;search-box&gt;</code>。それがWeb Componentsです。フレームワークもビルドも無しで再利用可能なUIのレゴブロックをブラウザネイティブに作る方法。今日の2つの材料: カスタム要素がタグを定義し、Shadow DOMが中身を密閉して外に漏れないようにします。</p>
 
 <h2>カスタム要素</h2>
@@ -6041,9 +6572,9 @@ user-card::part(action) { background: tomato; color: white; }</code></pre>
 </div>
 """,
     },
-    'T33': {
+    'T36': {
         'en': """
-<h1>T33: Web Components II - Templates, Slots, Lifecycle &amp; Lit</h1>
+<h1>T36: Web Components II - Templates, Slots, Lifecycle &amp; Lit</h1>
 <p class="lesson-intro">A real component needs three more things. <strong>Templates</strong> keep inert markup off-stage until needed. <strong>Slots</strong> let parents inject content like React children. <strong>Lifecycle</strong> callbacks are the element's life stages - birth, insertion, attribute change, removal. Once you know all of this, Lit becomes the espresso machine that hides the ceremony.</p>
 
 <h2>The &lt;template&gt; Element</h2>
@@ -6175,7 +6706,7 @@ customElements.define("user-card", UserCard);
 </div>
 """,
         'ja': """
-<h1>T33: Web Components II - テンプレート、スロット、ライフサイクル、Lit</h1>
+<h1>T36: Web Components II - テンプレート、スロット、ライフサイクル、Lit</h1>
 <p class="lesson-intro">本物のコンポーネントにはあと3つ必要です。<strong>テンプレート</strong>は不活性なマークアップを必要になるまで舞台裏に置きます。<strong>スロット</strong>は親がReactの子要素のようにコンテンツを注入できるようにします。<strong>ライフサイクル</strong>コールバックは要素のライフステージです。誕生、挿入、属性変更、削除。これらを全て知ったら、Litが儀式を隠すエスプレッソマシンになります。</p>
 
 <h2>&lt;template&gt;要素</h2>
@@ -6307,351 +6838,9 @@ customElements.define("user-card", UserCard);
 </div>
 """,
     },
-    'T34': {
+    'T37': {
         'en': """
-<h1>T34: Terminal Basics</h1>
-<p class="lesson-intro">Buttons are for tourists. The terminal is the direct line to the machine - a text prompt where you tell the computer exactly what to do. It feels intimidating for about a week, then feels like a superpower for the rest of your career. You stop clicking through dialogs and start composing commands.</p>
-
-<h2>Where Am I? Moving Around</h2>
-<p>Your shell is always sitting in some folder, called the <strong>working directory</strong>. Three commands form the navigation basics: where am I, what is here, go somewhere.</p>
-<pre><code>pwd                    # print working directory
-ls                     # list what is in this folder
-ls -la                 # long format, include hidden files
-cd Documents           # move into a subfolder
-cd ..                  # move up one level
-cd                     # go home (shorthand for ~)
-cd /                   # jump to the filesystem root</code></pre>
-<p>Paths come in two flavors. An <strong>absolute</strong> path starts from the root: <code>/home/alice/projects</code>. A <strong>relative</strong> path starts from wherever you are now: <code>../notes</code>. The special shortcuts <code>.</code> (here), <code>..</code> (parent), and <code>~</code> (your home folder) show up everywhere.</p>
-
-<h2>Creating, Copying, Removing</h2>
-<p>Files and folders are text in, bytes out. Keep verbs short.</p>
-<pre><code>mkdir my-project              # make a folder
-mkdir -p a/b/c                # make nested folders at once
-touch notes.md                # create an empty file
-cp notes.md backup.md         # copy file
-cp -r my-project archive      # copy folder recursively
-mv old.md new.md              # rename (or move)
-rm notes.md                   # delete file (no recycle bin!)
-rm -rf build/                 # delete folder and everything inside
-cat notes.md                  # print file to screen
-less log.txt                  # scroll through a large file (q to quit)</code></pre>
-<p><strong>Warning</strong>: there is no trash can. <code>rm</code> is final. Before using <code>rm -rf</code>, always run <code>ls</code> first to verify the target.</p>
-
-<h2>Reading the Manual</h2>
-<p>Every command ships with its own manual. When you forget a flag, ask.</p>
-<pre><code>man ls                 # full manual page (q to quit)
-ls --help              # quick summary (most modern commands)
-which python           # show where a command lives on disk</code></pre>
-
-<h2>The PATH: Why Commands Just Work</h2>
-<p>When you type <code>git</code>, the shell does not know where the git program lives. It walks a list of folders stored in the <code>PATH</code> environment variable and runs the first <code>git</code> it finds. This is why installing tools sometimes needs a PATH update.</p>
-<pre><code>echo $PATH                              # see the search list
-# /usr/local/bin:/usr/bin:/bin:...
-export PATH="$HOME/.local/bin:$PATH"    # add your own folder first</code></pre>
-
-<div class="mermaid">
-flowchart TD
-    User[You type: git status]
-    Shell[Shell reads PATH]
-    P1[/usr/local/bin/git]
-    P2[/usr/bin/]
-    P3[...]
-    Run[Run the found program]
-    User --> Shell
-    Shell --> P1
-    Shell --> P2
-    Shell --> P3
-    P1 -->|first match wins| Run
-</div>
-
-<h2>Speed Tricks</h2>
-<p>The shell rewards muscle memory. Four habits that pay back every day:</p>
-<ul>
-<li><strong>Tab</strong> completes file names and commands. Hit it twice to see options.</li>
-<li><strong>Up arrow</strong> walks backward through your command history.</li>
-<li><strong>Ctrl+R</strong> searches history by fragment - type "git com" to resurrect "git commit -m ...".</li>
-<li><strong>Ctrl+C</strong> cancels a running command. <strong>Ctrl+D</strong> ends input / exits the shell.</li>
-</ul>
-
-<div class="takeaways">
-<h2>Key Takeaways</h2>
-<ul>
-<li>pwd, ls, cd are your navigation basics. Paths are absolute (start with /) or relative (start from here)</li>
-<li>mkdir, touch, cp, mv, rm manage files and folders. rm is permanent - there is no trash can</li>
-<li>man and --help are always there when you forget a flag. Use them before Google</li>
-<li>PATH is the search list the shell uses to find commands. Know how to inspect and extend it</li>
-<li>Tab completion, Ctrl+R history search, and Ctrl+C to cancel are the muscle memory that separate beginners from pros</li>
-</ul>
-</div>
-""",
-        'ja': """
-<h1>T34: ターミナルの基礎</h1>
-<p class="lesson-intro">ボタンは観光客向けです。ターミナルはマシンへの直通回線。テキストプロンプトで、コンピュータに何をすべきかを正確に伝えます。1週間は怖く感じ、その後はキャリアの残り全てで超能力に感じます。ダイアログをクリックするのをやめ、コマンドを組み立て始めます。</p>
-
-<h2>今どこ? 移動する</h2>
-<p>シェルは常にあるフォルダにいます。これを<strong>ワーキングディレクトリ</strong>と呼びます。3つのコマンドが基礎です。どこにいる、何がある、どこに行く。</p>
-<pre><code>pwd                    # print working directory
-ls                     # list what is in this folder
-ls -la                 # long format, include hidden files
-cd Documents           # move into a subfolder
-cd ..                  # move up one level
-cd                     # go home (shorthand for ~)
-cd /                   # jump to the filesystem root</code></pre>
-<p>パスは2種類あります。<strong>絶対</strong>パスはルートから始まります: <code>/home/alice/projects</code>。<strong>相対</strong>パスは現在地から始まります: <code>../notes</code>。特殊なショートカット<code>.</code>(ここ)、<code>..</code>(親)、<code>~</code>(ホーム)はどこでも使います。</p>
-
-<h2>作成、コピー、削除</h2>
-<p>ファイルとフォルダはテキスト入力、バイト出力です。動詞は短く。</p>
-<pre><code>mkdir my-project              # make a folder
-mkdir -p a/b/c                # make nested folders at once
-touch notes.md                # create an empty file
-cp notes.md backup.md         # copy file
-cp -r my-project archive      # copy folder recursively
-mv old.md new.md              # rename (or move)
-rm notes.md                   # delete file (no recycle bin!)
-rm -rf build/                 # delete folder and everything inside
-cat notes.md                  # print file to screen
-less log.txt                  # scroll through a large file (q to quit)</code></pre>
-<p><strong>警告</strong>: ゴミ箱はありません。<code>rm</code>は最終です。<code>rm -rf</code>を使う前に、必ず<code>ls</code>で対象を確認しましょう。</p>
-
-<h2>マニュアルを読む</h2>
-<p>全てのコマンドは自分のマニュアルを持っています。フラグを忘れたら聞きます。</p>
-<pre><code>man ls                 # full manual page (q to quit)
-ls --help              # quick summary (most modern commands)
-which python           # show where a command lives on disk</code></pre>
-
-<h2>PATH: コマンドが動く理由</h2>
-<p><code>git</code>と打った時、シェルはgitがどこにあるか知りません。<code>PATH</code>環境変数に格納されたフォルダのリストを歩き、最初に見つけた<code>git</code>を実行します。ツールをインストールした後にPATH更新が必要な理由です。</p>
-<pre><code>echo $PATH                              # see the search list
-# /usr/local/bin:/usr/bin:/bin:...
-export PATH="$HOME/.local/bin:$PATH"    # add your own folder first</code></pre>
-
-<div class="mermaid">
-flowchart TD
-    User[You type: git status]
-    Shell[Shell reads PATH]
-    P1[/usr/local/bin/git]
-    P2[/usr/bin/]
-    P3[...]
-    Run[Run the found program]
-    User --> Shell
-    Shell --> P1
-    Shell --> P2
-    Shell --> P3
-    P1 -->|first match wins| Run
-</div>
-
-<h2>スピードの技</h2>
-<p>シェルは筋肉の記憶に報います。毎日得する4つの習慣:</p>
-<ul>
-<li><strong>Tab</strong>でファイル名とコマンドを補完。2回押すと候補表示。</li>
-<li><strong>上矢印</strong>でコマンド履歴を遡る。</li>
-<li><strong>Ctrl+R</strong>で履歴を断片検索。「git com」と打つと「git commit -m ...」が蘇る。</li>
-<li><strong>Ctrl+C</strong>で実行中のコマンドを中断。<strong>Ctrl+D</strong>で入力終了/シェル終了。</li>
-</ul>
-
-<div class="takeaways">
-<h2>まとめ</h2>
-<ul>
-<li>pwd、ls、cdが移動の基礎。パスは絶対(/で始まる)か相対(ここから始まる)</li>
-<li>mkdir、touch、cp、mv、rmでファイルとフォルダを管理。rmは永久。ゴミ箱はない</li>
-<li>manと--helpはフラグを忘れた時にいつでも使える。Googleより先に</li>
-<li>PATHはシェルがコマンドを探すリスト。確認と拡張の方法を知る</li>
-<li>Tab補完、Ctrl+Rの履歴検索、Ctrl+Cでの中断が初心者とプロを分ける筋肉の記憶</li>
-</ul>
-</div>
-""",
-    },
-    'T35': {
-        'en': """
-<h1>T35: Pipes &amp; Power Tools</h1>
-<p class="lesson-intro">The terminal stops being a clunky file browser and becomes a superpower the moment you understand the pipe. Each command is a small specialist. The pipe <code>|</code> is duct tape: it lets you bolt specialists together into assembly lines. Five commands joined by pipes can replace a spreadsheet macro, a Python script, or an afternoon.</p>
-
-<h2>Standard Streams</h2>
-<p>Every program has three channels. <strong>stdin</strong> is the input stream. <strong>stdout</strong> is where normal output goes. <strong>stderr</strong> is where errors go. The shell lets you redirect each one independently.</p>
-<pre><code>echo "hello" &gt; greet.txt        # stdout TO a file (overwrite)
-echo "world" &gt;&gt; greet.txt       # stdout APPEND to a file
-sort &lt; names.txt                 # stdin FROM a file
-command 2&gt; errors.log            # stderr TO a file
-command &gt; out.log 2&gt;&amp;1          # stdout and stderr together
-command &gt; /dev/null 2&gt;&amp;1         # discard all output</code></pre>
-
-<h2>The Pipe</h2>
-<p>A pipe connects one command's stdout to the next command's stdin. You read it left to right, like a sentence.</p>
-<pre><code># Show the 5 largest files in this folder
-ls -lS | head -n 5
-
-# Count how many .ts files the project has
-find src -name "*.ts" | wc -l
-
-# Find every TODO in your code
-grep -rn "TODO" src/ | less
-
-# Top 10 commands you use most
-history | awk '{print $2}' | sort | uniq -c | sort -rn | head</code></pre>
-
-<div class="mermaid">
-flowchart LR
-    H[history] -->|stdout| A[awk print command]
-    A -->|stdout| S1[sort]
-    S1 -->|stdout| U[uniq -c]
-    U -->|stdout| S2[sort -rn]
-    S2 -->|stdout| Hd[head]
-</div>
-
-<h2>Essential Specialists</h2>
-<p>The standard kit every pro keeps sharp:</p>
-<ul>
-<li><code>grep pattern file</code> - find lines matching a pattern. Add <code>-r</code> to recurse, <code>-i</code> for case-insensitive, <code>-n</code> for line numbers</li>
-<li><code>find path -name "*.ext"</code> - locate files by name, type, size, age</li>
-<li><code>sort</code> and <code>uniq</code> - sort lines, collapse duplicates (<code>uniq -c</code> counts them)</li>
-<li><code>wc -l</code> - count lines. Quick "how many?" answers</li>
-<li><code>head -n 20</code> / <code>tail -n 20</code> - first / last lines. <code>tail -f</code> follows a growing log</li>
-<li><code>cut -d, -f1</code> - extract a column from CSV-ish data</li>
-<li><code>sed 's/old/new/g'</code> - find and replace. Stream editor for quick substitutions</li>
-<li><code>awk '{print $2}'</code> - column-aware text processing</li>
-</ul>
-
-<h2>Chaining Commands</h2>
-<p>Three operators sequence commands without pipes.</p>
-<pre><code>cmd1 ; cmd2          # run cmd1, then cmd2 regardless of outcome
-cmd1 &amp;&amp; cmd2         # run cmd2 ONLY if cmd1 succeeded
-cmd1 || cmd2         # run cmd2 ONLY if cmd1 failed
-
-# Practical example
-npm test &amp;&amp; git push                     # push only if tests pass
-mkdir build || echo "already exists"      # fallback message</code></pre>
-
-<h2>A Tiny Shell Script</h2>
-<p>When you run the same pipe every day, save it. A shell script is a text file with a <code>#!/usr/bin/env bash</code> header, made executable with <code>chmod +x</code>.</p>
-<pre><code>#!/usr/bin/env bash
-# backup.sh - copy the project into a timestamped tarball
-
-set -euo pipefail                       # fail fast on errors
-
-name="$(basename "$PWD")"
-stamp="$(date +%Y%m%d-%H%M%S)"
-tar -czf "../${name}-${stamp}.tar.gz" .
-echo "Saved ../${name}-${stamp}.tar.gz"</code></pre>
-<pre><code>chmod +x backup.sh
-./backup.sh                             # run it</code></pre>
-
-<h2>Running Long Jobs</h2>
-<p>Some jobs take minutes. You do not want to babysit them.</p>
-<pre><code>long-command &amp;                  # run in background
-jobs                             # list background jobs in this shell
-long-command &gt; out.log 2&gt;&amp;1 &amp;   # background + capture output
-ps aux | grep node               # find running processes
-kill 12345                       # ask a process to stop
-kill -9 12345                    # force it to stop</code></pre>
-
-<div class="takeaways">
-<h2>Key Takeaways</h2>
-<ul>
-<li>Three streams: stdin, stdout, stderr. Redirect with &lt;, &gt;, &gt;&gt;, 2&gt;</li>
-<li>The pipe | connects one command's stdout to the next one's stdin - read left to right</li>
-<li>Power kit: grep, find, sort, uniq, wc, head, tail, cut, sed, awk. Learn one per day</li>
-<li>Chain with ; (always), &amp;&amp; (on success), || (on failure) for safe multi-step commands</li>
-<li>Save any pipe you run twice as a shell script. Make it executable with chmod +x</li>
-</ul>
-</div>
-""",
-        'ja': """
-<h1>T35: パイプとパワーツール</h1>
-<p class="lesson-intro">ターミナルが不器用なファイルブラウザから超能力に変わる瞬間は、パイプを理解した時です。各コマンドは小さな専門家。パイプ<code>|</code>はダクトテープで、専門家を組み立てラインに繋げます。5つのコマンドをパイプで繋げば、スプレッドシートマクロ、Pythonスクリプト、午後の仕事を置き換えられます。</p>
-
-<h2>標準ストリーム</h2>
-<p>全てのプログラムは3つのチャネルを持ちます。<strong>stdin</strong>は入力。<strong>stdout</strong>は通常の出力先。<strong>stderr</strong>はエラー出力先。シェルはそれぞれ独立にリダイレクトできます。</p>
-<pre><code>echo "hello" &gt; greet.txt        # stdout TO a file (overwrite)
-echo "world" &gt;&gt; greet.txt       # stdout APPEND to a file
-sort &lt; names.txt                 # stdin FROM a file
-command 2&gt; errors.log            # stderr TO a file
-command &gt; out.log 2&gt;&amp;1          # stdout and stderr together
-command &gt; /dev/null 2&gt;&amp;1         # discard all output</code></pre>
-
-<h2>パイプ</h2>
-<p>パイプは1つのコマンドのstdoutを次のコマンドのstdinに繋ぎます。文章のように左から右に読みます。</p>
-<pre><code># Show the 5 largest files in this folder
-ls -lS | head -n 5
-
-# Count how many .ts files the project has
-find src -name "*.ts" | wc -l
-
-# Find every TODO in your code
-grep -rn "TODO" src/ | less
-
-# Top 10 commands you use most
-history | awk '{print $2}' | sort | uniq -c | sort -rn | head</code></pre>
-
-<div class="mermaid">
-flowchart LR
-    H[history] -->|stdout| A[awk print command]
-    A -->|stdout| S1[sort]
-    S1 -->|stdout| U[uniq -c]
-    U -->|stdout| S2[sort -rn]
-    S2 -->|stdout| Hd[head]
-</div>
-
-<h2>必須の専門家たち</h2>
-<p>プロが研ぎ続ける標準キット:</p>
-<ul>
-<li><code>grep pattern file</code> - パターンに一致する行を探す。<code>-r</code>で再帰、<code>-i</code>で大文字小文字無視、<code>-n</code>で行番号</li>
-<li><code>find path -name "*.ext"</code> - 名前、種類、サイズ、年齢でファイルを探す</li>
-<li><code>sort</code>と<code>uniq</code> - 行をソート、重複を除去(<code>uniq -c</code>でカウント)</li>
-<li><code>wc -l</code> - 行数カウント。「いくつ?」への素早い答え</li>
-<li><code>head -n 20</code> / <code>tail -n 20</code> - 先頭/末尾の行。<code>tail -f</code>は成長するログを追う</li>
-<li><code>cut -d, -f1</code> - CSV風データから列を抽出</li>
-<li><code>sed 's/old/new/g'</code> - 検索と置換。素早い置換のためのストリームエディタ</li>
-<li><code>awk '{print $2}'</code> - 列を意識したテキスト処理</li>
-</ul>
-
-<h2>コマンドを繋げる</h2>
-<p>3つの演算子がパイプ無しでコマンドを順序付けます。</p>
-<pre><code>cmd1 ; cmd2          # run cmd1, then cmd2 regardless of outcome
-cmd1 &amp;&amp; cmd2         # run cmd2 ONLY if cmd1 succeeded
-cmd1 || cmd2         # run cmd2 ONLY if cmd1 failed
-
-# Practical example
-npm test &amp;&amp; git push                     # push only if tests pass
-mkdir build || echo "already exists"      # fallback message</code></pre>
-
-<h2>小さなシェルスクリプト</h2>
-<p>毎日同じパイプを実行するなら、保存しましょう。シェルスクリプトは<code>#!/usr/bin/env bash</code>ヘッダ付きのテキストファイルで、<code>chmod +x</code>で実行可能にします。</p>
-<pre><code>#!/usr/bin/env bash
-# backup.sh - copy the project into a timestamped tarball
-
-set -euo pipefail                       # fail fast on errors
-
-name="$(basename "$PWD")"
-stamp="$(date +%Y%m%d-%H%M%S)"
-tar -czf "../${name}-${stamp}.tar.gz" .
-echo "Saved ../${name}-${stamp}.tar.gz"</code></pre>
-<pre><code>chmod +x backup.sh
-./backup.sh                             # run it</code></pre>
-
-<h2>長時間ジョブの実行</h2>
-<p>数分かかるジョブもあります。つきっきりは嫌です。</p>
-<pre><code>long-command &amp;                  # run in background
-jobs                             # list background jobs in this shell
-long-command &gt; out.log 2&gt;&amp;1 &amp;   # background + capture output
-ps aux | grep node               # find running processes
-kill 12345                       # ask a process to stop
-kill -9 12345                    # force it to stop</code></pre>
-
-<div class="takeaways">
-<h2>まとめ</h2>
-<ul>
-<li>3つのストリーム: stdin、stdout、stderr。&lt;、&gt;、&gt;&gt;、2&gt;でリダイレクト</li>
-<li>パイプ|は1つのコマンドのstdoutを次のstdinに繋ぐ。左から右に読む</li>
-<li>パワーキット: grep、find、sort、uniq、wc、head、tail、cut、sed、awk。1日1つ学ぶ</li>
-<li>;(常に)、&amp;&amp;(成功時)、||(失敗時)で複数ステップコマンドを安全に繋ぐ</li>
-<li>2回実行したパイプはスクリプトに保存。chmod +xで実行可能にする</li>
-</ul>
-</div>
-""",
-    },
-    'T36': {
-        'en': """
-<h1>T36: System Design - The Delivery Framework</h1>
+<h1>T37: System Design - The Delivery Framework</h1>
 <p class="lesson-intro">Architects draw blueprints before anyone pours concrete. System design is drawing the blueprint for a piece of software: what it does, what it is made of, how the parts fit. In an interview or on a real project, the hardest part is not knowing databases or caches. It is knowing the order of questions to ask. This lesson teaches that order.</p>
 
 <h2>The Six Steps</h2>
@@ -6744,7 +6933,7 @@ flowchart LR
 </div>
 """,
         'ja': """
-<h1>T36: システム設計 - デリバリーフレームワーク</h1>
+<h1>T37: システム設計 - デリバリーフレームワーク</h1>
 <p class="lesson-intro">建築家はコンクリートを流す前に設計図を描きます。システム設計はソフトウェアの設計図を描くこと。何をするか、何でできているか、部品がどう組み合うか。面接や実プロジェクトで最も難しいのは、データベースやキャッシュを知ることではなく、質問の順序を知ることです。このレッスンでその順序を教えます。</p>
 
 <h2>6つのステップ</h2>
@@ -6837,9 +7026,9 @@ flowchart LR
 </div>
 """,
     },
-    'T37': {
+    'T38': {
         'en': """
-<h1>T37: System Design - Scale, Databases, Sharding</h1>
+<h1>T38: System Design - Scale, Databases, Sharding</h1>
 <p class="lesson-intro">One small server can handle more traffic than most people think. But at some point the single server sweats, the single database chokes, and you have to split work across machines. Scaling is the art of splitting - first by adding copies (replicas), then by splitting the data itself (shards). The trick is doing it only when the numbers force you to.</p>
 
 <h2>Vertical vs Horizontal</h2>
@@ -6920,7 +7109,7 @@ Add Shard E between B and C -&gt; only keys between B and E move.</code></pre>
 </div>
 """,
         'ja': """
-<h1>T37: システム設計 - スケール、データベース、シャーディング</h1>
+<h1>T38: システム設計 - スケール、データベース、シャーディング</h1>
 <p class="lesson-intro">小さなサーバー1台でも、多くの人が思うより多くのトラフィックを捌けます。しかしある時点で単一サーバーは汗をかき、単一データベースは窒息し、仕事を複数マシンに分ける必要が出ます。スケーリングとは分割の技術です。まずコピーを追加(レプリカ)、次にデータ自体を分割(シャード)。コツは、数字が強いる時だけやることです。</p>
 
 <h2>垂直 vs 水平</h2>
@@ -7001,9 +7190,9 @@ Add Shard E between B and C -&gt; only keys between B and E move.</code></pre>
 </div>
 """,
     },
-    'T38': {
+    'T39': {
         'en': """
-<h1>T38: System Design - Caching, Queues &amp; Patterns</h1>
+<h1>T39: System Design - Caching, Queues &amp; Patterns</h1>
 <p class="lesson-intro">A database that does every read is like a chef who chops onions for every order. Caches pre-chop. Queues decouple the waiter from the kitchen so neither waits for the other. CDNs put a mini-kitchen on every continent. The deep dive of a system design is usually stitching these three together until the non-functional numbers fall into place.</p>
 
 <h2>Caching: Fast Memory Between You and The Database</h2>
@@ -7107,7 +7296,7 @@ sequenceDiagram
 </div>
 """,
         'ja': """
-<h1>T38: システム設計 - キャッシング、キュー、パターン</h1>
+<h1>T39: システム設計 - キャッシング、キュー、パターン</h1>
 <p class="lesson-intro">全ての読み込みをDBで処理するシェフは、注文のたびに玉ねぎを切るようなもの。キャッシュは事前に切っておきます。キューはウェイターとキッチンを分離し、お互いを待たせません。CDNは全ての大陸にミニキッチンを置きます。システム設計のディープダイブは通常、非機能数字が収まるまでこの3つを縫い合わせる作業です。</p>
 
 <h2>キャッシング: データベースとあなたの間の高速メモリ</h2>
@@ -7211,194 +7400,5 @@ sequenceDiagram
 </div>
 """,
     },
-    'T39': {
-        'en': """
-<h1>T39: Environment Setup</h1>
-<p class="lesson-intro">Every craftsman sets up the workbench before the first cut. To build for the web you need three tools on your computer: an editor to write code, a runtime to execute JavaScript outside the browser, and a browser to view the result. One afternoon of setup saves a thousand frustrations later. Do it once, forget it forever.</p>
 
-<h2>What You Are Installing</h2>
-<ul>
-<li><strong>Visual Studio Code</strong> - the editor. Free, from Microsoft, runs on Windows, Mac, Linux. Works for HTML, CSS, JavaScript, and every language you will touch in this course.</li>
-<li><strong>Node.js</strong> - a JavaScript runtime. Lets you run .js files from your terminal without a browser. Comes with <code>npm</code>, the package manager that installs third-party libraries.</li>
-<li><strong>A modern browser</strong> - Chrome or Firefox. The built-in browser devtools are how you inspect pages, debug JavaScript, and simulate network conditions.</li>
-</ul>
-
-<h2>Install VS Code</h2>
-<p>Go to <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a> and download the installer for your operating system. Accept the defaults. When prompted during install, check <strong>Add to PATH</strong> and <strong>Register as editor for supported file types</strong>.</p>
-<p>After install, open VS Code and look around:</p>
-<ul>
-<li>Left bar: Explorer (file tree), Search, Source Control (git), Extensions</li>
-<li><strong>Cmd/Ctrl + P</strong> - quick file open. Type a filename fragment</li>
-<li><strong>Cmd/Ctrl + Shift + P</strong> - command palette. Type any command by name</li>
-<li><strong>Ctrl + `</strong> (backtick) - open the integrated terminal inside VS Code</li>
-</ul>
-
-<h2>Install Node.js</h2>
-<p>Go to <a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a> and download the <strong>LTS</strong> (Long-Term Support) version. Accept defaults. LTS is the boring-reliable choice; avoid the "Current" channel for learning.</p>
-<p>On Mac, if you already use Homebrew, <code>brew install node</code> works. On Linux, your distro's package manager is fine, but node's version may be old; consider <a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a> for flexibility later.</p>
-
-<h2>Verify Everything Works</h2>
-<p>Open VS Code, then open the integrated terminal (<strong>Ctrl + `</strong>). Run these four commands. Each should print a version number.</p>
-<pre><code>node -v      # v20.x.x or newer
-npm -v       # 10.x.x or newer
-code -v      # VS Code version
-git --version  # any version works</code></pre>
-<p>If any command prints "command not found", close all terminal windows, open a new one, and try again. The installer updated your <code>PATH</code>, and PATH only applies to new terminals. Still broken? Restart the computer.</p>
-
-<h2>Your First File</h2>
-<p>Let's prove the whole chain works end to end.</p>
-<ol>
-<li>In VS Code, open a folder: <strong>File &gt; Open Folder</strong>. Pick or create a folder called <code>learning</code>.</li>
-<li>Create a new file named <code>hello.html</code>.</li>
-<li>Paste this in and save with Cmd/Ctrl + S:</li>
-</ol>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;&lt;title&gt;Hello&lt;/title&gt;&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;It works!&lt;/h1&gt;
-    &lt;script&gt;
-        console.log("Also in the browser console.");
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<p>Open the file in your browser (double-click it, or drag it onto the browser). Open devtools with <strong>F12</strong> and switch to the Console tab. You should see the log line.</p>
-
-<div class="mermaid">
-flowchart LR
-    VSC[VS Code<br/>write code]
-    Disk[hello.html on disk]
-    Browser[Browser<br/>renders + runs JS]
-    DevTools[DevTools F12<br/>inspect + debug]
-    Terminal[VS Code terminal<br/>node, npm, git]
-    VSC -->|Save| Disk
-    Disk -->|Open| Browser
-    Browser --> DevTools
-    VSC -.->|Ctrl+backtick| Terminal
-    Terminal -.->|node, npm| Disk
-</div>
-
-<h2>Extensions Worth Installing</h2>
-<p>Open the Extensions panel in VS Code (square icon on the left bar). Install these four:</p>
-<ul>
-<li><strong>Prettier - Code formatter</strong> - auto-formats on save so every file looks consistent</li>
-<li><strong>ESLint</strong> - highlights JavaScript bugs and style issues as you type</li>
-<li><strong>Live Server</strong> - right-click any .html file -&gt; "Open with Live Server" for auto-refresh on save</li>
-<li><strong>GitLens</strong> - enhanced git integration; see who last changed every line</li>
-</ul>
-<p>To enable format-on-save, open settings (Cmd/Ctrl + ,), search "format on save", and check the box.</p>
-
-<h2>Operating System Notes</h2>
-<ul>
-<li><strong>Windows</strong>: install Git for Windows from <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>. The default "Git Bash" terminal gives you a Linux-like shell that is much nicer than cmd.exe for this course.</li>
-<li><strong>Mac</strong>: install <a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a> first. Then <code>brew install git node</code> is the whole setup.</li>
-<li><strong>Linux</strong>: you likely have git already. <code>sudo apt install git nodejs npm</code> (Ubuntu/Debian) or <code>nvm</code> for newer versions.</li>
-</ul>
-
-<div class="takeaways">
-<h2>Key Takeaways</h2>
-<ul>
-<li>Three tools: VS Code (editor), Node.js LTS (runtime), a modern browser with devtools</li>
-<li>Verify with node -v, npm -v, git --version, code -v. All four should print versions</li>
-<li>Learn VS Code shortcuts early: Cmd/Ctrl+P (quick open), Cmd/Ctrl+Shift+P (command palette), Ctrl+backtick (terminal)</li>
-<li>Install Prettier, ESLint, Live Server, GitLens. Enable format-on-save</li>
-<li>If a command is "not found", open a fresh terminal. If still broken, restart. PATH updates need a new shell</li>
-</ul>
-</div>
-""",
-        'ja': """
-<h1>T39: 環境セットアップ</h1>
-<p class="lesson-intro">職人は最初の切削の前に作業台を整えます。Webを作るために、コンピュータには3つの道具が必要です。コードを書くエディタ、ブラウザ外でJavaScriptを実行するランタイム、結果を見るブラウザ。午後1回のセットアップが後の千の苛立ちを救います。一度やって永遠に忘れましょう。</p>
-
-<h2>何をインストールするか</h2>
-<ul>
-<li><strong>Visual Studio Code</strong> - エディタ。無料、Microsoft製、Windows/Mac/Linuxで動作。HTML、CSS、JavaScript、このコースで触る全ての言語に対応。</li>
-<li><strong>Node.js</strong> - JavaScriptランタイム。ブラウザなしでターミナルから.jsファイルを実行できる。サードパーティライブラリをインストールする<code>npm</code>が付属。</li>
-<li><strong>モダンブラウザ</strong> - ChromeまたはFirefox。組み込みのデベロッパーツールでページを検査、JavaScriptをデバッグ、ネットワーク状況をシミュレートします。</li>
-</ul>
-
-<h2>VS Codeをインストール</h2>
-<p><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a>に行き、OSのインストーラをダウンロード。デフォルトを受け入れる。インストール中に聞かれたら<strong>Add to PATH</strong>と<strong>Register as editor for supported file types</strong>をチェック。</p>
-<p>インストール後、VS Codeを開いて見回します:</p>
-<ul>
-<li>左バー: エクスプローラ(ファイルツリー)、検索、ソース管理(git)、拡張機能</li>
-<li><strong>Cmd/Ctrl + P</strong> - クイックファイルオープン。ファイル名の一部を入力</li>
-<li><strong>Cmd/Ctrl + Shift + P</strong> - コマンドパレット。任意のコマンドを名前で入力</li>
-<li><strong>Ctrl + `</strong>(バッククォート) - VS Code内の統合ターミナルを開く</li>
-</ul>
-
-<h2>Node.jsをインストール</h2>
-<p><a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a>に行き、<strong>LTS</strong>(長期サポート)版をダウンロード。デフォルトを受け入れる。LTSは退屈で信頼できる選択。学習中は「Current」チャネルは避けましょう。</p>
-<p>MacでHomebrewを使っているなら<code>brew install node</code>で十分。Linuxではディストリのパッケージマネージャでも良いが、nodeのバージョンが古いかも。後の柔軟性のために<a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a>の使用を検討。</p>
-
-<h2>全てが動くか確認</h2>
-<p>VS Codeを開き、統合ターミナルを開く(<strong>Ctrl + `</strong>)。この4つのコマンドを実行。各々がバージョン番号を表示するはず。</p>
-<pre><code>node -v      # v20.x.x or newer
-npm -v       # 10.x.x or newer
-code -v      # VS Code version
-git --version  # any version works</code></pre>
-<p>どれかが「command not found」を出したら、全てのターミナルウィンドウを閉じて新しいのを開き、もう一度試す。インストーラは<code>PATH</code>を更新するが、PATHは新しいターミナルにのみ適用される。それでも壊れているなら、コンピュータを再起動。</p>
-
-<h2>最初のファイル</h2>
-<p>チェーン全体がエンドtoエンドで動くことを証明しましょう。</p>
-<ol>
-<li>VS Codeで<strong>File &gt; Open Folder</strong>からフォルダを開く。<code>learning</code>というフォルダを作るか選ぶ。</li>
-<li><code>hello.html</code>という新ファイルを作成。</li>
-<li>これを貼り付けてCmd/Ctrl + Sで保存:</li>
-</ol>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;&lt;title&gt;Hello&lt;/title&gt;&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;It works!&lt;/h1&gt;
-    &lt;script&gt;
-        console.log("Also in the browser console.");
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<p>ファイルをブラウザで開く(ダブルクリックかブラウザにドラッグ)。<strong>F12</strong>でデベロッパーツールを開き、Consoleタブに切り替え。ログ行が見えるはず。</p>
-
-<div class="mermaid">
-flowchart LR
-    VSC[VS Code<br/>write code]
-    Disk[hello.html on disk]
-    Browser[Browser<br/>renders + runs JS]
-    DevTools[DevTools F12<br/>inspect + debug]
-    Terminal[VS Code terminal<br/>node, npm, git]
-    VSC -->|Save| Disk
-    Disk -->|Open| Browser
-    Browser --> DevTools
-    VSC -.->|Ctrl+backtick| Terminal
-    Terminal -.->|node, npm| Disk
-</div>
-
-<h2>入れる価値のある拡張機能</h2>
-<p>VS Codeの拡張機能パネルを開く(左バーの四角いアイコン)。この4つをインストール:</p>
-<ul>
-<li><strong>Prettier - Code formatter</strong> - 保存時に自動フォーマット。全ファイルが一貫した見た目に</li>
-<li><strong>ESLint</strong> - 入力中にJavaScriptのバグとスタイル問題をハイライト</li>
-<li><strong>Live Server</strong> - 任意の.htmlファイルを右クリック -&gt; 「Open with Live Server」で保存時自動リロード</li>
-<li><strong>GitLens</strong> - git統合の強化。各行を最後に誰が変えたか見える</li>
-</ul>
-<p>保存時フォーマットを有効にするには、設定(Cmd/Ctrl + ,)を開き、「format on save」を検索してチェック。</p>
-
-<h2>OS別の注意</h2>
-<ul>
-<li><strong>Windows</strong>: <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>からGit for Windowsをインストール。デフォルトの「Git Bash」ターミナルがcmd.exeよりこのコースに親切なLinux風シェルを提供。</li>
-<li><strong>Mac</strong>: まず<a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a>をインストール。あとは<code>brew install git node</code>でセットアップ完了。</li>
-<li><strong>Linux</strong>: gitは既にあるはず。<code>sudo apt install git nodejs npm</code>(Ubuntu/Debian)、または新しいバージョンには<code>nvm</code>。</li>
-</ul>
-
-<div class="takeaways">
-<h2>まとめ</h2>
-<ul>
-<li>3つの道具: VS Code(エディタ)、Node.js LTS(ランタイム)、デベロッパーツール付きモダンブラウザ</li>
-<li>node -v、npm -v、git --version、code -vで確認。4つ全てがバージョンを表示するはず</li>
-<li>VS Codeのショートカットを早く覚える: Cmd/Ctrl+P(クイック開く)、Cmd/Ctrl+Shift+P(コマンドパレット)、Ctrl+バッククォート(ターミナル)</li>
-<li>Prettier、ESLint、Live Server、GitLensをインストール。保存時フォーマットを有効に</li>
-<li>コマンドが「not found」なら新しいターミナルを開く。まだ壊れているなら再起動。PATH更新は新シェルが必要</li>
-</ul>
-</div>
-""",
-    },
 }

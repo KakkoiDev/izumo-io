@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>CSS基礎 - KakkoiSchool</title>
+  <title>Hello World - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,54 +47,44 @@
         </div>
       </nav>
       
-<h1 id="t04-css基礎-スタイルの世界"><a class="heading-anchor" href="#t04-css基礎-スタイルの世界">T04: CSS基礎 - スタイルの世界</a></h1>
-<p class="lesson-intro">HTMLがWebページの骨格なら、CSSは肌、服、化粧です。CSS(カスケーディングスタイルシート)は要素の見た目を制御します。色、フォント、余白、サイズなど。「カスケーディング」とは、スタイルが予測可能な順序で上書きされることを意味します。</p>
+<h1 id="t04-hello-world-はじめの一歩"><a class="heading-anchor" href="#t04-hello-world-はじめの一歩">T04: Hello World - はじめの一歩</a></h1>
+<p class="lesson-intro">全ての旅は一歩から始まります。Web開発では、最初のHTMLファイルを作成してブラウザで表示することがその一歩です。手紙を書いて誰かに渡すようなものです。あなたが書き、ブラウザが読み上げてくれます。</p>
 
-<h2 id="セレクタとプロパティ"><a class="heading-anchor" href="#セレクタとプロパティ">セレクタとプロパティ</a></h2>
-<p>CSSルールはセレクタ(どの要素をスタイルするか)と宣言(どうスタイルするか)で構成されます。セレクタはタグ、クラス、IDを対象にできます。</p>
-<pre><code>/* Tag selector */
-h1 { color: navy; }
+<h2 id="最初のwebページ"><a class="heading-anchor" href="#最初のwebページ">最初のWebページ</a></h2>
+<p><code>index.html</code>というファイルを作成します。これはWebサイトのメインページの慣習的な名前です。ブラウザがこのファイルを読み取り、ユーザーに視覚的に表示します。</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;p&gt;This is my first web page.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
 
-/* Class selector */
-.highlight { background-color: yellow; }
-
-/* ID selector */
-#main-title { font-size: 2rem; }
-
-/* Combined */
-p.intro { font-style: italic; }</code></pre>
-
-<h2 id="色とフォント"><a class="heading-anchor" href="#色とフォント">色とフォント</a></h2>
-<p>色は名前、16進コード、rgb値で指定できます。フォントプロパティは書体、サイズ、太さ、行の高さを制御します。</p>
-<pre><code>body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333333;
-    background-color: rgb(245, 245, 245);
-}</code></pre>
-
-<h2 id="ボックスモデル"><a class="heading-anchor" href="#ボックスモデル">ボックスモデル</a></h2>
-<p>全てのHTML要素は長方形のボックスです。内側から外側へ: content、padding、border、margin。このモデルの理解はレイアウト制御に不可欠です。</p>
+<h2 id="仕組み"><a class="heading-anchor" href="#仕組み">仕組み</a></h2>
+<p>ファイルをダブルクリックするかブラウザにドラッグすると、ブラウザがテキストを読み取り、HTMLタグを解釈し、結果を画面に描画します。この段階ではサーバーは不要です。</p>
 
 <div class="mermaid">
-graph TD
-    A["Margin (outer spacing)"] --> B["Border (visible edge)"]
-    B --> C["Padding (inner spacing)"]
-    C --> D["Content (text, images)"]
-    style A fill:#e9b8f6,stroke:#888,color:#1a1a1a
-    style B fill:#f6a0a0,stroke:#888,color:#1a1a1a
-    style C fill:#a0d6a0,stroke:#888,color:#1a1a1a
-    style D fill:#a0b8f6,stroke:#888,color:#1a1a1a
+flowchart LR
+    A[index.html file] -->|open in| B[Browser]
+    B -->|reads HTML| C[Parser]
+    C -->|builds structure| D[Render Engine]
+    D -->|paints| E[Screen Output]
 </div>
+
+<h2 id="doctype宣言"><a class="heading-anchor" href="#doctype宣言">DOCTYPE宣言</a></h2>
+<p><code>&lt;!DOCTYPE html&gt;</code>はブラウザにHTML5標準を使用するよう指示します。これがないと、ブラウザは古い互換モードで表示する場合があります。</p>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>CSSセレクタはタグ名、クラス(.name)、ID(#name)で要素を対象にします</li>
-<li>ボックスモデルは4層構造: content、padding、border、margin</li>
-<li>box-sizing: border-boxでwidthにpaddingとborderを含められます</li>
-<li>詳細度(specificity)が複数のルールが競合した時にどちらが勝つかを決定します</li>
+<li>HTMLファイルは.html拡張子を持つプレーンテキストファイルです</li>
+<li>ブラウザはインタプリタです。HTMLを読み取って結果を表示します</li>
+<li>DOCTYPE、html、head、bodyタグを必ず含めてください</li>
+<li>index.htmlはWebサイトのメインページのデフォルトファイル名です</li>
 </ul>
 </div>
 

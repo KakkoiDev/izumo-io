@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>HTML Forms & Blocks - KakkoiSchool</title>
+  <title>Pipes & Power Tools - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,52 +47,95 @@
         </div>
       </nav>
       
-<h1 id="t03-html-forms-and-blocks"><a class="heading-anchor" href="#t03-html-forms-and-blocks">T03: HTML Forms and Blocks</a></h1>
-<p class="lesson-intro">Forms are the bridge between users and your application. Like a paper form at a doctor's office, HTML forms collect information from users and send it somewhere for processing. Block elements like details/summary add interactive disclosure without JavaScript.</p>
+<h1 id="t03-pipes-amp-power-tools"><a class="heading-anchor" href="#t03-pipes-amp-power-tools">T03: Pipes &amp; Power Tools</a></h1>
+<p class="lesson-intro">The terminal stops being a clunky file browser and becomes a superpower the moment you understand the pipe. Each command is a small specialist. The pipe <code>|</code> is duct tape: it lets you bolt specialists together into assembly lines. Five commands joined by pipes can replace a spreadsheet macro, a Python script, or an afternoon.</p>
 
-<h2 id="form-elements"><a class="heading-anchor" href="#form-elements">Form Elements</a></h2>
-<p>The <code>&lt;form&gt;</code> tag wraps input elements. Each input has a type that controls its behavior. The <code>required</code> attribute forces the user to fill in a field before submitting.</p>
-<pre><code>&lt;form action="/submit" method="POST"&gt;
-    &lt;label for="name"&gt;Name:&lt;/label&gt;
-    &lt;input type="text" id="name" name="name" required&gt;
+<h2 id="standard-streams"><a class="heading-anchor" href="#standard-streams">Standard Streams</a></h2>
+<p>Every program has three channels. <strong>stdin</strong> is the input stream. <strong>stdout</strong> is where normal output goes. <strong>stderr</strong> is where errors go. The shell lets you redirect each one independently.</p>
+<pre><code>echo "hello" &gt; greet.txt        # stdout TO a file (overwrite)
+echo "world" &gt;&gt; greet.txt       # stdout APPEND to a file
+sort &lt; names.txt                 # stdin FROM a file
+command 2&gt; errors.log            # stderr TO a file
+command &gt; out.log 2&gt;&amp;1          # stdout and stderr together
+command &gt; /dev/null 2&gt;&amp;1         # discard all output</code></pre>
 
-    &lt;label for="email"&gt;Email:&lt;/label&gt;
-    &lt;input type="email" id="email" name="email" required&gt;
+<h2 id="the-pipe"><a class="heading-anchor" href="#the-pipe">The Pipe</a></h2>
+<p>A pipe connects one command's stdout to the next command's stdin. You read it left to right, like a sentence.</p>
+<pre><code># Show the 5 largest files in this folder
+ls -lS | head -n 5
 
-    &lt;label for="role"&gt;Role:&lt;/label&gt;
-    &lt;select id="role" name="role"&gt;
-        &lt;option value="dev"&gt;Developer&lt;/option&gt;
-        &lt;option value="design"&gt;Designer&lt;/option&gt;
-    &lt;/select&gt;
+# Count how many .ts files the project has
+find src -name "*.ts" | wc -l
 
-    &lt;textarea name="message" rows="4"&gt;&lt;/textarea&gt;
-    &lt;button type="submit"&gt;Send&lt;/button&gt;
-&lt;/form&gt;</code></pre>
+# Find every TODO in your code
+grep -rn "TODO" src/ | less
+
+# Top 10 commands you use most
+history | awk '{print $2}' | sort | uniq -c | sort -rn | head</code></pre>
 
 <div class="mermaid">
 flowchart LR
-    A[User fills form] --> B{Valid?}
-    B -->|Yes| C[Browser sends data]
-    C --> D[Server receives]
-    D --> E[Process and respond]
-    B -->|No| F[Show error message]
-    F --> A
+    H[history] -->|stdout| A[awk print command]
+    A -->|stdout| S1[sort]
+    S1 -->|stdout| U[uniq -c]
+    U -->|stdout| S2[sort -rn]
+    S2 -->|stdout| Hd[head]
 </div>
 
-<h2 id="details-and-summary"><a class="heading-anchor" href="#details-and-summary">Details and Summary</a></h2>
-<p>The <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> elements create expandable sections with zero JavaScript.</p>
-<pre><code>&lt;details&gt;
-    &lt;summary&gt;Click to expand&lt;/summary&gt;
-    &lt;p&gt;Hidden content revealed on click.&lt;/p&gt;
-&lt;/details&gt;</code></pre>
+<h2 id="essential-specialists"><a class="heading-anchor" href="#essential-specialists">Essential Specialists</a></h2>
+<p>The standard kit every pro keeps sharp:</p>
+<ul>
+<li><code>grep pattern file</code> - find lines matching a pattern. Add <code>-r</code> to recurse, <code>-i</code> for case-insensitive, <code>-n</code> for line numbers</li>
+<li><code>find path -name "*.ext"</code> - locate files by name, type, size, age</li>
+<li><code>sort</code> and <code>uniq</code> - sort lines, collapse duplicates (<code>uniq -c</code> counts them)</li>
+<li><code>wc -l</code> - count lines. Quick "how many?" answers</li>
+<li><code>head -n 20</code> / <code>tail -n 20</code> - first / last lines. <code>tail -f</code> follows a growing log</li>
+<li><code>cut -d, -f1</code> - extract a column from CSV-ish data</li>
+<li><code>sed 's/old/new/g'</code> - find and replace. Stream editor for quick substitutions</li>
+<li><code>awk '{print $2}'</code> - column-aware text processing</li>
+</ul>
+
+<h2 id="chaining-commands"><a class="heading-anchor" href="#chaining-commands">Chaining Commands</a></h2>
+<p>Three operators sequence commands without pipes.</p>
+<pre><code>cmd1 ; cmd2          # run cmd1, then cmd2 regardless of outcome
+cmd1 &amp;&amp; cmd2         # run cmd2 ONLY if cmd1 succeeded
+cmd1 || cmd2         # run cmd2 ONLY if cmd1 failed
+
+# Practical example
+npm test &amp;&amp; git push                     # push only if tests pass
+mkdir build || echo "already exists"      # fallback message</code></pre>
+
+<h2 id="a-tiny-shell-script"><a class="heading-anchor" href="#a-tiny-shell-script">A Tiny Shell Script</a></h2>
+<p>When you run the same pipe every day, save it. A shell script is a text file with a <code>#!/usr/bin/env bash</code> header, made executable with <code>chmod +x</code>.</p>
+<pre><code>#!/usr/bin/env bash
+# backup.sh - copy the project into a timestamped tarball
+
+set -euo pipefail                       # fail fast on errors
+
+name="$(basename "$PWD")"
+stamp="$(date +%Y%m%d-%H%M%S)"
+tar -czf "../${name}-${stamp}.tar.gz" .
+echo "Saved ../${name}-${stamp}.tar.gz"</code></pre>
+<pre><code>chmod +x backup.sh
+./backup.sh                             # run it</code></pre>
+
+<h2 id="running-long-jobs"><a class="heading-anchor" href="#running-long-jobs">Running Long Jobs</a></h2>
+<p>Some jobs take minutes. You do not want to babysit them.</p>
+<pre><code>long-command &amp;                  # run in background
+jobs                             # list background jobs in this shell
+long-command &gt; out.log 2&gt;&amp;1 &amp;   # background + capture output
+ps aux | grep node               # find running processes
+kill 12345                       # ask a process to stop
+kill -9 12345                    # force it to stop</code></pre>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Forms use action and method attributes to control where and how data is sent</li>
-<li>Input types include text, email, password, number, and more</li>
-<li>The required attribute provides built-in browser validation</li>
-<li>Details/summary gives you interactive disclosure without JavaScript</li>
+<li>Three streams: stdin, stdout, stderr. Redirect with &lt;, &gt;, &gt;&gt;, 2&gt;</li>
+<li>The pipe | connects one command's stdout to the next one's stdin - read left to right</li>
+<li>Power kit: grep, find, sort, uniq, wc, head, tail, cut, sed, awk. Learn one per day</li>
+<li>Chain with ; (always), &amp;&amp; (on success), || (on failure) for safe multi-step commands</li>
+<li>Save any pipe you run twice as a shell script. Make it executable with chmod +x</li>
 </ul>
 </div>
 

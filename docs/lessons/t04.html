@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>CSS Basics - KakkoiSchool</title>
+  <title>Hello World - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,54 +47,44 @@
         </div>
       </nav>
       
-<h1 id="t04-css-basics"><a class="heading-anchor" href="#t04-css-basics">T04: CSS Basics</a></h1>
-<p class="lesson-intro">If HTML is the skeleton of a web page, CSS is the skin, clothing, and makeup. CSS (Cascading Style Sheets) controls how elements look - their colors, fonts, spacing, and size. The "cascading" part means styles can override each other in a predictable order.</p>
+<h1 id="t04-hello-world"><a class="heading-anchor" href="#t04-hello-world">T04: Hello World</a></h1>
+<p class="lesson-intro">Every journey starts with a single step. In web development, that step is creating your first HTML file and watching it come alive in a browser. Think of it like writing a letter - you write it, then hand it to someone who reads it aloud.</p>
 
-<h2 id="selectors-and-properties"><a class="heading-anchor" href="#selectors-and-properties">Selectors and Properties</a></h2>
-<p>CSS rules consist of a selector (which elements to style) and declarations (how to style them). Selectors can target tags, classes, or IDs.</p>
-<pre><code>/* Tag selector */
-h1 { color: navy; }
+<h2 id="your-first-web-page"><a class="heading-anchor" href="#your-first-web-page">Your First Web Page</a></h2>
+<p>Create a file called <code>index.html</code>. This is the conventional name for the main page of any website. The browser reads this file and renders it visually for the user.</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;p&gt;This is my first web page.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
 
-/* Class selector */
-.highlight { background-color: yellow; }
-
-/* ID selector */
-#main-title { font-size: 2rem; }
-
-/* Combined */
-p.intro { font-style: italic; }</code></pre>
-
-<h2 id="colors-and-fonts"><a class="heading-anchor" href="#colors-and-fonts">Colors and Fonts</a></h2>
-<p>Colors can be specified by name, hex code, or rgb values. Font properties control the typeface, size, weight, and line height.</p>
-<pre><code>body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333333;
-    background-color: rgb(245, 245, 245);
-}</code></pre>
-
-<h2 id="the-box-model"><a class="heading-anchor" href="#the-box-model">The Box Model</a></h2>
-<p>Every HTML element is a rectangular box. From inside out: content, padding, border, margin. Understanding this model is essential to controlling layout.</p>
+<h2 id="how-it-works"><a class="heading-anchor" href="#how-it-works">How It Works</a></h2>
+<p>When you double-click the file or drag it into your browser, the browser reads the raw text, interprets the HTML tags, and paints the result on screen. No server needed for this step.</p>
 
 <div class="mermaid">
-graph TD
-    A["Margin (outer spacing)"] --> B["Border (visible edge)"]
-    B --> C["Padding (inner spacing)"]
-    C --> D["Content (text, images)"]
-    style A fill:#e9b8f6,stroke:#888,color:#1a1a1a
-    style B fill:#f6a0a0,stroke:#888,color:#1a1a1a
-    style C fill:#a0d6a0,stroke:#888,color:#1a1a1a
-    style D fill:#a0b8f6,stroke:#888,color:#1a1a1a
+flowchart LR
+    A[index.html file] -->|open in| B[Browser]
+    B -->|reads HTML| C[Parser]
+    C -->|builds structure| D[Render Engine]
+    D -->|paints| E[Screen Output]
 </div>
+
+<h2 id="the-doctype-declaration"><a class="heading-anchor" href="#the-doctype-declaration">The DOCTYPE Declaration</a></h2>
+<p>The <code>&lt;!DOCTYPE html&gt;</code> line tells the browser to use modern HTML5 standards. Without it, the browser may fall back to older, quirky rendering modes.</p>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>CSS selectors target elements by tag name, class (.name), or ID (#name)</li>
-<li>The box model has four layers: content, padding, border, margin</li>
-<li>Use box-sizing: border-box to make width include padding and border</li>
-<li>Specificity determines which CSS rule wins when multiple rules conflict</li>
+<li>An HTML file is just a plain text file with a .html extension</li>
+<li>The browser is your interpreter - it reads HTML and displays the result</li>
+<li>Always include DOCTYPE, html, head, and body tags</li>
+<li>index.html is the default filename for a website's main page</li>
 </ul>
 </div>
 

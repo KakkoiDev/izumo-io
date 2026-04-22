@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>API Endpoints - KakkoiSchool</title>
+  <title>Dynamic Site: Offline - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,59 +47,57 @@
         </div>
       </nav>
       
-<h1 id="t17-api-endpoints"><a class="heading-anchor" href="#t17-api-endpoints">T17: API Endpoints</a></h1>
-<p class="lesson-intro">An API (Application Programming Interface) is a set of endpoints your server exposes for clients to interact with data. REST is a design convention where URLs represent resources and HTTP methods represent actions. Think of it as a menu at a restaurant - the menu lists what you can order and how.</p>
+<h1 id="t17-dynamic-site-offline"><a class="heading-anchor" href="#t17-dynamic-site-offline">T17: Dynamic Site - Offline</a></h1>
+<p class="lesson-intro">Service Workers are scripts that run in the background, separate from your web page. They intercept network requests and can serve cached responses when offline. Think of a Service Worker as a programmable proxy server living inside the browser - it decides whether to fetch from the network or serve from cache.</p>
 
-<h2 id="rest-conventions"><a class="heading-anchor" href="#rest-conventions">REST Conventions</a></h2>
-<p>RESTful APIs follow a pattern: resources are nouns in the URL, actions are HTTP methods.</p>
-<pre><code>// GET    /api/users      - List all users
-// GET    /api/users/1    - Get user with id 1
-// POST   /api/users      - Create a new user
-// PUT    /api/users/1    - Update user 1
-// DELETE /api/users/1    - Delete user 1</code></pre>
+<h2 id="registering-a-service-worker"><a class="heading-anchor" href="#registering-a-service-worker">Registering a Service Worker</a></h2>
+<pre><code>// In your main JS file
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js")
+        .then(reg =&gt; console.log("SW registered"))
+        .catch(err =&gt; console.error("SW failed:", err));
+}</code></pre>
 
-<h2 id="building-endpoints"><a class="heading-anchor" href="#building-endpoints">Building Endpoints</a></h2>
-<pre><code>const server = http.createServer((req, res) =&gt; {
-    const url = req.url;
-    const method = req.method;
+<h2 id="the-service-worker-file"><a class="heading-anchor" href="#the-service-worker-file">The Service Worker File</a></h2>
+<pre><code>// sw.js
+const CACHE_NAME = "v1";
+const ASSETS = ["/", "/index.html", "/style.css", "/app.js"];
 
-    res.setHeader("Content-Type", "application/json");
+self.addEventListener("install", event =&gt; {
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then(cache =&gt; cache.addAll(ASSETS))
+    );
+});
 
-    if (url === "/api/users" &amp;&amp; method === "GET") {
-        res.end(JSON.stringify(users));
-    } else if (url === "/api/users" &amp;&amp; method === "POST") {
-        let body = "";
-        req.on("data", chunk =&gt; body += chunk);
-        req.on("end", () =&gt; {
-            const user = JSON.parse(body);
-            users.push(user);
-            res.writeHead(201);
-            res.end(JSON.stringify(user));
-        });
-    } else {
-        res.writeHead(404);
-        res.end(JSON.stringify({ error: "Not Found" }));
-    }
+self.addEventListener("fetch", event =&gt; {
+    event.respondWith(
+        caches.match(event.request)
+            .then(cached =&gt; cached || fetch(event.request))
+    );
 });</code></pre>
 
+<h2 id="pwa-manifest"><a class="heading-anchor" href="#pwa-manifest">PWA Manifest</a></h2>
+<p>Add a <code>manifest.json</code> file to make your site installable as an app on mobile devices.</p>
+
 <div class="mermaid">
-flowchart TD
-    A[Client Request] --> B{Route Match}
-    B -->|GET /api/users| C[Return user list]
-    B -->|POST /api/users| D[Create new user]
-    B -->|GET /api/users/:id| E[Return single user]
-    B -->|PUT /api/users/:id| F[Update user]
-    B -->|DELETE /api/users/:id| G[Remove user]
-    B -->|No match| H[404 Not Found]
+stateDiagram-v2
+    [*] --> Installing: register()
+    Installing --> Installed: install event
+    Installed --> Activating: activate
+    Activating --> Active: activated
+    Active --> Active: fetch events
+    Active --> Redundant: new SW takes over
+    note right of Active: Intercepts all fetch requests
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>REST uses URLs as resource identifiers and HTTP methods as actions</li>
-<li>GET reads, POST creates, PUT updates, DELETE removes</li>
-<li>API responses should be JSON with appropriate status codes</li>
-<li>Always handle unknown routes with a 404 response</li>
+<li>Service Workers run in the background and intercept network requests</li>
+<li>Cache assets during install to enable offline functionality</li>
+<li>The fetch event handler decides: serve from cache or fetch from network</li>
+<li>A manifest.json file makes your web app installable on mobile devices</li>
 </ul>
 </div>
 

@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>TypeScript - KakkoiSchool</title>
+  <title>認証 - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,95 +47,54 @@
         </div>
       </nav>
       
-<h1 id="t25-typescript"><a class="heading-anchor" href="#t25-typescript">T25: TypeScript</a></h1>
-<p class="lesson-intro">TypeScriptはJavaScriptの上に型システムを追加します。型は契約のようなもので、料理を作る前にレストランに食事制限を伝えるのに似ています。データがどんな形であるべきかを指定すると、TypeScriptがコード実行前にミスを検出します。</p>
+<h1 id="t25-認証"><a class="heading-anchor" href="#t25-認証">T25: 認証</a></h1>
+<p class="lesson-intro">認証は「あなたは誰ですか?」という質問に答えます。クラブの入口でIDをチェックするドアマンのようなものです。セッション、Cookie、パスワードハッシュが連携してユーザーを安全に検証します。これを間違えるとユーザーを危険にさらすことになります。</p>
 
-<h2 id="型アノテーション"><a class="heading-anchor" href="#型アノテーション">型アノテーション</a></h2>
-<p>TypeScriptでは変数、関数パラメータ、戻り値に型を注釈できます。コンパイラがビルド時にこれらをチェックし、実行前にエラーを報告します。</p>
-<pre><code>// Basic type annotations
-let name: string = "Ramen";
-let price: number = 850;
-let available: boolean = true;
+<h2 id="パスワードハッシュ"><a class="heading-anchor" href="#パスワードハッシュ">パスワードハッシュ</a></h2>
+<p>パスワードを平文で保存してはいけません。bcryptのような強力なアルゴリズムでハッシュします。ハッシュは一方向関数です。パスワードを照合できますが、元に戻すことはできません。</p>
+<pre><code>const bcrypt = require("bcrypt");
 
-// Function with typed parameters and return
-function formatPrice(amount: number, currency: string): string {
-    return `${currency}${amount.toLocaleString()}`;
-}
+// Hash a password
+const hash = await bcrypt.hash("userPassword123", 10);
 
-// Arrays
-let tags: string[] = ["spicy", "popular"];
+// Verify a password
+const match = await bcrypt.compare("userPassword123", hash);
+if (match) { console.log("Access granted"); }</code></pre>
 
-// Type error caught at compile time
-// price = "free";  // Error: Type 'string' is not assignable to type 'number'</code></pre>
+<h2 id="セッションとcookie"><a class="heading-anchor" href="#セッションとcookie">セッションとCookie</a></h2>
+<p>ログイン後、サーバーはセッションを作成しCookieでセッションIDを送信します。ブラウザはその後の全リクエストでこのCookieを送信して身元を証明します。</p>
+<pre><code>// On login success
+const sessionId = crypto.randomUUID();
+sessions[sessionId] = { userId: user.id, createdAt: Date.now() };
+res.setHeader("Set-Cookie", `sid=${sessionId}; HttpOnly; Path=/`);
 
-<h2 id="インターフェースとオブジェクト"><a class="heading-anchor" href="#インターフェースとオブジェクト">インターフェースとオブジェクト</a></h2>
-<p>インターフェースはオブジェクトの形を定義します。コードベース全体で構造の一貫性を強制する設計図として機能します。</p>
-<pre><code>interface MenuItem {
-    id: number;
-    name: string;
-    price: number;
-    category: string;
-    available: boolean;
-}
-
-function displayItem(item: MenuItem): string {
-    return `${item.name} - $${item.price}`;
-}
-
-// TypeScript ensures you pass the right shape
-const ramen: MenuItem = {
-    id: 1,
-    name: "Tonkotsu Ramen",
-    price: 850,
-    category: "noodles",
-    available: true,
-};</code></pre>
-
-<h2 id="reactコンポーネントの型付け"><a class="heading-anchor" href="#reactコンポーネントの型付け">Reactコンポーネントの型付け</a></h2>
-<p>TypeScriptとReactは相性が良いです。propsにインターフェースを、stateにジェネリクスを使って型付けし、コンポーネントの契約でエラーを検出します。</p>
-<pre><code>interface MenuCardProps {
-    name: string;
-    price: number;
-    onOrder: (name: string) =&gt; void;
-}
-
-function MenuCard({ name, price, onOrder }: MenuCardProps) {
-    return (
-        &lt;div&gt;
-            &lt;h3&gt;{name}&lt;/h3&gt;
-            &lt;p&gt;${price}&lt;/p&gt;
-            &lt;button onClick={() =&gt; onOrder(name)}&gt;Order&lt;/button&gt;
-        &lt;/div&gt;
-    );
-}
-
-// Typed useState
-const [items, setItems] = useState&lt;MenuItem[]&gt;([]);</code></pre>
-
-<h2 id="ユニオン型とジェネリクス"><a class="heading-anchor" href="#ユニオン型とジェネリクス">ユニオン型とジェネリクス</a></h2>
-<p>ユニオン型は値が複数の型のいずれかであることを許可します。ジェネリクスは型安全性を保ちながら、任意の型で動作する再利用可能なコードを書くことができます。</p>
+// On each request
+function authenticate(req) {
+    const cookie = parseCookies(req.headers.cookie);
+    return sessions[cookie.sid] || null;
+}</code></pre>
 
 <div class="mermaid">
-flowchart LR
-    A[.ts File] --> B[TypeScript Compiler]
-    B --> C{Types Valid?}
-    C -->|Yes| D[.js File]
-    D --> E[Browser]
-    C -->|No| F[Type Errors]
-    F -->|Fix| A
-    style B fill:#3178c6,stroke:#235a9e,color:#1a1a1a
-    style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
-    style D fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
-    style F fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+sequenceDiagram
+    participant U as User
+    participant B as Browser
+    participant S as Server
+    U->>B: Enter credentials
+    B->>S: POST /login (email + password)
+    S->>S: Hash compare with stored hash
+    S-->>B: Set-Cookie: sid=abc123
+    B->>S: GET /dashboard (Cookie: sid=abc123)
+    S->>S: Validate session
+    S-->>B: 200 OK (protected content)
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>TypeScriptはコンパイル時に型エラーを検出し、ブラウザでの実行前にミスを防ぐ</li>
-<li>インターフェースはオブジェクトの形を定義し、一貫したデータ構造を強制する</li>
-<li>Reactのpropsとstateを型付けすることで、安全で自己文書化されたコンポーネントになる</li>
-<li>ユニオン型とジェネリクスは型安全性を保ちながら柔軟性を提供する</li>
+<li>平文パスワードは絶対に保存しない。必ずbcryptなどでハッシュします</li>
+<li>セッションはCookieに保存された一意のセッションIDでログインユーザーを追跡します</li>
+<li>HttpOnly Cookieを使ってJavaScriptがセッショントークンを読めないようにします</li>
+<li>認証は身元確認、認可はアクセスできる範囲を制御します</li>
 </ul>
 </div>
 

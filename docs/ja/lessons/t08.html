@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>DOM操作 - KakkoiSchool</title>
+  <title>CSSレイアウト - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,50 +47,58 @@
         </div>
       </nav>
       
-<h1 id="t08-dom操作"><a class="heading-anchor" href="#t08-dom操作">T08: DOM操作</a></h1>
-<p class="lesson-intro">DOM(ドキュメントオブジェクトモデル)はHTMLページのブラウザ内でのライブ表現です。積み木で作った木のようなもので、JavaScriptでユーザーが見ている間にブロックを追加、削除、並べ替えできます。全ての要素はアクセスして変更できるノードです。</p>
+<h1 id="t08-cssレイアウト-配置の技術"><a class="heading-anchor" href="#t08-cssレイアウト-配置の技術">T08: CSSレイアウト - 配置の技術</a></h1>
+<p class="lesson-intro">かつてページ上の要素配置は大変でした。FlexboxとGridが全てを変えました。Flexboxは一列に並べること(本棚の本のように)、Gridは行と列で整理すること(スプレッドシートのように)と考えてください。</p>
 
-<h2 id="要素の選択"><a class="heading-anchor" href="#要素の選択">要素の選択</a></h2>
-<p>要素を変更するには、まず見つける必要があります。<code>querySelector</code>メソッドはCSSセレクタ構文で要素を取得します。</p>
-<pre><code>const title = document.querySelector("h1");
-const items = document.querySelectorAll(".item");
-const form = document.querySelector("#signup-form");</code></pre>
+<h2 id="flexbox"><a class="heading-anchor" href="#flexbox">Flexbox</a></h2>
+<p>Flexboxは一度に一方向で動作します。コンテナに<code>display: flex</code>を設定し、子要素の配置と余白の配分を制御します。</p>
+<pre><code>.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
 
-<h2 id="要素の作成と変更"><a class="heading-anchor" href="#要素の作成と変更">要素の作成と変更</a></h2>
-<p><code>createElement</code>で新しい要素を作成し、内容を設定してページに追加します。</p>
-<pre><code>const card = document.createElement("div");
-card.className = "card";
-card.textContent = "New card content";
-document.querySelector(".container").appendChild(card);</code></pre>
+.nav-item {
+    flex: 1;
+}</code></pre>
 
-<h2 id="イベント処理"><a class="heading-anchor" href="#イベント処理">イベント処理</a></h2>
-<p>イベントでページがユーザーの操作に応答します。クリック、ホバー、入力、それぞれがリッスンできるイベントを発火します。</p>
-<pre><code>const button = document.querySelector("#submit");
-button.addEventListener("click", function(event) {
-    event.preventDefault();
-    console.log("Button was clicked!");
-});</code></pre>
+<h2 id="css-grid"><a class="heading-anchor" href="#css-grid">CSS Grid</a></h2>
+<p>Gridは二方向を同時に扱います。行と列を定義し、グリッドセルにアイテムを配置します。</p>
+<pre><code>.layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 1rem;
+    min-height: 100vh;
+}</code></pre>
+
+<h2 id="レスポンシブデザイン"><a class="heading-anchor" href="#レスポンシブデザイン">レスポンシブデザイン</a></h2>
+<p>メディアクエリで画面サイズに応じた異なるスタイルを適用できます。モバイルファーストとは小さい画面用の基本スタイルを書き、大きい画面用に複雑さを加えるアプローチです。</p>
+<pre><code>@media (min-width: 768px) {
+    .layout { grid-template-columns: 250px 1fr; }
+}</code></pre>
 
 <div class="mermaid">
-graph TD
-    A[document] --> B[html]
-    B --> C[head]
-    B --> D[body]
-    D --> E[h1]
-    D --> F[div.container]
-    F --> G[p]
-    F --> H[button]
-    H -->|click event| I[Event Handler]
-    I -->|modifies| F
+flowchart TB
+    subgraph Flexbox
+        direction LR
+        F1[Item] --- F2[Item] --- F3[Item]
+    end
+    subgraph Grid
+        G1[Header] --- G2[Header]
+        G3[Sidebar] --- G4[Main]
+        G5[Footer] --- G6[Footer]
+    end
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>querySelectorとquerySelectorAllはCSSセレクタ構文で要素を検索します</li>
-<li>createElementとappendChildで新しいDOMノードを動的に構築できます</li>
-<li>addEventListenerでユーザー操作とJavaScript関数を接続します</li>
-<li>デフォルトのブラウザ動作を止めたい時はevent.preventDefault()を使います</li>
+<li>Flexboxは一次元レイアウト向け(行または列)</li>
+<li>Gridは二次元レイアウト向け(行と列を同時に)</li>
+<li>メディアクエリで画面サイズに適応するレスポンシブデザインを実現</li>
+<li>モバイルファースト: 小さく始めて、大きい画面向けに拡張する</li>
 </ul>
 </div>
 

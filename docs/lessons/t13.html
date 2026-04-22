@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Dynamic Site: Routing - KakkoiSchool</title>
+  <title>Data Structures - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,54 +47,56 @@
         </div>
       </nav>
       
-<h1 id="t13-dynamic-site-routing"><a class="heading-anchor" href="#t13-dynamic-site-routing">T13: Dynamic Site - Routing</a></h1>
-<p class="lesson-intro">In a traditional website, each page is a separate HTML file. A Single Page Application (SPA) loads once and swaps content dynamically. Hash routing uses the URL fragment (the part after #) to determine which view to show - like chapters in a book that you flip to without getting a new book.</p>
+<h1 id="t13-data-structures"><a class="heading-anchor" href="#t13-data-structures">T13: Data Structures</a></h1>
+<p class="lesson-intro">Data structures are containers for organizing information. Arrays are like numbered lists where order matters. Objects are like labeled filing cabinets where you look up information by name. Choosing the right structure makes your code simpler and faster.</p>
 
-<h2 id="hash-based-routing"><a class="heading-anchor" href="#hash-based-routing">Hash-Based Routing</a></h2>
-<p>The hash portion of the URL (after #) does not trigger a page reload. We can listen for hash changes and render different content.</p>
-<pre><code>const routes = {
-    "#/": renderHome,
-    "#/about": renderAbout,
-    "#/contact": renderContact
+<h2 id="arrays"><a class="heading-anchor" href="#arrays">Arrays</a></h2>
+<p>Arrays store ordered collections. Access items by their index (starting from 0). Arrays have powerful built-in methods for transforming data.</p>
+<pre><code>const fruits = ["apple", "banana", "cherry"];
+console.log(fruits[0]); // "apple"
+fruits.push("date");
+
+// Transform with map, filter, reduce
+const prices = [10, 20, 30, 40];
+const expensive = prices.filter(p =&gt; p &gt; 15);
+const doubled = prices.map(p =&gt; p * 2);
+const total = prices.reduce((sum, p) =&gt; sum + p, 0);</code></pre>
+
+<h2 id="objects"><a class="heading-anchor" href="#objects">Objects</a></h2>
+<p>Objects store key-value pairs. Keys are strings (or symbols), values can be anything.</p>
+<pre><code>const user = {
+    name: "Alice",
+    age: 25,
+    skills: ["HTML", "CSS", "JS"],
+    greet() {
+        return "Hi, I am " + this.name;
+    }
 };
+console.log(user.name);
+console.log(user["age"]);</code></pre>
 
-function router() {
-    const hash = window.location.hash || "#/";
-    const renderFn = routes[hash] || renderNotFound;
-    renderFn();
-}
-
-window.addEventListener("hashchange", router);
-window.addEventListener("load", router);</code></pre>
-
-<h2 id="dynamic-content-rendering"><a class="heading-anchor" href="#dynamic-content-rendering">Dynamic Content Rendering</a></h2>
-<pre><code>function renderHome() {
-    document.querySelector("#app").innerHTML = `
-        &lt;h1&gt;Home&lt;/h1&gt;
-        &lt;p&gt;Welcome to the site.&lt;/p&gt;
-        &lt;a href="#/about"&gt;About Us&lt;/a&gt;
-    `;
-}</code></pre>
+<h2 id="loops"><a class="heading-anchor" href="#loops">Loops</a></h2>
+<p>Iterate over arrays with <code>for...of</code> and objects with <code>for...in</code> or <code>Object.entries()</code>.</p>
+<pre><code>for (const fruit of fruits) { console.log(fruit); }
+for (const [key, value] of Object.entries(user)) { console.log(key, value); }</code></pre>
 
 <div class="mermaid">
-flowchart TD
-    A[User clicks link] --> B[URL hash changes]
-    B --> C[hashchange event fires]
-    C --> D{Match route?}
-    D -->|Yes| E[Render matched view]
-    D -->|No| F[Render 404 page]
-    E --> G[Update #app content]
-    F --> G
-    G --> H[Page stays loaded]
+graph LR
+    subgraph Array
+        A0["[0] apple"] --> A1["[1] banana"] --> A2["[2] cherry"]
+    end
+    subgraph Object
+        O1["name: Alice"] --- O2["age: 25"] --- O3["skills: [...]"]
+    end
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>SPAs load one HTML file and swap content dynamically via JavaScript</li>
-<li>Hash routing uses the URL fragment to determine which view to display</li>
-<li>The hashchange event fires whenever the URL hash changes</li>
-<li>A route map object connects hash patterns to render functions</li>
+<li>Arrays are ordered lists accessed by numeric index starting at 0</li>
+<li>Objects are key-value stores accessed by string keys</li>
+<li>Use map, filter, and reduce to transform arrays without mutating them</li>
+<li>for...of iterates array values, for...in iterates object keys</li>
 </ul>
 </div>
 

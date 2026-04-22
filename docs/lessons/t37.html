@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>System Design: Scale & Storage - KakkoiSchool</title>
+  <title>System Design: The Framework - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,83 +47,95 @@
         </div>
       </nav>
       
-<h1 id="t37-system-design-scale-databases-sharding"><a class="heading-anchor" href="#t37-system-design-scale-databases-sharding">T37: System Design - Scale, Databases, Sharding</a></h1>
-<p class="lesson-intro">One small server can handle more traffic than most people think. But at some point the single server sweats, the single database chokes, and you have to split work across machines. Scaling is the art of splitting - first by adding copies (replicas), then by splitting the data itself (shards). The trick is doing it only when the numbers force you to.</p>
+<h1 id="t37-system-design-the-delivery-framework"><a class="heading-anchor" href="#t37-system-design-the-delivery-framework">T37: System Design - The Delivery Framework</a></h1>
+<p class="lesson-intro">Architects draw blueprints before anyone pours concrete. System design is drawing the blueprint for a piece of software: what it does, what it is made of, how the parts fit. In an interview or on a real project, the hardest part is not knowing databases or caches. It is knowing the order of questions to ask. This lesson teaches that order.</p>
 
-<h2 id="vertical-vs-horizontal"><a class="heading-anchor" href="#vertical-vs-horizontal">Vertical vs Horizontal</a></h2>
-<p><strong>Vertical</strong> scaling = buy a bigger machine. More CPU, more RAM. Dead simple, works until it doesn't, has a ceiling. <strong>Horizontal</strong> scaling = add more machines and share the load. More complex, no ceiling, how real products survive traffic.</p>
-<pre><code># Vertical: one strong server
-[ 8 vCPU | 32 GB RAM ]  -&gt;  [ 32 vCPU | 256 GB RAM ]
-
-# Horizontal: many modest servers behind a load balancer
-Client -&gt; LB -&gt; [ app1 ] [ app2 ] [ app3 ] ... [ appN ]</code></pre>
-<p>Rule of thumb: scale vertically first. It is cheaper and simpler. Scale horizontally when vertical hits its limit or when you need redundancy.</p>
-
-<h2 id="sql-vs-nosql-pick-for-the-shape-of-data"><a class="heading-anchor" href="#sql-vs-nosql-pick-for-the-shape-of-data">SQL vs NoSQL: Pick For The Shape of Data</a></h2>
-<p><strong>SQL</strong> (Postgres, MySQL) is right when your data has known shape and relationships, and you need transactions. <strong>NoSQL</strong> covers many shapes: document stores (MongoDB) for nested objects, key-value (Redis, DynamoDB) for fast lookups by id, wide-column (Cassandra) for huge event streams. Choose NoSQL for a specific reason, not "because scale".</p>
-<pre><code>// Orders, invoices, bookings     -&gt; SQL
-// User sessions, short-lived KV  -&gt; Redis
-// Logs, clicks, time series      -&gt; Cassandra / Clickhouse
-// Nested catalog documents       -&gt; MongoDB
-// Full-text search               -&gt; Elasticsearch / Meilisearch</code></pre>
-
-<h2 id="replication-copies-for-read-scale-and-safety"><a class="heading-anchor" href="#replication-copies-for-read-scale-and-safety">Replication: Copies for Read Scale and Safety</a></h2>
-<p>Most apps read 10-100x more than they write. Solution: one <strong>primary</strong> handles writes, multiple <strong>replicas</strong> serve reads. Replicas also survive primary failure.</p>
-<pre><code>Writes --&gt; [Primary]
-              |--&gt; [Replica 1] --&gt; Reads
-              |--&gt; [Replica 2] --&gt; Reads
-              |--&gt; [Replica 3] --&gt; Reads</code></pre>
-<p>The catch: replication is asynchronous by default. A read on a replica right after a write may return stale data. If you need read-your-writes, route that read to the primary.</p>
-
-<h2 id="sharding-when-one-database-is-not-enough"><a class="heading-anchor" href="#sharding-when-one-database-is-not-enough">Sharding: When One Database Is Not Enough</a></h2>
-<p>Sharding splits rows across many databases. Each database holds a slice. You pick a <strong>shard key</strong> and hash it to route rows.</p>
+<h2 id="the-six-steps"><a class="heading-anchor" href="#the-six-steps">The Six Steps</a></h2>
+<p>A good system design conversation moves through six phases, roughly in order. Strictly following them keeps you from drowning in detail before you have a shape.</p>
+<ol>
+<li><strong>Requirements</strong> (~5 min) - what the system must do and how well</li>
+<li><strong>Core Entities</strong> (~2 min) - the nouns your system cares about</li>
+<li><strong>API</strong> (~5 min) - the contract users see</li>
+<li><strong>High-Level Design</strong> (~10-15 min) - boxes and arrows that serve the requirements</li>
+<li><strong>Deep Dives</strong> (~10 min) - fix the bottlenecks and meet the hard targets</li>
+<li><strong>Trade-offs</strong> - explicit choices between cost, speed, consistency, complexity</li>
+</ol>
 
 <div class="mermaid">
 flowchart LR
-    C[Client write user_id=1234]
-    H{hash user_id % 4}
-    S0[(Shard 0<br/>keys 0)]
-    S1[(Shard 1<br/>keys 1)]
-    S2[(Shard 2<br/>keys 2)]
-    S3[(Shard 3<br/>keys 3)]
-    C --> H
-    H -->|mod 0| S0
-    H -->|mod 1| S1
-    H -->|mod 2| S2
-    H -->|mod 3| S3
+    R[1. Requirements<br/>functional + non-functional]
+    E[2. Core Entities<br/>the nouns]
+    A[3. API<br/>the contract]
+    H[4. High-Level Design<br/>boxes + arrows]
+    D[5. Deep Dives<br/>fix bottlenecks]
+    T[6. Trade-offs<br/>cost vs speed vs consistency]
+    R --> E --> A --> H --> D --> T
+    D -.iterate.-> H
 </div>
 
-<p>Sharding has a steep cost: any query crossing shards must be scatter-gathered. Pick a shard key that matches your most common queries. For a Twitter-like app, shard by <code>user_id</code> so one user's timeline lives on one shard.</p>
+<h2 id="step-1-requirements"><a class="heading-anchor" href="#step-1-requirements">Step 1: Requirements</a></h2>
+<p>Split into <strong>functional</strong> (what users can do) and <strong>non-functional</strong> (how well it must work). Quantify the non-functional targets - "low latency" is useless, "p99 &lt; 200ms" is a blueprint.</p>
+<pre><code>// Example: Design a URL shortener (tinyurl-style)
 
-<h2 id="consistent-hashing-growing-without-pain"><a class="heading-anchor" href="#consistent-hashing-growing-without-pain">Consistent Hashing: Growing Without Pain</a></h2>
-<p>Simple hash-mod breaks when you add a shard: <code>hash % 4</code> becomes <code>hash % 5</code>, and almost every key changes home. <strong>Consistent hashing</strong> places shards on a ring. Each key lands at a point on the ring and rolls clockwise to the nearest shard. Adding or removing a shard only moves the neighbors.</p>
-<pre><code>                 Shard A
-                    *
-      *                      *
-  Shard D                  Shard B
-      *                      *
-                    *
-                 Shard C
+Functional:
+- Users can submit a long URL and get back a short code
+- Visiting /{code} redirects to the original URL
+- Users can see click counts for their links
 
-Key hashes to a point on the ring -&gt; served by next shard clockwise.
-Add Shard E between B and C -&gt; only keys between B and E move.</code></pre>
+Non-functional:
+- 100M new links / day, 10:1 read/write ratio
+- Redirects at p99 &lt; 100ms globally
+- 99.99% availability for redirects
+- Short codes must be unguessable</code></pre>
 
-<h2 id="cap-theorem-pick-two-really-pick-one-of-two"><a class="heading-anchor" href="#cap-theorem-pick-two-really-pick-one-of-two">CAP Theorem: Pick Two (Really, Pick One of Two)</a></h2>
-<p>In a distributed system you can have Consistency, Availability, or Partition tolerance. Networks partition whether you like it or not, so the real choice is between consistency and availability during a partition.</p>
+<h2 id="step-2-core-entities"><a class="heading-anchor" href="#step-2-core-entities">Step 2: Core Entities</a></h2>
+<p>Name the nouns. Keep the list small - you will grow it as you go. Each entity later shows up in both the API and the data model.</p>
+<pre><code>Link { id, short_code, long_url, owner_id, created_at, click_count }
+User { id, email, password_hash }</code></pre>
+
+<h2 id="step-3-api"><a class="heading-anchor" href="#step-3-api">Step 3: API</a></h2>
+<p>Default to REST unless you have a reason not to. Four or five endpoints is plenty. Never trust user IDs from the request body - they come from authentication.</p>
+<pre><code>POST /links       { long_url } -&gt; { short_code }
+GET  /{code}                    -&gt; 302 redirect
+GET  /links        (auth)       -&gt; list my links + counts
+DELETE /links/{id} (auth)</code></pre>
+
+<h2 id="step-4-high-level-design"><a class="heading-anchor" href="#step-4-high-level-design">Step 4: High-Level Design</a></h2>
+<p>Draw the boxes that implement the API. Keep it simple. You earn complexity only by pointing at a requirement it satisfies.</p>
+
+<div class="mermaid">
+flowchart LR
+    Client -->|HTTPS| LB[Load Balancer]
+    LB --> App[App Servers]
+    App --> DB[(Primary DB<br/>links, users)]
+    App --> Cache[(Cache<br/>code -&gt; long_url)]
+</div>
+
+<h2 id="step-5-deep-dives"><a class="heading-anchor" href="#step-5-deep-dives">Step 5: Deep Dives</a></h2>
+<p>Walk back through the non-functional targets. For each, point at the component that delivers it or add one that does.</p>
 <ul>
-<li><strong>CP systems</strong> (banks, inventory, payments): refuse writes rather than disagree. Users may see "try again".</li>
-<li><strong>AP systems</strong> (social feeds, DMs, caches): accept writes on either side, reconcile later. Users see slightly stale data.</li>
+<li><strong>p99 &lt; 100ms globally</strong>: add a CDN / edge cache in front. Redirects become a cache lookup.</li>
+<li><strong>Unguessable codes</strong>: 8-char base62 codes from a secure random, plus collision retry. Not an auto-increment ID.</li>
+<li><strong>100M writes / day</strong>: write throughput is ~1200/sec. A single Postgres handles it; shard only if metrics say so.</li>
+<li><strong>Click counts</strong>: do not write to DB on every redirect. Emit to a queue, batch into DB asynchronously.</li>
+</ul>
+
+<h2 id="step-6-trade-offs-say-them-out-loud"><a class="heading-anchor" href="#step-6-trade-offs-say-them-out-loud">Step 6: Trade-offs - Say Them Out Loud</a></h2>
+<p>Every decision closes one door and opens another. Make the choices visible.</p>
+<ul>
+<li>Async click counts <strong>lose real-time accuracy</strong> to <strong>gain</strong> redirect latency</li>
+<li>CDN caches <strong>stale-on-delete</strong> briefly to <strong>gain</strong> edge speed</li>
+<li>Random codes <strong>waste a little space</strong> to <strong>gain</strong> security</li>
 </ul>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Scale vertically first, horizontally second. A modern machine is more powerful than you think</li>
-<li>Pick SQL unless you have a specific reason for a specific NoSQL shape. "Scale" alone is not a reason</li>
-<li>Replication gives read scale and failover. Accept brief staleness on replicas or route critical reads to primary</li>
-<li>Sharding is the last resort. Pick a shard key that matches your common queries, and expect scatter-gather pain for the rest</li>
-<li>Consistent hashing makes shard changes cheap. Use it whenever the number of shards will ever change</li>
-<li>CAP forces a choice during network partitions: refuse writes (CP) or accept stale reads (AP). Know which your system needs</li>
+<li>Move through six steps in order: requirements, entities, API, high-level, deep dives, trade-offs</li>
+<li>Quantify non-functional requirements. "Fast" is noise, "p99 &lt; 200ms" is a target</li>
+<li>Start with the simplest design that meets functional requirements, then justify every box you add</li>
+<li>Deep dives are where you earn your keep - walk the non-functional list and fix each gap</li>
+<li>Say the trade-offs out loud. Every architecture choice closes one door to open another</li>
 </ul>
 </div>
 

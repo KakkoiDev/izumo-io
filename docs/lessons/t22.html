@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Full Stack AI App - KakkoiSchool</title>
+  <title>API Endpoints - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,63 +47,59 @@
         </div>
       </nav>
       
-<h1 id="t22-full-stack-ai-app"><a class="heading-anchor" href="#t22-full-stack-ai-app">T22: Full Stack AI App</a></h1>
-<p class="lesson-intro">This is where everything comes together. A full-stack application connects the frontend (what users see) to the backend (server logic and data) to the AI layer (intelligent responses). Think of it as building a complete restaurant - the dining room, the kitchen, and the chef all working in harmony.</p>
+<h1 id="t22-api-endpoints"><a class="heading-anchor" href="#t22-api-endpoints">T22: API Endpoints</a></h1>
+<p class="lesson-intro">An API (Application Programming Interface) is a set of endpoints your server exposes for clients to interact with data. REST is a design convention where URLs represent resources and HTTP methods represent actions. Think of it as a menu at a restaurant - the menu lists what you can order and how.</p>
 
-<h2 id="architecture-overview"><a class="heading-anchor" href="#architecture-overview">Architecture Overview</a></h2>
-<p>The frontend sends user input to your Node.js server. The server manages sessions, validates data, and forwards prompts to Ollama. Responses flow back through the same chain.</p>
+<h2 id="rest-conventions"><a class="heading-anchor" href="#rest-conventions">REST Conventions</a></h2>
+<p>RESTful APIs follow a pattern: resources are nouns in the URL, actions are HTTP methods.</p>
+<pre><code>// GET    /api/users      - List all users
+// GET    /api/users/1    - Get user with id 1
+// POST   /api/users      - Create a new user
+// PUT    /api/users/1    - Update user 1
+// DELETE /api/users/1    - Delete user 1</code></pre>
 
-<h2 id="connecting-the-layers"><a class="heading-anchor" href="#connecting-the-layers">Connecting the Layers</a></h2>
-<pre><code>// Server: Bridge between frontend and AI
-app.post("/api/chat", authenticate, async (req, res) =&gt; {
-    const { message } = req.body;
-    const userId = req.session.userId;
+<h2 id="building-endpoints"><a class="heading-anchor" href="#building-endpoints">Building Endpoints</a></h2>
+<pre><code>const server = http.createServer((req, res) =&gt; {
+    const url = req.url;
+    const method = req.method;
 
-    // Save to database
-    db.prepare("INSERT INTO messages (user_id, role, content) VALUES (?, ?, ?)")
-      .run(userId, "user", message);
+    res.setHeader("Content-Type", "application/json");
 
-    // Get conversation history
-    const history = db.prepare("SELECT role, content FROM messages WHERE user_id = ? ORDER BY id")
-      .all(userId);
-
-    // Call Ollama
-    const aiResponse = await chat(history);
-
-    // Save AI response
-    db.prepare("INSERT INTO messages (user_id, role, content) VALUES (?, ?, ?)")
-      .run(userId, "assistant", aiResponse);
-
-    res.json({ reply: aiResponse });
+    if (url === "/api/users" &amp;&amp; method === "GET") {
+        res.end(JSON.stringify(users));
+    } else if (url === "/api/users" &amp;&amp; method === "POST") {
+        let body = "";
+        req.on("data", chunk =&gt; body += chunk);
+        req.on("end", () =&gt; {
+            const user = JSON.parse(body);
+            users.push(user);
+            res.writeHead(201);
+            res.end(JSON.stringify(user));
+        });
+    } else {
+        res.writeHead(404);
+        res.end(JSON.stringify({ error: "Not Found" }));
+    }
 });</code></pre>
 
 <div class="mermaid">
-flowchart TB
-    subgraph Frontend
-        A[HTML/CSS/JS] --> B[Fetch API]
-    end
-    subgraph Backend
-        C[Node.js Server] --> D[Auth Middleware]
-        D --> E[API Routes]
-        E --> F[(SQLite DB)]
-    end
-    subgraph AI
-        G[Ollama LLM]
-    end
-    B -->|HTTP| C
-    E -->|Query| F
-    E -->|Prompt| G
-    G -->|Response| E
-    E -->|JSON| B
+flowchart TD
+    A[Client Request] --> B{Route Match}
+    B -->|GET /api/users| C[Return user list]
+    B -->|POST /api/users| D[Create new user]
+    B -->|GET /api/users/:id| E[Return single user]
+    B -->|PUT /api/users/:id| F[Update user]
+    B -->|DELETE /api/users/:id| G[Remove user]
+    B -->|No match| H[404 Not Found]
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Full-stack apps connect frontend, backend, and data layers into one system</li>
-<li>The server acts as a bridge between the user interface and AI model</li>
-<li>Store conversation history in a database for persistence across sessions</li>
-<li>Authentication protects AI endpoints from unauthorized access</li>
+<li>REST uses URLs as resource identifiers and HTTP methods as actions</li>
+<li>GET reads, POST creates, PUT updates, DELETE removes</li>
+<li>API responses should be JSON with appropriate status codes</li>
+<li>Always handle unknown routes with a 404 response</li>
 </ul>
 </div>
 

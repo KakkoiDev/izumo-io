@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Hello World - KakkoiSchool</title>
+  <title>環境セットアップ - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -42,56 +42,108 @@
       <nav class="lesson-breadcrumb">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">
-          <a href="t35.html">前へ</a>
+          
           <a href="t02.html">次へ</a>
         </div>
       </nav>
       
-<h1 id="t01-hello-world-はじめの一歩"><a class="heading-anchor" href="#t01-hello-world-はじめの一歩">T01: Hello World - はじめの一歩</a></h1>
-<p class="lesson-intro">全ての旅は一歩から始まります。Web開発では、最初のHTMLファイルを作成してブラウザで表示することがその一歩です。手紙を書いて誰かに渡すようなものです。あなたが書き、ブラウザが読み上げてくれます。</p>
+<h1 id="t01-環境セットアップ"><a class="heading-anchor" href="#t01-環境セットアップ">T01: 環境セットアップ</a></h1>
+<p class="lesson-intro">職人は最初の切削の前に作業台を整えます。Webを作るために、コンピュータには3つの道具が必要です。コードを書くエディタ、ブラウザ外でJavaScriptを実行するランタイム、結果を見るブラウザ。午後1回のセットアップが後の千の苛立ちを救います。一度やって永遠に忘れましょう。</p>
 
-<h2 id="最初のwebページ"><a class="heading-anchor" href="#最初のwebページ">最初のWebページ</a></h2>
-<p><code>index.html</code>というファイルを作成します。これはWebサイトのメインページの慣習的な名前です。ブラウザがこのファイルを読み取り、ユーザーに視覚的に表示します。</p>
+<h2 id="何をインストールするか"><a class="heading-anchor" href="#何をインストールするか">何をインストールするか</a></h2>
+<ul>
+<li><strong>Visual Studio Code</strong> - エディタ。無料、Microsoft製、Windows/Mac/Linuxで動作。HTML、CSS、JavaScript、このコースで触る全ての言語に対応。</li>
+<li><strong>Node.js</strong> - JavaScriptランタイム。ブラウザなしでターミナルから.jsファイルを実行できる。サードパーティライブラリをインストールする<code>npm</code>が付属。</li>
+<li><strong>モダンブラウザ</strong> - ChromeまたはFirefox。組み込みのデベロッパーツールでページを検査、JavaScriptをデバッグ、ネットワーク状況をシミュレートします。</li>
+</ul>
+
+<h2 id="vs-codeをインストール"><a class="heading-anchor" href="#vs-codeをインストール">VS Codeをインストール</a></h2>
+<p><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a>に行き、OSのインストーラをダウンロード。デフォルトを受け入れる。インストール中に聞かれたら<strong>Add to PATH</strong>と<strong>Register as editor for supported file types</strong>をチェック。</p>
+<p>インストール後、VS Codeを開いて見回します:</p>
+<ul>
+<li>左バー: エクスプローラ(ファイルツリー)、検索、ソース管理(git)、拡張機能</li>
+<li><strong>Cmd/Ctrl + P</strong> - クイックファイルオープン。ファイル名の一部を入力</li>
+<li><strong>Cmd/Ctrl + Shift + P</strong> - コマンドパレット。任意のコマンドを名前で入力</li>
+<li><strong>Ctrl + `</strong>(バッククォート) - VS Code内の統合ターミナルを開く</li>
+</ul>
+
+<h2 id="node-jsをインストール"><a class="heading-anchor" href="#node-jsをインストール">Node.jsをインストール</a></h2>
+<p><a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a>に行き、<strong>LTS</strong>(長期サポート)版をダウンロード。デフォルトを受け入れる。LTSは退屈で信頼できる選択。学習中は「Current」チャネルは避けましょう。</p>
+<p>MacでHomebrewを使っているなら<code>brew install node</code>で十分。Linuxではディストリのパッケージマネージャでも良いが、nodeのバージョンが古いかも。後の柔軟性のために<a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a>の使用を検討。</p>
+
+<h2 id="全てが動くか確認"><a class="heading-anchor" href="#全てが動くか確認">全てが動くか確認</a></h2>
+<p>VS Codeを開き、統合ターミナルを開く(<strong>Ctrl + `</strong>)。この4つのコマンドを実行。各々がバージョン番号を表示するはず。</p>
+<pre><code>node -v      # v20.x.x or newer
+npm -v       # 10.x.x or newer
+code -v      # VS Code version
+git --version  # any version works</code></pre>
+<p>どれかが「command not found」を出したら、全てのターミナルウィンドウを閉じて新しいのを開き、もう一度試す。インストーラは<code>PATH</code>を更新するが、PATHは新しいターミナルにのみ適用される。それでも壊れているなら、コンピュータを再起動。</p>
+
+<h2 id="最初のファイル"><a class="heading-anchor" href="#最初のファイル">最初のファイル</a></h2>
+<p>チェーン全体がエンドtoエンドで動くことを証明しましょう。</p>
+<ol>
+<li>VS Codeで<strong>File &gt; Open Folder</strong>からフォルダを開く。<code>learning</code>というフォルダを作るか選ぶ。</li>
+<li><code>hello.html</code>という新ファイルを作成。</li>
+<li>これを貼り付けてCmd/Ctrl + Sで保存:</li>
+</ol>
 <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;My First Page&lt;/title&gt;
-&lt;/head&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Hello&lt;/title&gt;&lt;/head&gt;
 &lt;body&gt;
-    &lt;h1&gt;Hello World&lt;/h1&gt;
-    &lt;p&gt;This is my first web page.&lt;/p&gt;
+    &lt;h1&gt;It works!&lt;/h1&gt;
+    &lt;script&gt;
+        console.log("Also in the browser console.");
+    &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-
-<h2 id="仕組み"><a class="heading-anchor" href="#仕組み">仕組み</a></h2>
-<p>ファイルをダブルクリックするかブラウザにドラッグすると、ブラウザがテキストを読み取り、HTMLタグを解釈し、結果を画面に描画します。この段階ではサーバーは不要です。</p>
+<p>ファイルをブラウザで開く(ダブルクリックかブラウザにドラッグ)。<strong>F12</strong>でデベロッパーツールを開き、Consoleタブに切り替え。ログ行が見えるはず。</p>
 
 <div class="mermaid">
 flowchart LR
-    A[index.html file] -->|open in| B[Browser]
-    B -->|reads HTML| C[Parser]
-    C -->|builds structure| D[Render Engine]
-    D -->|paints| E[Screen Output]
+    VSC[VS Code<br/>write code]
+    Disk[hello.html on disk]
+    Browser[Browser<br/>renders + runs JS]
+    DevTools[DevTools F12<br/>inspect + debug]
+    Terminal[VS Code terminal<br/>node, npm, git]
+    VSC -->|Save| Disk
+    Disk -->|Open| Browser
+    Browser --> DevTools
+    VSC -.->|Ctrl+backtick| Terminal
+    Terminal -.->|node, npm| Disk
 </div>
 
-<h2 id="doctype宣言"><a class="heading-anchor" href="#doctype宣言">DOCTYPE宣言</a></h2>
-<p><code>&lt;!DOCTYPE html&gt;</code>はブラウザにHTML5標準を使用するよう指示します。これがないと、ブラウザは古い互換モードで表示する場合があります。</p>
+<h2 id="入れる価値のある拡張機能"><a class="heading-anchor" href="#入れる価値のある拡張機能">入れる価値のある拡張機能</a></h2>
+<p>VS Codeの拡張機能パネルを開く(左バーの四角いアイコン)。この4つをインストール:</p>
+<ul>
+<li><strong>Prettier - Code formatter</strong> - 保存時に自動フォーマット。全ファイルが一貫した見た目に</li>
+<li><strong>ESLint</strong> - 入力中にJavaScriptのバグとスタイル問題をハイライト</li>
+<li><strong>Live Server</strong> - 任意の.htmlファイルを右クリック -&gt; 「Open with Live Server」で保存時自動リロード</li>
+<li><strong>GitLens</strong> - git統合の強化。各行を最後に誰が変えたか見える</li>
+</ul>
+<p>保存時フォーマットを有効にするには、設定(Cmd/Ctrl + ,)を開き、「format on save」を検索してチェック。</p>
+
+<h2 id="os別の注意"><a class="heading-anchor" href="#os別の注意">OS別の注意</a></h2>
+<ul>
+<li><strong>Windows</strong>: <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>からGit for Windowsをインストール。デフォルトの「Git Bash」ターミナルがcmd.exeよりこのコースに親切なLinux風シェルを提供。</li>
+<li><strong>Mac</strong>: まず<a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a>をインストール。あとは<code>brew install git node</code>でセットアップ完了。</li>
+<li><strong>Linux</strong>: gitは既にあるはず。<code>sudo apt install git nodejs npm</code>(Ubuntu/Debian)、または新しいバージョンには<code>nvm</code>。</li>
+</ul>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>HTMLファイルは.html拡張子を持つプレーンテキストファイルです</li>
-<li>ブラウザはインタプリタです。HTMLを読み取って結果を表示します</li>
-<li>DOCTYPE、html、head、bodyタグを必ず含めてください</li>
-<li>index.htmlはWebサイトのメインページのデフォルトファイル名です</li>
+<li>3つの道具: VS Code(エディタ)、Node.js LTS(ランタイム)、デベロッパーツール付きモダンブラウザ</li>
+<li>node -v、npm -v、git --version、code -vで確認。4つ全てがバージョンを表示するはず</li>
+<li>VS Codeのショートカットを早く覚える: Cmd/Ctrl+P(クイック開く)、Cmd/Ctrl+Shift+P(コマンドパレット)、Ctrl+バッククォート(ターミナル)</li>
+<li>Prettier、ESLint、Live Server、GitLensをインストール。保存時フォーマットを有効に</li>
+<li>コマンドが「not found」なら新しいターミナルを開く。まだ壊れているなら再起動。PATH更新は新シェルが必要</li>
 </ul>
 </div>
 
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">
-          <a href="t35.html">前へ</a>
+          
           <a href="t02.html">次へ</a>
         </div>
       </nav>

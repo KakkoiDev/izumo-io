@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Nest.js: アーキテクチャ - KakkoiSchool</title>
+  <title>React基礎 - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,101 +47,76 @@
         </div>
       </nav>
       
-<h1 id="t28-nest-jsのアーキテクチャ"><a class="heading-anchor" href="#t28-nest-jsのアーキテクチャ">T28: Nest.jsのアーキテクチャ</a></h1>
-<p class="lesson-intro">Nest.jsはレストランチェーンの運営マニュアルのようなものです。モジュールは部署、コントローラーは注文を受けるウェイター、サービスは実際に調理するシェフ、そして依存性注入はウェイターが詳細を知る必要なくシェフを配置するマネージャーです。</p>
+<h1 id="t28-reactの基礎"><a class="heading-anchor" href="#t28-reactの基礎">T28: Reactの基礎</a></h1>
+<p class="lesson-intro">Reactはコンポーネントという再利用可能なパーツからUIを構築します。コンポーネントはレゴブロックのようなもので、自分で定義するカスタムHTMLタグです。ブラウザに一つずつ変更を指示する代わりに、画面がどう見えるべきかを記述すれば、Reactが更新を処理します。</p>
 
-<h2 id="フレームワークが必要な理由"><a class="heading-anchor" href="#フレームワークが必要な理由">フレームワークが必要な理由</a></h2>
-<p>T16の素のNode.jsは小さなアプリには十分ですが、スケールするには構造が必要です。Nest.jsは明確な関心の分離、強制されたパターン、テストとモジュール性の組み込みサポートを提供します。</p>
+<h2 id="命令型から宣言型へ"><a class="heading-anchor" href="#命令型から宣言型へ">命令型から宣言型へ</a></h2>
+<p>素のJavaScriptでは、要素を手動で探して更新します。Reactはこれを逆転させます。望ましいUIの状態を宣言すれば、ReactがDOM更新を処理します。</p>
+<pre><code>// Vanilla JS - imperative: you manage every step
+const btn = document.getElementById("counter-btn");
+let count = 0;
+btn.addEventListener("click", () =&gt; {
+    count++;
+    btn.textContent = `Clicked ${count} times`;
+});
 
-<h2 id="モジュール-コントローラー-サービス"><a class="heading-anchor" href="#モジュール-コントローラー-サービス">モジュール、コントローラー、サービス</a></h2>
-<p>全てのNest.jsアプリはモジュールに整理されます。各モジュールは関連するコントローラー(HTTPを処理)とサービス(ビジネスロジックを処理)をグループ化します。<code>@Controller</code>や<code>@Injectable</code>のようなデコレータが各クラスの役割をフレームワークに伝えます。</p>
-<pre><code>// menu.module.ts
-import { Module } from "@nestjs/common";
-import { MenuController } from "./menu.controller";
-import { MenuService } from "./menu.service";
-
-@Module({
-    controllers: [MenuController],
-    providers: [MenuService],
-})
-export class MenuModule {}
-
-// menu.controller.ts
-import { Controller, Get, Post, Body } from "@nestjs/common";
-import { MenuService } from "./menu.service";
-
-@Controller("menu")
-export class MenuController {
-    constructor(private readonly menuService: MenuService) {}
-
-    @Get()
-    findAll() {
-        return this.menuService.findAll();
-    }
-
-    @Post()
-    create(@Body() body: { name: string; price: number }) {
-        return this.menuService.create(body);
-    }
-}
-
-// menu.service.ts
-import { Injectable } from "@nestjs/common";
-
-@Injectable()
-export class MenuService {
-    private items = [
-        { id: 1, name: "Tonkotsu Ramen", price: 850 },
-    ];
-
-    findAll() {
-        return this.items;
-    }
-
-    create(data: { name: string; price: number }) {
-        const item = { id: this.items.length + 1, ...data };
-        this.items.push(item);
-        return item;
-    }
+// React - declarative: describe the result, React updates the DOM
+function Counter() {
+    const [count, setCount] = React.useState(0);
+    return (
+        &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+            Clicked {count} times
+        &lt;/button&gt;
+    );
 }</code></pre>
 
-<h2 id="依存性注入"><a class="heading-anchor" href="#依存性注入">依存性注入</a></h2>
-<p>コントローラーは自分でサービスを作成しません。コンストラクタで必要なものを宣言し、フレームワークがそれを提供します。これによりテストが容易になります。コントローラーのコードを変更せずにモックサービスに差し替えられます。</p>
-<pre><code>// The controller declares its dependency
-constructor(private readonly menuService: MenuService) {}
+<h2 id="コンポーネント-jsx-props"><a class="heading-anchor" href="#コンポーネント-jsx-props">コンポーネント、JSX、Props</a></h2>
+<p>コンポーネントはJSXを返す関数です。JSXはHTMLに似た構文ですがJavaScriptの中に存在します。Propsは親から子に渡される入力で、関数の引数のようなものです。</p>
+<pre><code>function MenuItem({ name, price }) {
+    return (
+        &lt;div className="menu-item"&gt;
+            &lt;span&gt;{name}&lt;/span&gt;
+            &lt;span&gt;${price}&lt;/span&gt;
+        &lt;/div&gt;
+    );
+}
 
-// Nest.js automatically creates and injects the MenuService instance
-// In tests, you can provide a mock instead:
-// { provide: MenuService, useValue: mockMenuService }</code></pre>
+// Rendering a list with .map() and keys
+function MenuList({ items }) {
+    return (
+        &lt;ul&gt;
+            {items.map(item =&gt; (
+                &lt;MenuItem key={item.id} name={item.name} price={item.price} /&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}</code></pre>
 
-<h2 id="デコレータとtypescript"><a class="heading-anchor" href="#デコレータとtypescript">デコレータとTypeScript</a></h2>
-<p>Nest.jsはTypeScriptのデコレータを多用します。<code>@Controller</code>、<code>@Get</code>、<code>@Post</code>、<code>@Body</code>、<code>@Injectable</code>。これらのアノテーションがロジックを散らかすことなく振る舞いを定義します。</p>
+<h2 id="イベント処理"><a class="heading-anchor" href="#イベント処理">イベント処理</a></h2>
+<p>Reactは<code>onClick</code>や<code>onChange</code>のようなキャメルケースのイベントハンドラをJSX要素に直接使用します。ハンドラはブラウザ間で一貫して動作する合成イベントオブジェクトを受け取ります。</p>
 
 <div class="mermaid">
 flowchart TD
-    A[HTTP Request] --> B["@Controller: MenuController"]
-    B -->|"@Get /menu"| C["@Injectable: MenuService"]
-    C -->|getAll| D[(Database)]
-    D -->|results| C
-    C -->|data| B
-    B -->|JSON response| A
-    subgraph MenuModule
-        B
-        C
-    end
+    A[App] --> B[Header]
+    A --> C[MenuList]
+    A --> D[Footer]
+    C --> E[MenuItem 1]
+    C --> F[MenuItem 2]
+    C --> G[MenuItem 3]
     style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
-    style B fill:#e74c3c,stroke:#a93226,color:#1a1a1a
     style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
-    style D fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style F fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style G fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>Nest.jsはモジュール、コントローラー、サービスの3本柱で構造を強制する</li>
-<li>コントローラーはHTTPルーティング、サービスはビジネスロジックを処理する。混在させないこと</li>
-<li>依存性注入によりフレームワークがコンポーネントを接続し、テストが簡単になる</li>
-<li>TypeScriptデコレータがロジックを散らかすことなく宣言的に振る舞いを定義する</li>
+<li>コンポーネントはJSXを返す再利用可能な関数で、カスタムHTMLタグのようなもの</li>
+<li>Reactは宣言型 - UIがどう見えるべきかを記述し、更新方法は記述しない</li>
+<li>Propsは親から子コンポーネントにデータを渡し、設定可能にする</li>
+<li>.map()でリストをレンダリングする際は必ず一意のkeyプロパティを指定する</li>
 </ul>
 </div>
 

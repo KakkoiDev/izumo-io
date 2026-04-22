@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Dynamic Site: Polish - KakkoiSchool</title>
+  <title>Fetch API - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -43,63 +43,63 @@
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">
           <a href="t14.html">Previous</a>
-          <a href="t30.html">Next</a>
+          <a href="t16.html">Next</a>
         </div>
       </nav>
       
-<h1 id="t15-dynamic-site-polish"><a class="heading-anchor" href="#t15-dynamic-site-polish">T15: Dynamic Site - Polish</a></h1>
-<p class="lesson-intro">Performance is a feature. Users abandon sites that load slowly. Polishing your site means optimizing what loads, when it loads, and how it loads. Like a restaurant that prepares popular dishes in advance and only cooks rare orders on demand.</p>
+<h1 id="t15-fetch-api"><a class="heading-anchor" href="#t15-fetch-api">T15: Fetch API</a></h1>
+<p class="lesson-intro">The Fetch API lets your JavaScript talk to servers. It is like sending a letter and waiting for a reply - you make a request, the server processes it, and sends back a response. The async/await syntax makes this asynchronous communication read like synchronous code.</p>
 
-<h2 id="lazy-loading"><a class="heading-anchor" href="#lazy-loading">Lazy Loading</a></h2>
-<p>Load images and content only when they enter the viewport. The <code>loading="lazy"</code> attribute handles images natively.</p>
-<pre><code>&lt;img src="photo.jpg" loading="lazy" alt="Lazy loaded"&gt;
+<h2 id="http-basics"><a class="heading-anchor" href="#http-basics">HTTP Basics</a></h2>
+<p>HTTP is the protocol browsers use to communicate with servers. Every request has a method (GET, POST, PUT, DELETE) and every response has a status code (200 OK, 404 Not Found, 500 Error).</p>
 
-// For custom lazy loading with Intersection Observer
-const observer = new IntersectionObserver((entries) =&gt; {
-    entries.forEach(entry =&gt; {
-        if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src;
-            observer.unobserve(img);
-        }
+<h2 id="making-requests"><a class="heading-anchor" href="#making-requests">Making Requests</a></h2>
+<p>The <code>fetch()</code> function returns a Promise. Use <code>async/await</code> for clean, readable asynchronous code.</p>
+<pre><code>// GET request
+async function getUsers() {
+    const response = await fetch("/api/users");
+    const data = await response.json();
+    return data;
+}
+
+// POST request
+async function createUser(user) {
+    const response = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(user)
     });
-});</code></pre>
+    return await response.json();
+}</code></pre>
 
-<h2 id="performance-techniques"><a class="heading-anchor" href="#performance-techniques">Performance Techniques</a></h2>
-<p>Minimize render-blocking resources. Defer non-critical JavaScript. Use efficient selectors and reduce DOM size.</p>
-<pre><code>&lt;!-- Defer non-critical JS --&gt;
-&lt;script src="app.js" defer&gt;&lt;/script&gt;
-
-&lt;!-- Preload critical resources --&gt;
-&lt;link rel="preload" href="font.woff2" as="font" crossorigin&gt;</code></pre>
-
-<h2 id="code-splitting"><a class="heading-anchor" href="#code-splitting">Code Splitting</a></h2>
-<p>Load only the JavaScript needed for the current view. Import additional modules when the user navigates to them.</p>
-<pre><code>async function loadModule(name) {
-    const module = await import(`./modules/${name}.js`);
-    module.init();
+<h2 id="error-handling"><a class="heading-anchor" href="#error-handling">Error Handling</a></h2>
+<pre><code>try {
+    const data = await getUsers();
+    renderUsers(data);
+} catch (error) {
+    console.error("Failed to fetch:", error);
+    showErrorMessage("Could not load users. Try again.");
 }</code></pre>
 
 <div class="mermaid">
 sequenceDiagram
     participant B as Browser
     participant S as Server
-    B->>S: Initial HTML + critical CSS
-    S-->>B: Minimal payload
-    B->>B: Render above-the-fold
-    B->>S: Lazy load images (on scroll)
-    B->>S: Deferred JS modules
-    S-->>B: Additional resources
-    B->>B: Progressive enhancement
+    B->>S: GET /api/users
+    S-->>B: 200 OK + JSON data
+    B->>S: POST /api/users + body
+    S-->>B: 201 Created + new user
+    B->>S: GET /api/missing
+    S-->>B: 404 Not Found
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Lazy loading defers non-visible content until it enters the viewport</li>
-<li>Use defer attribute on script tags to avoid render-blocking</li>
-<li>Preload critical resources like fonts to speed up first paint</li>
-<li>Code splitting loads only the JavaScript needed for the current view</li>
+<li>fetch() sends HTTP requests and returns Promises</li>
+<li>async/await makes asynchronous code readable and maintainable</li>
+<li>Always handle errors with try/catch when making network requests</li>
+<li>Use response.json() to parse JSON response bodies</li>
 </ul>
 </div>
 
@@ -107,7 +107,7 @@ sequenceDiagram
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">
           <a href="t14.html">Previous</a>
-          <a href="t30.html">Next</a>
+          <a href="t16.html">Next</a>
         </div>
       </nav>
     </article>

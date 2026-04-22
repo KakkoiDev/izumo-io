@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Next.js: Routing & Rendering - KakkoiSchool</title>
+  <title>Ollama & Chat - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,79 +47,62 @@
         </div>
       </nav>
       
-<h1 id="t26-next-js-routing-amp-rendering"><a class="heading-anchor" href="#t26-next-js-routing-amp-rendering">T26: Next.js Routing &amp; Rendering</a></h1>
-<p class="lesson-intro">Next.js is like upgrading from a food truck (React SPA) to a proper restaurant with a built-in address system. It adds file-based routing, server-side rendering, and a clear structure so you do not have to wire everything together yourself.</p>
+<h1 id="t26-ollama-and-chat"><a class="heading-anchor" href="#t26-ollama-and-chat">T26: Ollama and Chat</a></h1>
+<p class="lesson-intro">Large Language Models (LLMs) can now run locally on your machine. Ollama makes it easy to download and serve open-source models. Connecting your web app to a local LLM gives you AI-powered features without sending data to external services - like having a smart assistant living on your own computer.</p>
 
-<h2 id="file-based-routing"><a class="heading-anchor" href="#file-based-routing">File-Based Routing</a></h2>
-<p>In Next.js, the file system is the router. Create a file at <code>app/about/page.tsx</code> and it becomes the <code>/about</code> route. No router configuration needed - compare this to the hash-based routing from T13.</p>
-<pre><code>// Directory structure = URL structure
-app/
-  page.tsx          // "/" route
-  about/
-    page.tsx        // "/about" route
-  menu/
-    page.tsx        // "/menu" route
-    [id]/
-      page.tsx      // "/menu/123" dynamic route
+<h2 id="setting-up-ollama"><a class="heading-anchor" href="#setting-up-ollama">Setting Up Ollama</a></h2>
+<p>Install Ollama, pull a model, and it serves an API on localhost:11434.</p>
+<pre><code># Install and run
+# ollama pull llama3
+# ollama serve
 
-// app/menu/page.tsx
-export default function MenuPage() {
-    return (
-        &lt;main&gt;
-            &lt;h1&gt;Our Menu&lt;/h1&gt;
-            &lt;p&gt;Browse our selection below.&lt;/p&gt;
-        &lt;/main&gt;
-    );
-}</code></pre>
+# The API is now available at http://localhost:11434</code></pre>
 
-<h2 id="server-vs-client-components"><a class="heading-anchor" href="#server-vs-client-components">Server vs Client Components</a></h2>
-<p>Next.js components are server components by default. They run on the server, can fetch data directly, and send only HTML to the browser. Add <code>"use client"</code> at the top when you need interactivity like state or event handlers.</p>
-<pre><code>// Server component (default) - runs on server, no JS sent to browser
-export default async function MenuList() {
-    const items = await fetch("https://api.example.com/menu").then(r =&gt; r.json());
-    return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
+<h2 id="chat-api-integration"><a class="heading-anchor" href="#chat-api-integration">Chat API Integration</a></h2>
+<pre><code>async function chat(messages) {
+    const response = await fetch("http://localhost:11434/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            model: "llama3",
+            messages: messages,
+            stream: false
+        })
+    });
+    const data = await response.json();
+    return data.message.content;
 }
 
-// Client component - needs "use client" for interactivity
-"use client";
-import { useState } from "react";
+// Usage
+const reply = await chat([
+    { role: "system", content: "You are a helpful assistant." },
+    { role: "user", content: "Explain HTML in one sentence." }
+]);</code></pre>
 
-export default function AddToCart({ itemId }: { itemId: number }) {
-    const [added, setAdded] = useState(false);
-    return (
-        &lt;button onClick={() =&gt; setAdded(true)}&gt;
-            {added ? "Added" : "Add to Cart"}
-        &lt;/button&gt;
-    );
-}</code></pre>
-
-<h2 id="layouts"><a class="heading-anchor" href="#layouts">Layouts</a></h2>
-<p>A <code>layout.tsx</code> wraps all pages in its directory and below. It persists across navigation, keeping shared UI like headers and sidebars mounted.</p>
-
-<h2 id="when-to-use-what"><a class="heading-anchor" href="#when-to-use-what">When to Use What</a></h2>
-<p>Use server components for static content and data fetching. Use client components only when you need useState, useEffect, onClick, or browser-only APIs.</p>
+<h2 id="building-a-chat-interface"><a class="heading-anchor" href="#building-a-chat-interface">Building a Chat Interface</a></h2>
+<p>Store the conversation history as an array of message objects. Append each new message and send the full history to maintain context.</p>
 
 <div class="mermaid">
-flowchart TB
-    A[Browser Request] --> B[Next.js Server]
-    B --> C[Server Components Rendered]
-    C --> D[HTML Sent to Browser]
-    D --> E[Client Components Hydrated]
-    E --> F[Interactive Page Ready]
-    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
-    style B fill:#333333,stroke:#1a1a1a,color:#ffffff
-    style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
-    style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
-    style F fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
+sequenceDiagram
+    participant U as User
+    participant W as Web App
+    participant O as Ollama Server
+    U->>W: Type message
+    W->>W: Append to history
+    W->>O: POST /api/chat (full history)
+    O->>O: LLM generates response
+    O-->>W: Response JSON
+    W->>W: Append assistant reply
+    W-->>U: Display response
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>File-based routing maps directory structure to URLs - no configuration needed</li>
-<li>Components are server-rendered by default, sending only HTML to the browser</li>
-<li>Add "use client" only when a component needs state, effects, or event handlers</li>
-<li>Layouts wrap child pages and persist across navigation for shared UI</li>
+<li>Ollama runs open-source LLMs locally with a simple API</li>
+<li>The chat API takes an array of messages with role and content fields</li>
+<li>Send the full conversation history for context-aware responses</li>
+<li>Local LLMs keep your data private - no external API calls needed</li>
 </ul>
 </div>
 

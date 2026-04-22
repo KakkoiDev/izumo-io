@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Ollamaとチャット - KakkoiSchool</title>
+  <title>Node.jsサーバー - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,62 +47,55 @@
         </div>
       </nav>
       
-<h1 id="t21-ollamaとchat"><a class="heading-anchor" href="#t21-ollamaとchat">T21: OllamaとChat</a></h1>
-<p class="lesson-intro">大規模言語モデル(LLM)はローカルマシンで動作できるようになりました。Ollamaはオープンソースモデルのダウンロードと配信を簡単にします。WebアプリをローカルLLMに接続すれば、外部サービスにデータを送らずにAI機能を実現できます。自分のコンピュータに住む賢いアシスタントを持つようなものです。</p>
+<h1 id="t21-node-jsサーバー"><a class="heading-anchor" href="#t21-node-jsサーバー">T21: Node.jsサーバー</a></h1>
+<p class="lesson-intro">これまでHTMLファイルをブラウザで直接開いていました。Webサーバーはリクエストを待ち受けてレスポンスを返すプログラムです。Node.jsならブラウザと同じJavaScriptでサーバーを書けます。チーム全員と同じ言語を話す受付を雇うようなものです。</p>
 
-<h2 id="ollamaのセットアップ"><a class="heading-anchor" href="#ollamaのセットアップ">Ollamaのセットアップ</a></h2>
-<p>Ollamaをインストールし、モデルをプルすると、localhost:11434でAPIが提供されます。</p>
-<pre><code># Install and run
-# ollama pull llama3
-# ollama serve
+<h2 id="httpサーバーの作成"><a class="heading-anchor" href="#httpサーバーの作成">HTTPサーバーの作成</a></h2>
+<pre><code>const http = require("http");
+const fs = require("fs");
+const path = require("path");
 
-# The API is now available at http://localhost:11434</code></pre>
+const server = http.createServer((req, res) =&gt; {
+    const filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
+    const ext = path.extname(filePath);
+    const contentTypes = {
+        ".html": "text/html",
+        ".css": "text/css",
+        ".js": "text/javascript"
+    };
 
-<h2 id="chat-api統合"><a class="heading-anchor" href="#chat-api統合">Chat API統合</a></h2>
-<pre><code>async function chat(messages) {
-    const response = await fetch("http://localhost:11434/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            model: "llama3",
-            messages: messages,
-            stream: false
-        })
+    fs.readFile(filePath, (err, content) =&gt; {
+        if (err) {
+            res.writeHead(404);
+            res.end("Not Found");
+            return;
+        }
+        res.writeHead(200, { "Content-Type": contentTypes[ext] || "text/plain" });
+        res.end(content);
     });
-    const data = await response.json();
-    return data.message.content;
-}
+});
 
-// Usage
-const reply = await chat([
-    { role: "system", content: "You are a helpful assistant." },
-    { role: "user", content: "Explain HTML in one sentence." }
-]);</code></pre>
+server.listen(3000, () =&gt; console.log("Server on http://localhost:3000"));</code></pre>
 
-<h2 id="チャットインターフェースの構築"><a class="heading-anchor" href="#チャットインターフェースの構築">チャットインターフェースの構築</a></h2>
-<p>会話履歴をメッセージオブジェクトの配列として保存します。新しいメッセージを追加し、コンテキスト維持のために完全な履歴を送信します。</p>
+<h2 id="静的ファイルの配信"><a class="heading-anchor" href="#静的ファイルの配信">静的ファイルの配信</a></h2>
+<p>サーバーは"public"フォルダからファイルを読み取り、正しいContent-Typeヘッダー付きでブラウザに送信します。</p>
 
 <div class="mermaid">
-sequenceDiagram
-    participant U as User
-    participant W as Web App
-    participant O as Ollama Server
-    U->>W: Type message
-    W->>W: Append to history
-    W->>O: POST /api/chat (full history)
-    O->>O: LLM generates response
-    O-->>W: Response JSON
-    W->>W: Append assistant reply
-    W-->>U: Display response
+flowchart LR
+    A[Browser] -->|HTTP Request| B[Node.js Server]
+    B -->|Read file| C[File System]
+    C -->|File contents| B
+    B -->|HTTP Response| A
+    B -->|404| D[Not Found]
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>OllamaはシンプルなAPIでオープンソースのLLMをローカル実行します</li>
-<li>Chat APIはroleとcontentフィールドを持つメッセージの配列を受け取ります</li>
-<li>コンテキストを考慮したレスポンスのために完全な会話履歴を送信します</li>
-<li>ローカルLLMはデータを非公開に保ちます。外部API呼び出し不要です</li>
+<li>Node.jsはブラウザの外でサーバー上のJavaScriptを実行します</li>
+<li>http.createServerでリクエストとレスポンスを処理するサーバーを作成します</li>
+<li>Content-Typeヘッダーがブラウザにレスポンスの解釈方法を伝えます</li>
+<li>静的ファイル配信はURLパスをディスク上のファイルにマッピングします</li>
 </ul>
 </div>
 

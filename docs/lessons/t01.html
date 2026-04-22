@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Hello World - KakkoiSchool</title>
+  <title>Environment Setup - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -42,56 +42,108 @@
       <nav class="lesson-breadcrumb">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">
-          <a href="t35.html">Previous</a>
+          
           <a href="t02.html">Next</a>
         </div>
       </nav>
       
-<h1 id="t01-hello-world"><a class="heading-anchor" href="#t01-hello-world">T01: Hello World</a></h1>
-<p class="lesson-intro">Every journey starts with a single step. In web development, that step is creating your first HTML file and watching it come alive in a browser. Think of it like writing a letter - you write it, then hand it to someone who reads it aloud.</p>
+<h1 id="t01-environment-setup"><a class="heading-anchor" href="#t01-environment-setup">T01: Environment Setup</a></h1>
+<p class="lesson-intro">Every craftsman sets up the workbench before the first cut. To build for the web you need three tools on your computer: an editor to write code, a runtime to execute JavaScript outside the browser, and a browser to view the result. One afternoon of setup saves a thousand frustrations later. Do it once, forget it forever.</p>
 
-<h2 id="your-first-web-page"><a class="heading-anchor" href="#your-first-web-page">Your First Web Page</a></h2>
-<p>Create a file called <code>index.html</code>. This is the conventional name for the main page of any website. The browser reads this file and renders it visually for the user.</p>
+<h2 id="what-you-are-installing"><a class="heading-anchor" href="#what-you-are-installing">What You Are Installing</a></h2>
+<ul>
+<li><strong>Visual Studio Code</strong> - the editor. Free, from Microsoft, runs on Windows, Mac, Linux. Works for HTML, CSS, JavaScript, and every language you will touch in this course.</li>
+<li><strong>Node.js</strong> - a JavaScript runtime. Lets you run .js files from your terminal without a browser. Comes with <code>npm</code>, the package manager that installs third-party libraries.</li>
+<li><strong>A modern browser</strong> - Chrome or Firefox. The built-in browser devtools are how you inspect pages, debug JavaScript, and simulate network conditions.</li>
+</ul>
+
+<h2 id="install-vs-code"><a class="heading-anchor" href="#install-vs-code">Install VS Code</a></h2>
+<p>Go to <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a> and download the installer for your operating system. Accept the defaults. When prompted during install, check <strong>Add to PATH</strong> and <strong>Register as editor for supported file types</strong>.</p>
+<p>After install, open VS Code and look around:</p>
+<ul>
+<li>Left bar: Explorer (file tree), Search, Source Control (git), Extensions</li>
+<li><strong>Cmd/Ctrl + P</strong> - quick file open. Type a filename fragment</li>
+<li><strong>Cmd/Ctrl + Shift + P</strong> - command palette. Type any command by name</li>
+<li><strong>Ctrl + `</strong> (backtick) - open the integrated terminal inside VS Code</li>
+</ul>
+
+<h2 id="install-node-js"><a class="heading-anchor" href="#install-node-js">Install Node.js</a></h2>
+<p>Go to <a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a> and download the <strong>LTS</strong> (Long-Term Support) version. Accept defaults. LTS is the boring-reliable choice; avoid the "Current" channel for learning.</p>
+<p>On Mac, if you already use Homebrew, <code>brew install node</code> works. On Linux, your distro's package manager is fine, but node's version may be old; consider <a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a> for flexibility later.</p>
+
+<h2 id="verify-everything-works"><a class="heading-anchor" href="#verify-everything-works">Verify Everything Works</a></h2>
+<p>Open VS Code, then open the integrated terminal (<strong>Ctrl + `</strong>). Run these four commands. Each should print a version number.</p>
+<pre><code>node -v      # v20.x.x or newer
+npm -v       # 10.x.x or newer
+code -v      # VS Code version
+git --version  # any version works</code></pre>
+<p>If any command prints "command not found", close all terminal windows, open a new one, and try again. The installer updated your <code>PATH</code>, and PATH only applies to new terminals. Still broken? Restart the computer.</p>
+
+<h2 id="your-first-file"><a class="heading-anchor" href="#your-first-file">Your First File</a></h2>
+<p>Let's prove the whole chain works end to end.</p>
+<ol>
+<li>In VS Code, open a folder: <strong>File &gt; Open Folder</strong>. Pick or create a folder called <code>learning</code>.</li>
+<li>Create a new file named <code>hello.html</code>.</li>
+<li>Paste this in and save with Cmd/Ctrl + S:</li>
+</ol>
 <pre><code>&lt;!DOCTYPE html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;title&gt;My First Page&lt;/title&gt;
-&lt;/head&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Hello&lt;/title&gt;&lt;/head&gt;
 &lt;body&gt;
-    &lt;h1&gt;Hello World&lt;/h1&gt;
-    &lt;p&gt;This is my first web page.&lt;/p&gt;
+    &lt;h1&gt;It works!&lt;/h1&gt;
+    &lt;script&gt;
+        console.log("Also in the browser console.");
+    &lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-
-<h2 id="how-it-works"><a class="heading-anchor" href="#how-it-works">How It Works</a></h2>
-<p>When you double-click the file or drag it into your browser, the browser reads the raw text, interprets the HTML tags, and paints the result on screen. No server needed for this step.</p>
+<p>Open the file in your browser (double-click it, or drag it onto the browser). Open devtools with <strong>F12</strong> and switch to the Console tab. You should see the log line.</p>
 
 <div class="mermaid">
 flowchart LR
-    A[index.html file] -->|open in| B[Browser]
-    B -->|reads HTML| C[Parser]
-    C -->|builds structure| D[Render Engine]
-    D -->|paints| E[Screen Output]
+    VSC[VS Code<br/>write code]
+    Disk[hello.html on disk]
+    Browser[Browser<br/>renders + runs JS]
+    DevTools[DevTools F12<br/>inspect + debug]
+    Terminal[VS Code terminal<br/>node, npm, git]
+    VSC -->|Save| Disk
+    Disk -->|Open| Browser
+    Browser --> DevTools
+    VSC -.->|Ctrl+backtick| Terminal
+    Terminal -.->|node, npm| Disk
 </div>
 
-<h2 id="the-doctype-declaration"><a class="heading-anchor" href="#the-doctype-declaration">The DOCTYPE Declaration</a></h2>
-<p>The <code>&lt;!DOCTYPE html&gt;</code> line tells the browser to use modern HTML5 standards. Without it, the browser may fall back to older, quirky rendering modes.</p>
+<h2 id="extensions-worth-installing"><a class="heading-anchor" href="#extensions-worth-installing">Extensions Worth Installing</a></h2>
+<p>Open the Extensions panel in VS Code (square icon on the left bar). Install these four:</p>
+<ul>
+<li><strong>Prettier - Code formatter</strong> - auto-formats on save so every file looks consistent</li>
+<li><strong>ESLint</strong> - highlights JavaScript bugs and style issues as you type</li>
+<li><strong>Live Server</strong> - right-click any .html file -&gt; "Open with Live Server" for auto-refresh on save</li>
+<li><strong>GitLens</strong> - enhanced git integration; see who last changed every line</li>
+</ul>
+<p>To enable format-on-save, open settings (Cmd/Ctrl + ,), search "format on save", and check the box.</p>
+
+<h2 id="operating-system-notes"><a class="heading-anchor" href="#operating-system-notes">Operating System Notes</a></h2>
+<ul>
+<li><strong>Windows</strong>: install Git for Windows from <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>. The default "Git Bash" terminal gives you a Linux-like shell that is much nicer than cmd.exe for this course.</li>
+<li><strong>Mac</strong>: install <a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a> first. Then <code>brew install git node</code> is the whole setup.</li>
+<li><strong>Linux</strong>: you likely have git already. <code>sudo apt install git nodejs npm</code> (Ubuntu/Debian) or <code>nvm</code> for newer versions.</li>
+</ul>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>An HTML file is just a plain text file with a .html extension</li>
-<li>The browser is your interpreter - it reads HTML and displays the result</li>
-<li>Always include DOCTYPE, html, head, and body tags</li>
-<li>index.html is the default filename for a website's main page</li>
+<li>Three tools: VS Code (editor), Node.js LTS (runtime), a modern browser with devtools</li>
+<li>Verify with node -v, npm -v, git --version, code -v. All four should print versions</li>
+<li>Learn VS Code shortcuts early: Cmd/Ctrl+P (quick open), Cmd/Ctrl+Shift+P (command palette), Ctrl+backtick (terminal)</li>
+<li>Install Prettier, ESLint, Live Server, GitLens. Enable format-on-save</li>
+<li>If a command is "not found", open a fresh terminal. If still broken, restart. PATH updates need a new shell</li>
 </ul>
 </div>
 
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">
-          <a href="t35.html">Previous</a>
+          
           <a href="t02.html">Next</a>
         </div>
       </nav>

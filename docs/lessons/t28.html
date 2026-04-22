@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Nest.js: Architecture - KakkoiSchool</title>
+  <title>React Foundations - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,101 +47,76 @@
         </div>
       </nav>
       
-<h1 id="t28-nest-js-architecture"><a class="heading-anchor" href="#t28-nest-js-architecture">T28: Nest.js Architecture</a></h1>
-<p class="lesson-intro">Nest.js is like an operations manual for a restaurant chain. Modules are departments, Controllers are the waiters taking orders, Services are the chefs doing the real work, and Dependency Injection is the manager who assigns chefs to stations without waiters needing to know the details.</p>
+<h1 id="t28-react-foundations"><a class="heading-anchor" href="#t28-react-foundations">T28: React Foundations</a></h1>
+<p class="lesson-intro">React lets you build UIs from reusable pieces called components. Think of components as Lego bricks - custom HTML tags you define yourself. Instead of telling the browser step-by-step what to change, you describe what the screen should look like, and React figures out the updates.</p>
 
-<h2 id="why-a-framework"><a class="heading-anchor" href="#why-a-framework">Why a Framework?</a></h2>
-<p>Raw Node.js from T16 works for small apps, but at scale you need structure. Nest.js provides clear separation of concerns, enforced patterns, and built-in support for testing and modularity.</p>
+<h2 id="from-imperative-to-declarative"><a class="heading-anchor" href="#from-imperative-to-declarative">From Imperative to Declarative</a></h2>
+<p>With vanilla JavaScript, you manually find elements and update them. React flips this: you declare the desired UI state, and React handles the DOM updates for you.</p>
+<pre><code>// Vanilla JS - imperative: you manage every step
+const btn = document.getElementById("counter-btn");
+let count = 0;
+btn.addEventListener("click", () =&gt; {
+    count++;
+    btn.textContent = `Clicked ${count} times`;
+});
 
-<h2 id="modules-controllers-services"><a class="heading-anchor" href="#modules-controllers-services">Modules, Controllers, Services</a></h2>
-<p>Every Nest.js app is organized into modules. Each module groups related controllers (handle HTTP) and services (handle business logic). Decorators like <code>@Controller</code> and <code>@Injectable</code> tell the framework what each class does.</p>
-<pre><code>// menu.module.ts
-import { Module } from "@nestjs/common";
-import { MenuController } from "./menu.controller";
-import { MenuService } from "./menu.service";
-
-@Module({
-    controllers: [MenuController],
-    providers: [MenuService],
-})
-export class MenuModule {}
-
-// menu.controller.ts
-import { Controller, Get, Post, Body } from "@nestjs/common";
-import { MenuService } from "./menu.service";
-
-@Controller("menu")
-export class MenuController {
-    constructor(private readonly menuService: MenuService) {}
-
-    @Get()
-    findAll() {
-        return this.menuService.findAll();
-    }
-
-    @Post()
-    create(@Body() body: { name: string; price: number }) {
-        return this.menuService.create(body);
-    }
-}
-
-// menu.service.ts
-import { Injectable } from "@nestjs/common";
-
-@Injectable()
-export class MenuService {
-    private items = [
-        { id: 1, name: "Tonkotsu Ramen", price: 850 },
-    ];
-
-    findAll() {
-        return this.items;
-    }
-
-    create(data: { name: string; price: number }) {
-        const item = { id: this.items.length + 1, ...data };
-        this.items.push(item);
-        return item;
-    }
+// React - declarative: describe the result, React updates the DOM
+function Counter() {
+    const [count, setCount] = React.useState(0);
+    return (
+        &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+            Clicked {count} times
+        &lt;/button&gt;
+    );
 }</code></pre>
 
-<h2 id="dependency-injection"><a class="heading-anchor" href="#dependency-injection">Dependency Injection</a></h2>
-<p>The controller does not create its own service. It declares what it needs in the constructor, and the framework provides it. This makes testing easy - you can swap in mock services without changing controller code.</p>
-<pre><code>// The controller declares its dependency
-constructor(private readonly menuService: MenuService) {}
+<h2 id="components-jsx-and-props"><a class="heading-anchor" href="#components-jsx-and-props">Components, JSX, and Props</a></h2>
+<p>A component is a function that returns JSX - a syntax that looks like HTML but lives inside JavaScript. Props are inputs passed from parent to child, like function arguments.</p>
+<pre><code>function MenuItem({ name, price }) {
+    return (
+        &lt;div className="menu-item"&gt;
+            &lt;span&gt;{name}&lt;/span&gt;
+            &lt;span&gt;${price}&lt;/span&gt;
+        &lt;/div&gt;
+    );
+}
 
-// Nest.js automatically creates and injects the MenuService instance
-// In tests, you can provide a mock instead:
-// { provide: MenuService, useValue: mockMenuService }</code></pre>
+// Rendering a list with .map() and keys
+function MenuList({ items }) {
+    return (
+        &lt;ul&gt;
+            {items.map(item =&gt; (
+                &lt;MenuItem key={item.id} name={item.name} price={item.price} /&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}</code></pre>
 
-<h2 id="decorators-and-typescript"><a class="heading-anchor" href="#decorators-and-typescript">Decorators and TypeScript</a></h2>
-<p>Nest.js uses TypeScript decorators extensively. <code>@Controller</code>, <code>@Get</code>, <code>@Post</code>, <code>@Body</code>, <code>@Injectable</code> - these annotations define behavior without cluttering your logic.</p>
+<h2 id="handling-events"><a class="heading-anchor" href="#handling-events">Handling Events</a></h2>
+<p>React uses camelCase event handlers like <code>onClick</code> and <code>onChange</code> directly on JSX elements. The handler receives a synthetic event object that works consistently across browsers.</p>
 
 <div class="mermaid">
 flowchart TD
-    A[HTTP Request] --> B["@Controller: MenuController"]
-    B -->|"@Get /menu"| C["@Injectable: MenuService"]
-    C -->|getAll| D[(Database)]
-    D -->|results| C
-    C -->|data| B
-    B -->|JSON response| A
-    subgraph MenuModule
-        B
-        C
-    end
+    A[App] --> B[Header]
+    A --> C[MenuList]
+    A --> D[Footer]
+    C --> E[MenuItem 1]
+    C --> F[MenuItem 2]
+    C --> G[MenuItem 3]
     style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
-    style B fill:#e74c3c,stroke:#a93226,color:#1a1a1a
     style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
-    style D fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style F fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style G fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Nest.js enforces structure with modules, controllers, and services as the three pillars</li>
-<li>Controllers handle HTTP routing, services handle business logic - never mix them</li>
-<li>Dependency injection lets the framework wire components together, simplifying testing</li>
-<li>TypeScript decorators define behavior declaratively without cluttering your logic</li>
+<li>Components are reusable functions that return JSX, like custom HTML tags</li>
+<li>React is declarative - describe what the UI should look like, not how to update it</li>
+<li>Props pass data from parent to child components, making them configurable</li>
+<li>Always provide a unique key prop when rendering lists with .map()</li>
 </ul>
 </div>
 

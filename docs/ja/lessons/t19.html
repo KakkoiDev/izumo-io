@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>SQLite - KakkoiSchool</title>
+  <title>Gitの基礎 - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,70 +47,85 @@
         </div>
       </nav>
       
-<h1 id="t19-sqlite"><a class="heading-anchor" href="#t19-sqlite">T19: SQLite</a></h1>
-<p class="lesson-intro">SQLiteは単一ファイルにデータを格納する本格的なデータベースエンジンです。SQL(構造化問合せ言語)はそれと対話する言語です。JSONファイルがノートなら、SQLiteはラベル、カテゴリ、相互参照を備えた適切なファイルキャビネットです。同時アクセスとデータ整合性を自動的に処理します。</p>
+<h1 id="t19-gitの基礎"><a class="heading-anchor" href="#t19-gitの基礎">T19: Gitの基礎</a></h1>
+<p class="lesson-intro">Gitはコードのタイムマシンです。小さな仕事が終わるたびにスナップショットを撮り、後から巻き戻したり、別の時間軸に分岐したり、任意の2つの瞬間を比較したりできます。写真家の作業に似ています。一日中写真を撮り(ファイルを編集)、良いものを選び(ステージング)、キャプション付きでアルバムに貼る(コミット)。</p>
 
-<h2 id="テーブルの作成"><a class="heading-anchor" href="#テーブルの作成">テーブルの作成</a></h2>
-<pre><code>CREATE TABLE users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    email TEXT UNIQUE NOT NULL,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-);
+<h2 id="3つの領域"><a class="heading-anchor" href="#3つの領域">3つの領域</a></h2>
+<p>Gitはプロジェクトを3つのゾーンに分けます。<strong>ワーキングディレクトリ</strong>はディスク上の編集フォルダ。<strong>ステージングエリア</strong>(インデックス)は次に保存する変更を集める場所。<strong>リポジトリ</strong>は過去にコミットした全スナップショットの永久的な履歴です。</p>
+<pre><code># 現在のフォルダで新しいリポジトリを開始
+git init
 
-CREATE TABLE posts (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL,
-    title TEXT NOT NULL,
-    body TEXT,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);</code></pre>
+# 自分を名乗る(マシンごとに1回)
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
 
-<h2 id="sqlによるcrud"><a class="heading-anchor" href="#sqlによるcrud">SQLによるCRUD</a></h2>
-<pre><code>-- Create
-INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com');
+# 何が変わったか確認
+git status</code></pre>
 
--- Read
-SELECT * FROM users WHERE name = 'Alice';
-SELECT u.name, p.title FROM users u JOIN posts p ON u.id = p.user_id;
+<h2 id="編集-ステージ-コミット"><a class="heading-anchor" href="#編集-ステージ-コミット">編集、ステージ、コミット</a></h2>
+<p>毎日のコアループ。ファイルを変更し、保存する変更を選び、メッセージ付きで保存します。メッセージは未来の自分への手紙で、<em>なぜ</em>その変更をしたかを説明します。</p>
+<pre><code># ファイル編集後
+git status                      # 何が変わった?
+git add index.html styles.css   # 特定のファイルをステージ
+git add .                       # または全部ステージ
+git commit -m "Add contact form layout"
+git log --oneline               # 履歴を見る</code></pre>
 
--- Update
-UPDATE users SET name = 'Bob' WHERE id = 1;
-
--- Delete
-DELETE FROM users WHERE id = 1;</code></pre>
-
-<h2 id="node-jsでのsqlite使用"><a class="heading-anchor" href="#node-jsでのsqlite使用">Node.jsでのSQLite使用</a></h2>
-<pre><code>const Database = require("better-sqlite3");
-const db = new Database("app.db");
-
-const users = db.prepare("SELECT * FROM users").all();
-db.prepare("INSERT INTO users (name, email) VALUES (?, ?)").run("Alice", "a@b.com");</code></pre>
+<h2 id="ブランチ-別の時間軸"><a class="heading-anchor" href="#ブランチ-別の時間軸">ブランチ: 別の時間軸</a></h2>
+<p>ブランチはコミットを指す軽量なポインタです。メインの時間軸を乱さず何かを試したい時に作成します。満足したらマージし、気に入らなければゼロコストでブランチを捨てられます。</p>
+<pre><code>git branch                     # ブランチ一覧
+git checkout -b feature/login  # 新規作成して切り替え
+# ...編集、ステージ、コミット...
+git checkout main              # メインに戻る
+git merge feature/login        # 作業を取り込む
+git branch -d feature/login    # マージ済みブランチを削除</code></pre>
 
 <div class="mermaid">
-erDiagram
-    USERS ||--o{ POSTS : writes
-    USERS {
-        int id PK
-        text name
-        text email
-        datetime created_at
-    }
-    POSTS {
-        int id PK
-        int user_id FK
-        text title
-        text body
-    }
+gitGraph
+    commit id: "init"
+    commit id: "add layout"
+    branch feature/login
+    checkout feature/login
+    commit id: "login form"
+    commit id: "auth check"
+    checkout main
+    commit id: "fix typo"
+    merge feature/login
+    commit id: "deploy"
 </div>
+
+<p>図を左から右に読みます。<code>main</code>の線がデフォルトの時間軸です。<code>feature/login</code>がそこから分岐し、2つコミットして、またmainに合流します。マージ後、mainは両方の線の内容を全て含みます。</p>
+
+<div class="mermaid">
+flowchart LR
+    WD[Working Directory<br/>edited files] -->|git add| SA[Staging Area<br/>the next snapshot]
+    SA -->|git commit| R[Repository<br/>permanent history]
+    R -->|git checkout| WD
+</div>
+
+<h2 id="恐れずに取り消す"><a class="heading-anchor" href="#恐れずに取り消す">恐れずに取り消す</a></h2>
+<p>コミットはスナップショットなので、ほぼ何も失われません。<code>git restore</code>は未ステージの変更を破棄。<code>git reset</code>はファイルをアンステージ。<code>git revert</code>は古いコミットを打ち消す新しいコミットを作り、履歴を正直に保ちます。</p>
+<pre><code>git restore styles.css         # 1ファイルの編集を捨てる
+git restore --staged index.html # ステージから外すが編集は保持
+git revert abc123              # abc123を打ち消す新コミット</code></pre>
+
+<h2 id="無視すべきもの"><a class="heading-anchor" href="#無視すべきもの">無視すべきもの</a></h2>
+<p>追跡すべきでないファイルがあります。秘密情報、ビルド出力、巨大バイナリ、エディタのゴミなど。リポジトリルートの<code>.gitignore</code>に列挙します。</p>
+<pre><code># .gitignore
+node_modules/
+.env
+*.log
+.DS_Store
+dist/</code></pre>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>SQLiteは単一ファイルに完全なリレーショナルデータベースを格納します</li>
-<li>SQLはSELECT、JOIN、WHEREなどで強力なクエリを提供します</li>
-<li>外部キーはテーブル間の関係を作りデータ整合性を強制します</li>
-<li>SQLインジェクション攻撃を防ぐためパラメータ化クエリ(?)を使いましょう</li>
+<li>Gitには3つのゾーンがある: ワーキングディレクトリ、ステージングエリア、リポジトリ。全コマンドはこの間で内容を動かす</li>
+<li>コミットは追跡中の全ファイルのスナップショットと「なぜ」を説明するメッセージ</li>
+<li>ブランチはコミットへの軽量なポインタ。機能や実験ごとに作る</li>
+<li>コミットメッセージは未来の自分への手紙。何ではなくなぜを書く</li>
+<li>最初のコミット前に秘密情報と生成ファイルを.gitignoreに入れる</li>
 </ul>
 </div>
 

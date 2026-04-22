@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Next.js: Data & API - KakkoiSchool</title>
+  <title>Full Stack AI App - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,85 +47,63 @@
         </div>
       </nav>
       
-<h1 id="t27-next-js-data-amp-api"><a class="heading-anchor" href="#t27-next-js-data-amp-api">T27: Next.js Data &amp; API</a></h1>
-<p class="lesson-intro">Server components fetch data like a chef going directly to the pantry instead of sending a waiter back and forth. No useEffect, no loading spinners for initial data - the component itself is async, fetches what it needs, and renders the complete HTML on the server.</p>
+<h1 id="t27-full-stack-ai-app"><a class="heading-anchor" href="#t27-full-stack-ai-app">T27: Full Stack AI App</a></h1>
+<p class="lesson-intro">This is where everything comes together. A full-stack application connects the frontend (what users see) to the backend (server logic and data) to the AI layer (intelligent responses). Think of it as building a complete restaurant - the dining room, the kitchen, and the chef all working in harmony.</p>
 
-<h2 id="fetching-data-in-server-components"><a class="heading-anchor" href="#fetching-data-in-server-components">Fetching Data in Server Components</a></h2>
-<p>Server components can be async functions. You await data directly in the component body. No useEffect, no useState for loading states - the HTML arrives fully rendered.</p>
-<pre><code>// app/menu/page.tsx - Server component (default)
-interface MenuItem {
-    id: number;
-    name: string;
-    price: number;
-}
+<h2 id="architecture-overview"><a class="heading-anchor" href="#architecture-overview">Architecture Overview</a></h2>
+<p>The frontend sends user input to your Node.js server. The server manages sessions, validates data, and forwards prompts to Ollama. Responses flow back through the same chain.</p>
 
-export default async function MenuPage() {
-    const res = await fetch("https://api.example.com/menu", {
-        cache: "no-store",  // Always get fresh data
-    });
-    const items: MenuItem[] = await res.json();
+<h2 id="connecting-the-layers"><a class="heading-anchor" href="#connecting-the-layers">Connecting the Layers</a></h2>
+<pre><code>// Server: Bridge between frontend and AI
+app.post("/api/chat", authenticate, async (req, res) =&gt; {
+    const { message } = req.body;
+    const userId = req.session.userId;
 
-    return (
-        &lt;main&gt;
-            &lt;h1&gt;Menu&lt;/h1&gt;
-            &lt;ul&gt;
-                {items.map(item =&gt; (
-                    &lt;li key={item.id}&gt;
-                        {item.name} - ${item.price}
-                    &lt;/li&gt;
-                ))}
-            &lt;/ul&gt;
-        &lt;/main&gt;
-    );
-}</code></pre>
+    // Save to database
+    db.prepare("INSERT INTO messages (user_id, role, content) VALUES (?, ?, ?)")
+      .run(userId, "user", message);
 
-<h2 id="api-routes"><a class="heading-anchor" href="#api-routes">API Routes</a></h2>
-<p>Next.js API routes live in <code>route.ts</code> files. They handle GET, POST, and other HTTP methods as named exports. Compare this to the Express routes from T17 - same concept, different syntax.</p>
-<pre><code>// app/api/menu/route.ts
-import { NextResponse } from "next/server";
+    // Get conversation history
+    const history = db.prepare("SELECT role, content FROM messages WHERE user_id = ? ORDER BY id")
+      .all(userId);
 
-const menu = [
-    { id: 1, name: "Tonkotsu Ramen", price: 850 },
-    { id: 2, name: "Gyoza", price: 400 },
-];
+    // Call Ollama
+    const aiResponse = await chat(history);
 
-export async function GET() {
-    return NextResponse.json(menu);
-}
+    // Save AI response
+    db.prepare("INSERT INTO messages (user_id, role, content) VALUES (?, ?, ?)")
+      .run(userId, "assistant", aiResponse);
 
-export async function POST(request: Request) {
-    const body = await request.json();
-    const newItem = { id: menu.length + 1, ...body };
-    menu.push(newItem);
-    return NextResponse.json(newItem, { status: 201 });
-}</code></pre>
-
-<h2 id="putting-it-all-together"><a class="heading-anchor" href="#putting-it-all-together">Putting It All Together</a></h2>
-<p>A typical Next.js page fetches data on the server, renders HTML, and sends it to the browser. Client components handle interactivity like adding items or submitting forms, calling API routes as needed.</p>
+    res.json({ reply: aiResponse });
+});</code></pre>
 
 <div class="mermaid">
-sequenceDiagram
-    participant Browser
-    participant Server as Next.js Server
-    participant DB as Database
-    Browser->>Server: Page request
-    Server->>DB: Query data
-    DB-->>Server: Results
-    Server-->>Browser: Rendered HTML
-    Note over Browser: Page visible immediately
-    Browser->>Server: Client API call (POST)
-    Server->>DB: Insert data
-    DB-->>Server: Confirmation
-    Server-->>Browser: JSON response
+flowchart TB
+    subgraph Frontend
+        A[HTML/CSS/JS] --> B[Fetch API]
+    end
+    subgraph Backend
+        C[Node.js Server] --> D[Auth Middleware]
+        D --> E[API Routes]
+        E --> F[(SQLite DB)]
+    end
+    subgraph AI
+        G[Ollama LLM]
+    end
+    B -->|HTTP| C
+    E -->|Query| F
+    E -->|Prompt| G
+    G -->|Response| E
+    E -->|JSON| B
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Server components can be async - fetch data directly without useEffect or loading state</li>
-<li>API routes use named exports (GET, POST) in route.ts files for clean endpoint definitions</li>
-<li>Server-rendered pages arrive fully built, improving initial load performance</li>
-<li>Client-side API calls handle mutations and interactive features after hydration</li>
+<li>Full-stack apps connect frontend, backend, and data layers into one system</li>
+<li>The server acts as a bridge between the user interface and AI model</li>
+<li>Store conversation history in a database for persistence across sessions</li>
+<li>Authentication protects AI endpoints from unauthorized access</li>
 </ul>
 </div>
 

@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Next.js: ルーティングとレンダリング - KakkoiSchool</title>
+  <title>Ollamaとチャット - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,79 +47,62 @@
         </div>
       </nav>
       
-<h1 id="t26-next-jsのルーティングとレンダリング"><a class="heading-anchor" href="#t26-next-jsのルーティングとレンダリング">T26: Next.jsのルーティングとレンダリング</a></h1>
-<p class="lesson-intro">Next.jsはフードトラック(React SPA)から住所システム付きの本格的なレストランへのアップグレードのようなものです。ファイルベースのルーティング、サーバーサイドレンダリング、明確な構造を追加するので、全てを自分で接続する必要がありません。</p>
+<h1 id="t26-ollamaとchat"><a class="heading-anchor" href="#t26-ollamaとchat">T26: OllamaとChat</a></h1>
+<p class="lesson-intro">大規模言語モデル(LLM)はローカルマシンで動作できるようになりました。Ollamaはオープンソースモデルのダウンロードと配信を簡単にします。WebアプリをローカルLLMに接続すれば、外部サービスにデータを送らずにAI機能を実現できます。自分のコンピュータに住む賢いアシスタントを持つようなものです。</p>
 
-<h2 id="ファイルベースルーティング"><a class="heading-anchor" href="#ファイルベースルーティング">ファイルベースルーティング</a></h2>
-<p>Next.jsではファイルシステムがルーターです。<code>app/about/page.tsx</code>にファイルを作成すると、それが<code>/about</code>ルートになります。ルーター設定は不要です。T13のハッシュベースルーティングと比較してみてください。</p>
-<pre><code>// Directory structure = URL structure
-app/
-  page.tsx          // "/" route
-  about/
-    page.tsx        // "/about" route
-  menu/
-    page.tsx        // "/menu" route
-    [id]/
-      page.tsx      // "/menu/123" dynamic route
+<h2 id="ollamaのセットアップ"><a class="heading-anchor" href="#ollamaのセットアップ">Ollamaのセットアップ</a></h2>
+<p>Ollamaをインストールし、モデルをプルすると、localhost:11434でAPIが提供されます。</p>
+<pre><code># Install and run
+# ollama pull llama3
+# ollama serve
 
-// app/menu/page.tsx
-export default function MenuPage() {
-    return (
-        &lt;main&gt;
-            &lt;h1&gt;Our Menu&lt;/h1&gt;
-            &lt;p&gt;Browse our selection below.&lt;/p&gt;
-        &lt;/main&gt;
-    );
-}</code></pre>
+# The API is now available at http://localhost:11434</code></pre>
 
-<h2 id="サーバーコンポーネント-vs-クライアントコンポーネント"><a class="heading-anchor" href="#サーバーコンポーネント-vs-クライアントコンポーネント">サーバーコンポーネント vs クライアントコンポーネント</a></h2>
-<p>Next.jsのコンポーネントはデフォルトでサーバーコンポーネントです。サーバーで実行され、データを直接取得でき、HTMLのみをブラウザに送信します。ステートやイベントハンドラなどのインタラクティブ性が必要な場合は、先頭に<code>"use client"</code>を追加します。</p>
-<pre><code>// Server component (default) - runs on server, no JS sent to browser
-export default async function MenuList() {
-    const items = await fetch("https://api.example.com/menu").then(r =&gt; r.json());
-    return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
+<h2 id="chat-api統合"><a class="heading-anchor" href="#chat-api統合">Chat API統合</a></h2>
+<pre><code>async function chat(messages) {
+    const response = await fetch("http://localhost:11434/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            model: "llama3",
+            messages: messages,
+            stream: false
+        })
+    });
+    const data = await response.json();
+    return data.message.content;
 }
 
-// Client component - needs "use client" for interactivity
-"use client";
-import { useState } from "react";
+// Usage
+const reply = await chat([
+    { role: "system", content: "You are a helpful assistant." },
+    { role: "user", content: "Explain HTML in one sentence." }
+]);</code></pre>
 
-export default function AddToCart({ itemId }: { itemId: number }) {
-    const [added, setAdded] = useState(false);
-    return (
-        &lt;button onClick={() =&gt; setAdded(true)}&gt;
-            {added ? "Added" : "Add to Cart"}
-        &lt;/button&gt;
-    );
-}</code></pre>
-
-<h2 id="レイアウト"><a class="heading-anchor" href="#レイアウト">レイアウト</a></h2>
-<p><code>layout.tsx</code>はそのディレクトリ以下の全ページをラップします。ナビゲーション間で保持され、ヘッダーやサイドバーなどの共有UIをマウントしたままにします。</p>
-
-<h2 id="使い分けガイド"><a class="heading-anchor" href="#使い分けガイド">使い分けガイド</a></h2>
-<p>静的コンテンツやデータ取得にはサーバーコンポーネントを使用します。useState、useEffect、onClick、ブラウザ専用APIが必要な場合のみクライアントコンポーネントを使用します。</p>
+<h2 id="チャットインターフェースの構築"><a class="heading-anchor" href="#チャットインターフェースの構築">チャットインターフェースの構築</a></h2>
+<p>会話履歴をメッセージオブジェクトの配列として保存します。新しいメッセージを追加し、コンテキスト維持のために完全な履歴を送信します。</p>
 
 <div class="mermaid">
-flowchart TB
-    A[Browser Request] --> B[Next.js Server]
-    B --> C[Server Components Rendered]
-    C --> D[HTML Sent to Browser]
-    D --> E[Client Components Hydrated]
-    E --> F[Interactive Page Ready]
-    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
-    style B fill:#333333,stroke:#1a1a1a,color:#ffffff
-    style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
-    style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
-    style F fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
+sequenceDiagram
+    participant U as User
+    participant W as Web App
+    participant O as Ollama Server
+    U->>W: Type message
+    W->>W: Append to history
+    W->>O: POST /api/chat (full history)
+    O->>O: LLM generates response
+    O-->>W: Response JSON
+    W->>W: Append assistant reply
+    W-->>U: Display response
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>ファイルベースルーティングはディレクトリ構造をURLにマッピングする。設定不要</li>
-<li>コンポーネントはデフォルトでサーバーレンダリングされ、HTMLのみをブラウザに送信する</li>
-<li>"use client"はコンポーネントがステート、エフェクト、イベントハンドラを必要とする場合のみ追加する</li>
-<li>レイアウトは子ページをラップし、共有UIのためにナビゲーション間で保持される</li>
+<li>OllamaはシンプルなAPIでオープンソースのLLMをローカル実行します</li>
+<li>Chat APIはroleとcontentフィールドを持つメッセージの配列を受け取ります</li>
+<li>コンテキストを考慮したレスポンスのために完全な会話履歴を送信します</li>
+<li>ローカルLLMはデータを非公開に保ちます。外部API呼び出し不要です</li>
 </ul>
 </div>
 

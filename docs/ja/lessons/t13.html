@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>動的サイト: ルーティング - KakkoiSchool</title>
+  <title>データ構造 - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,54 +47,56 @@
         </div>
       </nav>
       
-<h1 id="t13-動的サイト-ルーティング"><a class="heading-anchor" href="#t13-動的サイト-ルーティング">T13: 動的サイト - ルーティング</a></h1>
-<p class="lesson-intro">従来のWebサイトでは各ページが別々のHTMLファイルです。シングルページアプリケーション(SPA)は一度読み込んでコンテンツを動的に入れ替えます。ハッシュルーティングはURLフラグメント(#の後の部分)でどのビューを表示するか決定します。新しい本を取りに行かずにページをめくるようなものです。</p>
+<h1 id="t13-データ構造"><a class="heading-anchor" href="#t13-データ構造">T13: データ構造</a></h1>
+<p class="lesson-intro">データ構造は情報を整理するための入れ物です。配列は順序が重要な番号付きリストです。オブジェクトは名前で情報を検索するラベル付きファイルキャビネットです。適切な構造を選ぶことでコードがシンプルかつ高速になります。</p>
 
-<h2 id="ハッシュベースルーティング"><a class="heading-anchor" href="#ハッシュベースルーティング">ハッシュベースルーティング</a></h2>
-<p>URLのハッシュ部分(#の後)はページリロードを引き起こしません。ハッシュの変更をリッスンして異なるコンテンツを描画できます。</p>
-<pre><code>const routes = {
-    "#/": renderHome,
-    "#/about": renderAbout,
-    "#/contact": renderContact
+<h2 id="配列"><a class="heading-anchor" href="#配列">配列</a></h2>
+<p>配列は順序付きコレクションを格納します。インデックス(0から開始)でアイテムにアクセスします。配列にはデータ変換のための強力な組み込みメソッドがあります。</p>
+<pre><code>const fruits = ["apple", "banana", "cherry"];
+console.log(fruits[0]); // "apple"
+fruits.push("date");
+
+// Transform with map, filter, reduce
+const prices = [10, 20, 30, 40];
+const expensive = prices.filter(p =&gt; p &gt; 15);
+const doubled = prices.map(p =&gt; p * 2);
+const total = prices.reduce((sum, p) =&gt; sum + p, 0);</code></pre>
+
+<h2 id="オブジェクト"><a class="heading-anchor" href="#オブジェクト">オブジェクト</a></h2>
+<p>オブジェクトはキーと値のペアを格納します。キーは文字列(またはシンボル)、値は何でも可能です。</p>
+<pre><code>const user = {
+    name: "Alice",
+    age: 25,
+    skills: ["HTML", "CSS", "JS"],
+    greet() {
+        return "Hi, I am " + this.name;
+    }
 };
+console.log(user.name);
+console.log(user["age"]);</code></pre>
 
-function router() {
-    const hash = window.location.hash || "#/";
-    const renderFn = routes[hash] || renderNotFound;
-    renderFn();
-}
-
-window.addEventListener("hashchange", router);
-window.addEventListener("load", router);</code></pre>
-
-<h2 id="動的コンテンツ描画"><a class="heading-anchor" href="#動的コンテンツ描画">動的コンテンツ描画</a></h2>
-<pre><code>function renderHome() {
-    document.querySelector("#app").innerHTML = `
-        &lt;h1&gt;Home&lt;/h1&gt;
-        &lt;p&gt;Welcome to the site.&lt;/p&gt;
-        &lt;a href="#/about"&gt;About Us&lt;/a&gt;
-    `;
-}</code></pre>
+<h2 id="ループ"><a class="heading-anchor" href="#ループ">ループ</a></h2>
+<p>配列は<code>for...of</code>で、オブジェクトは<code>for...in</code>や<code>Object.entries()</code>で反復処理します。</p>
+<pre><code>for (const fruit of fruits) { console.log(fruit); }
+for (const [key, value] of Object.entries(user)) { console.log(key, value); }</code></pre>
 
 <div class="mermaid">
-flowchart TD
-    A[User clicks link] --> B[URL hash changes]
-    B --> C[hashchange event fires]
-    C --> D{Match route?}
-    D -->|Yes| E[Render matched view]
-    D -->|No| F[Render 404 page]
-    E --> G[Update #app content]
-    F --> G
-    G --> H[Page stays loaded]
+graph LR
+    subgraph Array
+        A0["[0] apple"] --> A1["[1] banana"] --> A2["[2] cherry"]
+    end
+    subgraph Object
+        O1["name: Alice"] --- O2["age: 25"] --- O3["skills: [...]"]
+    end
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>SPAは1つのHTMLファイルを読み込み、JavaScriptでコンテンツを動的に入れ替えます</li>
-<li>ハッシュルーティングはURLフラグメントでどのビューを表示するか決定します</li>
-<li>hashchangeイベントはURLハッシュが変わるたびに発火します</li>
-<li>ルートマップオブジェクトがハッシュパターンと描画関数を接続します</li>
+<li>配列は0から始まるインデックスでアクセスする順序付きリストです</li>
+<li>オブジェクトは文字列キーでアクセスするキーバリューストアです</li>
+<li>map、filter、reduceで配列を変更せずに変換できます</li>
+<li>for...ofは配列の値を、for...inはオブジェクトのキーを反復処理します</li>
 </ul>
 </div>
 

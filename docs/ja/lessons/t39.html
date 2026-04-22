@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>環境セットアップ - KakkoiSchool</title>
+  <title>システム設計: キャッシング、キュー、パターン - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -42,109 +42,119 @@
       <nav class="lesson-breadcrumb">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">
+          <a href="t38.html">前へ</a>
           
-          <a href="t34.html">次へ</a>
         </div>
       </nav>
       
-<h1 id="t39-環境セットアップ"><a class="heading-anchor" href="#t39-環境セットアップ">T39: 環境セットアップ</a></h1>
-<p class="lesson-intro">職人は最初の切削の前に作業台を整えます。Webを作るために、コンピュータには3つの道具が必要です。コードを書くエディタ、ブラウザ外でJavaScriptを実行するランタイム、結果を見るブラウザ。午後1回のセットアップが後の千の苛立ちを救います。一度やって永遠に忘れましょう。</p>
+<h1 id="t39-システム設計-キャッシング-キュー-パターン"><a class="heading-anchor" href="#t39-システム設計-キャッシング-キュー-パターン">T39: システム設計 - キャッシング、キュー、パターン</a></h1>
+<p class="lesson-intro">全ての読み込みをDBで処理するシェフは、注文のたびに玉ねぎを切るようなもの。キャッシュは事前に切っておきます。キューはウェイターとキッチンを分離し、お互いを待たせません。CDNは全ての大陸にミニキッチンを置きます。システム設計のディープダイブは通常、非機能数字が収まるまでこの3つを縫い合わせる作業です。</p>
 
-<h2 id="何をインストールするか"><a class="heading-anchor" href="#何をインストールするか">何をインストールするか</a></h2>
-<ul>
-<li><strong>Visual Studio Code</strong> - エディタ。無料、Microsoft製、Windows/Mac/Linuxで動作。HTML、CSS、JavaScript、このコースで触る全ての言語に対応。</li>
-<li><strong>Node.js</strong> - JavaScriptランタイム。ブラウザなしでターミナルから.jsファイルを実行できる。サードパーティライブラリをインストールする<code>npm</code>が付属。</li>
-<li><strong>モダンブラウザ</strong> - ChromeまたはFirefox。組み込みのデベロッパーツールでページを検査、JavaScriptをデバッグ、ネットワーク状況をシミュレートします。</li>
-</ul>
-
-<h2 id="vs-codeをインストール"><a class="heading-anchor" href="#vs-codeをインストール">VS Codeをインストール</a></h2>
-<p><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a>に行き、OSのインストーラをダウンロード。デフォルトを受け入れる。インストール中に聞かれたら<strong>Add to PATH</strong>と<strong>Register as editor for supported file types</strong>をチェック。</p>
-<p>インストール後、VS Codeを開いて見回します:</p>
-<ul>
-<li>左バー: エクスプローラ(ファイルツリー)、検索、ソース管理(git)、拡張機能</li>
-<li><strong>Cmd/Ctrl + P</strong> - クイックファイルオープン。ファイル名の一部を入力</li>
-<li><strong>Cmd/Ctrl + Shift + P</strong> - コマンドパレット。任意のコマンドを名前で入力</li>
-<li><strong>Ctrl + `</strong>(バッククォート) - VS Code内の統合ターミナルを開く</li>
-</ul>
-
-<h2 id="node-jsをインストール"><a class="heading-anchor" href="#node-jsをインストール">Node.jsをインストール</a></h2>
-<p><a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a>に行き、<strong>LTS</strong>(長期サポート)版をダウンロード。デフォルトを受け入れる。LTSは退屈で信頼できる選択。学習中は「Current」チャネルは避けましょう。</p>
-<p>MacでHomebrewを使っているなら<code>brew install node</code>で十分。Linuxではディストリのパッケージマネージャでも良いが、nodeのバージョンが古いかも。後の柔軟性のために<a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a>の使用を検討。</p>
-
-<h2 id="全てが動くか確認"><a class="heading-anchor" href="#全てが動くか確認">全てが動くか確認</a></h2>
-<p>VS Codeを開き、統合ターミナルを開く(<strong>Ctrl + `</strong>)。この4つのコマンドを実行。各々がバージョン番号を表示するはず。</p>
-<pre><code>node -v      # v20.x.x or newer
-npm -v       # 10.x.x or newer
-code -v      # VS Code version
-git --version  # any version works</code></pre>
-<p>どれかが「command not found」を出したら、全てのターミナルウィンドウを閉じて新しいのを開き、もう一度試す。インストーラは<code>PATH</code>を更新するが、PATHは新しいターミナルにのみ適用される。それでも壊れているなら、コンピュータを再起動。</p>
-
-<h2 id="最初のファイル"><a class="heading-anchor" href="#最初のファイル">最初のファイル</a></h2>
-<p>チェーン全体がエンドtoエンドで動くことを証明しましょう。</p>
-<ol>
-<li>VS Codeで<strong>File &gt; Open Folder</strong>からフォルダを開く。<code>learning</code>というフォルダを作るか選ぶ。</li>
-<li><code>hello.html</code>という新ファイルを作成。</li>
-<li>これを貼り付けてCmd/Ctrl + Sで保存:</li>
-</ol>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head&gt;&lt;title&gt;Hello&lt;/title&gt;&lt;/head&gt;
-&lt;body&gt;
-    &lt;h1&gt;It works!&lt;/h1&gt;
-    &lt;script&gt;
-        console.log("Also in the browser console.");
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<p>ファイルをブラウザで開く(ダブルクリックかブラウザにドラッグ)。<strong>F12</strong>でデベロッパーツールを開き、Consoleタブに切り替え。ログ行が見えるはず。</p>
+<h2 id="キャッシング-データベースとあなたの間の高速メモリ"><a class="heading-anchor" href="#キャッシング-データベースとあなたの間の高速メモリ">キャッシング: データベースとあなたの間の高速メモリ</a></h2>
+<p>キャッシュは遅い/高価な操作の結果を高速メモリに保存します。王道パターンは<strong>cache-aside</strong>: アプリがキャッシュを確認、ミスならDB読みキャッシュに詰める、ヒットならDBをスキップ。</p>
 
 <div class="mermaid">
-flowchart LR
-    VSC[VS Code<br/>write code]
-    Disk[hello.html on disk]
-    Browser[Browser<br/>renders + runs JS]
-    DevTools[DevTools F12<br/>inspect + debug]
-    Terminal[VS Code terminal<br/>node, npm, git]
-    VSC -->|Save| Disk
-    Disk -->|Open| Browser
-    Browser --> DevTools
-    VSC -.->|Ctrl+backtick| Terminal
-    Terminal -.->|node, npm| Disk
+sequenceDiagram
+    participant App
+    participant Cache as Redis
+    participant DB as Database
+    App->>Cache: GET key
+    alt cache hit
+        Cache-->>App: value (fast)
+    else cache miss
+        Cache-->>App: nil
+        App->>DB: SELECT ...
+        DB-->>App: row
+        App->>Cache: SET key value ttl
+    end
 </div>
 
-<h2 id="入れる価値のある拡張機能"><a class="heading-anchor" href="#入れる価値のある拡張機能">入れる価値のある拡張機能</a></h2>
-<p>VS Codeの拡張機能パネルを開く(左バーの四角いアイコン)。この4つをインストール:</p>
-<ul>
-<li><strong>Prettier - Code formatter</strong> - 保存時に自動フォーマット。全ファイルが一貫した見た目に</li>
-<li><strong>ESLint</strong> - 入力中にJavaScriptのバグとスタイル問題をハイライト</li>
-<li><strong>Live Server</strong> - 任意の.htmlファイルを右クリック -&gt; 「Open with Live Server」で保存時自動リロード</li>
-<li><strong>GitLens</strong> - git統合の強化。各行を最後に誰が変えたか見える</li>
-</ul>
-<p>保存時フォーマットを有効にするには、設定(Cmd/Ctrl + ,)を開き、「format on save」を検索してチェック。</p>
+<pre><code>// Cache-aside in Node.js
+async function getUser(id) {
+    const cached = await redis.get(`user:${id}`);
+    if (cached) return JSON.parse(cached);
 
-<h2 id="os別の注意"><a class="heading-anchor" href="#os別の注意">OS別の注意</a></h2>
+    const row = await db.query("SELECT * FROM users WHERE id = $1", [id]);
+    await redis.set(`user:${id}`, JSON.stringify(row), "EX", 300);
+    return row;
+}</code></pre>
+
+<p>キャッシングの2つの難問は<strong>無効化</strong>(古いデータをいつ捨てるか)と<strong>スタンピード</strong>(多数のリクエストが同時にミスしてDBを殴る)。TTL、write-through更新、ミス時のsingle-flightロックで対処。</p>
+
+<h2 id="どこにキャッシュするか"><a class="heading-anchor" href="#どこにキャッシュするか">どこにキャッシュするか</a></h2>
 <ul>
-<li><strong>Windows</strong>: <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>からGit for Windowsをインストール。デフォルトの「Git Bash」ターミナルがcmd.exeよりこのコースに親切なLinux風シェルを提供。</li>
-<li><strong>Mac</strong>: まず<a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a>をインストール。あとは<code>brew install git node</code>でセットアップ完了。</li>
-<li><strong>Linux</strong>: gitは既にあるはず。<code>sudo apt install git nodejs npm</code>(Ubuntu/Debian)、または新しいバージョンには<code>nvm</code>。</li>
+<li><strong>ブラウザキャッシュ</strong> - ユーザーに最も近い。<code>Cache-Control</code>ヘッダで制御</li>
+<li><strong>CDN(エッジキャッシュ)</strong> - 静的アセット、公開APIレスポンス。グローバル、安い、速い</li>
+<li><strong>アプリケーションキャッシュ</strong> - プロセス内メモリまたはRedis。ユーザーごとデータやホットな行に良い</li>
+<li><strong>データベースキャッシュ</strong> - DB自身のバッファプール。無料、既にチューニング済み</li>
+</ul>
+
+<h2 id="メッセージキュー-遅い作業を分離"><a class="heading-anchor" href="#メッセージキュー-遅い作業を分離">メッセージキュー: 遅い作業を分離</a></h2>
+<p>数百ms以上かかる操作はユーザーをブロックすべきではありません。キューはアプリにジョブを受け取って即返させ、<strong>ワーカー</strong>がキューを読んで後で遅い作業をします。</p>
+
+<div class="mermaid">
+sequenceDiagram
+    participant User
+    participant API
+    participant Q as Queue (Kafka/SQS)
+    participant W as Worker
+    participant DB
+    User->>API: POST /upload
+    API->>Q: enqueue job
+    API-->>User: 202 Accepted (fast)
+    W->>Q: pull job
+    W->>W: resize, transcode, scan
+    W->>DB: write result
+</div>
+
+<p>キューはトラフィックのスパイクも吸収します。ワーカーが1000/秒処理でき、スパイクで10,000/秒押し寄せても、キューがカーブを平らにしてリクエストを落としません。Kafka、RabbitMQ、SQSはそれぞれ順序、耐久性、リプレイの面で異なるトレードオフ。</p>
+
+<h2 id="ロードバランサと冗長性"><a class="heading-anchor" href="#ロードバランサと冗長性">ロードバランサと冗長性</a></h2>
+<p>ロードバランサは同一のアプリサーバーの前に立ちリクエストを分散。3つの仕事: 負荷分散、死んだサーバー検出(ヘルスチェック)、TLS終端。全てを最低2つ動かす - LB、アプリ、DBレプリカ - 単一障害を吸収するため。</p>
+<pre><code>Client -&gt; DNS -&gt; LB (primary) --&gt; app1
+                    LB (standby)   app2
+                                   app3</code></pre>
+
+<h2 id="cdn-全ユーザーの近くにコピー"><a class="heading-anchor" href="#cdn-全ユーザーの近くにコピー">CDN: 全ユーザーの近くにコピー</a></h2>
+<p>CDN(Content Delivery Network)は静的アセット(時にはAPIレスポンスも)を世界中の数百のエッジロケーションにキャッシュします。東京の最初のユーザーはバージニアのオリジンまで全往復の代金を払う。その後の東京の10,000ユーザーは東京エッジに10msでヒット。</p>
+<pre><code>// What to put on the CDN
+- images, videos, fonts, JS/CSS bundles
+- rarely-changing API responses with Cache-Control
+- HTML for logged-out pages</code></pre>
+
+<h2 id="モノリス-vs-マイクロサービス"><a class="heading-anchor" href="#モノリス-vs-マイクロサービス">モノリス vs マイクロサービス</a></h2>
+<p>マイクロサービスから始めてはいけません。分割のたびにネットワークホップ、デプロイ対象、障害モードが増えます。モノリスで始め、チームサイズやスケールがモノリスを痛くした時のみサービスを抽出。</p>
+<ul>
+<li><strong>モノリス</strong>: 1コードベース、1デプロイ。イテレーション速く、デバッグ簡単。約50エンジニアや明らかなボトルネックで限界。</li>
+<li><strong>マイクロサービス</strong>: コードベース分離、デプロイ分離、APIやキューで間を繋ぐ。各チームが1サービスを所有。スケール時に報われるが、初期コスト大。</li>
+</ul>
+
+<h2 id="暗記価値のある大雑把な数字"><a class="heading-anchor" href="#暗記価値のある大雑把な数字">暗記価値のある大雑把な数字</a></h2>
+<ul>
+<li>L1キャッシュ: 約1ns。メモリ: 約100ns。SSD: 約100us。同一リージョン内ネットワーク往復: 約1ms。クロスリージョン: 約100ms。</li>
+<li>現代のCPUサーバーはシンプルJSONで約10k-100kリクエスト/秒。</li>
+<li>Postgresはチューニング前で約10k書き込み/秒 / 約50k読み込み/秒。</li>
+<li>Redisは約100k-1M op/秒。</li>
+<li>1日1億イベント = 平均約1,160/秒、ピーク約10k/秒。</li>
 </ul>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>3つの道具: VS Code(エディタ)、Node.js LTS(ランタイム)、デベロッパーツール付きモダンブラウザ</li>
-<li>node -v、npm -v、git --version、code -vで確認。4つ全てがバージョンを表示するはず</li>
-<li>VS Codeのショートカットを早く覚える: Cmd/Ctrl+P(クイック開く)、Cmd/Ctrl+Shift+P(コマンドパレット)、Ctrl+バッククォート(ターミナル)</li>
-<li>Prettier、ESLint、Live Server、GitLensをインストール。保存時フォーマットを有効に</li>
-<li>コマンドが「not found」なら新しいターミナルを開く。まだ壊れているなら再起動。PATH更新は新シェルが必要</li>
+<li>cache-asideがデフォルト: キャッシュ確認、ミスならDB、キャッシュに詰める。スタンピードと無効化に注意</li>
+<li>キューは遅い作業をワーカーに渡してAPIを即応答にする。トラフィックスパイクも平らにする</li>
+<li>ロードバランサの後ろに全てを2つ動かし、単一障害でシステムが落ちないようにする</li>
+<li>CDNは小銭でグローバル低遅延を買える。静的アセットとキャッシュ可能レスポンスは全てエッジへ</li>
+<li>まずモノリス、マイクロサービスはモノリスが目に見えて痛くなった時のみ。抽出は逆抽出より安い</li>
+<li>大雑把な数字表を頭に入れる: ns、us、msの遅延とコンポーネントごとのスループット</li>
 </ul>
 </div>
 
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">
+          <a href="t38.html">前へ</a>
           
-          <a href="t34.html">次へ</a>
         </div>
       </nav>
     </article>

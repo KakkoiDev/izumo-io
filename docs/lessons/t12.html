@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Fetch API - KakkoiSchool</title>
+  <title>Forms & Dialog - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,59 +47,60 @@
         </div>
       </nav>
       
-<h1 id="t12-fetch-api"><a class="heading-anchor" href="#t12-fetch-api">T12: Fetch API</a></h1>
-<p class="lesson-intro">The Fetch API lets your JavaScript talk to servers. It is like sending a letter and waiting for a reply - you make a request, the server processes it, and sends back a response. The async/await syntax makes this asynchronous communication read like synchronous code.</p>
+<h1 id="t12-forms-and-dialog"><a class="heading-anchor" href="#t12-forms-and-dialog">T12: Forms and Dialog</a></h1>
+<p class="lesson-intro">HTML forms collect data, but JavaScript validates and processes it. The dialog element gives you native modal windows without any library. Together they create a smooth data collection experience - like a smart receptionist who checks your paperwork before filing it.</p>
 
-<h2 id="http-basics"><a class="heading-anchor" href="#http-basics">HTTP Basics</a></h2>
-<p>HTTP is the protocol browsers use to communicate with servers. Every request has a method (GET, POST, PUT, DELETE) and every response has a status code (200 OK, 404 Not Found, 500 Error).</p>
+<h2 id="javascript-form-validation"><a class="heading-anchor" href="#javascript-form-validation">JavaScript Form Validation</a></h2>
+<p>While HTML has built-in validation (required, type), JavaScript gives you full control over validation logic and custom error messages.</p>
+<pre><code>const form = document.querySelector("#myForm");
+form.addEventListener("submit", function(event) {
+    const email = form.querySelector("#email").value;
+    if (!email.includes("@")) {
+        event.preventDefault();
+        showError("Please enter a valid email address.");
+    }
+});
 
-<h2 id="making-requests"><a class="heading-anchor" href="#making-requests">Making Requests</a></h2>
-<p>The <code>fetch()</code> function returns a Promise. Use <code>async/await</code> for clean, readable asynchronous code.</p>
-<pre><code>// GET request
-async function getUsers() {
-    const response = await fetch("/api/users");
-    const data = await response.json();
-    return data;
-}
-
-// POST request
-async function createUser(user) {
-    const response = await fetch("/api/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user)
-    });
-    return await response.json();
+function showError(message) {
+    const errorDiv = document.querySelector(".error");
+    errorDiv.textContent = message;
+    errorDiv.style.display = "block";
 }</code></pre>
 
-<h2 id="error-handling"><a class="heading-anchor" href="#error-handling">Error Handling</a></h2>
-<pre><code>try {
-    const data = await getUsers();
-    renderUsers(data);
-} catch (error) {
-    console.error("Failed to fetch:", error);
-    showErrorMessage("Could not load users. Try again.");
-}</code></pre>
+<h2 id="the-dialog-element"><a class="heading-anchor" href="#the-dialog-element">The Dialog Element</a></h2>
+<p>The <code>&lt;dialog&gt;</code> element provides native modal and non-modal dialogs. Use <code>showModal()</code> for modals with backdrop, or <code>show()</code> for non-modal.</p>
+<pre><code>&lt;dialog id="confirm"&gt;
+    &lt;p&gt;Are you sure?&lt;/p&gt;
+    &lt;button id="yes"&gt;Yes&lt;/button&gt;
+    &lt;button id="no"&gt;No&lt;/button&gt;
+&lt;/dialog&gt;
+
+&lt;script&gt;
+const dialog = document.querySelector("#confirm");
+dialog.showModal();
+dialog.querySelector("#no").addEventListener("click", () =&gt; dialog.close());
+&lt;/script&gt;</code></pre>
 
 <div class="mermaid">
-sequenceDiagram
-    participant B as Browser
-    participant S as Server
-    B->>S: GET /api/users
-    S-->>B: 200 OK + JSON data
-    B->>S: POST /api/users + body
-    S-->>B: 201 Created + new user
-    B->>S: GET /api/missing
-    S-->>B: 404 Not Found
+flowchart TD
+    A[User submits form] --> B{JS Validation}
+    B -->|Invalid| C[Show error message]
+    C --> A
+    B -->|Valid| D{Needs confirmation?}
+    D -->|Yes| E[Open dialog]
+    E --> F{User confirms?}
+    F -->|Yes| G[Process data]
+    F -->|No| A
+    D -->|No| G
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>fetch() sends HTTP requests and returns Promises</li>
-<li>async/await makes asynchronous code readable and maintainable</li>
-<li>Always handle errors with try/catch when making network requests</li>
-<li>Use response.json() to parse JSON response bodies</li>
+<li>JavaScript validation gives you custom logic beyond HTML5 built-in validation</li>
+<li>The dialog element provides native modal windows without external libraries</li>
+<li>Use showModal() for modal dialogs and show() for non-modal ones</li>
+<li>Always provide clear error messages that tell users how to fix the problem</li>
 </ul>
 </div>
 

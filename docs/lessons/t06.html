@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>CSS to the Limit - KakkoiSchool</title>
+  <title>HTML Forms & Blocks - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,50 +47,52 @@
         </div>
       </nav>
       
-<h1 id="t06-css-to-the-limit"><a class="heading-anchor" href="#t06-css-to-the-limit">T06: CSS to the Limit</a></h1>
-<p class="lesson-intro">CSS can do far more than change colors. With transitions, animations, and clever selectors, you can build interactive components without a single line of JavaScript. It is like discovering that your paintbrush can also sculpt.</p>
+<h1 id="t06-html-forms-and-blocks"><a class="heading-anchor" href="#t06-html-forms-and-blocks">T06: HTML Forms and Blocks</a></h1>
+<p class="lesson-intro">Forms are the bridge between users and your application. Like a paper form at a doctor's office, HTML forms collect information from users and send it somewhere for processing. Block elements like details/summary add interactive disclosure without JavaScript.</p>
 
-<h2 id="transitions"><a class="heading-anchor" href="#transitions">Transitions</a></h2>
-<p>Transitions smoothly animate property changes. Specify which property to animate, how long it takes, and the easing function.</p>
-<pre><code>.button {
-    background: #3498db;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-.button:hover {
-    background: #2980b9;
-    transform: scale(1.05);
-}</code></pre>
+<h2 id="form-elements"><a class="heading-anchor" href="#form-elements">Form Elements</a></h2>
+<p>The <code>&lt;form&gt;</code> tag wraps input elements. Each input has a type that controls its behavior. The <code>required</code> attribute forces the user to fill in a field before submitting.</p>
+<pre><code>&lt;form action="/submit" method="POST"&gt;
+    &lt;label for="name"&gt;Name:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name" required&gt;
 
-<h2 id="keyframe-animations"><a class="heading-anchor" href="#keyframe-animations">Keyframe Animations</a></h2>
-<p>For more complex motion, define keyframes with specific states at different points in time.</p>
-<pre><code>@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.card { animation: fadeIn 0.5s ease-out; }</code></pre>
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" required&gt;
 
-<h2 id="pure-css-accordion"><a class="heading-anchor" href="#pure-css-accordion">Pure CSS Accordion</a></h2>
-<p>The <code>:target</code> pseudo-class lets you toggle visibility based on URL hash, creating interactive components without JavaScript.</p>
-<pre><code>.panel { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
-.panel:target { max-height: 500px; }</code></pre>
+    &lt;label for="role"&gt;Role:&lt;/label&gt;
+    &lt;select id="role" name="role"&gt;
+        &lt;option value="dev"&gt;Developer&lt;/option&gt;
+        &lt;option value="design"&gt;Designer&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;textarea name="message" rows="4"&gt;&lt;/textarea&gt;
+    &lt;button type="submit"&gt;Send&lt;/button&gt;
+&lt;/form&gt;</code></pre>
 
 <div class="mermaid">
-stateDiagram-v2
-    [*] --> Default
-    Default --> Hover: mouse enter
-    Hover --> Default: mouse leave
-    Default --> Active: click
-    Active --> Animated: transition starts
-    Animated --> NewState: transition ends
+flowchart LR
+    A[User fills form] --> B{Valid?}
+    B -->|Yes| C[Browser sends data]
+    C --> D[Server receives]
+    D --> E[Process and respond]
+    B -->|No| F[Show error message]
+    F --> A
 </div>
+
+<h2 id="details-and-summary"><a class="heading-anchor" href="#details-and-summary">Details and Summary</a></h2>
+<p>The <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> elements create expandable sections with zero JavaScript.</p>
+<pre><code>&lt;details&gt;
+    &lt;summary&gt;Click to expand&lt;/summary&gt;
+    &lt;p&gt;Hidden content revealed on click.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Transitions animate changes between two states smoothly</li>
-<li>Keyframe animations allow multi-step, complex motion sequences</li>
-<li>The :target pseudo-class enables JS-free interactive patterns</li>
-<li>Always consider performance - animate transform and opacity, not width or height</li>
+<li>Forms use action and method attributes to control where and how data is sent</li>
+<li>Input types include text, email, password, number, and more</li>
+<li>The required attribute provides built-in browser validation</li>
+<li>Details/summary gives you interactive disclosure without JavaScript</li>
 </ul>
 </div>
 

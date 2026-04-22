@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>HTMLフォームとブロック - KakkoiSchool</title>
+  <title>パイプとパワーツール - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,52 +47,95 @@
         </div>
       </nav>
       
-<h1 id="t03-htmlフォームとブロック要素"><a class="heading-anchor" href="#t03-htmlフォームとブロック要素">T03: HTMLフォームとブロック要素</a></h1>
-<p class="lesson-intro">フォームはユーザーとアプリケーションの架け橋です。病院の問診票のように、HTMLフォームはユーザーから情報を収集し、処理のために送信します。details/summaryなどのブロック要素はJavaScriptなしでインタラクティブな開閉機能を追加します。</p>
+<h1 id="t03-パイプとパワーツール"><a class="heading-anchor" href="#t03-パイプとパワーツール">T03: パイプとパワーツール</a></h1>
+<p class="lesson-intro">ターミナルが不器用なファイルブラウザから超能力に変わる瞬間は、パイプを理解した時です。各コマンドは小さな専門家。パイプ<code>|</code>はダクトテープで、専門家を組み立てラインに繋げます。5つのコマンドをパイプで繋げば、スプレッドシートマクロ、Pythonスクリプト、午後の仕事を置き換えられます。</p>
 
-<h2 id="フォーム要素"><a class="heading-anchor" href="#フォーム要素">フォーム要素</a></h2>
-<p><code>&lt;form&gt;</code>タグは入力要素を囲みます。各入力にはtypeがあり動作を制御します。<code>required</code>属性は送信前にフィールドの入力を強制します。</p>
-<pre><code>&lt;form action="/submit" method="POST"&gt;
-    &lt;label for="name"&gt;Name:&lt;/label&gt;
-    &lt;input type="text" id="name" name="name" required&gt;
+<h2 id="標準ストリーム"><a class="heading-anchor" href="#標準ストリーム">標準ストリーム</a></h2>
+<p>全てのプログラムは3つのチャネルを持ちます。<strong>stdin</strong>は入力。<strong>stdout</strong>は通常の出力先。<strong>stderr</strong>はエラー出力先。シェルはそれぞれ独立にリダイレクトできます。</p>
+<pre><code>echo "hello" &gt; greet.txt        # stdout TO a file (overwrite)
+echo "world" &gt;&gt; greet.txt       # stdout APPEND to a file
+sort &lt; names.txt                 # stdin FROM a file
+command 2&gt; errors.log            # stderr TO a file
+command &gt; out.log 2&gt;&amp;1          # stdout and stderr together
+command &gt; /dev/null 2&gt;&amp;1         # discard all output</code></pre>
 
-    &lt;label for="email"&gt;Email:&lt;/label&gt;
-    &lt;input type="email" id="email" name="email" required&gt;
+<h2 id="パイプ"><a class="heading-anchor" href="#パイプ">パイプ</a></h2>
+<p>パイプは1つのコマンドのstdoutを次のコマンドのstdinに繋ぎます。文章のように左から右に読みます。</p>
+<pre><code># Show the 5 largest files in this folder
+ls -lS | head -n 5
 
-    &lt;label for="role"&gt;Role:&lt;/label&gt;
-    &lt;select id="role" name="role"&gt;
-        &lt;option value="dev"&gt;Developer&lt;/option&gt;
-        &lt;option value="design"&gt;Designer&lt;/option&gt;
-    &lt;/select&gt;
+# Count how many .ts files the project has
+find src -name "*.ts" | wc -l
 
-    &lt;textarea name="message" rows="4"&gt;&lt;/textarea&gt;
-    &lt;button type="submit"&gt;Send&lt;/button&gt;
-&lt;/form&gt;</code></pre>
+# Find every TODO in your code
+grep -rn "TODO" src/ | less
+
+# Top 10 commands you use most
+history | awk '{print $2}' | sort | uniq -c | sort -rn | head</code></pre>
 
 <div class="mermaid">
 flowchart LR
-    A[User fills form] --> B{Valid?}
-    B -->|Yes| C[Browser sends data]
-    C --> D[Server receives]
-    D --> E[Process and respond]
-    B -->|No| F[Show error message]
-    F --> A
+    H[history] -->|stdout| A[awk print command]
+    A -->|stdout| S1[sort]
+    S1 -->|stdout| U[uniq -c]
+    U -->|stdout| S2[sort -rn]
+    S2 -->|stdout| Hd[head]
 </div>
 
-<h2 id="detailsとsummary"><a class="heading-anchor" href="#detailsとsummary">DetailsとSummary</a></h2>
-<p><code>&lt;details&gt;</code>と<code>&lt;summary&gt;</code>要素はJavaScriptゼロで展開可能なセクションを作成します。</p>
-<pre><code>&lt;details&gt;
-    &lt;summary&gt;Click to expand&lt;/summary&gt;
-    &lt;p&gt;Hidden content revealed on click.&lt;/p&gt;
-&lt;/details&gt;</code></pre>
+<h2 id="必須の専門家たち"><a class="heading-anchor" href="#必須の専門家たち">必須の専門家たち</a></h2>
+<p>プロが研ぎ続ける標準キット:</p>
+<ul>
+<li><code>grep pattern file</code> - パターンに一致する行を探す。<code>-r</code>で再帰、<code>-i</code>で大文字小文字無視、<code>-n</code>で行番号</li>
+<li><code>find path -name "*.ext"</code> - 名前、種類、サイズ、年齢でファイルを探す</li>
+<li><code>sort</code>と<code>uniq</code> - 行をソート、重複を除去(<code>uniq -c</code>でカウント)</li>
+<li><code>wc -l</code> - 行数カウント。「いくつ?」への素早い答え</li>
+<li><code>head -n 20</code> / <code>tail -n 20</code> - 先頭/末尾の行。<code>tail -f</code>は成長するログを追う</li>
+<li><code>cut -d, -f1</code> - CSV風データから列を抽出</li>
+<li><code>sed 's/old/new/g'</code> - 検索と置換。素早い置換のためのストリームエディタ</li>
+<li><code>awk '{print $2}'</code> - 列を意識したテキスト処理</li>
+</ul>
+
+<h2 id="コマンドを繋げる"><a class="heading-anchor" href="#コマンドを繋げる">コマンドを繋げる</a></h2>
+<p>3つの演算子がパイプ無しでコマンドを順序付けます。</p>
+<pre><code>cmd1 ; cmd2          # run cmd1, then cmd2 regardless of outcome
+cmd1 &amp;&amp; cmd2         # run cmd2 ONLY if cmd1 succeeded
+cmd1 || cmd2         # run cmd2 ONLY if cmd1 failed
+
+# Practical example
+npm test &amp;&amp; git push                     # push only if tests pass
+mkdir build || echo "already exists"      # fallback message</code></pre>
+
+<h2 id="小さなシェルスクリプト"><a class="heading-anchor" href="#小さなシェルスクリプト">小さなシェルスクリプト</a></h2>
+<p>毎日同じパイプを実行するなら、保存しましょう。シェルスクリプトは<code>#!/usr/bin/env bash</code>ヘッダ付きのテキストファイルで、<code>chmod +x</code>で実行可能にします。</p>
+<pre><code>#!/usr/bin/env bash
+# backup.sh - copy the project into a timestamped tarball
+
+set -euo pipefail                       # fail fast on errors
+
+name="$(basename "$PWD")"
+stamp="$(date +%Y%m%d-%H%M%S)"
+tar -czf "../${name}-${stamp}.tar.gz" .
+echo "Saved ../${name}-${stamp}.tar.gz"</code></pre>
+<pre><code>chmod +x backup.sh
+./backup.sh                             # run it</code></pre>
+
+<h2 id="長時間ジョブの実行"><a class="heading-anchor" href="#長時間ジョブの実行">長時間ジョブの実行</a></h2>
+<p>数分かかるジョブもあります。つきっきりは嫌です。</p>
+<pre><code>long-command &amp;                  # run in background
+jobs                             # list background jobs in this shell
+long-command &gt; out.log 2&gt;&amp;1 &amp;   # background + capture output
+ps aux | grep node               # find running processes
+kill 12345                       # ask a process to stop
+kill -9 12345                    # force it to stop</code></pre>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>フォームはaction属性とmethod属性でデータの送信先と方法を制御します</li>
-<li>入力タイプにはtext、email、password、numberなどがあります</li>
-<li>required属性はブラウザ組み込みのバリデーションを提供します</li>
-<li>details/summaryはJavaScriptなしでインタラクティブな開閉を実現します</li>
+<li>3つのストリーム: stdin、stdout、stderr。&lt;、&gt;、&gt;&gt;、2&gt;でリダイレクト</li>
+<li>パイプ|は1つのコマンドのstdoutを次のstdinに繋ぐ。左から右に読む</li>
+<li>パワーキット: grep、find、sort、uniq、wc、head、tail、cut、sed、awk。1日1つ学ぶ</li>
+<li>;(常に)、&amp;&amp;(成功時)、||(失敗時)で複数ステップコマンドを安全に繋ぐ</li>
+<li>2回実行したパイプはスクリプトに保存。chmod +xで実行可能にする</li>
 </ul>
 </div>
 

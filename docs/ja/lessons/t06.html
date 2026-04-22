@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>CSSの限界に挑む - KakkoiSchool</title>
+  <title>HTMLフォームとブロック - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,50 +47,52 @@
         </div>
       </nav>
       
-<h1 id="t06-cssの限界に挑戦"><a class="heading-anchor" href="#t06-cssの限界に挑戦">T06: CSSの限界に挑戦</a></h1>
-<p class="lesson-intro">CSSは色を変えるだけではありません。トランジション、アニメーション、賢いセレクタで、JavaScriptなしにインタラクティブなコンポーネントを構築できます。絵筆が彫刻もできると気づくようなものです。</p>
+<h1 id="t06-htmlフォームとブロック要素"><a class="heading-anchor" href="#t06-htmlフォームとブロック要素">T06: HTMLフォームとブロック要素</a></h1>
+<p class="lesson-intro">フォームはユーザーとアプリケーションの架け橋です。病院の問診票のように、HTMLフォームはユーザーから情報を収集し、処理のために送信します。details/summaryなどのブロック要素はJavaScriptなしでインタラクティブな開閉機能を追加します。</p>
 
-<h2 id="トランジション"><a class="heading-anchor" href="#トランジション">トランジション</a></h2>
-<p>トランジションはプロパティの変化を滑らかにアニメーションします。どのプロパティを、どれくらいの時間で、どのイージングで変化させるかを指定します。</p>
-<pre><code>.button {
-    background: #3498db;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-.button:hover {
-    background: #2980b9;
-    transform: scale(1.05);
-}</code></pre>
+<h2 id="フォーム要素"><a class="heading-anchor" href="#フォーム要素">フォーム要素</a></h2>
+<p><code>&lt;form&gt;</code>タグは入力要素を囲みます。各入力にはtypeがあり動作を制御します。<code>required</code>属性は送信前にフィールドの入力を強制します。</p>
+<pre><code>&lt;form action="/submit" method="POST"&gt;
+    &lt;label for="name"&gt;Name:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name" required&gt;
 
-<h2 id="キーフレームアニメーション"><a class="heading-anchor" href="#キーフレームアニメーション">キーフレームアニメーション</a></h2>
-<p>より複雑な動きには、時間の異なるポイントでの状態を定義するキーフレームを使います。</p>
-<pre><code>@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.card { animation: fadeIn 0.5s ease-out; }</code></pre>
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email" required&gt;
 
-<h2 id="純粋cssアコーディオン"><a class="heading-anchor" href="#純粋cssアコーディオン">純粋CSSアコーディオン</a></h2>
-<p><code>:target</code>擬似クラスでURLハッシュに基づいて表示を切り替え、JavaScriptなしのインタラクティブなコンポーネントを作成できます。</p>
-<pre><code>.panel { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
-.panel:target { max-height: 500px; }</code></pre>
+    &lt;label for="role"&gt;Role:&lt;/label&gt;
+    &lt;select id="role" name="role"&gt;
+        &lt;option value="dev"&gt;Developer&lt;/option&gt;
+        &lt;option value="design"&gt;Designer&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;textarea name="message" rows="4"&gt;&lt;/textarea&gt;
+    &lt;button type="submit"&gt;Send&lt;/button&gt;
+&lt;/form&gt;</code></pre>
 
 <div class="mermaid">
-stateDiagram-v2
-    [*] --> Default
-    Default --> Hover: mouse enter
-    Hover --> Default: mouse leave
-    Default --> Active: click
-    Active --> Animated: transition starts
-    Animated --> NewState: transition ends
+flowchart LR
+    A[User fills form] --> B{Valid?}
+    B -->|Yes| C[Browser sends data]
+    C --> D[Server receives]
+    D --> E[Process and respond]
+    B -->|No| F[Show error message]
+    F --> A
 </div>
+
+<h2 id="detailsとsummary"><a class="heading-anchor" href="#detailsとsummary">DetailsとSummary</a></h2>
+<p><code>&lt;details&gt;</code>と<code>&lt;summary&gt;</code>要素はJavaScriptゼロで展開可能なセクションを作成します。</p>
+<pre><code>&lt;details&gt;
+    &lt;summary&gt;Click to expand&lt;/summary&gt;
+    &lt;p&gt;Hidden content revealed on click.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>トランジションは2つの状態間の変化を滑らかにアニメーションします</li>
-<li>キーフレームアニメーションで複数ステップの複雑な動きを実現できます</li>
-<li>:target擬似クラスでJavaScriptなしのインタラクティブパターンが可能です</li>
-<li>パフォーマンスを考慮し、transformとopacityをアニメーションしましょう</li>
+<li>フォームはaction属性とmethod属性でデータの送信先と方法を制御します</li>
+<li>入力タイプにはtext、email、password、numberなどがあります</li>
+<li>required属性はブラウザ組み込みのバリデーションを提供します</li>
+<li>details/summaryはJavaScriptなしでインタラクティブな開閉を実現します</li>
 </ul>
 </div>
 

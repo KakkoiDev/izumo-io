@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>CSSレイアウト - KakkoiSchool</title>
+  <title>HTMLタグ - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,58 +47,49 @@
         </div>
       </nav>
       
-<h1 id="t05-cssレイアウト-配置の技術"><a class="heading-anchor" href="#t05-cssレイアウト-配置の技術">T05: CSSレイアウト - 配置の技術</a></h1>
-<p class="lesson-intro">かつてページ上の要素配置は大変でした。FlexboxとGridが全てを変えました。Flexboxは一列に並べること(本棚の本のように)、Gridは行と列で整理すること(スプレッドシートのように)と考えてください。</p>
+<h1 id="t05-htmlタグ-基本要素"><a class="heading-anchor" href="#t05-htmlタグ-基本要素">T05: HTMLタグ - 基本要素</a></h1>
+<p class="lesson-intro">HTMLタグは箱に貼るラベルのようなものです。各タグがブラウザにコンテンツの種類を伝えます。見出しタグは「これはタイトル」、段落タグは「これはテキストブロック」と伝えます。ブラウザはこれらのラベルを使って適切に表示します。</p>
 
-<h2 id="flexbox"><a class="heading-anchor" href="#flexbox">Flexbox</a></h2>
-<p>Flexboxは一度に一方向で動作します。コンテナに<code>display: flex</code>を設定し、子要素の配置と余白の配分を制御します。</p>
-<pre><code>.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-}
+<h2 id="見出しとテキスト"><a class="heading-anchor" href="#見出しとテキスト">見出しとテキスト</a></h2>
+<p>HTMLには<code>&lt;h1&gt;</code>(最重要)から<code>&lt;h6&gt;</code>(最小)まで6段階の見出しがあります。段落には<code>&lt;p&gt;</code>タグを使います。</p>
+<pre><code>&lt;h1&gt;Main Title&lt;/h1&gt;
+&lt;h2&gt;Section Title&lt;/h2&gt;
+&lt;h3&gt;Subsection&lt;/h3&gt;
+&lt;p&gt;A paragraph of text goes here.&lt;/p&gt;</code></pre>
 
-.nav-item {
-    flex: 1;
-}</code></pre>
+<h2 id="リンクと画像"><a class="heading-anchor" href="#リンクと画像">リンクと画像</a></h2>
+<p>アンカータグ<code>&lt;a&gt;</code>はクリック可能なリンクを作成します。画像タグ<code>&lt;img&gt;</code>は写真を埋め込みます。imgは自己閉じタグです。</p>
+<pre><code>&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;
+&lt;img src="photo.jpg" alt="A description"&gt;</code></pre>
 
-<h2 id="css-grid"><a class="heading-anchor" href="#css-grid">CSS Grid</a></h2>
-<p>Gridは二方向を同時に扱います。行と列を定義し、グリッドセルにアイテムを配置します。</p>
-<pre><code>.layout {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    grid-template-rows: auto 1fr auto;
-    gap: 1rem;
-    min-height: 100vh;
-}</code></pre>
-
-<h2 id="レスポンシブデザイン"><a class="heading-anchor" href="#レスポンシブデザイン">レスポンシブデザイン</a></h2>
-<p>メディアクエリで画面サイズに応じた異なるスタイルを適用できます。モバイルファーストとは小さい画面用の基本スタイルを書き、大きい画面用に複雑さを加えるアプローチです。</p>
-<pre><code>@media (min-width: 768px) {
-    .layout { grid-template-columns: 250px 1fr; }
-}</code></pre>
+<h2 id="リスト"><a class="heading-anchor" href="#リスト">リスト</a></h2>
+<p>順序なしリストは<code>&lt;ul&gt;</code>と<code>&lt;li&gt;</code>を使います(箇条書き)。順序付きリストは<code>&lt;ol&gt;</code>を使います(番号付き)。</p>
+<pre><code>&lt;ul&gt;
+    &lt;li&gt;First item&lt;/li&gt;
+    &lt;li&gt;Second item&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 
 <div class="mermaid">
-flowchart TB
-    subgraph Flexbox
-        direction LR
-        F1[Item] --- F2[Item] --- F3[Item]
-    end
-    subgraph Grid
-        G1[Header] --- G2[Header]
-        G3[Sidebar] --- G4[Main]
-        G5[Footer] --- G6[Footer]
-    end
+graph TD
+    A[html] --> B[head]
+    A --> C[body]
+    B --> D[title]
+    C --> E[h1]
+    C --> F[p]
+    C --> G[ul]
+    G --> H[li]
+    G --> I[li]
+    C --> J[a]
+    C --> K[img]
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>Flexboxは一次元レイアウト向け(行または列)</li>
-<li>Gridは二次元レイアウト向け(行と列を同時に)</li>
-<li>メディアクエリで画面サイズに適応するレスポンシブデザインを実現</li>
-<li>モバイルファースト: 小さく始めて、大きい画面向けに拡張する</li>
+<li>見出しh1-h6はコンテンツの階層を作ります。順番に使いましょう</li>
+<li>リンクはaタグとhref属性でリンク先URLを指定します</li>
+<li>画像はimgタグとsrc属性、alt属性を使います</li>
+<li>リストは2種類: ulは箇条書き、olは番号付き</li>
 </ul>
 </div>
 

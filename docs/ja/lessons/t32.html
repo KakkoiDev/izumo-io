@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Web Components I - KakkoiSchool</title>
+  <title>Next.js: データとAPI - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -42,102 +42,97 @@
       <nav class="lesson-breadcrumb">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">
-          <a href="t29.html">前へ</a>
+          <a href="t31.html">前へ</a>
           <a href="t33.html">次へ</a>
         </div>
       </nav>
       
-<h1 id="t32-web-components-i-カスタム要素とshadow-dom"><a class="heading-anchor" href="#t32-web-components-i-カスタム要素とshadow-dom">T32: Web Components I - カスタム要素とShadow DOM</a></h1>
-<p class="lesson-intro">もし自分のHTMLタグを発明できたら? <code>&lt;user-card&gt;</code>、<code>&lt;rating-stars&gt;</code>、<code>&lt;search-box&gt;</code>。それがWeb Componentsです。フレームワークもビルドも無しで再利用可能なUIのレゴブロックをブラウザネイティブに作る方法。今日の2つの材料: カスタム要素がタグを定義し、Shadow DOMが中身を密閉して外に漏れないようにします。</p>
+<h1 id="t32-next-jsのデータとapi"><a class="heading-anchor" href="#t32-next-jsのデータとapi">T32: Next.jsのデータとAPI</a></h1>
+<p class="lesson-intro">サーバーコンポーネントのデータ取得は、ウェイターを往復させる代わりにシェフが直接パントリーに行くようなものです。useEffectもローディングスピナーも不要です。コンポーネント自体がasyncで、必要なデータを取得し、サーバーで完全なHTMLをレンダリングします。</p>
 
-<h2 id="カスタム要素"><a class="heading-anchor" href="#カスタム要素">カスタム要素</a></h2>
-<p>カスタム要素は<code>HTMLElement</code>を継承したクラスで、ブラウザにタグ名で登録します。タグ名には<em>必ず</em>ハイフンが必要で、これによりブラウザは組み込みタグと区別します。登録はページ上で永久的です。</p>
-<pre><code>class GreetingBox extends HTMLElement {
-    constructor() {
-        super();
-        this.textContent = "Hello from a custom element!";
-    }
+<h2 id="サーバーコンポーネントでのデータ取得"><a class="heading-anchor" href="#サーバーコンポーネントでのデータ取得">サーバーコンポーネントでのデータ取得</a></h2>
+<p>サーバーコンポーネントはasync関数にできます。コンポーネント本体で直接データをawaitします。useEffectもローディングステート用のuseStateも不要で、HTMLは完全にレンダリングされた状態で届きます。</p>
+<pre><code>// app/menu/page.tsx - Server component (default)
+interface MenuItem {
+    id: number;
+    name: string;
+    price: number;
 }
 
-customElements.define("greeting-box", GreetingBox);</code></pre>
-<p>これでこのタグがHTML内のどこでも使えます:</p>
-<pre><code>&lt;!-- In any page --&gt;
-&lt;greeting-box&gt;&lt;/greeting-box&gt;</code></pre>
+export default async function MenuPage() {
+    const res = await fetch("https://api.example.com/menu", {
+        cache: "no-store",  // Always get fresh data
+    });
+    const items: MenuItem[] = await res.json();
 
-<h2 id="属性を読む"><a class="heading-anchor" href="#属性を読む">属性を読む</a></h2>
-<p>良いカスタム要素は自分の属性を読んで自己設定します。組み込み要素もそうです: <code>&lt;img src="..."&gt;</code>、<code>&lt;a href="..."&gt;</code>。あなたの要素も同様にすべきです。</p>
-<pre><code>class GreetingBox extends HTMLElement {
-    connectedCallback() {
-        const name = this.getAttribute("name") || "friend";
-        this.textContent = `Hello, ${name}!`;
-    }
+    return (
+        &lt;main&gt;
+            &lt;h1&gt;Menu&lt;/h1&gt;
+            &lt;ul&gt;
+                {items.map(item =&gt; (
+                    &lt;li key={item.id}&gt;
+                        {item.name} - ${item.price}
+                    &lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+        &lt;/main&gt;
+    );
+}</code></pre>
+
+<h2 id="apiルート"><a class="heading-anchor" href="#apiルート">APIルート</a></h2>
+<p>Next.jsのAPIルートは<code>route.ts</code>ファイルに記述します。GET、POST、その他のHTTPメソッドを名前付きエクスポートとして処理します。T17のExpressルートと比較してみてください。同じ概念で、構文が異なります。</p>
+<pre><code>// app/api/menu/route.ts
+import { NextResponse } from "next/server";
+
+const menu = [
+    { id: 1, name: "Tonkotsu Ramen", price: 850 },
+    { id: 2, name: "Gyoza", price: 400 },
+];
+
+export async function GET() {
+    return NextResponse.json(menu);
 }
-customElements.define("greeting-box", GreetingBox);
 
-// &lt;greeting-box name="Alice"&gt;&lt;/greeting-box&gt;</code></pre>
+export async function POST(request: Request) {
+    const body = await request.json();
+    const newItem = { id: menu.length + 1, ...body };
+    menu.push(newItem);
+    return NextResponse.json(newItem, { status: 201 });
+}</code></pre>
 
-<h2 id="shadow-dom-密閉された内部"><a class="heading-anchor" href="#shadow-dom-密閉された内部">Shadow DOM: 密閉された内部</a></h2>
-<p>Shadow DOMがないと、コンポーネントのHTMLとCSSはグローバルページに住みます。どこか別の場所の<code>h2 { color: red }</code>があなたの設計したウィジェットを赤く塗りかねません。Shadow DOMは要素にプライベートなツリーをアタッチします。外のスタイルは中に届かず、中のスタイルは外に漏れません。</p>
-<pre><code>class UserCard extends HTMLElement {
-    connectedCallback() {
-        const root = this.attachShadow({ mode: "open" });
-        const name = this.getAttribute("name") || "Anonymous";
-        root.innerHTML = `
-            &lt;style&gt;
-                :host { display: inline-block; padding: 1rem;
-                       border: 1px solid #ddd; border-radius: 8px; }
-                h2 { margin: 0; font-size: 1rem; color: #333; }
-                p  { margin: 0.25rem 0 0; color: #666; }
-            &lt;/style&gt;
-            &lt;h2&gt;${name}&lt;/h2&gt;
-            &lt;p&gt;Welcome back.&lt;/p&gt;
-        `;
-    }
-}
-customElements.define("user-card", UserCard);</code></pre>
+<h2 id="全体の組み立て"><a class="heading-anchor" href="#全体の組み立て">全体の組み立て</a></h2>
+<p>典型的なNext.jsページはサーバーでデータを取得し、HTMLをレンダリングしてブラウザに送信します。クライアントコンポーネントはアイテムの追加やフォーム送信などのインタラクティブ機能を処理し、必要に応じてAPIルートを呼び出します。</p>
 
 <div class="mermaid">
-graph TD
-    Page[Light DOM - the page]
-    Tag["&lt;user-card name='Alice'&gt;"]
-    Shadow[Shadow DOM root]
-    H[h2: Alice]
-    P[p: Welcome back.]
-    Style[scoped &lt;style&gt;]
-    Page --> Tag
-    Tag -.attachShadow.-> Shadow
-    Shadow --> Style
-    Shadow --> H
-    Shadow --> P
+sequenceDiagram
+    participant Browser
+    participant Server as Next.js Server
+    participant DB as Database
+    Browser->>Server: Page request
+    Server->>DB: Query data
+    DB-->>Server: Results
+    Server-->>Browser: Rendered HTML
+    Note over Browser: Page visible immediately
+    Browser->>Server: Client API call (POST)
+    Server->>DB: Insert data
+    DB-->>Server: Confirmation
+    Server-->>Browser: JSON response
 </div>
-
-<h2 id="hostと-part"><a class="heading-anchor" href="#hostと-part">:hostと::part</a></h2>
-<p>シャドウツリー内では、<code>:host</code>セレクタが要素自身を外から見るスタイルを当てます。特定のパーツを外からスタイリングさせたい場合は<code>part="..."</code>で公開し、利用側は<code>::part()</code>で指定します。</p>
-<pre><code>&lt;style&gt;
-    :host { display: block; }
-    :host([featured]) { border-color: gold; }
-    button { cursor: pointer; }
-&lt;/style&gt;
-&lt;button part="action"&gt;Click me&lt;/button&gt;
-
-/* In the outer page CSS */
-user-card::part(action) { background: tomato; color: white; }</code></pre>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>HTMLElementを継承し、customElements.define("my-tag", Class)で登録。タグにはハイフンが必須</li>
-<li>getAttributeで属性を読み、HTMLから要素を設定する</li>
-<li>Shadow DOMは内部のマークアップとスタイルをページの他の部分から密閉する</li>
-<li>:hostで要素自体をスタイリング、::partで外部CSSに公開する</li>
-<li>Web Componentsは任意のフレームワークで、またはフレームワーク無しで動く。プラットフォームネイティブ</li>
+<li>サーバーコンポーネントはasyncにでき、useEffectやローディングステートなしでデータを直接取得する</li>
+<li>APIルートはroute.tsファイルで名前付きエクスポート(GET, POST)を使い、クリーンなエンドポイント定義ができる</li>
+<li>サーバーレンダリングされたページは完全に構築された状態で届き、初期読み込みのパフォーマンスが向上する</li>
+<li>クライアントサイドのAPI呼び出しはハイドレーション後にミューテーションとインタラクティブ機能を処理する</li>
 </ul>
 </div>
 
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">
-          <a href="t29.html">前へ</a>
+          <a href="t31.html">前へ</a>
           <a href="t33.html">次へ</a>
         </div>
       </nav>

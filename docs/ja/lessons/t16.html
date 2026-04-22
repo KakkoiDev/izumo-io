@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Node.jsサーバー - KakkoiSchool</title>
+  <title>動的サイト: ルーティング - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -42,67 +42,66 @@
       <nav class="lesson-breadcrumb">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">
-          <a href="t31.html">前へ</a>
+          <a href="t15.html">前へ</a>
           <a href="t17.html">次へ</a>
         </div>
       </nav>
       
-<h1 id="t16-node-jsサーバー"><a class="heading-anchor" href="#t16-node-jsサーバー">T16: Node.jsサーバー</a></h1>
-<p class="lesson-intro">これまでHTMLファイルをブラウザで直接開いていました。Webサーバーはリクエストを待ち受けてレスポンスを返すプログラムです。Node.jsならブラウザと同じJavaScriptでサーバーを書けます。チーム全員と同じ言語を話す受付を雇うようなものです。</p>
+<h1 id="t16-動的サイト-ルーティング"><a class="heading-anchor" href="#t16-動的サイト-ルーティング">T16: 動的サイト - ルーティング</a></h1>
+<p class="lesson-intro">従来のWebサイトでは各ページが別々のHTMLファイルです。シングルページアプリケーション(SPA)は一度読み込んでコンテンツを動的に入れ替えます。ハッシュルーティングはURLフラグメント(#の後の部分)でどのビューを表示するか決定します。新しい本を取りに行かずにページをめくるようなものです。</p>
 
-<h2 id="httpサーバーの作成"><a class="heading-anchor" href="#httpサーバーの作成">HTTPサーバーの作成</a></h2>
-<pre><code>const http = require("http");
-const fs = require("fs");
-const path = require("path");
+<h2 id="ハッシュベースルーティング"><a class="heading-anchor" href="#ハッシュベースルーティング">ハッシュベースルーティング</a></h2>
+<p>URLのハッシュ部分(#の後)はページリロードを引き起こしません。ハッシュの変更をリッスンして異なるコンテンツを描画できます。</p>
+<pre><code>const routes = {
+    "#/": renderHome,
+    "#/about": renderAbout,
+    "#/contact": renderContact
+};
 
-const server = http.createServer((req, res) =&gt; {
-    const filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
-    const ext = path.extname(filePath);
-    const contentTypes = {
-        ".html": "text/html",
-        ".css": "text/css",
-        ".js": "text/javascript"
-    };
+function router() {
+    const hash = window.location.hash || "#/";
+    const renderFn = routes[hash] || renderNotFound;
+    renderFn();
+}
 
-    fs.readFile(filePath, (err, content) =&gt; {
-        if (err) {
-            res.writeHead(404);
-            res.end("Not Found");
-            return;
-        }
-        res.writeHead(200, { "Content-Type": contentTypes[ext] || "text/plain" });
-        res.end(content);
-    });
-});
+window.addEventListener("hashchange", router);
+window.addEventListener("load", router);</code></pre>
 
-server.listen(3000, () =&gt; console.log("Server on http://localhost:3000"));</code></pre>
-
-<h2 id="静的ファイルの配信"><a class="heading-anchor" href="#静的ファイルの配信">静的ファイルの配信</a></h2>
-<p>サーバーは"public"フォルダからファイルを読み取り、正しいContent-Typeヘッダー付きでブラウザに送信します。</p>
+<h2 id="動的コンテンツ描画"><a class="heading-anchor" href="#動的コンテンツ描画">動的コンテンツ描画</a></h2>
+<pre><code>function renderHome() {
+    document.querySelector("#app").innerHTML = `
+        &lt;h1&gt;Home&lt;/h1&gt;
+        &lt;p&gt;Welcome to the site.&lt;/p&gt;
+        &lt;a href="#/about"&gt;About Us&lt;/a&gt;
+    `;
+}</code></pre>
 
 <div class="mermaid">
-flowchart LR
-    A[Browser] -->|HTTP Request| B[Node.js Server]
-    B -->|Read file| C[File System]
-    C -->|File contents| B
-    B -->|HTTP Response| A
-    B -->|404| D[Not Found]
+flowchart TD
+    A[User clicks link] --> B[URL hash changes]
+    B --> C[hashchange event fires]
+    C --> D{Match route?}
+    D -->|Yes| E[Render matched view]
+    D -->|No| F[Render 404 page]
+    E --> G[Update #app content]
+    F --> G
+    G --> H[Page stays loaded]
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>Node.jsはブラウザの外でサーバー上のJavaScriptを実行します</li>
-<li>http.createServerでリクエストとレスポンスを処理するサーバーを作成します</li>
-<li>Content-Typeヘッダーがブラウザにレスポンスの解釈方法を伝えます</li>
-<li>静的ファイル配信はURLパスをディスク上のファイルにマッピングします</li>
+<li>SPAは1つのHTMLファイルを読み込み、JavaScriptでコンテンツを動的に入れ替えます</li>
+<li>ハッシュルーティングはURLフラグメントでどのビューを表示するか決定します</li>
+<li>hashchangeイベントはURLハッシュが変わるたびに発火します</li>
+<li>ルートマップオブジェクトがハッシュパターンと描画関数を接続します</li>
 </ul>
 </div>
 
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">
-          <a href="t31.html">前へ</a>
+          <a href="t15.html">前へ</a>
           <a href="t17.html">次へ</a>
         </div>
       </nav>

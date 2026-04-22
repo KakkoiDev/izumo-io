@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>データ構造 - KakkoiSchool</title>
+  <title>JavaScript入門 - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,56 +47,54 @@
         </div>
       </nav>
       
-<h1 id="t10-データ構造"><a class="heading-anchor" href="#t10-データ構造">T10: データ構造</a></h1>
-<p class="lesson-intro">データ構造は情報を整理するための入れ物です。配列は順序が重要な番号付きリストです。オブジェクトは名前で情報を検索するラベル付きファイルキャビネットです。適切な構造を選ぶことでコードがシンプルかつ高速になります。</p>
+<h1 id="t10-javascript入門"><a class="heading-anchor" href="#t10-javascript入門">T10: JavaScript入門</a></h1>
+<p class="lesson-intro">JavaScriptはWebのプログラミング言語です。HTMLが構造、CSSがスタイルなら、JavaScriptは振る舞いです。ページをインタラクティブにし、クリックに応答し、データを処理し、コンテンツを動的に更新します。Webページに考えることを教えるようなものです。</p>
 
-<h2 id="配列"><a class="heading-anchor" href="#配列">配列</a></h2>
-<p>配列は順序付きコレクションを格納します。インデックス(0から開始)でアイテムにアクセスします。配列にはデータ変換のための強力な組み込みメソッドがあります。</p>
-<pre><code>const fruits = ["apple", "banana", "cherry"];
-console.log(fruits[0]); // "apple"
-fruits.push("date");
+<h2 id="コンソールと変数"><a class="heading-anchor" href="#コンソールと変数">コンソールと変数</a></h2>
+<p>ブラウザコンソールは練習場です。<code>console.log()</code>で値を表示しデバッグします。変数はデータを保存します。</p>
+<pre><code>// Variables
+let name = "Alice";
+const age = 25;
+let isStudent = true;
 
-// Transform with map, filter, reduce
-const prices = [10, 20, 30, 40];
-const expensive = prices.filter(p =&gt; p &gt; 15);
-const doubled = prices.map(p =&gt; p * 2);
-const total = prices.reduce((sum, p) =&gt; sum + p, 0);</code></pre>
+console.log("Hello, " + name);
+console.log("Age:", age);</code></pre>
 
-<h2 id="オブジェクト"><a class="heading-anchor" href="#オブジェクト">オブジェクト</a></h2>
-<p>オブジェクトはキーと値のペアを格納します。キーは文字列(またはシンボル)、値は何でも可能です。</p>
-<pre><code>const user = {
-    name: "Alice",
-    age: 25,
-    skills: ["HTML", "CSS", "JS"],
-    greet() {
-        return "Hi, I am " + this.name;
-    }
-};
-console.log(user.name);
-console.log(user["age"]);</code></pre>
+<h2 id="データ型"><a class="heading-anchor" href="#データ型">データ型</a></h2>
+<p>JavaScriptにはいくつかの基本型があります。文字列(テキスト)、数値(計算)、真偽値(true/false)、null(意図的な空)、undefined(未設定)です。</p>
 
-<h2 id="ループ"><a class="heading-anchor" href="#ループ">ループ</a></h2>
-<p>配列は<code>for...of</code>で、オブジェクトは<code>for...in</code>や<code>Object.entries()</code>で反復処理します。</p>
-<pre><code>for (const fruit of fruits) { console.log(fruit); }
-for (const [key, value] of Object.entries(user)) { console.log(key, value); }</code></pre>
+<h2 id="関数"><a class="heading-anchor" href="#関数">関数</a></h2>
+<p>関数は再利用可能なコードブロックです。一度定義して何度でも呼び出せます。</p>
+<pre><code>function greet(name) {
+    return "Hello, " + name + "!";
+}
+
+const add = (a, b) =&gt; a + b;
+
+console.log(greet("Bob"));
+console.log(add(3, 4));</code></pre>
 
 <div class="mermaid">
-graph LR
-    subgraph Array
-        A0["[0] apple"] --> A1["[1] banana"] --> A2["[2] cherry"]
-    end
-    subgraph Object
-        O1["name: Alice"] --- O2["age: 25"] --- O3["skills: [...]"]
-    end
+graph TD
+    A[JavaScript Types] --> B[String]
+    A --> C[Number]
+    A --> D[Boolean]
+    A --> E[null]
+    A --> F[undefined]
+    A --> G[Object]
+    A --> H[Array]
+    B --> I["'hello'"]
+    C --> J["42, 3.14"]
+    D --> K["true, false"]
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>配列は0から始まるインデックスでアクセスする順序付きリストです</li>
-<li>オブジェクトは文字列キーでアクセスするキーバリューストアです</li>
-<li>map、filter、reduceで配列を変更せずに変換できます</li>
-<li>for...ofは配列の値を、for...inはオブジェクトのキーを反復処理します</li>
+<li>変更する変数にはlet、変わらない値にはconstを使います</li>
+<li>console.log()はデバッグの最良の味方です</li>
+<li>関数は再利用可能なロジックをカプセル化します</li>
+<li>アロー関数はシンプルな関数の短い構文を提供します</li>
 </ul>
 </div>
 

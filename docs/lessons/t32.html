@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Web Components I - KakkoiSchool</title>
+  <title>Next.js: Data & API - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -42,102 +42,97 @@
       <nav class="lesson-breadcrumb">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">
-          <a href="t29.html">Previous</a>
+          <a href="t31.html">Previous</a>
           <a href="t33.html">Next</a>
         </div>
       </nav>
       
-<h1 id="t32-web-components-i-custom-elements-amp-shadow-dom"><a class="heading-anchor" href="#t32-web-components-i-custom-elements-amp-shadow-dom">T32: Web Components I - Custom Elements &amp; Shadow DOM</a></h1>
-<p class="lesson-intro">What if you could invent your own HTML tag? <code>&lt;user-card&gt;</code>, <code>&lt;rating-stars&gt;</code>, <code>&lt;search-box&gt;</code>. That is Web Components: a browser-native way to build reusable UI Lego bricks with no framework, no build step. Two ingredients today: Custom Elements define the tag, Shadow DOM seals its insides so nothing leaks in or out.</p>
+<h1 id="t32-next-js-data-amp-api"><a class="heading-anchor" href="#t32-next-js-data-amp-api">T32: Next.js Data &amp; API</a></h1>
+<p class="lesson-intro">Server components fetch data like a chef going directly to the pantry instead of sending a waiter back and forth. No useEffect, no loading spinners for initial data - the component itself is async, fetches what it needs, and renders the complete HTML on the server.</p>
 
-<h2 id="custom-elements"><a class="heading-anchor" href="#custom-elements">Custom Elements</a></h2>
-<p>A custom element is a class that extends <code>HTMLElement</code>, registered with the browser under a tag name. The tag name <em>must</em> contain a hyphen so the browser can tell it apart from built-ins. Registration is permanent for the page.</p>
-<pre><code>class GreetingBox extends HTMLElement {
-    constructor() {
-        super();
-        this.textContent = "Hello from a custom element!";
-    }
+<h2 id="fetching-data-in-server-components"><a class="heading-anchor" href="#fetching-data-in-server-components">Fetching Data in Server Components</a></h2>
+<p>Server components can be async functions. You await data directly in the component body. No useEffect, no useState for loading states - the HTML arrives fully rendered.</p>
+<pre><code>// app/menu/page.tsx - Server component (default)
+interface MenuItem {
+    id: number;
+    name: string;
+    price: number;
 }
 
-customElements.define("greeting-box", GreetingBox);</code></pre>
-<p>Now this tag works anywhere in your HTML:</p>
-<pre><code>&lt;!-- In any page --&gt;
-&lt;greeting-box&gt;&lt;/greeting-box&gt;</code></pre>
+export default async function MenuPage() {
+    const res = await fetch("https://api.example.com/menu", {
+        cache: "no-store",  // Always get fresh data
+    });
+    const items: MenuItem[] = await res.json();
 
-<h2 id="reading-attributes"><a class="heading-anchor" href="#reading-attributes">Reading Attributes</a></h2>
-<p>A good custom element reads its own attributes to configure itself. Built-in elements do this: <code>&lt;img src="..."&gt;</code>, <code>&lt;a href="..."&gt;</code>. Your elements should too.</p>
-<pre><code>class GreetingBox extends HTMLElement {
-    connectedCallback() {
-        const name = this.getAttribute("name") || "friend";
-        this.textContent = `Hello, ${name}!`;
-    }
+    return (
+        &lt;main&gt;
+            &lt;h1&gt;Menu&lt;/h1&gt;
+            &lt;ul&gt;
+                {items.map(item =&gt; (
+                    &lt;li key={item.id}&gt;
+                        {item.name} - ${item.price}
+                    &lt;/li&gt;
+                ))}
+            &lt;/ul&gt;
+        &lt;/main&gt;
+    );
+}</code></pre>
+
+<h2 id="api-routes"><a class="heading-anchor" href="#api-routes">API Routes</a></h2>
+<p>Next.js API routes live in <code>route.ts</code> files. They handle GET, POST, and other HTTP methods as named exports. Compare this to the Express routes from T22 - same concept, different syntax.</p>
+<pre><code>// app/api/menu/route.ts
+import { NextResponse } from "next/server";
+
+const menu = [
+    { id: 1, name: "Tonkotsu Ramen", price: 850 },
+    { id: 2, name: "Gyoza", price: 400 },
+];
+
+export async function GET() {
+    return NextResponse.json(menu);
 }
-customElements.define("greeting-box", GreetingBox);
 
-// &lt;greeting-box name="Alice"&gt;&lt;/greeting-box&gt;</code></pre>
+export async function POST(request: Request) {
+    const body = await request.json();
+    const newItem = { id: menu.length + 1, ...body };
+    menu.push(newItem);
+    return NextResponse.json(newItem, { status: 201 });
+}</code></pre>
 
-<h2 id="shadow-dom-the-sealed-interior"><a class="heading-anchor" href="#shadow-dom-the-sealed-interior">Shadow DOM: The Sealed Interior</a></h2>
-<p>Without Shadow DOM, your component's HTML and CSS live in the global page. A stray <code>h2 { color: red }</code> somewhere else could paint your carefully designed widget red. Shadow DOM attaches a private tree to your element. Outside styles cannot reach in, inside styles cannot leak out.</p>
-<pre><code>class UserCard extends HTMLElement {
-    connectedCallback() {
-        const root = this.attachShadow({ mode: "open" });
-        const name = this.getAttribute("name") || "Anonymous";
-        root.innerHTML = `
-            &lt;style&gt;
-                :host { display: inline-block; padding: 1rem;
-                       border: 1px solid #ddd; border-radius: 8px; }
-                h2 { margin: 0; font-size: 1rem; color: #333; }
-                p  { margin: 0.25rem 0 0; color: #666; }
-            &lt;/style&gt;
-            &lt;h2&gt;${name}&lt;/h2&gt;
-            &lt;p&gt;Welcome back.&lt;/p&gt;
-        `;
-    }
-}
-customElements.define("user-card", UserCard);</code></pre>
+<h2 id="putting-it-all-together"><a class="heading-anchor" href="#putting-it-all-together">Putting It All Together</a></h2>
+<p>A typical Next.js page fetches data on the server, renders HTML, and sends it to the browser. Client components handle interactivity like adding items or submitting forms, calling API routes as needed.</p>
 
 <div class="mermaid">
-graph TD
-    Page[Light DOM - the page]
-    Tag["&lt;user-card name='Alice'&gt;"]
-    Shadow[Shadow DOM root]
-    H[h2: Alice]
-    P[p: Welcome back.]
-    Style[scoped &lt;style&gt;]
-    Page --> Tag
-    Tag -.attachShadow.-> Shadow
-    Shadow --> Style
-    Shadow --> H
-    Shadow --> P
+sequenceDiagram
+    participant Browser
+    participant Server as Next.js Server
+    participant DB as Database
+    Browser->>Server: Page request
+    Server->>DB: Query data
+    DB-->>Server: Results
+    Server-->>Browser: Rendered HTML
+    Note over Browser: Page visible immediately
+    Browser->>Server: Client API call (POST)
+    Server->>DB: Insert data
+    DB-->>Server: Confirmation
+    Server-->>Browser: JSON response
 </div>
-
-<h2 id="host-and-part"><a class="heading-anchor" href="#host-and-part">:host and ::part</a></h2>
-<p>Inside the shadow tree, the <code>:host</code> selector styles the custom element itself from the outside looking in. If you want to allow specific parts to be styled from outside, expose them with <code>part="..."</code> and consumers style via <code>::part()</code>.</p>
-<pre><code>&lt;style&gt;
-    :host { display: block; }
-    :host([featured]) { border-color: gold; }
-    button { cursor: pointer; }
-&lt;/style&gt;
-&lt;button part="action"&gt;Click me&lt;/button&gt;
-
-/* In the outer page CSS */
-user-card::part(action) { background: tomato; color: white; }</code></pre>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Extend HTMLElement, register with customElements.define("my-tag", Class) - tag must have a hyphen</li>
-<li>Read attributes with getAttribute to configure the element from HTML</li>
-<li>Shadow DOM seals your internal markup and styles from the rest of the page</li>
-<li>Use :host to style the element itself, ::part to expose styling hooks to outside CSS</li>
-<li>Web Components work in any framework or none - they are platform-native</li>
+<li>Server components can be async - fetch data directly without useEffect or loading state</li>
+<li>API routes use named exports (GET, POST) in route.ts files for clean endpoint definitions</li>
+<li>Server-rendered pages arrive fully built, improving initial load performance</li>
+<li>Client-side API calls handle mutations and interactive features after hydration</li>
 </ul>
 </div>
 
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">
-          <a href="t29.html">Previous</a>
+          <a href="t31.html">Previous</a>
           <a href="t33.html">Next</a>
         </div>
       </nav>

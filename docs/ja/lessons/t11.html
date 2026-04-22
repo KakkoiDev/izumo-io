@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>データの永続化 - KakkoiSchool</title>
+  <title>DOM操作 - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,53 +47,50 @@
         </div>
       </nav>
       
-<h1 id="t11-データの永続化"><a class="heading-anchor" href="#t11-データの永続化">T11: データの永続化</a></h1>
-<p class="lesson-intro">Webページは閉じると全てを忘れます。localStorageはブラウザがあなたのWebサイト用に保持するノートのようなものです。タブを閉じてもデータは残ります。JSONはJavaScriptオブジェクトを保存可能な文字列に変換し、元に戻すための共通形式です。</p>
+<h1 id="t11-dom操作"><a class="heading-anchor" href="#t11-dom操作">T11: DOM操作</a></h1>
+<p class="lesson-intro">DOM(ドキュメントオブジェクトモデル)はHTMLページのブラウザ内でのライブ表現です。積み木で作った木のようなもので、JavaScriptでユーザーが見ている間にブロックを追加、削除、並べ替えできます。全ての要素はアクセスして変更できるノードです。</p>
 
-<h2 id="localstorage-api"><a class="heading-anchor" href="#localstorage-api">localStorage API</a></h2>
-<p>localStorageはキーバリューペアを文字列として格納します。ページのリロードやブラウザの再起動後も持続し、ドメインあたり約5MBの容量があります。</p>
-<pre><code>// Save data
-localStorage.setItem("username", "Alice");
+<h2 id="要素の選択"><a class="heading-anchor" href="#要素の選択">要素の選択</a></h2>
+<p>要素を変更するには、まず見つける必要があります。<code>querySelector</code>メソッドはCSSセレクタ構文で要素を取得します。</p>
+<pre><code>const title = document.querySelector("h1");
+const items = document.querySelectorAll(".item");
+const form = document.querySelector("#signup-form");</code></pre>
 
-// Read data
-const name = localStorage.getItem("username");
+<h2 id="要素の作成と変更"><a class="heading-anchor" href="#要素の作成と変更">要素の作成と変更</a></h2>
+<p><code>createElement</code>で新しい要素を作成し、内容を設定してページに追加します。</p>
+<pre><code>const card = document.createElement("div");
+card.className = "card";
+card.textContent = "New card content";
+document.querySelector(".container").appendChild(card);</code></pre>
 
-// Remove data
-localStorage.removeItem("username");
-
-// Clear all
-localStorage.clear();</code></pre>
-
-<h2 id="jsonの活用"><a class="heading-anchor" href="#jsonの活用">JSONの活用</a></h2>
-<p>localStorageは文字列のみ格納するため、<code>JSON.stringify()</code>でオブジェクトを保存し、<code>JSON.parse()</code>で読み戻します。</p>
-<pre><code>const tasks = [
-    { id: 1, text: "Learn HTML", done: true },
-    { id: 2, text: "Learn CSS", done: false }
-];
-
-// Save
-localStorage.setItem("tasks", JSON.stringify(tasks));
-
-// Load
-const saved = JSON.parse(localStorage.getItem("tasks") || "[]");</code></pre>
+<h2 id="イベント処理"><a class="heading-anchor" href="#イベント処理">イベント処理</a></h2>
+<p>イベントでページがユーザーの操作に応答します。クリック、ホバー、入力、それぞれがリッスンできるイベントを発火します。</p>
+<pre><code>const button = document.querySelector("#submit");
+button.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log("Button was clicked!");
+});</code></pre>
 
 <div class="mermaid">
-flowchart LR
-    A[JS Object] -->|JSON.stringify| B[JSON String]
-    B -->|setItem| C[localStorage]
-    C -->|getItem| D[JSON String]
-    D -->|JSON.parse| E[JS Object]
-    C -->|persists across| F[Page Reloads]
-    C -->|persists across| G[Browser Restart]
+graph TD
+    A[document] --> B[html]
+    B --> C[head]
+    B --> D[body]
+    D --> E[h1]
+    D --> F[div.container]
+    F --> G[p]
+    F --> H[button]
+    H -->|click event| I[Event Handler]
+    I -->|modifies| F
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>localStorageはページリロードやブラウザ再起動後もデータを保持します</li>
-<li>全ての値は文字列として格納されます。複雑なデータにはJSONを使います</li>
-<li>JSON.stringifyでオブジェクトを文字列に、JSON.parseで元に戻します</li>
-<li>localStorageはドメインあたり5MB制限があります。小さなデータ専用です</li>
+<li>querySelectorとquerySelectorAllはCSSセレクタ構文で要素を検索します</li>
+<li>createElementとappendChildで新しいDOMノードを動的に構築できます</li>
+<li>addEventListenerでユーザー操作とJavaScript関数を接続します</li>
+<li>デフォルトのブラウザ動作を止めたい時はevent.preventDefault()を使います</li>
 </ul>
 </div>
 

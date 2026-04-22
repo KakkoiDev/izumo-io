@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>フォームとダイアログ - KakkoiSchool</title>
+  <title>CSSの限界に挑む - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,60 +47,50 @@
         </div>
       </nav>
       
-<h1 id="t09-フォームとダイアログ"><a class="heading-anchor" href="#t09-フォームとダイアログ">T09: フォームとダイアログ</a></h1>
-<p class="lesson-intro">HTMLフォームはデータを収集しますが、JavaScriptがそれを検証・処理します。dialog要素はライブラリなしでネイティブモーダルウィンドウを提供します。この組み合わせでスムーズなデータ収集体験を作れます。書類を提出する前にチェックしてくれる賢い受付のようなものです。</p>
+<h1 id="t09-cssの限界に挑戦"><a class="heading-anchor" href="#t09-cssの限界に挑戦">T09: CSSの限界に挑戦</a></h1>
+<p class="lesson-intro">CSSは色を変えるだけではありません。トランジション、アニメーション、賢いセレクタで、JavaScriptなしにインタラクティブなコンポーネントを構築できます。絵筆が彫刻もできると気づくようなものです。</p>
 
-<h2 id="javascriptフォームバリデーション"><a class="heading-anchor" href="#javascriptフォームバリデーション">JavaScriptフォームバリデーション</a></h2>
-<p>HTMLには組み込みバリデーション(required, type)がありますが、JavaScriptはバリデーションロジックとカスタムエラーメッセージを完全に制御できます。</p>
-<pre><code>const form = document.querySelector("#myForm");
-form.addEventListener("submit", function(event) {
-    const email = form.querySelector("#email").value;
-    if (!email.includes("@")) {
-        event.preventDefault();
-        showError("Please enter a valid email address.");
-    }
-});
-
-function showError(message) {
-    const errorDiv = document.querySelector(".error");
-    errorDiv.textContent = message;
-    errorDiv.style.display = "block";
+<h2 id="トランジション"><a class="heading-anchor" href="#トランジション">トランジション</a></h2>
+<p>トランジションはプロパティの変化を滑らかにアニメーションします。どのプロパティを、どれくらいの時間で、どのイージングで変化させるかを指定します。</p>
+<pre><code>.button {
+    background: #3498db;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+.button:hover {
+    background: #2980b9;
+    transform: scale(1.05);
 }</code></pre>
 
-<h2 id="dialog要素"><a class="heading-anchor" href="#dialog要素">Dialog要素</a></h2>
-<p><code>&lt;dialog&gt;</code>要素はネイティブのモーダル/非モーダルダイアログを提供します。<code>showModal()</code>で背景付きモーダル、<code>show()</code>で非モーダルを表示します。</p>
-<pre><code>&lt;dialog id="confirm"&gt;
-    &lt;p&gt;Are you sure?&lt;/p&gt;
-    &lt;button id="yes"&gt;Yes&lt;/button&gt;
-    &lt;button id="no"&gt;No&lt;/button&gt;
-&lt;/dialog&gt;
+<h2 id="キーフレームアニメーション"><a class="heading-anchor" href="#キーフレームアニメーション">キーフレームアニメーション</a></h2>
+<p>より複雑な動きには、時間の異なるポイントでの状態を定義するキーフレームを使います。</p>
+<pre><code>@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.card { animation: fadeIn 0.5s ease-out; }</code></pre>
 
-&lt;script&gt;
-const dialog = document.querySelector("#confirm");
-dialog.showModal();
-dialog.querySelector("#no").addEventListener("click", () =&gt; dialog.close());
-&lt;/script&gt;</code></pre>
+<h2 id="純粋cssアコーディオン"><a class="heading-anchor" href="#純粋cssアコーディオン">純粋CSSアコーディオン</a></h2>
+<p><code>:target</code>擬似クラスでURLハッシュに基づいて表示を切り替え、JavaScriptなしのインタラクティブなコンポーネントを作成できます。</p>
+<pre><code>.panel { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
+.panel:target { max-height: 500px; }</code></pre>
 
 <div class="mermaid">
-flowchart TD
-    A[User submits form] --> B{JS Validation}
-    B -->|Invalid| C[Show error message]
-    C --> A
-    B -->|Valid| D{Needs confirmation?}
-    D -->|Yes| E[Open dialog]
-    E --> F{User confirms?}
-    F -->|Yes| G[Process data]
-    F -->|No| A
-    D -->|No| G
+stateDiagram-v2
+    [*] --> Default
+    Default --> Hover: mouse enter
+    Hover --> Default: mouse leave
+    Default --> Active: click
+    Active --> Animated: transition starts
+    Animated --> NewState: transition ends
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>JavaScriptバリデーションはHTML5組み込みバリデーション以上のカスタムロジックを提供します</li>
-<li>dialog要素は外部ライブラリなしでネイティブモーダルウィンドウを提供します</li>
-<li>モーダルにはshowModal()、非モーダルにはshow()を使います</li>
-<li>ユーザーに問題の修正方法を伝える明確なエラーメッセージを必ず提供しましょう</li>
+<li>トランジションは2つの状態間の変化を滑らかにアニメーションします</li>
+<li>キーフレームアニメーションで複数ステップの複雑な動きを実現できます</li>
+<li>:target擬似クラスでJavaScriptなしのインタラクティブパターンが可能です</li>
+<li>パフォーマンスを考慮し、transformとopacityをアニメーションしましょう</li>
 </ul>
 </div>
 

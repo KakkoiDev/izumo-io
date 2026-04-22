@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>React基礎 - KakkoiSchool</title>
+  <title>JSONデータベース - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,76 +47,70 @@
         </div>
       </nav>
       
-<h1 id="t23-reactの基礎"><a class="heading-anchor" href="#t23-reactの基礎">T23: Reactの基礎</a></h1>
-<p class="lesson-intro">Reactはコンポーネントという再利用可能なパーツからUIを構築します。コンポーネントはレゴブロックのようなもので、自分で定義するカスタムHTMLタグです。ブラウザに一つずつ変更を指示する代わりに、画面がどう見えるべきかを記述すれば、Reactが更新を処理します。</p>
+<h1 id="t23-jsonデータベース"><a class="heading-anchor" href="#t23-jsonデータベース">T23: JSONデータベース</a></h1>
+<p class="lesson-intro">本格的なデータベースを学ぶ前に、JSONファイルをシンプルなデータストアとして使えます。ファイルを読み取り、パースし、データを変更し、書き戻します。エントリを書いたり消したりするノートのようなものです。シンプルですが小さなアプリケーションには効果的です。</p>
 
-<h2 id="命令型から宣言型へ"><a class="heading-anchor" href="#命令型から宣言型へ">命令型から宣言型へ</a></h2>
-<p>素のJavaScriptでは、要素を手動で探して更新します。Reactはこれを逆転させます。望ましいUIの状態を宣言すれば、ReactがDOM更新を処理します。</p>
-<pre><code>// Vanilla JS - imperative: you manage every step
-const btn = document.getElementById("counter-btn");
-let count = 0;
-btn.addEventListener("click", () =&gt; {
-    count++;
-    btn.textContent = `Clicked ${count} times`;
-});
+<h2 id="db-jsonの読み書き"><a class="heading-anchor" href="#db-jsonの読み書き">db.jsonの読み書き</a></h2>
+<pre><code>const fs = require("fs");
+const DB_PATH = "./db.json";
 
-// React - declarative: describe the result, React updates the DOM
-function Counter() {
-    const [count, setCount] = React.useState(0);
-    return (
-        &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
-            Clicked {count} times
-        &lt;/button&gt;
-    );
-}</code></pre>
-
-<h2 id="コンポーネント-jsx-props"><a class="heading-anchor" href="#コンポーネント-jsx-props">コンポーネント、JSX、Props</a></h2>
-<p>コンポーネントはJSXを返す関数です。JSXはHTMLに似た構文ですがJavaScriptの中に存在します。Propsは親から子に渡される入力で、関数の引数のようなものです。</p>
-<pre><code>function MenuItem({ name, price }) {
-    return (
-        &lt;div className="menu-item"&gt;
-            &lt;span&gt;{name}&lt;/span&gt;
-            &lt;span&gt;${price}&lt;/span&gt;
-        &lt;/div&gt;
-    );
+function readDB() {
+    const raw = fs.readFileSync(DB_PATH, "utf-8");
+    return JSON.parse(raw);
 }
 
-// Rendering a list with .map() and keys
-function MenuList({ items }) {
-    return (
-        &lt;ul&gt;
-            {items.map(item =&gt; (
-                &lt;MenuItem key={item.id} name={item.name} price={item.price} /&gt;
-            ))}
-        &lt;/ul&gt;
-    );
+function writeDB(data) {
+    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
 }</code></pre>
 
-<h2 id="イベント処理"><a class="heading-anchor" href="#イベント処理">イベント処理</a></h2>
-<p>Reactは<code>onClick</code>や<code>onChange</code>のようなキャメルケースのイベントハンドラをJSX要素に直接使用します。ハンドラはブラウザ間で一貫して動作する合成イベントオブジェクトを受け取ります。</p>
+<h2 id="crud操作"><a class="heading-anchor" href="#crud操作">CRUD操作</a></h2>
+<pre><code>// Create
+function addUser(user) {
+    const db = readDB();
+    user.id = Date.now();
+    db.users.push(user);
+    writeDB(db);
+    return user;
+}
+
+// Read
+function getUsers() { return readDB().users; }
+
+// Update
+function updateUser(id, updates) {
+    const db = readDB();
+    const index = db.users.findIndex(u =&gt; u.id === id);
+    if (index === -1) return null;
+    db.users[index] = { ...db.users[index], ...updates };
+    writeDB(db);
+    return db.users[index];
+}
+
+// Delete
+function deleteUser(id) {
+    const db = readDB();
+    db.users = db.users.filter(u =&gt; u.id !== id);
+    writeDB(db);
+}</code></pre>
 
 <div class="mermaid">
-flowchart TD
-    A[App] --> B[Header]
-    A --> C[MenuList]
-    A --> D[Footer]
-    C --> E[MenuItem 1]
-    C --> F[MenuItem 2]
-    C --> G[MenuItem 3]
-    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
-    style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
-    style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
-    style F fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
-    style G fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+flowchart LR
+    subgraph CRUD
+        C[Create] -->|push + write| DB[(db.json)]
+        R[Read] -->|parse| DB
+        U[Update] -->|find + modify + write| DB
+        D[Delete] -->|filter + write| DB
+    end
+    API[API Endpoint] --> CRUD
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>コンポーネントはJSXを返す再利用可能な関数で、カスタムHTMLタグのようなもの</li>
-<li>Reactは宣言型 - UIがどう見えるべきかを記述し、更新方法は記述しない</li>
-<li>Propsは親から子コンポーネントにデータを渡し、設定可能にする</li>
-<li>.map()でリストをレンダリングする際は必ず一意のkeyプロパティを指定する</li>
+<li>JSONファイルは小さなプロジェクトのシンプルなデータベースとして機能します</li>
+<li>CRUDはCreate、Read、Update、Deleteの4つの基本データ操作の略です</li>
+<li>常にファイル全体を読み取り、メモリ上で変更してから書き戻します</li>
+<li>JSONデータベースはスケールしません。本番では本格的なDBを使いましょう</li>
 </ul>
 </div>
 

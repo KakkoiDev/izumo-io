@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Reactの状態とエフェクト - KakkoiSchool</title>
+  <title>SQLite - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,70 +47,70 @@
         </div>
       </nav>
       
-<h1 id="t24-reactのステートとエフェクト"><a class="heading-anchor" href="#t24-reactのステートとエフェクト">T24: Reactのステートとエフェクト</a></h1>
-<p class="lesson-intro">ステートはコンポーネントの個人的なノートです。レンダリング間で保持され、更新時に再レンダリングを引き起こすプライベートデータです。エフェクトはコンポーネントのレンダリング後に鳴る目覚まし時計のようなもので、APIやタイマーなどの外部システムと同期できます。</p>
+<h1 id="t24-sqlite"><a class="heading-anchor" href="#t24-sqlite">T24: SQLite</a></h1>
+<p class="lesson-intro">SQLiteは単一ファイルにデータを格納する本格的なデータベースエンジンです。SQL(構造化問合せ言語)はそれと対話する言語です。JSONファイルがノートなら、SQLiteはラベル、カテゴリ、相互参照を備えた適切なファイルキャビネットです。同時アクセスとデータ整合性を自動的に処理します。</p>
 
-<h2 id="usestate-コンポーネントのメモリ"><a class="heading-anchor" href="#usestate-コンポーネントのメモリ">useState: コンポーネントのメモリ</a></h2>
-<p><code>useState</code>フックはコンポーネントに独自のメモリを与えます。現在の値とセッター関数を返します。セッターが呼ばれると、Reactは新しい値でコンポーネントを再レンダリングします。</p>
-<pre><code>import { useState } from "react";
+<h2 id="テーブルの作成"><a class="heading-anchor" href="#テーブルの作成">テーブルの作成</a></h2>
+<pre><code>CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
-function Counter() {
-    const [count, setCount] = useState(0);
+CREATE TABLE posts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    title TEXT NOT NULL,
+    body TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);</code></pre>
 
-    return (
-        &lt;div&gt;
-            &lt;p&gt;Count: {count}&lt;/p&gt;
-            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;+1&lt;/button&gt;
-            &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
-        &lt;/div&gt;
-    );
-}</code></pre>
+<h2 id="sqlによるcrud"><a class="heading-anchor" href="#sqlによるcrud">SQLによるCRUD</a></h2>
+<pre><code>-- Create
+INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com');
 
-<h2 id="useeffect-副作用"><a class="heading-anchor" href="#useeffect-副作用">useEffect: 副作用</a></h2>
-<p><code>useEffect</code>フックはレンダリング後にコードを実行します。依存配列が再実行のタイミングを制御します。空の配列は「マウント時に一度だけ実行」を意味します。変数を含めると「これらが変更されたら再実行」になります。</p>
-<pre><code>import { useState, useEffect } from "react";
+-- Read
+SELECT * FROM users WHERE name = 'Alice';
+SELECT u.name, p.title FROM users u JOIN posts p ON u.id = p.user_id;
 
-function MenuPage() {
-    const [items, setItems] = useState([]);
-    const [loading, setLoading] = useState(true);
+-- Update
+UPDATE users SET name = 'Bob' WHERE id = 1;
 
-    useEffect(() =&gt; {
-        fetch("/api/menu")
-            .then(res =&gt; res.json())
-            .then(data =&gt; {
-                setItems(data);
-                setLoading(false);
-            });
-    }, []); // Empty array = run once on mount
+-- Delete
+DELETE FROM users WHERE id = 1;</code></pre>
 
-    if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
-    return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
-}</code></pre>
+<h2 id="node-jsでのsqlite使用"><a class="heading-anchor" href="#node-jsでのsqlite使用">Node.jsでのSQLite使用</a></h2>
+<pre><code>const Database = require("better-sqlite3");
+const db = new Database("app.db");
 
-<h2 id="ステートのリフトアップ"><a class="heading-anchor" href="#ステートのリフトアップ">ステートのリフトアップ</a></h2>
-<p>2つの兄弟コンポーネントがデータを共有する必要がある場合、ステートを共通の親に移動します。親がステートを所有し、propsとして子に渡します。これがReactの主要なデータ共有パターンです。</p>
+const users = db.prepare("SELECT * FROM users").all();
+db.prepare("INSERT INTO users (name, email) VALUES (?, ?)").run("Alice", "a@b.com");</code></pre>
 
 <div class="mermaid">
-flowchart TD
-    A[Render Component] --> B[useEffect Runs]
-    B --> C[User Interacts]
-    C --> D[State Changes via setState]
-    D --> E[Re-render]
-    E --> B
-    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
-    style B fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
-    style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
-    style D fill:#e74c3c,stroke:#a93226,color:#1a1a1a
-    style E fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
+erDiagram
+    USERS ||--o{ POSTS : writes
+    USERS {
+        int id PK
+        text name
+        text email
+        datetime created_at
+    }
+    POSTS {
+        int id PK
+        int user_id FK
+        text title
+        text body
+    }
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>useStateはレンダリング間で保持されるメモリをコンポーネントに与える</li>
-<li>useEffectはレンダリング後に副作用を実行し、依存配列で制御する</li>
-<li>空の依存配列はエフェクトがマウント時に一度だけ実行されることを意味する</li>
-<li>兄弟コンポーネントがデータを共有する場合、最も近い共通の親にステートをリフトアップする</li>
+<li>SQLiteは単一ファイルに完全なリレーショナルデータベースを格納します</li>
+<li>SQLはSELECT、JOIN、WHEREなどで強力なクエリを提供します</li>
+<li>外部キーはテーブル間の関係を作りデータ整合性を強制します</li>
+<li>SQLインジェクション攻撃を防ぐためパラメータ化クエリ(?)を使いましょう</li>
 </ul>
 </div>
 

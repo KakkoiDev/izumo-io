@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Forms & Dialog - KakkoiSchool</title>
+  <title>CSS to the Limit - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,60 +47,50 @@
         </div>
       </nav>
       
-<h1 id="t09-forms-and-dialog"><a class="heading-anchor" href="#t09-forms-and-dialog">T09: Forms and Dialog</a></h1>
-<p class="lesson-intro">HTML forms collect data, but JavaScript validates and processes it. The dialog element gives you native modal windows without any library. Together they create a smooth data collection experience - like a smart receptionist who checks your paperwork before filing it.</p>
+<h1 id="t09-css-to-the-limit"><a class="heading-anchor" href="#t09-css-to-the-limit">T09: CSS to the Limit</a></h1>
+<p class="lesson-intro">CSS can do far more than change colors. With transitions, animations, and clever selectors, you can build interactive components without a single line of JavaScript. It is like discovering that your paintbrush can also sculpt.</p>
 
-<h2 id="javascript-form-validation"><a class="heading-anchor" href="#javascript-form-validation">JavaScript Form Validation</a></h2>
-<p>While HTML has built-in validation (required, type), JavaScript gives you full control over validation logic and custom error messages.</p>
-<pre><code>const form = document.querySelector("#myForm");
-form.addEventListener("submit", function(event) {
-    const email = form.querySelector("#email").value;
-    if (!email.includes("@")) {
-        event.preventDefault();
-        showError("Please enter a valid email address.");
-    }
-});
-
-function showError(message) {
-    const errorDiv = document.querySelector(".error");
-    errorDiv.textContent = message;
-    errorDiv.style.display = "block";
+<h2 id="transitions"><a class="heading-anchor" href="#transitions">Transitions</a></h2>
+<p>Transitions smoothly animate property changes. Specify which property to animate, how long it takes, and the easing function.</p>
+<pre><code>.button {
+    background: #3498db;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+.button:hover {
+    background: #2980b9;
+    transform: scale(1.05);
 }</code></pre>
 
-<h2 id="the-dialog-element"><a class="heading-anchor" href="#the-dialog-element">The Dialog Element</a></h2>
-<p>The <code>&lt;dialog&gt;</code> element provides native modal and non-modal dialogs. Use <code>showModal()</code> for modals with backdrop, or <code>show()</code> for non-modal.</p>
-<pre><code>&lt;dialog id="confirm"&gt;
-    &lt;p&gt;Are you sure?&lt;/p&gt;
-    &lt;button id="yes"&gt;Yes&lt;/button&gt;
-    &lt;button id="no"&gt;No&lt;/button&gt;
-&lt;/dialog&gt;
+<h2 id="keyframe-animations"><a class="heading-anchor" href="#keyframe-animations">Keyframe Animations</a></h2>
+<p>For more complex motion, define keyframes with specific states at different points in time.</p>
+<pre><code>@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.card { animation: fadeIn 0.5s ease-out; }</code></pre>
 
-&lt;script&gt;
-const dialog = document.querySelector("#confirm");
-dialog.showModal();
-dialog.querySelector("#no").addEventListener("click", () =&gt; dialog.close());
-&lt;/script&gt;</code></pre>
+<h2 id="pure-css-accordion"><a class="heading-anchor" href="#pure-css-accordion">Pure CSS Accordion</a></h2>
+<p>The <code>:target</code> pseudo-class lets you toggle visibility based on URL hash, creating interactive components without JavaScript.</p>
+<pre><code>.panel { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
+.panel:target { max-height: 500px; }</code></pre>
 
 <div class="mermaid">
-flowchart TD
-    A[User submits form] --> B{JS Validation}
-    B -->|Invalid| C[Show error message]
-    C --> A
-    B -->|Valid| D{Needs confirmation?}
-    D -->|Yes| E[Open dialog]
-    E --> F{User confirms?}
-    F -->|Yes| G[Process data]
-    F -->|No| A
-    D -->|No| G
+stateDiagram-v2
+    [*] --> Default
+    Default --> Hover: mouse enter
+    Hover --> Default: mouse leave
+    Default --> Active: click
+    Active --> Animated: transition starts
+    Animated --> NewState: transition ends
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>JavaScript validation gives you custom logic beyond HTML5 built-in validation</li>
-<li>The dialog element provides native modal windows without external libraries</li>
-<li>Use showModal() for modal dialogs and show() for non-modal ones</li>
-<li>Always provide clear error messages that tell users how to fix the problem</li>
+<li>Transitions animate changes between two states smoothly</li>
+<li>Keyframe animations allow multi-step, complex motion sequences</li>
+<li>The :target pseudo-class enables JS-free interactive patterns</li>
+<li>Always consider performance - animate transform and opacity, not width or height</li>
 </ul>
 </div>
 

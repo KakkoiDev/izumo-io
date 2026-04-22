@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Web Components II - KakkoiSchool</title>
+  <title>Nest.js: Architecture - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -43,138 +43,105 @@
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">
           <a href="t32.html">Previous</a>
-          <a href="t36.html">Next</a>
+          <a href="t34.html">Next</a>
         </div>
       </nav>
       
-<h1 id="t33-web-components-ii-templates-slots-lifecycle-amp-lit"><a class="heading-anchor" href="#t33-web-components-ii-templates-slots-lifecycle-amp-lit">T33: Web Components II - Templates, Slots, Lifecycle &amp; Lit</a></h1>
-<p class="lesson-intro">A real component needs three more things. <strong>Templates</strong> keep inert markup off-stage until needed. <strong>Slots</strong> let parents inject content like React children. <strong>Lifecycle</strong> callbacks are the element's life stages - birth, insertion, attribute change, removal. Once you know all of this, Lit becomes the espresso machine that hides the ceremony.</p>
+<h1 id="t33-nest-js-architecture"><a class="heading-anchor" href="#t33-nest-js-architecture">T33: Nest.js Architecture</a></h1>
+<p class="lesson-intro">Nest.js is like an operations manual for a restaurant chain. Modules are departments, Controllers are the waiters taking orders, Services are the chefs doing the real work, and Dependency Injection is the manager who assigns chefs to stations without waiters needing to know the details.</p>
 
-<h2 id="the-lt-template-gt-element"><a class="heading-anchor" href="#the-lt-template-gt-element">The &lt;template&gt; Element</a></h2>
-<p>A <code>&lt;template&gt;</code> holds markup that the browser parses but does not render. Use it as a mold: clone its content into a shadow root instead of building strings.</p>
-<pre><code>&lt;template id="tpl-user-card"&gt;
-    &lt;style&gt;
-        :host { display: block; padding: 1rem; border: 1px solid #ddd; }
-        h2 { margin: 0; }
-    &lt;/style&gt;
-    &lt;h2&gt;&lt;/h2&gt;
-    &lt;p&gt;&lt;/p&gt;
-&lt;/template&gt;
+<h2 id="why-a-framework"><a class="heading-anchor" href="#why-a-framework">Why a Framework?</a></h2>
+<p>Raw Node.js from T21 works for small apps, but at scale you need structure. Nest.js provides clear separation of concerns, enforced patterns, and built-in support for testing and modularity.</p>
 
-&lt;script&gt;
-class UserCard extends HTMLElement {
-    connectedCallback() {
-        const tpl = document.getElementById("tpl-user-card");
-        const root = this.attachShadow({ mode: "open" });
-        root.appendChild(tpl.content.cloneNode(true));
-        root.querySelector("h2").textContent = this.getAttribute("name");
-        root.querySelector("p").textContent  = this.getAttribute("role");
+<h2 id="modules-controllers-services"><a class="heading-anchor" href="#modules-controllers-services">Modules, Controllers, Services</a></h2>
+<p>Every Nest.js app is organized into modules. Each module groups related controllers (handle HTTP) and services (handle business logic). Decorators like <code>@Controller</code> and <code>@Injectable</code> tell the framework what each class does.</p>
+<pre><code>// menu.module.ts
+import { Module } from "@nestjs/common";
+import { MenuController } from "./menu.controller";
+import { MenuService } from "./menu.service";
+
+@Module({
+    controllers: [MenuController],
+    providers: [MenuService],
+})
+export class MenuModule {}
+
+// menu.controller.ts
+import { Controller, Get, Post, Body } from "@nestjs/common";
+import { MenuService } from "./menu.service";
+
+@Controller("menu")
+export class MenuController {
+    constructor(private readonly menuService: MenuService) {}
+
+    @Get()
+    findAll() {
+        return this.menuService.findAll();
+    }
+
+    @Post()
+    create(@Body() body: { name: string; price: number }) {
+        return this.menuService.create(body);
     }
 }
-customElements.define("user-card", UserCard);
-&lt;/script&gt;</code></pre>
 
-<h2 id="slots-content-projection"><a class="heading-anchor" href="#slots-content-projection">Slots: Content Projection</a></h2>
-<p>A slot is a hole in your shadow tree where the parent's light DOM is projected. Anything the user puts between your tags shows up wherever you placed the <code>&lt;slot&gt;</code>. Named slots let you have multiple injection points.</p>
-<pre><code>// Inside the component's shadow root
-&lt;style&gt;
-    header { font-weight: bold; }
-    footer { font-size: 0.85rem; color: #666; }
-&lt;/style&gt;
-&lt;header&gt;&lt;slot name="title"&gt;Default title&lt;/slot&gt;&lt;/header&gt;
-&lt;section&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/section&gt;
-&lt;footer&gt;&lt;slot name="footer"&gt;&lt;/slot&gt;&lt;/footer&gt;
+// menu.service.ts
+import { Injectable } from "@nestjs/common";
 
-// Usage from the page
-&lt;fancy-card&gt;
-    &lt;span slot="title"&gt;My Card&lt;/span&gt;
-    &lt;p&gt;Body content lands in the default slot.&lt;/p&gt;
-    &lt;small slot="footer"&gt;Updated today&lt;/small&gt;
-&lt;/fancy-card&gt;</code></pre>
+@Injectable()
+export class MenuService {
+    private items = [
+        { id: 1, name: "Tonkotsu Ramen", price: 850 },
+    ];
 
-<h2 id="lifecycle-callbacks"><a class="heading-anchor" href="#lifecycle-callbacks">Lifecycle Callbacks</a></h2>
-<p>Every custom element has the same five life stages. Do setup in <code>connectedCallback</code>, tear it down in <code>disconnectedCallback</code>. React to attribute changes in <code>attributeChangedCallback</code> - but only for the attributes listed in <code>observedAttributes</code>.</p>
-<pre><code>class Timer extends HTMLElement {
-    static observedAttributes = ["interval"];
-
-    connectedCallback() {
-        this._id = setInterval(() =&gt; this._tick(), this._ms());
-        this._tick();
+    findAll() {
+        return this.items;
     }
 
-    disconnectedCallback() {
-        clearInterval(this._id);
+    create(data: { name: string; price: number }) {
+        const item = { id: this.items.length + 1, ...data };
+        this.items.push(item);
+        return item;
     }
+}</code></pre>
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === "interval" &amp;&amp; this._id) {
-            clearInterval(this._id);
-            this._id = setInterval(() =&gt; this._tick(), this._ms());
-        }
-    }
+<h2 id="dependency-injection"><a class="heading-anchor" href="#dependency-injection">Dependency Injection</a></h2>
+<p>The controller does not create its own service. It declares what it needs in the constructor, and the framework provides it. This makes testing easy - you can swap in mock services without changing controller code.</p>
+<pre><code>// The controller declares its dependency
+constructor(private readonly menuService: MenuService) {}
 
-    _ms() { return Number(this.getAttribute("interval")) || 1000; }
-    _tick() { this.textContent = new Date().toLocaleTimeString(); }
-}
-customElements.define("live-clock", Timer);</code></pre>
+// Nest.js automatically creates and injects the MenuService instance
+// In tests, you can provide a mock instead:
+// { provide: MenuService, useValue: mockMenuService }</code></pre>
+
+<h2 id="decorators-and-typescript"><a class="heading-anchor" href="#decorators-and-typescript">Decorators and TypeScript</a></h2>
+<p>Nest.js uses TypeScript decorators extensively. <code>@Controller</code>, <code>@Get</code>, <code>@Post</code>, <code>@Body</code>, <code>@Injectable</code> - these annotations define behavior without cluttering your logic.</p>
 
 <div class="mermaid">
-sequenceDiagram
-    participant Browser
-    participant El as Custom Element
-    Browser->>El: constructor()
-    Browser->>El: connectedCallback()
-    Note over El: inserted in DOM<br/>setup resources
-    Browser->>El: attributeChangedCallback(name, old, new)
-    Note over El: reconcile state
-    Browser->>El: disconnectedCallback()
-    Note over El: removed from DOM<br/>clean up resources
+flowchart TD
+    A[HTTP Request] --> B["@Controller: MenuController"]
+    B -->|"@Get /menu"| C["@Injectable: MenuService"]
+    C -->|getAll| D[(Database)]
+    D -->|results| C
+    C -->|data| B
+    B -->|JSON response| A
+    subgraph MenuModule
+        B
+        C
+    end
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style B fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+    style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style D fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
 </div>
-
-<h2 id="lit-the-sugar-layer"><a class="heading-anchor" href="#lit-the-sugar-layer">Lit: The Sugar Layer</a></h2>
-<p>Vanilla Web Components work but are verbose. <strong>Lit</strong> (5KB, from Google) removes boilerplate with reactive properties, tagged-template rendering, and scoped styles. A Lit component <em>is</em> a native custom element - it just wrote less code to get there.</p>
-<pre><code>import { LitElement, html, css } from "lit";
-
-class UserCard extends LitElement {
-    static properties = {
-        name: { type: String },
-        role: { type: String },
-    };
-
-    static styles = css`
-        :host { display: block; padding: 1rem; border: 1px solid #ddd; }
-        h2    { margin: 0; font-size: 1rem; }
-        p     { margin: 0.25rem 0 0; color: #666; }
-    `;
-
-    render() {
-        return html`
-            &lt;h2&gt;${this.name}&lt;/h2&gt;
-            &lt;p&gt;${this.role}&lt;/p&gt;
-        `;
-    }
-}
-customElements.define("user-card", UserCard);
-
-// Usage
-// &lt;user-card name="Alice" role="Engineer"&gt;&lt;/user-card&gt;</code></pre>
-
-<h2 id="common-footguns"><a class="heading-anchor" href="#common-footguns">Common Footguns</a></h2>
-<ul>
-<li><strong>Setup in constructor</strong>: the element is not in the DOM yet. Do it in connectedCallback.</li>
-<li><strong>Forgetting observedAttributes</strong>: attributeChangedCallback will not fire without it.</li>
-<li><strong>Leaking listeners</strong>: everything added in connectedCallback must be removed in disconnectedCallback.</li>
-<li><strong>Shadow DOM and forms</strong>: form inputs in a shadow root do not automatically participate in the parent form. Use ElementInternals + static formAssociated = true.</li>
-</ul>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>&lt;template&gt; holds inert markup you clone into shadow roots instead of building strings</li>
-<li>&lt;slot&gt; projects parent content into your component. Named slots give multiple injection points</li>
-<li>Five lifecycle callbacks: constructor, connectedCallback, attributeChangedCallback, disconnectedCallback, adoptedCallback</li>
-<li>observedAttributes declares which attributes trigger attributeChangedCallback</li>
-<li>Lit is a thin sugar layer over native Web Components. Same standards, much less boilerplate</li>
+<li>Nest.js enforces structure with modules, controllers, and services as the three pillars</li>
+<li>Controllers handle HTTP routing, services handle business logic - never mix them</li>
+<li>Dependency injection lets the framework wire components together, simplifying testing</li>
+<li>TypeScript decorators define behavior declaratively without cluttering your logic</li>
 </ul>
 </div>
 
@@ -182,7 +149,7 @@ customElements.define("user-card", UserCard);
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">
           <a href="t32.html">Previous</a>
-          <a href="t36.html">Next</a>
+          <a href="t34.html">Next</a>
         </div>
       </nav>
     </article>

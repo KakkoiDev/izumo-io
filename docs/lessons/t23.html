@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>React Foundations - KakkoiSchool</title>
+  <title>JSON Database - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,76 +47,70 @@
         </div>
       </nav>
       
-<h1 id="t23-react-foundations"><a class="heading-anchor" href="#t23-react-foundations">T23: React Foundations</a></h1>
-<p class="lesson-intro">React lets you build UIs from reusable pieces called components. Think of components as Lego bricks - custom HTML tags you define yourself. Instead of telling the browser step-by-step what to change, you describe what the screen should look like, and React figures out the updates.</p>
+<h1 id="t23-json-database"><a class="heading-anchor" href="#t23-json-database">T23: JSON Database</a></h1>
+<p class="lesson-intro">Before learning a real database, you can use a JSON file as a simple data store. Read the file, parse it, modify the data, and write it back. It is like a notebook where you write down and cross out entries - simple but effective for small applications.</p>
 
-<h2 id="from-imperative-to-declarative"><a class="heading-anchor" href="#from-imperative-to-declarative">From Imperative to Declarative</a></h2>
-<p>With vanilla JavaScript, you manually find elements and update them. React flips this: you declare the desired UI state, and React handles the DOM updates for you.</p>
-<pre><code>// Vanilla JS - imperative: you manage every step
-const btn = document.getElementById("counter-btn");
-let count = 0;
-btn.addEventListener("click", () =&gt; {
-    count++;
-    btn.textContent = `Clicked ${count} times`;
-});
+<h2 id="reading-and-writing-db-json"><a class="heading-anchor" href="#reading-and-writing-db-json">Reading and Writing db.json</a></h2>
+<pre><code>const fs = require("fs");
+const DB_PATH = "./db.json";
 
-// React - declarative: describe the result, React updates the DOM
-function Counter() {
-    const [count, setCount] = React.useState(0);
-    return (
-        &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
-            Clicked {count} times
-        &lt;/button&gt;
-    );
-}</code></pre>
-
-<h2 id="components-jsx-and-props"><a class="heading-anchor" href="#components-jsx-and-props">Components, JSX, and Props</a></h2>
-<p>A component is a function that returns JSX - a syntax that looks like HTML but lives inside JavaScript. Props are inputs passed from parent to child, like function arguments.</p>
-<pre><code>function MenuItem({ name, price }) {
-    return (
-        &lt;div className="menu-item"&gt;
-            &lt;span&gt;{name}&lt;/span&gt;
-            &lt;span&gt;${price}&lt;/span&gt;
-        &lt;/div&gt;
-    );
+function readDB() {
+    const raw = fs.readFileSync(DB_PATH, "utf-8");
+    return JSON.parse(raw);
 }
 
-// Rendering a list with .map() and keys
-function MenuList({ items }) {
-    return (
-        &lt;ul&gt;
-            {items.map(item =&gt; (
-                &lt;MenuItem key={item.id} name={item.name} price={item.price} /&gt;
-            ))}
-        &lt;/ul&gt;
-    );
+function writeDB(data) {
+    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
 }</code></pre>
 
-<h2 id="handling-events"><a class="heading-anchor" href="#handling-events">Handling Events</a></h2>
-<p>React uses camelCase event handlers like <code>onClick</code> and <code>onChange</code> directly on JSX elements. The handler receives a synthetic event object that works consistently across browsers.</p>
+<h2 id="crud-operations"><a class="heading-anchor" href="#crud-operations">CRUD Operations</a></h2>
+<pre><code>// Create
+function addUser(user) {
+    const db = readDB();
+    user.id = Date.now();
+    db.users.push(user);
+    writeDB(db);
+    return user;
+}
+
+// Read
+function getUsers() { return readDB().users; }
+
+// Update
+function updateUser(id, updates) {
+    const db = readDB();
+    const index = db.users.findIndex(u =&gt; u.id === id);
+    if (index === -1) return null;
+    db.users[index] = { ...db.users[index], ...updates };
+    writeDB(db);
+    return db.users[index];
+}
+
+// Delete
+function deleteUser(id) {
+    const db = readDB();
+    db.users = db.users.filter(u =&gt; u.id !== id);
+    writeDB(db);
+}</code></pre>
 
 <div class="mermaid">
-flowchart TD
-    A[App] --> B[Header]
-    A --> C[MenuList]
-    A --> D[Footer]
-    C --> E[MenuItem 1]
-    C --> F[MenuItem 2]
-    C --> G[MenuItem 3]
-    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
-    style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
-    style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
-    style F fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
-    style G fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+flowchart LR
+    subgraph CRUD
+        C[Create] -->|push + write| DB[(db.json)]
+        R[Read] -->|parse| DB
+        U[Update] -->|find + modify + write| DB
+        D[Delete] -->|filter + write| DB
+    end
+    API[API Endpoint] --> CRUD
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Components are reusable functions that return JSX, like custom HTML tags</li>
-<li>React is declarative - describe what the UI should look like, not how to update it</li>
-<li>Props pass data from parent to child components, making them configurable</li>
-<li>Always provide a unique key prop when rendering lists with .map()</li>
+<li>A JSON file can serve as a simple database for small projects</li>
+<li>CRUD stands for Create, Read, Update, Delete - the four basic data operations</li>
+<li>Always read the full file, modify in memory, then write back</li>
+<li>JSON databases do not scale - use a real database for production</li>
 </ul>
 </div>
 

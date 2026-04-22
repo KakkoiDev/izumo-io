@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Ollama & Chat - KakkoiSchool</title>
+  <title>Node.js Server - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,62 +47,55 @@
         </div>
       </nav>
       
-<h1 id="t21-ollama-and-chat"><a class="heading-anchor" href="#t21-ollama-and-chat">T21: Ollama and Chat</a></h1>
-<p class="lesson-intro">Large Language Models (LLMs) can now run locally on your machine. Ollama makes it easy to download and serve open-source models. Connecting your web app to a local LLM gives you AI-powered features without sending data to external services - like having a smart assistant living on your own computer.</p>
+<h1 id="t21-node-js-server"><a class="heading-anchor" href="#t21-node-js-server">T21: Node.js Server</a></h1>
+<p class="lesson-intro">Until now, you have been opening HTML files directly in the browser. A web server is a program that listens for requests and sends back responses. Node.js lets you write that server in JavaScript - the same language you already know from the browser. It is like hiring a receptionist who speaks the same language as your entire team.</p>
 
-<h2 id="setting-up-ollama"><a class="heading-anchor" href="#setting-up-ollama">Setting Up Ollama</a></h2>
-<p>Install Ollama, pull a model, and it serves an API on localhost:11434.</p>
-<pre><code># Install and run
-# ollama pull llama3
-# ollama serve
+<h2 id="creating-an-http-server"><a class="heading-anchor" href="#creating-an-http-server">Creating an HTTP Server</a></h2>
+<pre><code>const http = require("http");
+const fs = require("fs");
+const path = require("path");
 
-# The API is now available at http://localhost:11434</code></pre>
+const server = http.createServer((req, res) =&gt; {
+    const filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
+    const ext = path.extname(filePath);
+    const contentTypes = {
+        ".html": "text/html",
+        ".css": "text/css",
+        ".js": "text/javascript"
+    };
 
-<h2 id="chat-api-integration"><a class="heading-anchor" href="#chat-api-integration">Chat API Integration</a></h2>
-<pre><code>async function chat(messages) {
-    const response = await fetch("http://localhost:11434/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            model: "llama3",
-            messages: messages,
-            stream: false
-        })
+    fs.readFile(filePath, (err, content) =&gt; {
+        if (err) {
+            res.writeHead(404);
+            res.end("Not Found");
+            return;
+        }
+        res.writeHead(200, { "Content-Type": contentTypes[ext] || "text/plain" });
+        res.end(content);
     });
-    const data = await response.json();
-    return data.message.content;
-}
+});
 
-// Usage
-const reply = await chat([
-    { role: "system", content: "You are a helpful assistant." },
-    { role: "user", content: "Explain HTML in one sentence." }
-]);</code></pre>
+server.listen(3000, () =&gt; console.log("Server on http://localhost:3000"));</code></pre>
 
-<h2 id="building-a-chat-interface"><a class="heading-anchor" href="#building-a-chat-interface">Building a Chat Interface</a></h2>
-<p>Store the conversation history as an array of message objects. Append each new message and send the full history to maintain context.</p>
+<h2 id="serving-static-files"><a class="heading-anchor" href="#serving-static-files">Serving Static Files</a></h2>
+<p>The server reads files from the "public" folder and sends them to the browser with the correct content type header.</p>
 
 <div class="mermaid">
-sequenceDiagram
-    participant U as User
-    participant W as Web App
-    participant O as Ollama Server
-    U->>W: Type message
-    W->>W: Append to history
-    W->>O: POST /api/chat (full history)
-    O->>O: LLM generates response
-    O-->>W: Response JSON
-    W->>W: Append assistant reply
-    W-->>U: Display response
+flowchart LR
+    A[Browser] -->|HTTP Request| B[Node.js Server]
+    B -->|Read file| C[File System]
+    C -->|File contents| B
+    B -->|HTTP Response| A
+    B -->|404| D[Not Found]
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Ollama runs open-source LLMs locally with a simple API</li>
-<li>The chat API takes an array of messages with role and content fields</li>
-<li>Send the full conversation history for context-aware responses</li>
-<li>Local LLMs keep your data private - no external API calls needed</li>
+<li>Node.js runs JavaScript outside the browser on your server</li>
+<li>http.createServer creates a server that handles requests and responses</li>
+<li>Content-Type headers tell the browser how to interpret the response</li>
+<li>Static file serving maps URL paths to files on disk</li>
 </ul>
 </div>
 

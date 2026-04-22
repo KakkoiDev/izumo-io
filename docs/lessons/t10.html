@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Data Structures - KakkoiSchool</title>
+  <title>JavaScript Intro - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,56 +47,54 @@
         </div>
       </nav>
       
-<h1 id="t10-data-structures"><a class="heading-anchor" href="#t10-data-structures">T10: Data Structures</a></h1>
-<p class="lesson-intro">Data structures are containers for organizing information. Arrays are like numbered lists where order matters. Objects are like labeled filing cabinets where you look up information by name. Choosing the right structure makes your code simpler and faster.</p>
+<h1 id="t10-javascript-intro"><a class="heading-anchor" href="#t10-javascript-intro">T10: JavaScript Intro</a></h1>
+<p class="lesson-intro">JavaScript is the programming language of the web. If HTML is the structure and CSS is the style, JavaScript is the behavior. It makes pages interactive - responding to clicks, processing data, and updating content dynamically. Think of it as teaching your web page to think.</p>
 
-<h2 id="arrays"><a class="heading-anchor" href="#arrays">Arrays</a></h2>
-<p>Arrays store ordered collections. Access items by their index (starting from 0). Arrays have powerful built-in methods for transforming data.</p>
-<pre><code>const fruits = ["apple", "banana", "cherry"];
-console.log(fruits[0]); // "apple"
-fruits.push("date");
+<h2 id="console-and-variables"><a class="heading-anchor" href="#console-and-variables">Console and Variables</a></h2>
+<p>The browser console is your playground. Use <code>console.log()</code> to print values and debug. Variables store data for later use.</p>
+<pre><code>// Variables
+let name = "Alice";
+const age = 25;
+let isStudent = true;
 
-// Transform with map, filter, reduce
-const prices = [10, 20, 30, 40];
-const expensive = prices.filter(p =&gt; p &gt; 15);
-const doubled = prices.map(p =&gt; p * 2);
-const total = prices.reduce((sum, p) =&gt; sum + p, 0);</code></pre>
+console.log("Hello, " + name);
+console.log("Age:", age);</code></pre>
 
-<h2 id="objects"><a class="heading-anchor" href="#objects">Objects</a></h2>
-<p>Objects store key-value pairs. Keys are strings (or symbols), values can be anything.</p>
-<pre><code>const user = {
-    name: "Alice",
-    age: 25,
-    skills: ["HTML", "CSS", "JS"],
-    greet() {
-        return "Hi, I am " + this.name;
-    }
-};
-console.log(user.name);
-console.log(user["age"]);</code></pre>
+<h2 id="data-types"><a class="heading-anchor" href="#data-types">Data Types</a></h2>
+<p>JavaScript has several core types: strings for text, numbers for math, booleans for true/false, null for intentional emptiness, and undefined for unset values.</p>
 
-<h2 id="loops"><a class="heading-anchor" href="#loops">Loops</a></h2>
-<p>Iterate over arrays with <code>for...of</code> and objects with <code>for...in</code> or <code>Object.entries()</code>.</p>
-<pre><code>for (const fruit of fruits) { console.log(fruit); }
-for (const [key, value] of Object.entries(user)) { console.log(key, value); }</code></pre>
+<h2 id="functions"><a class="heading-anchor" href="#functions">Functions</a></h2>
+<p>Functions are reusable blocks of code. Define once, call many times.</p>
+<pre><code>function greet(name) {
+    return "Hello, " + name + "!";
+}
+
+const add = (a, b) =&gt; a + b;
+
+console.log(greet("Bob"));
+console.log(add(3, 4));</code></pre>
 
 <div class="mermaid">
-graph LR
-    subgraph Array
-        A0["[0] apple"] --> A1["[1] banana"] --> A2["[2] cherry"]
-    end
-    subgraph Object
-        O1["name: Alice"] --- O2["age: 25"] --- O3["skills: [...]"]
-    end
+graph TD
+    A[JavaScript Types] --> B[String]
+    A --> C[Number]
+    A --> D[Boolean]
+    A --> E[null]
+    A --> F[undefined]
+    A --> G[Object]
+    A --> H[Array]
+    B --> I["'hello'"]
+    C --> J["42, 3.14"]
+    D --> K["true, false"]
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Arrays are ordered lists accessed by numeric index starting at 0</li>
-<li>Objects are key-value stores accessed by string keys</li>
-<li>Use map, filter, and reduce to transform arrays without mutating them</li>
-<li>for...of iterates array values, for...in iterates object keys</li>
+<li>Use let for variables that change, const for values that stay the same</li>
+<li>console.log() is your best friend for debugging</li>
+<li>Functions encapsulate reusable logic - define once, use many times</li>
+<li>Arrow functions provide a shorter syntax for simple functions</li>
 </ul>
 </div>
 

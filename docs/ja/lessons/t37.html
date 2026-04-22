@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>システム設計: スケールとストレージ - KakkoiSchool</title>
+  <title>システム設計: フレームワーク - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,83 +47,95 @@
         </div>
       </nav>
       
-<h1 id="t37-システム設計-スケール-データベース-シャーディング"><a class="heading-anchor" href="#t37-システム設計-スケール-データベース-シャーディング">T37: システム設計 - スケール、データベース、シャーディング</a></h1>
-<p class="lesson-intro">小さなサーバー1台でも、多くの人が思うより多くのトラフィックを捌けます。しかしある時点で単一サーバーは汗をかき、単一データベースは窒息し、仕事を複数マシンに分ける必要が出ます。スケーリングとは分割の技術です。まずコピーを追加(レプリカ)、次にデータ自体を分割(シャード)。コツは、数字が強いる時だけやることです。</p>
+<h1 id="t37-システム設計-デリバリーフレームワーク"><a class="heading-anchor" href="#t37-システム設計-デリバリーフレームワーク">T37: システム設計 - デリバリーフレームワーク</a></h1>
+<p class="lesson-intro">建築家はコンクリートを流す前に設計図を描きます。システム設計はソフトウェアの設計図を描くこと。何をするか、何でできているか、部品がどう組み合うか。面接や実プロジェクトで最も難しいのは、データベースやキャッシュを知ることではなく、質問の順序を知ることです。このレッスンでその順序を教えます。</p>
 
-<h2 id="垂直-vs-水平"><a class="heading-anchor" href="#垂直-vs-水平">垂直 vs 水平</a></h2>
-<p><strong>垂直</strong>スケーリング = より大きなマシンを買う。CPU増、RAM増。単純で、限界までは有効、天井がある。<strong>水平</strong>スケーリング = マシンを増やして負荷を共有。複雑、天井なし、現実のプロダクトが生き残る方法。</p>
-<pre><code># Vertical: one strong server
-[ 8 vCPU | 32 GB RAM ]  -&gt;  [ 32 vCPU | 256 GB RAM ]
-
-# Horizontal: many modest servers behind a load balancer
-Client -&gt; LB -&gt; [ app1 ] [ app2 ] [ app3 ] ... [ appN ]</code></pre>
-<p>経験則: まず垂直。安くて簡単。垂直が限界、または冗長性が必要な時に水平へ。</p>
-
-<h2 id="sql-vs-nosql-データの形で選ぶ"><a class="heading-anchor" href="#sql-vs-nosql-データの形で選ぶ">SQL vs NoSQL: データの形で選ぶ</a></h2>
-<p><strong>SQL</strong>(Postgres、MySQL)はデータの形と関係が既知でトランザクションが必要な時に正解。<strong>NoSQL</strong>は多くの形をカバー: ドキュメント(MongoDB)はネストされたオブジェクト、キーバリュー(Redis、DynamoDB)はIDによる高速ルックアップ、ワイドカラム(Cassandra)は巨大なイベントストリーム。NoSQLは「スケール」ではなく具体的な理由で選ぶ。</p>
-<pre><code>// Orders, invoices, bookings     -&gt; SQL
-// User sessions, short-lived KV  -&gt; Redis
-// Logs, clicks, time series      -&gt; Cassandra / Clickhouse
-// Nested catalog documents       -&gt; MongoDB
-// Full-text search               -&gt; Elasticsearch / Meilisearch</code></pre>
-
-<h2 id="レプリケーション-読み込みスケールと安全性のコピー"><a class="heading-anchor" href="#レプリケーション-読み込みスケールと安全性のコピー">レプリケーション: 読み込みスケールと安全性のコピー</a></h2>
-<p>大半のアプリは書き込みの10-100倍読みます。解決策: 1つの<strong>プライマリ</strong>が書き込みを処理し、複数の<strong>レプリカ</strong>が読み込みを提供。レプリカはプライマリ障害にも耐えます。</p>
-<pre><code>Writes --&gt; [Primary]
-              |--&gt; [Replica 1] --&gt; Reads
-              |--&gt; [Replica 2] --&gt; Reads
-              |--&gt; [Replica 3] --&gt; Reads</code></pre>
-<p>落とし穴: レプリケーションはデフォルトで非同期。書き込み直後のレプリカ読み込みは古いデータを返すかも。read-your-writesが必要なら、そのリードをプライマリにルーティング。</p>
-
-<h2 id="シャーディング-1つのdbでは足りない時"><a class="heading-anchor" href="#シャーディング-1つのdbでは足りない時">シャーディング: 1つのDBでは足りない時</a></h2>
-<p>シャーディングは行を複数DBに分割します。各DBが1スライスを持ちます。<strong>シャードキー</strong>を選び、ハッシュしてルーティング。</p>
+<h2 id="6つのステップ"><a class="heading-anchor" href="#6つのステップ">6つのステップ</a></h2>
+<p>良いシステム設計の会話は、ほぼ順に6つのフェーズを進みます。厳守することで、形が見える前に詳細に溺れることを防ぎます。</p>
+<ol>
+<li><strong>要件</strong>(約5分) - システムが何をすべきか、どれくらいうまくやるか</li>
+<li><strong>コアエンティティ</strong>(約2分) - システムが扱う名詞</li>
+<li><strong>API</strong>(約5分) - ユーザーに見える契約</li>
+<li><strong>高レベル設計</strong>(約10-15分) - 要件を満たす箱と矢印</li>
+<li><strong>ディープダイブ</strong>(約10分) - ボトルネックを直し、厳しい目標を満たす</li>
+<li><strong>トレードオフ</strong> - コスト、速度、一貫性、複雑さの間の明示的な選択</li>
+</ol>
 
 <div class="mermaid">
 flowchart LR
-    C[Client write user_id=1234]
-    H{hash user_id % 4}
-    S0[(Shard 0<br/>keys 0)]
-    S1[(Shard 1<br/>keys 1)]
-    S2[(Shard 2<br/>keys 2)]
-    S3[(Shard 3<br/>keys 3)]
-    C --> H
-    H -->|mod 0| S0
-    H -->|mod 1| S1
-    H -->|mod 2| S2
-    H -->|mod 3| S3
+    R[1. Requirements<br/>functional + non-functional]
+    E[2. Core Entities<br/>the nouns]
+    A[3. API<br/>the contract]
+    H[4. High-Level Design<br/>boxes + arrows]
+    D[5. Deep Dives<br/>fix bottlenecks]
+    T[6. Trade-offs<br/>cost vs speed vs consistency]
+    R --> E --> A --> H --> D --> T
+    D -.iterate.-> H
 </div>
 
-<p>シャーディングには高いコストがあります。シャードを跨ぐクエリはscatter-gatherになります。最も多いクエリに合うシャードキーを選びましょう。Twitter風アプリなら<code>user_id</code>でシャーディングして1ユーザーのタイムラインを1シャードに。</p>
+<h2 id="ステップ1-要件"><a class="heading-anchor" href="#ステップ1-要件">ステップ1: 要件</a></h2>
+<p><strong>機能要件</strong>(ユーザーができること)と<strong>非機能要件</strong>(どれくらいうまく動くか)に分けます。非機能要件は定量化する。「低遅延」は役に立たず、「p99 &lt; 200ms」は設計図です。</p>
+<pre><code>// Example: Design a URL shortener (tinyurl-style)
 
-<h2 id="コンシステントハッシュ-痛みなく成長"><a class="heading-anchor" href="#コンシステントハッシュ-痛みなく成長">コンシステントハッシュ: 痛みなく成長</a></h2>
-<p>単純なhash-modはシャードを追加すると壊れる。<code>hash % 4</code>が<code>hash % 5</code>になり、ほぼ全てのキーが家を変えます。<strong>コンシステントハッシュ</strong>はシャードをリングに配置。各キーはリング上の点に着地し、時計回りに最も近いシャードへ。シャード追加/削除は隣だけを動かします。</p>
-<pre><code>                 Shard A
-                    *
-      *                      *
-  Shard D                  Shard B
-      *                      *
-                    *
-                 Shard C
+Functional:
+- Users can submit a long URL and get back a short code
+- Visiting /{code} redirects to the original URL
+- Users can see click counts for their links
 
-Key hashes to a point on the ring -&gt; served by next shard clockwise.
-Add Shard E between B and C -&gt; only keys between B and E move.</code></pre>
+Non-functional:
+- 100M new links / day, 10:1 read/write ratio
+- Redirects at p99 &lt; 100ms globally
+- 99.99% availability for redirects
+- Short codes must be unguessable</code></pre>
 
-<h2 id="cap定理-2つ選ぶ-実際は2つのうち1つ"><a class="heading-anchor" href="#cap定理-2つ選ぶ-実際は2つのうち1つ">CAP定理: 2つ選ぶ(実際は2つのうち1つ)</a></h2>
-<p>分散システムでは一貫性(Consistency)、可用性(Availability)、分断耐性(Partition tolerance)を持てる。ネットワークは好むと好まざるとに関わらず分断するので、本当の選択は分断時の一貫性 vs 可用性です。</p>
+<h2 id="ステップ2-コアエンティティ"><a class="heading-anchor" href="#ステップ2-コアエンティティ">ステップ2: コアエンティティ</a></h2>
+<p>名詞を挙げます。リストは小さく - 進めながら増やします。各エンティティは後にAPIとデータモデルの両方に現れます。</p>
+<pre><code>Link { id, short_code, long_url, owner_id, created_at, click_count }
+User { id, email, password_hash }</code></pre>
+
+<h2 id="ステップ3-api"><a class="heading-anchor" href="#ステップ3-api">ステップ3: API</a></h2>
+<p>理由がなければRESTをデフォルトに。4-5エンドポイントで十分。リクエストボディのユーザーIDは信用しない。認証から取ります。</p>
+<pre><code>POST /links       { long_url } -&gt; { short_code }
+GET  /{code}                    -&gt; 302 redirect
+GET  /links        (auth)       -&gt; list my links + counts
+DELETE /links/{id} (auth)</code></pre>
+
+<h2 id="ステップ4-高レベル設計"><a class="heading-anchor" href="#ステップ4-高レベル設計">ステップ4: 高レベル設計</a></h2>
+<p>APIを実装する箱を描きます。シンプルに保つ。複雑さは、それが満たす要件を指し示せた時だけ正当化されます。</p>
+
+<div class="mermaid">
+flowchart LR
+    Client -->|HTTPS| LB[Load Balancer]
+    LB --> App[App Servers]
+    App --> DB[(Primary DB<br/>links, users)]
+    App --> Cache[(Cache<br/>code -&gt; long_url)]
+</div>
+
+<h2 id="ステップ5-ディープダイブ"><a class="heading-anchor" href="#ステップ5-ディープダイブ">ステップ5: ディープダイブ</a></h2>
+<p>非機能目標を順に歩き直します。各項目について、それを実現するコンポーネントを指すか、追加します。</p>
 <ul>
-<li><strong>CPシステム</strong>(銀行、在庫、決済): 不一致になるくらいなら書き込みを拒否。ユーザーは「再試行」を見るかも。</li>
-<li><strong>APシステム</strong>(ソーシャルフィード、DM、キャッシュ): どちら側の書き込みも受け入れ、後で調整。ユーザーは少し古いデータを見る。</li>
+<li><strong>グローバルp99 &lt; 100ms</strong>: 前段にCDN/エッジキャッシュ。リダイレクトはキャッシュルックアップに。</li>
+<li><strong>推測不可能なコード</strong>: 安全な乱数から8文字base62、衝突時リトライ。自動増分IDは不可。</li>
+<li><strong>1日1億書き込み</strong>: 書き込みスループットは約1200/秒。単一Postgresで捌ける。メトリクスがシャードを要求した時だけシャード。</li>
+<li><strong>クリック数</strong>: リダイレクトごとにDB書き込みしない。キューに発行、非同期でバッチ書き込み。</li>
+</ul>
+
+<h2 id="ステップ6-トレードオフ-声に出して言う"><a class="heading-anchor" href="#ステップ6-トレードオフ-声に出して言う">ステップ6: トレードオフ - 声に出して言う</a></h2>
+<p>全ての決定は1つのドアを閉じ、別のドアを開けます。選択を可視化しましょう。</p>
+<ul>
+<li>非同期クリック数は<strong>リアルタイム精度を失う</strong>代わりに、<strong>リダイレクト遅延を得る</strong></li>
+<li>CDNキャッシュは<strong>削除時の古さ</strong>と引き換えに、<strong>エッジ速度を得る</strong></li>
+<li>ランダムコードは<strong>少し空間を無駄にする</strong>代わりに、<strong>セキュリティを得る</strong></li>
 </ul>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>まず垂直スケール、次に水平。現代のマシンは思うより強力</li>
-<li>具体的なNoSQLの形が必要でない限りSQLを選ぶ。「スケール」だけでは理由にならない</li>
-<li>レプリケーションは読みスケールとフェイルオーバーを提供。レプリカの短期の古さを受け入れるか、重要リードはプライマリへ</li>
-<li>シャーディングは最後の手段。共通クエリに合うシャードキーを選び、他はscatter-gatherの痛みを覚悟</li>
-<li>コンシステントハッシュはシャード変更を安くする。シャード数が変わるなら必ず使う</li>
-<li>CAPは分断時に選択を強いる: 書き込み拒否(CP)か古い読み込み受容(AP)。どちらが必要か把握</li>
+<li>6ステップを順に進む: 要件、エンティティ、API、高レベル、ディープダイブ、トレードオフ</li>
+<li>非機能要件は定量化する。「速い」はノイズ、「p99 &lt; 200ms」は目標</li>
+<li>機能要件を満たす最もシンプルな設計から始め、追加する全ての箱を正当化する</li>
+<li>ディープダイブこそ本番 - 非機能リストを歩き、各ギャップを埋める</li>
+<li>トレードオフは声に出す。全てのアーキテクチャ選択は1つのドアを閉じて別のドアを開ける</li>
 </ul>
 </div>
 

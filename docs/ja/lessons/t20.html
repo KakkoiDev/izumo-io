@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>認証 - KakkoiSchool</title>
+  <title>GitHubとコラボレーション - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,54 +47,104 @@
         </div>
       </nav>
       
-<h1 id="t20-認証"><a class="heading-anchor" href="#t20-認証">T20: 認証</a></h1>
-<p class="lesson-intro">認証は「あなたは誰ですか?」という質問に答えます。クラブの入口でIDをチェックするドアマンのようなものです。セッション、Cookie、パスワードハッシュが連携してユーザーを安全に検証します。これを間違えるとユーザーを危険にさらすことになります。</p>
+<h1 id="t20-githubとコラボレーション"><a class="heading-anchor" href="#t20-githubとコラボレーション">T20: GitHubとコラボレーション</a></h1>
+<p class="lesson-intro">Gitは机の上の個人用タイムマシン。GitHubは多くのタイムトラベラーが集まり、メモを比べ、一緒に作る共有工房です。同じリポジトリが2か所に存在します。あなたのラップトップとクラウドです。プッシュとプルでそれらを同期します。</p>
 
-<h2 id="パスワードハッシュ"><a class="heading-anchor" href="#パスワードハッシュ">パスワードハッシュ</a></h2>
-<p>パスワードを平文で保存してはいけません。bcryptのような強力なアルゴリズムでハッシュします。ハッシュは一方向関数です。パスワードを照合できますが、元に戻すことはできません。</p>
-<pre><code>const bcrypt = require("bcrypt");
+<h2 id="リモート-コピーのありか"><a class="heading-anchor" href="#リモート-コピーのありか">リモート: コピーのありか</a></h2>
+<p><strong>リモート</strong>は別の場所にあるリポジトリのコピーを指す名前付きURLです。慣習的にメインリモートは<code>origin</code>と呼ばれます。コミットをoriginへ押し上げ、originから引き下ろします。</p>
+<pre><code># 既存のGitHubリポジトリから開始
+git clone https://github.com/you/my-project.git
+cd my-project
+git remote -v                  # リモート一覧
 
-// Hash a password
-const hash = await bcrypt.hash("userPassword123", 10);
+# またはローカルリポジトリを新しいGitHubリポジトリへ
+git remote add origin https://github.com/you/my-project.git
+git branch -M main
+git push -u origin main        # -uでデフォルトupstreamを設定</code></pre>
 
-// Verify a password
-const match = await bcrypt.compare("userPassword123", hash);
-if (match) { console.log("Access granted"); }</code></pre>
+<h2 id="プッシュとプル"><a class="heading-anchor" href="#プッシュとプル">プッシュとプル</a></h2>
+<p>プッシュはローカルのコミットをリモートへアップロードします。プルはリモートのコミットを現在のブランチにダウンロードしてマージします。新しい作業を始める前に必ずプルし、最新の上に積み上げましょう。</p>
+<pre><code>git pull                       # originからfetch + merge
+git push                       # コミットを送信
 
-<h2 id="セッションとcookie"><a class="heading-anchor" href="#セッションとcookie">セッションとCookie</a></h2>
-<p>ログイン後、サーバーはセッションを作成しCookieでセッションIDを送信します。ブラウザはその後の全リクエストでこのCookieを送信して身元を証明します。</p>
-<pre><code>// On login success
-const sessionId = crypto.randomUUID();
-sessions[sessionId] = { userId: user.id, createdAt: Date.now() };
-res.setHeader("Set-Cookie", `sid=${sessionId}; HttpOnly; Path=/`);
+# 新ブランチの初プッシュ
+git push -u origin feature/login</code></pre>
 
-// On each request
-function authenticate(req) {
-    const cookie = parseCookies(req.headers.cookie);
-    return sessions[cookie.sid] || null;
-}</code></pre>
+<h2 id="github-flow-初心者向けワークフロー"><a class="heading-anchor" href="#github-flow-初心者向けワークフロー">GitHub Flow: 初心者向けワークフロー</a></h2>
+<p>GitHub Flowは最もシンプルなプロのワークフローです。ルールは1つ。<strong>main</strong>は常にデプロイ可能。それ以外は全てプルリクエスト後ろの短命ブランチで起こります。</p>
+<ol>
+<li>mainから変更用ブランチを作成</li>
+<li>作業しながらコミット</li>
+<li>ブランチをプッシュし<strong>プルリクエスト</strong>(PR)を開く</li>
+<li>チームメイトがレビュー、CIがテストを自動実行</li>
+<li>グリーンならマージ、ブランチ削除、最新mainをプル</li>
+</ol>
+
+<div class="mermaid">
+gitGraph
+    commit id: "main"
+    branch feature/contact
+    checkout feature/contact
+    commit id: "form markup"
+    commit id: "validation"
+    commit id: "styles"
+    checkout main
+    commit id: "hotfix"
+    checkout feature/contact
+    commit id: "address review"
+    checkout main
+    merge feature/contact tag: "PR #42"
+    commit id: "next feature"
+</div>
+
+<p>ブランチはプルリクエストと同じ期間だけ生き、マージ後に削除されます。<code>PR #42</code>のタグは、そのマージコミット周辺で起きた会話、レビュー、CIチェックの永続的な記録です。</p>
 
 <div class="mermaid">
 sequenceDiagram
-    participant U as User
-    participant B as Browser
-    participant S as Server
-    U->>B: Enter credentials
-    B->>S: POST /login (email + password)
-    S->>S: Hash compare with stored hash
-    S-->>B: Set-Cookie: sid=abc123
-    B->>S: GET /dashboard (Cookie: sid=abc123)
-    S->>S: Validate session
-    S-->>B: 200 OK (protected content)
+    participant You as Your Laptop
+    participant Origin as GitHub (origin)
+    participant Team as Teammate
+    You->>You: git checkout -b feature/x
+    You->>You: edit, add, commit
+    You->>Origin: git push -u origin feature/x
+    You->>Origin: Open Pull Request
+    Origin->>Team: Review request
+    Team->>Origin: Approve + comments
+    Origin->>Origin: CI runs tests
+    Origin->>Origin: Merge to main
+    Team->>Team: git pull
+    You->>You: git pull (to get merged main)
 </div>
+
+<h2 id="プルリクエスト-コード周辺の会話"><a class="heading-anchor" href="#プルリクエスト-コード周辺の会話">プルリクエスト: コード周辺の会話</a></h2>
+<p>PRはマージボタン以上のものです。何をしたか、なぜか、誰がレビューしたか、どのテストが走ったかの永久記録です。PRの説明は6か月後のチームメイトに説明するように書きましょう。</p>
+<pre><code>## Summary
+Adds a contact form to the landing page.
+
+## Why
+Closes #42. Users had no way to reach us outside Discord.
+
+## Test plan
+- [x] Form validates required fields
+- [x] Submission shows success toast
+- [ ] Confirm email arrives in inbox</code></pre>
+
+<h2 id="マージコンフリクト"><a class="heading-anchor" href="#マージコンフリクト">マージコンフリクト</a></h2>
+<p>2つのブランチが同じ行を編集するとgitは止まって判断を求めます。ファイル内に<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>、<code>=======</code>、<code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>でコンフリクトを記します。正しい版を選び、マーカーを削除し、ステージしてコミットします。</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+color: blue;
+=======
+color: green;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</code></pre>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>平文パスワードは絶対に保存しない。必ずbcryptなどでハッシュします</li>
-<li>セッションはCookieに保存された一意のセッションIDでログインユーザーを追跡します</li>
-<li>HttpOnly Cookieを使ってJavaScriptがセッショントークンを読めないようにします</li>
-<li>認証は身元確認、認可はアクセスできる範囲を制御します</li>
+<li>GitHubはリポジトリのリモートコピーを保存。originが慣習的な名前</li>
+<li>プッシュは上へ、プルは下へ。新しい作業を始める前に必ずプル</li>
+<li>GitHub Flow: mainからブランチ、コミット、プッシュ、PR、レビュー、マージ、ブランチ削除</li>
+<li>PRの説明は読み手のために書く。なぜを説明する</li>
+<li>マージコンフリクトは正常。マーカーを読み、版を選び、再コミット</li>
 </ul>
 </div>
 

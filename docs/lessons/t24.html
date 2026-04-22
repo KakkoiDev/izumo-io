@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>React State & Effects - KakkoiSchool</title>
+  <title>SQLite - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,70 +47,70 @@
         </div>
       </nav>
       
-<h1 id="t24-react-state-amp-effects"><a class="heading-anchor" href="#t24-react-state-amp-effects">T24: React State &amp; Effects</a></h1>
-<p class="lesson-intro">State is a component's personal notebook - private data that persists across renders and triggers re-renders when updated. Effects are like alarm clocks that go off after the component renders, letting you synchronize with external systems like APIs or timers.</p>
+<h1 id="t24-sqlite"><a class="heading-anchor" href="#t24-sqlite">T24: SQLite</a></h1>
+<p class="lesson-intro">SQLite is a real database engine that stores data in a single file. SQL (Structured Query Language) is the language you use to talk to it. If a JSON file is a notebook, SQLite is a proper filing cabinet with labels, categories, and cross-references. It handles concurrent access and data integrity for you.</p>
 
-<h2 id="usestate-component-memory"><a class="heading-anchor" href="#usestate-component-memory">useState: Component Memory</a></h2>
-<p>The <code>useState</code> hook gives a component its own memory. It returns the current value and a setter function. When the setter is called, React re-renders the component with the new value.</p>
-<pre><code>import { useState } from "react";
+<h2 id="creating-tables"><a class="heading-anchor" href="#creating-tables">Creating Tables</a></h2>
+<pre><code>CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
-function Counter() {
-    const [count, setCount] = useState(0);
+CREATE TABLE posts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    title TEXT NOT NULL,
+    body TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);</code></pre>
 
-    return (
-        &lt;div&gt;
-            &lt;p&gt;Count: {count}&lt;/p&gt;
-            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;+1&lt;/button&gt;
-            &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
-        &lt;/div&gt;
-    );
-}</code></pre>
+<h2 id="crud-with-sql"><a class="heading-anchor" href="#crud-with-sql">CRUD with SQL</a></h2>
+<pre><code>-- Create
+INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com');
 
-<h2 id="useeffect-side-effects"><a class="heading-anchor" href="#useeffect-side-effects">useEffect: Side Effects</a></h2>
-<p>The <code>useEffect</code> hook runs code after render. The dependency array controls when it re-runs. An empty array means "run once on mount." Including variables means "re-run when these change."</p>
-<pre><code>import { useState, useEffect } from "react";
+-- Read
+SELECT * FROM users WHERE name = 'Alice';
+SELECT u.name, p.title FROM users u JOIN posts p ON u.id = p.user_id;
 
-function MenuPage() {
-    const [items, setItems] = useState([]);
-    const [loading, setLoading] = useState(true);
+-- Update
+UPDATE users SET name = 'Bob' WHERE id = 1;
 
-    useEffect(() =&gt; {
-        fetch("/api/menu")
-            .then(res =&gt; res.json())
-            .then(data =&gt; {
-                setItems(data);
-                setLoading(false);
-            });
-    }, []); // Empty array = run once on mount
+-- Delete
+DELETE FROM users WHERE id = 1;</code></pre>
 
-    if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
-    return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
-}</code></pre>
+<h2 id="using-sqlite-in-node-js"><a class="heading-anchor" href="#using-sqlite-in-node-js">Using SQLite in Node.js</a></h2>
+<pre><code>const Database = require("better-sqlite3");
+const db = new Database("app.db");
 
-<h2 id="lifting-state-up"><a class="heading-anchor" href="#lifting-state-up">Lifting State Up</a></h2>
-<p>When two sibling components need to share data, move the state to their common parent. The parent owns the state and passes it down as props. This is React's primary data-sharing pattern.</p>
+const users = db.prepare("SELECT * FROM users").all();
+db.prepare("INSERT INTO users (name, email) VALUES (?, ?)").run("Alice", "a@b.com");</code></pre>
 
 <div class="mermaid">
-flowchart TD
-    A[Render Component] --> B[useEffect Runs]
-    B --> C[User Interacts]
-    C --> D[State Changes via setState]
-    D --> E[Re-render]
-    E --> B
-    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
-    style B fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
-    style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
-    style D fill:#e74c3c,stroke:#a93226,color:#1a1a1a
-    style E fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
+erDiagram
+    USERS ||--o{ POSTS : writes
+    USERS {
+        int id PK
+        text name
+        text email
+        datetime created_at
+    }
+    POSTS {
+        int id PK
+        int user_id FK
+        text title
+        text body
+    }
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>useState gives components memory that persists across renders</li>
-<li>useEffect runs side effects after render, controlled by the dependency array</li>
-<li>An empty dependency array means the effect runs only once on mount</li>
-<li>Lift state to the nearest common parent when siblings need to share data</li>
+<li>SQLite stores a full relational database in a single file</li>
+<li>SQL provides powerful querying with SELECT, JOIN, WHERE, and more</li>
+<li>Foreign keys create relationships between tables and enforce data integrity</li>
+<li>Use parameterized queries (?) to prevent SQL injection attacks</li>
 </ul>
 </div>
 

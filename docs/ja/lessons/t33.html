@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Web Components II - KakkoiSchool</title>
+  <title>Nest.js: アーキテクチャ - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -43,138 +43,105 @@
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">
           <a href="t32.html">前へ</a>
-          <a href="t36.html">次へ</a>
+          <a href="t34.html">次へ</a>
         </div>
       </nav>
       
-<h1 id="t33-web-components-ii-テンプレート-スロット-ライフサイクル-lit"><a class="heading-anchor" href="#t33-web-components-ii-テンプレート-スロット-ライフサイクル-lit">T33: Web Components II - テンプレート、スロット、ライフサイクル、Lit</a></h1>
-<p class="lesson-intro">本物のコンポーネントにはあと3つ必要です。<strong>テンプレート</strong>は不活性なマークアップを必要になるまで舞台裏に置きます。<strong>スロット</strong>は親がReactの子要素のようにコンテンツを注入できるようにします。<strong>ライフサイクル</strong>コールバックは要素のライフステージです。誕生、挿入、属性変更、削除。これらを全て知ったら、Litが儀式を隠すエスプレッソマシンになります。</p>
+<h1 id="t33-nest-jsのアーキテクチャ"><a class="heading-anchor" href="#t33-nest-jsのアーキテクチャ">T33: Nest.jsのアーキテクチャ</a></h1>
+<p class="lesson-intro">Nest.jsはレストランチェーンの運営マニュアルのようなものです。モジュールは部署、コントローラーは注文を受けるウェイター、サービスは実際に調理するシェフ、そして依存性注入はウェイターが詳細を知る必要なくシェフを配置するマネージャーです。</p>
 
-<h2 id="lt-template-gt-要素"><a class="heading-anchor" href="#lt-template-gt-要素">&lt;template&gt;要素</a></h2>
-<p><code>&lt;template&gt;</code>はブラウザが解析するがレンダーしないマークアップを保持します。型として使い、文字列を組むのではなくそのコンテンツをシャドウルートにクローンします。</p>
-<pre><code>&lt;template id="tpl-user-card"&gt;
-    &lt;style&gt;
-        :host { display: block; padding: 1rem; border: 1px solid #ddd; }
-        h2 { margin: 0; }
-    &lt;/style&gt;
-    &lt;h2&gt;&lt;/h2&gt;
-    &lt;p&gt;&lt;/p&gt;
-&lt;/template&gt;
+<h2 id="フレームワークが必要な理由"><a class="heading-anchor" href="#フレームワークが必要な理由">フレームワークが必要な理由</a></h2>
+<p>T16の素のNode.jsは小さなアプリには十分ですが、スケールするには構造が必要です。Nest.jsは明確な関心の分離、強制されたパターン、テストとモジュール性の組み込みサポートを提供します。</p>
 
-&lt;script&gt;
-class UserCard extends HTMLElement {
-    connectedCallback() {
-        const tpl = document.getElementById("tpl-user-card");
-        const root = this.attachShadow({ mode: "open" });
-        root.appendChild(tpl.content.cloneNode(true));
-        root.querySelector("h2").textContent = this.getAttribute("name");
-        root.querySelector("p").textContent  = this.getAttribute("role");
+<h2 id="モジュール-コントローラー-サービス"><a class="heading-anchor" href="#モジュール-コントローラー-サービス">モジュール、コントローラー、サービス</a></h2>
+<p>全てのNest.jsアプリはモジュールに整理されます。各モジュールは関連するコントローラー(HTTPを処理)とサービス(ビジネスロジックを処理)をグループ化します。<code>@Controller</code>や<code>@Injectable</code>のようなデコレータが各クラスの役割をフレームワークに伝えます。</p>
+<pre><code>// menu.module.ts
+import { Module } from "@nestjs/common";
+import { MenuController } from "./menu.controller";
+import { MenuService } from "./menu.service";
+
+@Module({
+    controllers: [MenuController],
+    providers: [MenuService],
+})
+export class MenuModule {}
+
+// menu.controller.ts
+import { Controller, Get, Post, Body } from "@nestjs/common";
+import { MenuService } from "./menu.service";
+
+@Controller("menu")
+export class MenuController {
+    constructor(private readonly menuService: MenuService) {}
+
+    @Get()
+    findAll() {
+        return this.menuService.findAll();
+    }
+
+    @Post()
+    create(@Body() body: { name: string; price: number }) {
+        return this.menuService.create(body);
     }
 }
-customElements.define("user-card", UserCard);
-&lt;/script&gt;</code></pre>
 
-<h2 id="スロット-コンテンツ投影"><a class="heading-anchor" href="#スロット-コンテンツ投影">スロット: コンテンツ投影</a></h2>
-<p>スロットはシャドウツリー内の穴で、親のライトDOMがそこに投影されます。ユーザーがあなたのタグの間に書いた内容は<code>&lt;slot&gt;</code>を置いた場所に現れます。名前付きスロットで複数の注入点を持てます。</p>
-<pre><code>// Inside the component's shadow root
-&lt;style&gt;
-    header { font-weight: bold; }
-    footer { font-size: 0.85rem; color: #666; }
-&lt;/style&gt;
-&lt;header&gt;&lt;slot name="title"&gt;Default title&lt;/slot&gt;&lt;/header&gt;
-&lt;section&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/section&gt;
-&lt;footer&gt;&lt;slot name="footer"&gt;&lt;/slot&gt;&lt;/footer&gt;
+// menu.service.ts
+import { Injectable } from "@nestjs/common";
 
-// Usage from the page
-&lt;fancy-card&gt;
-    &lt;span slot="title"&gt;My Card&lt;/span&gt;
-    &lt;p&gt;Body content lands in the default slot.&lt;/p&gt;
-    &lt;small slot="footer"&gt;Updated today&lt;/small&gt;
-&lt;/fancy-card&gt;</code></pre>
+@Injectable()
+export class MenuService {
+    private items = [
+        { id: 1, name: "Tonkotsu Ramen", price: 850 },
+    ];
 
-<h2 id="ライフサイクルコールバック"><a class="heading-anchor" href="#ライフサイクルコールバック">ライフサイクルコールバック</a></h2>
-<p>全てのカスタム要素は同じ5つのライフステージを持ちます。<code>connectedCallback</code>でセットアップし、<code>disconnectedCallback</code>で片付けます。属性変更には<code>attributeChangedCallback</code>で反応しますが、<code>observedAttributes</code>に列挙したものだけです。</p>
-<pre><code>class Timer extends HTMLElement {
-    static observedAttributes = ["interval"];
-
-    connectedCallback() {
-        this._id = setInterval(() =&gt; this._tick(), this._ms());
-        this._tick();
+    findAll() {
+        return this.items;
     }
 
-    disconnectedCallback() {
-        clearInterval(this._id);
+    create(data: { name: string; price: number }) {
+        const item = { id: this.items.length + 1, ...data };
+        this.items.push(item);
+        return item;
     }
+}</code></pre>
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        if (name === "interval" &amp;&amp; this._id) {
-            clearInterval(this._id);
-            this._id = setInterval(() =&gt; this._tick(), this._ms());
-        }
-    }
+<h2 id="依存性注入"><a class="heading-anchor" href="#依存性注入">依存性注入</a></h2>
+<p>コントローラーは自分でサービスを作成しません。コンストラクタで必要なものを宣言し、フレームワークがそれを提供します。これによりテストが容易になります。コントローラーのコードを変更せずにモックサービスに差し替えられます。</p>
+<pre><code>// The controller declares its dependency
+constructor(private readonly menuService: MenuService) {}
 
-    _ms() { return Number(this.getAttribute("interval")) || 1000; }
-    _tick() { this.textContent = new Date().toLocaleTimeString(); }
-}
-customElements.define("live-clock", Timer);</code></pre>
+// Nest.js automatically creates and injects the MenuService instance
+// In tests, you can provide a mock instead:
+// { provide: MenuService, useValue: mockMenuService }</code></pre>
+
+<h2 id="デコレータとtypescript"><a class="heading-anchor" href="#デコレータとtypescript">デコレータとTypeScript</a></h2>
+<p>Nest.jsはTypeScriptのデコレータを多用します。<code>@Controller</code>、<code>@Get</code>、<code>@Post</code>、<code>@Body</code>、<code>@Injectable</code>。これらのアノテーションがロジックを散らかすことなく振る舞いを定義します。</p>
 
 <div class="mermaid">
-sequenceDiagram
-    participant Browser
-    participant El as Custom Element
-    Browser->>El: constructor()
-    Browser->>El: connectedCallback()
-    Note over El: inserted in DOM<br/>setup resources
-    Browser->>El: attributeChangedCallback(name, old, new)
-    Note over El: reconcile state
-    Browser->>El: disconnectedCallback()
-    Note over El: removed from DOM<br/>clean up resources
+flowchart TD
+    A[HTTP Request] --> B["@Controller: MenuController"]
+    B -->|"@Get /menu"| C["@Injectable: MenuService"]
+    C -->|getAll| D[(Database)]
+    D -->|results| C
+    C -->|data| B
+    B -->|JSON response| A
+    subgraph MenuModule
+        B
+        C
+    end
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style B fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+    style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style D fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
 </div>
-
-<h2 id="lit-シュガーレイヤー"><a class="heading-anchor" href="#lit-シュガーレイヤー">Lit: シュガーレイヤー</a></h2>
-<p>素のWeb Componentsは動くが冗長です。<strong>Lit</strong>(5KB、Google発)はリアクティブプロパティ、タグ付きテンプレートレンダリング、スコープドスタイルで定型コードを削減します。Litコンポーネントは<em>ネイティブのカスタム要素そのもの</em>で、書くコードが少ないだけです。</p>
-<pre><code>import { LitElement, html, css } from "lit";
-
-class UserCard extends LitElement {
-    static properties = {
-        name: { type: String },
-        role: { type: String },
-    };
-
-    static styles = css`
-        :host { display: block; padding: 1rem; border: 1px solid #ddd; }
-        h2    { margin: 0; font-size: 1rem; }
-        p     { margin: 0.25rem 0 0; color: #666; }
-    `;
-
-    render() {
-        return html`
-            &lt;h2&gt;${this.name}&lt;/h2&gt;
-            &lt;p&gt;${this.role}&lt;/p&gt;
-        `;
-    }
-}
-customElements.define("user-card", UserCard);
-
-// Usage
-// &lt;user-card name="Alice" role="Engineer"&gt;&lt;/user-card&gt;</code></pre>
-
-<h2 id="よくある罠"><a class="heading-anchor" href="#よくある罠">よくある罠</a></h2>
-<ul>
-<li><strong>コンストラクタでセットアップ</strong>: 要素はまだDOMにない。connectedCallbackで行う。</li>
-<li><strong>observedAttributesを忘れる</strong>: これ無しだとattributeChangedCallbackは発火しない。</li>
-<li><strong>リスナーの漏れ</strong>: connectedCallbackで追加したものは全てdisconnectedCallbackで削除する。</li>
-<li><strong>Shadow DOMとフォーム</strong>: シャドウルート内のフォーム入力は親フォームに自動参加しない。ElementInternals + static formAssociated = true を使う。</li>
-</ul>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>&lt;template&gt;は不活性なマークアップを保持し、文字列を組むのではなくシャドウルートにクローンする</li>
-<li>&lt;slot&gt;は親のコンテンツをコンポーネントに投影する。名前付きスロットで複数の注入点</li>
-<li>5つのライフサイクルコールバック: constructor、connectedCallback、attributeChangedCallback、disconnectedCallback、adoptedCallback</li>
-<li>observedAttributesがattributeChangedCallbackを発火させる属性を宣言する</li>
-<li>LitはネイティブWeb Componentsの上の薄いシュガーレイヤー。同じ標準、はるかに少ない定型</li>
+<li>Nest.jsはモジュール、コントローラー、サービスの3本柱で構造を強制する</li>
+<li>コントローラーはHTTPルーティング、サービスはビジネスロジックを処理する。混在させないこと</li>
+<li>依存性注入によりフレームワークがコンポーネントを接続し、テストが簡単になる</li>
+<li>TypeScriptデコレータがロジックを散らかすことなく宣言的に振る舞いを定義する</li>
 </ul>
 </div>
 
@@ -182,7 +149,7 @@ customElements.define("user-card", UserCard);
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">
           <a href="t32.html">前へ</a>
-          <a href="t36.html">次へ</a>
+          <a href="t34.html">次へ</a>
         </div>
       </nav>
     </article>

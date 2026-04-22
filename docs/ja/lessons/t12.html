@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Fetch API - KakkoiSchool</title>
+  <title>フォームとダイアログ - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,59 +47,60 @@
         </div>
       </nav>
       
-<h1 id="t12-fetch-api"><a class="heading-anchor" href="#t12-fetch-api">T12: Fetch API</a></h1>
-<p class="lesson-intro">Fetch APIはJavaScriptからサーバーと通信する手段です。手紙を送って返事を待つようなもので、リクエストを送り、サーバーが処理し、レスポンスを返します。async/await構文でこの非同期通信を同期的なコードのように読めるようにします。</p>
+<h1 id="t12-フォームとダイアログ"><a class="heading-anchor" href="#t12-フォームとダイアログ">T12: フォームとダイアログ</a></h1>
+<p class="lesson-intro">HTMLフォームはデータを収集しますが、JavaScriptがそれを検証・処理します。dialog要素はライブラリなしでネイティブモーダルウィンドウを提供します。この組み合わせでスムーズなデータ収集体験を作れます。書類を提出する前にチェックしてくれる賢い受付のようなものです。</p>
 
-<h2 id="httpの基本"><a class="heading-anchor" href="#httpの基本">HTTPの基本</a></h2>
-<p>HTTPはブラウザがサーバーと通信するプロトコルです。全てのリクエストにはメソッド(GET, POST, PUT, DELETE)があり、全てのレスポンスにはステータスコード(200 OK, 404 Not Found, 500 Error)があります。</p>
+<h2 id="javascriptフォームバリデーション"><a class="heading-anchor" href="#javascriptフォームバリデーション">JavaScriptフォームバリデーション</a></h2>
+<p>HTMLには組み込みバリデーション(required, type)がありますが、JavaScriptはバリデーションロジックとカスタムエラーメッセージを完全に制御できます。</p>
+<pre><code>const form = document.querySelector("#myForm");
+form.addEventListener("submit", function(event) {
+    const email = form.querySelector("#email").value;
+    if (!email.includes("@")) {
+        event.preventDefault();
+        showError("Please enter a valid email address.");
+    }
+});
 
-<h2 id="リクエストの送信"><a class="heading-anchor" href="#リクエストの送信">リクエストの送信</a></h2>
-<p><code>fetch()</code>関数はPromiseを返します。<code>async/await</code>でクリーンで読みやすい非同期コードを書けます。</p>
-<pre><code>// GET request
-async function getUsers() {
-    const response = await fetch("/api/users");
-    const data = await response.json();
-    return data;
-}
-
-// POST request
-async function createUser(user) {
-    const response = await fetch("/api/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(user)
-    });
-    return await response.json();
+function showError(message) {
+    const errorDiv = document.querySelector(".error");
+    errorDiv.textContent = message;
+    errorDiv.style.display = "block";
 }</code></pre>
 
-<h2 id="エラー処理"><a class="heading-anchor" href="#エラー処理">エラー処理</a></h2>
-<pre><code>try {
-    const data = await getUsers();
-    renderUsers(data);
-} catch (error) {
-    console.error("Failed to fetch:", error);
-    showErrorMessage("Could not load users. Try again.");
-}</code></pre>
+<h2 id="dialog要素"><a class="heading-anchor" href="#dialog要素">Dialog要素</a></h2>
+<p><code>&lt;dialog&gt;</code>要素はネイティブのモーダル/非モーダルダイアログを提供します。<code>showModal()</code>で背景付きモーダル、<code>show()</code>で非モーダルを表示します。</p>
+<pre><code>&lt;dialog id="confirm"&gt;
+    &lt;p&gt;Are you sure?&lt;/p&gt;
+    &lt;button id="yes"&gt;Yes&lt;/button&gt;
+    &lt;button id="no"&gt;No&lt;/button&gt;
+&lt;/dialog&gt;
+
+&lt;script&gt;
+const dialog = document.querySelector("#confirm");
+dialog.showModal();
+dialog.querySelector("#no").addEventListener("click", () =&gt; dialog.close());
+&lt;/script&gt;</code></pre>
 
 <div class="mermaid">
-sequenceDiagram
-    participant B as Browser
-    participant S as Server
-    B->>S: GET /api/users
-    S-->>B: 200 OK + JSON data
-    B->>S: POST /api/users + body
-    S-->>B: 201 Created + new user
-    B->>S: GET /api/missing
-    S-->>B: 404 Not Found
+flowchart TD
+    A[User submits form] --> B{JS Validation}
+    B -->|Invalid| C[Show error message]
+    C --> A
+    B -->|Valid| D{Needs confirmation?}
+    D -->|Yes| E[Open dialog]
+    E --> F{User confirms?}
+    F -->|Yes| G[Process data]
+    F -->|No| A
+    D -->|No| G
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>fetch()はHTTPリクエストを送信しPromiseを返します</li>
-<li>async/awaitで非同期コードが読みやすく保守しやすくなります</li>
-<li>ネットワークリクエストではtry/catchで必ずエラー処理をしましょう</li>
-<li>response.json()でJSONレスポンスボディをパースします</li>
+<li>JavaScriptバリデーションはHTML5組み込みバリデーション以上のカスタムロジックを提供します</li>
+<li>dialog要素は外部ライブラリなしでネイティブモーダルウィンドウを提供します</li>
+<li>モーダルにはshowModal()、非モーダルにはshow()を使います</li>
+<li>ユーザーに問題の修正方法を伝える明確なエラーメッセージを必ず提供しましょう</li>
 </ul>
 </div>
 

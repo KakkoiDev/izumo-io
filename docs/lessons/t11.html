@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Persistence - KakkoiSchool</title>
+  <title>DOM Manipulation - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,53 +47,50 @@
         </div>
       </nav>
       
-<h1 id="t11-persistence"><a class="heading-anchor" href="#t11-persistence">T11: Persistence</a></h1>
-<p class="lesson-intro">Web pages forget everything when you close them. LocalStorage is like a notebook the browser keeps for your website - data persists even after closing the tab. JSON is the universal format for converting JavaScript objects into storable strings and back.</p>
+<h1 id="t11-dom-manipulation"><a class="heading-anchor" href="#t11-dom-manipulation">T11: DOM Manipulation</a></h1>
+<p class="lesson-intro">The DOM (Document Object Model) is the browser's live representation of your HTML page. Think of it as a tree made of building blocks - JavaScript lets you add, remove, and rearrange those blocks while the user watches. Every element is a node you can reach and modify.</p>
 
-<h2 id="localstorage-api"><a class="heading-anchor" href="#localstorage-api">localStorage API</a></h2>
-<p>LocalStorage stores key-value pairs as strings. It persists across page reloads and browser restarts, with about 5MB of space per domain.</p>
-<pre><code>// Save data
-localStorage.setItem("username", "Alice");
+<h2 id="selecting-elements"><a class="heading-anchor" href="#selecting-elements">Selecting Elements</a></h2>
+<p>Before you can change an element, you need to find it. The <code>querySelector</code> method uses CSS selector syntax to grab elements.</p>
+<pre><code>const title = document.querySelector("h1");
+const items = document.querySelectorAll(".item");
+const form = document.querySelector("#signup-form");</code></pre>
 
-// Read data
-const name = localStorage.getItem("username");
+<h2 id="creating-and-modifying-elements"><a class="heading-anchor" href="#creating-and-modifying-elements">Creating and Modifying Elements</a></h2>
+<p>Create new elements with <code>createElement</code>, set their content, and append them to the page.</p>
+<pre><code>const card = document.createElement("div");
+card.className = "card";
+card.textContent = "New card content";
+document.querySelector(".container").appendChild(card);</code></pre>
 
-// Remove data
-localStorage.removeItem("username");
-
-// Clear all
-localStorage.clear();</code></pre>
-
-<h2 id="working-with-json"><a class="heading-anchor" href="#working-with-json">Working with JSON</a></h2>
-<p>Since localStorage only stores strings, use <code>JSON.stringify()</code> to save objects and <code>JSON.parse()</code> to read them back.</p>
-<pre><code>const tasks = [
-    { id: 1, text: "Learn HTML", done: true },
-    { id: 2, text: "Learn CSS", done: false }
-];
-
-// Save
-localStorage.setItem("tasks", JSON.stringify(tasks));
-
-// Load
-const saved = JSON.parse(localStorage.getItem("tasks") || "[]");</code></pre>
+<h2 id="event-handling"><a class="heading-anchor" href="#event-handling">Event Handling</a></h2>
+<p>Events let your page respond to user actions. Click, hover, type - each triggers an event you can listen for.</p>
+<pre><code>const button = document.querySelector("#submit");
+button.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log("Button was clicked!");
+});</code></pre>
 
 <div class="mermaid">
-flowchart LR
-    A[JS Object] -->|JSON.stringify| B[JSON String]
-    B -->|setItem| C[localStorage]
-    C -->|getItem| D[JSON String]
-    D -->|JSON.parse| E[JS Object]
-    C -->|persists across| F[Page Reloads]
-    C -->|persists across| G[Browser Restart]
+graph TD
+    A[document] --> B[html]
+    B --> C[head]
+    B --> D[body]
+    D --> E[h1]
+    D --> F[div.container]
+    F --> G[p]
+    F --> H[button]
+    H -->|click event| I[Event Handler]
+    I -->|modifies| F
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>localStorage persists data across page reloads and browser restarts</li>
-<li>All values are stored as strings - use JSON for complex data</li>
-<li>JSON.stringify converts objects to strings, JSON.parse converts back</li>
-<li>localStorage has a 5MB limit per domain - use it for small data only</li>
+<li>querySelector and querySelectorAll find elements using CSS selector syntax</li>
+<li>createElement and appendChild let you build new DOM nodes dynamically</li>
+<li>addEventListener connects user actions to your JavaScript functions</li>
+<li>Always use event.preventDefault() when you want to stop default browser behavior</li>
 </ul>
 </div>
 

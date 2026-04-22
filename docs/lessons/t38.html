@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>System Design: Caching, Queues & Patterns - KakkoiSchool</title>
+  <title>System Design: Scale & Storage - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -43,110 +43,87 @@
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">
           <a href="t37.html">Previous</a>
-          
+          <a href="t39.html">Next</a>
         </div>
       </nav>
       
-<h1 id="t38-system-design-caching-queues-amp-patterns"><a class="heading-anchor" href="#t38-system-design-caching-queues-amp-patterns">T38: System Design - Caching, Queues &amp; Patterns</a></h1>
-<p class="lesson-intro">A database that does every read is like a chef who chops onions for every order. Caches pre-chop. Queues decouple the waiter from the kitchen so neither waits for the other. CDNs put a mini-kitchen on every continent. The deep dive of a system design is usually stitching these three together until the non-functional numbers fall into place.</p>
+<h1 id="t38-system-design-scale-databases-sharding"><a class="heading-anchor" href="#t38-system-design-scale-databases-sharding">T38: System Design - Scale, Databases, Sharding</a></h1>
+<p class="lesson-intro">One small server can handle more traffic than most people think. But at some point the single server sweats, the single database chokes, and you have to split work across machines. Scaling is the art of splitting - first by adding copies (replicas), then by splitting the data itself (shards). The trick is doing it only when the numbers force you to.</p>
 
-<h2 id="caching-fast-memory-between-you-and-the-database"><a class="heading-anchor" href="#caching-fast-memory-between-you-and-the-database">Caching: Fast Memory Between You and The Database</a></h2>
-<p>A cache stores the result of a slow or expensive operation in fast memory. The canonical pattern is <strong>cache-aside</strong>: app checks cache; on miss, reads DB and fills cache; on hit, skips DB entirely.</p>
+<h2 id="vertical-vs-horizontal"><a class="heading-anchor" href="#vertical-vs-horizontal">Vertical vs Horizontal</a></h2>
+<p><strong>Vertical</strong> scaling = buy a bigger machine. More CPU, more RAM. Dead simple, works until it doesn't, has a ceiling. <strong>Horizontal</strong> scaling = add more machines and share the load. More complex, no ceiling, how real products survive traffic.</p>
+<pre><code># Vertical: one strong server
+[ 8 vCPU | 32 GB RAM ]  -&gt;  [ 32 vCPU | 256 GB RAM ]
 
-<div class="mermaid">
-sequenceDiagram
-    participant App
-    participant Cache as Redis
-    participant DB as Database
-    App->>Cache: GET key
-    alt cache hit
-        Cache-->>App: value (fast)
-    else cache miss
-        Cache-->>App: nil
-        App->>DB: SELECT ...
-        DB-->>App: row
-        App->>Cache: SET key value ttl
-    end
-</div>
+# Horizontal: many modest servers behind a load balancer
+Client -&gt; LB -&gt; [ app1 ] [ app2 ] [ app3 ] ... [ appN ]</code></pre>
+<p>Rule of thumb: scale vertically first. It is cheaper and simpler. Scale horizontally when vertical hits its limit or when you need redundancy.</p>
 
-<pre><code>// Cache-aside in Node.js
-async function getUser(id) {
-    const cached = await redis.get(`user:${id}`);
-    if (cached) return JSON.parse(cached);
+<h2 id="sql-vs-nosql-pick-for-the-shape-of-data"><a class="heading-anchor" href="#sql-vs-nosql-pick-for-the-shape-of-data">SQL vs NoSQL: Pick For The Shape of Data</a></h2>
+<p><strong>SQL</strong> (Postgres, MySQL) is right when your data has known shape and relationships, and you need transactions. <strong>NoSQL</strong> covers many shapes: document stores (MongoDB) for nested objects, key-value (Redis, DynamoDB) for fast lookups by id, wide-column (Cassandra) for huge event streams. Choose NoSQL for a specific reason, not "because scale".</p>
+<pre><code>// Orders, invoices, bookings     -&gt; SQL
+// User sessions, short-lived KV  -&gt; Redis
+// Logs, clicks, time series      -&gt; Cassandra / Clickhouse
+// Nested catalog documents       -&gt; MongoDB
+// Full-text search               -&gt; Elasticsearch / Meilisearch</code></pre>
 
-    const row = await db.query("SELECT * FROM users WHERE id = $1", [id]);
-    await redis.set(`user:${id}`, JSON.stringify(row), "EX", 300);
-    return row;
-}</code></pre>
+<h2 id="replication-copies-for-read-scale-and-safety"><a class="heading-anchor" href="#replication-copies-for-read-scale-and-safety">Replication: Copies for Read Scale and Safety</a></h2>
+<p>Most apps read 10-100x more than they write. Solution: one <strong>primary</strong> handles writes, multiple <strong>replicas</strong> serve reads. Replicas also survive primary failure.</p>
+<pre><code>Writes --&gt; [Primary]
+              |--&gt; [Replica 1] --&gt; Reads
+              |--&gt; [Replica 2] --&gt; Reads
+              |--&gt; [Replica 3] --&gt; Reads</code></pre>
+<p>The catch: replication is asynchronous by default. A read on a replica right after a write may return stale data. If you need read-your-writes, route that read to the primary.</p>
 
-<p>The two hard problems of caching are <strong>invalidation</strong> (when do you throw stale data out) and <strong>stampede</strong> (when many requests miss at once and hammer the DB). Fix with TTLs, write-through updates, and single-flight locks on misses.</p>
-
-<h2 id="where-to-cache"><a class="heading-anchor" href="#where-to-cache">Where to Cache</a></h2>
-<ul>
-<li><strong>Browser cache</strong> - closest to user, controlled by <code>Cache-Control</code> headers</li>
-<li><strong>CDN (edge cache)</strong> - static assets, public API responses. Global, cheap, fast</li>
-<li><strong>Application cache</strong> - in-process memory or Redis. Good for per-user data and hot rows</li>
-<li><strong>Database cache</strong> - the DB's own buffer pool. Free, already tuned</li>
-</ul>
-
-<h2 id="message-queues-decouple-slow-work"><a class="heading-anchor" href="#message-queues-decouple-slow-work">Message Queues: Decouple Slow Work</a></h2>
-<p>Any operation that takes more than a few hundred milliseconds should not block the user. Queues let the app accept the job and return immediately; a <strong>worker</strong> reads the queue and does the slow work later.</p>
+<h2 id="sharding-when-one-database-is-not-enough"><a class="heading-anchor" href="#sharding-when-one-database-is-not-enough">Sharding: When One Database Is Not Enough</a></h2>
+<p>Sharding splits rows across many databases. Each database holds a slice. You pick a <strong>shard key</strong> and hash it to route rows.</p>
 
 <div class="mermaid">
-sequenceDiagram
-    participant User
-    participant API
-    participant Q as Queue (Kafka/SQS)
-    participant W as Worker
-    participant DB
-    User->>API: POST /upload
-    API->>Q: enqueue job
-    API-->>User: 202 Accepted (fast)
-    W->>Q: pull job
-    W->>W: resize, transcode, scan
-    W->>DB: write result
+flowchart LR
+    C[Client write user_id=1234]
+    H{hash user_id % 4}
+    S0[(Shard 0<br/>keys 0)]
+    S1[(Shard 1<br/>keys 1)]
+    S2[(Shard 2<br/>keys 2)]
+    S3[(Shard 3<br/>keys 3)]
+    C --> H
+    H -->|mod 0| S0
+    H -->|mod 1| S1
+    H -->|mod 2| S2
+    H -->|mod 3| S3
 </div>
 
-<p>Queues also absorb traffic spikes. If the worker can process 1000/sec and a spike pushes 10,000/sec, the queue flattens the curve instead of dropping requests. Kafka, RabbitMQ, and SQS each make different trade-offs around ordering, durability, and replay.</p>
+<p>Sharding has a steep cost: any query crossing shards must be scatter-gathered. Pick a shard key that matches your most common queries. For a Twitter-like app, shard by <code>user_id</code> so one user's timeline lives on one shard.</p>
 
-<h2 id="load-balancers-and-redundancy"><a class="heading-anchor" href="#load-balancers-and-redundancy">Load Balancers and Redundancy</a></h2>
-<p>A load balancer sits in front of identical app servers and spreads requests. Three jobs: distribute load, detect dead servers (health checks), terminate TLS. Run at least two of everything - load balancer, app, database replica - so any single failure is absorbed.</p>
-<pre><code>Client -&gt; DNS -&gt; LB (primary) --&gt; app1
-                    LB (standby)   app2
-                                   app3</code></pre>
+<h2 id="consistent-hashing-growing-without-pain"><a class="heading-anchor" href="#consistent-hashing-growing-without-pain">Consistent Hashing: Growing Without Pain</a></h2>
+<p>Simple hash-mod breaks when you add a shard: <code>hash % 4</code> becomes <code>hash % 5</code>, and almost every key changes home. <strong>Consistent hashing</strong> places shards on a ring. Each key lands at a point on the ring and rolls clockwise to the nearest shard. Adding or removing a shard only moves the neighbors.</p>
+<pre><code>                 Shard A
+                    *
+      *                      *
+  Shard D                  Shard B
+      *                      *
+                    *
+                 Shard C
 
-<h2 id="cdns-a-copy-near-every-user"><a class="heading-anchor" href="#cdns-a-copy-near-every-user">CDNs: A Copy Near Every User</a></h2>
-<p>A Content Delivery Network caches your static assets (and sometimes API responses) at hundreds of edge locations around the globe. First user in Tokyo pays the full trip to your origin in Virginia. Next 10,000 users in Tokyo hit the Tokyo edge in 10ms.</p>
-<pre><code>// What to put on the CDN
-- images, videos, fonts, JS/CSS bundles
-- rarely-changing API responses with Cache-Control
-- HTML for logged-out pages</code></pre>
+Key hashes to a point on the ring -&gt; served by next shard clockwise.
+Add Shard E between B and C -&gt; only keys between B and E move.</code></pre>
 
-<h2 id="monolith-vs-microservices"><a class="heading-anchor" href="#monolith-vs-microservices">Monolith vs Microservices</a></h2>
-<p>Do not start with microservices. Every split adds a network hop, a deploy target, and a failure mode. Start monolith, extract services only when team size or scale makes the monolith painful.</p>
+<h2 id="cap-theorem-pick-two-really-pick-one-of-two"><a class="heading-anchor" href="#cap-theorem-pick-two-really-pick-one-of-two">CAP Theorem: Pick Two (Really, Pick One of Two)</a></h2>
+<p>In a distributed system you can have Consistency, Availability, or Partition tolerance. Networks partition whether you like it or not, so the real choice is between consistency and availability during a partition.</p>
 <ul>
-<li><strong>Monolith</strong>: one codebase, one deploy. Fast to iterate, simple to debug. Breaks down at ~50 engineers or obvious bottleneck components.</li>
-<li><strong>Microservices</strong>: separate codebases, separate deploys, API or queue between. Each team owns a service. Pays off at scale, costs a lot up front.</li>
-</ul>
-
-<h2 id="back-of-envelope-numbers-worth-memorizing"><a class="heading-anchor" href="#back-of-envelope-numbers-worth-memorizing">Back-of-Envelope Numbers Worth Memorizing</a></h2>
-<ul>
-<li>L1 cache: ~1 ns. Memory: ~100 ns. SSD: ~100 us. Network round trip same region: ~1 ms. Cross-region: ~100 ms.</li>
-<li>A modern CPU server handles ~10k-100k req/sec for simple JSON.</li>
-<li>Postgres handles ~10k writes/sec / ~50k reads/sec before tuning.</li>
-<li>Redis handles ~100k-1M ops/sec.</li>
-<li>100M events/day = ~1,160/sec average, ~10k/sec at peak.</li>
+<li><strong>CP systems</strong> (banks, inventory, payments): refuse writes rather than disagree. Users may see "try again".</li>
+<li><strong>AP systems</strong> (social feeds, DMs, caches): accept writes on either side, reconcile later. Users see slightly stale data.</li>
 </ul>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Cache-aside is the default: check cache, miss -&gt; hit DB -&gt; fill cache. Watch for stampedes and invalidation</li>
-<li>Queues make the API respond fast by handing slow work to workers. They also flatten traffic spikes</li>
-<li>Run two of everything behind a load balancer so no single failure takes the system down</li>
-<li>CDNs buy global latency for pennies. Push every static asset and cacheable response to the edge</li>
-<li>Monolith first, microservices only when the monolith is visibly painful. Extraction is cheaper than un-extraction</li>
-<li>Keep a rough numbers table in your head: ns, us, ms latencies and per-component throughput</li>
+<li>Scale vertically first, horizontally second. A modern machine is more powerful than you think</li>
+<li>Pick SQL unless you have a specific reason for a specific NoSQL shape. "Scale" alone is not a reason</li>
+<li>Replication gives read scale and failover. Accept brief staleness on replicas or route critical reads to primary</li>
+<li>Sharding is the last resort. Pick a shard key that matches your common queries, and expect scatter-gather pain for the rest</li>
+<li>Consistent hashing makes shard changes cheap. Use it whenever the number of shards will ever change</li>
+<li>CAP forces a choice during network partitions: refuse writes (CP) or accept stale reads (AP). Know which your system needs</li>
 </ul>
 </div>
 
@@ -154,7 +131,7 @@ sequenceDiagram
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">
           <a href="t37.html">Previous</a>
-          
+          <a href="t39.html">Next</a>
         </div>
       </nav>
     </article>

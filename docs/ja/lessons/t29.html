@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Nest.js: データと認証 - KakkoiSchool</title>
+  <title>Reactの状態とエフェクト - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -43,110 +43,74 @@
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">
           <a href="t28.html">前へ</a>
-          <a href="t32.html">次へ</a>
+          <a href="t30.html">次へ</a>
         </div>
       </nav>
       
-<h1 id="t29-nest-jsのデータと認証"><a class="heading-anchor" href="#t29-nest-jsのデータと認証">T29: Nest.jsのデータと認証</a></h1>
-<p class="lesson-intro">DTOはウェイターがキッチンに理解できる内容を正確に書く注文票のようなものです。ガードはドアでIDをチェックする用心棒です。データベース統合と合わせて、Nest.jsアプリケーションのデータとセキュリティ層を形成します。</p>
+<h1 id="t29-reactのステートとエフェクト"><a class="heading-anchor" href="#t29-reactのステートとエフェクト">T29: Reactのステートとエフェクト</a></h1>
+<p class="lesson-intro">ステートはコンポーネントの個人的なノートです。レンダリング間で保持され、更新時に再レンダリングを引き起こすプライベートデータです。エフェクトはコンポーネントのレンダリング後に鳴る目覚まし時計のようなもので、APIやタイマーなどの外部システムと同期できます。</p>
 
-<h2 id="dtoとバリデーション"><a class="heading-anchor" href="#dtoとバリデーション">DTOとバリデーション</a></h2>
-<p>Data Transfer Objectは受信データの期待される形を定義します。class-validatorデコレータと組み合わせることで、無効なリクエストを自動的に拒否します。T17の手動バリデーションと比較してください。Nest.jsは宣言的に処理します。</p>
-<pre><code>// create-menu-item.dto.ts
-import { IsString, IsNumber, Min, MaxLength } from "class-validator";
+<h2 id="usestate-コンポーネントのメモリ"><a class="heading-anchor" href="#usestate-コンポーネントのメモリ">useState: コンポーネントのメモリ</a></h2>
+<p><code>useState</code>フックはコンポーネントに独自のメモリを与えます。現在の値とセッター関数を返します。セッターが呼ばれると、Reactは新しい値でコンポーネントを再レンダリングします。</p>
+<pre><code>import { useState } from "react";
 
-export class CreateMenuItemDto {
-    @IsString()
-    @MaxLength(100)
-    name: string;
+function Counter() {
+    const [count, setCount] = useState(0);
 
-    @IsNumber()
-    @Min(0)
-    price: number;
-
-    @IsString()
-    category: string;
-}
-
-// menu.controller.ts
-import { Controller, Post, Body } from "@nestjs/common";
-
-@Controller("menu")
-export class MenuController {
-    constructor(private readonly menuService: MenuService) {}
-
-    @Post()
-    create(@Body() dto: CreateMenuItemDto) {
-        // dto is already validated - invalid requests never reach here
-        return this.menuService.create(dto);
-    }
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;+1&lt;/button&gt;
+            &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
+        &lt;/div&gt;
+    );
 }</code></pre>
 
-<h2 id="データベース統合"><a class="heading-anchor" href="#データベース統合">データベース統合</a></h2>
-<p>Nest.jsはT19のSQLiteデータベースパターンと連携しますが、リポジトリ層を通して行います。サービスがデータベースとやり取りし、データアクセスをHTTP処理から分離します。</p>
+<h2 id="useeffect-副作用"><a class="heading-anchor" href="#useeffect-副作用">useEffect: 副作用</a></h2>
+<p><code>useEffect</code>フックはレンダリング後にコードを実行します。依存配列が再実行のタイミングを制御します。空の配列は「マウント時に一度だけ実行」を意味します。変数を含めると「これらが変更されたら再実行」になります。</p>
+<pre><code>import { useState, useEffect } from "react";
 
-<h2 id="認証ガード"><a class="heading-anchor" href="#認証ガード">認証ガード</a></h2>
-<p>ガードはリクエストを続行すべきかを判断するクラスです。コントローラーがリクエストを見る前に認証トークンをチェックします。<code>@UseGuards</code>デコレータで特定のルートまたはコントローラー全体に適用します。</p>
-<pre><code>// auth.guard.ts
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+function MenuPage() {
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-@Injectable()
-export class AuthGuard implements CanActivate {
-    canActivate(context: ExecutionContext): boolean {
-        const request = context.switchToHttp().getRequest();
-        const token = request.headers["authorization"];
-        if (!token || !this.validateToken(token)) {
-            throw new UnauthorizedException("Invalid or missing token");
-        }
-        return true;
-    }
+    useEffect(() =&gt; {
+        fetch("/api/menu")
+            .then(res =&gt; res.json())
+            .then(data =&gt; {
+                setItems(data);
+                setLoading(false);
+            });
+    }, []); // Empty array = run once on mount
 
-    private validateToken(token: string): boolean {
-        // Token validation logic
-        return token.startsWith("Bearer ");
-    }
-}
-
-// Using the guard on a controller
-import { Controller, Get, UseGuards } from "@nestjs/common";
-
-@Controller("admin/menu")
-@UseGuards(AuthGuard)
-export class AdminMenuController {
-    constructor(private readonly menuService: MenuService) {}
-
-    @Get()
-    findAll() {
-        return this.menuService.findAll();
-    }
+    if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
+    return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
 }</code></pre>
+
+<h2 id="ステートのリフトアップ"><a class="heading-anchor" href="#ステートのリフトアップ">ステートのリフトアップ</a></h2>
+<p>2つの兄弟コンポーネントがデータを共有する必要がある場合、ステートを共通の親に移動します。親がステートを所有し、propsとして子に渡します。これがReactの主要なデータ共有パターンです。</p>
 
 <div class="mermaid">
-sequenceDiagram
-    participant Client
-    participant Guard as AuthGuard
-    participant Controller
-    participant DTO as DTO Validation
-    participant Service
-    participant DB as Database
-    Client->>Guard: Request with token
-    Guard->>Guard: Validate token
-    Guard->>Controller: Authorized
-    Controller->>DTO: Validate body
-    DTO->>Service: Valid data
-    Service->>DB: Query/Insert
-    DB-->>Service: Result
-    Service-->>Controller: Response data
-    Controller-->>Client: JSON response
+flowchart TD
+    A[Render Component] --> B[useEffect Runs]
+    B --> C[User Interacts]
+    C --> D[State Changes via setState]
+    D --> E[Re-render]
+    E --> B
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style B fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style D fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+    style E fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>DTOとclass-validatorデコレータが宣言的にバリデーションを処理し、手動チェックが不要になる</li>
-<li>リポジトリパターンでデータベースアクセスをサービスに保ち、コントローラーから分離する</li>
-<li>ガードはコントローラーの前に実行され、フレームワークレベルで認証を強制する</li>
-<li>@UseGuardsや@Bodyのようなデコレータがロジックを散らかすことなくセキュリティとバリデーションを接続する</li>
+<li>useStateはレンダリング間で保持されるメモリをコンポーネントに与える</li>
+<li>useEffectはレンダリング後に副作用を実行し、依存配列で制御する</li>
+<li>空の依存配列はエフェクトがマウント時に一度だけ実行されることを意味する</li>
+<li>兄弟コンポーネントがデータを共有する場合、最も近い共通の親にステートをリフトアップする</li>
 </ul>
 </div>
 
@@ -154,7 +118,7 @@ sequenceDiagram
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">
           <a href="t28.html">前へ</a>
-          <a href="t32.html">次へ</a>
+          <a href="t30.html">次へ</a>
         </div>
       </nav>
     </article>

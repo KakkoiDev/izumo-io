@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>動的サイト: オフライン - KakkoiSchool</title>
+  <title>データの永続化 - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,57 +47,53 @@
         </div>
       </nav>
       
-<h1 id="t14-動的サイト-オフライン対応"><a class="heading-anchor" href="#t14-動的サイト-オフライン対応">T14: 動的サイト - オフライン対応</a></h1>
-<p class="lesson-intro">Service Workerはバックグラウンドで動作するスクリプトで、Webページとは別に実行されます。ネットワークリクエストを傍受し、オフライン時にキャッシュからレスポンスを返せます。ブラウザ内に住むプログラム可能なプロキシサーバーと考えてください。ネットワークから取得するかキャッシュから返すかを判断します。</p>
+<h1 id="t14-データの永続化"><a class="heading-anchor" href="#t14-データの永続化">T14: データの永続化</a></h1>
+<p class="lesson-intro">Webページは閉じると全てを忘れます。localStorageはブラウザがあなたのWebサイト用に保持するノートのようなものです。タブを閉じてもデータは残ります。JSONはJavaScriptオブジェクトを保存可能な文字列に変換し、元に戻すための共通形式です。</p>
 
-<h2 id="service-workerの登録"><a class="heading-anchor" href="#service-workerの登録">Service Workerの登録</a></h2>
-<pre><code>// In your main JS file
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/sw.js")
-        .then(reg =&gt; console.log("SW registered"))
-        .catch(err =&gt; console.error("SW failed:", err));
-}</code></pre>
+<h2 id="localstorage-api"><a class="heading-anchor" href="#localstorage-api">localStorage API</a></h2>
+<p>localStorageはキーバリューペアを文字列として格納します。ページのリロードやブラウザの再起動後も持続し、ドメインあたり約5MBの容量があります。</p>
+<pre><code>// Save data
+localStorage.setItem("username", "Alice");
 
-<h2 id="service-workerファイル"><a class="heading-anchor" href="#service-workerファイル">Service Workerファイル</a></h2>
-<pre><code>// sw.js
-const CACHE_NAME = "v1";
-const ASSETS = ["/", "/index.html", "/style.css", "/app.js"];
+// Read data
+const name = localStorage.getItem("username");
 
-self.addEventListener("install", event =&gt; {
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache =&gt; cache.addAll(ASSETS))
-    );
-});
+// Remove data
+localStorage.removeItem("username");
 
-self.addEventListener("fetch", event =&gt; {
-    event.respondWith(
-        caches.match(event.request)
-            .then(cached =&gt; cached || fetch(event.request))
-    );
-});</code></pre>
+// Clear all
+localStorage.clear();</code></pre>
 
-<h2 id="pwaマニフェスト"><a class="heading-anchor" href="#pwaマニフェスト">PWAマニフェスト</a></h2>
-<p><code>manifest.json</code>ファイルを追加してモバイルデバイスでアプリとしてインストール可能にします。</p>
+<h2 id="jsonの活用"><a class="heading-anchor" href="#jsonの活用">JSONの活用</a></h2>
+<p>localStorageは文字列のみ格納するため、<code>JSON.stringify()</code>でオブジェクトを保存し、<code>JSON.parse()</code>で読み戻します。</p>
+<pre><code>const tasks = [
+    { id: 1, text: "Learn HTML", done: true },
+    { id: 2, text: "Learn CSS", done: false }
+];
+
+// Save
+localStorage.setItem("tasks", JSON.stringify(tasks));
+
+// Load
+const saved = JSON.parse(localStorage.getItem("tasks") || "[]");</code></pre>
 
 <div class="mermaid">
-stateDiagram-v2
-    [*] --> Installing: register()
-    Installing --> Installed: install event
-    Installed --> Activating: activate
-    Activating --> Active: activated
-    Active --> Active: fetch events
-    Active --> Redundant: new SW takes over
-    note right of Active: Intercepts all fetch requests
+flowchart LR
+    A[JS Object] -->|JSON.stringify| B[JSON String]
+    B -->|setItem| C[localStorage]
+    C -->|getItem| D[JSON String]
+    D -->|JSON.parse| E[JS Object]
+    C -->|persists across| F[Page Reloads]
+    C -->|persists across| G[Browser Restart]
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>Service Workerはバックグラウンドで実行され、ネットワークリクエストを傍受します</li>
-<li>インストール時にアセットをキャッシュしてオフライン機能を有効にします</li>
-<li>fetchイベントハンドラがキャッシュから返すかネットワークから取得するかを決定します</li>
-<li>manifest.jsonファイルでWebアプリをモバイルデバイスにインストール可能にします</li>
+<li>localStorageはページリロードやブラウザ再起動後もデータを保持します</li>
+<li>全ての値は文字列として格納されます。複雑なデータにはJSONを使います</li>
+<li>JSON.stringifyでオブジェクトを文字列に、JSON.parseで元に戻します</li>
+<li>localStorageはドメインあたり5MB制限があります。小さなデータ専用です</li>
 </ul>
 </div>
 

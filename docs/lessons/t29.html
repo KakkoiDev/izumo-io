@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Nest.js: Data & Auth - KakkoiSchool</title>
+  <title>React State & Effects - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -43,110 +43,74 @@
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">
           <a href="t28.html">Previous</a>
-          <a href="t32.html">Next</a>
+          <a href="t30.html">Next</a>
         </div>
       </nav>
       
-<h1 id="t29-nest-js-data-amp-auth"><a class="heading-anchor" href="#t29-nest-js-data-amp-auth">T29: Nest.js Data &amp; Auth</a></h1>
-<p class="lesson-intro">DTOs are like order tickets that ensure the waiter writes exactly what the kitchen understands. Guards are the bouncer checking IDs at the door. Together with database integration, they form the data and security layer of a Nest.js application.</p>
+<h1 id="t29-react-state-amp-effects"><a class="heading-anchor" href="#t29-react-state-amp-effects">T29: React State &amp; Effects</a></h1>
+<p class="lesson-intro">State is a component's personal notebook - private data that persists across renders and triggers re-renders when updated. Effects are like alarm clocks that go off after the component renders, letting you synchronize with external systems like APIs or timers.</p>
 
-<h2 id="dtos-and-validation"><a class="heading-anchor" href="#dtos-and-validation">DTOs and Validation</a></h2>
-<p>A Data Transfer Object defines the expected shape of incoming data. Combined with class-validator decorators, it automatically rejects invalid requests. Compare this to the manual validation from T17 - Nest.js handles it declaratively.</p>
-<pre><code>// create-menu-item.dto.ts
-import { IsString, IsNumber, Min, MaxLength } from "class-validator";
+<h2 id="usestate-component-memory"><a class="heading-anchor" href="#usestate-component-memory">useState: Component Memory</a></h2>
+<p>The <code>useState</code> hook gives a component its own memory. It returns the current value and a setter function. When the setter is called, React re-renders the component with the new value.</p>
+<pre><code>import { useState } from "react";
 
-export class CreateMenuItemDto {
-    @IsString()
-    @MaxLength(100)
-    name: string;
+function Counter() {
+    const [count, setCount] = useState(0);
 
-    @IsNumber()
-    @Min(0)
-    price: number;
-
-    @IsString()
-    category: string;
-}
-
-// menu.controller.ts
-import { Controller, Post, Body } from "@nestjs/common";
-
-@Controller("menu")
-export class MenuController {
-    constructor(private readonly menuService: MenuService) {}
-
-    @Post()
-    create(@Body() dto: CreateMenuItemDto) {
-        // dto is already validated - invalid requests never reach here
-        return this.menuService.create(dto);
-    }
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;+1&lt;/button&gt;
+            &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
+        &lt;/div&gt;
+    );
 }</code></pre>
 
-<h2 id="database-integration"><a class="heading-anchor" href="#database-integration">Database Integration</a></h2>
-<p>Nest.js works with the SQLite database pattern from T19, but through a repository layer. The service interacts with the database, keeping data access separate from HTTP handling.</p>
+<h2 id="useeffect-side-effects"><a class="heading-anchor" href="#useeffect-side-effects">useEffect: Side Effects</a></h2>
+<p>The <code>useEffect</code> hook runs code after render. The dependency array controls when it re-runs. An empty array means "run once on mount." Including variables means "re-run when these change."</p>
+<pre><code>import { useState, useEffect } from "react";
 
-<h2 id="authentication-guards"><a class="heading-anchor" href="#authentication-guards">Authentication Guards</a></h2>
-<p>A guard is a class that decides whether a request should proceed. It checks authentication tokens before the controller ever sees the request. Apply it to specific routes or entire controllers with the <code>@UseGuards</code> decorator.</p>
-<pre><code>// auth.guard.ts
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+function MenuPage() {
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-@Injectable()
-export class AuthGuard implements CanActivate {
-    canActivate(context: ExecutionContext): boolean {
-        const request = context.switchToHttp().getRequest();
-        const token = request.headers["authorization"];
-        if (!token || !this.validateToken(token)) {
-            throw new UnauthorizedException("Invalid or missing token");
-        }
-        return true;
-    }
+    useEffect(() =&gt; {
+        fetch("/api/menu")
+            .then(res =&gt; res.json())
+            .then(data =&gt; {
+                setItems(data);
+                setLoading(false);
+            });
+    }, []); // Empty array = run once on mount
 
-    private validateToken(token: string): boolean {
-        // Token validation logic
-        return token.startsWith("Bearer ");
-    }
-}
-
-// Using the guard on a controller
-import { Controller, Get, UseGuards } from "@nestjs/common";
-
-@Controller("admin/menu")
-@UseGuards(AuthGuard)
-export class AdminMenuController {
-    constructor(private readonly menuService: MenuService) {}
-
-    @Get()
-    findAll() {
-        return this.menuService.findAll();
-    }
+    if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
+    return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
 }</code></pre>
+
+<h2 id="lifting-state-up"><a class="heading-anchor" href="#lifting-state-up">Lifting State Up</a></h2>
+<p>When two sibling components need to share data, move the state to their common parent. The parent owns the state and passes it down as props. This is React's primary data-sharing pattern.</p>
 
 <div class="mermaid">
-sequenceDiagram
-    participant Client
-    participant Guard as AuthGuard
-    participant Controller
-    participant DTO as DTO Validation
-    participant Service
-    participant DB as Database
-    Client->>Guard: Request with token
-    Guard->>Guard: Validate token
-    Guard->>Controller: Authorized
-    Controller->>DTO: Validate body
-    DTO->>Service: Valid data
-    Service->>DB: Query/Insert
-    DB-->>Service: Result
-    Service-->>Controller: Response data
-    Controller-->>Client: JSON response
+flowchart TD
+    A[Render Component] --> B[useEffect Runs]
+    B --> C[User Interacts]
+    C --> D[State Changes via setState]
+    D --> E[Re-render]
+    E --> B
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style B fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style D fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+    style E fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>DTOs with class-validator decorators handle validation declaratively - no manual checks needed</li>
-<li>The repository pattern keeps database access in services, separate from controllers</li>
-<li>Guards run before controllers, enforcing authentication at the framework level</li>
-<li>Decorators like @UseGuards and @Body wire security and validation without cluttering logic</li>
+<li>useState gives components memory that persists across renders</li>
+<li>useEffect runs side effects after render, controlled by the dependency array</li>
+<li>An empty dependency array means the effect runs only once on mount</li>
+<li>Lift state to the nearest common parent when siblings need to share data</li>
 </ul>
 </div>
 
@@ -154,7 +118,7 @@ sequenceDiagram
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">
           <a href="t28.html">Previous</a>
-          <a href="t32.html">Next</a>
+          <a href="t30.html">Next</a>
         </div>
       </nav>
     </article>

@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>APIエンドポイント - KakkoiSchool</title>
+  <title>動的サイト: オフライン - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,59 +47,57 @@
         </div>
       </nav>
       
-<h1 id="t17-apiエンドポイント"><a class="heading-anchor" href="#t17-apiエンドポイント">T17: APIエンドポイント</a></h1>
-<p class="lesson-intro">API(アプリケーションプログラミングインターフェース)はサーバーがクライアントにデータ操作のために公開するエンドポイントの集合です。RESTはURLがリソースを、HTTPメソッドがアクションを表すデザイン規約です。レストランのメニューのようなものです。何を注文できて、どう注文するかがリストされています。</p>
+<h1 id="t17-動的サイト-オフライン対応"><a class="heading-anchor" href="#t17-動的サイト-オフライン対応">T17: 動的サイト - オフライン対応</a></h1>
+<p class="lesson-intro">Service Workerはバックグラウンドで動作するスクリプトで、Webページとは別に実行されます。ネットワークリクエストを傍受し、オフライン時にキャッシュからレスポンスを返せます。ブラウザ内に住むプログラム可能なプロキシサーバーと考えてください。ネットワークから取得するかキャッシュから返すかを判断します。</p>
 
-<h2 id="rest規約"><a class="heading-anchor" href="#rest規約">REST規約</a></h2>
-<p>RESTful APIはパターンに従います。リソースはURLの名詞、アクションはHTTPメソッドです。</p>
-<pre><code>// GET    /api/users      - List all users
-// GET    /api/users/1    - Get user with id 1
-// POST   /api/users      - Create a new user
-// PUT    /api/users/1    - Update user 1
-// DELETE /api/users/1    - Delete user 1</code></pre>
+<h2 id="service-workerの登録"><a class="heading-anchor" href="#service-workerの登録">Service Workerの登録</a></h2>
+<pre><code>// In your main JS file
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js")
+        .then(reg =&gt; console.log("SW registered"))
+        .catch(err =&gt; console.error("SW failed:", err));
+}</code></pre>
 
-<h2 id="エンドポイントの構築"><a class="heading-anchor" href="#エンドポイントの構築">エンドポイントの構築</a></h2>
-<pre><code>const server = http.createServer((req, res) =&gt; {
-    const url = req.url;
-    const method = req.method;
+<h2 id="service-workerファイル"><a class="heading-anchor" href="#service-workerファイル">Service Workerファイル</a></h2>
+<pre><code>// sw.js
+const CACHE_NAME = "v1";
+const ASSETS = ["/", "/index.html", "/style.css", "/app.js"];
 
-    res.setHeader("Content-Type", "application/json");
+self.addEventListener("install", event =&gt; {
+    event.waitUntil(
+        caches.open(CACHE_NAME)
+            .then(cache =&gt; cache.addAll(ASSETS))
+    );
+});
 
-    if (url === "/api/users" &amp;&amp; method === "GET") {
-        res.end(JSON.stringify(users));
-    } else if (url === "/api/users" &amp;&amp; method === "POST") {
-        let body = "";
-        req.on("data", chunk =&gt; body += chunk);
-        req.on("end", () =&gt; {
-            const user = JSON.parse(body);
-            users.push(user);
-            res.writeHead(201);
-            res.end(JSON.stringify(user));
-        });
-    } else {
-        res.writeHead(404);
-        res.end(JSON.stringify({ error: "Not Found" }));
-    }
+self.addEventListener("fetch", event =&gt; {
+    event.respondWith(
+        caches.match(event.request)
+            .then(cached =&gt; cached || fetch(event.request))
+    );
 });</code></pre>
 
+<h2 id="pwaマニフェスト"><a class="heading-anchor" href="#pwaマニフェスト">PWAマニフェスト</a></h2>
+<p><code>manifest.json</code>ファイルを追加してモバイルデバイスでアプリとしてインストール可能にします。</p>
+
 <div class="mermaid">
-flowchart TD
-    A[Client Request] --> B{Route Match}
-    B -->|GET /api/users| C[Return user list]
-    B -->|POST /api/users| D[Create new user]
-    B -->|GET /api/users/:id| E[Return single user]
-    B -->|PUT /api/users/:id| F[Update user]
-    B -->|DELETE /api/users/:id| G[Remove user]
-    B -->|No match| H[404 Not Found]
+stateDiagram-v2
+    [*] --> Installing: register()
+    Installing --> Installed: install event
+    Installed --> Activating: activate
+    Activating --> Active: activated
+    Active --> Active: fetch events
+    Active --> Redundant: new SW takes over
+    note right of Active: Intercepts all fetch requests
 </div>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>RESTはURLをリソース識別子、HTTPメソッドをアクションとして使います</li>
-<li>GETは読取、POSTは作成、PUTは更新、DELETEは削除</li>
-<li>APIレスポンスは適切なステータスコード付きのJSONにすべきです</li>
-<li>未知のルートは必ず404レスポンスで処理しましょう</li>
+<li>Service Workerはバックグラウンドで実行され、ネットワークリクエストを傍受します</li>
+<li>インストール時にアセットをキャッシュしてオフライン機能を有効にします</li>
+<li>fetchイベントハンドラがキャッシュから返すかネットワークから取得するかを決定します</li>
+<li>manifest.jsonファイルでWebアプリをモバイルデバイスにインストール可能にします</li>
 </ul>
 </div>
 

@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Dynamic Site: Offline - KakkoiSchool</title>
+  <title>Persistence - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,57 +47,53 @@
         </div>
       </nav>
       
-<h1 id="t14-dynamic-site-offline"><a class="heading-anchor" href="#t14-dynamic-site-offline">T14: Dynamic Site - Offline</a></h1>
-<p class="lesson-intro">Service Workers are scripts that run in the background, separate from your web page. They intercept network requests and can serve cached responses when offline. Think of a Service Worker as a programmable proxy server living inside the browser - it decides whether to fetch from the network or serve from cache.</p>
+<h1 id="t14-persistence"><a class="heading-anchor" href="#t14-persistence">T14: Persistence</a></h1>
+<p class="lesson-intro">Web pages forget everything when you close them. LocalStorage is like a notebook the browser keeps for your website - data persists even after closing the tab. JSON is the universal format for converting JavaScript objects into storable strings and back.</p>
 
-<h2 id="registering-a-service-worker"><a class="heading-anchor" href="#registering-a-service-worker">Registering a Service Worker</a></h2>
-<pre><code>// In your main JS file
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/sw.js")
-        .then(reg =&gt; console.log("SW registered"))
-        .catch(err =&gt; console.error("SW failed:", err));
-}</code></pre>
+<h2 id="localstorage-api"><a class="heading-anchor" href="#localstorage-api">localStorage API</a></h2>
+<p>LocalStorage stores key-value pairs as strings. It persists across page reloads and browser restarts, with about 5MB of space per domain.</p>
+<pre><code>// Save data
+localStorage.setItem("username", "Alice");
 
-<h2 id="the-service-worker-file"><a class="heading-anchor" href="#the-service-worker-file">The Service Worker File</a></h2>
-<pre><code>// sw.js
-const CACHE_NAME = "v1";
-const ASSETS = ["/", "/index.html", "/style.css", "/app.js"];
+// Read data
+const name = localStorage.getItem("username");
 
-self.addEventListener("install", event =&gt; {
-    event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache =&gt; cache.addAll(ASSETS))
-    );
-});
+// Remove data
+localStorage.removeItem("username");
 
-self.addEventListener("fetch", event =&gt; {
-    event.respondWith(
-        caches.match(event.request)
-            .then(cached =&gt; cached || fetch(event.request))
-    );
-});</code></pre>
+// Clear all
+localStorage.clear();</code></pre>
 
-<h2 id="pwa-manifest"><a class="heading-anchor" href="#pwa-manifest">PWA Manifest</a></h2>
-<p>Add a <code>manifest.json</code> file to make your site installable as an app on mobile devices.</p>
+<h2 id="working-with-json"><a class="heading-anchor" href="#working-with-json">Working with JSON</a></h2>
+<p>Since localStorage only stores strings, use <code>JSON.stringify()</code> to save objects and <code>JSON.parse()</code> to read them back.</p>
+<pre><code>const tasks = [
+    { id: 1, text: "Learn HTML", done: true },
+    { id: 2, text: "Learn CSS", done: false }
+];
+
+// Save
+localStorage.setItem("tasks", JSON.stringify(tasks));
+
+// Load
+const saved = JSON.parse(localStorage.getItem("tasks") || "[]");</code></pre>
 
 <div class="mermaid">
-stateDiagram-v2
-    [*] --> Installing: register()
-    Installing --> Installed: install event
-    Installed --> Activating: activate
-    Activating --> Active: activated
-    Active --> Active: fetch events
-    Active --> Redundant: new SW takes over
-    note right of Active: Intercepts all fetch requests
+flowchart LR
+    A[JS Object] -->|JSON.stringify| B[JSON String]
+    B -->|setItem| C[localStorage]
+    C -->|getItem| D[JSON String]
+    D -->|JSON.parse| E[JS Object]
+    C -->|persists across| F[Page Reloads]
+    C -->|persists across| G[Browser Restart]
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Service Workers run in the background and intercept network requests</li>
-<li>Cache assets during install to enable offline functionality</li>
-<li>The fetch event handler decides: serve from cache or fetch from network</li>
-<li>A manifest.json file makes your web app installable on mobile devices</li>
+<li>localStorage persists data across page reloads and browser restarts</li>
+<li>All values are stored as strings - use JSON for complex data</li>
+<li>JSON.stringify converts objects to strings, JSON.parse converts back</li>
+<li>localStorage has a 5MB limit per domain - use it for small data only</li>
 </ul>
 </div>
 

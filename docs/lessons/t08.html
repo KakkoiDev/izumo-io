@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>DOM Manipulation - KakkoiSchool</title>
+  <title>CSS Layout - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,50 +47,58 @@
         </div>
       </nav>
       
-<h1 id="t08-dom-manipulation"><a class="heading-anchor" href="#t08-dom-manipulation">T08: DOM Manipulation</a></h1>
-<p class="lesson-intro">The DOM (Document Object Model) is the browser's live representation of your HTML page. Think of it as a tree made of building blocks - JavaScript lets you add, remove, and rearrange those blocks while the user watches. Every element is a node you can reach and modify.</p>
+<h1 id="t08-css-layout"><a class="heading-anchor" href="#t08-css-layout">T08: CSS Layout</a></h1>
+<p class="lesson-intro">Placing elements on a page used to be painful. Flexbox and Grid changed everything. Think of Flexbox as arranging items in a single line (like books on a shelf), and Grid as organizing items in rows and columns (like a spreadsheet).</p>
 
-<h2 id="selecting-elements"><a class="heading-anchor" href="#selecting-elements">Selecting Elements</a></h2>
-<p>Before you can change an element, you need to find it. The <code>querySelector</code> method uses CSS selector syntax to grab elements.</p>
-<pre><code>const title = document.querySelector("h1");
-const items = document.querySelectorAll(".item");
-const form = document.querySelector("#signup-form");</code></pre>
+<h2 id="flexbox"><a class="heading-anchor" href="#flexbox">Flexbox</a></h2>
+<p>Flexbox works in one dimension at a time. Set <code>display: flex</code> on a container, then control how children align and distribute space.</p>
+<pre><code>.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
 
-<h2 id="creating-and-modifying-elements"><a class="heading-anchor" href="#creating-and-modifying-elements">Creating and Modifying Elements</a></h2>
-<p>Create new elements with <code>createElement</code>, set their content, and append them to the page.</p>
-<pre><code>const card = document.createElement("div");
-card.className = "card";
-card.textContent = "New card content";
-document.querySelector(".container").appendChild(card);</code></pre>
+.nav-item {
+    flex: 1;
+}</code></pre>
 
-<h2 id="event-handling"><a class="heading-anchor" href="#event-handling">Event Handling</a></h2>
-<p>Events let your page respond to user actions. Click, hover, type - each triggers an event you can listen for.</p>
-<pre><code>const button = document.querySelector("#submit");
-button.addEventListener("click", function(event) {
-    event.preventDefault();
-    console.log("Button was clicked!");
-});</code></pre>
+<h2 id="css-grid"><a class="heading-anchor" href="#css-grid">CSS Grid</a></h2>
+<p>Grid works in two dimensions simultaneously. Define rows and columns, then place items into the grid cells.</p>
+<pre><code>.layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    grid-template-rows: auto 1fr auto;
+    gap: 1rem;
+    min-height: 100vh;
+}</code></pre>
+
+<h2 id="responsive-design"><a class="heading-anchor" href="#responsive-design">Responsive Design</a></h2>
+<p>Media queries let you apply different styles based on screen size. Mobile-first means writing base styles for small screens and adding complexity for larger ones.</p>
+<pre><code>@media (min-width: 768px) {
+    .layout { grid-template-columns: 250px 1fr; }
+}</code></pre>
 
 <div class="mermaid">
-graph TD
-    A[document] --> B[html]
-    B --> C[head]
-    B --> D[body]
-    D --> E[h1]
-    D --> F[div.container]
-    F --> G[p]
-    F --> H[button]
-    H -->|click event| I[Event Handler]
-    I -->|modifies| F
+flowchart TB
+    subgraph Flexbox
+        direction LR
+        F1[Item] --- F2[Item] --- F3[Item]
+    end
+    subgraph Grid
+        G1[Header] --- G2[Header]
+        G3[Sidebar] --- G4[Main]
+        G5[Footer] --- G6[Footer]
+    end
 </div>
 
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>querySelector and querySelectorAll find elements using CSS selector syntax</li>
-<li>createElement and appendChild let you build new DOM nodes dynamically</li>
-<li>addEventListener connects user actions to your JavaScript functions</li>
-<li>Always use event.preventDefault() when you want to stop default browser behavior</li>
+<li>Flexbox is for one-dimensional layouts (row or column)</li>
+<li>Grid is for two-dimensional layouts (rows and columns together)</li>
+<li>Use media queries for responsive design that adapts to screen size</li>
+<li>Mobile-first approach: start small, add complexity for larger screens</li>
 </ul>
 </div>
 

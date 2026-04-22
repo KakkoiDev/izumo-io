@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>HTMLタグ - KakkoiSchool</title>
+  <title>ターミナルの基礎 - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,49 +47,78 @@
         </div>
       </nav>
       
-<h1 id="t02-htmlタグ-基本要素"><a class="heading-anchor" href="#t02-htmlタグ-基本要素">T02: HTMLタグ - 基本要素</a></h1>
-<p class="lesson-intro">HTMLタグは箱に貼るラベルのようなものです。各タグがブラウザにコンテンツの種類を伝えます。見出しタグは「これはタイトル」、段落タグは「これはテキストブロック」と伝えます。ブラウザはこれらのラベルを使って適切に表示します。</p>
+<h1 id="t02-ターミナルの基礎"><a class="heading-anchor" href="#t02-ターミナルの基礎">T02: ターミナルの基礎</a></h1>
+<p class="lesson-intro">ボタンは観光客向けです。ターミナルはマシンへの直通回線。テキストプロンプトで、コンピュータに何をすべきかを正確に伝えます。1週間は怖く感じ、その後はキャリアの残り全てで超能力に感じます。ダイアログをクリックするのをやめ、コマンドを組み立て始めます。</p>
 
-<h2 id="見出しとテキスト"><a class="heading-anchor" href="#見出しとテキスト">見出しとテキスト</a></h2>
-<p>HTMLには<code>&lt;h1&gt;</code>(最重要)から<code>&lt;h6&gt;</code>(最小)まで6段階の見出しがあります。段落には<code>&lt;p&gt;</code>タグを使います。</p>
-<pre><code>&lt;h1&gt;Main Title&lt;/h1&gt;
-&lt;h2&gt;Section Title&lt;/h2&gt;
-&lt;h3&gt;Subsection&lt;/h3&gt;
-&lt;p&gt;A paragraph of text goes here.&lt;/p&gt;</code></pre>
+<h2 id="今どこ-移動する"><a class="heading-anchor" href="#今どこ-移動する">今どこ? 移動する</a></h2>
+<p>シェルは常にあるフォルダにいます。これを<strong>ワーキングディレクトリ</strong>と呼びます。3つのコマンドが基礎です。どこにいる、何がある、どこに行く。</p>
+<pre><code>pwd                    # print working directory
+ls                     # list what is in this folder
+ls -la                 # long format, include hidden files
+cd Documents           # move into a subfolder
+cd ..                  # move up one level
+cd                     # go home (shorthand for ~)
+cd /                   # jump to the filesystem root</code></pre>
+<p>パスは2種類あります。<strong>絶対</strong>パスはルートから始まります: <code>/home/alice/projects</code>。<strong>相対</strong>パスは現在地から始まります: <code>../notes</code>。特殊なショートカット<code>.</code>(ここ)、<code>..</code>(親)、<code>~</code>(ホーム)はどこでも使います。</p>
 
-<h2 id="リンクと画像"><a class="heading-anchor" href="#リンクと画像">リンクと画像</a></h2>
-<p>アンカータグ<code>&lt;a&gt;</code>はクリック可能なリンクを作成します。画像タグ<code>&lt;img&gt;</code>は写真を埋め込みます。imgは自己閉じタグです。</p>
-<pre><code>&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;
-&lt;img src="photo.jpg" alt="A description"&gt;</code></pre>
+<h2 id="作成-コピー-削除"><a class="heading-anchor" href="#作成-コピー-削除">作成、コピー、削除</a></h2>
+<p>ファイルとフォルダはテキスト入力、バイト出力です。動詞は短く。</p>
+<pre><code>mkdir my-project              # make a folder
+mkdir -p a/b/c                # make nested folders at once
+touch notes.md                # create an empty file
+cp notes.md backup.md         # copy file
+cp -r my-project archive      # copy folder recursively
+mv old.md new.md              # rename (or move)
+rm notes.md                   # delete file (no recycle bin!)
+rm -rf build/                 # delete folder and everything inside
+cat notes.md                  # print file to screen
+less log.txt                  # scroll through a large file (q to quit)</code></pre>
+<p><strong>警告</strong>: ゴミ箱はありません。<code>rm</code>は最終です。<code>rm -rf</code>を使う前に、必ず<code>ls</code>で対象を確認しましょう。</p>
 
-<h2 id="リスト"><a class="heading-anchor" href="#リスト">リスト</a></h2>
-<p>順序なしリストは<code>&lt;ul&gt;</code>と<code>&lt;li&gt;</code>を使います(箇条書き)。順序付きリストは<code>&lt;ol&gt;</code>を使います(番号付き)。</p>
-<pre><code>&lt;ul&gt;
-    &lt;li&gt;First item&lt;/li&gt;
-    &lt;li&gt;Second item&lt;/li&gt;
-&lt;/ul&gt;</code></pre>
+<h2 id="マニュアルを読む"><a class="heading-anchor" href="#マニュアルを読む">マニュアルを読む</a></h2>
+<p>全てのコマンドは自分のマニュアルを持っています。フラグを忘れたら聞きます。</p>
+<pre><code>man ls                 # full manual page (q to quit)
+ls --help              # quick summary (most modern commands)
+which python           # show where a command lives on disk</code></pre>
+
+<h2 id="path-コマンドが動く理由"><a class="heading-anchor" href="#path-コマンドが動く理由">PATH: コマンドが動く理由</a></h2>
+<p><code>git</code>と打った時、シェルはgitがどこにあるか知りません。<code>PATH</code>環境変数に格納されたフォルダのリストを歩き、最初に見つけた<code>git</code>を実行します。ツールをインストールした後にPATH更新が必要な理由です。</p>
+<pre><code>echo $PATH                              # see the search list
+# /usr/local/bin:/usr/bin:/bin:...
+export PATH="$HOME/.local/bin:$PATH"    # add your own folder first</code></pre>
 
 <div class="mermaid">
-graph TD
-    A[html] --> B[head]
-    A --> C[body]
-    B --> D[title]
-    C --> E[h1]
-    C --> F[p]
-    C --> G[ul]
-    G --> H[li]
-    G --> I[li]
-    C --> J[a]
-    C --> K[img]
+flowchart TD
+    User[You type: git status]
+    Shell[Shell reads PATH]
+    P1[/usr/local/bin/git]
+    P2[/usr/bin/]
+    P3[...]
+    Run[Run the found program]
+    User --> Shell
+    Shell --> P1
+    Shell --> P2
+    Shell --> P3
+    P1 -->|first match wins| Run
 </div>
+
+<h2 id="スピードの技"><a class="heading-anchor" href="#スピードの技">スピードの技</a></h2>
+<p>シェルは筋肉の記憶に報います。毎日得する4つの習慣:</p>
+<ul>
+<li><strong>Tab</strong>でファイル名とコマンドを補完。2回押すと候補表示。</li>
+<li><strong>上矢印</strong>でコマンド履歴を遡る。</li>
+<li><strong>Ctrl+R</strong>で履歴を断片検索。「git com」と打つと「git commit -m ...」が蘇る。</li>
+<li><strong>Ctrl+C</strong>で実行中のコマンドを中断。<strong>Ctrl+D</strong>で入力終了/シェル終了。</li>
+</ul>
 
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>見出しh1-h6はコンテンツの階層を作ります。順番に使いましょう</li>
-<li>リンクはaタグとhref属性でリンク先URLを指定します</li>
-<li>画像はimgタグとsrc属性、alt属性を使います</li>
-<li>リストは2種類: ulは箇条書き、olは番号付き</li>
+<li>pwd、ls、cdが移動の基礎。パスは絶対(/で始まる)か相対(ここから始まる)</li>
+<li>mkdir、touch、cp、mv、rmでファイルとフォルダを管理。rmは永久。ゴミ箱はない</li>
+<li>manと--helpはフラグを忘れた時にいつでも使える。Googleより先に</li>
+<li>PATHはシェルがコマンドを探すリスト。確認と拡張の方法を知る</li>
+<li>Tab補完、Ctrl+Rの履歴検索、Ctrl+Cでの中断が初心者とプロを分ける筋肉の記憶</li>
 </ul>
 </div>
 
