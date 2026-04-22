@@ -46,40 +46,37 @@
           <a href="t18.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t17-dynamic-site-offline"><a class="heading-anchor" href="#t17-dynamic-site-offline">T17: Dynamic Site - Offline</a></h1>
+      <h1 id="t17-dynamic-site-offline"><a class="heading-anchor" href="#t17-dynamic-site-offline">T17: Dynamic Site - Offline</a></h1>
 <p class="lesson-intro">Service Workers are scripts that run in the background, separate from your web page. They intercept network requests and can serve cached responses when offline. Think of a Service Worker as a programmable proxy server living inside the browser - it decides whether to fetch from the network or serve from cache.</p>
-
 <h2 id="registering-a-service-worker"><a class="heading-anchor" href="#registering-a-service-worker">Registering a Service Worker</a></h2>
 <pre><code>// In your main JS file
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/sw.js")
-        .then(reg =&gt; console.log("SW registered"))
-        .catch(err =&gt; console.error("SW failed:", err));
-}</code></pre>
-
+if (&quot;serviceWorker&quot; in navigator) {
+    navigator.serviceWorker.register(&quot;/sw.js&quot;)
+        .then(reg =&gt; console.log(&quot;SW registered&quot;))
+        .catch(err =&gt; console.error(&quot;SW failed:&quot;, err));
+}
+</code></pre>
 <h2 id="the-service-worker-file"><a class="heading-anchor" href="#the-service-worker-file">The Service Worker File</a></h2>
 <pre><code>// sw.js
-const CACHE_NAME = "v1";
-const ASSETS = ["/", "/index.html", "/style.css", "/app.js"];
+const CACHE_NAME = &quot;v1&quot;;
+const ASSETS = [&quot;/&quot;, &quot;/index.html&quot;, &quot;/style.css&quot;, &quot;/app.js&quot;];
 
-self.addEventListener("install", event =&gt; {
+self.addEventListener(&quot;install&quot;, event =&gt; {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache =&gt; cache.addAll(ASSETS))
     );
 });
 
-self.addEventListener("fetch", event =&gt; {
+self.addEventListener(&quot;fetch&quot;, event =&gt; {
     event.respondWith(
         caches.match(event.request)
             .then(cached =&gt; cached || fetch(event.request))
     );
-});</code></pre>
-
+});
+</code></pre>
 <h2 id="pwa-manifest"><a class="heading-anchor" href="#pwa-manifest">PWA Manifest</a></h2>
 <p>Add a <code>manifest.json</code> file to make your site installable as an app on mobile devices.</p>
-
 <div class="mermaid">
 stateDiagram-v2
     [*] --> Installing: register()
@@ -89,8 +86,8 @@ stateDiagram-v2
     Active --> Active: fetch events
     Active --> Redundant: new SW takes over
     note right of Active: Intercepts all fetch requests
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -100,7 +97,6 @@ stateDiagram-v2
 <li>A manifest.json file makes your web app installable on mobile devices</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

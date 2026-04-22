@@ -46,23 +46,21 @@
           <a href="t24.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t23-jsonデータベース"><a class="heading-anchor" href="#t23-jsonデータベース">T23: JSONデータベース</a></h1>
+      <h1 id="t23-jsonデータベース"><a class="heading-anchor" href="#t23-jsonデータベース">T23: JSONデータベース</a></h1>
 <p class="lesson-intro">本格的なデータベースを学ぶ前に、JSONファイルをシンプルなデータストアとして使えます。ファイルを読み取り、パースし、データを変更し、書き戻します。エントリを書いたり消したりするノートのようなものです。シンプルですが小さなアプリケーションには効果的です。</p>
-
 <h2 id="db-jsonの読み書き"><a class="heading-anchor" href="#db-jsonの読み書き">db.jsonの読み書き</a></h2>
-<pre><code>const fs = require("fs");
-const DB_PATH = "./db.json";
+<pre><code>const fs = require(&quot;fs&quot;);
+const DB_PATH = &quot;./db.json&quot;;
 
 function readDB() {
-    const raw = fs.readFileSync(DB_PATH, "utf-8");
+    const raw = fs.readFileSync(DB_PATH, &quot;utf-8&quot;);
     return JSON.parse(raw);
 }
 
 function writeDB(data) {
     fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="crud操作"><a class="heading-anchor" href="#crud操作">CRUD操作</a></h2>
 <pre><code>// Create
 function addUser(user) {
@@ -91,8 +89,8 @@ function deleteUser(id) {
     const db = readDB();
     db.users = db.users.filter(u =&gt; u.id !== id);
     writeDB(db);
-}</code></pre>
-
+}
+</code></pre>
 <div class="mermaid">
 flowchart LR
     subgraph CRUD
@@ -102,8 +100,8 @@ flowchart LR
         D[Delete] -->|filter + write| DB
     end
     API[API Endpoint] --> CRUD
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -113,7 +111,6 @@ flowchart LR
 <li>JSONデータベースはスケールしません。本番では本格的なDBを使いましょう</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

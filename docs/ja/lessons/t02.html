@@ -46,10 +46,8 @@
           <a href="t03.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t02-ターミナルの基礎"><a class="heading-anchor" href="#t02-ターミナルの基礎">T02: ターミナルの基礎</a></h1>
+      <h1 id="t02-ターミナルの基礎"><a class="heading-anchor" href="#t02-ターミナルの基礎">T02: ターミナルの基礎</a></h1>
 <p class="lesson-intro">ボタンは観光客向けです。ターミナルはマシンへの直通回線。テキストプロンプトで、コンピュータに何をすべきかを正確に伝えます。1週間は怖く感じ、その後はキャリアの残り全てで超能力に感じます。ダイアログをクリックするのをやめ、コマンドを組み立て始めます。</p>
-
 <h2 id="今どこ-移動する"><a class="heading-anchor" href="#今どこ-移動する">今どこ? 移動する</a></h2>
 <p>シェルは常にあるフォルダにいます。これを<strong>ワーキングディレクトリ</strong>と呼びます。3つのコマンドが基礎です。どこにいる、何がある、どこに行く。</p>
 <pre><code>pwd                    # print working directory
@@ -58,9 +56,9 @@ ls -la                 # long format, include hidden files
 cd Documents           # move into a subfolder
 cd ..                  # move up one level
 cd                     # go home (shorthand for ~)
-cd /                   # jump to the filesystem root</code></pre>
+cd /                   # jump to the filesystem root
+</code></pre>
 <p>パスは2種類あります。<strong>絶対</strong>パスはルートから始まります: <code>/home/alice/projects</code>。<strong>相対</strong>パスは現在地から始まります: <code>../notes</code>。特殊なショートカット<code>.</code>(ここ)、<code>..</code>(親)、<code>~</code>(ホーム)はどこでも使います。</p>
-
 <h2 id="作成-コピー-削除"><a class="heading-anchor" href="#作成-コピー-削除">作成、コピー、削除</a></h2>
 <p>ファイルとフォルダはテキスト入力、バイト出力です。動詞は短く。</p>
 <pre><code>mkdir my-project              # make a folder
@@ -72,21 +70,21 @@ mv old.md new.md              # rename (or move)
 rm notes.md                   # delete file (no recycle bin!)
 rm -rf build/                 # delete folder and everything inside
 cat notes.md                  # print file to screen
-less log.txt                  # scroll through a large file (q to quit)</code></pre>
+less log.txt                  # scroll through a large file (q to quit)
+</code></pre>
 <p><strong>警告</strong>: ゴミ箱はありません。<code>rm</code>は最終です。<code>rm -rf</code>を使う前に、必ず<code>ls</code>で対象を確認しましょう。</p>
-
 <h2 id="マニュアルを読む"><a class="heading-anchor" href="#マニュアルを読む">マニュアルを読む</a></h2>
 <p>全てのコマンドは自分のマニュアルを持っています。フラグを忘れたら聞きます。</p>
 <pre><code>man ls                 # full manual page (q to quit)
 ls --help              # quick summary (most modern commands)
-which python           # show where a command lives on disk</code></pre>
-
+which python           # show where a command lives on disk
+</code></pre>
 <h2 id="path-コマンドが動く理由"><a class="heading-anchor" href="#path-コマンドが動く理由">PATH: コマンドが動く理由</a></h2>
 <p><code>git</code>と打った時、シェルはgitがどこにあるか知りません。<code>PATH</code>環境変数に格納されたフォルダのリストを歩き、最初に見つけた<code>git</code>を実行します。ツールをインストールした後にPATH更新が必要な理由です。</p>
 <pre><code>echo $PATH                              # see the search list
 # /usr/local/bin:/usr/bin:/bin:...
-export PATH="$HOME/.local/bin:$PATH"    # add your own folder first</code></pre>
-
+export PATH=&quot;$HOME/.local/bin:$PATH&quot;    # add your own folder first
+</code></pre>
 <div class="mermaid">
 flowchart TD
     User[You type: git status]
@@ -100,8 +98,8 @@ flowchart TD
     Shell --> P2
     Shell --> P3
     P1 -->|first match wins| Run
-</div>
 
+</div>
 <h2 id="スピードの技"><a class="heading-anchor" href="#スピードの技">スピードの技</a></h2>
 <p>シェルは筋肉の記憶に報います。毎日得する4つの習慣:</p>
 <ul>
@@ -110,7 +108,6 @@ flowchart TD
 <li><strong>Ctrl+R</strong>で履歴を断片検索。「git com」と打つと「git commit -m ...」が蘇る。</li>
 <li><strong>Ctrl+C</strong>で実行中のコマンドを中断。<strong>Ctrl+D</strong>で入力終了/シェル終了。</li>
 </ul>
-
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -121,7 +118,6 @@ flowchart TD
 <li>Tab補完、Ctrl+Rの履歴検索、Ctrl+Cでの中断が初心者とプロを分ける筋肉の記憶</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

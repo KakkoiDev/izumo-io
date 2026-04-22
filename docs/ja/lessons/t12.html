@@ -46,41 +46,39 @@
           <a href="t13.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t12-フォームとダイアログ"><a class="heading-anchor" href="#t12-フォームとダイアログ">T12: フォームとダイアログ</a></h1>
+      <h1 id="t12-フォームとダイアログ"><a class="heading-anchor" href="#t12-フォームとダイアログ">T12: フォームとダイアログ</a></h1>
 <p class="lesson-intro">HTMLフォームはデータを収集しますが、JavaScriptがそれを検証・処理します。dialog要素はライブラリなしでネイティブモーダルウィンドウを提供します。この組み合わせでスムーズなデータ収集体験を作れます。書類を提出する前にチェックしてくれる賢い受付のようなものです。</p>
-
 <h2 id="javascriptフォームバリデーション"><a class="heading-anchor" href="#javascriptフォームバリデーション">JavaScriptフォームバリデーション</a></h2>
 <p>HTMLには組み込みバリデーション(required, type)がありますが、JavaScriptはバリデーションロジックとカスタムエラーメッセージを完全に制御できます。</p>
-<pre><code>const form = document.querySelector("#myForm");
-form.addEventListener("submit", function(event) {
-    const email = form.querySelector("#email").value;
-    if (!email.includes("@")) {
+<pre><code>const form = document.querySelector(&quot;#myForm&quot;);
+form.addEventListener(&quot;submit&quot;, function(event) {
+    const email = form.querySelector(&quot;#email&quot;).value;
+    if (!email.includes(&quot;@&quot;)) {
         event.preventDefault();
-        showError("Please enter a valid email address.");
+        showError(&quot;Please enter a valid email address.&quot;);
     }
 });
 
 function showError(message) {
-    const errorDiv = document.querySelector(".error");
+    const errorDiv = document.querySelector(&quot;.error&quot;);
     errorDiv.textContent = message;
-    errorDiv.style.display = "block";
-}</code></pre>
-
+    errorDiv.style.display = &quot;block&quot;;
+}
+</code></pre>
 <h2 id="dialog要素"><a class="heading-anchor" href="#dialog要素">Dialog要素</a></h2>
 <p><code>&lt;dialog&gt;</code>要素はネイティブのモーダル/非モーダルダイアログを提供します。<code>showModal()</code>で背景付きモーダル、<code>show()</code>で非モーダルを表示します。</p>
-<pre><code>&lt;dialog id="confirm"&gt;
+<pre><code>&lt;dialog id=&quot;confirm&quot;&gt;
     &lt;p&gt;Are you sure?&lt;/p&gt;
-    &lt;button id="yes"&gt;Yes&lt;/button&gt;
-    &lt;button id="no"&gt;No&lt;/button&gt;
+    &lt;button id=&quot;yes&quot;&gt;Yes&lt;/button&gt;
+    &lt;button id=&quot;no&quot;&gt;No&lt;/button&gt;
 &lt;/dialog&gt;
 
 &lt;script&gt;
-const dialog = document.querySelector("#confirm");
+const dialog = document.querySelector(&quot;#confirm&quot;);
 dialog.showModal();
-dialog.querySelector("#no").addEventListener("click", () =&gt; dialog.close());
-&lt;/script&gt;</code></pre>
-
+dialog.querySelector(&quot;#no&quot;).addEventListener(&quot;click&quot;, () =&gt; dialog.close());
+&lt;/script&gt;
+</code></pre>
 <div class="mermaid">
 flowchart TD
     A[User submits form] --> B{JS Validation}
@@ -92,8 +90,8 @@ flowchart TD
     F -->|Yes| G[Process data]
     F -->|No| A
     D -->|No| G
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -103,7 +101,6 @@ flowchart TD
 <li>ユーザーに問題の修正方法を伝える明確なエラーメッセージを必ず提供しましょう</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

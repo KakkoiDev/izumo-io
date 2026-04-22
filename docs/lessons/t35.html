@@ -46,42 +46,41 @@
           <a href="t36.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t35-web-components-i-custom-elements-amp-shadow-dom"><a class="heading-anchor" href="#t35-web-components-i-custom-elements-amp-shadow-dom">T35: Web Components I - Custom Elements &amp; Shadow DOM</a></h1>
+      <h1 id="t35-web-components-i-custom-elements-amp-shadow-dom"><a class="heading-anchor" href="#t35-web-components-i-custom-elements-amp-shadow-dom">T35: Web Components I - Custom Elements &amp; Shadow DOM</a></h1>
 <p class="lesson-intro">What if you could invent your own HTML tag? <code>&lt;user-card&gt;</code>, <code>&lt;rating-stars&gt;</code>, <code>&lt;search-box&gt;</code>. That is Web Components: a browser-native way to build reusable UI Lego bricks with no framework, no build step. Two ingredients today: Custom Elements define the tag, Shadow DOM seals its insides so nothing leaks in or out.</p>
-
 <h2 id="custom-elements"><a class="heading-anchor" href="#custom-elements">Custom Elements</a></h2>
 <p>A custom element is a class that extends <code>HTMLElement</code>, registered with the browser under a tag name. The tag name <em>must</em> contain a hyphen so the browser can tell it apart from built-ins. Registration is permanent for the page.</p>
 <pre><code>class GreetingBox extends HTMLElement {
     constructor() {
         super();
-        this.textContent = "Hello from a custom element!";
+        this.textContent = &quot;Hello from a custom element!&quot;;
     }
 }
 
-customElements.define("greeting-box", GreetingBox);</code></pre>
+customElements.define(&quot;greeting-box&quot;, GreetingBox);
+</code></pre>
 <p>Now this tag works anywhere in your HTML:</p>
 <pre><code>&lt;!-- In any page --&gt;
-&lt;greeting-box&gt;&lt;/greeting-box&gt;</code></pre>
-
+&lt;greeting-box&gt;&lt;/greeting-box&gt;
+</code></pre>
 <h2 id="reading-attributes"><a class="heading-anchor" href="#reading-attributes">Reading Attributes</a></h2>
 <p>A good custom element reads its own attributes to configure itself. Built-in elements do this: <code>&lt;img src="..."&gt;</code>, <code>&lt;a href="..."&gt;</code>. Your elements should too.</p>
 <pre><code>class GreetingBox extends HTMLElement {
     connectedCallback() {
-        const name = this.getAttribute("name") || "friend";
+        const name = this.getAttribute(&quot;name&quot;) || &quot;friend&quot;;
         this.textContent = `Hello, ${name}!`;
     }
 }
-customElements.define("greeting-box", GreetingBox);
+customElements.define(&quot;greeting-box&quot;, GreetingBox);
 
-// &lt;greeting-box name="Alice"&gt;&lt;/greeting-box&gt;</code></pre>
-
+// &lt;greeting-box name=&quot;Alice&quot;&gt;&lt;/greeting-box&gt;
+</code></pre>
 <h2 id="shadow-dom-the-sealed-interior"><a class="heading-anchor" href="#shadow-dom-the-sealed-interior">Shadow DOM: The Sealed Interior</a></h2>
 <p>Without Shadow DOM, your component's HTML and CSS live in the global page. A stray <code>h2 { color: red }</code> somewhere else could paint your carefully designed widget red. Shadow DOM attaches a private tree to your element. Outside styles cannot reach in, inside styles cannot leak out.</p>
 <pre><code>class UserCard extends HTMLElement {
     connectedCallback() {
-        const root = this.attachShadow({ mode: "open" });
-        const name = this.getAttribute("name") || "Anonymous";
+        const root = this.attachShadow({ mode: &quot;open&quot; });
+        const name = this.getAttribute(&quot;name&quot;) || &quot;Anonymous&quot;;
         root.innerHTML = `
             &lt;style&gt;
                 :host { display: inline-block; padding: 1rem;
@@ -94,8 +93,8 @@ customElements.define("greeting-box", GreetingBox);
         `;
     }
 }
-customElements.define("user-card", UserCard);</code></pre>
-
+customElements.define(&quot;user-card&quot;, UserCard);
+</code></pre>
 <div class="mermaid">
 graph TD
     Page[Light DOM - the page]
@@ -109,8 +108,8 @@ graph TD
     Shadow --> Style
     Shadow --> H
     Shadow --> P
-</div>
 
+</div>
 <h2 id="host-and-part"><a class="heading-anchor" href="#host-and-part">:host and ::part</a></h2>
 <p>Inside the shadow tree, the <code>:host</code> selector styles the custom element itself from the outside looking in. If you want to allow specific parts to be styled from outside, expose them with <code>part="..."</code> and consumers style via <code>::part()</code>.</p>
 <pre><code>&lt;style&gt;
@@ -118,11 +117,11 @@ graph TD
     :host([featured]) { border-color: gold; }
     button { cursor: pointer; }
 &lt;/style&gt;
-&lt;button part="action"&gt;Click me&lt;/button&gt;
+&lt;button part=&quot;action&quot;&gt;Click me&lt;/button&gt;
 
 /* In the outer page CSS */
-user-card::part(action) { background: tomato; color: white; }</code></pre>
-
+user-card::part(action) { background: tomato; color: white; }
+</code></pre>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -133,7 +132,6 @@ user-card::part(action) { background: tomato; color: white; }</code></pre>
 <li>Web Components work in any framework or none - they are platform-native</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

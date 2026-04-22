@@ -46,23 +46,21 @@
           <a href="t24.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t23-json-database"><a class="heading-anchor" href="#t23-json-database">T23: JSON Database</a></h1>
+      <h1 id="t23-json-database"><a class="heading-anchor" href="#t23-json-database">T23: JSON Database</a></h1>
 <p class="lesson-intro">Before learning a real database, you can use a JSON file as a simple data store. Read the file, parse it, modify the data, and write it back. It is like a notebook where you write down and cross out entries - simple but effective for small applications.</p>
-
 <h2 id="reading-and-writing-db-json"><a class="heading-anchor" href="#reading-and-writing-db-json">Reading and Writing db.json</a></h2>
-<pre><code>const fs = require("fs");
-const DB_PATH = "./db.json";
+<pre><code>const fs = require(&quot;fs&quot;);
+const DB_PATH = &quot;./db.json&quot;;
 
 function readDB() {
-    const raw = fs.readFileSync(DB_PATH, "utf-8");
+    const raw = fs.readFileSync(DB_PATH, &quot;utf-8&quot;);
     return JSON.parse(raw);
 }
 
 function writeDB(data) {
     fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2));
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="crud-operations"><a class="heading-anchor" href="#crud-operations">CRUD Operations</a></h2>
 <pre><code>// Create
 function addUser(user) {
@@ -91,8 +89,8 @@ function deleteUser(id) {
     const db = readDB();
     db.users = db.users.filter(u =&gt; u.id !== id);
     writeDB(db);
-}</code></pre>
-
+}
+</code></pre>
 <div class="mermaid">
 flowchart LR
     subgraph CRUD
@@ -102,8 +100,8 @@ flowchart LR
         D[Delete] -->|filter + write| DB
     end
     API[API Endpoint] --> CRUD
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -113,7 +111,6 @@ flowchart LR
 <li>JSON databases do not scale - use a real database for production</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

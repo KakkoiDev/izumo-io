@@ -46,38 +46,35 @@
           <a href="t39.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t38-システム設計-スケール-データベース-シャーディング"><a class="heading-anchor" href="#t38-システム設計-スケール-データベース-シャーディング">T38: システム設計 - スケール、データベース、シャーディング</a></h1>
+      <h1 id="t38-システム設計-スケール-データベース-シャーディング"><a class="heading-anchor" href="#t38-システム設計-スケール-データベース-シャーディング">T38: システム設計 - スケール、データベース、シャーディング</a></h1>
 <p class="lesson-intro">小さなサーバー1台でも、多くの人が思うより多くのトラフィックを捌けます。しかしある時点で単一サーバーは汗をかき、単一データベースは窒息し、仕事を複数マシンに分ける必要が出ます。スケーリングとは分割の技術です。まずコピーを追加(レプリカ)、次にデータ自体を分割(シャード)。コツは、数字が強いる時だけやることです。</p>
-
 <h2 id="垂直-vs-水平"><a class="heading-anchor" href="#垂直-vs-水平">垂直 vs 水平</a></h2>
 <p><strong>垂直</strong>スケーリング = より大きなマシンを買う。CPU増、RAM増。単純で、限界までは有効、天井がある。<strong>水平</strong>スケーリング = マシンを増やして負荷を共有。複雑、天井なし、現実のプロダクトが生き残る方法。</p>
 <pre><code># Vertical: one strong server
 [ 8 vCPU | 32 GB RAM ]  -&gt;  [ 32 vCPU | 256 GB RAM ]
 
 # Horizontal: many modest servers behind a load balancer
-Client -&gt; LB -&gt; [ app1 ] [ app2 ] [ app3 ] ... [ appN ]</code></pre>
+Client -&gt; LB -&gt; [ app1 ] [ app2 ] [ app3 ] ... [ appN ]
+</code></pre>
 <p>経験則: まず垂直。安くて簡単。垂直が限界、または冗長性が必要な時に水平へ。</p>
-
 <h2 id="sql-vs-nosql-データの形で選ぶ"><a class="heading-anchor" href="#sql-vs-nosql-データの形で選ぶ">SQL vs NoSQL: データの形で選ぶ</a></h2>
 <p><strong>SQL</strong>(Postgres、MySQL)はデータの形と関係が既知でトランザクションが必要な時に正解。<strong>NoSQL</strong>は多くの形をカバー: ドキュメント(MongoDB)はネストされたオブジェクト、キーバリュー(Redis、DynamoDB)はIDによる高速ルックアップ、ワイドカラム(Cassandra)は巨大なイベントストリーム。NoSQLは「スケール」ではなく具体的な理由で選ぶ。</p>
 <pre><code>// Orders, invoices, bookings     -&gt; SQL
 // User sessions, short-lived KV  -&gt; Redis
 // Logs, clicks, time series      -&gt; Cassandra / Clickhouse
 // Nested catalog documents       -&gt; MongoDB
-// Full-text search               -&gt; Elasticsearch / Meilisearch</code></pre>
-
+// Full-text search               -&gt; Elasticsearch / Meilisearch
+</code></pre>
 <h2 id="レプリケーション-読み込みスケールと安全性のコピー"><a class="heading-anchor" href="#レプリケーション-読み込みスケールと安全性のコピー">レプリケーション: 読み込みスケールと安全性のコピー</a></h2>
 <p>大半のアプリは書き込みの10-100倍読みます。解決策: 1つの<strong>プライマリ</strong>が書き込みを処理し、複数の<strong>レプリカ</strong>が読み込みを提供。レプリカはプライマリ障害にも耐えます。</p>
 <pre><code>Writes --&gt; [Primary]
               |--&gt; [Replica 1] --&gt; Reads
               |--&gt; [Replica 2] --&gt; Reads
-              |--&gt; [Replica 3] --&gt; Reads</code></pre>
+              |--&gt; [Replica 3] --&gt; Reads
+</code></pre>
 <p>落とし穴: レプリケーションはデフォルトで非同期。書き込み直後のレプリカ読み込みは古いデータを返すかも。read-your-writesが必要なら、そのリードをプライマリにルーティング。</p>
-
 <h2 id="シャーディング-1つのdbでは足りない時"><a class="heading-anchor" href="#シャーディング-1つのdbでは足りない時">シャーディング: 1つのDBでは足りない時</a></h2>
 <p>シャーディングは行を複数DBに分割します。各DBが1スライスを持ちます。<strong>シャードキー</strong>を選び、ハッシュしてルーティング。</p>
-
 <div class="mermaid">
 flowchart LR
     C[Client write user_id=1234]
@@ -91,10 +88,9 @@ flowchart LR
     H -->|mod 1| S1
     H -->|mod 2| S2
     H -->|mod 3| S3
+
 </div>
-
 <p>シャーディングには高いコストがあります。シャードを跨ぐクエリはscatter-gatherになります。最も多いクエリに合うシャードキーを選びましょう。Twitter風アプリなら<code>user_id</code>でシャーディングして1ユーザーのタイムラインを1シャードに。</p>
-
 <h2 id="コンシステントハッシュ-痛みなく成長"><a class="heading-anchor" href="#コンシステントハッシュ-痛みなく成長">コンシステントハッシュ: 痛みなく成長</a></h2>
 <p>単純なhash-modはシャードを追加すると壊れる。<code>hash % 4</code>が<code>hash % 5</code>になり、ほぼ全てのキーが家を変えます。<strong>コンシステントハッシュ</strong>はシャードをリングに配置。各キーはリング上の点に着地し、時計回りに最も近いシャードへ。シャード追加/削除は隣だけを動かします。</p>
 <pre><code>                 Shard A
@@ -106,15 +102,14 @@ flowchart LR
                  Shard C
 
 Key hashes to a point on the ring -&gt; served by next shard clockwise.
-Add Shard E between B and C -&gt; only keys between B and E move.</code></pre>
-
+Add Shard E between B and C -&gt; only keys between B and E move.
+</code></pre>
 <h2 id="cap定理-2つ選ぶ-実際は2つのうち1つ"><a class="heading-anchor" href="#cap定理-2つ選ぶ-実際は2つのうち1つ">CAP定理: 2つ選ぶ(実際は2つのうち1つ)</a></h2>
 <p>分散システムでは一貫性(Consistency)、可用性(Availability)、分断耐性(Partition tolerance)を持てる。ネットワークは好むと好まざるとに関わらず分断するので、本当の選択は分断時の一貫性 vs 可用性です。</p>
 <ul>
 <li><strong>CPシステム</strong>(銀行、在庫、決済): 不一致になるくらいなら書き込みを拒否。ユーザーは「再試行」を見るかも。</li>
 <li><strong>APシステム</strong>(ソーシャルフィード、DM、キャッシュ): どちら側の書き込みも受け入れ、後で調整。ユーザーは少し古いデータを見る。</li>
 </ul>
-
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -126,7 +121,6 @@ Add Shard E between B and C -&gt; only keys between B and E move.</code></pre>
 <li>CAPは分断時に選択を強いる: 書き込み拒否(CP)か古い読み込み受容(AP)。どちらが必要か把握</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

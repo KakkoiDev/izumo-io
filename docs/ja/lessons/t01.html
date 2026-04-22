@@ -46,17 +46,14 @@
           <a href="t02.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t01-環境セットアップ"><a class="heading-anchor" href="#t01-環境セットアップ">T01: 環境セットアップ</a></h1>
+      <h1 id="t01-環境セットアップ"><a class="heading-anchor" href="#t01-環境セットアップ">T01: 環境セットアップ</a></h1>
 <p class="lesson-intro">職人は最初の切削の前に作業台を整えます。Webを作るために、コンピュータには3つの道具が必要です。コードを書くエディタ、ブラウザ外でJavaScriptを実行するランタイム、結果を見るブラウザ。午後1回のセットアップが後の千の苛立ちを救います。一度やって永遠に忘れましょう。</p>
-
 <h2 id="何をインストールするか"><a class="heading-anchor" href="#何をインストールするか">何をインストールするか</a></h2>
 <ul>
 <li><strong>Visual Studio Code</strong> - エディタ。無料、Microsoft製、Windows/Mac/Linuxで動作。HTML、CSS、JavaScript、このコースで触る全ての言語に対応。</li>
 <li><strong>Node.js</strong> - JavaScriptランタイム。ブラウザなしでターミナルから.jsファイルを実行できる。サードパーティライブラリをインストールする<code>npm</code>が付属。</li>
 <li><strong>モダンブラウザ</strong> - ChromeまたはFirefox。組み込みのデベロッパーツールでページを検査、JavaScriptをデバッグ、ネットワーク状況をシミュレートします。</li>
 </ul>
-
 <h2 id="vs-codeをインストール"><a class="heading-anchor" href="#vs-codeをインストール">VS Codeをインストール</a></h2>
 <p><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a>に行き、OSのインストーラをダウンロード。デフォルトを受け入れる。インストール中に聞かれたら<strong>Add to PATH</strong>と<strong>Register as editor for supported file types</strong>をチェック。</p>
 <p>インストール後、VS Codeを開いて見回します:</p>
@@ -66,19 +63,17 @@
 <li><strong>Cmd/Ctrl + Shift + P</strong> - コマンドパレット。任意のコマンドを名前で入力</li>
 <li><strong>Ctrl + `</strong>(バッククォート) - VS Code内の統合ターミナルを開く</li>
 </ul>
-
 <h2 id="node-jsをインストール"><a class="heading-anchor" href="#node-jsをインストール">Node.jsをインストール</a></h2>
 <p><a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a>に行き、<strong>LTS</strong>(長期サポート)版をダウンロード。デフォルトを受け入れる。LTSは退屈で信頼できる選択。学習中は「Current」チャネルは避けましょう。</p>
 <p>MacでHomebrewを使っているなら<code>brew install node</code>で十分。Linuxではディストリのパッケージマネージャでも良いが、nodeのバージョンが古いかも。後の柔軟性のために<a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a>の使用を検討。</p>
-
 <h2 id="全てが動くか確認"><a class="heading-anchor" href="#全てが動くか確認">全てが動くか確認</a></h2>
 <p>VS Codeを開き、統合ターミナルを開く(<strong>Ctrl + `</strong>)。この4つのコマンドを実行。各々がバージョン番号を表示するはず。</p>
 <pre><code>node -v      # v20.x.x or newer
 npm -v       # 10.x.x or newer
 code -v      # VS Code version
-git --version  # any version works</code></pre>
+git --version  # any version works
+</code></pre>
 <p>どれかが「command not found」を出したら、全てのターミナルウィンドウを閉じて新しいのを開き、もう一度試す。インストーラは<code>PATH</code>を更新するが、PATHは新しいターミナルにのみ適用される。それでも壊れているなら、コンピュータを再起動。</p>
-
 <h2 id="最初のファイル"><a class="heading-anchor" href="#最初のファイル">最初のファイル</a></h2>
 <p>チェーン全体がエンドtoエンドで動くことを証明しましょう。</p>
 <ol>
@@ -92,12 +87,12 @@ git --version  # any version works</code></pre>
 &lt;body&gt;
     &lt;h1&gt;It works!&lt;/h1&gt;
     &lt;script&gt;
-        console.log("Also in the browser console.");
+        console.log(&quot;Also in the browser console.&quot;);
     &lt;/script&gt;
 &lt;/body&gt;
-&lt;/html&gt;</code></pre>
+&lt;/html&gt;
+</code></pre>
 <p>ファイルをブラウザで開く(ダブルクリックかブラウザにドラッグ)。<strong>F12</strong>でデベロッパーツールを開き、Consoleタブに切り替え。ログ行が見えるはず。</p>
-
 <div class="mermaid">
 flowchart LR
     VSC[VS Code<br/>write code]
@@ -110,8 +105,8 @@ flowchart LR
     Browser --> DevTools
     VSC -.->|Ctrl+backtick| Terminal
     Terminal -.->|node, npm| Disk
-</div>
 
+</div>
 <h2 id="入れる価値のある拡張機能"><a class="heading-anchor" href="#入れる価値のある拡張機能">入れる価値のある拡張機能</a></h2>
 <p>VS Codeの拡張機能パネルを開く(左バーの四角いアイコン)。この4つをインストール:</p>
 <ul>
@@ -121,14 +116,12 @@ flowchart LR
 <li><strong>GitLens</strong> - git統合の強化。各行を最後に誰が変えたか見える</li>
 </ul>
 <p>保存時フォーマットを有効にするには、設定(Cmd/Ctrl + ,)を開き、「format on save」を検索してチェック。</p>
-
 <h2 id="os別の注意"><a class="heading-anchor" href="#os別の注意">OS別の注意</a></h2>
 <ul>
 <li><strong>Windows</strong>: <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>からGit for Windowsをインストール。デフォルトの「Git Bash」ターミナルがcmd.exeよりこのコースに親切なLinux風シェルを提供。</li>
 <li><strong>Mac</strong>: まず<a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a>をインストール。あとは<code>brew install git node</code>でセットアップ完了。</li>
 <li><strong>Linux</strong>: gitは既にあるはず。<code>sudo apt install git nodejs npm</code>(Ubuntu/Debian)、または新しいバージョンには<code>nvm</code>。</li>
 </ul>
-
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -139,7 +132,6 @@ flowchart LR
 <li>コマンドが「not found」なら新しいターミナルを開く。まだ壊れているなら再起動。PATH更新は新シェルが必要</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

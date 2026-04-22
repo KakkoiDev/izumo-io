@@ -46,13 +46,10 @@
           <a href="r08.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="r07-とにかくシンプルに"><a class="heading-anchor" href="#r07-とにかくシンプルに">R07: とにかくシンプルに</a></h1>
+      <h1 id="r07-とにかくシンプルに"><a class="heading-anchor" href="#r07-とにかくシンプルに">R07: とにかくシンプルに</a></h1>
 <p class="lesson-intro">複雑さは信頼性の敵です。書いた全てのコード行は壊れ得る行です。最良のコードは書く必要がなかったコードです。シンプルな解決策は理解、デバッグ、テスト、保守が容易です。迷ったらシンプルなアプローチを選びましょう。</p>
-
 <h2 id="不必要な複雑さの兆候"><a class="heading-anchor" href="#不必要な複雑さの兆候">不必要な複雑さの兆候</a></h2>
 <p>ファイル構造を説明するのに図が必要なら、複雑すぎます。新しい開発者が10分でコードを理解できないなら、複雑すぎます。機能より抽象化レイヤーの方が多いなら、複雑すぎます。</p>
-
 <h2 id="実践におけるシンプルさ"><a class="heading-anchor" href="#実践におけるシンプルさ">実践におけるシンプルさ</a></h2>
 <pre><code>// Complex: over-engineered
 class UserServiceFactory {
@@ -64,11 +61,10 @@ class UserServiceFactory {
 // Simple: just a function
 function getUser(id) {
     return db.users.find(u =&gt; u.id === id);
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="複雑さを加えるタイミング"><a class="heading-anchor" href="#複雑さを加えるタイミング">複雑さを加えるタイミング</a></h2>
 <p>シンプルな解決策が実際の要件で失敗した時だけ複雑さを加えます。想像上の将来の要件ではありません。今日の問題を今日解決し、必要なら明日リファクタリングしましょう。</p>
-
 <div class="mermaid">
 flowchart LR
     subgraph Simple
@@ -81,8 +77,8 @@ flowchart LR
         C3 --> C4[1 factory]
         C4 --> C5[Works the same]
     end
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -92,7 +88,6 @@ flowchart LR
 <li>新しい開発者が10分で理解できないなら、シンプルにしましょう</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../theory-lessons.html">理論レッスンに戻る</a>
         <div class="lesson-pager">

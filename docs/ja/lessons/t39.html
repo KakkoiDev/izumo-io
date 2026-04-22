@@ -46,13 +46,10 @@
           
         </div>
       </nav>
-      
-<h1 id="t39-システム設計-キャッシング-キュー-パターン"><a class="heading-anchor" href="#t39-システム設計-キャッシング-キュー-パターン">T39: システム設計 - キャッシング、キュー、パターン</a></h1>
+      <h1 id="t39-システム設計-キャッシング-キュー-パターン"><a class="heading-anchor" href="#t39-システム設計-キャッシング-キュー-パターン">T39: システム設計 - キャッシング、キュー、パターン</a></h1>
 <p class="lesson-intro">全ての読み込みをDBで処理するシェフは、注文のたびに玉ねぎを切るようなもの。キャッシュは事前に切っておきます。キューはウェイターとキッチンを分離し、お互いを待たせません。CDNは全ての大陸にミニキッチンを置きます。システム設計のディープダイブは通常、非機能数字が収まるまでこの3つを縫い合わせる作業です。</p>
-
 <h2 id="キャッシング-データベースとあなたの間の高速メモリ"><a class="heading-anchor" href="#キャッシング-データベースとあなたの間の高速メモリ">キャッシング: データベースとあなたの間の高速メモリ</a></h2>
 <p>キャッシュは遅い/高価な操作の結果を高速メモリに保存します。王道パターンは<strong>cache-aside</strong>: アプリがキャッシュを確認、ミスならDB読みキャッシュに詰める、ヒットならDBをスキップ。</p>
-
 <div class="mermaid">
 sequenceDiagram
     participant App
@@ -67,20 +64,19 @@ sequenceDiagram
         DB-->>App: row
         App->>Cache: SET key value ttl
     end
-</div>
 
+</div>
 <pre><code>// Cache-aside in Node.js
 async function getUser(id) {
     const cached = await redis.get(`user:${id}`);
     if (cached) return JSON.parse(cached);
 
-    const row = await db.query("SELECT * FROM users WHERE id = $1", [id]);
-    await redis.set(`user:${id}`, JSON.stringify(row), "EX", 300);
+    const row = await db.query(&quot;SELECT * FROM users WHERE id = $1&quot;, [id]);
+    await redis.set(`user:${id}`, JSON.stringify(row), &quot;EX&quot;, 300);
     return row;
-}</code></pre>
-
+}
+</code></pre>
 <p>キャッシングの2つの難問は<strong>無効化</strong>(古いデータをいつ捨てるか)と<strong>スタンピード</strong>(多数のリクエストが同時にミスしてDBを殴る)。TTL、write-through更新、ミス時のsingle-flightロックで対処。</p>
-
 <h2 id="どこにキャッシュするか"><a class="heading-anchor" href="#どこにキャッシュするか">どこにキャッシュするか</a></h2>
 <ul>
 <li><strong>ブラウザキャッシュ</strong> - ユーザーに最も近い。<code>Cache-Control</code>ヘッダで制御</li>
@@ -88,10 +84,8 @@ async function getUser(id) {
 <li><strong>アプリケーションキャッシュ</strong> - プロセス内メモリまたはRedis。ユーザーごとデータやホットな行に良い</li>
 <li><strong>データベースキャッシュ</strong> - DB自身のバッファプール。無料、既にチューニング済み</li>
 </ul>
-
 <h2 id="メッセージキュー-遅い作業を分離"><a class="heading-anchor" href="#メッセージキュー-遅い作業を分離">メッセージキュー: 遅い作業を分離</a></h2>
 <p>数百ms以上かかる操作はユーザーをブロックすべきではありません。キューはアプリにジョブを受け取って即返させ、<strong>ワーカー</strong>がキューを読んで後で遅い作業をします。</p>
-
 <div class="mermaid">
 sequenceDiagram
     participant User
@@ -105,30 +99,28 @@ sequenceDiagram
     W->>Q: pull job
     W->>W: resize, transcode, scan
     W->>DB: write result
+
 </div>
-
 <p>キューはトラフィックのスパイクも吸収します。ワーカーが1000/秒処理でき、スパイクで10,000/秒押し寄せても、キューがカーブを平らにしてリクエストを落としません。Kafka、RabbitMQ、SQSはそれぞれ順序、耐久性、リプレイの面で異なるトレードオフ。</p>
-
 <h2 id="ロードバランサと冗長性"><a class="heading-anchor" href="#ロードバランサと冗長性">ロードバランサと冗長性</a></h2>
 <p>ロードバランサは同一のアプリサーバーの前に立ちリクエストを分散。3つの仕事: 負荷分散、死んだサーバー検出(ヘルスチェック)、TLS終端。全てを最低2つ動かす - LB、アプリ、DBレプリカ - 単一障害を吸収するため。</p>
 <pre><code>Client -&gt; DNS -&gt; LB (primary) --&gt; app1
                     LB (standby)   app2
-                                   app3</code></pre>
-
+                                   app3
+</code></pre>
 <h2 id="cdn-全ユーザーの近くにコピー"><a class="heading-anchor" href="#cdn-全ユーザーの近くにコピー">CDN: 全ユーザーの近くにコピー</a></h2>
 <p>CDN(Content Delivery Network)は静的アセット(時にはAPIレスポンスも)を世界中の数百のエッジロケーションにキャッシュします。東京の最初のユーザーはバージニアのオリジンまで全往復の代金を払う。その後の東京の10,000ユーザーは東京エッジに10msでヒット。</p>
 <pre><code>// What to put on the CDN
 - images, videos, fonts, JS/CSS bundles
 - rarely-changing API responses with Cache-Control
-- HTML for logged-out pages</code></pre>
-
+- HTML for logged-out pages
+</code></pre>
 <h2 id="モノリス-vs-マイクロサービス"><a class="heading-anchor" href="#モノリス-vs-マイクロサービス">モノリス vs マイクロサービス</a></h2>
 <p>マイクロサービスから始めてはいけません。分割のたびにネットワークホップ、デプロイ対象、障害モードが増えます。モノリスで始め、チームサイズやスケールがモノリスを痛くした時のみサービスを抽出。</p>
 <ul>
 <li><strong>モノリス</strong>: 1コードベース、1デプロイ。イテレーション速く、デバッグ簡単。約50エンジニアや明らかなボトルネックで限界。</li>
 <li><strong>マイクロサービス</strong>: コードベース分離、デプロイ分離、APIやキューで間を繋ぐ。各チームが1サービスを所有。スケール時に報われるが、初期コスト大。</li>
 </ul>
-
 <h2 id="暗記価値のある大雑把な数字"><a class="heading-anchor" href="#暗記価値のある大雑把な数字">暗記価値のある大雑把な数字</a></h2>
 <ul>
 <li>L1キャッシュ: 約1ns。メモリ: 約100ns。SSD: 約100us。同一リージョン内ネットワーク往復: 約1ms。クロスリージョン: 約100ms。</li>
@@ -137,7 +129,6 @@ sequenceDiagram
 <li>Redisは約100k-1M op/秒。</li>
 <li>1日1億イベント = 平均約1,160/秒、ピーク約10k/秒。</li>
 </ul>
-
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -149,7 +140,6 @@ sequenceDiagram
 <li>大雑把な数字表を頭に入れる: ns、us、msの遅延とコンポーネントごとのスループット</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

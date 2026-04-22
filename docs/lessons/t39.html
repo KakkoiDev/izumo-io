@@ -46,13 +46,10 @@
           
         </div>
       </nav>
-      
-<h1 id="t39-system-design-caching-queues-amp-patterns"><a class="heading-anchor" href="#t39-system-design-caching-queues-amp-patterns">T39: System Design - Caching, Queues &amp; Patterns</a></h1>
+      <h1 id="t39-system-design-caching-queues-amp-patterns"><a class="heading-anchor" href="#t39-system-design-caching-queues-amp-patterns">T39: System Design - Caching, Queues &amp; Patterns</a></h1>
 <p class="lesson-intro">A database that does every read is like a chef who chops onions for every order. Caches pre-chop. Queues decouple the waiter from the kitchen so neither waits for the other. CDNs put a mini-kitchen on every continent. The deep dive of a system design is usually stitching these three together until the non-functional numbers fall into place.</p>
-
 <h2 id="caching-fast-memory-between-you-and-the-database"><a class="heading-anchor" href="#caching-fast-memory-between-you-and-the-database">Caching: Fast Memory Between You and The Database</a></h2>
 <p>A cache stores the result of a slow or expensive operation in fast memory. The canonical pattern is <strong>cache-aside</strong>: app checks cache; on miss, reads DB and fills cache; on hit, skips DB entirely.</p>
-
 <div class="mermaid">
 sequenceDiagram
     participant App
@@ -67,20 +64,19 @@ sequenceDiagram
         DB-->>App: row
         App->>Cache: SET key value ttl
     end
-</div>
 
+</div>
 <pre><code>// Cache-aside in Node.js
 async function getUser(id) {
     const cached = await redis.get(`user:${id}`);
     if (cached) return JSON.parse(cached);
 
-    const row = await db.query("SELECT * FROM users WHERE id = $1", [id]);
-    await redis.set(`user:${id}`, JSON.stringify(row), "EX", 300);
+    const row = await db.query(&quot;SELECT * FROM users WHERE id = $1&quot;, [id]);
+    await redis.set(`user:${id}`, JSON.stringify(row), &quot;EX&quot;, 300);
     return row;
-}</code></pre>
-
+}
+</code></pre>
 <p>The two hard problems of caching are <strong>invalidation</strong> (when do you throw stale data out) and <strong>stampede</strong> (when many requests miss at once and hammer the DB). Fix with TTLs, write-through updates, and single-flight locks on misses.</p>
-
 <h2 id="where-to-cache"><a class="heading-anchor" href="#where-to-cache">Where to Cache</a></h2>
 <ul>
 <li><strong>Browser cache</strong> - closest to user, controlled by <code>Cache-Control</code> headers</li>
@@ -88,10 +84,8 @@ async function getUser(id) {
 <li><strong>Application cache</strong> - in-process memory or Redis. Good for per-user data and hot rows</li>
 <li><strong>Database cache</strong> - the DB's own buffer pool. Free, already tuned</li>
 </ul>
-
 <h2 id="message-queues-decouple-slow-work"><a class="heading-anchor" href="#message-queues-decouple-slow-work">Message Queues: Decouple Slow Work</a></h2>
 <p>Any operation that takes more than a few hundred milliseconds should not block the user. Queues let the app accept the job and return immediately; a <strong>worker</strong> reads the queue and does the slow work later.</p>
-
 <div class="mermaid">
 sequenceDiagram
     participant User
@@ -105,30 +99,28 @@ sequenceDiagram
     W->>Q: pull job
     W->>W: resize, transcode, scan
     W->>DB: write result
+
 </div>
-
 <p>Queues also absorb traffic spikes. If the worker can process 1000/sec and a spike pushes 10,000/sec, the queue flattens the curve instead of dropping requests. Kafka, RabbitMQ, and SQS each make different trade-offs around ordering, durability, and replay.</p>
-
 <h2 id="load-balancers-and-redundancy"><a class="heading-anchor" href="#load-balancers-and-redundancy">Load Balancers and Redundancy</a></h2>
 <p>A load balancer sits in front of identical app servers and spreads requests. Three jobs: distribute load, detect dead servers (health checks), terminate TLS. Run at least two of everything - load balancer, app, database replica - so any single failure is absorbed.</p>
 <pre><code>Client -&gt; DNS -&gt; LB (primary) --&gt; app1
                     LB (standby)   app2
-                                   app3</code></pre>
-
+                                   app3
+</code></pre>
 <h2 id="cdns-a-copy-near-every-user"><a class="heading-anchor" href="#cdns-a-copy-near-every-user">CDNs: A Copy Near Every User</a></h2>
 <p>A Content Delivery Network caches your static assets (and sometimes API responses) at hundreds of edge locations around the globe. First user in Tokyo pays the full trip to your origin in Virginia. Next 10,000 users in Tokyo hit the Tokyo edge in 10ms.</p>
 <pre><code>// What to put on the CDN
 - images, videos, fonts, JS/CSS bundles
 - rarely-changing API responses with Cache-Control
-- HTML for logged-out pages</code></pre>
-
+- HTML for logged-out pages
+</code></pre>
 <h2 id="monolith-vs-microservices"><a class="heading-anchor" href="#monolith-vs-microservices">Monolith vs Microservices</a></h2>
 <p>Do not start with microservices. Every split adds a network hop, a deploy target, and a failure mode. Start monolith, extract services only when team size or scale makes the monolith painful.</p>
 <ul>
 <li><strong>Monolith</strong>: one codebase, one deploy. Fast to iterate, simple to debug. Breaks down at ~50 engineers or obvious bottleneck components.</li>
 <li><strong>Microservices</strong>: separate codebases, separate deploys, API or queue between. Each team owns a service. Pays off at scale, costs a lot up front.</li>
 </ul>
-
 <h2 id="back-of-envelope-numbers-worth-memorizing"><a class="heading-anchor" href="#back-of-envelope-numbers-worth-memorizing">Back-of-Envelope Numbers Worth Memorizing</a></h2>
 <ul>
 <li>L1 cache: ~1 ns. Memory: ~100 ns. SSD: ~100 us. Network round trip same region: ~1 ms. Cross-region: ~100 ms.</li>
@@ -137,7 +129,6 @@ sequenceDiagram
 <li>Redis handles ~100k-1M ops/sec.</li>
 <li>100M events/day = ~1,160/sec average, ~10k/sec at peak.</li>
 </ul>
-
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -149,7 +140,6 @@ sequenceDiagram
 <li>Keep a rough numbers table in your head: ns, us, ms latencies and per-component throughput</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

@@ -46,37 +46,35 @@
           <a href="t15.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t14-データの永続化"><a class="heading-anchor" href="#t14-データの永続化">T14: データの永続化</a></h1>
+      <h1 id="t14-データの永続化"><a class="heading-anchor" href="#t14-データの永続化">T14: データの永続化</a></h1>
 <p class="lesson-intro">Webページは閉じると全てを忘れます。localStorageはブラウザがあなたのWebサイト用に保持するノートのようなものです。タブを閉じてもデータは残ります。JSONはJavaScriptオブジェクトを保存可能な文字列に変換し、元に戻すための共通形式です。</p>
-
 <h2 id="localstorage-api"><a class="heading-anchor" href="#localstorage-api">localStorage API</a></h2>
 <p>localStorageはキーバリューペアを文字列として格納します。ページのリロードやブラウザの再起動後も持続し、ドメインあたり約5MBの容量があります。</p>
 <pre><code>// Save data
-localStorage.setItem("username", "Alice");
+localStorage.setItem(&quot;username&quot;, &quot;Alice&quot;);
 
 // Read data
-const name = localStorage.getItem("username");
+const name = localStorage.getItem(&quot;username&quot;);
 
 // Remove data
-localStorage.removeItem("username");
+localStorage.removeItem(&quot;username&quot;);
 
 // Clear all
-localStorage.clear();</code></pre>
-
+localStorage.clear();
+</code></pre>
 <h2 id="jsonの活用"><a class="heading-anchor" href="#jsonの活用">JSONの活用</a></h2>
 <p>localStorageは文字列のみ格納するため、<code>JSON.stringify()</code>でオブジェクトを保存し、<code>JSON.parse()</code>で読み戻します。</p>
 <pre><code>const tasks = [
-    { id: 1, text: "Learn HTML", done: true },
-    { id: 2, text: "Learn CSS", done: false }
+    { id: 1, text: &quot;Learn HTML&quot;, done: true },
+    { id: 2, text: &quot;Learn CSS&quot;, done: false }
 ];
 
 // Save
-localStorage.setItem("tasks", JSON.stringify(tasks));
+localStorage.setItem(&quot;tasks&quot;, JSON.stringify(tasks));
 
 // Load
-const saved = JSON.parse(localStorage.getItem("tasks") || "[]");</code></pre>
-
+const saved = JSON.parse(localStorage.getItem(&quot;tasks&quot;) || &quot;[]&quot;);
+</code></pre>
 <div class="mermaid">
 flowchart LR
     A[JS Object] -->|JSON.stringify| B[JSON String]
@@ -85,8 +83,8 @@ flowchart LR
     D -->|JSON.parse| E[JS Object]
     C -->|persists across| F[Page Reloads]
     C -->|persists across| G[Browser Restart]
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -96,7 +94,6 @@ flowchart LR
 <li>localStorageはドメインあたり5MB制限があります。小さなデータ専用です</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

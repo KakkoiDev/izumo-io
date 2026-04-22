@@ -46,29 +46,27 @@
           <a href="t07.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t06-htmlフォームとブロック要素"><a class="heading-anchor" href="#t06-htmlフォームとブロック要素">T06: HTMLフォームとブロック要素</a></h1>
+      <h1 id="t06-htmlフォームとブロック要素"><a class="heading-anchor" href="#t06-htmlフォームとブロック要素">T06: HTMLフォームとブロック要素</a></h1>
 <p class="lesson-intro">フォームはユーザーとアプリケーションの架け橋です。病院の問診票のように、HTMLフォームはユーザーから情報を収集し、処理のために送信します。details/summaryなどのブロック要素はJavaScriptなしでインタラクティブな開閉機能を追加します。</p>
-
 <h2 id="フォーム要素"><a class="heading-anchor" href="#フォーム要素">フォーム要素</a></h2>
 <p><code>&lt;form&gt;</code>タグは入力要素を囲みます。各入力にはtypeがあり動作を制御します。<code>required</code>属性は送信前にフィールドの入力を強制します。</p>
-<pre><code>&lt;form action="/submit" method="POST"&gt;
-    &lt;label for="name"&gt;Name:&lt;/label&gt;
-    &lt;input type="text" id="name" name="name" required&gt;
+<pre><code>&lt;form action=&quot;/submit&quot; method=&quot;POST&quot;&gt;
+    &lt;label for=&quot;name&quot;&gt;Name:&lt;/label&gt;
+    &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; required&gt;
 
-    &lt;label for="email"&gt;Email:&lt;/label&gt;
-    &lt;input type="email" id="email" name="email" required&gt;
+    &lt;label for=&quot;email&quot;&gt;Email:&lt;/label&gt;
+    &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; required&gt;
 
-    &lt;label for="role"&gt;Role:&lt;/label&gt;
-    &lt;select id="role" name="role"&gt;
-        &lt;option value="dev"&gt;Developer&lt;/option&gt;
-        &lt;option value="design"&gt;Designer&lt;/option&gt;
+    &lt;label for=&quot;role&quot;&gt;Role:&lt;/label&gt;
+    &lt;select id=&quot;role&quot; name=&quot;role&quot;&gt;
+        &lt;option value=&quot;dev&quot;&gt;Developer&lt;/option&gt;
+        &lt;option value=&quot;design&quot;&gt;Designer&lt;/option&gt;
     &lt;/select&gt;
 
-    &lt;textarea name="message" rows="4"&gt;&lt;/textarea&gt;
-    &lt;button type="submit"&gt;Send&lt;/button&gt;
-&lt;/form&gt;</code></pre>
-
+    &lt;textarea name=&quot;message&quot; rows=&quot;4&quot;&gt;&lt;/textarea&gt;
+    &lt;button type=&quot;submit&quot;&gt;Send&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
 <div class="mermaid">
 flowchart LR
     A[User fills form] --> B{Valid?}
@@ -77,15 +75,15 @@ flowchart LR
     D --> E[Process and respond]
     B -->|No| F[Show error message]
     F --> A
-</div>
 
+</div>
 <h2 id="detailsとsummary"><a class="heading-anchor" href="#detailsとsummary">DetailsとSummary</a></h2>
 <p><code>&lt;details&gt;</code>と<code>&lt;summary&gt;</code>要素はJavaScriptゼロで展開可能なセクションを作成します。</p>
 <pre><code>&lt;details&gt;
     &lt;summary&gt;Click to expand&lt;/summary&gt;
     &lt;p&gt;Hidden content revealed on click.&lt;/p&gt;
-&lt;/details&gt;</code></pre>
-
+&lt;/details&gt;
+</code></pre>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -95,7 +93,6 @@ flowchart LR
 <li>details/summaryはJavaScriptなしでインタラクティブな開閉を実現します</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

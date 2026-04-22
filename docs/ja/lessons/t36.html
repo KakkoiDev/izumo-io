@@ -46,13 +46,11 @@
           <a href="t37.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t36-web-components-ii-テンプレート-スロット-ライフサイクル-lit"><a class="heading-anchor" href="#t36-web-components-ii-テンプレート-スロット-ライフサイクル-lit">T36: Web Components II - テンプレート、スロット、ライフサイクル、Lit</a></h1>
+      <h1 id="t36-web-components-ii-テンプレート-スロット-ライフサイクル-lit"><a class="heading-anchor" href="#t36-web-components-ii-テンプレート-スロット-ライフサイクル-lit">T36: Web Components II - テンプレート、スロット、ライフサイクル、Lit</a></h1>
 <p class="lesson-intro">本物のコンポーネントにはあと3つ必要です。<strong>テンプレート</strong>は不活性なマークアップを必要になるまで舞台裏に置きます。<strong>スロット</strong>は親がReactの子要素のようにコンテンツを注入できるようにします。<strong>ライフサイクル</strong>コールバックは要素のライフステージです。誕生、挿入、属性変更、削除。これらを全て知ったら、Litが儀式を隠すエスプレッソマシンになります。</p>
-
-<h2 id="lt-template-gt-要素"><a class="heading-anchor" href="#lt-template-gt-要素">&lt;template&gt;要素</a></h2>
+<h2 id="要素"><a class="heading-anchor" href="#要素"><template>要素</a></h2>
 <p><code>&lt;template&gt;</code>はブラウザが解析するがレンダーしないマークアップを保持します。型として使い、文字列を組むのではなくそのコンテンツをシャドウルートにクローンします。</p>
-<pre><code>&lt;template id="tpl-user-card"&gt;
+<pre><code>&lt;template id=&quot;tpl-user-card&quot;&gt;
     &lt;style&gt;
         :host { display: block; padding: 1rem; border: 1px solid #ddd; }
         h2 { margin: 0; }
@@ -64,16 +62,16 @@
 &lt;script&gt;
 class UserCard extends HTMLElement {
     connectedCallback() {
-        const tpl = document.getElementById("tpl-user-card");
-        const root = this.attachShadow({ mode: "open" });
+        const tpl = document.getElementById(&quot;tpl-user-card&quot;);
+        const root = this.attachShadow({ mode: &quot;open&quot; });
         root.appendChild(tpl.content.cloneNode(true));
-        root.querySelector("h2").textContent = this.getAttribute("name");
-        root.querySelector("p").textContent  = this.getAttribute("role");
+        root.querySelector(&quot;h2&quot;).textContent = this.getAttribute(&quot;name&quot;);
+        root.querySelector(&quot;p&quot;).textContent  = this.getAttribute(&quot;role&quot;);
     }
 }
-customElements.define("user-card", UserCard);
-&lt;/script&gt;</code></pre>
-
+customElements.define(&quot;user-card&quot;, UserCard);
+&lt;/script&gt;
+</code></pre>
 <h2 id="スロット-コンテンツ投影"><a class="heading-anchor" href="#スロット-コンテンツ投影">スロット: コンテンツ投影</a></h2>
 <p>スロットはシャドウツリー内の穴で、親のライトDOMがそこに投影されます。ユーザーがあなたのタグの間に書いた内容は<code>&lt;slot&gt;</code>を置いた場所に現れます。名前付きスロットで複数の注入点を持てます。</p>
 <pre><code>// Inside the component's shadow root
@@ -81,21 +79,21 @@ customElements.define("user-card", UserCard);
     header { font-weight: bold; }
     footer { font-size: 0.85rem; color: #666; }
 &lt;/style&gt;
-&lt;header&gt;&lt;slot name="title"&gt;Default title&lt;/slot&gt;&lt;/header&gt;
+&lt;header&gt;&lt;slot name=&quot;title&quot;&gt;Default title&lt;/slot&gt;&lt;/header&gt;
 &lt;section&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/section&gt;
-&lt;footer&gt;&lt;slot name="footer"&gt;&lt;/slot&gt;&lt;/footer&gt;
+&lt;footer&gt;&lt;slot name=&quot;footer&quot;&gt;&lt;/slot&gt;&lt;/footer&gt;
 
 // Usage from the page
 &lt;fancy-card&gt;
-    &lt;span slot="title"&gt;My Card&lt;/span&gt;
+    &lt;span slot=&quot;title&quot;&gt;My Card&lt;/span&gt;
     &lt;p&gt;Body content lands in the default slot.&lt;/p&gt;
-    &lt;small slot="footer"&gt;Updated today&lt;/small&gt;
-&lt;/fancy-card&gt;</code></pre>
-
+    &lt;small slot=&quot;footer&quot;&gt;Updated today&lt;/small&gt;
+&lt;/fancy-card&gt;
+</code></pre>
 <h2 id="ライフサイクルコールバック"><a class="heading-anchor" href="#ライフサイクルコールバック">ライフサイクルコールバック</a></h2>
 <p>全てのカスタム要素は同じ5つのライフステージを持ちます。<code>connectedCallback</code>でセットアップし、<code>disconnectedCallback</code>で片付けます。属性変更には<code>attributeChangedCallback</code>で反応しますが、<code>observedAttributes</code>に列挙したものだけです。</p>
 <pre><code>class Timer extends HTMLElement {
-    static observedAttributes = ["interval"];
+    static observedAttributes = [&quot;interval&quot;];
 
     connectedCallback() {
         this._id = setInterval(() =&gt; this._tick(), this._ms());
@@ -107,17 +105,17 @@ customElements.define("user-card", UserCard);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        if (name === "interval" &amp;&amp; this._id) {
+        if (name === &quot;interval&quot; &amp;&amp; this._id) {
             clearInterval(this._id);
             this._id = setInterval(() =&gt; this._tick(), this._ms());
         }
     }
 
-    _ms() { return Number(this.getAttribute("interval")) || 1000; }
+    _ms() { return Number(this.getAttribute(&quot;interval&quot;)) || 1000; }
     _tick() { this.textContent = new Date().toLocaleTimeString(); }
 }
-customElements.define("live-clock", Timer);</code></pre>
-
+customElements.define(&quot;live-clock&quot;, Timer);
+</code></pre>
 <div class="mermaid">
 sequenceDiagram
     participant Browser
@@ -129,11 +127,11 @@ sequenceDiagram
     Note over El: reconcile state
     Browser->>El: disconnectedCallback()
     Note over El: removed from DOM<br/>clean up resources
-</div>
 
+</div>
 <h2 id="lit-シュガーレイヤー"><a class="heading-anchor" href="#lit-シュガーレイヤー">Lit: シュガーレイヤー</a></h2>
 <p>素のWeb Componentsは動くが冗長です。<strong>Lit</strong>(5KB、Google発)はリアクティブプロパティ、タグ付きテンプレートレンダリング、スコープドスタイルで定型コードを削減します。Litコンポーネントは<em>ネイティブのカスタム要素そのもの</em>で、書くコードが少ないだけです。</p>
-<pre><code>import { LitElement, html, css } from "lit";
+<pre><code>import { LitElement, html, css } from &quot;lit&quot;;
 
 class UserCard extends LitElement {
     static properties = {
@@ -154,11 +152,11 @@ class UserCard extends LitElement {
         `;
     }
 }
-customElements.define("user-card", UserCard);
+customElements.define(&quot;user-card&quot;, UserCard);
 
 // Usage
-// &lt;user-card name="Alice" role="Engineer"&gt;&lt;/user-card&gt;</code></pre>
-
+// &lt;user-card name=&quot;Alice&quot; role=&quot;Engineer&quot;&gt;&lt;/user-card&gt;
+</code></pre>
 <h2 id="よくある罠"><a class="heading-anchor" href="#よくある罠">よくある罠</a></h2>
 <ul>
 <li><strong>コンストラクタでセットアップ</strong>: 要素はまだDOMにない。connectedCallbackで行う。</li>
@@ -166,7 +164,6 @@ customElements.define("user-card", UserCard);
 <li><strong>リスナーの漏れ</strong>: connectedCallbackで追加したものは全てdisconnectedCallbackで削除する。</li>
 <li><strong>Shadow DOMとフォーム</strong>: シャドウルート内のフォーム入力は親フォームに自動参加しない。ElementInternals + static formAssociated = true を使う。</li>
 </ul>
-
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -177,7 +174,6 @@ customElements.define("user-card", UserCard);
 <li>LitはネイティブWeb Componentsの上の薄いシュガーレイヤー。同じ標準、はるかに少ない定型</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

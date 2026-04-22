@@ -46,24 +46,20 @@
           <a href="r03.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="r02-webアーキテクチャ"><a class="heading-anchor" href="#r02-webアーキテクチャ">R02: Webアーキテクチャ</a></h1>
+      <h1 id="r02-webアーキテクチャ"><a class="heading-anchor" href="#r02-webアーキテクチャ">R02: Webアーキテクチャ</a></h1>
 <p class="lesson-intro">Webはレストランのように動きます。クライアント(ブラウザ)はテーブルに座る客です。サーバーはキッチンです。HTTPは注文を運ぶウェイターです。客はキッチンに入らず、キッチンはテーブルに座りません。それぞれ明確な役割があります。</p>
-
 <h2 id="クライアント-サーバーモデル"><a class="heading-anchor" href="#クライアント-サーバーモデル">クライアント-サーバーモデル</a></h2>
 <p>クライアントはリクエストを送りレスポンスを表示します。サーバーはリクエストを受け取り、処理し、データを返します。この関心の分離はWebアーキテクチャの基本です。</p>
-
 <h2 id="webリクエストの仕組み"><a class="heading-anchor" href="#webリクエストの仕組み">Webリクエストの仕組み</a></h2>
 <p>URLを入力すると: ブラウザがサーバーのアドレスを検索し(DNS)、接続を開き(TCP)、リクエストを送信し(HTTP)、サーバーがHTML、CSS、JS、またはデータで応答します。</p>
-<pre><code>Client: "GET /menu please"
-Server: "Here is the menu page (200 OK)"
+<pre><code>Client: &quot;GET /menu please&quot;
+Server: &quot;Here is the menu page (200 OK)&quot;
 
-Client: "POST /order with {item: 'pasta'}"
-Server: "Order received (201 Created)"</code></pre>
-
+Client: &quot;POST /order with {item: 'pasta'}&quot;
+Server: &quot;Order received (201 Created)&quot;
+</code></pre>
 <h2 id="シンプルなページを超えて"><a class="heading-anchor" href="#シンプルなページを超えて">シンプルなページを超えて</a></h2>
 <p>モダンWebアプリは層を追加します。CDNがユーザーに近い場所でコンテンツをキャッシュし、ロードバランサーが複数サーバーにトラフィックを分散し、データベースがデータを永続化します。</p>
-
 <div class="mermaid">
 flowchart LR
     A[Client / Browser] -->|HTTP Request| B[Server]
@@ -76,8 +72,8 @@ flowchart LR
         F -->|Food| E
         E -->|Food| D
     end
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -87,7 +83,6 @@ flowchart LR
 <li>DNSはドメイン名をサーバーのIPアドレスに変換します</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../theory-lessons.html">理論レッスンに戻る</a>
         <div class="lesson-pager">

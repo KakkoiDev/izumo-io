@@ -46,10 +46,8 @@
           <a href="t38.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t37-system-design-the-delivery-framework"><a class="heading-anchor" href="#t37-system-design-the-delivery-framework">T37: System Design - The Delivery Framework</a></h1>
+      <h1 id="t37-system-design-the-delivery-framework"><a class="heading-anchor" href="#t37-system-design-the-delivery-framework">T37: System Design - The Delivery Framework</a></h1>
 <p class="lesson-intro">Architects draw blueprints before anyone pours concrete. System design is drawing the blueprint for a piece of software: what it does, what it is made of, how the parts fit. In an interview or on a real project, the hardest part is not knowing databases or caches. It is knowing the order of questions to ask. This lesson teaches that order.</p>
-
 <h2 id="the-six-steps"><a class="heading-anchor" href="#the-six-steps">The Six Steps</a></h2>
 <p>A good system design conversation moves through six phases, roughly in order. Strictly following them keeps you from drowning in detail before you have a shape.</p>
 <ol>
@@ -60,7 +58,6 @@
 <li><strong>Deep Dives</strong> (~10 min) - fix the bottlenecks and meet the hard targets</li>
 <li><strong>Trade-offs</strong> - explicit choices between cost, speed, consistency, complexity</li>
 </ol>
-
 <div class="mermaid">
 flowchart LR
     R[1. Requirements<br/>functional + non-functional]
@@ -71,8 +68,8 @@ flowchart LR
     T[6. Trade-offs<br/>cost vs speed vs consistency]
     R --> E --> A --> H --> D --> T
     D -.iterate.-> H
-</div>
 
+</div>
 <h2 id="step-1-requirements"><a class="heading-anchor" href="#step-1-requirements">Step 1: Requirements</a></h2>
 <p>Split into <strong>functional</strong> (what users can do) and <strong>non-functional</strong> (how well it must work). Quantify the non-functional targets - "low latency" is useless, "p99 &lt; 200ms" is a blueprint.</p>
 <pre><code>// Example: Design a URL shortener (tinyurl-style)
@@ -86,31 +83,30 @@ Non-functional:
 - 100M new links / day, 10:1 read/write ratio
 - Redirects at p99 &lt; 100ms globally
 - 99.99% availability for redirects
-- Short codes must be unguessable</code></pre>
-
+- Short codes must be unguessable
+</code></pre>
 <h2 id="step-2-core-entities"><a class="heading-anchor" href="#step-2-core-entities">Step 2: Core Entities</a></h2>
 <p>Name the nouns. Keep the list small - you will grow it as you go. Each entity later shows up in both the API and the data model.</p>
 <pre><code>Link { id, short_code, long_url, owner_id, created_at, click_count }
-User { id, email, password_hash }</code></pre>
-
+User { id, email, password_hash }
+</code></pre>
 <h2 id="step-3-api"><a class="heading-anchor" href="#step-3-api">Step 3: API</a></h2>
 <p>Default to REST unless you have a reason not to. Four or five endpoints is plenty. Never trust user IDs from the request body - they come from authentication.</p>
 <pre><code>POST /links       { long_url } -&gt; { short_code }
 GET  /{code}                    -&gt; 302 redirect
 GET  /links        (auth)       -&gt; list my links + counts
-DELETE /links/{id} (auth)</code></pre>
-
+DELETE /links/{id} (auth)
+</code></pre>
 <h2 id="step-4-high-level-design"><a class="heading-anchor" href="#step-4-high-level-design">Step 4: High-Level Design</a></h2>
 <p>Draw the boxes that implement the API. Keep it simple. You earn complexity only by pointing at a requirement it satisfies.</p>
-
 <div class="mermaid">
 flowchart LR
     Client -->|HTTPS| LB[Load Balancer]
     LB --> App[App Servers]
     App --> DB[(Primary DB<br/>links, users)]
     App --> Cache[(Cache<br/>code -&gt; long_url)]
-</div>
 
+</div>
 <h2 id="step-5-deep-dives"><a class="heading-anchor" href="#step-5-deep-dives">Step 5: Deep Dives</a></h2>
 <p>Walk back through the non-functional targets. For each, point at the component that delivers it or add one that does.</p>
 <ul>
@@ -119,7 +115,6 @@ flowchart LR
 <li><strong>100M writes / day</strong>: write throughput is ~1200/sec. A single Postgres handles it; shard only if metrics say so.</li>
 <li><strong>Click counts</strong>: do not write to DB on every redirect. Emit to a queue, batch into DB asynchronously.</li>
 </ul>
-
 <h2 id="step-6-trade-offs-say-them-out-loud"><a class="heading-anchor" href="#step-6-trade-offs-say-them-out-loud">Step 6: Trade-offs - Say Them Out Loud</a></h2>
 <p>Every decision closes one door and opens another. Make the choices visible.</p>
 <ul>
@@ -127,7 +122,6 @@ flowchart LR
 <li>CDN caches <strong>stale-on-delete</strong> briefly to <strong>gain</strong> edge speed</li>
 <li>Random codes <strong>waste a little space</strong> to <strong>gain</strong> security</li>
 </ul>
-
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -138,7 +132,6 @@ flowchart LR
 <li>Say the trade-offs out loud. Every architecture choice closes one door to open another</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

@@ -46,10 +46,8 @@
           <a href="t21.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t20-github-amp-collaboration"><a class="heading-anchor" href="#t20-github-amp-collaboration">T20: GitHub &amp; Collaboration</a></h1>
+      <h1 id="t20-github-amp-collaboration"><a class="heading-anchor" href="#t20-github-amp-collaboration">T20: GitHub &amp; Collaboration</a></h1>
 <p class="lesson-intro">Git is your personal time machine on your desk. GitHub is the shared workshop where many time travelers meet, compare notes, and build together. The same repository lives in two places at once: your laptop and the cloud. Pushing and pulling keeps them in sync.</p>
-
 <h2 id="remotes-where-the-copy-lives"><a class="heading-anchor" href="#remotes-where-the-copy-lives">Remotes: Where the Copy Lives</a></h2>
 <p>A <strong>remote</strong> is a named URL pointing to a copy of your repository somewhere else. By convention the main remote is called <code>origin</code>. You push commits up to origin and pull commits down from it.</p>
 <pre><code># Start from an existing GitHub repo
@@ -60,16 +58,16 @@ git remote -v                  # list remotes
 # Or push an existing local repo to a new GitHub repo
 git remote add origin https://github.com/you/my-project.git
 git branch -M main
-git push -u origin main        # -u sets the default upstream</code></pre>
-
+git push -u origin main        # -u sets the default upstream
+</code></pre>
 <h2 id="push-and-pull"><a class="heading-anchor" href="#push-and-pull">Push and Pull</a></h2>
 <p>Push uploads your local commits to the remote. Pull downloads and merges remote commits into your current branch. Always pull before you start new work so you are building on the latest.</p>
 <pre><code>git pull                       # fetch + merge from origin
 git push                       # send your commits up
 
 # First push of a new branch
-git push -u origin feature/login</code></pre>
-
+git push -u origin feature/login
+</code></pre>
 <h2 id="github-flow-the-beginner-friendly-workflow"><a class="heading-anchor" href="#github-flow-the-beginner-friendly-workflow">GitHub Flow: The Beginner-Friendly Workflow</a></h2>
 <p>GitHub Flow is the simplest pro workflow. One rule: <strong>main</strong> is always deployable. Everything else happens on short-lived branches behind a pull request.</p>
 <ol>
@@ -79,7 +77,6 @@ git push -u origin feature/login</code></pre>
 <li>A teammate reviews, CI runs tests automatically</li>
 <li>Merge when green, delete the branch, pull latest main</li>
 </ol>
-
 <div class="mermaid">
 gitGraph
     commit id: "main"
@@ -95,10 +92,9 @@ gitGraph
     checkout main
     merge feature/contact tag: "PR #42"
     commit id: "next feature"
+
 </div>
-
 <p>The branch lives only as long as the pull request. Once merged, it is deleted. The <code>PR #42</code> tag is the lasting record of the conversation, the review, and the CI checks that happened around that merge commit.</p>
-
 <div class="mermaid">
 sequenceDiagram
     participant You as Your Laptop
@@ -114,8 +110,8 @@ sequenceDiagram
     Origin->>Origin: Merge to main
     Team->>Team: git pull
     You->>You: git pull (to get merged main)
-</div>
 
+</div>
 <h2 id="pull-requests-conversations-around-code"><a class="heading-anchor" href="#pull-requests-conversations-around-code">Pull Requests: Conversations Around Code</a></h2>
 <p>A PR is more than a merge button. It is a permanent record of what you did, why, who reviewed it, and what tests ran. Write PR descriptions like you are explaining the change to a teammate six months from now.</p>
 <pre><code>## Summary
@@ -127,16 +123,16 @@ Closes #42. Users had no way to reach us outside Discord.
 ## Test plan
 - [x] Form validates required fields
 - [x] Submission shows success toast
-- [ ] Confirm email arrives in inbox</code></pre>
-
+- [ ] Confirm email arrives in inbox
+</code></pre>
 <h2 id="merge-conflicts"><a class="heading-anchor" href="#merge-conflicts">Merge Conflicts</a></h2>
 <p>When two branches edit the same line, git stops and asks you to decide. It marks the conflict in the file with <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. Pick the right version, delete the markers, stage, and commit.</p>
 <pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
 color: blue;
 =======
 color: green;
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login</code></pre>
-
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login
+</code></pre>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -147,7 +143,6 @@ color: green;
 <li>Merge conflicts are normal. Read the markers, choose a version, re-commit</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

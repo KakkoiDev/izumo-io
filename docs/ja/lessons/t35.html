@@ -46,42 +46,41 @@
           <a href="t36.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t35-web-components-i-カスタム要素とshadow-dom"><a class="heading-anchor" href="#t35-web-components-i-カスタム要素とshadow-dom">T35: Web Components I - カスタム要素とShadow DOM</a></h1>
+      <h1 id="t35-web-components-i-カスタム要素とshadow-dom"><a class="heading-anchor" href="#t35-web-components-i-カスタム要素とshadow-dom">T35: Web Components I - カスタム要素とShadow DOM</a></h1>
 <p class="lesson-intro">もし自分のHTMLタグを発明できたら? <code>&lt;user-card&gt;</code>、<code>&lt;rating-stars&gt;</code>、<code>&lt;search-box&gt;</code>。それがWeb Componentsです。フレームワークもビルドも無しで再利用可能なUIのレゴブロックをブラウザネイティブに作る方法。今日の2つの材料: カスタム要素がタグを定義し、Shadow DOMが中身を密閉して外に漏れないようにします。</p>
-
 <h2 id="カスタム要素"><a class="heading-anchor" href="#カスタム要素">カスタム要素</a></h2>
 <p>カスタム要素は<code>HTMLElement</code>を継承したクラスで、ブラウザにタグ名で登録します。タグ名には<em>必ず</em>ハイフンが必要で、これによりブラウザは組み込みタグと区別します。登録はページ上で永久的です。</p>
 <pre><code>class GreetingBox extends HTMLElement {
     constructor() {
         super();
-        this.textContent = "Hello from a custom element!";
+        this.textContent = &quot;Hello from a custom element!&quot;;
     }
 }
 
-customElements.define("greeting-box", GreetingBox);</code></pre>
+customElements.define(&quot;greeting-box&quot;, GreetingBox);
+</code></pre>
 <p>これでこのタグがHTML内のどこでも使えます:</p>
 <pre><code>&lt;!-- In any page --&gt;
-&lt;greeting-box&gt;&lt;/greeting-box&gt;</code></pre>
-
+&lt;greeting-box&gt;&lt;/greeting-box&gt;
+</code></pre>
 <h2 id="属性を読む"><a class="heading-anchor" href="#属性を読む">属性を読む</a></h2>
 <p>良いカスタム要素は自分の属性を読んで自己設定します。組み込み要素もそうです: <code>&lt;img src="..."&gt;</code>、<code>&lt;a href="..."&gt;</code>。あなたの要素も同様にすべきです。</p>
 <pre><code>class GreetingBox extends HTMLElement {
     connectedCallback() {
-        const name = this.getAttribute("name") || "friend";
+        const name = this.getAttribute(&quot;name&quot;) || &quot;friend&quot;;
         this.textContent = `Hello, ${name}!`;
     }
 }
-customElements.define("greeting-box", GreetingBox);
+customElements.define(&quot;greeting-box&quot;, GreetingBox);
 
-// &lt;greeting-box name="Alice"&gt;&lt;/greeting-box&gt;</code></pre>
-
+// &lt;greeting-box name=&quot;Alice&quot;&gt;&lt;/greeting-box&gt;
+</code></pre>
 <h2 id="shadow-dom-密閉された内部"><a class="heading-anchor" href="#shadow-dom-密閉された内部">Shadow DOM: 密閉された内部</a></h2>
 <p>Shadow DOMがないと、コンポーネントのHTMLとCSSはグローバルページに住みます。どこか別の場所の<code>h2 { color: red }</code>があなたの設計したウィジェットを赤く塗りかねません。Shadow DOMは要素にプライベートなツリーをアタッチします。外のスタイルは中に届かず、中のスタイルは外に漏れません。</p>
 <pre><code>class UserCard extends HTMLElement {
     connectedCallback() {
-        const root = this.attachShadow({ mode: "open" });
-        const name = this.getAttribute("name") || "Anonymous";
+        const root = this.attachShadow({ mode: &quot;open&quot; });
+        const name = this.getAttribute(&quot;name&quot;) || &quot;Anonymous&quot;;
         root.innerHTML = `
             &lt;style&gt;
                 :host { display: inline-block; padding: 1rem;
@@ -94,8 +93,8 @@ customElements.define("greeting-box", GreetingBox);
         `;
     }
 }
-customElements.define("user-card", UserCard);</code></pre>
-
+customElements.define(&quot;user-card&quot;, UserCard);
+</code></pre>
 <div class="mermaid">
 graph TD
     Page[Light DOM - the page]
@@ -109,8 +108,8 @@ graph TD
     Shadow --> Style
     Shadow --> H
     Shadow --> P
-</div>
 
+</div>
 <h2 id="hostと-part"><a class="heading-anchor" href="#hostと-part">:hostと::part</a></h2>
 <p>シャドウツリー内では、<code>:host</code>セレクタが要素自身を外から見るスタイルを当てます。特定のパーツを外からスタイリングさせたい場合は<code>part="..."</code>で公開し、利用側は<code>::part()</code>で指定します。</p>
 <pre><code>&lt;style&gt;
@@ -118,11 +117,11 @@ graph TD
     :host([featured]) { border-color: gold; }
     button { cursor: pointer; }
 &lt;/style&gt;
-&lt;button part="action"&gt;Click me&lt;/button&gt;
+&lt;button part=&quot;action&quot;&gt;Click me&lt;/button&gt;
 
 /* In the outer page CSS */
-user-card::part(action) { background: tomato; color: white; }</code></pre>
-
+user-card::part(action) { background: tomato; color: white; }
+</code></pre>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -133,7 +132,6 @@ user-card::part(action) { background: tomato; color: white; }</code></pre>
 <li>Web Componentsは任意のフレームワークで、またはフレームワーク無しで動く。プラットフォームネイティブ</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

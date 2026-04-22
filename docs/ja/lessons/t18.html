@@ -46,13 +46,11 @@
           <a href="t19.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t18-動的サイト-仕上げ"><a class="heading-anchor" href="#t18-動的サイト-仕上げ">T18: 動的サイト - 仕上げ</a></h1>
+      <h1 id="t18-動的サイト-仕上げ"><a class="heading-anchor" href="#t18-動的サイト-仕上げ">T18: 動的サイト - 仕上げ</a></h1>
 <p class="lesson-intro">パフォーマンスは機能です。読み込みが遅いサイトからユーザーは離脱します。サイトの仕上げとは、何を読み込むか、いつ読み込むか、どう読み込むかの最適化です。人気料理を事前に準備し、珍しい注文だけオンデマンドで調理するレストランのようなものです。</p>
-
 <h2 id="遅延読み込み"><a class="heading-anchor" href="#遅延読み込み">遅延読み込み</a></h2>
 <p>画像やコンテンツをビューポートに入った時だけ読み込みます。<code>loading="lazy"</code>属性で画像をネイティブに処理できます。</p>
-<pre><code>&lt;img src="photo.jpg" loading="lazy" alt="Lazy loaded"&gt;
+<pre><code>&lt;img src=&quot;photo.jpg&quot; loading=&quot;lazy&quot; alt=&quot;Lazy loaded&quot;&gt;
 
 // For custom lazy loading with Intersection Observer
 const observer = new IntersectionObserver((entries) =&gt; {
@@ -63,23 +61,23 @@ const observer = new IntersectionObserver((entries) =&gt; {
             observer.unobserve(img);
         }
     });
-});</code></pre>
-
+});
+</code></pre>
 <h2 id="パフォーマンステクニック"><a class="heading-anchor" href="#パフォーマンステクニック">パフォーマンステクニック</a></h2>
 <p>レンダリングをブロックするリソースを最小化します。重要でないJavaScriptを遅延させます。効率的なセレクタを使い、DOMサイズを削減します。</p>
 <pre><code>&lt;!-- Defer non-critical JS --&gt;
-&lt;script src="app.js" defer&gt;&lt;/script&gt;
+&lt;script src=&quot;app.js&quot; defer&gt;&lt;/script&gt;
 
 &lt;!-- Preload critical resources --&gt;
-&lt;link rel="preload" href="font.woff2" as="font" crossorigin&gt;</code></pre>
-
+&lt;link rel=&quot;preload&quot; href=&quot;font.woff2&quot; as=&quot;font&quot; crossorigin&gt;
+</code></pre>
 <h2 id="コード分割"><a class="heading-anchor" href="#コード分割">コード分割</a></h2>
 <p>現在のビューに必要なJavaScriptだけを読み込みます。ユーザーがナビゲートした時に追加モジュールをインポートします。</p>
 <pre><code>async function loadModule(name) {
     const module = await import(`./modules/${name}.js`);
     module.init();
-}</code></pre>
-
+}
+</code></pre>
 <div class="mermaid">
 sequenceDiagram
     participant B as Browser
@@ -91,8 +89,8 @@ sequenceDiagram
     B->>S: Deferred JS modules
     S-->>B: Additional resources
     B->>B: Progressive enhancement
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -102,7 +100,6 @@ sequenceDiagram
 <li>コード分割で現在のビューに必要なJavaScriptだけを読み込みます</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

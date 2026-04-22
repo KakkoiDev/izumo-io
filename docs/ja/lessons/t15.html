@@ -46,41 +46,38 @@
           <a href="t16.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t15-fetch-api"><a class="heading-anchor" href="#t15-fetch-api">T15: Fetch API</a></h1>
+      <h1 id="t15-fetch-api"><a class="heading-anchor" href="#t15-fetch-api">T15: Fetch API</a></h1>
 <p class="lesson-intro">Fetch APIはJavaScriptからサーバーと通信する手段です。手紙を送って返事を待つようなもので、リクエストを送り、サーバーが処理し、レスポンスを返します。async/await構文でこの非同期通信を同期的なコードのように読めるようにします。</p>
-
 <h2 id="httpの基本"><a class="heading-anchor" href="#httpの基本">HTTPの基本</a></h2>
 <p>HTTPはブラウザがサーバーと通信するプロトコルです。全てのリクエストにはメソッド(GET, POST, PUT, DELETE)があり、全てのレスポンスにはステータスコード(200 OK, 404 Not Found, 500 Error)があります。</p>
-
 <h2 id="リクエストの送信"><a class="heading-anchor" href="#リクエストの送信">リクエストの送信</a></h2>
 <p><code>fetch()</code>関数はPromiseを返します。<code>async/await</code>でクリーンで読みやすい非同期コードを書けます。</p>
 <pre><code>// GET request
 async function getUsers() {
-    const response = await fetch("/api/users");
+    const response = await fetch(&quot;/api/users&quot;);
     const data = await response.json();
     return data;
 }
 
 // POST request
 async function createUser(user) {
-    const response = await fetch("/api/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+    const response = await fetch(&quot;/api/users&quot;, {
+        method: &quot;POST&quot;,
+        headers: { &quot;Content-Type&quot;: &quot;application/json&quot; },
         body: JSON.stringify(user)
     });
     return await response.json();
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="エラー処理"><a class="heading-anchor" href="#エラー処理">エラー処理</a></h2>
 <pre><code>try {
     const data = await getUsers();
     renderUsers(data);
 } catch (error) {
-    console.error("Failed to fetch:", error);
-    showErrorMessage("Could not load users. Try again.");
-}</code></pre>
-
+    console.error(&quot;Failed to fetch:&quot;, error);
+    showErrorMessage(&quot;Could not load users. Try again.&quot;);
+}
+</code></pre>
 <div class="mermaid">
 sequenceDiagram
     participant B as Browser
@@ -91,8 +88,8 @@ sequenceDiagram
     S-->>B: 201 Created + new user
     B->>S: GET /api/missing
     S-->>B: 404 Not Found
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -102,7 +99,6 @@ sequenceDiagram
 <li>response.json()でJSONレスポンスボディをパースします</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

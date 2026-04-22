@@ -46,13 +46,11 @@
           <a href="t30.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t29-react-state-amp-effects"><a class="heading-anchor" href="#t29-react-state-amp-effects">T29: React State &amp; Effects</a></h1>
+      <h1 id="t29-react-state-amp-effects"><a class="heading-anchor" href="#t29-react-state-amp-effects">T29: React State &amp; Effects</a></h1>
 <p class="lesson-intro">State is a component's personal notebook - private data that persists across renders and triggers re-renders when updated. Effects are like alarm clocks that go off after the component renders, letting you synchronize with external systems like APIs or timers.</p>
-
 <h2 id="usestate-component-memory"><a class="heading-anchor" href="#usestate-component-memory">useState: Component Memory</a></h2>
 <p>The <code>useState</code> hook gives a component its own memory. It returns the current value and a setter function. When the setter is called, React re-renders the component with the new value.</p>
-<pre><code>import { useState } from "react";
+<pre><code>import { useState } from &quot;react&quot;;
 
 function Counter() {
     const [count, setCount] = useState(0);
@@ -64,18 +62,18 @@ function Counter() {
             &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
         &lt;/div&gt;
     );
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="useeffect-side-effects"><a class="heading-anchor" href="#useeffect-side-effects">useEffect: Side Effects</a></h2>
 <p>The <code>useEffect</code> hook runs code after render. The dependency array controls when it re-runs. An empty array means "run once on mount." Including variables means "re-run when these change."</p>
-<pre><code>import { useState, useEffect } from "react";
+<pre><code>import { useState, useEffect } from &quot;react&quot;;
 
 function MenuPage() {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() =&gt; {
-        fetch("/api/menu")
+        fetch(&quot;/api/menu&quot;)
             .then(res =&gt; res.json())
             .then(data =&gt; {
                 setItems(data);
@@ -85,11 +83,10 @@ function MenuPage() {
 
     if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
     return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="lifting-state-up"><a class="heading-anchor" href="#lifting-state-up">Lifting State Up</a></h2>
 <p>When two sibling components need to share data, move the state to their common parent. The parent owns the state and passes it down as props. This is React's primary data-sharing pattern.</p>
-
 <div class="mermaid">
 flowchart TD
     A[Render Component] --> B[useEffect Runs]
@@ -102,8 +99,8 @@ flowchart TD
     style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
     style D fill:#e74c3c,stroke:#a93226,color:#1a1a1a
     style E fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -113,7 +110,6 @@ flowchart TD
 <li>Lift state to the nearest common parent when siblings need to share data</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

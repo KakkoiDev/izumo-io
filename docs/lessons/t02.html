@@ -46,10 +46,8 @@
           <a href="t03.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t02-terminal-basics"><a class="heading-anchor" href="#t02-terminal-basics">T02: Terminal Basics</a></h1>
+      <h1 id="t02-terminal-basics"><a class="heading-anchor" href="#t02-terminal-basics">T02: Terminal Basics</a></h1>
 <p class="lesson-intro">Buttons are for tourists. The terminal is the direct line to the machine - a text prompt where you tell the computer exactly what to do. It feels intimidating for about a week, then feels like a superpower for the rest of your career. You stop clicking through dialogs and start composing commands.</p>
-
 <h2 id="where-am-i-moving-around"><a class="heading-anchor" href="#where-am-i-moving-around">Where Am I? Moving Around</a></h2>
 <p>Your shell is always sitting in some folder, called the <strong>working directory</strong>. Three commands form the navigation basics: where am I, what is here, go somewhere.</p>
 <pre><code>pwd                    # print working directory
@@ -58,9 +56,9 @@ ls -la                 # long format, include hidden files
 cd Documents           # move into a subfolder
 cd ..                  # move up one level
 cd                     # go home (shorthand for ~)
-cd /                   # jump to the filesystem root</code></pre>
+cd /                   # jump to the filesystem root
+</code></pre>
 <p>Paths come in two flavors. An <strong>absolute</strong> path starts from the root: <code>/home/alice/projects</code>. A <strong>relative</strong> path starts from wherever you are now: <code>../notes</code>. The special shortcuts <code>.</code> (here), <code>..</code> (parent), and <code>~</code> (your home folder) show up everywhere.</p>
-
 <h2 id="creating-copying-removing"><a class="heading-anchor" href="#creating-copying-removing">Creating, Copying, Removing</a></h2>
 <p>Files and folders are text in, bytes out. Keep verbs short.</p>
 <pre><code>mkdir my-project              # make a folder
@@ -72,21 +70,21 @@ mv old.md new.md              # rename (or move)
 rm notes.md                   # delete file (no recycle bin!)
 rm -rf build/                 # delete folder and everything inside
 cat notes.md                  # print file to screen
-less log.txt                  # scroll through a large file (q to quit)</code></pre>
+less log.txt                  # scroll through a large file (q to quit)
+</code></pre>
 <p><strong>Warning</strong>: there is no trash can. <code>rm</code> is final. Before using <code>rm -rf</code>, always run <code>ls</code> first to verify the target.</p>
-
 <h2 id="reading-the-manual"><a class="heading-anchor" href="#reading-the-manual">Reading the Manual</a></h2>
 <p>Every command ships with its own manual. When you forget a flag, ask.</p>
 <pre><code>man ls                 # full manual page (q to quit)
 ls --help              # quick summary (most modern commands)
-which python           # show where a command lives on disk</code></pre>
-
+which python           # show where a command lives on disk
+</code></pre>
 <h2 id="the-path-why-commands-just-work"><a class="heading-anchor" href="#the-path-why-commands-just-work">The PATH: Why Commands Just Work</a></h2>
 <p>When you type <code>git</code>, the shell does not know where the git program lives. It walks a list of folders stored in the <code>PATH</code> environment variable and runs the first <code>git</code> it finds. This is why installing tools sometimes needs a PATH update.</p>
 <pre><code>echo $PATH                              # see the search list
 # /usr/local/bin:/usr/bin:/bin:...
-export PATH="$HOME/.local/bin:$PATH"    # add your own folder first</code></pre>
-
+export PATH=&quot;$HOME/.local/bin:$PATH&quot;    # add your own folder first
+</code></pre>
 <div class="mermaid">
 flowchart TD
     User[You type: git status]
@@ -100,8 +98,8 @@ flowchart TD
     Shell --> P2
     Shell --> P3
     P1 -->|first match wins| Run
-</div>
 
+</div>
 <h2 id="speed-tricks"><a class="heading-anchor" href="#speed-tricks">Speed Tricks</a></h2>
 <p>The shell rewards muscle memory. Four habits that pay back every day:</p>
 <ul>
@@ -110,7 +108,6 @@ flowchart TD
 <li><strong>Ctrl+R</strong> searches history by fragment - type "git com" to resurrect "git commit -m ...".</li>
 <li><strong>Ctrl+C</strong> cancels a running command. <strong>Ctrl+D</strong> ends input / exits the shell.</li>
 </ul>
-
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -121,7 +118,6 @@ flowchart TD
 <li>Tab completion, Ctrl+R history search, and Ctrl+C to cancel are the muscle memory that separate beginners from pros</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

@@ -46,16 +46,14 @@
           <a href="t29.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t28-react-foundations"><a class="heading-anchor" href="#t28-react-foundations">T28: React Foundations</a></h1>
+      <h1 id="t28-react-foundations"><a class="heading-anchor" href="#t28-react-foundations">T28: React Foundations</a></h1>
 <p class="lesson-intro">React lets you build UIs from reusable pieces called components. Think of components as Lego bricks - custom HTML tags you define yourself. Instead of telling the browser step-by-step what to change, you describe what the screen should look like, and React figures out the updates.</p>
-
 <h2 id="from-imperative-to-declarative"><a class="heading-anchor" href="#from-imperative-to-declarative">From Imperative to Declarative</a></h2>
 <p>With vanilla JavaScript, you manually find elements and update them. React flips this: you declare the desired UI state, and React handles the DOM updates for you.</p>
 <pre><code>// Vanilla JS - imperative: you manage every step
-const btn = document.getElementById("counter-btn");
+const btn = document.getElementById(&quot;counter-btn&quot;);
 let count = 0;
-btn.addEventListener("click", () =&gt; {
+btn.addEventListener(&quot;click&quot;, () =&gt; {
     count++;
     btn.textContent = `Clicked ${count} times`;
 });
@@ -68,13 +66,13 @@ function Counter() {
             Clicked {count} times
         &lt;/button&gt;
     );
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="components-jsx-and-props"><a class="heading-anchor" href="#components-jsx-and-props">Components, JSX, and Props</a></h2>
 <p>A component is a function that returns JSX - a syntax that looks like HTML but lives inside JavaScript. Props are inputs passed from parent to child, like function arguments.</p>
 <pre><code>function MenuItem({ name, price }) {
     return (
-        &lt;div className="menu-item"&gt;
+        &lt;div className=&quot;menu-item&quot;&gt;
             &lt;span&gt;{name}&lt;/span&gt;
             &lt;span&gt;${price}&lt;/span&gt;
         &lt;/div&gt;
@@ -90,11 +88,10 @@ function MenuList({ items }) {
             ))}
         &lt;/ul&gt;
     );
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="handling-events"><a class="heading-anchor" href="#handling-events">Handling Events</a></h2>
 <p>React uses camelCase event handlers like <code>onClick</code> and <code>onChange</code> directly on JSX elements. The handler receives a synthetic event object that works consistently across browsers.</p>
-
 <div class="mermaid">
 flowchart TD
     A[App] --> B[Header]
@@ -108,8 +105,8 @@ flowchart TD
     style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
     style F fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
     style G fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -119,7 +116,6 @@ flowchart TD
 <li>Always provide a unique key prop when rendering lists with .map()</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

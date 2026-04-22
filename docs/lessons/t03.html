@@ -46,33 +46,31 @@
           <a href="t04.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t03-pipes-amp-power-tools"><a class="heading-anchor" href="#t03-pipes-amp-power-tools">T03: Pipes &amp; Power Tools</a></h1>
+      <h1 id="t03-pipes-amp-power-tools"><a class="heading-anchor" href="#t03-pipes-amp-power-tools">T03: Pipes &amp; Power Tools</a></h1>
 <p class="lesson-intro">The terminal stops being a clunky file browser and becomes a superpower the moment you understand the pipe. Each command is a small specialist. The pipe <code>|</code> is duct tape: it lets you bolt specialists together into assembly lines. Five commands joined by pipes can replace a spreadsheet macro, a Python script, or an afternoon.</p>
-
 <h2 id="standard-streams"><a class="heading-anchor" href="#standard-streams">Standard Streams</a></h2>
 <p>Every program has three channels. <strong>stdin</strong> is the input stream. <strong>stdout</strong> is where normal output goes. <strong>stderr</strong> is where errors go. The shell lets you redirect each one independently.</p>
-<pre><code>echo "hello" &gt; greet.txt        # stdout TO a file (overwrite)
-echo "world" &gt;&gt; greet.txt       # stdout APPEND to a file
+<pre><code>echo &quot;hello&quot; &gt; greet.txt        # stdout TO a file (overwrite)
+echo &quot;world&quot; &gt;&gt; greet.txt       # stdout APPEND to a file
 sort &lt; names.txt                 # stdin FROM a file
 command 2&gt; errors.log            # stderr TO a file
 command &gt; out.log 2&gt;&amp;1          # stdout and stderr together
-command &gt; /dev/null 2&gt;&amp;1         # discard all output</code></pre>
-
+command &gt; /dev/null 2&gt;&amp;1         # discard all output
+</code></pre>
 <h2 id="the-pipe"><a class="heading-anchor" href="#the-pipe">The Pipe</a></h2>
 <p>A pipe connects one command's stdout to the next command's stdin. You read it left to right, like a sentence.</p>
 <pre><code># Show the 5 largest files in this folder
 ls -lS | head -n 5
 
 # Count how many .ts files the project has
-find src -name "*.ts" | wc -l
+find src -name &quot;*.ts&quot; | wc -l
 
 # Find every TODO in your code
-grep -rn "TODO" src/ | less
+grep -rn &quot;TODO&quot; src/ | less
 
 # Top 10 commands you use most
-history | awk '{print $2}' | sort | uniq -c | sort -rn | head</code></pre>
-
+history | awk '{print $2}' | sort | uniq -c | sort -rn | head
+</code></pre>
 <div class="mermaid">
 flowchart LR
     H[history] -->|stdout| A[awk print command]
@@ -80,8 +78,8 @@ flowchart LR
     S1 -->|stdout| U[uniq -c]
     U -->|stdout| S2[sort -rn]
     S2 -->|stdout| Hd[head]
-</div>
 
+</div>
 <h2 id="essential-specialists"><a class="heading-anchor" href="#essential-specialists">Essential Specialists</a></h2>
 <p>The standard kit every pro keeps sharp:</p>
 <ul>
@@ -94,7 +92,6 @@ flowchart LR
 <li><code>sed 's/old/new/g'</code> - find and replace. Stream editor for quick substitutions</li>
 <li><code>awk '{print $2}'</code> - column-aware text processing</li>
 </ul>
-
 <h2 id="chaining-commands"><a class="heading-anchor" href="#chaining-commands">Chaining Commands</a></h2>
 <p>Three operators sequence commands without pipes.</p>
 <pre><code>cmd1 ; cmd2          # run cmd1, then cmd2 regardless of outcome
@@ -103,8 +100,8 @@ cmd1 || cmd2         # run cmd2 ONLY if cmd1 failed
 
 # Practical example
 npm test &amp;&amp; git push                     # push only if tests pass
-mkdir build || echo "already exists"      # fallback message</code></pre>
-
+mkdir build || echo &quot;already exists&quot;      # fallback message
+</code></pre>
 <h2 id="a-tiny-shell-script"><a class="heading-anchor" href="#a-tiny-shell-script">A Tiny Shell Script</a></h2>
 <p>When you run the same pipe every day, save it. A shell script is a text file with a <code>#!/usr/bin/env bash</code> header, made executable with <code>chmod +x</code>.</p>
 <pre><code>#!/usr/bin/env bash
@@ -112,13 +109,14 @@ mkdir build || echo "already exists"      # fallback message</code></pre>
 
 set -euo pipefail                       # fail fast on errors
 
-name="$(basename "$PWD")"
-stamp="$(date +%Y%m%d-%H%M%S)"
-tar -czf "../${name}-${stamp}.tar.gz" .
-echo "Saved ../${name}-${stamp}.tar.gz"</code></pre>
+name=&quot;$(basename &quot;$PWD&quot;)&quot;
+stamp=&quot;$(date +%Y%m%d-%H%M%S)&quot;
+tar -czf &quot;../${name}-${stamp}.tar.gz&quot; .
+echo &quot;Saved ../${name}-${stamp}.tar.gz&quot;
+</code></pre>
 <pre><code>chmod +x backup.sh
-./backup.sh                             # run it</code></pre>
-
+./backup.sh                             # run it
+</code></pre>
 <h2 id="running-long-jobs"><a class="heading-anchor" href="#running-long-jobs">Running Long Jobs</a></h2>
 <p>Some jobs take minutes. You do not want to babysit them.</p>
 <pre><code>long-command &amp;                  # run in background
@@ -126,8 +124,8 @@ jobs                             # list background jobs in this shell
 long-command &gt; out.log 2&gt;&amp;1 &amp;   # background + capture output
 ps aux | grep node               # find running processes
 kill 12345                       # ask a process to stop
-kill -9 12345                    # force it to stop</code></pre>
-
+kill -9 12345                    # force it to stop
+</code></pre>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -138,7 +136,6 @@ kill -9 12345                    # force it to stop</code></pre>
 <li>Save any pipe you run twice as a shell script. Make it executable with chmod +x</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

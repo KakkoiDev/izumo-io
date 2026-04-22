@@ -46,34 +46,32 @@
           <a href="t26.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t25-authentication"><a class="heading-anchor" href="#t25-authentication">T25: Authentication</a></h1>
+      <h1 id="t25-authentication"><a class="heading-anchor" href="#t25-authentication">T25: Authentication</a></h1>
 <p class="lesson-intro">Authentication answers the question "who are you?" It is like a bouncer at a club checking IDs. Sessions, cookies, and password hashing work together to verify users securely. Get this wrong, and you expose your users to real harm.</p>
-
 <h2 id="password-hashing"><a class="heading-anchor" href="#password-hashing">Password Hashing</a></h2>
 <p>Never store passwords in plain text. Hash them with a strong algorithm like bcrypt. A hash is a one-way function - you can verify a password against it but cannot reverse it.</p>
-<pre><code>const bcrypt = require("bcrypt");
+<pre><code>const bcrypt = require(&quot;bcrypt&quot;);
 
 // Hash a password
-const hash = await bcrypt.hash("userPassword123", 10);
+const hash = await bcrypt.hash(&quot;userPassword123&quot;, 10);
 
 // Verify a password
-const match = await bcrypt.compare("userPassword123", hash);
-if (match) { console.log("Access granted"); }</code></pre>
-
+const match = await bcrypt.compare(&quot;userPassword123&quot;, hash);
+if (match) { console.log(&quot;Access granted&quot;); }
+</code></pre>
 <h2 id="sessions-and-cookies"><a class="heading-anchor" href="#sessions-and-cookies">Sessions and Cookies</a></h2>
 <p>After login, the server creates a session and sends a session ID via a cookie. The browser sends this cookie with every subsequent request to prove identity.</p>
 <pre><code>// On login success
 const sessionId = crypto.randomUUID();
 sessions[sessionId] = { userId: user.id, createdAt: Date.now() };
-res.setHeader("Set-Cookie", `sid=${sessionId}; HttpOnly; Path=/`);
+res.setHeader(&quot;Set-Cookie&quot;, `sid=${sessionId}; HttpOnly; Path=/`);
 
 // On each request
 function authenticate(req) {
     const cookie = parseCookies(req.headers.cookie);
     return sessions[cookie.sid] || null;
-}</code></pre>
-
+}
+</code></pre>
 <div class="mermaid">
 sequenceDiagram
     participant U as User
@@ -86,8 +84,8 @@ sequenceDiagram
     B->>S: GET /dashboard (Cookie: sid=abc123)
     S->>S: Validate session
     S-->>B: 200 OK (protected content)
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -97,7 +95,6 @@ sequenceDiagram
 <li>Authentication verifies identity, authorization controls what they can access</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

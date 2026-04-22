@@ -46,40 +46,38 @@
           <a href="t14.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t13-data-structures"><a class="heading-anchor" href="#t13-data-structures">T13: Data Structures</a></h1>
+      <h1 id="t13-data-structures"><a class="heading-anchor" href="#t13-data-structures">T13: Data Structures</a></h1>
 <p class="lesson-intro">Data structures are containers for organizing information. Arrays are like numbered lists where order matters. Objects are like labeled filing cabinets where you look up information by name. Choosing the right structure makes your code simpler and faster.</p>
-
 <h2 id="arrays"><a class="heading-anchor" href="#arrays">Arrays</a></h2>
 <p>Arrays store ordered collections. Access items by their index (starting from 0). Arrays have powerful built-in methods for transforming data.</p>
-<pre><code>const fruits = ["apple", "banana", "cherry"];
-console.log(fruits[0]); // "apple"
-fruits.push("date");
+<pre><code>const fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;];
+console.log(fruits[0]); // &quot;apple&quot;
+fruits.push(&quot;date&quot;);
 
 // Transform with map, filter, reduce
 const prices = [10, 20, 30, 40];
 const expensive = prices.filter(p =&gt; p &gt; 15);
 const doubled = prices.map(p =&gt; p * 2);
-const total = prices.reduce((sum, p) =&gt; sum + p, 0);</code></pre>
-
+const total = prices.reduce((sum, p) =&gt; sum + p, 0);
+</code></pre>
 <h2 id="objects"><a class="heading-anchor" href="#objects">Objects</a></h2>
 <p>Objects store key-value pairs. Keys are strings (or symbols), values can be anything.</p>
 <pre><code>const user = {
-    name: "Alice",
+    name: &quot;Alice&quot;,
     age: 25,
-    skills: ["HTML", "CSS", "JS"],
+    skills: [&quot;HTML&quot;, &quot;CSS&quot;, &quot;JS&quot;],
     greet() {
-        return "Hi, I am " + this.name;
+        return &quot;Hi, I am &quot; + this.name;
     }
 };
 console.log(user.name);
-console.log(user["age"]);</code></pre>
-
+console.log(user[&quot;age&quot;]);
+</code></pre>
 <h2 id="loops"><a class="heading-anchor" href="#loops">Loops</a></h2>
 <p>Iterate over arrays with <code>for...of</code> and objects with <code>for...in</code> or <code>Object.entries()</code>.</p>
 <pre><code>for (const fruit of fruits) { console.log(fruit); }
-for (const [key, value] of Object.entries(user)) { console.log(key, value); }</code></pre>
-
+for (const [key, value] of Object.entries(user)) { console.log(key, value); }
+</code></pre>
 <div class="mermaid">
 graph LR
     subgraph Array
@@ -88,8 +86,8 @@ graph LR
     subgraph Object
         O1["name: Alice"] --- O2["age: 25"] --- O3["skills: [...]"]
     end
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -99,7 +97,6 @@ graph LR
 <li>for...of iterates array values, for...in iterates object keys</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

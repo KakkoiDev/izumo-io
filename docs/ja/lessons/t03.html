@@ -46,33 +46,31 @@
           <a href="t04.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t03-パイプとパワーツール"><a class="heading-anchor" href="#t03-パイプとパワーツール">T03: パイプとパワーツール</a></h1>
+      <h1 id="t03-パイプとパワーツール"><a class="heading-anchor" href="#t03-パイプとパワーツール">T03: パイプとパワーツール</a></h1>
 <p class="lesson-intro">ターミナルが不器用なファイルブラウザから超能力に変わる瞬間は、パイプを理解した時です。各コマンドは小さな専門家。パイプ<code>|</code>はダクトテープで、専門家を組み立てラインに繋げます。5つのコマンドをパイプで繋げば、スプレッドシートマクロ、Pythonスクリプト、午後の仕事を置き換えられます。</p>
-
 <h2 id="標準ストリーム"><a class="heading-anchor" href="#標準ストリーム">標準ストリーム</a></h2>
 <p>全てのプログラムは3つのチャネルを持ちます。<strong>stdin</strong>は入力。<strong>stdout</strong>は通常の出力先。<strong>stderr</strong>はエラー出力先。シェルはそれぞれ独立にリダイレクトできます。</p>
-<pre><code>echo "hello" &gt; greet.txt        # stdout TO a file (overwrite)
-echo "world" &gt;&gt; greet.txt       # stdout APPEND to a file
+<pre><code>echo &quot;hello&quot; &gt; greet.txt        # stdout TO a file (overwrite)
+echo &quot;world&quot; &gt;&gt; greet.txt       # stdout APPEND to a file
 sort &lt; names.txt                 # stdin FROM a file
 command 2&gt; errors.log            # stderr TO a file
 command &gt; out.log 2&gt;&amp;1          # stdout and stderr together
-command &gt; /dev/null 2&gt;&amp;1         # discard all output</code></pre>
-
+command &gt; /dev/null 2&gt;&amp;1         # discard all output
+</code></pre>
 <h2 id="パイプ"><a class="heading-anchor" href="#パイプ">パイプ</a></h2>
 <p>パイプは1つのコマンドのstdoutを次のコマンドのstdinに繋ぎます。文章のように左から右に読みます。</p>
 <pre><code># Show the 5 largest files in this folder
 ls -lS | head -n 5
 
 # Count how many .ts files the project has
-find src -name "*.ts" | wc -l
+find src -name &quot;*.ts&quot; | wc -l
 
 # Find every TODO in your code
-grep -rn "TODO" src/ | less
+grep -rn &quot;TODO&quot; src/ | less
 
 # Top 10 commands you use most
-history | awk '{print $2}' | sort | uniq -c | sort -rn | head</code></pre>
-
+history | awk '{print $2}' | sort | uniq -c | sort -rn | head
+</code></pre>
 <div class="mermaid">
 flowchart LR
     H[history] -->|stdout| A[awk print command]
@@ -80,8 +78,8 @@ flowchart LR
     S1 -->|stdout| U[uniq -c]
     U -->|stdout| S2[sort -rn]
     S2 -->|stdout| Hd[head]
-</div>
 
+</div>
 <h2 id="必須の専門家たち"><a class="heading-anchor" href="#必須の専門家たち">必須の専門家たち</a></h2>
 <p>プロが研ぎ続ける標準キット:</p>
 <ul>
@@ -94,7 +92,6 @@ flowchart LR
 <li><code>sed 's/old/new/g'</code> - 検索と置換。素早い置換のためのストリームエディタ</li>
 <li><code>awk '{print $2}'</code> - 列を意識したテキスト処理</li>
 </ul>
-
 <h2 id="コマンドを繋げる"><a class="heading-anchor" href="#コマンドを繋げる">コマンドを繋げる</a></h2>
 <p>3つの演算子がパイプ無しでコマンドを順序付けます。</p>
 <pre><code>cmd1 ; cmd2          # run cmd1, then cmd2 regardless of outcome
@@ -103,8 +100,8 @@ cmd1 || cmd2         # run cmd2 ONLY if cmd1 failed
 
 # Practical example
 npm test &amp;&amp; git push                     # push only if tests pass
-mkdir build || echo "already exists"      # fallback message</code></pre>
-
+mkdir build || echo &quot;already exists&quot;      # fallback message
+</code></pre>
 <h2 id="小さなシェルスクリプト"><a class="heading-anchor" href="#小さなシェルスクリプト">小さなシェルスクリプト</a></h2>
 <p>毎日同じパイプを実行するなら、保存しましょう。シェルスクリプトは<code>#!/usr/bin/env bash</code>ヘッダ付きのテキストファイルで、<code>chmod +x</code>で実行可能にします。</p>
 <pre><code>#!/usr/bin/env bash
@@ -112,13 +109,14 @@ mkdir build || echo "already exists"      # fallback message</code></pre>
 
 set -euo pipefail                       # fail fast on errors
 
-name="$(basename "$PWD")"
-stamp="$(date +%Y%m%d-%H%M%S)"
-tar -czf "../${name}-${stamp}.tar.gz" .
-echo "Saved ../${name}-${stamp}.tar.gz"</code></pre>
+name=&quot;$(basename &quot;$PWD&quot;)&quot;
+stamp=&quot;$(date +%Y%m%d-%H%M%S)&quot;
+tar -czf &quot;../${name}-${stamp}.tar.gz&quot; .
+echo &quot;Saved ../${name}-${stamp}.tar.gz&quot;
+</code></pre>
 <pre><code>chmod +x backup.sh
-./backup.sh                             # run it</code></pre>
-
+./backup.sh                             # run it
+</code></pre>
 <h2 id="長時間ジョブの実行"><a class="heading-anchor" href="#長時間ジョブの実行">長時間ジョブの実行</a></h2>
 <p>数分かかるジョブもあります。つきっきりは嫌です。</p>
 <pre><code>long-command &amp;                  # run in background
@@ -126,8 +124,8 @@ jobs                             # list background jobs in this shell
 long-command &gt; out.log 2&gt;&amp;1 &amp;   # background + capture output
 ps aux | grep node               # find running processes
 kill 12345                       # ask a process to stop
-kill -9 12345                    # force it to stop</code></pre>
-
+kill -9 12345                    # force it to stop
+</code></pre>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -138,7 +136,6 @@ kill -9 12345                    # force it to stop</code></pre>
 <li>2回実行したパイプはスクリプトに保存。chmod +xで実行可能にする</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

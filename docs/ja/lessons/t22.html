@@ -46,31 +46,29 @@
           <a href="t23.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t22-apiエンドポイント"><a class="heading-anchor" href="#t22-apiエンドポイント">T22: APIエンドポイント</a></h1>
+      <h1 id="t22-apiエンドポイント"><a class="heading-anchor" href="#t22-apiエンドポイント">T22: APIエンドポイント</a></h1>
 <p class="lesson-intro">API(アプリケーションプログラミングインターフェース)はサーバーがクライアントにデータ操作のために公開するエンドポイントの集合です。RESTはURLがリソースを、HTTPメソッドがアクションを表すデザイン規約です。レストランのメニューのようなものです。何を注文できて、どう注文するかがリストされています。</p>
-
 <h2 id="rest規約"><a class="heading-anchor" href="#rest規約">REST規約</a></h2>
 <p>RESTful APIはパターンに従います。リソースはURLの名詞、アクションはHTTPメソッドです。</p>
 <pre><code>// GET    /api/users      - List all users
 // GET    /api/users/1    - Get user with id 1
 // POST   /api/users      - Create a new user
 // PUT    /api/users/1    - Update user 1
-// DELETE /api/users/1    - Delete user 1</code></pre>
-
+// DELETE /api/users/1    - Delete user 1
+</code></pre>
 <h2 id="エンドポイントの構築"><a class="heading-anchor" href="#エンドポイントの構築">エンドポイントの構築</a></h2>
 <pre><code>const server = http.createServer((req, res) =&gt; {
     const url = req.url;
     const method = req.method;
 
-    res.setHeader("Content-Type", "application/json");
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
 
-    if (url === "/api/users" &amp;&amp; method === "GET") {
+    if (url === &quot;/api/users&quot; &amp;&amp; method === &quot;GET&quot;) {
         res.end(JSON.stringify(users));
-    } else if (url === "/api/users" &amp;&amp; method === "POST") {
-        let body = "";
-        req.on("data", chunk =&gt; body += chunk);
-        req.on("end", () =&gt; {
+    } else if (url === &quot;/api/users&quot; &amp;&amp; method === &quot;POST&quot;) {
+        let body = &quot;&quot;;
+        req.on(&quot;data&quot;, chunk =&gt; body += chunk);
+        req.on(&quot;end&quot;, () =&gt; {
             const user = JSON.parse(body);
             users.push(user);
             res.writeHead(201);
@@ -78,10 +76,10 @@
         });
     } else {
         res.writeHead(404);
-        res.end(JSON.stringify({ error: "Not Found" }));
+        res.end(JSON.stringify({ error: &quot;Not Found&quot; }));
     }
-});</code></pre>
-
+});
+</code></pre>
 <div class="mermaid">
 flowchart TD
     A[Client Request] --> B{Route Match}
@@ -91,8 +89,8 @@ flowchart TD
     B -->|PUT /api/users/:id| F[Update user]
     B -->|DELETE /api/users/:id| G[Remove user]
     B -->|No match| H[404 Not Found]
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -102,7 +100,6 @@ flowchart TD
 <li>未知のルートは必ず404レスポンスで処理しましょう</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

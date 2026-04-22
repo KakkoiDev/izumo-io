@@ -46,13 +46,11 @@
           <a href="t37.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t36-web-components-ii-templates-slots-lifecycle-amp-lit"><a class="heading-anchor" href="#t36-web-components-ii-templates-slots-lifecycle-amp-lit">T36: Web Components II - Templates, Slots, Lifecycle &amp; Lit</a></h1>
+      <h1 id="t36-web-components-ii-templates-slots-lifecycle-amp-lit"><a class="heading-anchor" href="#t36-web-components-ii-templates-slots-lifecycle-amp-lit">T36: Web Components II - Templates, Slots, Lifecycle &amp; Lit</a></h1>
 <p class="lesson-intro">A real component needs three more things. <strong>Templates</strong> keep inert markup off-stage until needed. <strong>Slots</strong> let parents inject content like React children. <strong>Lifecycle</strong> callbacks are the element's life stages - birth, insertion, attribute change, removal. Once you know all of this, Lit becomes the espresso machine that hides the ceremony.</p>
-
-<h2 id="the-lt-template-gt-element"><a class="heading-anchor" href="#the-lt-template-gt-element">The &lt;template&gt; Element</a></h2>
+<h2 id="the-element"><a class="heading-anchor" href="#the-element">The <template> Element</a></h2>
 <p>A <code>&lt;template&gt;</code> holds markup that the browser parses but does not render. Use it as a mold: clone its content into a shadow root instead of building strings.</p>
-<pre><code>&lt;template id="tpl-user-card"&gt;
+<pre><code>&lt;template id=&quot;tpl-user-card&quot;&gt;
     &lt;style&gt;
         :host { display: block; padding: 1rem; border: 1px solid #ddd; }
         h2 { margin: 0; }
@@ -64,16 +62,16 @@
 &lt;script&gt;
 class UserCard extends HTMLElement {
     connectedCallback() {
-        const tpl = document.getElementById("tpl-user-card");
-        const root = this.attachShadow({ mode: "open" });
+        const tpl = document.getElementById(&quot;tpl-user-card&quot;);
+        const root = this.attachShadow({ mode: &quot;open&quot; });
         root.appendChild(tpl.content.cloneNode(true));
-        root.querySelector("h2").textContent = this.getAttribute("name");
-        root.querySelector("p").textContent  = this.getAttribute("role");
+        root.querySelector(&quot;h2&quot;).textContent = this.getAttribute(&quot;name&quot;);
+        root.querySelector(&quot;p&quot;).textContent  = this.getAttribute(&quot;role&quot;);
     }
 }
-customElements.define("user-card", UserCard);
-&lt;/script&gt;</code></pre>
-
+customElements.define(&quot;user-card&quot;, UserCard);
+&lt;/script&gt;
+</code></pre>
 <h2 id="slots-content-projection"><a class="heading-anchor" href="#slots-content-projection">Slots: Content Projection</a></h2>
 <p>A slot is a hole in your shadow tree where the parent's light DOM is projected. Anything the user puts between your tags shows up wherever you placed the <code>&lt;slot&gt;</code>. Named slots let you have multiple injection points.</p>
 <pre><code>// Inside the component's shadow root
@@ -81,21 +79,21 @@ customElements.define("user-card", UserCard);
     header { font-weight: bold; }
     footer { font-size: 0.85rem; color: #666; }
 &lt;/style&gt;
-&lt;header&gt;&lt;slot name="title"&gt;Default title&lt;/slot&gt;&lt;/header&gt;
+&lt;header&gt;&lt;slot name=&quot;title&quot;&gt;Default title&lt;/slot&gt;&lt;/header&gt;
 &lt;section&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/section&gt;
-&lt;footer&gt;&lt;slot name="footer"&gt;&lt;/slot&gt;&lt;/footer&gt;
+&lt;footer&gt;&lt;slot name=&quot;footer&quot;&gt;&lt;/slot&gt;&lt;/footer&gt;
 
 // Usage from the page
 &lt;fancy-card&gt;
-    &lt;span slot="title"&gt;My Card&lt;/span&gt;
+    &lt;span slot=&quot;title&quot;&gt;My Card&lt;/span&gt;
     &lt;p&gt;Body content lands in the default slot.&lt;/p&gt;
-    &lt;small slot="footer"&gt;Updated today&lt;/small&gt;
-&lt;/fancy-card&gt;</code></pre>
-
+    &lt;small slot=&quot;footer&quot;&gt;Updated today&lt;/small&gt;
+&lt;/fancy-card&gt;
+</code></pre>
 <h2 id="lifecycle-callbacks"><a class="heading-anchor" href="#lifecycle-callbacks">Lifecycle Callbacks</a></h2>
 <p>Every custom element has the same five life stages. Do setup in <code>connectedCallback</code>, tear it down in <code>disconnectedCallback</code>. React to attribute changes in <code>attributeChangedCallback</code> - but only for the attributes listed in <code>observedAttributes</code>.</p>
 <pre><code>class Timer extends HTMLElement {
-    static observedAttributes = ["interval"];
+    static observedAttributes = [&quot;interval&quot;];
 
     connectedCallback() {
         this._id = setInterval(() =&gt; this._tick(), this._ms());
@@ -107,17 +105,17 @@ customElements.define("user-card", UserCard);
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        if (name === "interval" &amp;&amp; this._id) {
+        if (name === &quot;interval&quot; &amp;&amp; this._id) {
             clearInterval(this._id);
             this._id = setInterval(() =&gt; this._tick(), this._ms());
         }
     }
 
-    _ms() { return Number(this.getAttribute("interval")) || 1000; }
+    _ms() { return Number(this.getAttribute(&quot;interval&quot;)) || 1000; }
     _tick() { this.textContent = new Date().toLocaleTimeString(); }
 }
-customElements.define("live-clock", Timer);</code></pre>
-
+customElements.define(&quot;live-clock&quot;, Timer);
+</code></pre>
 <div class="mermaid">
 sequenceDiagram
     participant Browser
@@ -129,11 +127,11 @@ sequenceDiagram
     Note over El: reconcile state
     Browser->>El: disconnectedCallback()
     Note over El: removed from DOM<br/>clean up resources
-</div>
 
+</div>
 <h2 id="lit-the-sugar-layer"><a class="heading-anchor" href="#lit-the-sugar-layer">Lit: The Sugar Layer</a></h2>
 <p>Vanilla Web Components work but are verbose. <strong>Lit</strong> (5KB, from Google) removes boilerplate with reactive properties, tagged-template rendering, and scoped styles. A Lit component <em>is</em> a native custom element - it just wrote less code to get there.</p>
-<pre><code>import { LitElement, html, css } from "lit";
+<pre><code>import { LitElement, html, css } from &quot;lit&quot;;
 
 class UserCard extends LitElement {
     static properties = {
@@ -154,11 +152,11 @@ class UserCard extends LitElement {
         `;
     }
 }
-customElements.define("user-card", UserCard);
+customElements.define(&quot;user-card&quot;, UserCard);
 
 // Usage
-// &lt;user-card name="Alice" role="Engineer"&gt;&lt;/user-card&gt;</code></pre>
-
+// &lt;user-card name=&quot;Alice&quot; role=&quot;Engineer&quot;&gt;&lt;/user-card&gt;
+</code></pre>
 <h2 id="common-footguns"><a class="heading-anchor" href="#common-footguns">Common Footguns</a></h2>
 <ul>
 <li><strong>Setup in constructor</strong>: the element is not in the DOM yet. Do it in connectedCallback.</li>
@@ -166,7 +164,6 @@ customElements.define("user-card", UserCard);
 <li><strong>Leaking listeners</strong>: everything added in connectedCallback must be removed in disconnectedCallback.</li>
 <li><strong>Shadow DOM and forms</strong>: form inputs in a shadow root do not automatically participate in the parent form. Use ElementInternals + static formAssociated = true.</li>
 </ul>
-
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -177,7 +174,6 @@ customElements.define("user-card", UserCard);
 <li>Lit is a thin sugar layer over native Web Components. Same standards, much less boilerplate</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

@@ -46,10 +46,8 @@
           <a href="t25.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t24-sqlite"><a class="heading-anchor" href="#t24-sqlite">T24: SQLite</a></h1>
+      <h1 id="t24-sqlite"><a class="heading-anchor" href="#t24-sqlite">T24: SQLite</a></h1>
 <p class="lesson-intro">SQLiteは単一ファイルにデータを格納する本格的なデータベースエンジンです。SQL(構造化問合せ言語)はそれと対話する言語です。JSONファイルがノートなら、SQLiteはラベル、カテゴリ、相互参照を備えた適切なファイルキャビネットです。同時アクセスとデータ整合性を自動的に処理します。</p>
-
 <h2 id="テーブルの作成"><a class="heading-anchor" href="#テーブルの作成">テーブルの作成</a></h2>
 <pre><code>CREATE TABLE users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -64,8 +62,8 @@ CREATE TABLE posts (
     title TEXT NOT NULL,
     body TEXT,
     FOREIGN KEY (user_id) REFERENCES users(id)
-);</code></pre>
-
+);
+</code></pre>
 <h2 id="sqlによるcrud"><a class="heading-anchor" href="#sqlによるcrud">SQLによるCRUD</a></h2>
 <pre><code>-- Create
 INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com');
@@ -78,15 +76,15 @@ SELECT u.name, p.title FROM users u JOIN posts p ON u.id = p.user_id;
 UPDATE users SET name = 'Bob' WHERE id = 1;
 
 -- Delete
-DELETE FROM users WHERE id = 1;</code></pre>
-
+DELETE FROM users WHERE id = 1;
+</code></pre>
 <h2 id="node-jsでのsqlite使用"><a class="heading-anchor" href="#node-jsでのsqlite使用">Node.jsでのSQLite使用</a></h2>
-<pre><code>const Database = require("better-sqlite3");
-const db = new Database("app.db");
+<pre><code>const Database = require(&quot;better-sqlite3&quot;);
+const db = new Database(&quot;app.db&quot;);
 
-const users = db.prepare("SELECT * FROM users").all();
-db.prepare("INSERT INTO users (name, email) VALUES (?, ?)").run("Alice", "a@b.com");</code></pre>
-
+const users = db.prepare(&quot;SELECT * FROM users&quot;).all();
+db.prepare(&quot;INSERT INTO users (name, email) VALUES (?, ?)&quot;).run(&quot;Alice&quot;, &quot;a@b.com&quot;);
+</code></pre>
 <div class="mermaid">
 erDiagram
     USERS ||--o{ POSTS : writes
@@ -102,8 +100,8 @@ erDiagram
         text title
         text body
     }
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -113,7 +111,6 @@ erDiagram
 <li>SQLインジェクション攻撃を防ぐためパラメータ化クエリ(?)を使いましょう</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

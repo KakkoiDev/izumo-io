@@ -46,38 +46,35 @@
           <a href="t39.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t38-system-design-scale-databases-sharding"><a class="heading-anchor" href="#t38-system-design-scale-databases-sharding">T38: System Design - Scale, Databases, Sharding</a></h1>
+      <h1 id="t38-system-design-scale-databases-sharding"><a class="heading-anchor" href="#t38-system-design-scale-databases-sharding">T38: System Design - Scale, Databases, Sharding</a></h1>
 <p class="lesson-intro">One small server can handle more traffic than most people think. But at some point the single server sweats, the single database chokes, and you have to split work across machines. Scaling is the art of splitting - first by adding copies (replicas), then by splitting the data itself (shards). The trick is doing it only when the numbers force you to.</p>
-
 <h2 id="vertical-vs-horizontal"><a class="heading-anchor" href="#vertical-vs-horizontal">Vertical vs Horizontal</a></h2>
 <p><strong>Vertical</strong> scaling = buy a bigger machine. More CPU, more RAM. Dead simple, works until it doesn't, has a ceiling. <strong>Horizontal</strong> scaling = add more machines and share the load. More complex, no ceiling, how real products survive traffic.</p>
 <pre><code># Vertical: one strong server
 [ 8 vCPU | 32 GB RAM ]  -&gt;  [ 32 vCPU | 256 GB RAM ]
 
 # Horizontal: many modest servers behind a load balancer
-Client -&gt; LB -&gt; [ app1 ] [ app2 ] [ app3 ] ... [ appN ]</code></pre>
+Client -&gt; LB -&gt; [ app1 ] [ app2 ] [ app3 ] ... [ appN ]
+</code></pre>
 <p>Rule of thumb: scale vertically first. It is cheaper and simpler. Scale horizontally when vertical hits its limit or when you need redundancy.</p>
-
 <h2 id="sql-vs-nosql-pick-for-the-shape-of-data"><a class="heading-anchor" href="#sql-vs-nosql-pick-for-the-shape-of-data">SQL vs NoSQL: Pick For The Shape of Data</a></h2>
 <p><strong>SQL</strong> (Postgres, MySQL) is right when your data has known shape and relationships, and you need transactions. <strong>NoSQL</strong> covers many shapes: document stores (MongoDB) for nested objects, key-value (Redis, DynamoDB) for fast lookups by id, wide-column (Cassandra) for huge event streams. Choose NoSQL for a specific reason, not "because scale".</p>
 <pre><code>// Orders, invoices, bookings     -&gt; SQL
 // User sessions, short-lived KV  -&gt; Redis
 // Logs, clicks, time series      -&gt; Cassandra / Clickhouse
 // Nested catalog documents       -&gt; MongoDB
-// Full-text search               -&gt; Elasticsearch / Meilisearch</code></pre>
-
+// Full-text search               -&gt; Elasticsearch / Meilisearch
+</code></pre>
 <h2 id="replication-copies-for-read-scale-and-safety"><a class="heading-anchor" href="#replication-copies-for-read-scale-and-safety">Replication: Copies for Read Scale and Safety</a></h2>
 <p>Most apps read 10-100x more than they write. Solution: one <strong>primary</strong> handles writes, multiple <strong>replicas</strong> serve reads. Replicas also survive primary failure.</p>
 <pre><code>Writes --&gt; [Primary]
               |--&gt; [Replica 1] --&gt; Reads
               |--&gt; [Replica 2] --&gt; Reads
-              |--&gt; [Replica 3] --&gt; Reads</code></pre>
+              |--&gt; [Replica 3] --&gt; Reads
+</code></pre>
 <p>The catch: replication is asynchronous by default. A read on a replica right after a write may return stale data. If you need read-your-writes, route that read to the primary.</p>
-
 <h2 id="sharding-when-one-database-is-not-enough"><a class="heading-anchor" href="#sharding-when-one-database-is-not-enough">Sharding: When One Database Is Not Enough</a></h2>
 <p>Sharding splits rows across many databases. Each database holds a slice. You pick a <strong>shard key</strong> and hash it to route rows.</p>
-
 <div class="mermaid">
 flowchart LR
     C[Client write user_id=1234]
@@ -91,10 +88,9 @@ flowchart LR
     H -->|mod 1| S1
     H -->|mod 2| S2
     H -->|mod 3| S3
+
 </div>
-
 <p>Sharding has a steep cost: any query crossing shards must be scatter-gathered. Pick a shard key that matches your most common queries. For a Twitter-like app, shard by <code>user_id</code> so one user's timeline lives on one shard.</p>
-
 <h2 id="consistent-hashing-growing-without-pain"><a class="heading-anchor" href="#consistent-hashing-growing-without-pain">Consistent Hashing: Growing Without Pain</a></h2>
 <p>Simple hash-mod breaks when you add a shard: <code>hash % 4</code> becomes <code>hash % 5</code>, and almost every key changes home. <strong>Consistent hashing</strong> places shards on a ring. Each key lands at a point on the ring and rolls clockwise to the nearest shard. Adding or removing a shard only moves the neighbors.</p>
 <pre><code>                 Shard A
@@ -106,15 +102,14 @@ flowchart LR
                  Shard C
 
 Key hashes to a point on the ring -&gt; served by next shard clockwise.
-Add Shard E between B and C -&gt; only keys between B and E move.</code></pre>
-
+Add Shard E between B and C -&gt; only keys between B and E move.
+</code></pre>
 <h2 id="cap-theorem-pick-two-really-pick-one-of-two"><a class="heading-anchor" href="#cap-theorem-pick-two-really-pick-one-of-two">CAP Theorem: Pick Two (Really, Pick One of Two)</a></h2>
 <p>In a distributed system you can have Consistency, Availability, or Partition tolerance. Networks partition whether you like it or not, so the real choice is between consistency and availability during a partition.</p>
 <ul>
 <li><strong>CP systems</strong> (banks, inventory, payments): refuse writes rather than disagree. Users may see "try again".</li>
 <li><strong>AP systems</strong> (social feeds, DMs, caches): accept writes on either side, reconcile later. Users see slightly stale data.</li>
 </ul>
-
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -126,7 +121,6 @@ Add Shard E between B and C -&gt; only keys between B and E move.</code></pre>
 <li>CAP forces a choice during network partitions: refuse writes (CP) or accept stale reads (AP). Know which your system needs</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

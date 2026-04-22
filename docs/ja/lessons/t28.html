@@ -46,16 +46,14 @@
           <a href="t29.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t28-reactの基礎"><a class="heading-anchor" href="#t28-reactの基礎">T28: Reactの基礎</a></h1>
+      <h1 id="t28-reactの基礎"><a class="heading-anchor" href="#t28-reactの基礎">T28: Reactの基礎</a></h1>
 <p class="lesson-intro">Reactはコンポーネントという再利用可能なパーツからUIを構築します。コンポーネントはレゴブロックのようなもので、自分で定義するカスタムHTMLタグです。ブラウザに一つずつ変更を指示する代わりに、画面がどう見えるべきかを記述すれば、Reactが更新を処理します。</p>
-
 <h2 id="命令型から宣言型へ"><a class="heading-anchor" href="#命令型から宣言型へ">命令型から宣言型へ</a></h2>
 <p>素のJavaScriptでは、要素を手動で探して更新します。Reactはこれを逆転させます。望ましいUIの状態を宣言すれば、ReactがDOM更新を処理します。</p>
 <pre><code>// Vanilla JS - imperative: you manage every step
-const btn = document.getElementById("counter-btn");
+const btn = document.getElementById(&quot;counter-btn&quot;);
 let count = 0;
-btn.addEventListener("click", () =&gt; {
+btn.addEventListener(&quot;click&quot;, () =&gt; {
     count++;
     btn.textContent = `Clicked ${count} times`;
 });
@@ -68,13 +66,13 @@ function Counter() {
             Clicked {count} times
         &lt;/button&gt;
     );
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="コンポーネント-jsx-props"><a class="heading-anchor" href="#コンポーネント-jsx-props">コンポーネント、JSX、Props</a></h2>
 <p>コンポーネントはJSXを返す関数です。JSXはHTMLに似た構文ですがJavaScriptの中に存在します。Propsは親から子に渡される入力で、関数の引数のようなものです。</p>
 <pre><code>function MenuItem({ name, price }) {
     return (
-        &lt;div className="menu-item"&gt;
+        &lt;div className=&quot;menu-item&quot;&gt;
             &lt;span&gt;{name}&lt;/span&gt;
             &lt;span&gt;${price}&lt;/span&gt;
         &lt;/div&gt;
@@ -90,11 +88,10 @@ function MenuList({ items }) {
             ))}
         &lt;/ul&gt;
     );
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="イベント処理"><a class="heading-anchor" href="#イベント処理">イベント処理</a></h2>
 <p>Reactは<code>onClick</code>や<code>onChange</code>のようなキャメルケースのイベントハンドラをJSX要素に直接使用します。ハンドラはブラウザ間で一貫して動作する合成イベントオブジェクトを受け取ります。</p>
-
 <div class="mermaid">
 flowchart TD
     A[App] --> B[Header]
@@ -108,8 +105,8 @@ flowchart TD
     style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
     style F fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
     style G fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -119,7 +116,6 @@ flowchart TD
 <li>.map()でリストをレンダリングする際は必ず一意のkeyプロパティを指定する</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

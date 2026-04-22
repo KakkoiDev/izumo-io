@@ -46,10 +46,8 @@
           <a href="t09.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t08-cssレイアウト-配置の技術"><a class="heading-anchor" href="#t08-cssレイアウト-配置の技術">T08: CSSレイアウト - 配置の技術</a></h1>
+      <h1 id="t08-cssレイアウト-配置の技術"><a class="heading-anchor" href="#t08-cssレイアウト-配置の技術">T08: CSSレイアウト - 配置の技術</a></h1>
 <p class="lesson-intro">かつてページ上の要素配置は大変でした。FlexboxとGridが全てを変えました。Flexboxは一列に並べること(本棚の本のように)、Gridは行と列で整理すること(スプレッドシートのように)と考えてください。</p>
-
 <h2 id="flexbox"><a class="heading-anchor" href="#flexbox">Flexbox</a></h2>
 <p>Flexboxは一度に一方向で動作します。コンテナに<code>display: flex</code>を設定し、子要素の配置と余白の配分を制御します。</p>
 <pre><code>.nav {
@@ -61,8 +59,8 @@
 
 .nav-item {
     flex: 1;
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="css-grid"><a class="heading-anchor" href="#css-grid">CSS Grid</a></h2>
 <p>Gridは二方向を同時に扱います。行と列を定義し、グリッドセルにアイテムを配置します。</p>
 <pre><code>.layout {
@@ -71,14 +69,14 @@
     grid-template-rows: auto 1fr auto;
     gap: 1rem;
     min-height: 100vh;
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="レスポンシブデザイン"><a class="heading-anchor" href="#レスポンシブデザイン">レスポンシブデザイン</a></h2>
 <p>メディアクエリで画面サイズに応じた異なるスタイルを適用できます。モバイルファーストとは小さい画面用の基本スタイルを書き、大きい画面用に複雑さを加えるアプローチです。</p>
 <pre><code>@media (min-width: 768px) {
     .layout { grid-template-columns: 250px 1fr; }
-}</code></pre>
-
+}
+</code></pre>
 <div class="mermaid">
 flowchart TB
     subgraph Flexbox
@@ -90,8 +88,8 @@ flowchart TB
         G3[Sidebar] --- G4[Main]
         G5[Footer] --- G6[Footer]
     end
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -101,7 +99,6 @@ flowchart TB
 <li>モバイルファースト: 小さく始めて、大きい画面向けに拡張する</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

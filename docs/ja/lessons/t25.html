@@ -46,34 +46,32 @@
           <a href="t26.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t25-認証"><a class="heading-anchor" href="#t25-認証">T25: 認証</a></h1>
+      <h1 id="t25-認証"><a class="heading-anchor" href="#t25-認証">T25: 認証</a></h1>
 <p class="lesson-intro">認証は「あなたは誰ですか?」という質問に答えます。クラブの入口でIDをチェックするドアマンのようなものです。セッション、Cookie、パスワードハッシュが連携してユーザーを安全に検証します。これを間違えるとユーザーを危険にさらすことになります。</p>
-
 <h2 id="パスワードハッシュ"><a class="heading-anchor" href="#パスワードハッシュ">パスワードハッシュ</a></h2>
 <p>パスワードを平文で保存してはいけません。bcryptのような強力なアルゴリズムでハッシュします。ハッシュは一方向関数です。パスワードを照合できますが、元に戻すことはできません。</p>
-<pre><code>const bcrypt = require("bcrypt");
+<pre><code>const bcrypt = require(&quot;bcrypt&quot;);
 
 // Hash a password
-const hash = await bcrypt.hash("userPassword123", 10);
+const hash = await bcrypt.hash(&quot;userPassword123&quot;, 10);
 
 // Verify a password
-const match = await bcrypt.compare("userPassword123", hash);
-if (match) { console.log("Access granted"); }</code></pre>
-
+const match = await bcrypt.compare(&quot;userPassword123&quot;, hash);
+if (match) { console.log(&quot;Access granted&quot;); }
+</code></pre>
 <h2 id="セッションとcookie"><a class="heading-anchor" href="#セッションとcookie">セッションとCookie</a></h2>
 <p>ログイン後、サーバーはセッションを作成しCookieでセッションIDを送信します。ブラウザはその後の全リクエストでこのCookieを送信して身元を証明します。</p>
 <pre><code>// On login success
 const sessionId = crypto.randomUUID();
 sessions[sessionId] = { userId: user.id, createdAt: Date.now() };
-res.setHeader("Set-Cookie", `sid=${sessionId}; HttpOnly; Path=/`);
+res.setHeader(&quot;Set-Cookie&quot;, `sid=${sessionId}; HttpOnly; Path=/`);
 
 // On each request
 function authenticate(req) {
     const cookie = parseCookies(req.headers.cookie);
     return sessions[cookie.sid] || null;
-}</code></pre>
-
+}
+</code></pre>
 <div class="mermaid">
 sequenceDiagram
     participant U as User
@@ -86,8 +84,8 @@ sequenceDiagram
     B->>S: GET /dashboard (Cookie: sid=abc123)
     S->>S: Validate session
     S-->>B: 200 OK (protected content)
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -97,7 +95,6 @@ sequenceDiagram
 <li>認証は身元確認、認可はアクセスできる範囲を制御します</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

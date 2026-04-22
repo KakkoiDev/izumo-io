@@ -46,29 +46,27 @@
           <a href="t07.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t06-html-forms-and-blocks"><a class="heading-anchor" href="#t06-html-forms-and-blocks">T06: HTML Forms and Blocks</a></h1>
+      <h1 id="t06-html-forms-and-blocks"><a class="heading-anchor" href="#t06-html-forms-and-blocks">T06: HTML Forms and Blocks</a></h1>
 <p class="lesson-intro">Forms are the bridge between users and your application. Like a paper form at a doctor's office, HTML forms collect information from users and send it somewhere for processing. Block elements like details/summary add interactive disclosure without JavaScript.</p>
-
 <h2 id="form-elements"><a class="heading-anchor" href="#form-elements">Form Elements</a></h2>
 <p>The <code>&lt;form&gt;</code> tag wraps input elements. Each input has a type that controls its behavior. The <code>required</code> attribute forces the user to fill in a field before submitting.</p>
-<pre><code>&lt;form action="/submit" method="POST"&gt;
-    &lt;label for="name"&gt;Name:&lt;/label&gt;
-    &lt;input type="text" id="name" name="name" required&gt;
+<pre><code>&lt;form action=&quot;/submit&quot; method=&quot;POST&quot;&gt;
+    &lt;label for=&quot;name&quot;&gt;Name:&lt;/label&gt;
+    &lt;input type=&quot;text&quot; id=&quot;name&quot; name=&quot;name&quot; required&gt;
 
-    &lt;label for="email"&gt;Email:&lt;/label&gt;
-    &lt;input type="email" id="email" name="email" required&gt;
+    &lt;label for=&quot;email&quot;&gt;Email:&lt;/label&gt;
+    &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; required&gt;
 
-    &lt;label for="role"&gt;Role:&lt;/label&gt;
-    &lt;select id="role" name="role"&gt;
-        &lt;option value="dev"&gt;Developer&lt;/option&gt;
-        &lt;option value="design"&gt;Designer&lt;/option&gt;
+    &lt;label for=&quot;role&quot;&gt;Role:&lt;/label&gt;
+    &lt;select id=&quot;role&quot; name=&quot;role&quot;&gt;
+        &lt;option value=&quot;dev&quot;&gt;Developer&lt;/option&gt;
+        &lt;option value=&quot;design&quot;&gt;Designer&lt;/option&gt;
     &lt;/select&gt;
 
-    &lt;textarea name="message" rows="4"&gt;&lt;/textarea&gt;
-    &lt;button type="submit"&gt;Send&lt;/button&gt;
-&lt;/form&gt;</code></pre>
-
+    &lt;textarea name=&quot;message&quot; rows=&quot;4&quot;&gt;&lt;/textarea&gt;
+    &lt;button type=&quot;submit&quot;&gt;Send&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
 <div class="mermaid">
 flowchart LR
     A[User fills form] --> B{Valid?}
@@ -77,15 +75,15 @@ flowchart LR
     D --> E[Process and respond]
     B -->|No| F[Show error message]
     F --> A
-</div>
 
+</div>
 <h2 id="details-and-summary"><a class="heading-anchor" href="#details-and-summary">Details and Summary</a></h2>
 <p>The <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> elements create expandable sections with zero JavaScript.</p>
 <pre><code>&lt;details&gt;
     &lt;summary&gt;Click to expand&lt;/summary&gt;
     &lt;p&gt;Hidden content revealed on click.&lt;/p&gt;
-&lt;/details&gt;</code></pre>
-
+&lt;/details&gt;
+</code></pre>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -95,7 +93,6 @@ flowchart LR
 <li>Details/summary gives you interactive disclosure without JavaScript</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

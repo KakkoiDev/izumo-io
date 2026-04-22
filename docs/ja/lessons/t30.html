@@ -46,14 +46,12 @@
           <a href="t31.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t30-typescript"><a class="heading-anchor" href="#t30-typescript">T30: TypeScript</a></h1>
+      <h1 id="t30-typescript"><a class="heading-anchor" href="#t30-typescript">T30: TypeScript</a></h1>
 <p class="lesson-intro">TypeScriptはJavaScriptの上に型システムを追加します。型は契約のようなもので、料理を作る前にレストランに食事制限を伝えるのに似ています。データがどんな形であるべきかを指定すると、TypeScriptがコード実行前にミスを検出します。</p>
-
 <h2 id="型アノテーション"><a class="heading-anchor" href="#型アノテーション">型アノテーション</a></h2>
 <p>TypeScriptでは変数、関数パラメータ、戻り値に型を注釈できます。コンパイラがビルド時にこれらをチェックし、実行前にエラーを報告します。</p>
 <pre><code>// Basic type annotations
-let name: string = "Ramen";
+let name: string = &quot;Ramen&quot;;
 let price: number = 850;
 let available: boolean = true;
 
@@ -63,11 +61,11 @@ function formatPrice(amount: number, currency: string): string {
 }
 
 // Arrays
-let tags: string[] = ["spicy", "popular"];
+let tags: string[] = [&quot;spicy&quot;, &quot;popular&quot;];
 
 // Type error caught at compile time
-// price = "free";  // Error: Type 'string' is not assignable to type 'number'</code></pre>
-
+// price = &quot;free&quot;;  // Error: Type 'string' is not assignable to type 'number'
+</code></pre>
 <h2 id="インターフェースとオブジェクト"><a class="heading-anchor" href="#インターフェースとオブジェクト">インターフェースとオブジェクト</a></h2>
 <p>インターフェースはオブジェクトの形を定義します。コードベース全体で構造の一貫性を強制する設計図として機能します。</p>
 <pre><code>interface MenuItem {
@@ -85,12 +83,12 @@ function displayItem(item: MenuItem): string {
 // TypeScript ensures you pass the right shape
 const ramen: MenuItem = {
     id: 1,
-    name: "Tonkotsu Ramen",
+    name: &quot;Tonkotsu Ramen&quot;,
     price: 850,
-    category: "noodles",
+    category: &quot;noodles&quot;,
     available: true,
-};</code></pre>
-
+};
+</code></pre>
 <h2 id="reactコンポーネントの型付け"><a class="heading-anchor" href="#reactコンポーネントの型付け">Reactコンポーネントの型付け</a></h2>
 <p>TypeScriptとReactは相性が良いです。propsにインターフェースを、stateにジェネリクスを使って型付けし、コンポーネントの契約でエラーを検出します。</p>
 <pre><code>interface MenuCardProps {
@@ -110,11 +108,10 @@ function MenuCard({ name, price, onOrder }: MenuCardProps) {
 }
 
 // Typed useState
-const [items, setItems] = useState&lt;MenuItem[]&gt;([]);</code></pre>
-
+const [items, setItems] = useState&lt;MenuItem[]&gt;([]);
+</code></pre>
 <h2 id="ユニオン型とジェネリクス"><a class="heading-anchor" href="#ユニオン型とジェネリクス">ユニオン型とジェネリクス</a></h2>
 <p>ユニオン型は値が複数の型のいずれかであることを許可します。ジェネリクスは型安全性を保ちながら、任意の型で動作する再利用可能なコードを書くことができます。</p>
-
 <div class="mermaid">
 flowchart LR
     A[.ts File] --> B[TypeScript Compiler]
@@ -127,8 +124,8 @@ flowchart LR
     style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
     style D fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
     style F fill:#e74c3c,stroke:#a93226,color:#1a1a1a
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -138,7 +135,6 @@ flowchart LR
 <li>ユニオン型とジェネリクスは型安全性を保ちながら柔軟性を提供する</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

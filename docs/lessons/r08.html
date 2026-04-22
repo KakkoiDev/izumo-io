@@ -46,16 +46,12 @@
           <a href="r09.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="r08-code-quality"><a class="heading-anchor" href="#r08-code-quality">R08: Code Quality</a></h1>
+      <h1 id="r08-code-quality"><a class="heading-anchor" href="#r08-code-quality">R08: Code Quality</a></h1>
 <p class="lesson-intro">Good code has three levels: it runs correctly, it runs fast enough, and it is easy to change. Most beginners stop at level one. Professionals aim for all three. Think of it as a pyramid - correctness at the base, performance in the middle, and maintainability at the top.</p>
-
 <h2 id="level-1-it-runs"><a class="heading-anchor" href="#level-1-it-runs">Level 1: It Runs</a></h2>
 <p>The code produces correct output for all expected inputs. It handles edge cases and errors gracefully. This is the minimum requirement - code that does not work is not code.</p>
-
 <h2 id="level-2-it-is-fast"><a class="heading-anchor" href="#level-2-it-is-fast">Level 2: It is Fast</a></h2>
 <p>The code performs well enough for its use case. A function that takes 10 seconds for 10 items is fine for a personal todo app but unacceptable for a search engine. Context determines what "fast enough" means.</p>
-
 <h2 id="level-3-it-is-easy-to-change"><a class="heading-anchor" href="#level-3-it-is-easy-to-change">Level 3: It is Easy to Change</a></h2>
 <p>This is the hardest level. Code is read far more often than it is written. Clear names, small functions, consistent style, and good structure make code that others (and future you) can understand and modify.</p>
 <pre><code>// Hard to change
@@ -65,8 +61,8 @@ function p(d) { return d.filter(x =&gt; x.a &gt; 5).map(x =&gt; x.b * 2); }
 function getExpensiveItemPrices(products) {
     const expensive = products.filter(product =&gt; product.price &gt; 5);
     return expensive.map(product =&gt; product.price * 2);
-}</code></pre>
-
+}
+</code></pre>
 <div class="mermaid">
 graph TD
     A["Maintainability (easy to change)"] --> B["Performance (fast enough)"]
@@ -74,8 +70,8 @@ graph TD
     style A fill:#4CAF50,stroke:#888,color:#1a1a1a
     style B fill:#2196F3,stroke:#888,color:#1a1a1a
     style C fill:#FF9800,stroke:#888,color:#1a1a1a
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -85,7 +81,6 @@ graph TD
 <li>Maintainability is the hardest but most valuable quality for long-lived code</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../theory-lessons.html">Back to Theory Lessons</a>
         <div class="lesson-pager">

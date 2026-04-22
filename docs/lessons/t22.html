@@ -46,31 +46,29 @@
           <a href="t23.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t22-api-endpoints"><a class="heading-anchor" href="#t22-api-endpoints">T22: API Endpoints</a></h1>
+      <h1 id="t22-api-endpoints"><a class="heading-anchor" href="#t22-api-endpoints">T22: API Endpoints</a></h1>
 <p class="lesson-intro">An API (Application Programming Interface) is a set of endpoints your server exposes for clients to interact with data. REST is a design convention where URLs represent resources and HTTP methods represent actions. Think of it as a menu at a restaurant - the menu lists what you can order and how.</p>
-
 <h2 id="rest-conventions"><a class="heading-anchor" href="#rest-conventions">REST Conventions</a></h2>
 <p>RESTful APIs follow a pattern: resources are nouns in the URL, actions are HTTP methods.</p>
 <pre><code>// GET    /api/users      - List all users
 // GET    /api/users/1    - Get user with id 1
 // POST   /api/users      - Create a new user
 // PUT    /api/users/1    - Update user 1
-// DELETE /api/users/1    - Delete user 1</code></pre>
-
+// DELETE /api/users/1    - Delete user 1
+</code></pre>
 <h2 id="building-endpoints"><a class="heading-anchor" href="#building-endpoints">Building Endpoints</a></h2>
 <pre><code>const server = http.createServer((req, res) =&gt; {
     const url = req.url;
     const method = req.method;
 
-    res.setHeader("Content-Type", "application/json");
+    res.setHeader(&quot;Content-Type&quot;, &quot;application/json&quot;);
 
-    if (url === "/api/users" &amp;&amp; method === "GET") {
+    if (url === &quot;/api/users&quot; &amp;&amp; method === &quot;GET&quot;) {
         res.end(JSON.stringify(users));
-    } else if (url === "/api/users" &amp;&amp; method === "POST") {
-        let body = "";
-        req.on("data", chunk =&gt; body += chunk);
-        req.on("end", () =&gt; {
+    } else if (url === &quot;/api/users&quot; &amp;&amp; method === &quot;POST&quot;) {
+        let body = &quot;&quot;;
+        req.on(&quot;data&quot;, chunk =&gt; body += chunk);
+        req.on(&quot;end&quot;, () =&gt; {
             const user = JSON.parse(body);
             users.push(user);
             res.writeHead(201);
@@ -78,10 +76,10 @@
         });
     } else {
         res.writeHead(404);
-        res.end(JSON.stringify({ error: "Not Found" }));
+        res.end(JSON.stringify({ error: &quot;Not Found&quot; }));
     }
-});</code></pre>
-
+});
+</code></pre>
 <div class="mermaid">
 flowchart TD
     A[Client Request] --> B{Route Match}
@@ -91,8 +89,8 @@ flowchart TD
     B -->|PUT /api/users/:id| F[Update user]
     B -->|DELETE /api/users/:id| G[Remove user]
     B -->|No match| H[404 Not Found]
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -102,7 +100,6 @@ flowchart TD
 <li>Always handle unknown routes with a 404 response</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

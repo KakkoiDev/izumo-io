@@ -46,36 +46,34 @@
           <a href="t17.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t16-dynamic-site-routing"><a class="heading-anchor" href="#t16-dynamic-site-routing">T16: Dynamic Site - Routing</a></h1>
+      <h1 id="t16-dynamic-site-routing"><a class="heading-anchor" href="#t16-dynamic-site-routing">T16: Dynamic Site - Routing</a></h1>
 <p class="lesson-intro">In a traditional website, each page is a separate HTML file. A Single Page Application (SPA) loads once and swaps content dynamically. Hash routing uses the URL fragment (the part after #) to determine which view to show - like chapters in a book that you flip to without getting a new book.</p>
-
 <h2 id="hash-based-routing"><a class="heading-anchor" href="#hash-based-routing">Hash-Based Routing</a></h2>
 <p>The hash portion of the URL (after #) does not trigger a page reload. We can listen for hash changes and render different content.</p>
 <pre><code>const routes = {
-    "#/": renderHome,
-    "#/about": renderAbout,
-    "#/contact": renderContact
+    &quot;#/&quot;: renderHome,
+    &quot;#/about&quot;: renderAbout,
+    &quot;#/contact&quot;: renderContact
 };
 
 function router() {
-    const hash = window.location.hash || "#/";
+    const hash = window.location.hash || &quot;#/&quot;;
     const renderFn = routes[hash] || renderNotFound;
     renderFn();
 }
 
-window.addEventListener("hashchange", router);
-window.addEventListener("load", router);</code></pre>
-
+window.addEventListener(&quot;hashchange&quot;, router);
+window.addEventListener(&quot;load&quot;, router);
+</code></pre>
 <h2 id="dynamic-content-rendering"><a class="heading-anchor" href="#dynamic-content-rendering">Dynamic Content Rendering</a></h2>
 <pre><code>function renderHome() {
-    document.querySelector("#app").innerHTML = `
+    document.querySelector(&quot;#app&quot;).innerHTML = `
         &lt;h1&gt;Home&lt;/h1&gt;
         &lt;p&gt;Welcome to the site.&lt;/p&gt;
-        &lt;a href="#/about"&gt;About Us&lt;/a&gt;
+        &lt;a href=&quot;#/about&quot;&gt;About Us&lt;/a&gt;
     `;
-}</code></pre>
-
+}
+</code></pre>
 <div class="mermaid">
 flowchart TD
     A[User clicks link] --> B[URL hash changes]
@@ -86,8 +84,8 @@ flowchart TD
     E --> G[Update #app content]
     F --> G
     G --> H[Page stays loaded]
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -97,7 +95,6 @@ flowchart TD
 <li>A route map object connects hash patterns to render functions</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

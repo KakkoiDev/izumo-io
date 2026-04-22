@@ -46,14 +46,12 @@
           <a href="t35.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t34-nest-jsのデータと認証"><a class="heading-anchor" href="#t34-nest-jsのデータと認証">T34: Nest.jsのデータと認証</a></h1>
+      <h1 id="t34-nest-jsのデータと認証"><a class="heading-anchor" href="#t34-nest-jsのデータと認証">T34: Nest.jsのデータと認証</a></h1>
 <p class="lesson-intro">DTOはウェイターがキッチンに理解できる内容を正確に書く注文票のようなものです。ガードはドアでIDをチェックする用心棒です。データベース統合と合わせて、Nest.jsアプリケーションのデータとセキュリティ層を形成します。</p>
-
 <h2 id="dtoとバリデーション"><a class="heading-anchor" href="#dtoとバリデーション">DTOとバリデーション</a></h2>
 <p>Data Transfer Objectは受信データの期待される形を定義します。class-validatorデコレータと組み合わせることで、無効なリクエストを自動的に拒否します。T17の手動バリデーションと比較してください。Nest.jsは宣言的に処理します。</p>
 <pre><code>// create-menu-item.dto.ts
-import { IsString, IsNumber, Min, MaxLength } from "class-validator";
+import { IsString, IsNumber, Min, MaxLength } from &quot;class-validator&quot;;
 
 export class CreateMenuItemDto {
     @IsString()
@@ -69,9 +67,9 @@ export class CreateMenuItemDto {
 }
 
 // menu.controller.ts
-import { Controller, Post, Body } from "@nestjs/common";
+import { Controller, Post, Body } from &quot;@nestjs/common&quot;;
 
-@Controller("menu")
+@Controller(&quot;menu&quot;)
 export class MenuController {
     constructor(private readonly menuService: MenuService) {}
 
@@ -80,37 +78,36 @@ export class MenuController {
         // dto is already validated - invalid requests never reach here
         return this.menuService.create(dto);
     }
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="データベース統合"><a class="heading-anchor" href="#データベース統合">データベース統合</a></h2>
 <p>Nest.jsはT19のSQLiteデータベースパターンと連携しますが、リポジトリ層を通して行います。サービスがデータベースとやり取りし、データアクセスをHTTP処理から分離します。</p>
-
 <h2 id="認証ガード"><a class="heading-anchor" href="#認証ガード">認証ガード</a></h2>
 <p>ガードはリクエストを続行すべきかを判断するクラスです。コントローラーがリクエストを見る前に認証トークンをチェックします。<code>@UseGuards</code>デコレータで特定のルートまたはコントローラー全体に適用します。</p>
 <pre><code>// auth.guard.ts
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from &quot;@nestjs/common&quot;;
 
 @Injectable()
 export class AuthGuard implements CanActivate {
     canActivate(context: ExecutionContext): boolean {
         const request = context.switchToHttp().getRequest();
-        const token = request.headers["authorization"];
+        const token = request.headers[&quot;authorization&quot;];
         if (!token || !this.validateToken(token)) {
-            throw new UnauthorizedException("Invalid or missing token");
+            throw new UnauthorizedException(&quot;Invalid or missing token&quot;);
         }
         return true;
     }
 
     private validateToken(token: string): boolean {
         // Token validation logic
-        return token.startsWith("Bearer ");
+        return token.startsWith(&quot;Bearer &quot;);
     }
 }
 
 // Using the guard on a controller
-import { Controller, Get, UseGuards } from "@nestjs/common";
+import { Controller, Get, UseGuards } from &quot;@nestjs/common&quot;;
 
-@Controller("admin/menu")
+@Controller(&quot;admin/menu&quot;)
 @UseGuards(AuthGuard)
 export class AdminMenuController {
     constructor(private readonly menuService: MenuService) {}
@@ -119,8 +116,8 @@ export class AdminMenuController {
     findAll() {
         return this.menuService.findAll();
     }
-}</code></pre>
-
+}
+</code></pre>
 <div class="mermaid">
 sequenceDiagram
     participant Client
@@ -138,8 +135,8 @@ sequenceDiagram
     DB-->>Service: Result
     Service-->>Controller: Response data
     Controller-->>Client: JSON response
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -149,7 +146,6 @@ sequenceDiagram
 <li>@UseGuardsや@Bodyのようなデコレータがロジックを散らかすことなくセキュリティとバリデーションを接続する</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

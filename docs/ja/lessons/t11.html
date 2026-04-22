@@ -46,31 +46,29 @@
           <a href="t12.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t11-dom操作"><a class="heading-anchor" href="#t11-dom操作">T11: DOM操作</a></h1>
+      <h1 id="t11-dom操作"><a class="heading-anchor" href="#t11-dom操作">T11: DOM操作</a></h1>
 <p class="lesson-intro">DOM(ドキュメントオブジェクトモデル)はHTMLページのブラウザ内でのライブ表現です。積み木で作った木のようなもので、JavaScriptでユーザーが見ている間にブロックを追加、削除、並べ替えできます。全ての要素はアクセスして変更できるノードです。</p>
-
 <h2 id="要素の選択"><a class="heading-anchor" href="#要素の選択">要素の選択</a></h2>
 <p>要素を変更するには、まず見つける必要があります。<code>querySelector</code>メソッドはCSSセレクタ構文で要素を取得します。</p>
-<pre><code>const title = document.querySelector("h1");
-const items = document.querySelectorAll(".item");
-const form = document.querySelector("#signup-form");</code></pre>
-
+<pre><code>const title = document.querySelector(&quot;h1&quot;);
+const items = document.querySelectorAll(&quot;.item&quot;);
+const form = document.querySelector(&quot;#signup-form&quot;);
+</code></pre>
 <h2 id="要素の作成と変更"><a class="heading-anchor" href="#要素の作成と変更">要素の作成と変更</a></h2>
 <p><code>createElement</code>で新しい要素を作成し、内容を設定してページに追加します。</p>
-<pre><code>const card = document.createElement("div");
-card.className = "card";
-card.textContent = "New card content";
-document.querySelector(".container").appendChild(card);</code></pre>
-
+<pre><code>const card = document.createElement(&quot;div&quot;);
+card.className = &quot;card&quot;;
+card.textContent = &quot;New card content&quot;;
+document.querySelector(&quot;.container&quot;).appendChild(card);
+</code></pre>
 <h2 id="イベント処理"><a class="heading-anchor" href="#イベント処理">イベント処理</a></h2>
 <p>イベントでページがユーザーの操作に応答します。クリック、ホバー、入力、それぞれがリッスンできるイベントを発火します。</p>
-<pre><code>const button = document.querySelector("#submit");
-button.addEventListener("click", function(event) {
+<pre><code>const button = document.querySelector(&quot;#submit&quot;);
+button.addEventListener(&quot;click&quot;, function(event) {
     event.preventDefault();
-    console.log("Button was clicked!");
-});</code></pre>
-
+    console.log(&quot;Button was clicked!&quot;);
+});
+</code></pre>
 <div class="mermaid">
 graph TD
     A[document] --> B[html]
@@ -82,8 +80,8 @@ graph TD
     F --> H[button]
     H -->|click event| I[Event Handler]
     I -->|modifies| F
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -93,7 +91,6 @@ graph TD
 <li>デフォルトのブラウザ動作を止めたい時はevent.preventDefault()を使います</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

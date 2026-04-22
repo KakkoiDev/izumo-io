@@ -46,14 +46,12 @@
           <a href="t35.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t34-nest-js-data-amp-auth"><a class="heading-anchor" href="#t34-nest-js-data-amp-auth">T34: Nest.js Data &amp; Auth</a></h1>
+      <h1 id="t34-nest-js-data-amp-auth"><a class="heading-anchor" href="#t34-nest-js-data-amp-auth">T34: Nest.js Data &amp; Auth</a></h1>
 <p class="lesson-intro">DTOs are like order tickets that ensure the waiter writes exactly what the kitchen understands. Guards are the bouncer checking IDs at the door. Together with database integration, they form the data and security layer of a Nest.js application.</p>
-
 <h2 id="dtos-and-validation"><a class="heading-anchor" href="#dtos-and-validation">DTOs and Validation</a></h2>
 <p>A Data Transfer Object defines the expected shape of incoming data. Combined with class-validator decorators, it automatically rejects invalid requests. Compare this to the manual validation from T22 - Nest.js handles it declaratively.</p>
 <pre><code>// create-menu-item.dto.ts
-import { IsString, IsNumber, Min, MaxLength } from "class-validator";
+import { IsString, IsNumber, Min, MaxLength } from &quot;class-validator&quot;;
 
 export class CreateMenuItemDto {
     @IsString()
@@ -69,9 +67,9 @@ export class CreateMenuItemDto {
 }
 
 // menu.controller.ts
-import { Controller, Post, Body } from "@nestjs/common";
+import { Controller, Post, Body } from &quot;@nestjs/common&quot;;
 
-@Controller("menu")
+@Controller(&quot;menu&quot;)
 export class MenuController {
     constructor(private readonly menuService: MenuService) {}
 
@@ -80,37 +78,36 @@ export class MenuController {
         // dto is already validated - invalid requests never reach here
         return this.menuService.create(dto);
     }
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="database-integration"><a class="heading-anchor" href="#database-integration">Database Integration</a></h2>
 <p>Nest.js works with the SQLite database pattern from T24, but through a repository layer. The service interacts with the database, keeping data access separate from HTTP handling.</p>
-
 <h2 id="authentication-guards"><a class="heading-anchor" href="#authentication-guards">Authentication Guards</a></h2>
 <p>A guard is a class that decides whether a request should proceed. It checks authentication tokens before the controller ever sees the request. Apply it to specific routes or entire controllers with the <code>@UseGuards</code> decorator.</p>
 <pre><code>// auth.guard.ts
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from &quot;@nestjs/common&quot;;
 
 @Injectable()
 export class AuthGuard implements CanActivate {
     canActivate(context: ExecutionContext): boolean {
         const request = context.switchToHttp().getRequest();
-        const token = request.headers["authorization"];
+        const token = request.headers[&quot;authorization&quot;];
         if (!token || !this.validateToken(token)) {
-            throw new UnauthorizedException("Invalid or missing token");
+            throw new UnauthorizedException(&quot;Invalid or missing token&quot;);
         }
         return true;
     }
 
     private validateToken(token: string): boolean {
         // Token validation logic
-        return token.startsWith("Bearer ");
+        return token.startsWith(&quot;Bearer &quot;);
     }
 }
 
 // Using the guard on a controller
-import { Controller, Get, UseGuards } from "@nestjs/common";
+import { Controller, Get, UseGuards } from &quot;@nestjs/common&quot;;
 
-@Controller("admin/menu")
+@Controller(&quot;admin/menu&quot;)
 @UseGuards(AuthGuard)
 export class AdminMenuController {
     constructor(private readonly menuService: MenuService) {}
@@ -119,8 +116,8 @@ export class AdminMenuController {
     findAll() {
         return this.menuService.findAll();
     }
-}</code></pre>
-
+}
+</code></pre>
 <div class="mermaid">
 sequenceDiagram
     participant Client
@@ -138,8 +135,8 @@ sequenceDiagram
     DB-->>Service: Result
     Service-->>Controller: Response data
     Controller-->>Client: JSON response
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -149,7 +146,6 @@ sequenceDiagram
 <li>Decorators like @UseGuards and @Body wire security and validation without cluttering logic</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

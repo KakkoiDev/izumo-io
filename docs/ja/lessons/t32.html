@@ -46,10 +46,8 @@
           <a href="t33.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t32-next-jsのデータとapi"><a class="heading-anchor" href="#t32-next-jsのデータとapi">T32: Next.jsのデータとAPI</a></h1>
+      <h1 id="t32-next-jsのデータとapi"><a class="heading-anchor" href="#t32-next-jsのデータとapi">T32: Next.jsのデータとAPI</a></h1>
 <p class="lesson-intro">サーバーコンポーネントのデータ取得は、ウェイターを往復させる代わりにシェフが直接パントリーに行くようなものです。useEffectもローディングスピナーも不要です。コンポーネント自体がasyncで、必要なデータを取得し、サーバーで完全なHTMLをレンダリングします。</p>
-
 <h2 id="サーバーコンポーネントでのデータ取得"><a class="heading-anchor" href="#サーバーコンポーネントでのデータ取得">サーバーコンポーネントでのデータ取得</a></h2>
 <p>サーバーコンポーネントはasync関数にできます。コンポーネント本体で直接データをawaitします。useEffectもローディングステート用のuseStateも不要で、HTMLは完全にレンダリングされた状態で届きます。</p>
 <pre><code>// app/menu/page.tsx - Server component (default)
@@ -60,8 +58,8 @@ interface MenuItem {
 }
 
 export default async function MenuPage() {
-    const res = await fetch("https://api.example.com/menu", {
-        cache: "no-store",  // Always get fresh data
+    const res = await fetch(&quot;https://api.example.com/menu&quot;, {
+        cache: &quot;no-store&quot;,  // Always get fresh data
     });
     const items: MenuItem[] = await res.json();
 
@@ -77,16 +75,16 @@ export default async function MenuPage() {
             &lt;/ul&gt;
         &lt;/main&gt;
     );
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="apiルート"><a class="heading-anchor" href="#apiルート">APIルート</a></h2>
 <p>Next.jsのAPIルートは<code>route.ts</code>ファイルに記述します。GET、POST、その他のHTTPメソッドを名前付きエクスポートとして処理します。T17のExpressルートと比較してみてください。同じ概念で、構文が異なります。</p>
 <pre><code>// app/api/menu/route.ts
-import { NextResponse } from "next/server";
+import { NextResponse } from &quot;next/server&quot;;
 
 const menu = [
-    { id: 1, name: "Tonkotsu Ramen", price: 850 },
-    { id: 2, name: "Gyoza", price: 400 },
+    { id: 1, name: &quot;Tonkotsu Ramen&quot;, price: 850 },
+    { id: 2, name: &quot;Gyoza&quot;, price: 400 },
 ];
 
 export async function GET() {
@@ -98,11 +96,10 @@ export async function POST(request: Request) {
     const newItem = { id: menu.length + 1, ...body };
     menu.push(newItem);
     return NextResponse.json(newItem, { status: 201 });
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="全体の組み立て"><a class="heading-anchor" href="#全体の組み立て">全体の組み立て</a></h2>
 <p>典型的なNext.jsページはサーバーでデータを取得し、HTMLをレンダリングしてブラウザに送信します。クライアントコンポーネントはアイテムの追加やフォーム送信などのインタラクティブ機能を処理し、必要に応じてAPIルートを呼び出します。</p>
-
 <div class="mermaid">
 sequenceDiagram
     participant Browser
@@ -117,8 +114,8 @@ sequenceDiagram
     Server->>DB: Insert data
     DB-->>Server: Confirmation
     Server-->>Browser: JSON response
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -128,7 +125,6 @@ sequenceDiagram
 <li>クライアントサイドのAPI呼び出しはハイドレーション後にミューテーションとインタラクティブ機能を処理する</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

@@ -46,10 +46,8 @@
           <a href="t33.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t32-next-js-data-amp-api"><a class="heading-anchor" href="#t32-next-js-data-amp-api">T32: Next.js Data &amp; API</a></h1>
+      <h1 id="t32-next-js-data-amp-api"><a class="heading-anchor" href="#t32-next-js-data-amp-api">T32: Next.js Data &amp; API</a></h1>
 <p class="lesson-intro">Server components fetch data like a chef going directly to the pantry instead of sending a waiter back and forth. No useEffect, no loading spinners for initial data - the component itself is async, fetches what it needs, and renders the complete HTML on the server.</p>
-
 <h2 id="fetching-data-in-server-components"><a class="heading-anchor" href="#fetching-data-in-server-components">Fetching Data in Server Components</a></h2>
 <p>Server components can be async functions. You await data directly in the component body. No useEffect, no useState for loading states - the HTML arrives fully rendered.</p>
 <pre><code>// app/menu/page.tsx - Server component (default)
@@ -60,8 +58,8 @@ interface MenuItem {
 }
 
 export default async function MenuPage() {
-    const res = await fetch("https://api.example.com/menu", {
-        cache: "no-store",  // Always get fresh data
+    const res = await fetch(&quot;https://api.example.com/menu&quot;, {
+        cache: &quot;no-store&quot;,  // Always get fresh data
     });
     const items: MenuItem[] = await res.json();
 
@@ -77,16 +75,16 @@ export default async function MenuPage() {
             &lt;/ul&gt;
         &lt;/main&gt;
     );
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="api-routes"><a class="heading-anchor" href="#api-routes">API Routes</a></h2>
 <p>Next.js API routes live in <code>route.ts</code> files. They handle GET, POST, and other HTTP methods as named exports. Compare this to the Express routes from T22 - same concept, different syntax.</p>
 <pre><code>// app/api/menu/route.ts
-import { NextResponse } from "next/server";
+import { NextResponse } from &quot;next/server&quot;;
 
 const menu = [
-    { id: 1, name: "Tonkotsu Ramen", price: 850 },
-    { id: 2, name: "Gyoza", price: 400 },
+    { id: 1, name: &quot;Tonkotsu Ramen&quot;, price: 850 },
+    { id: 2, name: &quot;Gyoza&quot;, price: 400 },
 ];
 
 export async function GET() {
@@ -98,11 +96,10 @@ export async function POST(request: Request) {
     const newItem = { id: menu.length + 1, ...body };
     menu.push(newItem);
     return NextResponse.json(newItem, { status: 201 });
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="putting-it-all-together"><a class="heading-anchor" href="#putting-it-all-together">Putting It All Together</a></h2>
 <p>A typical Next.js page fetches data on the server, renders HTML, and sends it to the browser. Client components handle interactivity like adding items or submitting forms, calling API routes as needed.</p>
-
 <div class="mermaid">
 sequenceDiagram
     participant Browser
@@ -117,8 +114,8 @@ sequenceDiagram
     Server->>DB: Insert data
     DB-->>Server: Confirmation
     Server-->>Browser: JSON response
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -128,7 +125,6 @@ sequenceDiagram
 <li>Client-side API calls handle mutations and interactive features after hydration</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

@@ -46,21 +46,19 @@
           <a href="t32.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t31-next-jsのルーティングとレンダリング"><a class="heading-anchor" href="#t31-next-jsのルーティングとレンダリング">T31: Next.jsのルーティングとレンダリング</a></h1>
+      <h1 id="t31-next-jsのルーティングとレンダリング"><a class="heading-anchor" href="#t31-next-jsのルーティングとレンダリング">T31: Next.jsのルーティングとレンダリング</a></h1>
 <p class="lesson-intro">Next.jsはフードトラック(React SPA)から住所システム付きの本格的なレストランへのアップグレードのようなものです。ファイルベースのルーティング、サーバーサイドレンダリング、明確な構造を追加するので、全てを自分で接続する必要がありません。</p>
-
 <h2 id="ファイルベースルーティング"><a class="heading-anchor" href="#ファイルベースルーティング">ファイルベースルーティング</a></h2>
 <p>Next.jsではファイルシステムがルーターです。<code>app/about/page.tsx</code>にファイルを作成すると、それが<code>/about</code>ルートになります。ルーター設定は不要です。T13のハッシュベースルーティングと比較してみてください。</p>
 <pre><code>// Directory structure = URL structure
 app/
-  page.tsx          // "/" route
+  page.tsx          // &quot;/&quot; route
   about/
-    page.tsx        // "/about" route
+    page.tsx        // &quot;/about&quot; route
   menu/
-    page.tsx        // "/menu" route
+    page.tsx        // &quot;/menu&quot; route
     [id]/
-      page.tsx      // "/menu/123" dynamic route
+      page.tsx      // &quot;/menu/123&quot; dynamic route
 
 // app/menu/page.tsx
 export default function MenuPage() {
@@ -70,35 +68,33 @@ export default function MenuPage() {
             &lt;p&gt;Browse our selection below.&lt;/p&gt;
         &lt;/main&gt;
     );
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="サーバーコンポーネント-vs-クライアントコンポーネント"><a class="heading-anchor" href="#サーバーコンポーネント-vs-クライアントコンポーネント">サーバーコンポーネント vs クライアントコンポーネント</a></h2>
 <p>Next.jsのコンポーネントはデフォルトでサーバーコンポーネントです。サーバーで実行され、データを直接取得でき、HTMLのみをブラウザに送信します。ステートやイベントハンドラなどのインタラクティブ性が必要な場合は、先頭に<code>"use client"</code>を追加します。</p>
 <pre><code>// Server component (default) - runs on server, no JS sent to browser
 export default async function MenuList() {
-    const items = await fetch("https://api.example.com/menu").then(r =&gt; r.json());
+    const items = await fetch(&quot;https://api.example.com/menu&quot;).then(r =&gt; r.json());
     return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
 }
 
-// Client component - needs "use client" for interactivity
-"use client";
-import { useState } from "react";
+// Client component - needs &quot;use client&quot; for interactivity
+&quot;use client&quot;;
+import { useState } from &quot;react&quot;;
 
 export default function AddToCart({ itemId }: { itemId: number }) {
     const [added, setAdded] = useState(false);
     return (
         &lt;button onClick={() =&gt; setAdded(true)}&gt;
-            {added ? "Added" : "Add to Cart"}
+            {added ? &quot;Added&quot; : &quot;Add to Cart&quot;}
         &lt;/button&gt;
     );
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="レイアウト"><a class="heading-anchor" href="#レイアウト">レイアウト</a></h2>
 <p><code>layout.tsx</code>はそのディレクトリ以下の全ページをラップします。ナビゲーション間で保持され、ヘッダーやサイドバーなどの共有UIをマウントしたままにします。</p>
-
 <h2 id="使い分けガイド"><a class="heading-anchor" href="#使い分けガイド">使い分けガイド</a></h2>
 <p>静的コンテンツやデータ取得にはサーバーコンポーネントを使用します。useState、useEffect、onClick、ブラウザ専用APIが必要な場合のみクライアントコンポーネントを使用します。</p>
-
 <div class="mermaid">
 flowchart TB
     A[Browser Request] --> B[Next.js Server]
@@ -111,8 +107,8 @@ flowchart TB
     style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
     style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
     style F fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -122,7 +118,6 @@ flowchart TB
 <li>レイアウトは子ページをラップし、共有UIのためにナビゲーション間で保持される</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

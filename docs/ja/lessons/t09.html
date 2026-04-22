@@ -46,10 +46,8 @@
           <a href="t10.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t09-cssの限界に挑戦"><a class="heading-anchor" href="#t09-cssの限界に挑戦">T09: CSSの限界に挑戦</a></h1>
+      <h1 id="t09-cssの限界に挑戦"><a class="heading-anchor" href="#t09-cssの限界に挑戦">T09: CSSの限界に挑戦</a></h1>
 <p class="lesson-intro">CSSは色を変えるだけではありません。トランジション、アニメーション、賢いセレクタで、JavaScriptなしにインタラクティブなコンポーネントを構築できます。絵筆が彫刻もできると気づくようなものです。</p>
-
 <h2 id="トランジション"><a class="heading-anchor" href="#トランジション">トランジション</a></h2>
 <p>トランジションはプロパティの変化を滑らかにアニメーションします。どのプロパティを、どれくらいの時間で、どのイージングで変化させるかを指定します。</p>
 <pre><code>.button {
@@ -59,21 +57,21 @@
 .button:hover {
     background: #2980b9;
     transform: scale(1.05);
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="キーフレームアニメーション"><a class="heading-anchor" href="#キーフレームアニメーション">キーフレームアニメーション</a></h2>
 <p>より複雑な動きには、時間の異なるポイントでの状態を定義するキーフレームを使います。</p>
 <pre><code>@keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-.card { animation: fadeIn 0.5s ease-out; }</code></pre>
-
+.card { animation: fadeIn 0.5s ease-out; }
+</code></pre>
 <h2 id="純粋cssアコーディオン"><a class="heading-anchor" href="#純粋cssアコーディオン">純粋CSSアコーディオン</a></h2>
 <p><code>:target</code>擬似クラスでURLハッシュに基づいて表示を切り替え、JavaScriptなしのインタラクティブなコンポーネントを作成できます。</p>
 <pre><code>.panel { max-height: 0; overflow: hidden; transition: max-height 0.3s; }
-.panel:target { max-height: 500px; }</code></pre>
-
+.panel:target { max-height: 500px; }
+</code></pre>
 <div class="mermaid">
 stateDiagram-v2
     [*] --> Default
@@ -82,8 +80,8 @@ stateDiagram-v2
     Default --> Active: click
     Active --> Animated: transition starts
     Animated --> NewState: transition ends
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -93,7 +91,6 @@ stateDiagram-v2
 <li>パフォーマンスを考慮し、transformとopacityをアニメーションしましょう</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

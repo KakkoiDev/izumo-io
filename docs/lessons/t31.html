@@ -46,21 +46,19 @@
           <a href="t32.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t31-next-js-routing-amp-rendering"><a class="heading-anchor" href="#t31-next-js-routing-amp-rendering">T31: Next.js Routing &amp; Rendering</a></h1>
+      <h1 id="t31-next-js-routing-amp-rendering"><a class="heading-anchor" href="#t31-next-js-routing-amp-rendering">T31: Next.js Routing &amp; Rendering</a></h1>
 <p class="lesson-intro">Next.js is like upgrading from a food truck (React SPA) to a proper restaurant with a built-in address system. It adds file-based routing, server-side rendering, and a clear structure so you do not have to wire everything together yourself.</p>
-
 <h2 id="file-based-routing"><a class="heading-anchor" href="#file-based-routing">File-Based Routing</a></h2>
 <p>In Next.js, the file system is the router. Create a file at <code>app/about/page.tsx</code> and it becomes the <code>/about</code> route. No router configuration needed - compare this to the hash-based routing from T16.</p>
 <pre><code>// Directory structure = URL structure
 app/
-  page.tsx          // "/" route
+  page.tsx          // &quot;/&quot; route
   about/
-    page.tsx        // "/about" route
+    page.tsx        // &quot;/about&quot; route
   menu/
-    page.tsx        // "/menu" route
+    page.tsx        // &quot;/menu&quot; route
     [id]/
-      page.tsx      // "/menu/123" dynamic route
+      page.tsx      // &quot;/menu/123&quot; dynamic route
 
 // app/menu/page.tsx
 export default function MenuPage() {
@@ -70,35 +68,33 @@ export default function MenuPage() {
             &lt;p&gt;Browse our selection below.&lt;/p&gt;
         &lt;/main&gt;
     );
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="server-vs-client-components"><a class="heading-anchor" href="#server-vs-client-components">Server vs Client Components</a></h2>
 <p>Next.js components are server components by default. They run on the server, can fetch data directly, and send only HTML to the browser. Add <code>"use client"</code> at the top when you need interactivity like state or event handlers.</p>
 <pre><code>// Server component (default) - runs on server, no JS sent to browser
 export default async function MenuList() {
-    const items = await fetch("https://api.example.com/menu").then(r =&gt; r.json());
+    const items = await fetch(&quot;https://api.example.com/menu&quot;).then(r =&gt; r.json());
     return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
 }
 
-// Client component - needs "use client" for interactivity
-"use client";
-import { useState } from "react";
+// Client component - needs &quot;use client&quot; for interactivity
+&quot;use client&quot;;
+import { useState } from &quot;react&quot;;
 
 export default function AddToCart({ itemId }: { itemId: number }) {
     const [added, setAdded] = useState(false);
     return (
         &lt;button onClick={() =&gt; setAdded(true)}&gt;
-            {added ? "Added" : "Add to Cart"}
+            {added ? &quot;Added&quot; : &quot;Add to Cart&quot;}
         &lt;/button&gt;
     );
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="layouts"><a class="heading-anchor" href="#layouts">Layouts</a></h2>
 <p>A <code>layout.tsx</code> wraps all pages in its directory and below. It persists across navigation, keeping shared UI like headers and sidebars mounted.</p>
-
 <h2 id="when-to-use-what"><a class="heading-anchor" href="#when-to-use-what">When to Use What</a></h2>
 <p>Use server components for static content and data fetching. Use client components only when you need useState, useEffect, onClick, or browser-only APIs.</p>
-
 <div class="mermaid">
 flowchart TB
     A[Browser Request] --> B[Next.js Server]
@@ -111,8 +107,8 @@ flowchart TB
     style C fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
     style E fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
     style F fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -122,7 +118,6 @@ flowchart TB
 <li>Layouts wrap child pages and persist across navigation for shared UI</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

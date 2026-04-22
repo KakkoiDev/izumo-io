@@ -46,40 +46,37 @@
           <a href="t22.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t21-node-jsサーバー"><a class="heading-anchor" href="#t21-node-jsサーバー">T21: Node.jsサーバー</a></h1>
+      <h1 id="t21-node-jsサーバー"><a class="heading-anchor" href="#t21-node-jsサーバー">T21: Node.jsサーバー</a></h1>
 <p class="lesson-intro">これまでHTMLファイルをブラウザで直接開いていました。Webサーバーはリクエストを待ち受けてレスポンスを返すプログラムです。Node.jsならブラウザと同じJavaScriptでサーバーを書けます。チーム全員と同じ言語を話す受付を雇うようなものです。</p>
-
 <h2 id="httpサーバーの作成"><a class="heading-anchor" href="#httpサーバーの作成">HTTPサーバーの作成</a></h2>
-<pre><code>const http = require("http");
-const fs = require("fs");
-const path = require("path");
+<pre><code>const http = require(&quot;http&quot;);
+const fs = require(&quot;fs&quot;);
+const path = require(&quot;path&quot;);
 
 const server = http.createServer((req, res) =&gt; {
-    const filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
+    const filePath = path.join(__dirname, &quot;public&quot;, req.url === &quot;/&quot; ? &quot;index.html&quot; : req.url);
     const ext = path.extname(filePath);
     const contentTypes = {
-        ".html": "text/html",
-        ".css": "text/css",
-        ".js": "text/javascript"
+        &quot;.html&quot;: &quot;text/html&quot;,
+        &quot;.css&quot;: &quot;text/css&quot;,
+        &quot;.js&quot;: &quot;text/javascript&quot;
     };
 
     fs.readFile(filePath, (err, content) =&gt; {
         if (err) {
             res.writeHead(404);
-            res.end("Not Found");
+            res.end(&quot;Not Found&quot;);
             return;
         }
-        res.writeHead(200, { "Content-Type": contentTypes[ext] || "text/plain" });
+        res.writeHead(200, { &quot;Content-Type&quot;: contentTypes[ext] || &quot;text/plain&quot; });
         res.end(content);
     });
 });
 
-server.listen(3000, () =&gt; console.log("Server on http://localhost:3000"));</code></pre>
-
+server.listen(3000, () =&gt; console.log(&quot;Server on http://localhost:3000&quot;));
+</code></pre>
 <h2 id="静的ファイルの配信"><a class="heading-anchor" href="#静的ファイルの配信">静的ファイルの配信</a></h2>
 <p>サーバーは"public"フォルダからファイルを読み取り、正しいContent-Typeヘッダー付きでブラウザに送信します。</p>
-
 <div class="mermaid">
 flowchart LR
     A[Browser] -->|HTTP Request| B[Node.js Server]
@@ -87,8 +84,8 @@ flowchart LR
     C -->|File contents| B
     B -->|HTTP Response| A
     B -->|404| D[Not Found]
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -98,7 +95,6 @@ flowchart LR
 <li>静的ファイル配信はURLパスをディスク上のファイルにマッピングします</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

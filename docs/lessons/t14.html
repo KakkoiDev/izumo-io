@@ -46,37 +46,35 @@
           <a href="t15.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t14-persistence"><a class="heading-anchor" href="#t14-persistence">T14: Persistence</a></h1>
+      <h1 id="t14-persistence"><a class="heading-anchor" href="#t14-persistence">T14: Persistence</a></h1>
 <p class="lesson-intro">Web pages forget everything when you close them. LocalStorage is like a notebook the browser keeps for your website - data persists even after closing the tab. JSON is the universal format for converting JavaScript objects into storable strings and back.</p>
-
 <h2 id="localstorage-api"><a class="heading-anchor" href="#localstorage-api">localStorage API</a></h2>
 <p>LocalStorage stores key-value pairs as strings. It persists across page reloads and browser restarts, with about 5MB of space per domain.</p>
 <pre><code>// Save data
-localStorage.setItem("username", "Alice");
+localStorage.setItem(&quot;username&quot;, &quot;Alice&quot;);
 
 // Read data
-const name = localStorage.getItem("username");
+const name = localStorage.getItem(&quot;username&quot;);
 
 // Remove data
-localStorage.removeItem("username");
+localStorage.removeItem(&quot;username&quot;);
 
 // Clear all
-localStorage.clear();</code></pre>
-
+localStorage.clear();
+</code></pre>
 <h2 id="working-with-json"><a class="heading-anchor" href="#working-with-json">Working with JSON</a></h2>
 <p>Since localStorage only stores strings, use <code>JSON.stringify()</code> to save objects and <code>JSON.parse()</code> to read them back.</p>
 <pre><code>const tasks = [
-    { id: 1, text: "Learn HTML", done: true },
-    { id: 2, text: "Learn CSS", done: false }
+    { id: 1, text: &quot;Learn HTML&quot;, done: true },
+    { id: 2, text: &quot;Learn CSS&quot;, done: false }
 ];
 
 // Save
-localStorage.setItem("tasks", JSON.stringify(tasks));
+localStorage.setItem(&quot;tasks&quot;, JSON.stringify(tasks));
 
 // Load
-const saved = JSON.parse(localStorage.getItem("tasks") || "[]");</code></pre>
-
+const saved = JSON.parse(localStorage.getItem(&quot;tasks&quot;) || &quot;[]&quot;);
+</code></pre>
 <div class="mermaid">
 flowchart LR
     A[JS Object] -->|JSON.stringify| B[JSON String]
@@ -85,8 +83,8 @@ flowchart LR
     D -->|JSON.parse| E[JS Object]
     C -->|persists across| F[Page Reloads]
     C -->|persists across| G[Browser Restart]
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -96,7 +94,6 @@ flowchart LR
 <li>localStorage has a 5MB limit per domain - use it for small data only</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

@@ -46,13 +46,11 @@
           <a href="t30.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t29-reactのステートとエフェクト"><a class="heading-anchor" href="#t29-reactのステートとエフェクト">T29: Reactのステートとエフェクト</a></h1>
+      <h1 id="t29-reactのステートとエフェクト"><a class="heading-anchor" href="#t29-reactのステートとエフェクト">T29: Reactのステートとエフェクト</a></h1>
 <p class="lesson-intro">ステートはコンポーネントの個人的なノートです。レンダリング間で保持され、更新時に再レンダリングを引き起こすプライベートデータです。エフェクトはコンポーネントのレンダリング後に鳴る目覚まし時計のようなもので、APIやタイマーなどの外部システムと同期できます。</p>
-
 <h2 id="usestate-コンポーネントのメモリ"><a class="heading-anchor" href="#usestate-コンポーネントのメモリ">useState: コンポーネントのメモリ</a></h2>
 <p><code>useState</code>フックはコンポーネントに独自のメモリを与えます。現在の値とセッター関数を返します。セッターが呼ばれると、Reactは新しい値でコンポーネントを再レンダリングします。</p>
-<pre><code>import { useState } from "react";
+<pre><code>import { useState } from &quot;react&quot;;
 
 function Counter() {
     const [count, setCount] = useState(0);
@@ -64,18 +62,18 @@ function Counter() {
             &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
         &lt;/div&gt;
     );
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="useeffect-副作用"><a class="heading-anchor" href="#useeffect-副作用">useEffect: 副作用</a></h2>
 <p><code>useEffect</code>フックはレンダリング後にコードを実行します。依存配列が再実行のタイミングを制御します。空の配列は「マウント時に一度だけ実行」を意味します。変数を含めると「これらが変更されたら再実行」になります。</p>
-<pre><code>import { useState, useEffect } from "react";
+<pre><code>import { useState, useEffect } from &quot;react&quot;;
 
 function MenuPage() {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() =&gt; {
-        fetch("/api/menu")
+        fetch(&quot;/api/menu&quot;)
             .then(res =&gt; res.json())
             .then(data =&gt; {
                 setItems(data);
@@ -85,11 +83,10 @@ function MenuPage() {
 
     if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
     return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
-}</code></pre>
-
+}
+</code></pre>
 <h2 id="ステートのリフトアップ"><a class="heading-anchor" href="#ステートのリフトアップ">ステートのリフトアップ</a></h2>
 <p>2つの兄弟コンポーネントがデータを共有する必要がある場合、ステートを共通の親に移動します。親がステートを所有し、propsとして子に渡します。これがReactの主要なデータ共有パターンです。</p>
-
 <div class="mermaid">
 flowchart TD
     A[Render Component] --> B[useEffect Runs]
@@ -102,8 +99,8 @@ flowchart TD
     style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
     style D fill:#e74c3c,stroke:#a93226,color:#1a1a1a
     style E fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -113,7 +110,6 @@ flowchart TD
 <li>兄弟コンポーネントがデータを共有する場合、最も近い共通の親にステートをリフトアップする</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

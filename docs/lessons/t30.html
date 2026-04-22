@@ -46,14 +46,12 @@
           <a href="t31.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t30-typescript"><a class="heading-anchor" href="#t30-typescript">T30: TypeScript</a></h1>
+      <h1 id="t30-typescript"><a class="heading-anchor" href="#t30-typescript">T30: TypeScript</a></h1>
 <p class="lesson-intro">TypeScript adds a type system on top of JavaScript. Types are like a contract - similar to telling a restaurant your dietary restrictions before they cook. You specify what shape your data should have, and TypeScript catches mistakes before your code ever runs.</p>
-
 <h2 id="type-annotations"><a class="heading-anchor" href="#type-annotations">Type Annotations</a></h2>
 <p>TypeScript lets you annotate variables, function parameters, and return values with types. The compiler checks these at build time and reports errors before execution.</p>
 <pre><code>// Basic type annotations
-let name: string = "Ramen";
+let name: string = &quot;Ramen&quot;;
 let price: number = 850;
 let available: boolean = true;
 
@@ -63,11 +61,11 @@ function formatPrice(amount: number, currency: string): string {
 }
 
 // Arrays
-let tags: string[] = ["spicy", "popular"];
+let tags: string[] = [&quot;spicy&quot;, &quot;popular&quot;];
 
 // Type error caught at compile time
-// price = "free";  // Error: Type 'string' is not assignable to type 'number'</code></pre>
-
+// price = &quot;free&quot;;  // Error: Type 'string' is not assignable to type 'number'
+</code></pre>
 <h2 id="interfaces-and-objects"><a class="heading-anchor" href="#interfaces-and-objects">Interfaces and Objects</a></h2>
 <p>Interfaces define the shape of an object. They act as blueprints that enforce structure consistency across your codebase.</p>
 <pre><code>interface MenuItem {
@@ -85,12 +83,12 @@ function displayItem(item: MenuItem): string {
 // TypeScript ensures you pass the right shape
 const ramen: MenuItem = {
     id: 1,
-    name: "Tonkotsu Ramen",
+    name: &quot;Tonkotsu Ramen&quot;,
     price: 850,
-    category: "noodles",
+    category: &quot;noodles&quot;,
     available: true,
-};</code></pre>
-
+};
+</code></pre>
 <h2 id="typing-react-components"><a class="heading-anchor" href="#typing-react-components">Typing React Components</a></h2>
 <p>TypeScript and React work well together. You type props with interfaces and state with generics, catching errors in your component contracts.</p>
 <pre><code>interface MenuCardProps {
@@ -110,11 +108,10 @@ function MenuCard({ name, price, onOrder }: MenuCardProps) {
 }
 
 // Typed useState
-const [items, setItems] = useState&lt;MenuItem[]&gt;([]);</code></pre>
-
+const [items, setItems] = useState&lt;MenuItem[]&gt;([]);
+</code></pre>
 <h2 id="union-types-and-generics"><a class="heading-anchor" href="#union-types-and-generics">Union Types and Generics</a></h2>
 <p>Union types let a value be one of several types. Generics let you write reusable code that works with any type while preserving type safety.</p>
-
 <div class="mermaid">
 flowchart LR
     A[.ts File] --> B[TypeScript Compiler]
@@ -127,8 +124,8 @@ flowchart LR
     style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
     style D fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
     style F fill:#e74c3c,stroke:#a93226,color:#1a1a1a
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -138,7 +135,6 @@ flowchart LR
 <li>Union types and generics provide flexibility while keeping type safety</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

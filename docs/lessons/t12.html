@@ -46,41 +46,39 @@
           <a href="t13.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t12-forms-and-dialog"><a class="heading-anchor" href="#t12-forms-and-dialog">T12: Forms and Dialog</a></h1>
+      <h1 id="t12-forms-and-dialog"><a class="heading-anchor" href="#t12-forms-and-dialog">T12: Forms and Dialog</a></h1>
 <p class="lesson-intro">HTML forms collect data, but JavaScript validates and processes it. The dialog element gives you native modal windows without any library. Together they create a smooth data collection experience - like a smart receptionist who checks your paperwork before filing it.</p>
-
 <h2 id="javascript-form-validation"><a class="heading-anchor" href="#javascript-form-validation">JavaScript Form Validation</a></h2>
 <p>While HTML has built-in validation (required, type), JavaScript gives you full control over validation logic and custom error messages.</p>
-<pre><code>const form = document.querySelector("#myForm");
-form.addEventListener("submit", function(event) {
-    const email = form.querySelector("#email").value;
-    if (!email.includes("@")) {
+<pre><code>const form = document.querySelector(&quot;#myForm&quot;);
+form.addEventListener(&quot;submit&quot;, function(event) {
+    const email = form.querySelector(&quot;#email&quot;).value;
+    if (!email.includes(&quot;@&quot;)) {
         event.preventDefault();
-        showError("Please enter a valid email address.");
+        showError(&quot;Please enter a valid email address.&quot;);
     }
 });
 
 function showError(message) {
-    const errorDiv = document.querySelector(".error");
+    const errorDiv = document.querySelector(&quot;.error&quot;);
     errorDiv.textContent = message;
-    errorDiv.style.display = "block";
-}</code></pre>
-
+    errorDiv.style.display = &quot;block&quot;;
+}
+</code></pre>
 <h2 id="the-dialog-element"><a class="heading-anchor" href="#the-dialog-element">The Dialog Element</a></h2>
 <p>The <code>&lt;dialog&gt;</code> element provides native modal and non-modal dialogs. Use <code>showModal()</code> for modals with backdrop, or <code>show()</code> for non-modal.</p>
-<pre><code>&lt;dialog id="confirm"&gt;
+<pre><code>&lt;dialog id=&quot;confirm&quot;&gt;
     &lt;p&gt;Are you sure?&lt;/p&gt;
-    &lt;button id="yes"&gt;Yes&lt;/button&gt;
-    &lt;button id="no"&gt;No&lt;/button&gt;
+    &lt;button id=&quot;yes&quot;&gt;Yes&lt;/button&gt;
+    &lt;button id=&quot;no&quot;&gt;No&lt;/button&gt;
 &lt;/dialog&gt;
 
 &lt;script&gt;
-const dialog = document.querySelector("#confirm");
+const dialog = document.querySelector(&quot;#confirm&quot;);
 dialog.showModal();
-dialog.querySelector("#no").addEventListener("click", () =&gt; dialog.close());
-&lt;/script&gt;</code></pre>
-
+dialog.querySelector(&quot;#no&quot;).addEventListener(&quot;click&quot;, () =&gt; dialog.close());
+&lt;/script&gt;
+</code></pre>
 <div class="mermaid">
 flowchart TD
     A[User submits form] --> B{JS Validation}
@@ -92,8 +90,8 @@ flowchart TD
     F -->|Yes| G[Process data]
     F -->|No| A
     D -->|No| G
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -103,7 +101,6 @@ flowchart TD
 <li>Always provide clear error messages that tell users how to fix the problem</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

@@ -46,40 +46,38 @@
           <a href="t14.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t13-データ構造"><a class="heading-anchor" href="#t13-データ構造">T13: データ構造</a></h1>
+      <h1 id="t13-データ構造"><a class="heading-anchor" href="#t13-データ構造">T13: データ構造</a></h1>
 <p class="lesson-intro">データ構造は情報を整理するための入れ物です。配列は順序が重要な番号付きリストです。オブジェクトは名前で情報を検索するラベル付きファイルキャビネットです。適切な構造を選ぶことでコードがシンプルかつ高速になります。</p>
-
 <h2 id="配列"><a class="heading-anchor" href="#配列">配列</a></h2>
 <p>配列は順序付きコレクションを格納します。インデックス(0から開始)でアイテムにアクセスします。配列にはデータ変換のための強力な組み込みメソッドがあります。</p>
-<pre><code>const fruits = ["apple", "banana", "cherry"];
-console.log(fruits[0]); // "apple"
-fruits.push("date");
+<pre><code>const fruits = [&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;];
+console.log(fruits[0]); // &quot;apple&quot;
+fruits.push(&quot;date&quot;);
 
 // Transform with map, filter, reduce
 const prices = [10, 20, 30, 40];
 const expensive = prices.filter(p =&gt; p &gt; 15);
 const doubled = prices.map(p =&gt; p * 2);
-const total = prices.reduce((sum, p) =&gt; sum + p, 0);</code></pre>
-
+const total = prices.reduce((sum, p) =&gt; sum + p, 0);
+</code></pre>
 <h2 id="オブジェクト"><a class="heading-anchor" href="#オブジェクト">オブジェクト</a></h2>
 <p>オブジェクトはキーと値のペアを格納します。キーは文字列(またはシンボル)、値は何でも可能です。</p>
 <pre><code>const user = {
-    name: "Alice",
+    name: &quot;Alice&quot;,
     age: 25,
-    skills: ["HTML", "CSS", "JS"],
+    skills: [&quot;HTML&quot;, &quot;CSS&quot;, &quot;JS&quot;],
     greet() {
-        return "Hi, I am " + this.name;
+        return &quot;Hi, I am &quot; + this.name;
     }
 };
 console.log(user.name);
-console.log(user["age"]);</code></pre>
-
+console.log(user[&quot;age&quot;]);
+</code></pre>
 <h2 id="ループ"><a class="heading-anchor" href="#ループ">ループ</a></h2>
 <p>配列は<code>for...of</code>で、オブジェクトは<code>for...in</code>や<code>Object.entries()</code>で反復処理します。</p>
 <pre><code>for (const fruit of fruits) { console.log(fruit); }
-for (const [key, value] of Object.entries(user)) { console.log(key, value); }</code></pre>
-
+for (const [key, value] of Object.entries(user)) { console.log(key, value); }
+</code></pre>
 <div class="mermaid">
 graph LR
     subgraph Array
@@ -88,8 +86,8 @@ graph LR
     subgraph Object
         O1["name: Alice"] --- O2["age: 25"] --- O3["skills: [...]"]
     end
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -99,7 +97,6 @@ graph LR
 <li>for...ofは配列の値を、for...inはオブジェクトのキーを反復処理します</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">

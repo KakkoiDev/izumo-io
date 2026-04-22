@@ -46,31 +46,29 @@
           <a href="t20.html">Next</a>
         </div>
       </nav>
-      
-<h1 id="t19-git-basics"><a class="heading-anchor" href="#t19-git-basics">T19: Git Basics</a></h1>
+      <h1 id="t19-git-basics"><a class="heading-anchor" href="#t19-git-basics">T19: Git Basics</a></h1>
 <p class="lesson-intro">Git is a time machine for your code. Every time you finish a small piece of work, you take a snapshot. Later you can rewind, branch into an alternate timeline, or compare any two moments. Think of it as a photographer's workflow: you shoot pictures all day (editing files), pick the keepers (staging), and paste them into a photo album with a caption (committing).</p>
-
 <h2 id="the-three-areas"><a class="heading-anchor" href="#the-three-areas">The Three Areas</a></h2>
 <p>Git splits your project into three zones. The <strong>working directory</strong> is the folder on disk where you edit. The <strong>staging area</strong> (or index) is where you gather the exact changes you want to save next. The <strong>repository</strong> is the permanent history of every snapshot you have ever committed.</p>
 <pre><code># Start a new repo in the current folder
 git init
 
 # Tell git who you are (once per machine)
-git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
+git config --global user.name &quot;Your Name&quot;
+git config --global user.email &quot;you@example.com&quot;
 
 # See what has changed
-git status</code></pre>
-
+git status
+</code></pre>
 <h2 id="edit-stage-commit"><a class="heading-anchor" href="#edit-stage-commit">Edit, Stage, Commit</a></h2>
 <p>The core loop of every day: change files, choose which changes to save, save them with a message. The message is a note to your future self explaining <em>why</em> you made the change.</p>
 <pre><code># After editing some files
 git status                      # what changed?
 git add index.html styles.css   # stage specific files
 git add .                       # or stage everything
-git commit -m "Add contact form layout"
-git log --oneline               # browse history</code></pre>
-
+git commit -m &quot;Add contact form layout&quot;
+git log --oneline               # browse history
+</code></pre>
 <h2 id="branches-alternate-timelines"><a class="heading-anchor" href="#branches-alternate-timelines">Branches: Alternate Timelines</a></h2>
 <p>A branch is a lightweight pointer to a commit. You spin one up when you want to try something without disturbing the main timeline. When you are happy, you merge it back. When you are not, you throw the branch away at zero cost.</p>
 <pre><code>git branch                     # list branches
@@ -78,8 +76,8 @@ git checkout -b feature/login  # create and switch to new branch
 # ...edit, stage, commit...
 git checkout main              # back to main timeline
 git merge feature/login        # fold the work in
-git branch -d feature/login    # delete the now-merged branch</code></pre>
-
+git branch -d feature/login    # delete the now-merged branch
+</code></pre>
 <div class="mermaid">
 gitGraph
     commit id: "init"
@@ -92,23 +90,22 @@ gitGraph
     commit id: "fix typo"
     merge feature/login
     commit id: "deploy"
+
 </div>
-
 <p>Read this diagram left to right. The <code>main</code> line is your default timeline. <code>feature/login</code> splits off, gets two commits, and is merged back in. After the merge, main contains everything from both lines.</p>
-
 <div class="mermaid">
 flowchart LR
     WD[Working Directory<br/>edited files] -->|git add| SA[Staging Area<br/>the next snapshot]
     SA -->|git commit| R[Repository<br/>permanent history]
     R -->|git checkout| WD
-</div>
 
+</div>
 <h2 id="undo-without-fear"><a class="heading-anchor" href="#undo-without-fear">Undo Without Fear</a></h2>
 <p>Because commits are snapshots, almost nothing is ever truly lost. <code>git restore</code> discards unstaged changes. <code>git reset</code> unstages a file. <code>git revert</code> creates a new commit that undoes an old one, keeping history honest.</p>
 <pre><code>git restore styles.css         # throw away edits in one file
 git restore --staged index.html # unstage but keep edits
-git revert abc123              # undo commit abc123 with a new commit</code></pre>
-
+git revert abc123              # undo commit abc123 with a new commit
+</code></pre>
 <h2 id="what-to-ignore"><a class="heading-anchor" href="#what-to-ignore">What to Ignore</a></h2>
 <p>Some files should never be tracked: secrets, build output, huge binaries, editor junk. List them in a <code>.gitignore</code> file at the repo root.</p>
 <pre><code># .gitignore
@@ -116,8 +113,8 @@ node_modules/
 .env
 *.log
 .DS_Store
-dist/</code></pre>
-
+dist/
+</code></pre>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
@@ -128,7 +125,6 @@ dist/</code></pre>
 <li>Put secrets and generated files in .gitignore before your first commit</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">

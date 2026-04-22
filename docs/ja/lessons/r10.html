@@ -46,19 +46,14 @@
           <a href="r11.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="r10-kakkoischoolケーススタディ"><a class="heading-anchor" href="#r10-kakkoischoolケーススタディ">R10: KakkoiSchoolケーススタディ</a></h1>
+      <h1 id="r10-kakkoischoolケーススタディ"><a class="heading-anchor" href="#r10-kakkoischoolケーススタディ">R10: KakkoiSchoolケーススタディ</a></h1>
 <p class="lesson-intro">Web開発を理解する最良の方法は実際のプロジェクトを分析することです。KakkoiSchool、つまりあなたが受講しているこのコース自体がフルスタックWebアプリケーションです。学んだ全てのコンセプトがどう適用されているか見てみましょう: 構造のHTML、デザインのCSS、対話性のJavaScript、配信のサーバー、全てを結ぶビルドシステム。</p>
-
 <h2 id="コースアーキテクチャ"><a class="heading-anchor" href="#コースアーキテクチャ">コースアーキテクチャ</a></h2>
 <p>コースのWebサイトはPythonビルドシステムで構築されており、テンプレートとレッスンコンテンツから静的HTMLページを生成します。このアプローチは静的ファイルのシンプルさとテンプレートエンジンの力を組み合わせています。</p>
-
 <h2 id="レッスンの配信方法"><a class="heading-anchor" href="#レッスンの配信方法">レッスンの配信方法</a></h2>
 <p>レッスンコンテンツはPythonデータ構造として格納されています(まさに今読んでいるこのファイルです)。ビルドスクリプトが各レッスンを処理し、ナビゲーションとスタイリングを含むテンプレートで包み、静的HTMLファイルを出力します。実行時にサーバーは不要で、どのWebホストでもファイルを配信するだけです。</p>
-
 <h2 id="設計上の決定"><a class="heading-anchor" href="#設計上の決定">設計上の決定</a></h2>
 <p>動的サーバーではなく静的サイト生成を選んだ理由: より簡単なホスティング(どのファイルサーバーでも動く)、より速い読み込み(サーバー処理なし)、より高い信頼性(クラッシュするサーバーなし)。これは20/80ルールとKISSの原則の実践です。</p>
-
 <div class="mermaid">
 flowchart TB
     subgraph "Build Time"
@@ -77,8 +72,8 @@ flowchart TB
         J[Mermaid diagrams]
         K[Responsive design]
     end
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -88,7 +83,6 @@ flowchart TB
 <li>既存プロジェクトの分析は理解を深める最良の方法の一つです</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../theory-lessons.html">理論レッスンに戻る</a>
         <div class="lesson-pager">

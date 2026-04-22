@@ -46,25 +46,23 @@
           <a href="t27.html">次へ</a>
         </div>
       </nav>
-      
-<h1 id="t26-ollamaとchat"><a class="heading-anchor" href="#t26-ollamaとchat">T26: OllamaとChat</a></h1>
+      <h1 id="t26-ollamaとchat"><a class="heading-anchor" href="#t26-ollamaとchat">T26: OllamaとChat</a></h1>
 <p class="lesson-intro">大規模言語モデル(LLM)はローカルマシンで動作できるようになりました。Ollamaはオープンソースモデルのダウンロードと配信を簡単にします。WebアプリをローカルLLMに接続すれば、外部サービスにデータを送らずにAI機能を実現できます。自分のコンピュータに住む賢いアシスタントを持つようなものです。</p>
-
 <h2 id="ollamaのセットアップ"><a class="heading-anchor" href="#ollamaのセットアップ">Ollamaのセットアップ</a></h2>
 <p>Ollamaをインストールし、モデルをプルすると、localhost:11434でAPIが提供されます。</p>
 <pre><code># Install and run
 # ollama pull llama3
 # ollama serve
 
-# The API is now available at http://localhost:11434</code></pre>
-
+# The API is now available at http://localhost:11434
+</code></pre>
 <h2 id="chat-api統合"><a class="heading-anchor" href="#chat-api統合">Chat API統合</a></h2>
 <pre><code>async function chat(messages) {
-    const response = await fetch("http://localhost:11434/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+    const response = await fetch(&quot;http://localhost:11434/api/chat&quot;, {
+        method: &quot;POST&quot;,
+        headers: { &quot;Content-Type&quot;: &quot;application/json&quot; },
         body: JSON.stringify({
-            model: "llama3",
+            model: &quot;llama3&quot;,
             messages: messages,
             stream: false
         })
@@ -75,13 +73,12 @@
 
 // Usage
 const reply = await chat([
-    { role: "system", content: "You are a helpful assistant." },
-    { role: "user", content: "Explain HTML in one sentence." }
-]);</code></pre>
-
+    { role: &quot;system&quot;, content: &quot;You are a helpful assistant.&quot; },
+    { role: &quot;user&quot;, content: &quot;Explain HTML in one sentence.&quot; }
+]);
+</code></pre>
 <h2 id="チャットインターフェースの構築"><a class="heading-anchor" href="#チャットインターフェースの構築">チャットインターフェースの構築</a></h2>
 <p>会話履歴をメッセージオブジェクトの配列として保存します。新しいメッセージを追加し、コンテキスト維持のために完全な履歴を送信します。</p>
-
 <div class="mermaid">
 sequenceDiagram
     participant U as User
@@ -94,8 +91,8 @@ sequenceDiagram
     O-->>W: Response JSON
     W->>W: Append assistant reply
     W-->>U: Display response
-</div>
 
+</div>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
@@ -105,7 +102,6 @@ sequenceDiagram
 <li>ローカルLLMはデータを非公開に保ちます。外部API呼び出し不要です</li>
 </ul>
 </div>
-
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">技術レッスンに戻る</a>
         <div class="lesson-pager">
