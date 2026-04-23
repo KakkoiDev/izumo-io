@@ -108,4 +108,4 @@ Module 17: [ ] L80+ (capstone)
 
 ---
 
-*For general information about Izumo.io, see the [main README](../../README.md). For the self-serve website curriculum, see [kakkoischool.com](https://kakkoischool.com).*
+*For general information about Izumo.io, see the [main README](../../README.md). For the self-serve website curriculum, see [school.kakkoi.dev](https://school.kakkoi.dev).*

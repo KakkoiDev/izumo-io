@@ -15,7 +15,7 @@ Our philosophy:
 
 ## Primary curriculum
 
-The main learning path lives on the **[KakkoiSchool website](https://kakkoischool.com)**: 29 tech lessons (T01-T29) covering HTML, CSS, JavaScript, Node.js, AI, React, TypeScript, Next.js, and Nest.js, plus 17 theory lessons (R01-R17) on problem-solving, architecture, and career skills. Bilingual (English / Japanese).
+The main learning path lives on the **[KakkoiSchool website](https://school.kakkoi.dev)**: 39 tech lessons (T01-T39) covering HTML, CSS, JavaScript, Node.js, AI, React, TypeScript, Next.js, Nest.js, Web Components, and system design, plus 21 theory lessons (R01-R21) on problem-solving, architecture, career, AI safety, and tech entropy. Trilingual (English / Japanese / Portuguese).
 
 Start there. The courses below are optional deep-dives.
 
