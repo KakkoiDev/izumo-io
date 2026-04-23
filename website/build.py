@@ -272,6 +272,136 @@ def build_lesson_context(lang, lesson_id, page_file):
     }
 
 
+def _ui(lang):
+    return {k: t(v, lang) for k, v in UI.items()}
+
+
+def build_index_md(lang):
+    ui = _ui(lang)
+    lines = [
+        f"# {ui['hero_title']}",
+        '',
+        ui['hero_subtitle'],
+        '',
+        f"[{ui['start_learning']}](tech-lessons.md)",
+        '',
+        f"## {ui['philosophy_title']}",
+        '',
+        f"- {ui['philosophy_2080']}",
+        f"- {ui['philosophy_hands_on']}",
+        f"- {ui['philosophy_analogies']}",
+        f"- {ui['philosophy_zero']}",
+        '',
+        '## Sections',
+        '',
+        f"- [{ui['nav_tech']}](tech-lessons.md) - {ui['tech_desc']}",
+        f"- [{ui['nav_theory']}](theory-lessons.md) - {ui['theory_desc']}",
+        f"- [{ui['nav_videos']}](videos.md) - {ui['videos_desc']}",
+        f"- [{ui['nav_resources']}](resources.md) - {ui['resources_desc']}",
+        '',
+        f"## {ui['community_title']}",
+        '',
+        ui['community_desc'],
+        '',
+        f"[{ui['discord_cta']}](https://discord.gg/YrtdssGUJa)",
+        '',
+    ]
+    return '\n'.join(lines)
+
+
+def build_tech_lessons_md(lang):
+    ui = _ui(lang)
+    phases = localize_list(TECH_PHASES, lang)
+    lessons = localize_list(TECH_LESSONS, lang)
+    lines = [f"# {ui['tech_title']}", '']
+    for phase in phases:
+        lines.append(f"## {phase.get('title', '')}")
+        lines.append('')
+        if phase.get('subtitle'):
+            lines.append(phase['subtitle'])
+            lines.append('')
+        if phase.get('analogy'):
+            lines.append(f"> {phase['analogy']}")
+            lines.append('')
+        phase_lessons = [l for l in lessons if l.get('phase') == phase['id']]
+        for lesson in phase_lessons:
+            slug = lesson['id'].lower()
+            title = lesson.get('title', '')
+            desc = lesson.get('desc', '')
+            if lesson.get('status') == 'coming-soon':
+                lines.append(f"- {lesson['id']}: {title} ({ui['coming_soon']})")
+            else:
+                suffix = f" - {desc}" if desc else ''
+                lines.append(f"- [{lesson['id']}: {title}](lessons/{slug}.md){suffix}")
+        lines.append('')
+    return '\n'.join(lines)
+
+
+def build_theory_lessons_md(lang):
+    ui = _ui(lang)
+    lessons = localize_list(THEORY_LESSONS, lang)
+    lines = [f"# {ui['theory_title']}", '']
+    for lesson in lessons:
+        slug = lesson['id'].lower()
+        title = lesson.get('title', '')
+        desc = lesson.get('desc', '')
+        suffix = f" - {desc}" if desc else ''
+        lines.append(f"- [{lesson['id']}: {title}](lessons/{slug}.md){suffix}")
+        if lesson.get('analogy'):
+            lines.append(f"  - *{lesson['analogy']}*")
+    lines.append('')
+    return '\n'.join(lines)
+
+
+def build_videos_md(lang):
+    ui = _ui(lang)
+    videos = localize_list(VIDEOS, lang)
+    lines = [f"# {ui['videos_title']}", '']
+    for v in videos:
+        yid = v.get('youtube_id', '')
+        title = v.get('title', '')
+        desc = v.get('desc', '')
+        suffix = f" - {desc}" if desc else ''
+        lines.append(f"- [{title}](https://youtu.be/{yid}){suffix}")
+    lines.append('')
+    return '\n'.join(lines)
+
+
+def build_resources_md(lang):
+    ui = _ui(lang)
+    resources = localize_list(RESOURCES, lang)
+    lines = [f"# {ui['resources_title']}", '']
+    for r in resources:
+        url = r.get('url', '')
+        title = r.get('title', '')
+        desc = r.get('desc', '')
+        suffix = f" - {desc}" if desc else ''
+        lines.append(f"- [{title}]({url}){suffix}")
+    lines.append('')
+    return '\n'.join(lines)
+
+
+PAGE_MD_BUILDERS = {
+    'index.html': build_index_md,
+    'tech-lessons.html': build_tech_lessons_md,
+    'theory-lessons.html': build_theory_lessons_md,
+    'videos.html': build_videos_md,
+    'resources.html': build_resources_md,
+}
+
+
+def lesson_source_path(lesson_id, lang):
+    """Path to the source MD for a lesson, or None if it does not exist."""
+    slug = lesson_id.lower()
+    sub = 'tech' if lesson_id.startswith('T') else 'theory'
+    base = ROOT.parent / 'content' / sub
+    path = base / (f'{slug}.md' if lang == 'en' else f'{slug}.{lang}.md')
+    if path.exists():
+        return path
+    en = base / f'{slug}.md'
+    return en if en.exists() else None
+
+
 def build():
     # Atomic build: write to temp, then swap
     tmp = Path(tempfile.mkdtemp(dir=OUT.parent, prefix='.docs_build_'))
@@ -297,8 +427,9 @@ def _build_to(out):
     engine = Engine()
     placeholder = '<!-- LESSON_CONTENT -->'
 
-    # -- Regular pages --
+    # -- Regular pages (HTML + MD mirror) --
     for src in sorted(PAGES.glob('*.html')):
+        md_builder = PAGE_MD_BUILDERS.get(src.name)
         for lang in LANGS:
             html = resolve_includes(src.read_text())
             ctx = build_context(lang, src.name)
@@ -313,7 +444,12 @@ def _build_to(out):
             dest.write_text(html)
             print(f'  {dest.relative_to(out)}')
 
-    # -- Lesson pages --
+            if md_builder is not None:
+                md_dest = dest.with_suffix('.md')
+                md_dest.write_text(md_builder(lang), encoding='utf-8')
+                print(f'  {md_dest.relative_to(out)}')
+
+    # -- Lesson pages (HTML + MD copy of source) --
     lesson_tpl_raw = (TEMPLATES / 'lesson.html').read_text()
     lesson_tpl = resolve_includes(lesson_tpl_raw)
 
@@ -338,7 +474,12 @@ def _build_to(out):
             dest.parent.mkdir(parents=True, exist_ok=True)
             dest.write_text(rendered)
 
-        print(f'  lessons/{slug}.html')
+            src_md = lesson_source_path(lesson_id, lang)
+            if src_md is not None:
+                md_dest = dest.with_suffix('.md')
+                md_dest.write_text(src_md.read_text(encoding='utf-8'), encoding='utf-8')
+
+        print(f'  lessons/{slug}.html (+ .md)')
 
     # -- CNAME for custom domain --
     (out / 'CNAME').write_text('school.kakkoi.dev\n')

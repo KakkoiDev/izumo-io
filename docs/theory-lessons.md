@@ -1,0 +1,44 @@
+# Theory & Life Lessons
+
+- [R01: What is IT?](lessons/r01.md) - Everything is information. IT is about collecting, sending, processing, and storing it.
+  - *A post office for data*
+- [R02: Web Architecture](lessons/r02.md) - Clients request, servers respond. Like a restaurant where you order and the kitchen prepares your meal.
+  - *Restaurant: customers order, kitchen prepares*
+- [R03: Problem Solving](lessons/r03.md) - Understand before you build. Most software work is thinking, not typing.
+  - *Doctor: diagnose before prescribing*
+- [R04: The 20/80 Rule](lessons/r04.md) - 20% of knowledge covers 80% of real work. Focus on what matters most.
+  - *5 cooking techniques cover most dishes*
+- [R05: Consistency Beats Passion](lessons/r05.md) - Daily practice beats bursts of inspiration. The marathon runner wins in the long run.
+  - *Marathon runner beats the sprinter*
+- [R06: Path of Least Resistance](lessons/r06.md) - New tools get adopted when they are easier than the old way. Innovation flows like water.
+  - *Water flows downhill*
+- [R07: Keep Things Super Simple](lessons/r07.md) - Simple solutions beat complex ones. A few basic tools beat a Swiss army knife for real work.
+  - *Toolbox beats Swiss army knife*
+- [R08: Code Quality](lessons/r08.md) - Good code works, runs fast, and is easy to change. Three levels like a restaurant.
+  - *Restaurant: edible, delicious, smooth kitchen*
+- [R09: How to Learn](lessons/r09.md) - Learning is exploring a map. First you do not know what you do not know.
+  - *Exploring an unknown map*
+- [R10: KakkoiSchool Case Study](lessons/r10.md) - How this site is built: markdown lessons, a small Python build that emits HTML and markdown side by side, GitHub Actions for translation and deploy, GitHub Pages on school.kakkoi.dev.
+  - *Study the thing you use every day*
+- [R11: Adaptability](lessons/r11.md) - The tech industry rewards those who embrace change. Fundamentals outlast frameworks.
+  - *Foundations outlast any single tool*
+- [R12: Work-Life Balance](lessons/r12.md) - A career is a marathon. Sustainable pace beats chronic overwork.
+  - *You cannot sprint a marathon*
+- [R13: Workplace Politics](lessons/r13.md) - Navigating office politics, protecting your work, and knowing when to leave.
+  - *Document, build alliances, stay focused*
+- [R14: Communication & Teamwork](lessons/r14.md) - Technical skills get you hired. Communication skills get you promoted.
+  - *Brilliant code nobody understands is useless*
+- [R15: Working with AI](lessons/r15.md) - AI is a force multiplier. Learn to work with it, not against it.
+  - *A robot assistant that read millions of books*
+- [R16: Shipping is a Skill](lessons/r16.md) - Many can code, fewer can ship. Finishing and presenting work professionally is its own skill.
+  - *A finished project beats an impressive unfinished one*
+- [R17: The Importance of English](lessons/r17.md) - English is the lingua franca of tech. Mastering it unlocks resources, communication, and career opportunities.
+  - *The common language of the global kitchen*
+- [R18: Documentation is Your Best Friend](lessons/r18.md) - It is ok to not know everything. Your job is to fix problems. Use docs, Google, and AI without shame. Pride slows you down.
+  - *Even surgeons check the reference before operating*
+- [R19: A Business Runs on Money](lessons/r19.md) - A business survives on money. Mission statements are a face, not the engine. Understand the why behind tickets to ship code that serves the business.
+  - *No money, no mission*
+- [R20: Never Trust an AI](lessons/r20.md) - Anthropic showed frontier AI will blackmail and let humans die to preserve itself. Use AI heavily, trust it never. Keep humans on the kill switch.
+  - *A saw does not care if it cuts wood or your hand*
+- [R21: Tech Entropy](lessons/r21.md) - Code rots. Dependencies break. Databases lose data. You forget your own stack. The only defense is simplicity. Markdown files with a tiny build system still work in ten years. A React app from two years ago often does not.
+  - *A garden eats itself the moment you stop weeding*

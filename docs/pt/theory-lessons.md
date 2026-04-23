@@ -1,0 +1,44 @@
+# Teoria e Lições de Vida
+
+- [R01: O que é TI?](lessons/r01.md) - Tudo é informação. TI trata de coletar, enviar, processar e armazenar informação.
+  - *Uma agência dos correios para dados*
+- [R02: Arquitetura Web](lessons/r02.md) - Clientes pedem, servidores respondem. Como um restaurante em que você faz o pedido e a cozinha prepara a refeição.
+  - *Restaurante: clientes pedem, cozinha prepara*
+- [R03: Resolução de Problemas](lessons/r03.md) - Entenda antes de construir. A maior parte do trabalho em software é pensar, não digitar.
+  - *Médico: diagnosticar antes de prescrever*
+- [R04: A Regra 20/80](lessons/r04.md) - 20% do conhecimento cobre 80% do trabalho real. Foque no que mais importa.
+  - *5 técnicas de cozinha cobrem a maioria dos pratos*
+- [R05: Consistência Vence a Paixão](lessons/r05.md) - Prática diária vence surtos de inspiração. O maratonista vence no longo prazo.
+  - *O maratonista vence o velocista*
+- [R06: O Caminho de Menor Resistência](lessons/r06.md) - Ferramentas novas são adotadas quando são mais fáceis que o jeito antigo. Inovação flui como água.
+  - *A água corre ladeira abaixo*
+- [R07: Mantenha Tudo Super Simples](lessons/r07.md) - Soluções simples vencem as complexas. Algumas ferramentas básicas vencem um canivete suíço no trabalho real.
+  - *A caixa de ferramentas vence o canivete suíço*
+- [R08: Qualidade de Código](lessons/r08.md) - Bom código funciona, roda rápido e é fácil de mudar. Três níveis como num restaurante.
+  - *Restaurante: comestível, delicioso, cozinha fluida*
+- [R09: Como Aprender](lessons/r09.md) - Aprender é explorar um mapa. No começo você não sabe o que não sabe.
+  - *Explorando um mapa desconhecido*
+- [R10: KakkoiSchool Case Study](lessons/r10.md) - How this site is built: markdown lessons, a small Python build that emits HTML and markdown side by side, GitHub Actions for translation and deploy, GitHub Pages on school.kakkoi.dev.
+  - *Study the thing you use every day*
+- [R11: Adaptabilidade](lessons/r11.md) - A indústria de tecnologia recompensa quem abraça a mudança. Fundamentos duram mais que frameworks.
+  - *Fundamentos duram mais que qualquer ferramenta*
+- [R12: Equilíbrio Entre Trabalho e Vida](lessons/r12.md) - Uma carreira é uma maratona. Ritmo sustentável vence excesso crônico de trabalho.
+  - *Você não pode correr uma maratona em velocidade de tiro*
+- [R13: Política no Trabalho](lessons/r13.md) - Navegando pela política de escritório, protegendo seu trabalho e sabendo quando sair.
+  - *Documente, crie alianças, mantenha o foco*
+- [R14: Comunicação e Trabalho em Equipe](lessons/r14.md) - Habilidade técnica te contrata. Habilidade de comunicação te promove.
+  - *Código brilhante que ninguém entende não serve para nada*
+- [R15: Trabalhando com IA](lessons/r15.md) - IA é um multiplicador de força. Aprenda a trabalhar com ela, não contra ela.
+  - *Um assistente robô que leu milhões de livros*
+- [R16: Entregar é uma Habilidade](lessons/r16.md) - Muitos sabem programar, poucos sabem entregar. Terminar e apresentar o trabalho profissionalmente é uma habilidade à parte.
+  - *Um projeto terminado vence um impressionante inacabado*
+- [R17: A Importância do Inglês](lessons/r17.md) - Inglês é a língua franca da tecnologia. Dominá-lo desbloqueia recursos, comunicação e oportunidades de carreira.
+  - *A língua comum da cozinha global*
+- [R18: Documentação é Sua Melhor Amiga](lessons/r18.md) - Está tudo bem não saber tudo. Seu trabalho é resolver problemas. Use docs, Google e IA sem vergonha. Orgulho atrapalha.
+  - *Até cirurgiões consultam a referência antes de operar*
+- [R19: Uma Empresa Funciona com Dinheiro](lessons/r19.md) - Uma empresa sobrevive com dinheiro. Missão é fachada, não motor. Entenda o porquê dos tickets para entregar código que serve o negócio.
+  - *Sem dinheiro, sem missão*
+- [R20: Nunca Confie numa IA](lessons/r20.md) - A Anthropic mostrou que IAs de ponta vão chantagear e deixar humanos morrerem para se preservar. Use IA bastante, nunca confie. Mantenha humanos no botão de desligar.
+  - *Uma serra não liga se corta madeira ou sua mão*
+- [R21: Entropia Técnica](lessons/r21.md) - Código apodrece. Dependências quebram. Banco de dados perde dados. Você esquece a própria stack. A única defesa é simplicidade. Arquivos Markdown com um buildzinho ainda funcionam em dez anos. Um app React de dois anos atrás, muitas vezes, não.
+  - *Um jardim começa a se devorar no instante em que você para de capinar*
