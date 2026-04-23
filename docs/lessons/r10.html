@@ -47,7 +47,7 @@
         </div>
       </nav>
       <h1 id="r10-kakkoischool-case-study"><a class="heading-anchor" href="#r10-kakkoischool-case-study">R10: KakkoiSchool Case Study</a></h1>
-<p class="lesson-intro">The best way to learn software architecture is to read one. This lesson is the architecture of the site you are reading right now. Not a toy example, not a migration story, just what is actually running in production at <strong>school.kakkoi.dev</strong>. Four moving parts do four separate jobs. That separation is what lets sixty lessons in three languages stay easy to edit, and what gives the whole site its shot at surviving tech entropy (R21) for more than a couple of years.</p>
+<p class="lesson-intro">The best way to learn software architecture is to read one. This is the architecture of the site you are reading right now, running in production at <strong>school.kakkoi.dev</strong>. Four parts, four jobs. That separation is what keeps sixty lessons in three languages easy to edit.</p>
 <h2 id="the-four-parts"><a class="heading-anchor" href="#the-four-parts">The Four Parts</a></h2>
 <div class="mermaid">
 flowchart LR
@@ -73,106 +73,54 @@ flowchart LR
     D -->|committed docs/| F
 
 </div>
-<p>Content is text on disk. Translation fills in missing language siblings and commits them back. Build turns everything into HTML and a parallel markdown export under <code>docs/</code>. GitHub Pages serves <code>docs/</code> directly. Each box can be replaced without touching the others.</p>
+<p>Content is text on disk. Translation fills missing language siblings. Build renders HTML and a parallel markdown export into <code>docs/</code>. GitHub Pages serves <code>docs/</code> directly.</p>
 <h2 id="part-1-content"><a class="heading-anchor" href="#part-1-content">Part 1: Content</a></h2>
-<p>Every lesson is a folder of sibling markdown files: <code>content/tech/t01.md</code>, <code>content/tech/t01.ja.md</code>, <code>content/tech/t01.pt.md</code>. The English file is the source of truth and carries the full metadata. The translations carry only translated strings.</p>
-<pre><code>---
-id: T01
-phase: 1
-status: available
-title: Environment Setup
-desc: Install VS Code, Node.js, Git, and a browser...
----
-
-Every craftsman sets up the workbench before the first cut.
-{: .lesson-intro }
-
-## What You Are Installing
-
-- **Visual Studio Code** - the editor...
-
-```mermaid
-flowchart LR
-    A[VS Code] --&gt; B[Disk]
-    B --&gt; C[Browser]
-``` ``` (trailing closer omitted for readability)
-</code></pre>
-<p>The body is plain markdown with three escape hatches: <code>{: .lesson-intro }</code> applies a CSS class, <code>```mermaid</code> fenced blocks become interactive diagrams, and raw <code>&lt;div class="takeaways"&gt;</code> passes through untouched. Nothing else is special.</p>
-<p>Structured data that does not belong in a lesson body lives in YAML. <code>phases.yaml</code> holds the 11 phase definitions with titles, subtitles, and analogies per language. <code>ui.yaml</code> holds every piece of chrome text (nav labels, hero, buttons). <code>videos.yaml</code> and <code>resources.yaml</code> hold the gallery and resource cards. Each YAML record has <code>_en</code>, <code>_ja</code>, <code>_pt</code> fields side by side.</p>
-<p>Current shape: 39 tech lessons (T01-T39), 21 theory lessons (R01-R21), three languages, all text.</p>
+<p>Every lesson is three sibling files: <code>content/tech/t01.md</code>, <code>t01.ja.md</code>, <code>t01.pt.md</code>. The English file carries the full frontmatter metadata. Translations carry only translated strings. Body is plain markdown with three escape hatches: <code>{: .lesson-intro }</code> for a CSS class, <code>```mermaid</code> blocks become interactive diagrams, raw <code>&lt;div class="takeaways"&gt;</code> passes through untouched.</p>
+<p>Structured data that does not belong in a lesson body lives in YAML. <code>phases.yaml</code> for the 11 phases. <code>ui.yaml</code> for nav labels, hero, buttons. <code>videos.yaml</code> and <code>resources.yaml</code> for gallery and resources. Each record has <code>_en</code>, <code>_ja</code>, <code>_pt</code> fields side by side.</p>
+<p>Current shape: 39 tech lessons, 21 theory lessons, three languages, all text.</p>
 <h2 id="part-2-translation"><a class="heading-anchor" href="#part-2-translation">Part 2: Translation</a></h2>
-<p>A GitHub Actions workflow (<code>translate-content.yml</code>) watches for pushes that touch <code>content/**/*.md</code> or <code>content/*.yaml</code>. It does one thing: fill gaps.</p>
-<div class="mermaid">
-flowchart TD
-    A[Push touches content/] --> B[Workflow triggers]
-    B --> C[For each EN source file]
-    C --> D{".ja.md sibling exists<br/>and not empty?"}
-    D -->|Yes| E[Skip]
-    D -->|No| F[Translate via Gemini]
-    F --> G[Write sibling file]
-    C --> H{".pt.md sibling exists<br/>and not empty?"}
-    H -->|Yes| E
-    H -->|No| F
-    G --> I[Commit new translations<br/>back to master]
-
-</div>
-<p>The rule is skip-if-exists. A sibling file that is present and non-empty is left alone forever. That one property makes four behaviors emerge for free:</p>
+<p><code>translate-content.yml</code> watches for pushes that touch <code>content/</code>. The rule is skip-if-exists: a sibling file that is present and non-empty is left alone forever. That single property gives four behaviors for free:</p>
 <ul>
-<li><strong>First English push</strong> creates both translations.</li>
-<li><strong>Hand-written translation</strong> survives every future run because the file is non-empty.</li>
-<li><strong>Refresh a stale machine translation</strong> by deleting it. The next push regenerates just that file.</li>
-<li><strong>Adding a fourth language</strong> is one entry in <code>scripts/translate_content.py</code>'s <code>TARGETS</code> list plus one entry in the build's language list.</li>
+<li>First English push creates both translations.</li>
+<li>Hand-written translations survive every future run.</li>
+<li>To refresh a stale machine translation, delete it - the next push regenerates just that one.</li>
+<li>Adding a fourth language is one entry in <code>TARGETS</code> plus one in the build's language list.</li>
 </ul>
-<p>There is no flag saying "human wrote this, do not touch". The presence of the file is the signal. State lives on disk where everyone can see it.</p>
+<p>No "human wrote this, do not touch" flag. File presence is the signal. State lives on disk where everyone can see it.</p>
 <h2 id="part-3-build"><a class="heading-anchor" href="#part-3-build">Part 3: Build</a></h2>
-<p><code>website/content_loader.py</code> reads the content tree and reconstructs structured data: a <code>LESSONS</code> dict keyed by ID, a <code>TECH_LESSONS</code> list, a <code>THEORY_LESSONS</code> list, and the YAML data as-is. It parses frontmatter with pyyaml, renders markdown with python-markdown, and post-processes the output to convert <code>```mermaid</code> fenced blocks into <code>&lt;div class="mermaid"&gt;</code> and to add <code>target="_blank" rel="noopener"</code> to external links.</p>
-<p><code>website/build.py</code> takes that data, picks a language, and writes <strong>two files per page</strong>: the rendered HTML and a parallel markdown file. For lesson pages the markdown is the source file copied verbatim. For index and listing pages the markdown is generated from the same UI and data dicts the HTML templates use. Three languages means three parallel output trees:</p>
+<p><code>content_loader.py</code> parses frontmatter and markdown, converts <code>```mermaid</code> fences into <code>&lt;div class="mermaid"&gt;</code>, and adds <code>target="_blank" rel="noopener"</code> to external links. <code>build.py</code> writes <strong>two files per page</strong>: rendered HTML and a parallel markdown file. Lesson markdown is the source copied verbatim. Index and listing markdown is generated from the same data the HTML templates use.</p>
 <pre><code>docs/
 ├── index.html + index.md
 ├── tech-lessons.html + tech-lessons.md
 ├── theory-lessons.html + theory-lessons.md
 ├── videos.html + videos.md
 ├── resources.html + resources.md
-├── lessons/
-│   ├── t01.html + t01.md
-│   ├── ...
-│   └── r21.html + r21.md
+├── lessons/t*.html + t*.md, r*.html + r*.md
 ├── ja/ (same structure)
 └── pt/ (same structure)
 </code></pre>
-<p>This dual emission is the R21 tech-entropy defence in practice. If the HTML chain rots - the template engine breaks, mermaid.js disappears, the CSS 404s - every lesson and every index page is still a readable markdown file that any editor on any machine can open. The HTML is the polish. The markdown is the artifact.</p>
-<p>When any lesson's frontmatter is missing a title or any language body is empty, the build falls back to English. This is how Portuguese worked on day one with no translations yet: the tree existed, the content was just the English copy until the pipeline filled it in.</p>
+<p>The dual emission is R21 tech-entropy defence in practice. If the HTML chain rots, every lesson is still a readable markdown file. HTML is polish. Markdown is the artifact.</p>
+<p>Missing titles or empty bodies fall back to English - that is how Portuguese worked on day one with no translations yet.</p>
 <h2 id="part-4-deploy"><a class="heading-anchor" href="#part-4-deploy">Part 4: Deploy</a></h2>
-<p>GitHub Pages is configured to serve the <code>docs/</code> folder on the <code>master</code> branch. No deploy workflow, no artifact juggling. You run <code>make build</code>, commit the <code>docs/</code> tree, push to master, and Pages picks up the new files within a minute. A single <code>CNAME</code> file in <code>docs/</code> points the domain at <strong>school.kakkoi.dev</strong>.</p>
-<p>Committing the built <code>docs/</code> output is an intentional trade. Yes it means the rebuild step must happen locally before push. In exchange every commit is a self-contained snapshot: source + built artifact together, diffable, revertible in one operation, and guaranteed to match whatever is live. No separate deploy state to chase. If a build breaks nothing, you see the rendered output in the same PR as the source change.</p>
-<p>If somebody forgets to rebuild, the worst case is stale <code>docs/</code> until the next rebuild+push. Pages keeps serving the last committed state. The failure mode is visible and recoverable.</p>
+<p>GitHub Pages serves <code>docs/</code> on <code>master</code> directly. Run <code>make build</code>, commit, push. A single <code>CNAME</code> points the domain at <strong>school.kakkoi.dev</strong>. No deploy workflow.</p>
+<p>Committing the built <code>docs/</code> is an intentional trade. Rebuild must happen locally before push. In exchange every commit is a self-contained snapshot of source + artifact, diffable and revertible in one operation. If someone forgets to rebuild, Pages keeps serving the last committed state.</p>
 <h2 id="why-it-looks-like-this"><a class="heading-anchor" href="#why-it-looks-like-this">Why It Looks Like This</a></h2>
-<p>Five principles shape every piece:</p>
 <ul>
-<li><strong>Content is not code.</strong> Writing a lesson should feel like writing a document, not editing a source file. Markdown + frontmatter is the lowest-friction format that can still carry structure.</li>
-<li><strong>Build is a function of source.</strong> Given the current <code>content/</code> tree, there is exactly one correct <code>docs/</code> tree. Rebuild is deterministic, local, and one command. If the two ever drift, rerun the build.</li>
-<li><strong>Machine work fills gaps, humans override.</strong> Translations are a good default but a human is better. The pipeline never overwrites what a human wrote. Refreshing a machine translation is an explicit act (delete the file).</li>
-<li><strong>Each piece replaceable.</strong> The markdown library, the template engine, the translation API, and the deploy target are four independent choices. Swapping any one out is localized work, not a rewrite.</li>
-<li><strong>Plain text outlives the app.</strong> Every page ships a markdown twin next to the HTML. Drop the rendering pipeline entirely and you still have a readable course on disk.</li>
+<li><strong>Content is not code.</strong> Writing a lesson should feel like writing a document.</li>
+<li><strong>Build is a function of source.</strong> One correct <code>docs/</code> tree per <code>content/</code> tree. Local, deterministic, one command.</li>
+<li><strong>Machine fills gaps, humans override.</strong> The pipeline never overwrites human work.</li>
+<li><strong>Each piece replaceable.</strong> Markdown lib, template engine, translation API, deploy target - four independent choices.</li>
+<li><strong>Plain text outlives the app.</strong> Every page ships a markdown twin. Drop the rendering and you still have a readable course.</li>
 </ul>
-<h2 id="reading-the-code-yourself"><a class="heading-anchor" href="#reading-the-code-yourself">Reading the Code Yourself</a></h2>
-<p>Everything is in the public repo at <a href="https://github.com/KakkoiDev/izumo-io" target="_blank" rel="noopener">github.com/KakkoiDev/izumo-io</a>. The four files worth opening first:</p>
-<ul>
-<li><code>website/content_loader.py</code> - ~200 lines. Load content, assemble data.</li>
-<li><code>website/build.py</code> - ~400 lines. Render HTML and markdown for every page.</li>
-<li><code>scripts/translate_content.py</code> - idempotent translator.</li>
-<li><code>.github/workflows/translate-content.yml</code> - the single workflow that auto-fills translations.</li>
-</ul>
-<p>All four are short enough to read in one sitting. That was a design goal.</p>
+<p>All four source files (<a href="https://github.com/KakkoiDev/izumo-io" target="_blank" rel="noopener">repo</a>) - <code>content_loader.py</code>, <code>build.py</code>, <code>translate_content.py</code>, <code>translate-content.yml</code> - are short enough to read in one sitting. That was a design goal.</p>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>KakkoiSchool has four separate parts: content on disk, a translation pipeline, a build, and a deploy workflow. Each does one thing</li>
-<li>Content is markdown + YAML. 39 tech lessons, 21 theory lessons, three languages, all plain text</li>
-<li>The translation pipeline is idempotent - it fills missing language siblings and never overwrites existing ones. File presence is the state</li>
-<li>The build is a pure function of the content tree. Run it locally, commit the rendered docs/, push. GitHub Pages serves those files directly</li>
-<li>Every page ships HTML plus a parallel markdown file. The HTML is polish, the markdown is the durable artifact that survives tech entropy (R21)</li>
-<li>Deployed to school.kakkoi.dev via GitHub Pages. A single CNAME file points the domain at the serving artifact</li>
+<li>Four parts: content in markdown + YAML, a gap-filling translation workflow, a local build, GitHub Pages</li>
+<li>Translation is idempotent - file presence is the state, humans always win</li>
+<li>Every page ships HTML plus parallel markdown - HTML is polish, markdown survives entropy (R21)</li>
+<li>docs/ is committed: every commit is a self-contained snapshot, no deploy state to chase</li>
+<li>Deployed at school.kakkoi.dev via a single CNAME file</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
