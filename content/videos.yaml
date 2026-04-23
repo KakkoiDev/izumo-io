@@ -1,5 +1,13 @@
 # Video gallery entries. Localized title + desc per language.
 
+- youtube_id: Q8robfRBDp0
+  title_en: "KakkoiSchool S2 C2 - T1 Environment Setup"
+  title_ja: "KakkoiSchool S2 C2 - T1 環境セットアップ"
+  title_pt: "KakkoiSchool S2 C2 - T1 Configuração do Ambiente"
+  desc_en: "Class 2: install VS Code, Node.js, Git, and a browser. Verify with the terminal and run hello.html."
+  desc_ja: "第2回: VS Code、Node.js、Git、ブラウザをインストール。ターミナルで確認し、hello.htmlを実行する。"
+  desc_pt: "Aula 2: instale VS Code, Node.js, Git e um navegador. Verifique no terminal e rode hello.html."
+
 - youtube_id: MmaJ_VucH18
   title_en: "KakkoiSchool Season 2 Start"
   title_ja: "KakkoiSchool シーズン2開始"

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en" data-page="r21.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Tech Entropy - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../theory-lessons.html">Back to Theory Lessons</a>
+        <div class="lesson-pager">
+          <a href="r20.html">Previous</a>
+          
+        </div>
+      </nav>
+      <h1 id="r21-tech-entropy"><a class="heading-anchor" href="#r21-tech-entropy">R21: Tech Entropy</a></h1>
+<p class="lesson-intro">A running project is not a static thing. It is a garden. The moment you stop weeding, the weeds grow. Leave it alone for two years and the plants you planted are dead, the weeds are waist-high, and you have forgotten where the flowers used to be. Software is the same. The code did not change, but the world around it did: the Node version upgraded, a dependency published a breaking release, the database provider sunset your instance, the build tool is now deprecated. Nothing is still, even when nothing is touched.</p>
+<h2 id="the-name-for-it"><a class="heading-anchor" href="#the-name-for-it">The Name For It</a></h2>
+<p>Manny Lehman named this in 1974: <strong>software entropy</strong>. He borrowed from thermodynamics. The second law says that closed systems tend toward disorder. Software is the same. Left alone it does not stay the way you left it. It drifts. The industry calls the symptoms <strong>software rot</strong>, <strong>bit rot</strong>, or <strong>code rot</strong>. Same idea, different shelf.</p>
+<p>The code text on disk is fine. What rots is the fit between the code and the world: operating systems change, APIs break, security patches force upgrades, teammates leave and take the knowledge with them, users demand new behavior. Entropy is the gap growing between what you wrote and what the world now expects.</p>
+<h2 id="how-a-project-dies-in-two-years"><a class="heading-anchor" href="#how-a-project-dies-in-two-years">How A Project Dies In Two Years</a></h2>
+<p>Picture a typical modern web app shipped in 2024. A React front end, a Node back end, a Postgres database, deployed on some platform-as-a-service. You shipped, it worked, you stopped touching it. Come back two years later and you find:</p>
+<ul>
+<li><strong>Dependencies are broken.</strong> The <code>npm install</code> fails because a transitive dep was unpublished, yanked, or needs a newer Node. Upgrading one package cascades into twenty more.</li>
+<li><strong>The database is gone or degraded.</strong> The provider changed pricing, migrated your cluster, sunset the plan you were on, or your free tier lapsed and the data was deleted. The backups you never set up would have saved you.</li>
+<li><strong>The stack is forgotten.</strong> You do not remember which env vars the app needs, which version of Node you built it with, how the auth flow works, or why you chose that ORM. Your future self is a new hire with no onboarding.</li>
+<li><strong>The toolchain is deprecated.</strong> Webpack became Vite, Vite changed its config format, the CSS-in-JS library you used is unmaintained, the state manager you picked is out of fashion and unsupported.</li>
+</ul>
+<p>No single failure kills it. They combine. The cost to bring it back up exceeds the cost of rewriting, so you rewrite, so the same cycle starts again.</p>
+<h2 id="the-four-vectors-of-decay"><a class="heading-anchor" href="#the-four-vectors-of-decay">The Four Vectors Of Decay</a></h2>
+<div class="mermaid">
+flowchart TD
+    Project[Your Project]
+    Deps[Dependencies drift<br/>npm, apt, OS patches]
+    Data[Data evaporates<br/>DB pruned, provider sunset, no backups]
+    Knowledge[Knowledge fades<br/>you forget, teammates leave]
+    Tooling[Tooling shifts<br/>new frameworks, deprecated APIs]
+    Deps --> Project
+    Data --> Project
+    Knowledge --> Project
+    Tooling --> Project
+    Project -->|two years untouched| Dead[Does not run]
+
+</div>
+<p>Every project is pushed on by all four vectors at once. The bigger the surface area, the faster the decay. A 200-dependency React app decays faster than a 5-dependency Go binary, which decays faster than a folder of HTML and markdown.</p>
+<h2 id="simplicity-is-a-maintenance-strategy"><a class="heading-anchor" href="#simplicity-is-a-maintenance-strategy">Simplicity Is A Maintenance Strategy</a></h2>
+<p>The cost of keeping a system alive scales with its complexity. Every dependency is a relationship you have to maintain. Every clever abstraction is a thing your future self has to re-learn. Every moving part is a part that can break independently.</p>
+<p>The cheapest system to maintain is the one with the fewest parts. This does not mean "no frameworks ever". It means pay the complexity only when it earns its keep. Ask of every dependency, every build step, every abstraction: if this breaks in two years, what does it cost me to fix it, and is that cost worth what it buys me today?</p>
+<ul>
+<li>One hundred dependencies means one hundred breakage vectors. Keep the list short.</li>
+<li>Boring tech beats cutting-edge tech for anything you intend to still run in five years.</li>
+<li>A build step is a thing that can rot. Prefer no build when no build works.</li>
+<li>An opaque abstraction is a thing future-you will have to reverse-engineer. Prefer readable over elegant.</li>
+</ul>
+<h2 id="the-plain-text-escape-hatch"><a class="heading-anchor" href="#the-plain-text-escape-hatch">The Plain-Text Escape Hatch</a></h2>
+<p>This is why markdown files with a tiny build system are shockingly durable. A markdown file is just text. Any editor on any machine can open it. Any operating system can read it. Any human who can read English can understand it without running any program at all. It does not require <code>npm install</code>, a specific Node version, a database, or an internet connection.</p>
+<p>The "File Over App" philosophy captures this: <strong>the file outlives the app</strong>. Apps come and go. Proprietary formats die with the vendor. Plain text survives. Markdown was designed in 2004 and a document written then still renders today, in any renderer, with no changes required. Try that with a 2004 Flash app.</p>
+<p>The site you are reading this on is built this way on purpose. Lessons are markdown files in a folder. The build is a small Python script that turns them into HTML. If the Python script disappears tomorrow, every lesson is still readable in any text editor. If the hosting dies, the content survives as files you can copy to a USB stick. Nothing rots because nothing fancy is in the chain.</p>
+<h2 id="what-this-means-for-how-you-build"><a class="heading-anchor" href="#what-this-means-for-how-you-build">What This Means For How You Build</a></h2>
+<p>Three working rules for fighting entropy:</p>
+<ul>
+<li><strong>Pick the simplest tool that does the job.</strong> A static site for a blog. A flat file for a config. A markdown note for documentation. Reach for a database or a framework only when the simple thing actually cannot do what you need.</li>
+<li><strong>Back up the data separately from the app.</strong> The code can be rewritten. The data cannot be regenerated. Export regularly, store in a format that does not need your app to read, keep copies somewhere unrelated to the provider.</li>
+<li><strong>Write the stack down while you remember it.</strong> A README that lists the tools, versions, env vars, and "how to run this" commands is a gift to the you of two years from now. Future-you does not remember. Past-you should leave a note.</li>
+</ul>
+<h2 id="the-uncomfortable-truth"><a class="heading-anchor" href="#the-uncomfortable-truth">The Uncomfortable Truth</a></h2>
+<p>Nothing you build will run forever untouched. The question is only how much it costs to bring back when you return. Cheap to rebuild beats expensive to maintain. A pile of markdown files and a twenty-line build script is more durable, more portable, and more future-proof than a twelve-service microservice architecture with a custom ORM. The best defense against tech entropy is to give it less surface to chew on.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Software entropy is real and named. Lehman 1974. Left alone, code drifts out of fit with the world</li>
+<li>Four decay vectors: dependencies, data, knowledge, tooling. Every project is pushed on by all four at once</li>
+<li>Two years of neglect is usually enough to kill a modern web app. Not because code rotted, but because everything around it moved</li>
+<li>Simplicity is a maintenance strategy. Fewer dependencies, boring tech, no build when no build works, readable over clever</li>
+<li>Plain text and markdown are the most durable format we have. Any editor, any OS, any future. File over app</li>
+<li>Back up the data separately from the app. Write the stack down. The README is a gift to future-you</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../theory-lessons.html">Back to Theory Lessons</a>
+        <div class="lesson-pager">
+          <a href="r20.html">Previous</a>
+          
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

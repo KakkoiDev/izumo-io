@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ja" data-page="r21.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>技術的エントロピー - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../theory-lessons.html">理論レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="r20.html">前へ</a>
+          
+        </div>
+      </nav>
+      <h1 id="r21-技術的エントロピー"><a class="heading-anchor" href="#r21-技術的エントロピー">R21: 技術的エントロピー</a></h1>
+<p class="lesson-intro">稼働中のプロジェクトは静的なものではありません。庭です。草取りをやめた瞬間、雑草が伸びます。2年放置すれば植えた植物は枯れ、雑草は腰の高さまで伸び、花がどこにあったかも忘れます。ソフトウェアも同じです。コードは変わっていないのに、周りの世界が変わる。Nodeのバージョンが上がり、依存関係が破壊的リリースを出し、データベースプロバイダがあなたのインスタンスを廃止し、ビルドツールは非推奨になる。誰も触っていなくても、静止しているものは何もありません。</p>
+<h2 id="これには名前がある"><a class="heading-anchor" href="#これには名前がある">これには名前がある</a></h2>
+<p>1974年、Manny Lehmanはこれを<strong>ソフトウェアエントロピー</strong>と名付けました。熱力学から借りたのです。第二法則は「閉じた系は無秩序に向かう」と言う。ソフトウェアも同じ。放置すれば残したままの状態に留まりません。ずれていきます。業界はこの症状を<strong>software rot(ソフトウェア腐朽)</strong>、<strong>bit rot(ビット腐敗)</strong>、<strong>code rot(コード腐朽)</strong>と呼びます。同じ考え、違う棚。</p>
+<p>ディスク上のコードのテキストは無事です。腐るのはコードと世界の間の「適合」です。OSが変わる、APIが壊れる、セキュリティパッチがアップグレードを強制する、チームメイトが去り知識を持っていく、ユーザーが新しい挙動を要求する。エントロピーとは、あなたが書いたものと世界が今期待するものの間で広がる溝のことです。</p>
+<h2 id="2年でプロジェクトが死ぬ様子"><a class="heading-anchor" href="#2年でプロジェクトが死ぬ様子">2年でプロジェクトが死ぬ様子</a></h2>
+<p>2024年に出荷された典型的なモダンWebアプリを想像してください。Reactフロントエンド、Nodeバックエンド、Postgresデータベース、どこかのPaaSにデプロイ。出荷し、動き、触るのをやめた。2年後に戻ってきてこう見つけます:</p>
+<ul>
+<li><strong>依存関係が壊れている。</strong><code>npm install</code>が失敗する。推移的な依存がunpublishされたか、yankされたか、新しいNodeを要求するようになったから。1つのパッケージをアップグレードすると、20個の連鎖が始まる。</li>
+<li><strong>データベースが消えたか劣化している。</strong>プロバイダが料金を変え、クラスターを移行し、加入していたプランを廃止し、無料枠が失効してデータが削除された。設定していなかったバックアップがあれば救えた。</li>
+<li><strong>スタックを忘れた。</strong>どの環境変数が必要か、どのNodeバージョンでビルドしたか、認証フローがどう動くか、なぜそのORMを選んだか、覚えていない。未来の自分はオンボーディングのない新人です。</li>
+<li><strong>ツールチェーンが非推奨になった。</strong>WebpackはViteになり、Viteは設定形式を変え、使っていたCSS-in-JSライブラリはメンテされておらず、選んだ状態マネージャーは流行遅れでサポートされていない。</li>
+</ul>
+<p>単一の失敗で死ぬわけではありません。組み合わさる。復旧コストが書き直しコストを超えるので、書き直す。そして同じサイクルが始まる。</p>
+<h2 id="4つの腐朽ベクター"><a class="heading-anchor" href="#4つの腐朽ベクター">4つの腐朽ベクター</a></h2>
+<div class="mermaid">
+flowchart TD
+    Project[Your Project]
+    Deps[Dependencies drift<br/>npm, apt, OS patches]
+    Data[Data evaporates<br/>DB pruned, provider sunset, no backups]
+    Knowledge[Knowledge fades<br/>you forget, teammates leave]
+    Tooling[Tooling shifts<br/>new frameworks, deprecated APIs]
+    Deps --> Project
+    Data --> Project
+    Knowledge --> Project
+    Tooling --> Project
+    Project -->|two years untouched| Dead[Does not run]
+
+</div>
+<p>全てのプロジェクトは、同時に4つのベクター全てから押されます。表面積が大きいほど、腐朽は速い。200依存のReactアプリは5依存のGoバイナリより速く腐り、それはHTMLとMarkdownのフォルダより速く腐る。</p>
+<h2 id="シンプルさは保守戦略である"><a class="heading-anchor" href="#シンプルさは保守戦略である">シンプルさは保守戦略である</a></h2>
+<p>システムを生かしておくコストは、その複雑さに比例してスケールします。全ての依存は維持すべき関係。全ての巧妙な抽象は未来の自分が学び直すべきもの。全ての可動部品は独立に壊れうる部品。</p>
+<p>最も保守コストが安いシステムは、部品が最も少ないシステムです。「フレームワーク禁止」という意味ではありません。複雑さが元を取るときだけ、その複雑さを支払うという意味です。全ての依存、全てのビルドステップ、全ての抽象について問え。「これが2年後に壊れたら、修理コストはいくらか。そのコストは今日得ているものに見合うか?」</p>
+<ul>
+<li>100個の依存は100個の破壊ベクター。リストは短く保て。</li>
+<li>5年後も動かすつもりのものには、最先端よりも退屈な技術が勝る。</li>
+<li>ビルドステップは腐りうるもの。ビルドなしで済むならビルドなし。</li>
+<li>不透明な抽象は未来の自分が逆工学すべきもの。エレガントより読みやすさ。</li>
+</ul>
+<h2 id="プレーンテキストという脱出口"><a class="heading-anchor" href="#プレーンテキストという脱出口">プレーンテキストという脱出口</a></h2>
+<p>だからこそ、小さなビルドシステムを伴うMarkdownファイルは驚くほど耐久性があります。Markdownファイルはただのテキストです。どのマシンのどのエディタでも開ける。どのOSでも読める。英語を読める人間ならプログラムを走らせずに理解できる。<code>npm install</code>も、特定のNodeバージョンも、データベースも、インターネット接続も要らない。</p>
+<p>「File Over App(アプリより先にファイル)」の哲学がこれを捉えています。<strong>ファイルはアプリより長生きする</strong>。アプリは来ては去る。独自形式はベンダーと共に死ぬ。プレーンテキストは生き残る。Markdownは2004年に設計され、当時書かれた文書は今日でも、どのレンダラーでも、変更なしでレンダリングされます。2004年のFlashアプリで同じことをやってみてください。</p>
+<p>あなたが今読んでいるサイトは、あえてこの方式で作られています。レッスンはフォルダ内のMarkdownファイル。ビルドは小さなPythonスクリプトで、それらをHTMLに変換する。明日そのPythonスクリプトが消えても、全てのレッスンはどのテキストエディタでも読める。ホスティングが死んでも、コンテンツはUSBメモリにコピーできるファイルとして生き残る。チェーンに派手なものがないから何も腐らない。</p>
+<h2 id="これが構築方法に意味すること"><a class="heading-anchor" href="#これが構築方法に意味すること">これが構築方法に意味すること</a></h2>
+<p>エントロピーと戦う3つの実践ルール:</p>
+<ul>
+<li><strong>仕事ができる最もシンプルなツールを選べ。</strong>ブログには静的サイト。設定にはフラットファイル。ドキュメントにはMarkdownメモ。データベースやフレームワークに手を伸ばすのは、シンプルなものが本当に不足する時だけ。</li>
+<li><strong>データはアプリとは別にバックアップせよ。</strong>コードは書き直せる。データは再生できない。定期的にエクスポートし、アプリなしで読める形式で保存し、プロバイダと無関係な場所にコピーを保管する。</li>
+<li><strong>覚えているうちにスタックを書き留めよ。</strong>ツール、バージョン、環境変数、「これをどう動かすか」コマンドをリストしたREADMEは、2年後の自分への贈り物。未来の自分は覚えていない。過去の自分がメモを残すべき。</li>
+</ul>
+<h2 id="不快な真実"><a class="heading-anchor" href="#不快な真実">不快な真実</a></h2>
+<p>あなたが作るもので、触らずに永遠に動くものは一つもありません。問題は「戻ってきた時に復旧コストがいくらか」だけです。「再構築が安い」は「保守が高い」に勝る。Markdownファイルの山と20行のビルドスクリプトは、独自ORMを持つ12サービスのマイクロサービスアーキテクチャより耐久性があり、ポータブルで、将来性がある。技術的エントロピーに対する最良の防御は、噛ませる表面を減らすことです。</p>
+<div class="takeaways">
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
+<ul>
+<li>ソフトウェアエントロピーは実在し名前がある。Lehman 1974。放置すれば、コードは世界との適合から外れていく</li>
+<li>4つの腐朽ベクター: 依存、データ、知識、ツーリング。全てのプロジェクトが同時に4つ全てから押される</li>
+<li>2年の放置で、大抵のモダンWebアプリは死ぬ。コードが腐ったからではなく、周りの全てが動いたから</li>
+<li>シンプルさは保守戦略。依存を減らし、退屈な技術、ビルドなしで済むならビルドなし、エレガントより読みやすさ</li>
+<li>プレーンテキストとMarkdownは我々が持つ最も耐久性のある形式。どのエディタ、どのOS、どの未来でも。File Over App</li>
+<li>データはアプリとは別にバックアップ。スタックを書き留めよ。READMEは未来の自分への贈り物</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../theory-lessons.html">理論レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="r20.html">前へ</a>
+          
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+
