@@ -18,8 +18,8 @@
   - *レストラン: 食べられる、美味しい、スムーズな厨房*
 - [R09: 学び方](lessons/r09.md) - 学ぶとは地図を探索すること。最初は知らないことすら知らない。
   - *未知の地図を探索する*
-- [R10: KakkoiSchool Case Study](lessons/r10.md) - How this site is built: markdown lessons, a small Python build that emits HTML and markdown side by side, GitHub Actions for translation and deploy, GitHub Pages on school.kakkoi.dev.
-  - *Study the thing you use every day*
+- [R10: KakkoiSchool ケーススタディ](lessons/r10.md) - このサイトの作り方: Markdownレッスン、HTMLとMarkdownを同時に出力する小さなPythonビルド、翻訳用のGitHub Actions、school.kakkoi.devで配信するGitHub Pages。
+  - *毎日使っているものを研究する*
 - [R11: 適応力](lessons/r11.md) - IT業界は変化を受け入れる人を評価する。基礎はフレームワークより長持ちする。
   - *基礎はどのツールより長持ちする*
 - [R12: ワークライフバランス](lessons/r12.md) - キャリアはマラソン。持続可能なペースが慢性的な過重労働に勝つ。

@@ -18,8 +18,8 @@
   - *Restaurante: comestível, delicioso, cozinha fluida*
 - [R09: Como Aprender](lessons/r09.md) - Aprender é explorar um mapa. No começo você não sabe o que não sabe.
   - *Explorando um mapa desconhecido*
-- [R10: KakkoiSchool Case Study](lessons/r10.md) - How this site is built: markdown lessons, a small Python build that emits HTML and markdown side by side, GitHub Actions for translation and deploy, GitHub Pages on school.kakkoi.dev.
-  - *Study the thing you use every day*
+- [R10: Estudo de Caso: KakkoiSchool](lessons/r10.md) - Como este site é construído: aulas em Markdown, um build Python pequeno que emite HTML e Markdown lado a lado, GitHub Actions para tradução e deploy, GitHub Pages em school.kakkoi.dev.
+  - *Estude aquilo que você usa todo dia*
 - [R11: Adaptabilidade](lessons/r11.md) - A indústria de tecnologia recompensa quem abraça a mudança. Fundamentos duram mais que frameworks.
   - *Fundamentos duram mais que qualquer ferramenta*
 - [R12: Equilíbrio Entre Trabalho e Vida](lessons/r12.md) - Uma carreira é uma maratona. Ritmo sustentável vence excesso crônico de trabalho.
