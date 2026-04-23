@@ -46,10 +46,10 @@
           <a href="t36.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t35-web-components-i-custom-elements-e-shadow-dom"><a class="heading-anchor" href="#t35-web-components-i-custom-elements-e-shadow-dom">T35: Web Components I - Custom Elements e Shadow DOM</a></h1>
-<p class="lesson-intro">E se você pudesse inventar sua própria tag HTML? <code>&lt;user-card&gt;</code>, <code>&lt;rating-stars&gt;</code>, <code>&lt;search-box&gt;</code>. Isso é Web Components: um jeito nativo do navegador de construir peças de Lego de UI reutilizáveis, sem framework, sem build step. Dois ingredientes hoje: Custom Elements definem a tag, Shadow DOM sela o interior para nada vazar.</p>
+      <h1 id="t35-web-components-i-custom-elements-amp-shadow-dom"><a class="heading-anchor" href="#t35-web-components-i-custom-elements-amp-shadow-dom">T35: Web Components I - Custom Elements &amp; Shadow DOM</a></h1>
+<p class="lesson-intro">E se você pudesse inventar sua própria tag HTML? <code>&lt;user-card&gt;</code>, <code>&lt;rating-stars&gt;</code>, <code>&lt;search-box&gt;</code>. Web Components deixam você fazer isso sem framework e sem passo de build. Dois ingredientes: Custom Elements definem a tag, Shadow DOM sela o interior para nada vazar nem entrar.</p>
 <h2 id="custom-elements"><a class="heading-anchor" href="#custom-elements">Custom Elements</a></h2>
-<p>Um custom element é uma classe que estende <code>HTMLElement</code>, registrada no navegador com um nome de tag. O nome da tag <em>precisa</em> ter um hífen para o navegador diferenciar das embutidas. O registro é permanente para a página.</p>
+<p>Um custom element é uma classe que estende <code>HTMLElement</code>, registrada no navegador com um nome de tag. O nome da tag <em>precisa</em> ter um hífen para o navegador distinguir das nativas. Registro é permanente na página.</p>
 <pre><code>class GreetingBox extends HTMLElement {
     constructor() {
         super();
@@ -59,12 +59,12 @@
 
 customElements.define(&quot;greeting-box&quot;, GreetingBox);
 </code></pre>
-<p>Agora essa tag funciona em qualquer lugar do seu HTML:</p>
-<pre><code>&lt;!-- In any page --&gt;
+<p>Agora essa tag funciona em qualquer lugar do HTML:</p>
+<pre><code>&lt;!-- Em qualquer página --&gt;
 &lt;greeting-box&gt;&lt;/greeting-box&gt;
 </code></pre>
 <h2 id="lendo-atributos"><a class="heading-anchor" href="#lendo-atributos">Lendo Atributos</a></h2>
-<p>Um bom custom element lê seus próprios atributos para se configurar. Elementos embutidos fazem isso: <code>&lt;img src="..."&gt;</code>, <code>&lt;a href="..."&gt;</code>. Seus elementos também devem fazer.</p>
+<p>Um custom element bom lê seus próprios atributos para se configurar. Elementos nativos fazem isso: <code>&lt;img src="..."&gt;</code>, <code>&lt;a href="..."&gt;</code>. Os seus também devem.</p>
 <pre><code>class GreetingBox extends HTMLElement {
     connectedCallback() {
         const name = this.getAttribute(&quot;name&quot;) || &quot;friend&quot;;
@@ -76,7 +76,7 @@ customElements.define(&quot;greeting-box&quot;, GreetingBox);
 // &lt;greeting-box name=&quot;Alice&quot;&gt;&lt;/greeting-box&gt;
 </code></pre>
 <h2 id="shadow-dom-o-interior-selado"><a class="heading-anchor" href="#shadow-dom-o-interior-selado">Shadow DOM: O Interior Selado</a></h2>
-<p>Sem Shadow DOM, o HTML e CSS do seu componente vivem na página global. Um <code>h2 { color: red }</code> perdido em outro lugar pode pintar seu widget cuidadosamente desenhado de vermelho. O Shadow DOM anexa uma árvore privada ao seu elemento. Estilos de fora não entram, estilos de dentro não vazam.</p>
+<p>Shadow DOM anexa uma árvore DOM privada ao seu elemento. Estilos de fora não entram, estilos de dentro não vazam. Sem isso, um <code>h2 { color: red }</code> perdido em qualquer lugar da página repintaria seu widget.</p>
 <pre><code>class UserCard extends HTMLElement {
     connectedCallback() {
         const root = this.attachShadow({ mode: &quot;open&quot; });
@@ -111,7 +111,7 @@ flowchart TD
 
 </div>
 <h2 id="host-e-part"><a class="heading-anchor" href="#host-e-part">:host e ::part</a></h2>
-<p>Dentro da shadow tree, o seletor <code>:host</code> estiliza o próprio custom element visto de fora. Se você quiser permitir que partes específicas sejam estilizadas de fora, exponha com <code>part="..."</code> e os consumidores estilizam via <code>::part()</code>.</p>
+<p>Dentro da árvore shadow, o seletor <code>:host</code> estiliza o próprio custom element de fora para dentro. Se quiser deixar partes específicas serem estilizadas de fora, exponha-as com <code>part="..."</code> e consumidores estilizam via <code>::part()</code>.</p>
 <pre><code>&lt;style&gt;
     :host { display: block; }
     :host([featured]) { border-color: gold; }
@@ -119,17 +119,17 @@ flowchart TD
 &lt;/style&gt;
 &lt;button part=&quot;action&quot;&gt;Click me&lt;/button&gt;
 
-/* In the outer page CSS */
+/* No CSS da página externa */
 user-card::part(action) { background: tomato; color: white; }
 </code></pre>
 <div class="takeaways">
 <h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
 <ul>
 <li>Estenda HTMLElement, registre com customElements.define("my-tag", Class) - tag precisa ter hífen</li>
-<li>Leia atributos com getAttribute para configurar o elemento a partir do HTML</li>
-<li>Shadow DOM sela sua marcação e estilos internos do resto da página</li>
-<li>Use :host para estilizar o próprio elemento, ::part para expor ganchos de estilo para o CSS de fora</li>
-<li>Web Components funcionam em qualquer framework ou em nenhum - são nativos da plataforma</li>
+<li>Leia atributos com getAttribute para configurar o elemento pelo HTML</li>
+<li>Shadow DOM sela sua marcação e estilo internos do resto da página</li>
+<li>Use :host para estilizar o próprio elemento, ::part para expor ganchos de estilo ao CSS externo</li>
+<li>Web Components funcionam em qualquer framework ou nenhum - são nativos da plataforma</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

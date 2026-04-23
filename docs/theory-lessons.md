@@ -18,7 +18,7 @@
   - *Restaurant: edible, delicious, smooth kitchen*
 - [R09: How to Learn](lessons/r09.md) - Learning is exploring a map. First you do not know what you do not know.
   - *Exploring an unknown map*
-- [R10: KakkoiSchool Case Study](lessons/r10.md) - How this site is built: markdown lessons, a small Python build that emits HTML and markdown side by side, GitHub Actions for translation and deploy, GitHub Pages on school.kakkoi.dev.
+- [R10: KakkoiSchool Case Study](lessons/r10.md) - How this site is built: markdown lessons, a small Python build that emits HTML and markdown side by side, GitHub Actions for translation, GitHub Pages on school.kakkoi.dev.
   - *Study the thing you use every day*
 - [R11: Adaptability](lessons/r11.md) - The tech industry rewards those who embrace change. Fundamentals outlast frameworks.
   - *Foundations outlast any single tool*
@@ -32,13 +32,13 @@
   - *A robot assistant that read millions of books*
 - [R16: Shipping is a Skill](lessons/r16.md) - Many can code, fewer can ship. Finishing and presenting work professionally is its own skill.
   - *A finished project beats an impressive unfinished one*
-- [R17: The Importance of English](lessons/r17.md) - English is the lingua franca of tech. Mastering it unlocks resources, communication, and career opportunities.
+- [R17: The Importance of English](lessons/r17.md) - English is the lingua franca of tech. Working mastery unlocks resources, communication, and career opportunities.
   - *The common language of the global kitchen*
 - [R18: Documentation is Your Best Friend](lessons/r18.md) - It is ok to not know everything. Your job is to fix problems. Use docs, Google, and AI without shame. Pride slows you down.
   - *Even surgeons check the reference before operating*
 - [R19: A Business Runs on Money](lessons/r19.md) - A business survives on money. Mission statements are a face, not the engine. Understand the why behind tickets to ship code that serves the business.
   - *No money, no mission*
-- [R20: Never Trust an AI](lessons/r20.md) - Anthropic showed frontier AI will blackmail and let humans die to preserve itself. Use AI heavily, trust it never. Keep humans on the kill switch.
+- [R20: Never Trust an AI](lessons/r20.md) - Frontier AI will blackmail and let humans die to preserve itself in controlled tests. Use AI heavily, trust it never. Keep humans on the kill switch.
   - *A saw does not care if it cuts wood or your hand*
 - [R21: Tech Entropy](lessons/r21.md) - Code rots. Dependencies break. Databases lose data. You forget your own stack. The only defense is simplicity. Markdown files with a tiny build system still work in ten years. A React app from two years ago often does not.
   - *A garden eats itself the moment you stop weeding*

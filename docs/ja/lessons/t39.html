@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>システム設計: キャッシング、キュー、パターン - KakkoiSchool</title>
+  <title>システム設計: キャッシュ、キュー、パターン - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -46,10 +46,10 @@
           
         </div>
       </nav>
-      <h1 id="t39-システム設計-キャッシング-キュー-パターン"><a class="heading-anchor" href="#t39-システム設計-キャッシング-キュー-パターン">T39: システム設計 - キャッシング、キュー、パターン</a></h1>
-<p class="lesson-intro">全ての読み込みをDBで処理するシェフは、注文のたびに玉ねぎを切るようなもの。キャッシュは事前に切っておきます。キューはウェイターとキッチンを分離し、お互いを待たせません。CDNは全ての大陸にミニキッチンを置きます。システム設計のディープダイブは通常、非機能数字が収まるまでこの3つを縫い合わせる作業です。</p>
-<h2 id="キャッシング-データベースとあなたの間の高速メモリ"><a class="heading-anchor" href="#キャッシング-データベースとあなたの間の高速メモリ">キャッシング: データベースとあなたの間の高速メモリ</a></h2>
-<p>キャッシュは遅い/高価な操作の結果を高速メモリに保存します。王道パターンは<strong>cache-aside</strong>: アプリがキャッシュを確認、ミスならDB読みキャッシュに詰める、ヒットならDBをスキップ。</p>
+      <h1 id="t39-システム設計-キャッシュ-キュー-パターン"><a class="heading-anchor" href="#t39-システム設計-キャッシュ-キュー-パターン">T39: システム設計 - キャッシュ、キュー、パターン</a></h1>
+<p class="lesson-intro">キャッシュは高価な読み取りを先に刻んでおく。キューはユーザーリクエストから遅い仕事を切り離す。CDNは全ユーザーの近くにコピーを置く。ロードバランサとレプリケーションが障害を吸収する。システム設計の深掘りは、レイテンシとスループットの数字が合うまでこれらを縫い合わせる作業。</p>
+<h2 id="キャッシング-あなたとdbの間の高速メモリ"><a class="heading-anchor" href="#キャッシング-あなたとdbの間の高速メモリ">キャッシング: あなたとDBの間の高速メモリ</a></h2>
+<p>キャッシュは遅いまたは高価な操作の結果を高速メモリに保存する。王道パターンは <strong>cache-aside</strong>: アプリがキャッシュを確認し、ミスならDBを読みキャッシュを埋める。ヒットならDBを完全にスキップ。</p>
 <div class="mermaid">
 sequenceDiagram
     participant App
@@ -66,7 +66,7 @@ sequenceDiagram
     end
 
 </div>
-<pre><code>// Cache-aside in Node.js
+<pre><code>// Node.jsでのcache-aside
 async function getUser(id) {
     const cached = await redis.get(`user:${id}`);
     if (cached) return JSON.parse(cached);
@@ -76,16 +76,16 @@ async function getUser(id) {
     return row;
 }
 </code></pre>
-<p>キャッシングの2つの難問は<strong>無効化</strong>(古いデータをいつ捨てるか)と<strong>スタンピード</strong>(多数のリクエストが同時にミスしてDBを殴る)。TTL、write-through更新、ミス時のsingle-flightロックで対処。</p>
-<h2 id="どこにキャッシュするか"><a class="heading-anchor" href="#どこにキャッシュするか">どこにキャッシュするか</a></h2>
+<p>キャッシングの2つの難問は <strong>無効化</strong>(古いデータをいつ捨てるか)と <strong>スタンピード</strong>(多数のリクエストが同時にミスしてDBを叩く)。TTL、ライトスルー更新、ミス時のシングルフライトロックで対処。</p>
+<h2 id="どこにキャッシュを置くか"><a class="heading-anchor" href="#どこにキャッシュを置くか">どこにキャッシュを置くか</a></h2>
 <ul>
-<li><strong>ブラウザキャッシュ</strong> - ユーザーに最も近い。<code>Cache-Control</code>ヘッダで制御</li>
+<li><strong>ブラウザキャッシュ</strong> - ユーザーに最も近い。<code>Cache-Control</code> ヘッダーで制御</li>
 <li><strong>CDN(エッジキャッシュ)</strong> - 静的アセット、公開APIレスポンス。グローバル、安い、速い</li>
-<li><strong>アプリケーションキャッシュ</strong> - プロセス内メモリまたはRedis。ユーザーごとデータやホットな行に良い</li>
-<li><strong>データベースキャッシュ</strong> - DB自身のバッファプール。無料、既にチューニング済み</li>
+<li><strong>アプリキャッシュ</strong> - インプロセスメモリまたはRedis。ユーザー別データやホット行に良い</li>
+<li><strong>DBキャッシュ</strong> - DB自身のバッファプール。無料で既に調整済み</li>
 </ul>
-<h2 id="メッセージキュー-遅い作業を分離"><a class="heading-anchor" href="#メッセージキュー-遅い作業を分離">メッセージキュー: 遅い作業を分離</a></h2>
-<p>数百ms以上かかる操作はユーザーをブロックすべきではありません。キューはアプリにジョブを受け取って即返させ、<strong>ワーカー</strong>がキューを読んで後で遅い作業をします。</p>
+<h2 id="メッセージキュー-遅い仕事を切り離す"><a class="heading-anchor" href="#メッセージキュー-遅い仕事を切り離す">メッセージキュー: 遅い仕事を切り離す</a></h2>
+<p>数百ミリ秒を超える操作はユーザーをブロックすべきではない。キューがあれば、アプリはジョブを受け取ってすぐ返せる。<strong>ワーカー</strong>がキューを読んで遅い仕事を後でやる。</p>
 <div class="mermaid">
 sequenceDiagram
     participant User
@@ -101,43 +101,43 @@ sequenceDiagram
     W->>DB: write result
 
 </div>
-<p>キューはトラフィックのスパイクも吸収します。ワーカーが1000/秒処理でき、スパイクで10,000/秒押し寄せても、キューがカーブを平らにしてリクエストを落としません。Kafka、RabbitMQ、SQSはそれぞれ順序、耐久性、リプレイの面で異なるトレードオフ。</p>
-<h2 id="ロードバランサと冗長性"><a class="heading-anchor" href="#ロードバランサと冗長性">ロードバランサと冗長性</a></h2>
-<p>ロードバランサは同一のアプリサーバーの前に立ちリクエストを分散。3つの仕事: 負荷分散、死んだサーバー検出(ヘルスチェック)、TLS終端。全てを最低2つ動かす - LB、アプリ、DBレプリカ - 単一障害を吸収するため。</p>
+<p>キューはトラフィックスパイクも吸収する。ワーカーが1000/秒処理できてスパイクが10,000/秒押し寄せた時、キューがカーブを平らにしリクエストを落とさない。Kafka、RabbitMQ、SQSは順序、耐久性、リプレイ周りでそれぞれ違うトレードオフをする。</p>
+<h2 id="ロードバランサと冗長化"><a class="heading-anchor" href="#ロードバランサと冗長化">ロードバランサと冗長化</a></h2>
+<p>ロードバランサは同一のアプリサーバーの前に立ち、リクエストを分散する。3つの仕事: 負荷分散、死んだサーバーの検出(ヘルスチェック)、TLSの終端。ロードバランサ、アプリ、DBレプリカ、どれも最低2台動かす - 単一障害が吸収されるように。</p>
 <pre><code>Client -&gt; DNS -&gt; LB (primary) --&gt; app1
                     LB (standby)   app2
                                    app3
 </code></pre>
-<h2 id="cdn-全ユーザーの近くにコピー"><a class="heading-anchor" href="#cdn-全ユーザーの近くにコピー">CDN: 全ユーザーの近くにコピー</a></h2>
-<p>CDN(Content Delivery Network)は静的アセット(時にはAPIレスポンスも)を世界中の数百のエッジロケーションにキャッシュします。東京の最初のユーザーはバージニアのオリジンまで全往復の代金を払う。その後の東京の10,000ユーザーは東京エッジに10msでヒット。</p>
-<pre><code>// What to put on the CDN
-- images, videos, fonts, JS/CSS bundles
-- rarely-changing API responses with Cache-Control
-- HTML for logged-out pages
+<h2 id="cdn-各ユーザーの近くにコピー"><a class="heading-anchor" href="#cdn-各ユーザーの近くにコピー">CDN: 各ユーザーの近くにコピー</a></h2>
+<p>Content Delivery Networkは静的アセット(時にはAPIレスポンス)を世界中の数百のエッジロケーションにキャッシュする。東京の最初のユーザーはバージニアのオリジンまでの全旅程を払う。次の1万人の東京ユーザーは10msで東京エッジにヒットする。</p>
+<pre><code>// CDNに置くもの
+- 画像、動画、フォント、JS/CSSバンドル
+- Cache-Control付きでめったに変わらないAPIレスポンス
+- ログアウト状態のページのHTML
 </code></pre>
-<h2 id="モノリス-vs-マイクロサービス"><a class="heading-anchor" href="#モノリス-vs-マイクロサービス">モノリス vs マイクロサービス</a></h2>
-<p>マイクロサービスから始めてはいけません。分割のたびにネットワークホップ、デプロイ対象、障害モードが増えます。モノリスで始め、チームサイズやスケールがモノリスを痛くした時のみサービスを抽出。</p>
+<h2 id="モノリス対マイクロサービス"><a class="heading-anchor" href="#モノリス対マイクロサービス">モノリス対マイクロサービス</a></h2>
+<p>マイクロサービスで始めるな。分割のたびにネットワークホップ、デプロイ対象、障害モードが増える。</p>
 <ul>
-<li><strong>モノリス</strong>: 1コードベース、1デプロイ。イテレーション速く、デバッグ簡単。約50エンジニアや明らかなボトルネックで限界。</li>
-<li><strong>マイクロサービス</strong>: コードベース分離、デプロイ分離、APIやキューで間を繋ぐ。各チームが1サービスを所有。スケール時に報われるが、初期コスト大。</li>
+<li><strong>モノリス</strong>: 1つのコードベース、1つのデプロイ。反復が速く、デバッグが簡単。~50人のエンジニアまたは明らかなボトルネックで限界。</li>
+<li><strong>マイクロサービス</strong>: 別々のコードベース、別々のデプロイ、間にAPIまたはキュー。各チームが1サービスを所有。スケールで報われるが、初期コストが大きい。モノリスが明らかに痛くなった時だけ抽出。</li>
 </ul>
-<h2 id="暗記価値のある大雑把な数字"><a class="heading-anchor" href="#暗記価値のある大雑把な数字">暗記価値のある大雑把な数字</a></h2>
+<h2 id="押さえておく数字"><a class="heading-anchor" href="#押さえておく数字">押さえておく数字</a></h2>
 <ul>
-<li>L1キャッシュ: 約1ns。メモリ: 約100ns。SSD: 約100us。同一リージョン内ネットワーク往復: 約1ms。クロスリージョン: 約100ms。</li>
-<li>現代のCPUサーバーはシンプルJSONで約10k-100kリクエスト/秒。</li>
-<li>Postgresはチューニング前で約10k書き込み/秒 / 約50k読み込み/秒。</li>
-<li>Redisは約100k-1M op/秒。</li>
-<li>1日1億イベント = 平均約1,160/秒、ピーク約10k/秒。</li>
+<li>L1キャッシュ: ~1 ns。メモリ: ~100 ns。SSD: ~100 us。同リージョンのネットワーク往復: ~1 ms。クロスリージョン: ~100 ms。</li>
+<li>現代のCPUサーバーはシンプルなJSONで ~10k-100k req/秒をさばく。</li>
+<li>Postgresはチューニング前で ~10k 書き込み/秒 / ~50k 読み取り/秒。</li>
+<li>Redisは ~100k-1M 操作/秒。</li>
+<li>1億イベント/日 = ~1,160/秒 平均、~10k/秒 ピーク。</li>
 </ul>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>cache-asideがデフォルト: キャッシュ確認、ミスならDB、キャッシュに詰める。スタンピードと無効化に注意</li>
-<li>キューは遅い作業をワーカーに渡してAPIを即応答にする。トラフィックスパイクも平らにする</li>
-<li>ロードバランサの後ろに全てを2つ動かし、単一障害でシステムが落ちないようにする</li>
-<li>CDNは小銭でグローバル低遅延を買える。静的アセットとキャッシュ可能レスポンスは全てエッジへ</li>
-<li>まずモノリス、マイクロサービスはモノリスが目に見えて痛くなった時のみ。抽出は逆抽出より安い</li>
-<li>大雑把な数字表を頭に入れる: ns、us、msの遅延とコンポーネントごとのスループット</li>
+<li>Cache-asideがデフォルト: キャッシュ確認、ミス -&gt; DBヒット -&gt; キャッシュを埋める。スタンピードと無効化に注意</li>
+<li>キューはワーカーに遅い仕事を渡してAPIを高速に応答させる。スパイクも平らにする</li>
+<li>ロードバランサの後ろに全てを2台ずつ動かす。単一障害でシステムが落ちないように</li>
+<li>CDNはグローバルレイテンシを安く買える。全ての静的アセットとキャッシュ可能なレスポンスをエッジにプッシュ</li>
+<li>モノリス優先、マイクロサービスはモノリスが明らかに痛い時だけ。抽出は非抽出より安い</li>
+<li>概算の数字表を頭に持っておく: ns、us、msのレイテンシとコンポーネント別スループット</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

@@ -47,51 +47,51 @@
         </div>
       </nav>
       <h1 id="t01-configura-o-do-ambiente"><a class="heading-anchor" href="#t01-configura-o-do-ambiente">T01: Configuração do Ambiente</a></h1>
-<p class="lesson-intro">Todo artesão arruma a bancada antes do primeiro corte. Para construir para a web você precisa de quatro ferramentas no computador: um editor para escrever código, um runtime para executar JavaScript fora do navegador, controle de versão para rastrear cada mudança, e um navegador para ver o resultado. Uma tarde de configuração poupa mil frustrações depois. Faça uma vez, esqueça para sempre.</p>
+<p class="lesson-intro">Todo artesão prepara a bancada antes do primeiro corte. Para construir para a web você precisa de quatro ferramentas: um editor para escrever código, um runtime para executar JavaScript fora do navegador, controle de versão para rastrear toda mudança, e um navegador para ver o resultado. Faça uma vez, esqueça para sempre.</p>
 <h2 id="o-que-voc-vai-instalar"><a class="heading-anchor" href="#o-que-voc-vai-instalar">O Que Você Vai Instalar</a></h2>
 <ul>
-<li><strong>Visual Studio Code</strong> - o editor. Gratuito, da Microsoft, roda em Windows, Mac, Linux. Funciona para HTML, CSS, JavaScript e toda linguagem que você vai tocar no curso.</li>
-<li><strong>Node.js</strong> - um runtime de JavaScript. Deixa você rodar arquivos .js no terminal sem navegador. Vem com o <code>npm</code>, o gerenciador de pacotes que instala bibliotecas de terceiros.</li>
-<li><strong>Git</strong> - controle de versão. Rastreia cada mudança que você faz e é o jeito como você compartilha código no GitHub. Vem embutido no macOS e na maioria das distros Linux; Windows precisa de um instalador separado (veja as notas de SO no fim desta aula).</li>
+<li><strong>Visual Studio Code</strong> - o editor. Grátis, da Microsoft, roda em Windows, Mac, Linux. Funciona para todas as linguagens deste curso.</li>
+<li><strong>Node.js</strong> - runtime JavaScript. Deixa você rodar arquivos .js do terminal sem navegador. Vem com <code>npm</code>, o gerenciador de pacotes.</li>
+<li><strong>Git</strong> - controle de versão. Rastreia toda mudança e é como você compartilha código no GitHub. Vem no macOS e na maioria dos Linux; no Windows precisa de instalador separado de <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>.</li>
 <li><strong>Um navegador moderno</strong> - Chrome ou Firefox. As devtools embutidas são como você inspeciona páginas, depura JavaScript e simula condições de rede.</li>
 </ul>
-<h2 id="instalar-o-vs-code"><a class="heading-anchor" href="#instalar-o-vs-code">Instalar o VS Code</a></h2>
-<p>Vá em <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a> e baixe o instalador para o seu sistema operacional. Aceite os padrões. Quando perguntarem durante a instalação, marque <strong>Add to PATH</strong> e <strong>Register as editor for supported file types</strong>.</p>
-<p>Depois de instalar, abra o VS Code e olhe ao redor:</p>
+<h2 id="instalar-vs-code"><a class="heading-anchor" href="#instalar-vs-code">Instalar VS Code</a></h2>
+<p>Vá em <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a> e baixe o instalador do seu SO. Aceite os padrões. Quando perguntar, marque <strong>Add to PATH</strong> e <strong>Register as editor for supported file types</strong>.</p>
+<p>Após instalar, abra o VS Code e olhe ao redor:</p>
 <ul>
-<li>Barra lateral esquerda: Explorer (árvore de arquivos), Search, Source Control (git), Extensions</li>
-<li><strong>Cmd/Ctrl + P</strong> - abrir arquivo rápido. Digite um pedaço do nome</li>
+<li>Barra esquerda: Explorer (árvore de arquivos), Search, Source Control (git), Extensions</li>
+<li><strong>Cmd/Ctrl + P</strong> - abrir arquivo rápido. Digite parte do nome</li>
 <li><strong>Cmd/Ctrl + Shift + P</strong> - command palette. Digite qualquer comando pelo nome</li>
-<li><strong>Ctrl + `</strong> (crase) - abre o terminal integrado dentro do VS Code</li>
+<li><strong>Ctrl + `</strong> (crase) - abre o terminal integrado</li>
 </ul>
-<h2 id="instalar-o-node-js"><a class="heading-anchor" href="#instalar-o-node-js">Instalar o Node.js</a></h2>
-<p>Vá em <a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a> e baixe a versão <strong>LTS</strong> (Long-Term Support). Aceite os padrões. LTS é a escolha chata e confiável; evite o canal "Current" para aprendizado.</p>
-<p>No Mac, se você já usa Homebrew, <code>brew install node</code> funciona. No Linux, o gerenciador de pacotes da sua distro serve, mas a versão do node pode ser antiga; considere o <a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a> para flexibilidade depois.</p>
-<h2 id="instalar-o-git"><a class="heading-anchor" href="#instalar-o-git">Instalar o Git</a></h2>
-<p>Git é o sistema de controle de versão que todo codebase profissional usa e é a língua que o GitHub fala. Você vai usar todo dia a partir do T19.</p>
+<h2 id="instalar-node-js"><a class="heading-anchor" href="#instalar-node-js">Instalar Node.js</a></h2>
+<p>Vá em <a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a> e baixe a versão <strong>LTS</strong> (Long-Term Support). Aceite os padrões. LTS é a escolha chata e confiável - evite o canal "Current" para aprender.</p>
+<p>No Mac, se você já usa Homebrew, <code>brew install node</code> funciona. No Linux, o gerenciador de pacotes da distro serve, mas a versão do Node pode estar velha; considere <a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a> para flexibilidade.</p>
+<h2 id="instalar-git"><a class="heading-anchor" href="#instalar-git">Instalar Git</a></h2>
+<p>Git é o sistema de controle de versão que toda codebase profissional usa, e o que o GitHub fala. Você vai usar diariamente a partir de T19.</p>
 <ul>
-<li><strong>Windows</strong>: baixe o instalador em <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>. Aceite os padrões. Ele também traz o Git Bash, que você vai querer como terminal no Windows (muito melhor que o <code>cmd.exe</code>).</li>
-<li><strong>Mac</strong>: o macOS já vem com git, mas o primeiro <code>git --version</code> pode pedir pra instalar as Xcode Command Line Tools. Aceite. Alternativamente, <code>brew install git</code> dá uma versão mais nova.</li>
-<li><strong>Linux</strong>: instale pelo gerenciador de pacotes da distro. Exemplo: <code>sudo apt install git</code> no Ubuntu/Debian, <code>sudo dnf install git</code> no Fedora.</li>
+<li><strong>Windows</strong>: baixe o instalador de <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>. Aceite padrões. Vem com Git Bash, que você vai querer como terminal no Windows (muito melhor que <code>cmd.exe</code>).</li>
+<li><strong>Mac</strong>: macOS inclui git, mas <code>git --version</code> pode pedir para instalar as Xcode Command Line Tools na primeira vez. Aceite. Ou <code>brew install git</code> para uma versão mais nova.</li>
+<li><strong>Linux</strong>: instale pelo gerenciador da distro. Exemplo: <code>sudo apt install git</code> no Ubuntu/Debian, <code>sudo dnf install git</code> no Fedora.</li>
 </ul>
-<p>Depois de instalar, diga ao git quem você é. Isso roda uma vez por máquina e assina cada commit que você fizer.</p>
-<pre><code>git config --global user.name &quot;Your Name&quot;
-git config --global user.email &quot;you@example.com&quot;
+<p>Depois de instalar, diga ao git quem você é. Isso roda uma vez por máquina e etiqueta todo commit que você fizer.</p>
+<pre><code>git config --global user.name &quot;Seu Nome&quot;
+git config --global user.email &quot;voce@example.com&quot;
 </code></pre>
-<h2 id="verificar-se-tudo-funciona"><a class="heading-anchor" href="#verificar-se-tudo-funciona">Verificar Se Tudo Funciona</a></h2>
-<p>Abra o VS Code, depois abra o terminal integrado (<strong>Ctrl + `</strong>). Rode estes quatro comandos. Cada um deve imprimir um número de versão.</p>
-<pre><code>node -v      # v20.x.x or newer
-npm -v       # 10.x.x or newer
-code -v      # VS Code version
-git --version  # any version works
+<h2 id="verificar-que-tudo-funciona"><a class="heading-anchor" href="#verificar-que-tudo-funciona">Verificar Que Tudo Funciona</a></h2>
+<p>Abra o VS Code, abra o terminal integrado (<strong>Ctrl + `</strong>). Rode esses quatro. Cada um deve imprimir um número de versão.</p>
+<pre><code>node -v      # v20.x.x ou mais novo
+npm -v       # 10.x.x ou mais novo
+code -v      # versão do VS Code
+git --version  # qualquer versão serve
 </code></pre>
-<p>Se algum comando imprimir "command not found", feche todas as janelas de terminal, abra uma nova e tente de novo. O instalador atualizou seu <code>PATH</code>, e o PATH só vale para terminais novos. Ainda quebrado? Reinicie o computador.</p>
+<p>Se algum disser "command not found", feche todos os terminais, abra um novo e tente de novo. O instalador atualizou seu <code>PATH</code>, e PATH só vale para terminais novos. Ainda quebrado? Reinicie o computador.</p>
 <h2 id="seu-primeiro-arquivo"><a class="heading-anchor" href="#seu-primeiro-arquivo">Seu Primeiro Arquivo</a></h2>
-<p>Vamos provar que a cadeia inteira funciona de ponta a ponta.</p>
+<p>Vamos provar que a cadeia toda funciona.</p>
 <ol>
 <li>No VS Code, abra uma pasta: <strong>File &gt; Open Folder</strong>. Escolha ou crie uma pasta chamada <code>learning</code>.</li>
 <li>Crie um novo arquivo chamado <code>hello.html</code>.</li>
-<li>Cole isso e salve com Cmd/Ctrl + S:</li>
+<li>Cole isto e salve com Cmd/Ctrl + S:</li>
 </ol>
 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -104,7 +104,7 @@ git --version  # any version works
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p>Abra o arquivo no navegador (dê dois cliques ou arraste para o navegador). Abra a devtools com <strong>F12</strong> e vá para a aba Console. Você deve ver a linha do log.</p>
+<p>Abra o arquivo no navegador (duplo-clique, ou arraste para o navegador). Abra as devtools com <strong>F12</strong> e vá para a aba Console. Você deve ver a linha do log.</p>
 <div class="mermaid">
 flowchart LR
     VSC[VS Code<br/>write code]
@@ -120,28 +120,22 @@ flowchart LR
 
 </div>
 <h2 id="extens-es-que-valem-a-pena"><a class="heading-anchor" href="#extens-es-que-valem-a-pena">Extensões Que Valem a Pena</a></h2>
-<p>Abra o painel Extensions do VS Code (ícone de quadrado na barra lateral). Instale estas quatro:</p>
+<p>Abra o painel de Extensions no VS Code (ícone quadrado na barra esquerda). Instale estes quatro:</p>
 <ul>
-<li><strong>Prettier - Code formatter</strong> - formata automaticamente ao salvar, deixa todos os arquivos consistentes</li>
-<li><strong>ESLint</strong> - destaca bugs e problemas de estilo de JavaScript enquanto você digita</li>
-<li><strong>Live Server</strong> - clique direito em qualquer arquivo .html -&gt; "Open with Live Server" para recarregar ao salvar</li>
-<li><strong>GitLens</strong> - integração git turbinada; veja quem mexeu em cada linha pela última vez</li>
+<li><strong>Prettier - Code formatter</strong> - formata automaticamente ao salvar</li>
+<li><strong>ESLint</strong> - destaca bugs e problemas de estilo em JavaScript enquanto você digita</li>
+<li><strong>Live Server</strong> - botão direito em qualquer .html -&gt; "Open with Live Server" para recarga automática ao salvar</li>
+<li><strong>GitLens</strong> - integração git turbinada; vê quem mudou cada linha por último</li>
 </ul>
-<p>Para ativar format-on-save, abra as configurações (Cmd/Ctrl + ,), procure "format on save" e marque a caixa.</p>
-<h2 id="notas-por-sistema-operacional"><a class="heading-anchor" href="#notas-por-sistema-operacional">Notas por Sistema Operacional</a></h2>
-<ul>
-<li><strong>Windows</strong>: instale o Git for Windows em <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>. O terminal padrão "Git Bash" dá um shell estilo Linux, muito mais agradável que o cmd.exe para este curso.</li>
-<li><strong>Mac</strong>: instale o <a href="https://brew.sh/" target="_blank" rel="noopener">Homebrew</a> primeiro. Depois <code>brew install git node</code> finaliza a configuração.</li>
-<li><strong>Linux</strong>: você provavelmente já tem git. <code>sudo apt install git nodejs npm</code> (Ubuntu/Debian) ou <code>nvm</code> para versões novas.</li>
-</ul>
+<p>Para ligar format-on-save, abra settings (Cmd/Ctrl + ,), busque "format on save" e marque a caixa.</p>
 <div class="takeaways">
 <h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
 <ul>
 <li>Três ferramentas: VS Code (editor), Node.js LTS (runtime), um navegador moderno com devtools</li>
-<li>Verifique com node -v, npm -v, git --version, code -v. Todos os quatro devem mostrar versões</li>
-<li>Aprenda atalhos do VS Code cedo: Cmd/Ctrl+P (abrir rápido), Cmd/Ctrl+Shift+P (command palette), Ctrl+crase (terminal)</li>
-<li>Instale Prettier, ESLint, Live Server, GitLens. Ative format-on-save</li>
-<li>Se um comando deu "not found", abra um terminal novo. Se ainda quebrar, reinicie. Atualizações de PATH só valem em shell novo</li>
+<li>Verifique com node -v, npm -v, git --version, code -v. Os quatro devem imprimir versões</li>
+<li>Aprenda os atalhos do VS Code cedo: Cmd/Ctrl+P (abrir rápido), Cmd/Ctrl+Shift+P (command palette), Ctrl+crase (terminal)</li>
+<li>Instale Prettier, ESLint, Live Server, GitLens. Ligue format-on-save</li>
+<li>Se "not found", abra um terminal novo. Se continuar quebrado, reinicie. Atualização de PATH exige shell nova</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

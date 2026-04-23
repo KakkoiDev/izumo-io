@@ -46,10 +46,10 @@
           <a href="t36.html">次へ</a>
         </div>
       </nav>
-      <h1 id="t35-web-components-i-カスタム要素とshadow-dom"><a class="heading-anchor" href="#t35-web-components-i-カスタム要素とshadow-dom">T35: Web Components I - カスタム要素とShadow DOM</a></h1>
-<p class="lesson-intro">もし自分のHTMLタグを発明できたら? <code>&lt;user-card&gt;</code>、<code>&lt;rating-stars&gt;</code>、<code>&lt;search-box&gt;</code>。それがWeb Componentsです。フレームワークもビルドも無しで再利用可能なUIのレゴブロックをブラウザネイティブに作る方法。今日の2つの材料: カスタム要素がタグを定義し、Shadow DOMが中身を密閉して外に漏れないようにします。</p>
-<h2 id="カスタム要素"><a class="heading-anchor" href="#カスタム要素">カスタム要素</a></h2>
-<p>カスタム要素は<code>HTMLElement</code>を継承したクラスで、ブラウザにタグ名で登録します。タグ名には<em>必ず</em>ハイフンが必要で、これによりブラウザは組み込みタグと区別します。登録はページ上で永久的です。</p>
+      <h1 id="t35-web-components-i-custom-elements-amp-shadow-dom"><a class="heading-anchor" href="#t35-web-components-i-custom-elements-amp-shadow-dom">T35: Web Components I - Custom Elements &amp; Shadow DOM</a></h1>
+<p class="lesson-intro">もし自分のHTMLタグを発明できたら? <code>&lt;user-card&gt;</code>、<code>&lt;rating-stars&gt;</code>、<code>&lt;search-box&gt;</code>。Web Componentsはフレームワークもビルドステップもなしにそれを可能にします。2つの材料: Custom Elementsがタグを定義し、Shadow DOMが内部を封じて何も漏れ出ない/入らないようにする。</p>
+<h2 id="custom-elements"><a class="heading-anchor" href="#custom-elements">Custom Elements</a></h2>
+<p>Custom elementは <code>HTMLElement</code> を継承するクラスで、タグ名でブラウザに登録する。タグ名は<em>必ず</em>ハイフンを含まなければならない - ブラウザが組み込みタグと区別できるように。登録はページ内で永続。</p>
 <pre><code>class GreetingBox extends HTMLElement {
     constructor() {
         super();
@@ -59,12 +59,12 @@
 
 customElements.define(&quot;greeting-box&quot;, GreetingBox);
 </code></pre>
-<p>これでこのタグがHTML内のどこでも使えます:</p>
-<pre><code>&lt;!-- In any page --&gt;
+<p>これでこのタグがHTMLのどこでも動く:</p>
+<pre><code>&lt;!-- 任意のページで --&gt;
 &lt;greeting-box&gt;&lt;/greeting-box&gt;
 </code></pre>
 <h2 id="属性を読む"><a class="heading-anchor" href="#属性を読む">属性を読む</a></h2>
-<p>良いカスタム要素は自分の属性を読んで自己設定します。組み込み要素もそうです: <code>&lt;img src="..."&gt;</code>、<code>&lt;a href="..."&gt;</code>。あなたの要素も同様にすべきです。</p>
+<p>良いcustom elementは自分の属性を読んで自己構成する。組み込み要素がそうしている: <code>&lt;img src="..."&gt;</code>、<code>&lt;a href="..."&gt;</code>。あなたの要素もそうするべき。</p>
 <pre><code>class GreetingBox extends HTMLElement {
     connectedCallback() {
         const name = this.getAttribute(&quot;name&quot;) || &quot;friend&quot;;
@@ -75,8 +75,8 @@ customElements.define(&quot;greeting-box&quot;, GreetingBox);
 
 // &lt;greeting-box name=&quot;Alice&quot;&gt;&lt;/greeting-box&gt;
 </code></pre>
-<h2 id="shadow-dom-密閉された内部"><a class="heading-anchor" href="#shadow-dom-密閉された内部">Shadow DOM: 密閉された内部</a></h2>
-<p>Shadow DOMがないと、コンポーネントのHTMLとCSSはグローバルページに住みます。どこか別の場所の<code>h2 { color: red }</code>があなたの設計したウィジェットを赤く塗りかねません。Shadow DOMは要素にプライベートなツリーをアタッチします。外のスタイルは中に届かず、中のスタイルは外に漏れません。</p>
+<h2 id="shadow-dom-封じられた内部"><a class="heading-anchor" href="#shadow-dom-封じられた内部">Shadow DOM: 封じられた内部</a></h2>
+<p>Shadow DOMはあなたの要素にプライベートなDOMツリーをアタッチする。外のスタイルは中に届かず、中のスタイルは外に漏れない。これがなければ、ページのどこかの <code>h2 { color: red }</code> があなたのウィジェットを塗り替える。</p>
 <pre><code>class UserCard extends HTMLElement {
     connectedCallback() {
         const root = this.attachShadow({ mode: &quot;open&quot; });
@@ -110,8 +110,8 @@ flowchart TD
     Shadow --> P
 
 </div>
-<h2 id="hostと-part"><a class="heading-anchor" href="#hostと-part">:hostと::part</a></h2>
-<p>シャドウツリー内では、<code>:host</code>セレクタが要素自身を外から見るスタイルを当てます。特定のパーツを外からスタイリングさせたい場合は<code>part="..."</code>で公開し、利用側は<code>::part()</code>で指定します。</p>
+<h2 id="host-と-part"><a class="heading-anchor" href="#host-と-part">:host と ::part</a></h2>
+<p>シャドウツリー内では、<code>:host</code> セレクタが要素自身を外から見るスタイルを当てる。特定のパーツを外からスタイリングさせたい場合は <code>part="..."</code> で公開し、利用側は <code>::part()</code> で指定する。</p>
 <pre><code>&lt;style&gt;
     :host { display: block; }
     :host([featured]) { border-color: gold; }
@@ -119,17 +119,17 @@ flowchart TD
 &lt;/style&gt;
 &lt;button part=&quot;action&quot;&gt;Click me&lt;/button&gt;
 
-/* In the outer page CSS */
+/* 外のページCSSで */
 user-card::part(action) { background: tomato; color: white; }
 </code></pre>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>HTMLElementを継承し、customElements.define("my-tag", Class)で登録。タグにはハイフンが必須</li>
-<li>getAttributeで属性を読み、HTMLから要素を設定する</li>
-<li>Shadow DOMは内部のマークアップとスタイルをページの他の部分から密閉する</li>
-<li>:hostで要素自体をスタイリング、::partで外部CSSに公開する</li>
-<li>Web Componentsは任意のフレームワークで、またはフレームワーク無しで動く。プラットフォームネイティブ</li>
+<li>HTMLElementを継承し、customElements.define("my-tag", Class)で登録 - タグ名にハイフン必須</li>
+<li>getAttributeで属性を読み、HTMLから要素を構成する</li>
+<li>Shadow DOMがあなたの内部マークアップとスタイルをページの残りから封じる</li>
+<li>:hostで要素自身をスタイル、::partで外のCSSにスタイリングフックを公開</li>
+<li>Web Componentsはどのフレームワークでも、なくても動く - プラットフォームネイティブ</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

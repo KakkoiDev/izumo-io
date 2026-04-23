@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>パイプとパワーツール - KakkoiSchool</title>
+  <title>パイプ & パワーツール - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -46,29 +46,29 @@
           <a href="t04.html">次へ</a>
         </div>
       </nav>
-      <h1 id="t03-パイプとパワーツール"><a class="heading-anchor" href="#t03-パイプとパワーツール">T03: パイプとパワーツール</a></h1>
-<p class="lesson-intro">ターミナルが不器用なファイルブラウザから超能力に変わる瞬間は、パイプを理解した時です。各コマンドは小さな専門家。パイプ<code>|</code>はダクトテープで、専門家を組み立てラインに繋げます。5つのコマンドをパイプで繋げば、スプレッドシートマクロ、Pythonスクリプト、午後の仕事を置き換えられます。</p>
+      <h1 id="t03-パイプ-amp-パワーツール"><a class="heading-anchor" href="#t03-パイプ-amp-パワーツール">T03: パイプ &amp; パワーツール</a></h1>
+<p class="lesson-intro">ターミナルは、パイプを理解した瞬間に不器用なファイルブラウザであることを止めて、超能力になります。各コマンドは小さな専門家。パイプ <code>|</code> はダクトテープ: 専門家を組み合わせて組立ラインを作ることができます。パイプで繋いだ5つのコマンドが、スプレッドシートのマクロ、Pythonスクリプト、午後1つ分の作業を置き換えます。</p>
 <h2 id="標準ストリーム"><a class="heading-anchor" href="#標準ストリーム">標準ストリーム</a></h2>
-<p>全てのプログラムは3つのチャネルを持ちます。<strong>stdin</strong>は入力。<strong>stdout</strong>は通常の出力先。<strong>stderr</strong>はエラー出力先。シェルはそれぞれ独立にリダイレクトできます。</p>
-<pre><code>echo &quot;hello&quot; &gt; greet.txt        # stdout TO a file (overwrite)
-echo &quot;world&quot; &gt;&gt; greet.txt       # stdout APPEND to a file
-sort &lt; names.txt                 # stdin FROM a file
-command 2&gt; errors.log            # stderr TO a file
-command &gt; out.log 2&gt;&amp;1          # stdout and stderr together
-command &gt; /dev/null 2&gt;&amp;1         # discard all output
+<p>すべてのプログラムは3つのチャネルを持つ。<strong>stdin</strong> は入力ストリーム。<strong>stdout</strong> は通常の出力先。<strong>stderr</strong> はエラーの出力先。シェルは各々を独立にリダイレクトできる。</p>
+<pre><code>echo &quot;hello&quot; &gt; greet.txt        # stdoutをファイルへ(上書き)
+echo &quot;world&quot; &gt;&gt; greet.txt       # stdoutをファイルへ追記
+sort &lt; names.txt                 # stdinをファイルから
+command 2&gt; errors.log            # stderrをファイルへ
+command &gt; out.log 2&gt;&amp;1          # stdoutとstderrをまとめて
+command &gt; /dev/null 2&gt;&amp;1         # 全出力を捨てる
 </code></pre>
 <h2 id="パイプ"><a class="heading-anchor" href="#パイプ">パイプ</a></h2>
-<p>パイプは1つのコマンドのstdoutを次のコマンドのstdinに繋ぎます。文章のように左から右に読みます。</p>
-<pre><code># Show the 5 largest files in this folder
+<p>パイプは1つのコマンドのstdoutを次のコマンドのstdinに繋ぐ。文章のように左から右に読む。</p>
+<pre><code># このフォルダで一番大きいファイル5つ
 ls -lS | head -n 5
 
-# Count how many .ts files the project has
+# プロジェクトの.tsファイルを数える
 find src -name &quot;*.ts&quot; | wc -l
 
-# Find every TODO in your code
+# コードの中の全てのTODO
 grep -rn &quot;TODO&quot; src/ | less
 
-# Top 10 commands you use most
+# よく使うコマンドのトップ10
 history | awk '{print $2}' | sort | uniq -c | sort -rn | head
 </code></pre>
 <div class="mermaid">
@@ -80,34 +80,32 @@ flowchart LR
     S2 -->|stdout| Hd[head]
 
 </div>
-<h2 id="必須の専門家たち"><a class="heading-anchor" href="#必須の専門家たち">必須の専門家たち</a></h2>
-<p>プロが研ぎ続ける標準キット:</p>
+<h2 id="必携の専門家たち"><a class="heading-anchor" href="#必携の専門家たち">必携の専門家たち</a></h2>
+<p>プロが鋭く保つ標準キット:</p>
 <ul>
-<li><code>grep pattern file</code> - パターンに一致する行を探す。<code>-r</code>で再帰、<code>-i</code>で大文字小文字無視、<code>-n</code>で行番号</li>
-<li><code>find path -name "*.ext"</code> - 名前、種類、サイズ、年齢でファイルを探す</li>
-<li><code>sort</code>と<code>uniq</code> - 行をソート、重複を除去(<code>uniq -c</code>でカウント)</li>
-<li><code>wc -l</code> - 行数カウント。「いくつ?」への素早い答え</li>
-<li><code>head -n 20</code> / <code>tail -n 20</code> - 先頭/末尾の行。<code>tail -f</code>は成長するログを追う</li>
-<li><code>cut -d, -f1</code> - CSV風データから列を抽出</li>
-<li><code>sed 's/old/new/g'</code> - 検索と置換。素早い置換のためのストリームエディタ</li>
-<li><code>awk '{print $2}'</code> - 列を意識したテキスト処理</li>
+<li><code>grep pattern file</code> - パターンに一致する行を探す。<code>-r</code> で再帰、<code>-i</code> で大文字小文字を無視、<code>-n</code> で行番号</li>
+<li><code>find path -name "*.ext"</code> - ファイル名、種別、サイズ、経過時間で探す</li>
+<li><code>sort</code> / <code>uniq</code> - 行をソート、重複を畳む(<code>uniq -c</code> で数える)</li>
+<li><code>wc -l</code> - 行数を数える</li>
+<li><code>head -n 20</code> / <code>tail -n 20</code> - 先頭/末尾の行。<code>tail -f</code> は成長するログを追跡</li>
 </ul>
-<h2 id="コマンドを繋げる"><a class="heading-anchor" href="#コマンドを繋げる">コマンドを繋げる</a></h2>
-<p>3つの演算子がパイプ無しでコマンドを順序付けます。</p>
-<pre><code>cmd1 ; cmd2          # run cmd1, then cmd2 regardless of outcome
-cmd1 &amp;&amp; cmd2         # run cmd2 ONLY if cmd1 succeeded
-cmd1 || cmd2         # run cmd2 ONLY if cmd1 failed
+<p>上級: <code>cut</code>、<code>sed</code>、<code>awk</code> でカラム抽出、ストリーム編集、テキスト処理。必要になった時に拾う。</p>
+<h2 id="コマンドのチェイン"><a class="heading-anchor" href="#コマンドのチェイン">コマンドのチェイン</a></h2>
+<p>3つの演算子でパイプなしにコマンドを順序付ける。</p>
+<pre><code>cmd1 ; cmd2          # cmd1、続いてcmd2を結果に関わらず実行
+cmd1 &amp;&amp; cmd2         # cmd1が成功した場合のみcmd2
+cmd1 || cmd2         # cmd1が失敗した場合のみcmd2
 
-# Practical example
-npm test &amp;&amp; git push                     # push only if tests pass
-mkdir build || echo &quot;already exists&quot;      # fallback message
+# 実用例
+npm test &amp;&amp; git push                     # テストが通ったらpush
+mkdir build || echo &quot;already exists&quot;      # フォールバックメッセージ
 </code></pre>
 <h2 id="小さなシェルスクリプト"><a class="heading-anchor" href="#小さなシェルスクリプト">小さなシェルスクリプト</a></h2>
-<p>毎日同じパイプを実行するなら、保存しましょう。シェルスクリプトは<code>#!/usr/bin/env bash</code>ヘッダ付きのテキストファイルで、<code>chmod +x</code>で実行可能にします。</p>
+<p>同じパイプを毎日実行するなら保存する。シェルスクリプトは <code>#!/usr/bin/env bash</code> ヘッダーを持つテキストファイルで、<code>chmod +x</code> で実行可能にする。</p>
 <pre><code>#!/usr/bin/env bash
-# backup.sh - copy the project into a timestamped tarball
+# backup.sh - プロジェクトをタイムスタンプ付きのtarballにコピー
 
-set -euo pipefail                       # fail fast on errors
+set -euo pipefail                       # エラーで即失敗
 
 name=&quot;$(basename &quot;$PWD&quot;)&quot;
 stamp=&quot;$(date +%Y%m%d-%H%M%S)&quot;
@@ -115,25 +113,25 @@ tar -czf &quot;../${name}-${stamp}.tar.gz&quot; .
 echo &quot;Saved ../${name}-${stamp}.tar.gz&quot;
 </code></pre>
 <pre><code>chmod +x backup.sh
-./backup.sh                             # run it
+./backup.sh                             # 実行
 </code></pre>
 <h2 id="長時間ジョブの実行"><a class="heading-anchor" href="#長時間ジョブの実行">長時間ジョブの実行</a></h2>
-<p>数分かかるジョブもあります。つきっきりは嫌です。</p>
-<pre><code>long-command &amp;                  # run in background
-jobs                             # list background jobs in this shell
-long-command &gt; out.log 2&gt;&amp;1 &amp;   # background + capture output
-ps aux | grep node               # find running processes
-kill 12345                       # ask a process to stop
-kill -9 12345                    # force it to stop
+<p>数分かかるジョブもある。監視したくない。</p>
+<pre><code>long-command &amp;                  # バックグラウンドで実行
+jobs                             # このシェルのバックグラウンドジョブを一覧
+long-command &gt; out.log 2&gt;&amp;1 &amp;   # バックグラウンド + 出力キャプチャ
+ps aux | grep node               # 実行中プロセスを探す
+kill 12345                       # プロセスに停止を依頼
+kill -9 12345                    # 強制停止
 </code></pre>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>3つのストリーム: stdin、stdout、stderr。&lt;、&gt;、&gt;&gt;、2&gt;でリダイレクト</li>
-<li>パイプ|は1つのコマンドのstdoutを次のstdinに繋ぐ。左から右に読む</li>
+<li>パイプ | は1コマンドのstdoutを次のstdinに繋ぐ - 左から右に読む</li>
 <li>パワーキット: grep、find、sort、uniq、wc、head、tail、cut、sed、awk。1日1つ学ぶ</li>
-<li>;(常に)、&amp;&amp;(成功時)、||(失敗時)で複数ステップコマンドを安全に繋ぐ</li>
-<li>2回実行したパイプはスクリプトに保存。chmod +xで実行可能にする</li>
+<li>; (常に)、&amp;&amp; (成功時)、|| (失敗時) で安全な多段コマンドを繋ぐ</li>
+<li>2回使ったパイプはシェルスクリプトに保存。chmod +x で実行可能に</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

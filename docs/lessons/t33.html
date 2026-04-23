@@ -47,9 +47,7 @@
         </div>
       </nav>
       <h1 id="t33-nest-js-architecture"><a class="heading-anchor" href="#t33-nest-js-architecture">T33: Nest.js Architecture</a></h1>
-<p class="lesson-intro">Nest.js is like an operations manual for a restaurant chain. Modules are departments, Controllers are the waiters taking orders, Services are the chefs doing the real work, and Dependency Injection is the manager who assigns chefs to stations without waiters needing to know the details.</p>
-<h2 id="why-a-framework"><a class="heading-anchor" href="#why-a-framework">Why a Framework?</a></h2>
-<p>Raw Node.js from T21 works for small apps, but at scale you need structure. Nest.js provides clear separation of concerns, enforced patterns, and built-in support for testing and modularity.</p>
+<p class="lesson-intro">Nest.js organizes a Node.js app into modules. Each module groups controllers (handle HTTP), services (do the work), and dependency injection (wires them together). Raw Node.js from T21 works for small apps. At scale you need structure - Nest.js gives it to you with enforced patterns and first-class testing support.</p>
 <h2 id="modules-controllers-services"><a class="heading-anchor" href="#modules-controllers-services">Modules, Controllers, Services</a></h2>
 <p>Every Nest.js app is organized into modules. Each module groups related controllers (handle HTTP) and services (handle business logic). Decorators like <code>@Controller</code> and <code>@Injectable</code> tell the framework what each class does.</p>
 <pre><code>// menu.module.ts

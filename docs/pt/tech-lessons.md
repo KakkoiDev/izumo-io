@@ -6,7 +6,7 @@ Instale as ferramentas antes do primeiro corte
 
 > Um artesão prepara a bancada antes de começar a primeira peça
 
-- [T01: Configuração do Ambiente](lessons/t01.md) - Instale o VS Code, o Node.js, o Git e um navegador. Verifique pelo terminal. Escreva hello.html e veja rodar.
+- [T01: Configuração do Ambiente](lessons/t01.md) - Instale VS Code, Node.js, Git e um navegador. Verifique pelo terminal. Escreva hello.html e veja rodar.
 
 ## Fase 2: A Linha de Comando (Terminal)
 
@@ -15,7 +15,7 @@ Linha direta com a máquina - texto vence cliques em escala
 > Botões são para turistas. Comandos são para residentes
 
 - [T02: Terminal do Zero](lessons/t02.md) - Navegar, criar, apagar arquivos. Ler o manual. Aprender o PATH e truques de velocidade.
-- [T03: Pipes e Ferramentas de Poder](lessons/t03.md) - stdin/stdout/stderr, pipes, grep/find/sed/awk, encadeamento, pequenos scripts de shell.
+- [T03: Pipes & Ferramentas Poderosas](lessons/t03.md) - stdin/stdout/stderr, pipes, grep/find/sed/awk, encadeamento, scripts shell pequenos.
 
 ## Fase 3: O Livro (HTML/CSS)
 
@@ -114,4 +114,4 @@ Arquitete sistemas grandes: escala, armazenamento, cache, trade-offs
 
 - [T37: Design de Sistemas: O Framework](lessons/t37.md) - Requisitos, entidades, API, design de alto nível, deep dives, trade-offs.
 - [T38: Design de Sistemas: Escala e Armazenamento](lessons/t38.md) - Vertical vs horizontal, SQL vs NoSQL, replicação, sharding, teorema CAP.
-- [T39: Design de Sistemas: Caching, Filas e Padrões](lessons/t39.md) - Cache-aside, filas, load balancers, CDNs, monolito vs microservices, números para decorar.
+- [T39: Design de Sistemas: Cache, Filas e Padrões](lessons/t39.md) - Cache-aside, filas, load balancers, CDNs, monolito vs microsserviços, números para saber.

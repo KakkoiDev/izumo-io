@@ -83,15 +83,13 @@ flowchart LR
 <h2 id="essential-specialists"><a class="heading-anchor" href="#essential-specialists">Essential Specialists</a></h2>
 <p>The standard kit every pro keeps sharp:</p>
 <ul>
-<li><code>grep pattern file</code> - find lines matching a pattern. Add <code>-r</code> to recurse, <code>-i</code> for case-insensitive, <code>-n</code> for line numbers</li>
+<li><code>grep pattern file</code> - find lines matching a pattern. <code>-r</code> recurses, <code>-i</code> case-insensitive, <code>-n</code> line numbers</li>
 <li><code>find path -name "*.ext"</code> - locate files by name, type, size, age</li>
-<li><code>sort</code> and <code>uniq</code> - sort lines, collapse duplicates (<code>uniq -c</code> counts them)</li>
-<li><code>wc -l</code> - count lines. Quick "how many?" answers</li>
+<li><code>sort</code> / <code>uniq</code> - sort lines, collapse duplicates (<code>uniq -c</code> counts them)</li>
+<li><code>wc -l</code> - count lines</li>
 <li><code>head -n 20</code> / <code>tail -n 20</code> - first / last lines. <code>tail -f</code> follows a growing log</li>
-<li><code>cut -d, -f1</code> - extract a column from CSV-ish data</li>
-<li><code>sed 's/old/new/g'</code> - find and replace. Stream editor for quick substitutions</li>
-<li><code>awk '{print $2}'</code> - column-aware text processing</li>
 </ul>
+<p>Advanced: <code>cut</code>, <code>sed</code>, <code>awk</code> for column extraction, stream editing, and text processing. Pick them up on demand.</p>
 <h2 id="chaining-commands"><a class="heading-anchor" href="#chaining-commands">Chaining Commands</a></h2>
 <p>Three operators sequence commands without pipes.</p>
 <pre><code>cmd1 ; cmd2          # run cmd1, then cmd2 regardless of outcome
