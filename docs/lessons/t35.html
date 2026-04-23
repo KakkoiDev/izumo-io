@@ -96,15 +96,15 @@ customElements.define(&quot;greeting-box&quot;, GreetingBox);
 customElements.define(&quot;user-card&quot;, UserCard);
 </code></pre>
 <div class="mermaid">
-graph TD
-    Page[Light DOM - the page]
-    Tag["&lt;user-card name='Alice'&gt;"]
-    Shadow[Shadow DOM root]
-    H[h2: Alice]
-    P[p: Welcome back.]
-    Style[scoped &lt;style&gt;]
+flowchart TD
+    Page["Light DOM: the page"]
+    Tag["user-card element (name=Alice)"]
+    Shadow["Shadow DOM root"]
+    H["h2: Alice"]
+    P["p: Welcome back."]
+    Style["scoped style block"]
     Page --> Tag
-    Tag -.attachShadow.-> Shadow
+    Tag -->|attachShadow| Shadow
     Shadow --> Style
     Shadow --> H
     Shadow --> P
