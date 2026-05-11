@@ -1,10 +1,28 @@
-// scripts.js (para rodar no navegador)
-// Remova qualquer `require()` ou import CommonJS — isto é código só para Node.
-
 let currentChatId = null;
 
+//send using ENTER key
+const textarea = document.getElementById("txtAreaInput");
+
+textarea.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault(); // avoid new line
+    getTxtValue(); // call function to send
+  }
+});
+
+//function to auto scrooll
+function scrollToBottom() {
+  const main = document.getElementById("main");
+  if (!main) return;
+
+  main.scrollTo({
+    top: main.scrollHeight,
+    behavior: "smooth",
+  });
+}
+
 async function getTxtValue() {
-  const mainDiv = document.getElementById("mainDiv");
+  const mainDiv = document.getElementById("main");
   const userValue = document.getElementById("txtAreaInput");
 
   const userTxtValue = userValue.value.trim();
@@ -12,18 +30,21 @@ async function getTxtValue() {
 
   // show message from user
   const userTxtDiv = document.createElement("div");
-  userTxtDiv.className = "userTxtDiv";
-  userTxtDiv.innerHTML = `<p>${escapeHtml(userTxtValue).replace(/\n/g, "<br>")}</p>`;
+  userTxtDiv.className = "user-txt-div";
+  userTxtDiv.innerHTML = `<p>${escapeHtml(userTxtValue).replace(
+    /\n/g,
+    "<br>"
+  )}</p>`;
   mainDiv.appendChild(userTxtDiv);
+  scrollToBottom();
 
   // AI placeholder + spinner
   const aiDiv = document.createElement("div");
-  aiDiv.className = "aiDiv";
+  aiDiv.className = "ai-div";
   const spinner = document.createElement("div");
   spinner.className = "spinner";
   aiDiv.appendChild(spinner);
   mainDiv.appendChild(aiDiv);
-  mainDiv.scrollTop = mainDiv.scrollHeight;
 
   // DATABASE: create chat if first message
   if (!currentChatId) {
@@ -31,7 +52,7 @@ async function getTxtValue() {
     const res = await fetch("http://127.0.0.1:3000/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: chatTitle })
+      body: JSON.stringify({ title: chatTitle }),
     });
     const chatData = await res.json();
     currentChatId = chatData.id;
@@ -47,8 +68,8 @@ async function getTxtValue() {
       body: JSON.stringify({
         chat_id: currentChatId,
         role: "user",
-        text: userTxtValue
-      })
+        text: userTxtValue,
+      }),
     });
   } catch (err) {
     console.error("Erro ao salvar mensagem do usuário:", err);
@@ -62,19 +83,19 @@ async function getTxtValue() {
       body: JSON.stringify({
         model: "dolphin3:latest",
         prompt: userTxtValue,
-        stream: false
-      })
+        stream: false,
+      }),
     });
 
     const data = await response.json();
-    const aiResponse = data.response || "(sem resposta)";
+    const aiResponse = data.response || "(no response)";
 
     // remove spinner and show AI text
     aiDiv.removeChild(spinner);
     const p = document.createElement("p");
     p.innerHTML = escapeHtml(aiResponse).replace(/\n/g, "<br>");
     aiDiv.appendChild(p);
-    mainDiv.scrollTop = mainDiv.scrollHeight;
+    scrollToBottom();
 
     // save AI message to DB
     try {
@@ -84,20 +105,19 @@ async function getTxtValue() {
         body: JSON.stringify({
           chat_id: currentChatId,
           role: "ai",
-          text: aiResponse
-        })
+          text: aiResponse,
+        }),
       });
-      // atualizar lista de chats (opcional)
+      // update chats (opcional)
       renderChatList().catch(console.error);
     } catch (err) {
-      console.error("Erro ao salvar mensagem da IA:", err);
+      console.error("Error can't save IA message:", err);
     }
-
   } catch (err) {
     // network / fetch error
     console.error("Erro ao chamar AI:", err);
     if (aiDiv.contains(spinner)) aiDiv.removeChild(spinner);
-    aiDiv.innerHTML = "<p>Erro ao conectar ao servidor de IA.</p>";
+    aiDiv.innerHTML = "<p>Error to connect AI server.</p>";
   }
 
   // clear input and focus
@@ -112,7 +132,7 @@ async function renderChatList() {
   const res = await fetch("http://127.0.0.1:3000/api/chats");
   const chats = await res.json();
   chatList.innerHTML = "";
-  chats.forEach(chat => {
+  chats.forEach((chat) => {
     const item = document.createElement("div");
     item.className = "chat-item";
     item.textContent = chat.title;
@@ -124,17 +144,17 @@ async function renderChatList() {
 // Load a chat and render messages
 async function loadChatIntoScreen(chatId) {
   currentChatId = chatId;
-  const mainDiv = document.getElementById("mainDiv");
+  const mainDiv = document.getElementById("main");
   mainDiv.innerHTML = "";
   const res = await fetch(`http://127.0.0.1:3000/api/chat/${chatId}`);
   const messages = await res.json(); // <-- use () !
-  messages.forEach(msg => {
+  messages.forEach((msg) => {
     const div = document.createElement("div");
-    div.className = msg.role === "user" ? "userTxtDiv" : "aiDiv";
+    div.className = msg.role === "user" ? "user-txt-div" : "ai-div";
     div.innerHTML = `<p>${escapeHtml(msg.text).replace(/\n/g, "<br>")}</p>`;
     mainDiv.appendChild(div);
   });
-  mainDiv.scrollTop = mainDiv.scrollHeight;
+  scrollToBottom();
 }
 
 // small helper to avoid XSS when inserting text

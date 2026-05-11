@@ -21,8 +21,9 @@ p {
   display: flex;
   width: 100%;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100vh;
   overflow: hidden;
+  margin-top: 60px;
 }
 
 /* NAVBAR */
@@ -42,7 +43,18 @@ p {
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  padding-bottom: 120px; /* evita que textarea esconda mensagens */
+  padding: 1rem;
+  padding-bottom: 140px; /* AVOID TEXTAREA TO HIDDEN */
+  overscroll-behavior: contain; /* auto scrool more smooth */
+  /* hidde scrool bar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge antigo */
+}
+
+/* hidde scrool bar */
+.main::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }
 
 /* INPUT SECTION */
@@ -53,10 +65,8 @@ p {
   gap: 1rem;
   align-items: center;
   flex-wrap: wrap;
-  position: fixed;
+  position: sticky;
   bottom: 0;
-  width: calc(100% - 200px);
-  border-top: 1px solid #444;
 }
 
 .btn {
@@ -67,7 +77,7 @@ p {
 }
 
 /* TEXTAREA */
-.txtArea {
+.txt-area {
   flex: 1;
   min-height: 40px;
   max-height: 150px;
@@ -81,17 +91,17 @@ p {
   transition: 0.3s;
 }
 
-.txtArea:hover {
+.txt-area:hover {
   box-shadow: 0 0 5px #2966e7;
 }
 
-.txtArea:focus {
+.txt-area:focus {
   border: 1px solid #2966e7;
 }
 
 /* MESSAGES */
-.userTxtDiv,
-.aiDiv {
+.user-txt-div,
+.ai-div {
   background-color: #3d3d3d;
   display: inline-block;
   font-size: 16px;
@@ -103,12 +113,12 @@ p {
   overflow-wrap: break-word;
 }
 
-.userTxtDiv {
+.user-txt-div {
   align-self: flex-end;
   text-align: right;
 }
 
-.aiDiv {
+.ai-div {
   align-self: flex-start;
 }
 
@@ -146,10 +156,6 @@ p {
     flex-direction: column;
   }
 
-  .main-wrapper {
-    margin-top: 60px;
-  }
-
   .input {
     width: 100%;
     left: 0;
@@ -159,7 +165,6 @@ p {
     padding-bottom: 150px;
   }
 }
-
 
 .chat-item {
   padding: 10px;
