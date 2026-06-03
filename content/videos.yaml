@@ -1,5 +1,25 @@
 # Video gallery entries. Localized title + desc per language.
 
+- youtube_id: Td49HmNouIY
+  title_en: "KakkoiSchool S2 C3 - T3 HTML Basics & App Brainstorming"
+  title_ja: "KakkoiSchool S2 C3 - T3 HTMLの基本とアプリのブレインストーミング"
+  title_pt: "KakkoiSchool S2 C3 - T3 Fundamentos de HTML e Brainstorming do App"
+
+- youtube_id: 6V7OBmzZuf0
+  title_en: "KakkoiSchool S2 C3 - T2 Install WSL"
+  title_ja: "KakkoiSchool S2 C3 - T2 WSLのインストール"
+  title_pt: "KakkoiSchool S2 C3 - T2 Instalação do WSL"
+
+- youtube_id: FFELdZy26D4
+  title_en: "KakkoiSchool S2 C3 - T1 About the Terminal"
+  title_ja: "KakkoiSchool S2 C3 - T1 ターミナルについて"
+  title_pt: "KakkoiSchool S2 C3 - T1 Sobre o Terminal"
+
+- youtube_id: BQJGIHuMjCM
+  title_en: "KakkoiSchool S2 C3 - Class 3 Start"
+  title_ja: "KakkoiSchool S2 C3 - 第3回クラス"
+  title_pt: "KakkoiSchool S2 C3 - Início da Aula 3"
+
 - youtube_id: Q8robfRBDp0
   title_en: "KakkoiSchool S2 C2 - T1 Environment Setup"
   title_ja: "KakkoiSchool S2 C2 - T1 環境セットアップ"
