@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Install & Authenticate Gemini CLI - KakkoiSchool</title>
+  <title>Context Engineering - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,55 +47,42 @@
           <a href="a05.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a04-install-amp-authenticate-gemini-cli"><a class="heading-anchor" href="#a04-install-amp-authenticate-gemini-cli">A04: Install &amp; Authenticate Gemini CLI</a></h1>
-<p class="lesson-intro">You have a terminal and Node.js. Now install the assistant itself, Gemini CLI, log in for free, and talk to it. By the end of this lesson you have a working AI in your terminal and you have already caught it being wrong once.</p>
-<h2 id="install-it"><a class="heading-anchor" href="#install-it">Install It</a></h2>
-<p>In your terminal, run:</p>
-<pre><code>npm install -g @google/gemini-cli
+      <h1 id="a04-context-engineering"><a class="heading-anchor" href="#a04-context-engineering">A04: Context Engineering</a></h1>
+<p class="lesson-intro">The assistant is brilliant and has amnesia about your specific situation. It knows general things from training, but it does not know <em>your</em> file, <em>your</em> error, <em>your</em> folder, unless you show it. Putting the right information in front of it is called context engineering, and it is the difference between a guess and an answer.</p>
+<h2 id="show-don-t-describe"><a class="heading-anchor" href="#show-don-t-describe">Show, Don't Describe</a></h2>
+<p>Describing a file to the AI is like reading a document aloud over the phone: slow and lossy. Instead, hand it the file. In Gemini CLI you do this with <code>@</code>:</p>
+<pre><code>Explain what @notes.txt is about in two sentences.
 </code></pre>
-<p>The <code>-g</code> means "install globally" so you can run it from anywhere. If you set up Node with nvm in <a href="a03.html">A03</a>, this just works. If you instead see a long red permission error (<code>EACCES</code>), that is the classic reason we recommended nvm, going back and installing Node through nvm fixes it.</p>
-<p>When it finishes, start it:</p>
-<pre><code>gemini
-</code></pre>
-<h2 id="log-in-for-free"><a class="heading-anchor" href="#log-in-for-free">Log In for Free</a></h2>
-<p>The first time you run <code>gemini</code>, it asks how you want to sign in. Choose <strong>Login with Google</strong>.</p>
-<ol>
-<li>Your web browser opens automatically.</li>
-<li>Pick your Google account and approve access.</li>
-<li>Return to the terminal, you are now logged in.</li>
-</ol>
-<p>This uses Google's free tier: no credit card, no API key, generous daily limits. If you ever hit the limit, the tool tells you, just wait a bit or continue tomorrow. (Later, in <a href="a09.html">A09</a>, automated scripts need a different kind of key. Ignore that for now.)</p>
+<p>The <code>@notes.txt</code> pulls that file's actual contents into your message. Point at the real thing, <code>@report.md</code>, <code>@script.js</code>, and the AI reads it directly instead of relying on your summary. Because Gemini CLI runs in a folder, it can also see the files in the folder you started it from.</p>
+<h2 id="focused-beats-everything"><a class="heading-anchor" href="#focused-beats-everything">Focused Beats Everything</a></h2>
+<p>More context is not better. There is a sweet spot:</p>
+<ul>
+<li><strong>Too little</strong> - you paste an error with no code, and it guesses.</li>
+<li><strong>Too much</strong> - you dump twenty files, and it drowns, gets slower, mixes unrelated things together, and eats through your daily free-tier limit faster.</li>
+</ul>
+<p>Give what is relevant to <em>this</em> question and no more. When you paste an error, paste it <strong>exactly</strong>, word for word, not "it said something about a module." The exact text is the clue.</p>
 <div class="mermaid">
-flowchart LR
-    A[Run gemini] --> B[Choose Login with Google]
-    B --> C[Browser opens]
-    C --> D[Approve]
-    D --> E[Talking to AI in your terminal]
+flowchart TD
+    Q[Question alone] --> G[AI guesses about your situation]
+    QC["Question + @the-actual-file"] --> A[AI answers about your real situation]
 
 </div>
-<h2 id="your-first-conversation"><a class="heading-anchor" href="#your-first-conversation">Your First Conversation</a></h2>
-<p>You are now at the Gemini prompt. Type a question in plain English and press Enter. It answers. Ask a follow-up, it remembers the conversation.</p>
-<p>A few controls you will use constantly:</p>
-<ul>
-<li><code>/help</code> - list available commands.</li>
-<li><code>/quit</code> - leave. (Or press Ctrl+C twice.)</li>
-<li>Up arrow - bring back your last message.</li>
-</ul>
-<p>That is the whole interface: type, read, verify, repeat. The verifying is the part most people skip, and A01 told you why not to.</p>
+<h2 id="start-fresh-when-you-switch-topics"><a class="heading-anchor" href="#start-fresh-when-you-switch-topics">Start Fresh When You Switch Topics</a></h2>
+<p>A long conversation carries everything you said earlier as context. Helpful when it is related; confusing when you jump to a new topic and old details bleed in. When you change subject, start a new conversation so the AI is not still thinking about the last one.</p>
 <h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
 <ol>
-<li>Install Gemini CLI and log in with Google.</li>
-<li>Ask it five real questions, things you actually want to know this week.</li>
-<li>For at least one answer, verify it against a real source (official docs, run the command, check a fact). Find <strong>one</strong> thing it got wrong, incomplete, or made up.</li>
-<li>Write down the wrong answer and how you caught it. Bring it to class. If you could not find a single error, you were not checking hard enough, keep going.</li>
+<li>Create a short text file (some notes, a recipe, anything) in the folder where you run <code>gemini</code>.</li>
+<li>Ask a question about it <strong>without</strong> <code>@</code>, describing it in words. Note the answer.</li>
+<li>Ask the same question <strong>with</strong> <code>@yourfile</code>. Compare, which answer actually knew what was in the file?</li>
+<li>Now paste a real error message you hit this week (exact text) and ask what it means. Bring the comparison to class.</li>
 </ol>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Install with npm install -g @google/gemini-cli, then run gemini</li>
-<li>Log in with a Google account: free tier, no credit card, no API key</li>
-<li>The interface is simple: type a question, read, verify, repeat</li>
-<li>/help lists commands, /quit leaves; the free tier has generous daily limits</li>
+<li>The AI only knows what you put in front of it, show the real file, don't describe it</li>
+<li>Use @filename to pull a file's actual contents into your message</li>
+<li>Focused context wins: too little makes it guess, too much makes it drown and costs quota</li>
+<li>Paste errors exactly, and start a fresh conversation when you change topics</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
@@ -112,9 +99,17 @@ flowchart LR
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({
-      startOnLoad: true,
-      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
     });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
   </script>
   
   <footer>

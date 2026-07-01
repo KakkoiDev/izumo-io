@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Terminal Survival + Install Node.js - KakkoiSchool</title>
+  <title>How to Ask: Prompting - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,48 +47,51 @@
           <a href="a04.html">Next</a>
         </div>
       </nav>
-      <h1 id="a03-terminal-survival-install-node-js"><a class="heading-anchor" href="#a03-terminal-survival-install-node-js">A03: Terminal Survival + Install Node.js</a></h1>
-<p class="lesson-intro">You have a terminal (<a href="a02.html">A02</a>). It looks intimidating and it is not, you only need a handful of commands. This lesson makes you comfortable moving around, then installs Node.js, the engine the AI assistant runs on.</p>
-<h2 id="the-terminal-is-just-typed-directions"><a class="heading-anchor" href="#the-terminal-is-just-typed-directions">The Terminal Is Just Typed Directions</a></h2>
-<p>Clicking a folder is pointing at it. The terminal is giving directions by name. Same computer, same files, different way to talk to it. Six things carry you far:</p>
+      <h1 id="a03-how-to-ask-prompting"><a class="heading-anchor" href="#a03-how-to-ask-prompting">A03: How to Ask: Prompting</a></h1>
+<p class="lesson-intro">The single biggest difference between people who get great results from AI and people who get junk is not the tool, it is how they ask. A prompt is a brief. A vague brief gets vague work. This lesson makes your briefs sharp.</p>
+<h2 id="vague-in-vague-out"><a class="heading-anchor" href="#vague-in-vague-out">Vague In, Vague Out</a></h2>
+<p>Compare:</p>
 <ul>
-<li><code>pwd</code> - "where am I?" Prints your current folder.</li>
-<li><code>ls</code> - "what is here?" Lists files and folders.</li>
-<li><code>cd foldername</code> - "go into that folder." <code>cd ..</code> goes back up. <code>cd ~</code> goes home.</li>
-<li><code>~</code> - shorthand for your home folder, your starting point.</li>
-<li><strong>Tab</strong> - autocomplete. Type a few letters of a name and press Tab. Less typing, fewer typos.</li>
-<li><strong>Up arrow</strong> - repeat your last command. <strong>Ctrl+C</strong> - cancel a stuck command.</li>
+<li>Weak: <em>"Write about dogs."</em></li>
+<li>Strong: <em>"Write three short tips for a first-time dog owner on house-training a puppy, one sentence each, plain language."</em></li>
 </ul>
-<p>A path is an address. <code>~/projects/notes.txt</code> means "the file notes.txt, inside projects, inside home." That is all a path is.</p>
+<p>The second one says the topic, the audience, the format, and the length. The model no longer has to guess, so it stops guessing and starts helping.</p>
+<h2 id="the-four-levers"><a class="heading-anchor" href="#the-four-levers">The Four Levers</a></h2>
+<p>You control four things in almost every prompt:</p>
+<ul>
+<li><strong>Task</strong> - what exactly do you want done? "Summarize," "compare," "fix," "explain."</li>
+<li><strong>Audience / level</strong> - "explain to a complete beginner," "assume I know nothing about code."</li>
+<li><strong>Format</strong> - a list, a table, numbered steps, one line. Ask for it and you get it.</li>
+<li><strong>Constraints</strong> - length, language, tone, what to avoid. "Under 100 words." "No jargon."</li>
+</ul>
+<p>Add an <strong>example</strong> of what good looks like when you can. Showing beats describing.</p>
 <div class="mermaid">
 flowchart LR
-    A[pwd: where am I?] --> B[ls: what is here?]
-    B --> C[cd: move around]
-    C --> A
+    V[Vague prompt] --> G[Generic, useless answer]
+    S[Task + Audience + Format + Constraints] --> U[Specific, useful answer]
 
 </div>
-<h2 id="install-node-js"><a class="heading-anchor" href="#install-node-js">Install Node.js</a></h2>
-<p>Gemini CLI runs on Node.js, so install it. The clean way that avoids permission headaches later is <strong>nvm</strong> (Node Version Manager):</p>
-<ol>
-<li>Get the install command from the official nvm page (<code>github.com/nvm-sh/nvm</code>) and paste it into your terminal. We use the official source so you always get the current version, tools change.</li>
-<li>Close and reopen the terminal.</li>
-<li>Run <code>nvm install --lts</code> to install the latest long-term-support Node.</li>
-<li>Verify: <code>node -v</code>. You should see <code>v20</code> or higher. If you do, you are done.</li>
-</ol>
-<p>If a command errors, copy the exact message into Discord. Reading error text is a skill you will use for the rest of the course.</p>
+<h2 id="the-first-answer-is-a-draft"><a class="heading-anchor" href="#the-first-answer-is-a-draft">The First Answer Is a Draft</a></h2>
+<p>You are not stuck with what comes back. Push on it:</p>
+<ul>
+<li><em>"Shorter."</em> / <em>"Give me a concrete example."</em> / <em>"You assumed I use Windows, I use a Mac."</em></li>
+<li><em>"That link, does it actually exist? Show me the source."</em></li>
+</ul>
+<p>And avoid the trap from A01: do not ask <em>"is this good?"</em>, the model is built to say yes. Ask <em>"what are three problems with this?"</em> You get far more by inviting criticism than by fishing for approval.</p>
 <h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
 <ol>
-<li>Practice moving around: <code>pwd</code>, <code>ls</code>, <code>cd</code> into a folder and back out with <code>cd ..</code>, then <code>cd ~</code>.</li>
-<li>Make a folder called <code>ai-course</code>, rename it, then delete it. Look up the commands (<code>mkdir</code>, <code>mv</code>, <code>rm</code>) and check each worked with <code>ls</code>.</li>
-<li>Install Node and confirm <code>node -v</code> shows v20 or higher. Bring the version number to class.</li>
+<li>Take a real question you have this week. Write the laziest one-line version of it.</li>
+<li>Rewrite it three ways: once adding <strong>format</strong>, once adding <strong>audience/level</strong>, once adding <strong>constraints</strong>.</li>
+<li>Run all four prompts. Note how the answer changed each time.</li>
+<li>Pick the best answer, then push on it once more ("shorter" / "with an example" / "what's wrong with this?"). Bring the before-and-after to class.</li>
 </ol>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>The terminal is just giving your computer directions by name instead of clicking</li>
-<li>Six basics carry you far: pwd, ls, cd, ~, Tab, Ctrl+C</li>
-<li>A path is an address; ~ is your home folder</li>
-<li>Install Node via nvm and confirm node -v is v20 or higher</li>
+<li>A prompt is a brief; vague briefs get vague work</li>
+<li>Control four levers: task, audience/level, format, constraints, and show an example when you can</li>
+<li>The first answer is a draft, refine it with follow-ups</li>
+<li>Never ask "is this good?"; ask "what are three problems with this?"</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
@@ -105,9 +108,17 @@ flowchart LR
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({
-      startOnLoad: true,
-      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
     });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
   </script>
   
   <footer>

@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>How to Ask: Prompting - KakkoiSchool</title>
+  <title>Memories with GEMINI.md - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,51 +47,45 @@
           <a href="a06.html">Next</a>
         </div>
       </nav>
-      <h1 id="a05-how-to-ask-prompting"><a class="heading-anchor" href="#a05-how-to-ask-prompting">A05: How to Ask: Prompting</a></h1>
-<p class="lesson-intro">The single biggest difference between people who get great results from AI and people who get junk is not the tool, it is how they ask. A prompt is a brief. A vague brief gets vague work. This lesson makes your briefs sharp.</p>
-<h2 id="vague-in-vague-out"><a class="heading-anchor" href="#vague-in-vague-out">Vague In, Vague Out</a></h2>
-<p>Compare:</p>
+      <h1 id="a05-memories-with-gemini-md"><a class="heading-anchor" href="#a05-memories-with-gemini-md">A05: Memories with GEMINI.md</a></h1>
+<p class="lesson-intro">By now you are probably retyping the same things every conversation: "I'm a beginner," "answer concisely," "I use a Mac." That is wasted effort. A memory file tells the assistant those things once, and it reads them at the start of every session automatically.</p>
+<h2 id="gemini-md-your-standing-instructions"><a class="heading-anchor" href="#gemini-md-your-standing-instructions">GEMINI.md: Your Standing Instructions</a></h2>
+<p><code>GEMINI.md</code> is an ordinary text file that Gemini CLI loads on startup and treats as instructions. Whatever you write there shapes every answer, without you repeating it. There are two levels:</p>
 <ul>
-<li>Weak: <em>"Write about dogs."</em></li>
-<li>Strong: <em>"Write three short tips for a first-time dog owner on house-training a puppy, one sentence each, plain language."</em></li>
+<li><strong>Global</strong> - <code>~/.gemini/GEMINI.md</code> in your home folder. Applies everywhere, to every project.</li>
+<li><strong>Project</strong> - a <code>GEMINI.md</code> in the folder you launch <code>gemini</code> from. Applies only there. Good for rules specific to one piece of work.</li>
 </ul>
-<p>The second one says the topic, the audience, the format, and the length. The model no longer has to guess, so it stops guessing and starts helping.</p>
-<h2 id="the-four-levers"><a class="heading-anchor" href="#the-four-levers">The Four Levers</a></h2>
-<p>You control four things in almost every prompt:</p>
-<ul>
-<li><strong>Task</strong> - what exactly do you want done? "Summarize," "compare," "fix," "explain."</li>
-<li><strong>Audience / level</strong> - "explain to a complete beginner," "assume I know nothing about code."</li>
-<li><strong>Format</strong> - a list, a table, numbered steps, one line. Ask for it and you get it.</li>
-<li><strong>Constraints</strong> - length, language, tone, what to avoid. "Under 100 words." "No jargon."</li>
-</ul>
-<p>Add an <strong>example</strong> of what good looks like when you can. Showing beats describing.</p>
+<p>Put your global preferences up top ("I'm learning; explain simply, always give one example, keep answers short"), and project facts in the project file.</p>
 <div class="mermaid">
-flowchart LR
-    V[Vague prompt] --> G[Generic, useless answer]
-    S[Task + Audience + Format + Constraints] --> U[Specific, useful answer]
+flowchart TD
+    A[Without memory] --> B[Re-explain yourself every session]
+    C[With GEMINI.md] --> D[Loaded once, applied every session]
 
 </div>
-<h2 id="the-first-answer-is-a-draft"><a class="heading-anchor" href="#the-first-answer-is-a-draft">The First Answer Is a Draft</a></h2>
-<p>You are not stuck with what comes back. Push on it:</p>
+<h2 id="check-what-it-loaded"><a class="heading-anchor" href="#check-what-it-loaded">Check What It Loaded</a></h2>
+<p>Two commands you will use:</p>
 <ul>
-<li><em>"Shorter."</em> / <em>"Give me a concrete example."</em> / <em>"You assumed I use Windows, I use a Mac."</em></li>
-<li><em>"That link, does it actually exist? Show me the source."</em></li>
+<li><code>/memory show</code> - prints exactly what instructions are currently loaded. Use it to confirm your file is being read.</li>
+<li><code>/memory refresh</code> - reloads the files after you edit them, so you do not have to restart.</li>
 </ul>
-<p>And avoid the trap from A01: do not ask <em>"is this good?"</em>, the model is built to say yes. Ask <em>"what are three problems with this?"</em> You get far more by inviting criticism than by fishing for approval.</p>
+<h2 id="what-belongs-there-and-what-doesn-t"><a class="heading-anchor" href="#what-belongs-there-and-what-doesn-t">What Belongs There (and What Doesn't)</a></h2>
+<p>Good: your level and preferences, how you like answers formatted, stable facts about your setup, project conventions.</p>
+<p>Not there: <strong>secrets</strong>. A <code>GEMINI.md</code> is a plain file that gets sent to the AI, so the A01 rule still holds, no passwords, no personal data, no unapproved work details.</p>
+<p>Think of it as the onboarding note you hand a contractor so you never have to re-explain the basics each morning.</p>
 <h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
 <ol>
-<li>Take a real question you have this week. Write the laziest one-line version of it.</li>
-<li>Rewrite it three ways: once adding <strong>format</strong>, once adding <strong>audience/level</strong>, once adding <strong>constraints</strong>.</li>
-<li>Run all four prompts. Note how the answer changed each time.</li>
-<li>Pick the best answer, then push on it once more ("shorter" / "with an example" / "what's wrong with this?"). Bring the before-and-after to class.</li>
+<li>Create <code>~/.gemini/GEMINI.md</code> with three or four rules for how you want the AI to answer you (level, length, "always show an example," language).</li>
+<li>Start <code>gemini</code> and run <code>/memory show</code>. Confirm your rules are loaded.</li>
+<li>Ask a question and check whether the answer actually follows your rules. If not, sharpen the wording, run <code>/memory refresh</code>, and try again.</li>
+<li>Bring your <code>GEMINI.md</code> and one before/after answer to class.</li>
 </ol>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>A prompt is a brief; vague briefs get vague work</li>
-<li>Control four levers: task, audience/level, format, constraints, and show an example when you can</li>
-<li>The first answer is a draft, refine it with follow-ups</li>
-<li>Never ask "is this good?"; ask "what are three problems with this?"</li>
+<li>GEMINI.md is loaded automatically every session, so you stop repeating yourself</li>
+<li>Global (~/.gemini/GEMINI.md) applies everywhere; a project GEMINI.md applies to that folder</li>
+<li>/memory show confirms what is loaded; /memory refresh reloads after edits</li>
+<li>Put preferences and project rules there, never secrets</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
@@ -108,9 +102,17 @@ flowchart LR
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({
-      startOnLoad: true,
-      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
     });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
   </script>
   
   <footer>

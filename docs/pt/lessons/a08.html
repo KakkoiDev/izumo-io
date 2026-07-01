@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Custom Commands - KakkoiSchool</title>
+  <title>Capstone: Your AI Toolkit - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -44,60 +44,57 @@
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">
           <a href="a07.html">Anterior</a>
-          <a href="a09.html">Próxima</a>
+          
         </div>
       </nav>
-      <h1 id="a08-custom-commands"><a class="heading-anchor" href="#a08-custom-commands">A08: Custom Commands</a></h1>
-<p class="lesson-intro">You have a few prompts you keep retyping, "summarize this in three bullets for a beginner," "explain this error in plain English." A custom command saves that prompt once and gives it a short name you can call any time. (You may hear these called "skills" or "agents" in other tools. In Gemini CLI they are custom commands.)</p>
-<h2 id="a-command-is-a-saved-prompt"><a class="heading-anchor" href="#a-command-is-a-saved-prompt">A Command Is a Saved Prompt</a></h2>
-<p>Gemini CLI reads command files from a <code>commands</code> folder:</p>
+      <h1 id="a08-capstone-your-ai-toolkit"><a class="heading-anchor" href="#a08-capstone-your-ai-toolkit">A08: Capstone: Your AI Toolkit</a></h1>
+<p class="lesson-intro">You have learned to install the assistant, ask it well, feed it context, give it memory, save commands, and script with it, all under one rule: use it heavily, trust it never. The capstone is not an app. It is your own tuned toolkit plus proof that you have the judgment to use it safely. Think of a chef's knife roll: not the fanciest kitchen, your own set, sharpened the way you work.</p>
+<h2 id="what-you-build"><a class="heading-anchor" href="#what-you-build">What You Build</a></h2>
+<p>Four pieces, each from a lesson you have already done:</p>
 <ul>
-<li><strong>Global</strong> - <code>~/.gemini/commands/</code> (available everywhere).</li>
-<li><strong>Project</strong> - <code>.gemini/commands/</code> (only in that project).</li>
+<li><strong>A <code>GEMINI.md</code></strong> with your standing rules (A05). It should make the AI answer the way <em>you</em> want by default.</li>
+<li><strong>One custom command</strong> you genuinely use (A06). Not a demo, something that saves you real time.</li>
+<li><strong>One script</strong> the AI helped you write (A07), that does something useful and that you have read and understood. Run by hand is fine.</li>
+<li><strong>A written reflection</strong> (A01): one real time you caught the AI being <em>confidently wrong</em>, what it claimed, and how you caught it. This is the most important piece.</li>
 </ul>
-<p>Each command is a small <code>.toml</code> file. The <strong>filename becomes the command name</strong>: <code>explain.toml</code> gives you <code>/explain</code>. Inside, the important part is a <code>prompt</code> field.</p>
-<p>Create <code>~/.gemini/commands/explain.toml</code>:</p>
-<pre><code>description = &quot;Explain something to a beginner&quot;
-prompt = &quot;&quot;&quot;
-Explain the following to a complete beginner, in plain language,
-with one concrete example:
-
-{{args}}
-&quot;&quot;&quot;
-</code></pre>
-<p>Now in Gemini CLI type:</p>
-<pre><code>/explain how does DNS work
-</code></pre>
-<p>Whatever you type after the command replaces <code>{{args}}</code> in the saved prompt. You just turned a careful, reusable prompt into a one-word shortcut. Build a small library of these and your good prompts stop living in your memory and start living in your tool.</p>
 <div class="mermaid">
-flowchart LR
-    A[Retype a long prompt every time] --> B[Slow, inconsistent]
-    C["Save it as /explain once"] --> D[One word, same quality every time]
+flowchart TD
+    T[Your AI Toolkit] --> M[GEMINI.md: your rules]
+    T --> C["Custom command: /yours"]
+    T --> S[A script you read and trust]
+    T --> R[Reflection: a wrong answer you caught]
 
 </div>
-<h2 id="one-step-further-mcp-just-so-you-know-it-exists"><a class="heading-anchor" href="#one-step-further-mcp-just-so-you-know-it-exists">One Step Further: MCP (just so you know it exists)</a></h2>
-<p>Custom commands reuse <em>prompts</em>. If you ever need the AI to use a real external <em>tool</em>, read a database, call a web service, Gemini CLI supports <strong>MCP</strong> (Model Context Protocol), a way to plug in extra abilities. That is well beyond this course. For now, just know the word exists so it is not a mystery later.</p>
-<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<h2 id="how-you-present-it"><a class="heading-anchor" href="#how-you-present-it">How You Present It</a></h2>
+<p>Show your toolkit and walk through each piece: what it does, why you made it, how you use it. Then tell the story of the error you caught, that story is the point. Anyone can run a tool. You are proving you can run it <em>and</em> stay in charge of it.</p>
+<h2 id="where-to-go-next"><a class="heading-anchor" href="#where-to-go-next">Where to Go Next</a></h2>
+<p>You now have the foundation. Natural next steps, on your own:</p>
+<ul>
+<li>Grow your command library as you spot repeated prompts.</li>
+<li>Learn a little more terminal so scripts feel easy.</li>
+<li>Read your AI provider's data and privacy terms once, properly.</li>
+<li>Revisit <a href="r20.html">R20: Never Trust an AI</a> in a few months. It reads differently once you have real hours with these tools.</li>
+</ul>
+<h2 id="this-week-s-exercise-the-capstone"><a class="heading-anchor" href="#this-week-s-exercise-the-capstone">This Week's Exercise (the capstone)</a></h2>
 <ol>
-<li>Create <code>~/.gemini/commands/</code> if it does not exist.</li>
-<li>Build one command that solves a real annoyance for you, for example <code>/summarize</code> (summarize pasted text in three bullets) or <code>/explain</code> (like above).</li>
-<li>Use it at least three times this week on real inputs. Refine the saved prompt until the output is consistently good.</li>
-<li>Bring your <code>.toml</code> file and an example run to class.</li>
+<li>Finalize your <code>GEMINI.md</code>, one custom command, and one script. Make sure each works.</li>
+<li>Write your reflection: the wrong AI answer, and how you caught it. A few honest sentences.</li>
+<li>Present your toolkit to the group. Be ready to answer: "how would someone misuse this, and how do you avoid that?"</li>
 </ol>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>A custom command is a saved, reusable prompt with a short name</li>
-<li>Put a .toml file in ~/.gemini/commands/; the filename becomes the command (explain.toml to /explain)</li>
-<li>{{args}} inserts whatever you type after the command into the saved prompt</li>
-<li>MCP lets the AI use external tools; know it exists, leave it for later</li>
+<li>The deliverable is a personal toolkit: a GEMINI.md, a custom command, and a script you understand</li>
+<li>The most important piece is proof you can catch the AI being wrong</li>
+<li>Use it heavily, trust it never, that mindset is the real skill you leave with</li>
+<li>Keep building: grow your commands, learn more terminal, read the privacy terms</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">
           <a href="a07.html">Anterior</a>
-          <a href="a09.html">Próxima</a>
+          
         </div>
       </nav>
     </article>
@@ -107,9 +104,17 @@ flowchart LR
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({
-      startOnLoad: true,
-      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
     });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
   </script>
   
   <footer>

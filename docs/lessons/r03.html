@@ -98,9 +98,17 @@ flowchart TD
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({
-      startOnLoad: true,
-      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
     });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
   </script>
   
   <footer>

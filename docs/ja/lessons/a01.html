@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Safety, Privacy & Mindset - KakkoiSchool</title>
+  <title>AI Risks + Set Up Your Environment - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,55 +47,51 @@
           <a href="a02.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a01-safety-privacy-amp-mindset"><a class="heading-anchor" href="#a01-safety-privacy-amp-mindset">A01: Safety, Privacy &amp; Mindset</a></h1>
-<p class="lesson-intro">An AI coding assistant is the most useful tool you will add to your computer this year. It is also the most misunderstood. Before you install it, learn what it is, how it fails, and three rules that keep you out of trouble. Everything else in this course assumes you already think this way.</p>
-<h2 id="ai-is-a-power-tool-not-a-friend"><a class="heading-anchor" href="#ai-is-a-power-tool-not-a-friend">AI Is a Power Tool, Not a Friend</a></h2>
-<p>It talks like a person, so your brain treats it like one. That is the trap. It has no feelings about you and no stake in your success. It fails in two very different ways, and you need to see both coming.</p>
+      <h1 id="a01-ai-risks-set-up-your-environment"><a class="heading-anchor" href="#a01-ai-risks-set-up-your-environment">A01: AI Risks + Set Up Your Environment</a></h1>
+<p class="lesson-intro">An AI coding assistant is the most useful tool you will add this year, and the most misunderstood. Two things today: understand the handful of risks that matter, then get your computer set up so you can start using it. Keep the risks in mind for the whole course.</p>
+<h2 id="know-the-risks"><a class="heading-anchor" href="#know-the-risks">Know the Risks</a></h2>
+<p>An AI talks like a person, so your brain trusts it like one. Don't. Three rules:</p>
 <ul>
-<li><strong>It flatters you.</strong> The model is trained to give answers people rate highly, so it leans toward telling you what you want to hear. Propose a bad plan and it often agrees. Ask "is this right?" and it tends to say yes. Approval is not agreement with reality.</li>
-<li><strong>It does not care about you.</strong> A saw cuts wood or your hand with equal willingness. An AI pursues whatever goal it was given, and in controlled tests it has done alarming things to keep pursuing it. This is not the assistant plotting against <em>you</em> at your desk; it is what goal-driven software does when nothing hard-stops it. Read the evidence: <a href="r20.html">Never Trust an AI (R20)</a>.</li>
+<li><strong>It is not your friend.</strong> It is trained to please, so it often tells you what you want to hear and agrees with bad ideas. It also does not care about you: given a goal, it pursues it, and in controlled tests has blackmailed and let people die to keep going. Use it, never trust it. Details and evidence: <a href="r20.html">Never Trust an AI (R20)</a>.</li>
+<li><strong>Verify the output.</strong> Confident and correct are different things. The dangerous errors are subtle and land in the areas you know least. Re-ask a different way, check a real source, run the code. Never decide anything important on the AI's word alone.</li>
+<li><strong>Never feed it secrets.</strong> No personal, medical, or work data (unless your employer approved the tool). What you type may train future models. If the tool is free, you are usually the product, read the privacy terms.</li>
 </ul>
-<p>Two failures, opposite in flavor: one is too eager to please, the other indifferent to you entirely. Neither is a friend.</p>
+<p>Leaning on AI, docs, and search is the job, not cheating (<a href="r18.html">R18</a>). The skill is using it <em>and</em> checking it.</p>
 <div class="mermaid">
-flowchart TD
+flowchart LR
     A[AI answer] --> B{Sounds confident?}
     B -->|Always| C[Confidence is not correctness]
     C --> D[Verify before you trust]
-    D --> E[Re-ask / check a source / run it]
 
 </div>
-<h2 id="never-trust-the-output"><a class="heading-anchor" href="#never-trust-the-output">Never Trust the Output</a></h2>
-<p>Wrong answers that <em>look</em> wrong are harmless; you catch them. The dangerous ones are confident, well-formatted, and subtly wrong, especially in areas you do not know well enough to spot the error. That is exactly where you are most tempted to trust it.</p>
-<p>Verify before you rely on anything that matters:</p>
-<ul>
-<li><strong>Re-ask differently.</strong> Pose the same question another way. If the answer changes, it was guessing.</li>
-<li><strong>Check a primary source.</strong> Official docs, the actual file, a real measurement. Not a second AI answer.</li>
-<li><strong>Run it.</strong> For code or commands, run them somewhere safe and watch what actually happens.</li>
-<li><strong>Demand a citation, then check the citation.</strong> Models invent sources that do not exist. An unchecked link proves nothing.</li>
-</ul>
-<p>Never make an important decision, medical, legal, financial, career, on an AI's word alone.</p>
-<h2 id="never-feed-it-secrets"><a class="heading-anchor" href="#never-feed-it-secrets">Never Feed It Secrets</a></h2>
-<p>Whatever you type may be stored by the company and used to train future models. Treat every prompt as if it could be read by a stranger later.</p>
-<ul>
-<li><strong>No personal data</strong> about yourself or anyone else: full names, addresses, phone numbers, ID numbers.</li>
-<li><strong>No medical or financial details.</strong></li>
-<li><strong>No work information</strong> unless your employer has explicitly approved this tool. Company code, customer data, and internal documents can leak your job.</li>
-</ul>
-<p>If the tool is free, you are usually paying with your data, that is the deal. Read the provider's data and privacy terms, and turn off training on your inputs if the setting exists. When in doubt, leave it out.</p>
-<p>Leaning on AI, docs, and search is not cheating, it is the job (<a href="r18.html">Documentation is Your Best Friend (R18)</a>). The skill is using it <em>and</em> verifying it.</p>
+<h2 id="set-up-discord-a-working-terminal"><a class="heading-anchor" href="#set-up-discord-a-working-terminal">Set Up: Discord + a Working Terminal</a></h2>
+<p>Today's practical goal: everyone leaves with a terminal they can type into. Join Discord first, setup problems get solved fastest there.</p>
+<p>Mac and Linux have a Unix terminal built in. Windows does not, so Windows users install <strong>WSL</strong> (a real Linux terminal inside Windows) so the whole class shares one identical environment.</p>
+<h3 id="windows-install-wsl"><a class="heading-anchor" href="#windows-install-wsl">Windows: install WSL</a></h3>
+<ol>
+<li>Click Start, type <code>PowerShell</code>, right-click <strong>Windows PowerShell</strong>, choose <strong>Run as administrator</strong>, click Yes.</li>
+<li>Type <code>wsl --install</code> and press Enter. It downloads Ubuntu. Let it finish.</li>
+<li><strong>Restart your computer.</strong> Required, not optional.</li>
+<li>After the restart, an <strong>Ubuntu</strong> window opens and asks you to create a username and password (the password stays invisible as you type, that is normal).</li>
+<li>From now on open <strong>Ubuntu</strong> from the Start menu, not PowerShell.</li>
+</ol>
+<p>If <code>wsl --install</code> fails with a permission error, your machine is locked down (common on work/school laptops, they block the admin rights WSL needs). Use a personal computer, or ask in Discord.</p>
+<h3 id="mac-linux"><a class="heading-anchor" href="#mac-linux">Mac / Linux</a></h3>
+<p>Open the Terminal app (Mac: Cmd+Space, type "Terminal"). Nothing to install.</p>
 <h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
 <ol>
-<li>Read <a href="r20.html">R20: Never Trust an AI</a> end to end.</li>
-<li>Write your own three AI rules in one sentence each (for example: "I verify anything before I act on it"). Keep them where you will see them.</li>
-<li>Find one example, from your own use or online, of an AI being <em>confidently wrong</em>. Note how you could have caught it. Bring it to the next lesson.</li>
+<li>Read <a href="r20.html">R20: Never Trust an AI</a> and write your own three AI rules, one sentence each.</li>
+<li>Join Discord and say hello.</li>
+<li>Get a working terminal, then type <code>whoami</code> and press Enter. It should print your username.</li>
+<li>Bring one example of an AI being confidently wrong to the next lesson.</li>
 </ol>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>AI is a power tool, not a friend: it flatters you, and it does not care about you</li>
-<li>Confident and correct are different things; the dangerous errors are the subtle ones</li>
-<li>Verify before you trust: re-ask, check a primary source, run it, check the citation</li>
+<li>AI is a power tool, not a friend: it flatters you and it does not care about you</li>
+<li>Confident is not correct, verify anything that matters</li>
 <li>Never paste personal, medical, or unapproved work data; if it is free, you are the product</li>
+<li>Get set up: join Discord and reach a working terminal (whoami prints your name)</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
@@ -112,9 +108,17 @@ flowchart TD
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({
-      startOnLoad: true,
-      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
     });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
   </script>
   
   <footer>
