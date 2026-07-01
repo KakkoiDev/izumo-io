@@ -1,6 +1,6 @@
 # AIレッスン
 
-- [A01: AI Risks + Set Up Your Environment](lessons/a01.md) - Know the three risks that keep you safe, then get a working terminal. Awareness first, install second.
+- [A01: AI Risks + Set Up Your Environment](lessons/a01.md) - The three risks that keep you safe (with the full story one click away), then a complete WSL setup with troubleshooting.
 - [A02: Terminal Cheat Sheet + Install Gemini](lessons/a02.md) - A pocket reference for the terminal, then install Node and Gemini CLI, log in free, and have your first conversation.
 - [A03: How to Ask: Prompting](lessons/a03.md) - The quality of the answer depends on the quality of the question. Be specific, give examples and constraints, and treat the first answer as a draft.
 - [A04: Context Engineering](lessons/a04.md) - The AI only knows what you put in front of it. Feed it the actual file with @, keep the context focused, and stop making it guess.
