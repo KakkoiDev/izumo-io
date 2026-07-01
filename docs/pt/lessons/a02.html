@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Terminal Cheat Sheet + Install Gemini - KakkoiSchool</title>
+  <title>Guia Rápido do Terminal + Instalar o Gemini - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,67 +47,67 @@
           <a href="a03.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a02-terminal-cheat-sheet-install-gemini"><a class="heading-anchor" href="#a02-terminal-cheat-sheet-install-gemini">A02: Terminal Cheat Sheet + Install Gemini</a></h1>
-<p class="lesson-intro">You have a terminal (<a href="a01.html">A01</a>). You do not need to master it, you need a handful of commands and the confidence to look up the rest. Here is your cheat sheet, then we install the AI and start talking to it.</p>
-<h2 id="terminal-cheat-sheet"><a class="heading-anchor" href="#terminal-cheat-sheet">Terminal Cheat Sheet</a></h2>
-<p>Keep this nearby. It is 90% of what you will use.</p>
+      <h1 id="a02-guia-r-pido-do-terminal-instalar-o-gemini"><a class="heading-anchor" href="#a02-guia-r-pido-do-terminal-instalar-o-gemini">A02: Guia Rápido do Terminal + Instalar o Gemini</a></h1>
+<p class="lesson-intro">Você já tem um terminal (<a href="a01.html">A01</a>). Não precisa dominá-lo, precisa de um punhado de comandos e da confiança de procurar o resto. Aqui está seu guia rápido, depois instalamos a IA e começamos a conversar.</p>
+<h2 id="guia-r-pido-do-terminal"><a class="heading-anchor" href="#guia-r-pido-do-terminal">Guia Rápido do Terminal</a></h2>
+<p>Deixe por perto. É 90% do que você vai usar.</p>
 <table>
 <thead>
 <tr>
-<th>Command</th>
-<th>What it does</th>
+<th>Comando</th>
+<th>O que faz</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>pwd</code></td>
-<td>Where am I? Prints the current folder</td>
+<td>Onde estou? Mostra a pasta atual</td>
 </tr>
 <tr>
 <td><code>ls</code></td>
-<td>What is here? Lists files and folders</td>
+<td>O que tem aqui? Lista arquivos e pastas</td>
 </tr>
 <tr>
 <td><code>cd name</code></td>
-<td>Go into a folder</td>
+<td>Entra numa pasta</td>
 </tr>
 <tr>
 <td><code>cd ..</code></td>
-<td>Go back up one folder</td>
+<td>Volta uma pasta</td>
 </tr>
 <tr>
 <td><code>cd ~</code></td>
-<td>Go to your home folder</td>
+<td>Vai para sua pasta home</td>
 </tr>
 <tr>
 <td><strong>Tab</strong></td>
-<td>Autocomplete a name (less typing, fewer typos)</td>
+<td>Completa um nome (menos digitação, menos erros)</td>
 </tr>
 <tr>
-<td><strong>Up arrow</strong></td>
-<td>Repeat your last command</td>
+<td><strong>Seta para cima</strong></td>
+<td>Repete o último comando</td>
 </tr>
 <tr>
 <td><strong>Ctrl+C</strong></td>
-<td>Cancel a stuck command</td>
+<td>Cancela um comando travado</td>
 </tr>
 </tbody>
 </table>
-<p>A path is an address: <code>~/projects/notes.txt</code> is "notes.txt, inside projects, inside home." That is all you need to start. Look up the rest when you hit it.</p>
-<h2 id="install-node-js"><a class="heading-anchor" href="#install-node-js">Install Node.js</a></h2>
-<p>Gemini CLI runs on Node.js. Install it with <strong>nvm</strong>, which avoids permission headaches:</p>
+<p>Um caminho é um endereço: <code>~/projects/notes.txt</code> é "notes.txt, dentro de projects, dentro da home". É o suficiente para começar. Procure o resto quando precisar.</p>
+<h2 id="instale-o-node-js"><a class="heading-anchor" href="#instale-o-node-js">Instale o Node.js</a></h2>
+<p>O Gemini CLI roda no Node.js. Instale com o <strong>nvm</strong>, que evita dores de cabeça com permissões:</p>
 <ol>
-<li>Get the install command from the official nvm page (<code>github.com/nvm-sh/nvm</code>) and paste it in. We use the official source so you get the current version.</li>
-<li>Close and reopen the terminal.</li>
-<li>Run <code>nvm install --lts</code>, then check with <code>node -v</code> (want v20 or higher).</li>
+<li>Pegue o comando de instalação na página oficial do nvm (<code>github.com/nvm-sh/nvm</code>) e cole. Usamos a fonte oficial para você ter a versão atual.</li>
+<li>Feche e reabra o terminal.</li>
+<li>Rode <code>nvm install --lts</code>, depois cheque com <code>node -v</code> (queremos v20 ou mais).</li>
 </ol>
-<h2 id="install-amp-log-in-to-gemini-cli"><a class="heading-anchor" href="#install-amp-log-in-to-gemini-cli">Install &amp; Log In to Gemini CLI</a></h2>
+<h2 id="instale-e-fa-a-login-no-gemini-cli"><a class="heading-anchor" href="#instale-e-fa-a-login-no-gemini-cli">Instale e Faça Login no Gemini CLI</a></h2>
 <pre><code>npm install -g @google/gemini-cli
 </code></pre>
-<p>Then start it:</p>
+<p>Depois inicie:</p>
 <pre><code>gemini
 </code></pre>
-<p>The first run asks how to sign in, choose <strong>Login with Google</strong>. Your browser opens; pick your account and approve. Back in the terminal, you are in. This is the free tier: no credit card, no API key, generous daily limits. (Much later, automated scripts need a different key, see <a href="a07.html">A07</a>. Ignore that for now.)</p>
+<p>A primeira execução pergunta como entrar, escolha <strong>Login with Google</strong>. O navegador abre; escolha sua conta e aprove. De volta ao terminal, você está dentro. Este é o plano gratuito: sem cartão de crédito, sem chave de API, limites diários generosos. (Muito mais tarde, scripts automatizados precisam de outra chave, veja <a href="a07.html">A07</a>. Ignore por enquanto.)</p>
 <div class="mermaid">
 flowchart LR
     A[Run gemini] --> B[Login with Google]
@@ -115,27 +115,27 @@ flowchart LR
     C --> D[Chatting in your terminal]
 
 </div>
-<h2 id="your-first-conversation"><a class="heading-anchor" href="#your-first-conversation">Your First Conversation</a></h2>
-<p>Type a question in plain English, press Enter, read the answer. It remembers the conversation, so you can follow up. Controls you will use constantly:</p>
+<h2 id="sua-primeira-conversa"><a class="heading-anchor" href="#sua-primeira-conversa">Sua Primeira Conversa</a></h2>
+<p>Digite uma pergunta em linguagem simples, pressione Enter, leia a resposta. Ela lembra da conversa, então você pode continuar. Controles que você vai usar sempre:</p>
 <ul>
-<li><code>/help</code> lists commands.</li>
-<li><code>/quit</code> leaves (or Ctrl+C twice).</li>
-<li>Up arrow brings back your last message.</li>
+<li><code>/help</code> lista os comandos.</li>
+<li><code>/quit</code> sai (ou Ctrl+C duas vezes).</li>
+<li>Seta para cima traz de volta sua última mensagem.</li>
 </ul>
-<p>Type, read, <strong>verify</strong>, repeat. The verifying is the part people skip, A01 told you why not to.</p>
-<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<p>Digite, leia, <strong>verifique</strong>, repita. A parte que as pessoas pulam é verificar, a A01 disse por que não pular.</p>
+<h2 id="exerc-cio-da-semana"><a class="heading-anchor" href="#exerc-cio-da-semana">Exercício da Semana</a></h2>
 <ol>
-<li>Install Node, then Gemini CLI, and log in with Google.</li>
-<li>Ask five real questions you actually care about this week.</li>
-<li>Verify one answer against a real source and find one thing it got wrong or made up. Write down how you caught it.</li>
+<li>Instale o Node, depois o Gemini CLI, e faça login com o Google.</li>
+<li>Faça cinco perguntas reais que você realmente quer saber esta semana.</li>
+<li>Verifique uma resposta contra uma fonte real e ache uma coisa que ela errou ou inventou. Anote como você percebeu.</li>
 </ol>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
 <ul>
-<li>You only need a handful of terminal commands; look up the rest as needed</li>
-<li>Install Node with nvm (node -v shows v20+), then npm install -g @google/gemini-cli</li>
-<li>Log in with Google: free tier, no credit card, no API key</li>
-<li>The loop is simple: type, read, verify, repeat</li>
+<li>Você só precisa de um punhado de comandos do terminal; procure o resto quando precisar</li>
+<li>Instale o Node com nvm (node -v mostra v20+), depois npm install -g @google/gemini-cli</li>
+<li>Faça login com o Google: plano gratuito, sem cartão de crédito, sem chave de API</li>
+<li>O ciclo é simples: digite, leia, verifique, repita</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

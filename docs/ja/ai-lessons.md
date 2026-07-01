@@ -1,10 +1,10 @@
 # AIレッスン
 
-- [A01: AI Risks + Set Up Your Environment](lessons/a01.md) - The three risks that keep you safe (with the full story one click away), then a complete WSL setup with troubleshooting.
-- [A02: Terminal Cheat Sheet + Install Gemini](lessons/a02.md) - A pocket reference for the terminal, then install Node and Gemini CLI, log in free, and have your first conversation.
-- [A03: How to Ask: Prompting](lessons/a03.md) - The quality of the answer depends on the quality of the question. Be specific, give examples and constraints, and treat the first answer as a draft.
-- [A04: Context Engineering](lessons/a04.md) - The AI only knows what you put in front of it. Feed it the actual file with @, keep the context focused, and stop making it guess.
-- [A05: Memories with GEMINI.md](lessons/a05.md) - Stop re-explaining yourself every session. A GEMINI.md file gives the assistant standing instructions it reads automatically every time.
-- [A06: Custom Commands](lessons/a06.md) - Save your best prompts as reusable shortcuts. Other tools call these skills or agents; in Gemini CLI they are custom commands.
-- [A07: Making & Running Scripts with AI](lessons/a07.md) - A script turns a repeated chore into one command. Have the AI write scripts for you, and call the AI from inside a script. Read before you run.
-- [A08: Capstone: Your AI Toolkit](lessons/a08.md) - Put it all together. Assemble a personal AI toolkit and prove the one skill that matters most: catching the AI when it is wrong.
+- [A01: AIのリスクと環境構築](lessons/a01.md) - 身を守る3つのリスクを知り(詳しい話はワンクリックで)、動くターミナルを用意する。トラブルシューティング付きの完全なWSLセットアップ。
+- [A02: ターミナル早見表とGeminiのインストール](lessons/a02.md) - ターミナルのポケットリファレンス、それからNodeとGemini CLIをインストールし、無料でログインして、初めての会話をする。
+- [A03: AIへの聞き方: プロンプト](lessons/a03.md) - 答えの質は質問の質で決まる。具体的に、例と制約を添え、最初の答えは下書きとして扱う。
+- [A04: コンテキストエンジニアリング](lessons/a04.md) - AIは目の前に置いたものしか知らない。@で実際のファイルを渡し、コンテキストを絞り、推測させるのをやめる。
+- [A05: GEMINI.mdでメモリを持たせる](lessons/a05.md) - 毎回自分のことを説明し直すのをやめる。GEMINI.mdファイルは、アシスタントが毎回自動的に読む常設の指示を与える。
+- [A06: カスタムコマンド](lessons/a06.md) - お気に入りのプロンプトを再利用できるショートカットとして保存する。他のツールではスキルやエージェントと呼ぶもの、Gemini CLIではカスタムコマンド。
+- [A07: AIでスクリプトを作って実行する](lessons/a07.md) - スクリプトは繰り返しの雑用を一つのコマンドに変える。AIにスクリプトを書かせ、スクリプトの中からAIを呼ぶ。実行する前に読む。
+- [A08: 集大成: あなたのAIツールキット](lessons/a08.md) - すべてをまとめる。個人のAIツールキットを組み立て、最も重要なスキルを証明する: AIが間違っているときに見抜くこと。

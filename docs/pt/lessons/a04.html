@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Context Engineering - KakkoiSchool</title>
+  <title>Engenharia de Contexto - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,42 +47,42 @@
           <a href="a05.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a04-context-engineering"><a class="heading-anchor" href="#a04-context-engineering">A04: Context Engineering</a></h1>
-<p class="lesson-intro">The assistant is brilliant and has amnesia about your specific situation. It knows general things from training, but it does not know <em>your</em> file, <em>your</em> error, <em>your</em> folder, unless you show it. Putting the right information in front of it is called context engineering, and it is the difference between a guess and an answer.</p>
-<h2 id="show-don-t-describe"><a class="heading-anchor" href="#show-don-t-describe">Show, Don't Describe</a></h2>
-<p>Describing a file to the AI is like reading a document aloud over the phone: slow and lossy. Instead, hand it the file. In Gemini CLI you do this with <code>@</code>:</p>
-<pre><code>Explain what @notes.txt is about in two sentences.
+      <h1 id="a04-engenharia-de-contexto"><a class="heading-anchor" href="#a04-engenharia-de-contexto">A04: Engenharia de Contexto</a></h1>
+<p class="lesson-intro">O assistente é brilhante e tem amnésia sobre a sua situação específica. Ele sabe coisas gerais do treinamento, mas não conhece o <em>seu</em> arquivo, o <em>seu</em> erro, a <em>sua</em> pasta, a menos que você mostre. Colocar a informação certa na frente dele se chama engenharia de contexto, e é a diferença entre um chute e uma resposta.</p>
+<h2 id="mostre-n-o-descreva"><a class="heading-anchor" href="#mostre-n-o-descreva">Mostre, Não Descreva</a></h2>
+<p>Descrever um arquivo para a IA é como ler um documento em voz alta pelo telefone: lento e com perdas. Em vez disso, entregue o arquivo. No Gemini CLI você faz isso com <code>@</code>:</p>
+<pre><code>Explique em duas frases sobre o que é @notes.txt
 </code></pre>
-<p>The <code>@notes.txt</code> pulls that file's actual contents into your message. Point at the real thing, <code>@report.md</code>, <code>@script.js</code>, and the AI reads it directly instead of relying on your summary. Because Gemini CLI runs in a folder, it can also see the files in the folder you started it from.</p>
-<h2 id="focused-beats-everything"><a class="heading-anchor" href="#focused-beats-everything">Focused Beats Everything</a></h2>
-<p>More context is not better. There is a sweet spot:</p>
+<p>O <code>@notes.txt</code> puxa o conteúdo real daquele arquivo para sua mensagem. Aponte para a coisa real, <code>@report.md</code>, <code>@script.js</code>, e a IA lê direto em vez de depender do seu resumo. Como o Gemini CLI roda dentro de uma pasta, ele também vê os arquivos da pasta de onde você o iniciou.</p>
+<h2 id="focado-vence-tudo"><a class="heading-anchor" href="#focado-vence-tudo">Focado Vence Tudo</a></h2>
+<p>Mais contexto não é melhor. Existe um ponto ideal:</p>
 <ul>
-<li><strong>Too little</strong> - you paste an error with no code, and it guesses.</li>
-<li><strong>Too much</strong> - you dump twenty files, and it drowns, gets slower, mixes unrelated things together, and eats through your daily free-tier limit faster.</li>
+<li><strong>Pouco demais</strong> - você cola um erro sem o código, e ela chuta.</li>
+<li><strong>Demais</strong> - você despeja vinte arquivos, e ela se afoga, fica mais lenta, mistura coisas sem relação e consome mais rápido seu limite diário do plano gratuito.</li>
 </ul>
-<p>Give what is relevant to <em>this</em> question and no more. When you paste an error, paste it <strong>exactly</strong>, word for word, not "it said something about a module." The exact text is the clue.</p>
+<p>Dê o que é relevante para <em>esta</em> pergunta e nada mais. Quando colar um erro, cole <strong>exatamente</strong>, palavra por palavra, não "disse algo sobre um módulo". O texto exato é a pista.</p>
 <div class="mermaid">
 flowchart TD
     Q[Question alone] --> G[AI guesses about your situation]
     QC["Question + @the-actual-file"] --> A[AI answers about your real situation]
 
 </div>
-<h2 id="start-fresh-when-you-switch-topics"><a class="heading-anchor" href="#start-fresh-when-you-switch-topics">Start Fresh When You Switch Topics</a></h2>
-<p>A long conversation carries everything you said earlier as context. Helpful when it is related; confusing when you jump to a new topic and old details bleed in. When you change subject, start a new conversation so the AI is not still thinking about the last one.</p>
-<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<h2 id="comece-do-zero-ao-trocar-de-assunto"><a class="heading-anchor" href="#comece-do-zero-ao-trocar-de-assunto">Comece do Zero ao Trocar de Assunto</a></h2>
+<p>Uma conversa longa carrega tudo o que você disse antes como contexto. Útil quando é relacionado; confuso quando você pula para um assunto novo e detalhes antigos se misturam. Ao mudar de assunto, comece uma nova conversa para a IA não continuar pensando na anterior.</p>
+<h2 id="exerc-cio-da-semana"><a class="heading-anchor" href="#exerc-cio-da-semana">Exercício da Semana</a></h2>
 <ol>
-<li>Create a short text file (some notes, a recipe, anything) in the folder where you run <code>gemini</code>.</li>
-<li>Ask a question about it <strong>without</strong> <code>@</code>, describing it in words. Note the answer.</li>
-<li>Ask the same question <strong>with</strong> <code>@yourfile</code>. Compare, which answer actually knew what was in the file?</li>
-<li>Now paste a real error message you hit this week (exact text) and ask what it means. Bring the comparison to class.</li>
+<li>Crie um arquivo de texto curto (anotações, uma receita, qualquer coisa) na pasta onde você roda o <code>gemini</code>.</li>
+<li>Faça uma pergunta sobre ele <strong>sem</strong> <code>@</code>, descrevendo em palavras. Anote a resposta.</li>
+<li>Faça a mesma pergunta <strong>com</strong> <code>@seuarquivo</code>. Compare, qual resposta realmente sabia o que estava no arquivo?</li>
+<li>Agora cole uma mensagem de erro real que você viu esta semana (texto exato) e pergunte o que significa. Traga a comparação para a aula.</li>
 </ol>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
 <ul>
-<li>The AI only knows what you put in front of it, show the real file, don't describe it</li>
-<li>Use @filename to pull a file's actual contents into your message</li>
-<li>Focused context wins: too little makes it guess, too much makes it drown and costs quota</li>
-<li>Paste errors exactly, and start a fresh conversation when you change topics</li>
+<li>A IA só sabe o que você coloca na frente dela, mostre o arquivo real, não descreva</li>
+<li>Use @arquivo para puxar o conteúdo real do arquivo para sua mensagem</li>
+<li>Contexto focado vence: pouco demais faz ela chutar, demais a afoga e consome o limite</li>
+<li>Cole erros exatamente, e comece uma conversa nova ao trocar de assunto</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

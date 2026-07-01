@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Context Engineering - KakkoiSchool</title>
+  <title>コンテキストエンジニアリング - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,42 +47,42 @@
           <a href="a05.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a04-context-engineering"><a class="heading-anchor" href="#a04-context-engineering">A04: Context Engineering</a></h1>
-<p class="lesson-intro">The assistant is brilliant and has amnesia about your specific situation. It knows general things from training, but it does not know <em>your</em> file, <em>your</em> error, <em>your</em> folder, unless you show it. Putting the right information in front of it is called context engineering, and it is the difference between a guess and an answer.</p>
-<h2 id="show-don-t-describe"><a class="heading-anchor" href="#show-don-t-describe">Show, Don't Describe</a></h2>
-<p>Describing a file to the AI is like reading a document aloud over the phone: slow and lossy. Instead, hand it the file. In Gemini CLI you do this with <code>@</code>:</p>
-<pre><code>Explain what @notes.txt is about in two sentences.
+      <h1 id="a04-コンテキストエンジニアリング"><a class="heading-anchor" href="#a04-コンテキストエンジニアリング">A04: コンテキストエンジニアリング</a></h1>
+<p class="lesson-intro">アシスタントは優秀ですが、あなたの具体的な状況については記憶喪失です。訓練から一般的なことは知っていても、<em>あなたの</em>ファイル、<em>あなたの</em>エラー、<em>あなたの</em>フォルダは、見せない限り知りません。正しい情報を目の前に置くことをコンテキストエンジニアリングと呼び、推測と答えの分かれ目になります。</p>
+<h2 id="説明せず-見せる"><a class="heading-anchor" href="#説明せず-見せる">説明せず、見せる</a></h2>
+<p>ファイルをAIに説明するのは、電話で書類を読み上げるようなもの: 遅くて抜け落ちます。代わりにファイルを渡す。Gemini CLIでは <code>@</code> で行います:</p>
+<pre><code>@notes.txt の内容を2文で説明して
 </code></pre>
-<p>The <code>@notes.txt</code> pulls that file's actual contents into your message. Point at the real thing, <code>@report.md</code>, <code>@script.js</code>, and the AI reads it directly instead of relying on your summary. Because Gemini CLI runs in a folder, it can also see the files in the folder you started it from.</p>
-<h2 id="focused-beats-everything"><a class="heading-anchor" href="#focused-beats-everything">Focused Beats Everything</a></h2>
-<p>More context is not better. There is a sweet spot:</p>
+<p><code>@notes.txt</code> はそのファイルの実際の中身をメッセージに引き込みます。本物を指す、<code>@report.md</code>、<code>@script.js</code> とすれば、AIはあなたの要約に頼らず直接読みます。Gemini CLIはフォルダの中で動くので、起動したフォルダのファイルも見えます。</p>
+<h2 id="絞るほうが勝つ"><a class="heading-anchor" href="#絞るほうが勝つ">絞るほうが勝つ</a></h2>
+<p>コンテキストは多ければ良いわけではありません。ちょうど良い量があります:</p>
 <ul>
-<li><strong>Too little</strong> - you paste an error with no code, and it guesses.</li>
-<li><strong>Too much</strong> - you dump twenty files, and it drowns, gets slower, mixes unrelated things together, and eats through your daily free-tier limit faster.</li>
+<li><strong>少なすぎ</strong> - コードなしでエラーだけ貼ると、推測する。</li>
+<li><strong>多すぎ</strong> - 20個のファイルを投げ込むと、溺れて、遅くなり、無関係なものを混ぜ、無料枠の1日の上限を早く食う。</li>
 </ul>
-<p>Give what is relevant to <em>this</em> question and no more. When you paste an error, paste it <strong>exactly</strong>, word for word, not "it said something about a module." The exact text is the clue.</p>
+<p><em>この</em>質問に関係するものだけを、それ以上でなく渡す。エラーを貼るときは、<strong>正確に</strong>、一字一句貼る。「モジュールが何とかと言ってた」ではなく。正確なテキストが手がかりです。</p>
 <div class="mermaid">
 flowchart TD
     Q[Question alone] --> G[AI guesses about your situation]
     QC["Question + @the-actual-file"] --> A[AI answers about your real situation]
 
 </div>
-<h2 id="start-fresh-when-you-switch-topics"><a class="heading-anchor" href="#start-fresh-when-you-switch-topics">Start Fresh When You Switch Topics</a></h2>
-<p>A long conversation carries everything you said earlier as context. Helpful when it is related; confusing when you jump to a new topic and old details bleed in. When you change subject, start a new conversation so the AI is not still thinking about the last one.</p>
-<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<h2 id="話題を変えたら新しく始める"><a class="heading-anchor" href="#話題を変えたら新しく始める">話題を変えたら新しく始める</a></h2>
+<p>長い会話は、前に言ったことすべてをコンテキストとして引きずります。関連していれば助けになり、新しい話題に飛ぶと古い詳細が混ざって混乱します。話題を変えるときは、新しい会話を始めて、AIが前の話をまだ考えないようにする。</p>
+<h2 id="今週の演習"><a class="heading-anchor" href="#今週の演習">今週の演習</a></h2>
 <ol>
-<li>Create a short text file (some notes, a recipe, anything) in the folder where you run <code>gemini</code>.</li>
-<li>Ask a question about it <strong>without</strong> <code>@</code>, describing it in words. Note the answer.</li>
-<li>Ask the same question <strong>with</strong> <code>@yourfile</code>. Compare, which answer actually knew what was in the file?</li>
-<li>Now paste a real error message you hit this week (exact text) and ask what it means. Bring the comparison to class.</li>
+<li><code>gemini</code> を実行するフォルダに、短いテキストファイル(メモ、レシピ、何でも)を作る。</li>
+<li><code>@</code> <strong>なし</strong>で、言葉で説明して質問する。答えを記録する。</li>
+<li><code>@yourfile</code> <strong>あり</strong>で同じ質問をする。比べる、どちらがファイルの中身を本当に知っていたか?</li>
+<li>今週出くわした本物のエラーメッセージ(正確なテキスト)を貼り、意味を聞く。比較を授業に持ってくる。</li>
 </ol>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>The AI only knows what you put in front of it, show the real file, don't describe it</li>
-<li>Use @filename to pull a file's actual contents into your message</li>
-<li>Focused context wins: too little makes it guess, too much makes it drown and costs quota</li>
-<li>Paste errors exactly, and start a fresh conversation when you change topics</li>
+<li>AIは目の前に置いたものしか知らない、実際のファイルを見せる、説明しない</li>
+<li>@filename でファイルの実際の中身をメッセージに引き込む</li>
+<li>絞ったコンテキストが勝つ: 少なすぎると推測し、多すぎると溺れて上限を食う</li>
+<li>エラーは正確に貼り、話題を変えたら新しい会話を始める</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

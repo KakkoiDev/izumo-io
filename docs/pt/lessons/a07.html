@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Making & Running Scripts with AI - KakkoiSchool</title>
+  <title>Criando e Rodando Scripts com IA - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,22 +47,22 @@
           <a href="a08.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a07-making-amp-running-scripts-with-ai"><a class="heading-anchor" href="#a07-making-amp-running-scripts-with-ai">A07: Making &amp; Running Scripts with AI</a></h1>
-<p class="lesson-intro">A script is a saved list of terminal commands the computer runs for you in order. Anything you do by hand more than a few times is a candidate. The AI is very good at writing scripts, and it can also run <em>inside</em> one. This is where the assistant stops answering questions and starts doing work.</p>
-<h2 id="let-the-ai-write-the-script"><a class="heading-anchor" href="#let-the-ai-write-the-script">Let the AI Write the Script</a></h2>
-<p>Describe the chore; ask for a script. For example: <em>"Write a shell script that renames every <code>.jpg</code> in the current folder to <code>photo-1.jpg</code>, <code>photo-2.jpg</code>, and so on."</em> You get back a small script.</p>
-<p>Then apply the A01 rule, <strong>read it before you run it</strong>:</p>
+      <h1 id="a07-criando-e-rodando-scripts-com-ia"><a class="heading-anchor" href="#a07-criando-e-rodando-scripts-com-ia">A07: Criando e Rodando Scripts com IA</a></h1>
+<p class="lesson-intro">Um script é uma lista salva de comandos de terminal que o computador roda para você em ordem. Qualquer coisa que você faz na mão mais de algumas vezes é candidata. A IA é muito boa em escrever scripts, e também pode rodar <em>dentro</em> de um. É aqui que o assistente para de responder perguntas e começa a fazer o trabalho.</p>
+<h2 id="deixe-a-ia-escrever-o-script"><a class="heading-anchor" href="#deixe-a-ia-escrever-o-script">Deixe a IA Escrever o Script</a></h2>
+<p>Descreva a tarefa; peça um script. Por exemplo: <em>"Escreva um shell script que renomeie todo <code>.jpg</code> na pasta atual para <code>photo-1.jpg</code>, <code>photo-2.jpg</code>, e assim por diante."</em> Você recebe um script pequeno.</p>
+<p>Depois aplique a regra da A01, <strong>leia antes de rodar</strong>:</p>
 <ul>
-<li>Read each line and ask the AI to explain anything you do not understand.</li>
-<li>Run it on <strong>copies</strong>, never your only files. Make a test folder first.</li>
-<li>Watch what actually happens and check the result with <code>ls</code>.</li>
+<li>Leia cada linha e peça à IA para explicar qualquer coisa que você não entenda.</li>
+<li>Rode em <strong>cópias</strong>, nunca nos seus únicos arquivos. Crie uma pasta de teste primeiro.</li>
+<li>Veja o que realmente acontece e cheque o resultado com <code>ls</code>.</li>
 </ul>
-<p>A script that renames or deletes files does exactly what it says, correct or not. Treating "the AI wrote it" as "it is safe" is the mistake this whole course is trying to prevent.</p>
-<h2 id="call-the-ai-from-a-script"><a class="heading-anchor" href="#call-the-ai-from-a-script">Call the AI From a Script</a></h2>
-<p>Gemini CLI has a <strong>headless</strong> mode: give it <code>-p</code> with a prompt and it prints the answer straight to the terminal instead of chatting. That means a script can use it as a step:</p>
-<pre><code>cat notes.txt | gemini -p &quot;Summarize this in three bullets&quot;
+<p>Um script que renomeia ou apaga arquivos faz exatamente o que diz, certo ou errado. Tratar "a IA escreveu" como "é seguro" é o erro que este curso inteiro tenta evitar.</p>
+<h2 id="chame-a-ia-de-dentro-de-um-script"><a class="heading-anchor" href="#chame-a-ia-de-dentro-de-um-script">Chame a IA de Dentro de um Script</a></h2>
+<p>O Gemini CLI tem um modo <strong>headless</strong>: dê a ele <code>-p</code> com um prompt e ele imprime a resposta direto no terminal em vez de conversar. Isso significa que um script pode usá-lo como um passo:</p>
+<pre><code>cat notes.txt | gemini -p &quot;Resuma isto em três tópicos&quot;
 </code></pre>
-<p>Add <code>--output-format json</code> when another program needs to read the result. Now you can build things like "summarize every new file in this folder", the AI is one command in a larger recipe.</p>
+<p>Adicione <code>--output-format json</code> quando outro programa precisa ler o resultado. Agora você pode montar coisas como "resuma todo arquivo novo nesta pasta", a IA é um comando dentro de uma receita maior.</p>
 <div class="mermaid">
 flowchart LR
     A[Describe the chore] --> B[AI writes the script]
@@ -71,23 +71,23 @@ flowchart LR
     D --> E[Reusable one-command tool]
 
 </div>
-<h2 id="appendix-running-unattended-optional-advanced"><a class="heading-anchor" href="#appendix-running-unattended-optional-advanced">Appendix: Running Unattended (optional, advanced)</a></h2>
-<p>You can schedule scripts to run on their own, <code>cron</code> on Mac/Linux, Task Scheduler on Windows. But there is a catch worth knowing: the free Google login from A02 needs a human at the browser, so it does <strong>not</strong> work for a script running while you are asleep. Unattended runs need an <strong>API key</strong> (<code>GOOGLE_API_KEY</code>, from Google AI Studio) set as an environment variable so the AI can authenticate on its own.</p>
-<p>You do not need this for the course, everything you run by hand works with the free login. Just know that "run it by myself" and "run it automatically forever" use two different keys to the kitchen.</p>
-<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<h2 id="ap-ndice-rodando-sem-supervis-o-opcional-avan-ado"><a class="heading-anchor" href="#ap-ndice-rodando-sem-supervis-o-opcional-avan-ado">Apêndice: Rodando sem Supervisão (opcional, avançado)</a></h2>
+<p>Você pode agendar scripts para rodarem sozinhos, <code>cron</code> no Mac/Linux, Task Scheduler no Windows. Mas há uma pegadinha que vale saber: o login gratuito do Google da A02 precisa de um humano no navegador, então ele <strong>não</strong> funciona para um script rodando enquanto você dorme. Execuções sem supervisão precisam de uma <strong>chave de API</strong> (<code>GOOGLE_API_KEY</code>, do Google AI Studio) definida como variável de ambiente para a IA se autenticar sozinha.</p>
+<p>Você não precisa disso no curso, tudo o que você roda na mão funciona com o login gratuito. Só saiba que "rodar eu mesmo" e "rodar automaticamente para sempre" usam duas chaves diferentes da cozinha.</p>
+<h2 id="exerc-cio-da-semana"><a class="heading-anchor" href="#exerc-cio-da-semana">Exercício da Semana</a></h2>
 <ol>
-<li>Pick a small real chore (renaming files, tidying a folder, summarizing a text file).</li>
-<li>Ask the AI to write a script for it. Read the script and have the AI explain any line you do not follow.</li>
-<li>Make a test folder with copies and run the script there. Verify the result.</li>
-<li>Bring the script, and one sentence on what you checked before trusting it, to class.</li>
+<li>Escolha uma tarefa pequena e real (renomear arquivos, arrumar uma pasta, resumir um arquivo de texto).</li>
+<li>Peça à IA para escrever um script para isso. Leia o script e peça à IA para explicar qualquer linha que você não acompanhe.</li>
+<li>Crie uma pasta de teste com cópias e rode o script ali. Verifique o resultado.</li>
+<li>Traga o script, e uma frase sobre o que você checou antes de confiar nele, para a aula.</li>
 </ol>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
 <ul>
-<li>A script turns a repeated chore into one command; the AI writes them well</li>
-<li>Always read a script and run it on copies before trusting it, "the AI wrote it" is not "it is safe"</li>
-<li>Headless mode (gemini -p "...") lets a script call the AI as a step</li>
-<li>Running by hand uses the free login; unattended scheduling needs an API key</li>
+<li>Um script transforma uma tarefa repetida em um comando; a IA os escreve bem</li>
+<li>Sempre leia um script e rode em cópias antes de confiar, "a IA escreveu" não é "é seguro"</li>
+<li>Modo headless (gemini -p "...") deixa um script chamar a IA como um passo</li>
+<li>Rodar na mão usa o login gratuito; agendamento sem supervisão precisa de uma chave de API</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

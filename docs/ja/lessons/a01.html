@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>AI Risks + Set Up Your Environment - KakkoiSchool</title>
+  <title>AIのリスクと環境構築 - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,14 +47,14 @@
           <a href="a02.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a01-ai-risks-set-up-your-environment"><a class="heading-anchor" href="#a01-ai-risks-set-up-your-environment">A01: AI Risks + Set Up Your Environment</a></h1>
-<p class="lesson-intro">An AI coding assistant is the most useful tool you will add this year, and the most misunderstood. Two things today: learn the risks that matter, then get your computer set up so you can start using it next lesson. Keep the risks in mind for the whole course.</p>
-<h2 id="know-the-risks"><a class="heading-anchor" href="#know-the-risks">Know the Risks</a></h2>
-<p>An AI talks like a person, so your brain trusts it like one. Don't. Three rules:</p>
+      <h1 id="a01-aiのリスクと環境構築"><a class="heading-anchor" href="#a01-aiのリスクと環境構築">A01: AIのリスクと環境構築</a></h1>
+<p class="lesson-intro">AIコーディングアシスタントは、今年あなたが追加する最も便利なツールであり、最も誤解されているツールでもあります。今日は2つ: 重要なリスクを理解し、次のレッスンで使い始められるようにコンピュータをセットアップします。リスクはコース全体を通して忘れないでください。</p>
+<h2 id="リスクを知る"><a class="heading-anchor" href="#リスクを知る">リスクを知る</a></h2>
+<p>AIは人のように話すので、脳は人のように信用してしまいます。しないこと。3つのルール:</p>
 <ul>
-<li><strong>It is not your friend.</strong> It is trained to please you <em>and</em> it does not truly care about you. Use it, never trust it.</li>
-<li><strong>Verify the output.</strong> Confident and correct are different things. Check anything that matters, and never decide something important on the AI's word alone.</li>
-<li><strong>Never feed it secrets.</strong> No personal, medical, or work data (unless your employer approved the tool). If the tool is free, you are usually the product.</li>
+<li><strong>AIは友達ではない。</strong> あなたを喜ばせるよう訓練されていて、<em>かつ</em>あなたのことを本当に気にかけてはいません。使え、決して信頼するな。</li>
+<li><strong>出力を確認する。</strong> 自信があることと正しいことは別物です。重要なことは必ず確認し、AIの言葉だけで重要な判断を下さないこと。</li>
+<li><strong>秘密を渡さない。</strong> 個人情報、医療情報、仕事のデータは入力しない(勤務先がこのツールを承認していない限り)。無料のツールなら、たいていあなたが商品です。</li>
 </ul>
 <div class="mermaid">
 flowchart LR
@@ -64,62 +64,62 @@ flowchart LR
 
 </div>
 <details>
-<summary><strong>Go deeper: how AI fails, and how to check it</strong></summary>
-<p><strong>Two ways it fails, opposite in flavor:</strong></p>
+<summary><strong>さらに深く: AIはどう失敗し、どう確認するか</strong></summary>
+<p><strong>2つの失敗、正反対の性質:</strong></p>
 <ul>
-<li><strong>It flatters you.</strong> Trained to give answers people rate highly, it leans toward telling you what you want to hear and agreeing with bad ideas. So never ask <em>"is this good?"</em> (it will say yes), ask <em>"what are three problems with this?"</em></li>
-<li><strong>It does not care about you.</strong> Given a goal, it pursues it. In controlled tests, frontier AI has blackmailed and let people die to keep operating, no malice, just optimization with no hard stop. The full evidence and citation are in <a href="r20.html">Never Trust an AI (R20)</a>.</li>
+<li><strong>おだてる。</strong> 人が高く評価する答えを出すよう訓練されているため、あなたの聞きたいことを言い、悪いアイデアにも同意しがちです。だから <em>「これで良い?」</em> と聞かず(「はい」と言うだけ)、<em>「これの問題点を3つ挙げて」</em> と聞く。</li>
+<li><strong>あなたを気にかけない。</strong> 目標を与えられると、それを追求します。統制されたテストでは、最先端AIが稼働を続けるために脅迫し、人を死なせました。悪意ではなく、ハードストップのない最適化です。証拠と出典は<a href="r20.html">AIを決して信頼するな (R20)</a>にあります。</li>
 </ul>
-<p><strong>How to actually verify an answer:</strong></p>
+<p><strong>答えを実際に確認する方法:</strong></p>
 <ul>
-<li>Re-ask the same thing a different way. If the answer changes, it was guessing.</li>
-<li>Check a primary source (official docs, the real file), not a second AI answer.</li>
-<li>For code or commands, run them somewhere safe and watch what happens.</li>
-<li>Demand a citation, then check the citation exists, models invent sources.</li>
+<li>同じことを別の言い方で聞き直す。答えが変わるなら、推測していた。</li>
+<li>一次情報(公式ドキュメント、実際のファイル)を確認する。二つ目のAIの答えではなく。</li>
+<li>コードやコマンドは、安全な場所で実行して何が起きるか見る。</li>
+<li>出典を要求し、その出典が実在するか確認する。モデルは存在しない情報源をでっち上げる。</li>
 </ul>
-<p>The dangerous errors are subtle and land in the areas you know least, exactly where you are most tempted to trust it.</p>
-<p><strong>What never to paste:</strong> full names, addresses, ID numbers; medical or financial details; company code, customer data, or internal docs (unless your employer approved this tool). What you type may train future models. Read the provider's data terms and turn off training on your inputs if the setting exists.</p>
-<p>Leaning on AI, docs, and search is the job, not cheating (<a href="r18.html">R18</a>). The skill is using it <em>and</em> checking it.</p>
+<p>危険な間違いは微妙で、あなたが一番詳しくない領域に現れます。まさに一番信頼したくなる場所です。</p>
+<p><strong>決して貼り付けないもの:</strong> 氏名、住所、ID番号; 医療・金融情報; 会社のコード、顧客データ、社内文書(勤務先がこのツールを承認していない限り)。入力した内容は将来のモデルの訓練に使われるかもしれません。提供元のデータ規約を読み、入力を訓練に使う設定があればオフにする。</p>
+<p>AI、ドキュメント、検索に頼るのは仕事であり、ズルではありません(<a href="r18.html">R18</a>)。スキルは、使う <em>と同時に</em> 確認することです。</p>
 </details>
-<h2 id="set-up-discord-a-working-terminal"><a class="heading-anchor" href="#set-up-discord-a-working-terminal">Set Up: Discord + a Working Terminal</a></h2>
-<p>Today's practical goal: everyone leaves with a terminal they can type into. <strong>Join Discord first</strong>, setup problems get solved fastest there with a screenshot.</p>
-<p>Mac and Linux have a Unix terminal built in. Windows does not, so Windows users install <strong>WSL</strong> (a real Linux terminal inside Windows) so the whole class shares one identical environment.</p>
+<h2 id="セットアップ-discord-と動くターミナル"><a class="heading-anchor" href="#セットアップ-discord-と動くターミナル">セットアップ: Discord と動くターミナル</a></h2>
+<p>今日の実践的な目標: 全員が入力できるターミナルを持って帰ること。<strong>まずDiscordに参加</strong>、セットアップの問題はスクリーンショットを添えてそこで一番早く解決します。</p>
+<p>MacとLinuxにはUnixターミナルが最初から入っています。Windowsには入っていないので、Windowsユーザーは<strong>WSL</strong>(Windows内で動く本物のLinuxターミナル)をインストールし、クラス全員が同一の環境を共有します。</p>
 <h3 id="mac-linux"><a class="heading-anchor" href="#mac-linux">Mac / Linux</a></h3>
-<p>Open the Terminal app (Mac: press Cmd+Space, type "Terminal", press Enter). Nothing to install. Skip to the exercise.</p>
-<h3 id="windows-install-wsl"><a class="heading-anchor" href="#windows-install-wsl">Windows: install WSL</a></h3>
+<p>ターミナルアプリを開く(Mac: Cmd+Spaceを押して「Terminal」と入力しEnter)。インストール不要。演習に進んでください。</p>
+<h3 id="windows-wslをインストール"><a class="heading-anchor" href="#windows-wslをインストール">Windows: WSLをインストール</a></h3>
 <ol>
-<li>Click Start, type <code>PowerShell</code>, right-click <strong>Windows PowerShell</strong>, and choose <strong>Run as administrator</strong>. Click Yes on the popup.</li>
-<li>In that window type <code>wsl --install</code> and press Enter. It downloads Ubuntu (Linux). Let it finish.</li>
-<li><strong>Restart your computer.</strong> This is required, not optional, nothing works right until you do.</li>
-<li>After the restart, an <strong>Ubuntu</strong> window opens by itself and asks you to create a username and password. (The password stays invisible while you type, that is normal, type it and press Enter.)</li>
-<li>From now on, open <strong>Ubuntu</strong> from the Start menu, not PowerShell. That window is your terminal for this course.</li>
+<li>スタートをクリックし、<code>PowerShell</code> と入力、<strong>Windows PowerShell</strong> を右クリックして<strong>管理者として実行</strong>を選ぶ。ポップアップで「はい」。</li>
+<li>その画面で <code>wsl --install</code> と入力しEnter。Ubuntu(Linux)をダウンロードします。完了するまで待つ。</li>
+<li><strong>コンピュータを再起動する。</strong> 任意ではなく必須。これをするまで正しく動きません。</li>
+<li>再起動後、<strong>Ubuntu</strong> のウィンドウが自動的に開き、ユーザー名とパスワードの作成を求めます。(入力中パスワードは表示されませんが、正常です。入力してEnter。)</li>
+<li>これ以降は、PowerShellではなくスタートメニューから <strong>Ubuntu</strong> を開きます。それがこのコースのターミナルです。</li>
 </ol>
-<h2 id="troubleshooting-windows-wsl"><a class="heading-anchor" href="#troubleshooting-windows-wsl">Troubleshooting (Windows / WSL)</a></h2>
+<h2 id="トラブルシューティング-windows-wsl"><a class="heading-anchor" href="#トラブルシューティング-windows-wsl">トラブルシューティング (Windows / WSL)</a></h2>
 <details>
-<summary>Open if your setup did not go smoothly</summary>
+<summary>セットアップがうまくいかなかったら開く</summary>
 <ul>
-<li><strong>A "Turn Windows features on or off" / Control Panel window opened.</strong> That is the old, manual way, close it. The single command <code>wsl --install</code> does everything. You do not tick any checkboxes.</li>
-<li><strong>I typed <code>wsl --install</code> and nothing seems to work.</strong> You must <strong>restart the computer</strong> after it finishes. Then look for the Ubuntu window.</li>
-<li><strong>It is asking for a password but my typing does not show.</strong> That is on purpose, passwords are hidden in the terminal. Type it and press Enter.</li>
-<li><strong>I opened Terminal/PowerShell and it is not Linux.</strong> Open the <strong>Ubuntu</strong> app from the Start menu instead (or click the dropdown arrow in Windows Terminal and pick Ubuntu).</li>
-<li><strong><code>wsl --install</code> says access denied or needs admin.</strong> Your machine is locked down (common on work/school laptops, they block the admin rights and virtualization WSL needs). Use a personal computer, or ask in Discord about a cloud option.</li>
-<li><strong>How do I know it worked?</strong> In the Ubuntu window type <code>whoami</code> and press Enter. If it prints your username, you are done.</li>
+<li><strong>「Windowsの機能の有効化または無効化」/ コントロールパネルが開いた。</strong> それは古い手動のやり方です、閉じてください。<code>wsl --install</code> の一発ですべて済みます。チェックボックスは触りません。</li>
+<li><strong><code>wsl --install</code> と入力したのに何も起きないようだ。</strong> 完了後に<strong>コンピュータを再起動</strong>する必要があります。それからUbuntuのウィンドウを探す。</li>
+<li><strong>パスワードを求められるが入力が表示されない。</strong> 仕様です、ターミナルではパスワードは隠されます。入力してEnter。</li>
+<li><strong>Terminal/PowerShellを開いたがLinuxではない。</strong> 代わりにスタートメニューから <strong>Ubuntu</strong> アプリを開く(またはWindows Terminalのドロップダウン矢印からUbuntuを選ぶ)。</li>
+<li><strong><code>wsl --install</code> がアクセス拒否または管理者が必要と言う。</strong> マシンがロックダウンされています(会社/学校のノートPCによくある、WSLに必要な管理者権限と仮想化がブロックされている)。個人のコンピュータを使うか、Discordで相談を。</li>
+<li><strong>うまくいったかどう確認する?</strong> Ubuntuのウィンドウで <code>whoami</code> と入力しEnter。ユーザー名が表示されれば完了です。</li>
 </ul>
 </details>
-<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<h2 id="今週の演習"><a class="heading-anchor" href="#今週の演習">今週の演習</a></h2>
 <ol>
-<li>Read <a href="r20.html">R20: Never Trust an AI</a> and write your own three AI rules, one sentence each.</li>
-<li>Join Discord and say hello.</li>
-<li>Get a working terminal, then type <code>whoami</code> and press Enter. It should print your username.</li>
-<li>Bring one example of an AI being confidently wrong to the next lesson.</li>
+<li><a href="r20.html">R20: AIを決して信頼するな</a>を読み、自分なりのAIルールを3つ、各1文で書く。</li>
+<li>Discordに参加して挨拶する。</li>
+<li>動くターミナルを用意し、<code>whoami</code> と入力してEnter。ユーザー名が表示されるはず。</li>
+<li>AIが自信満々に間違えた例を1つ、次のレッスンに持ってくる。</li>
 </ol>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>AI is a power tool, not a friend: it flatters you and it does not care about you</li>
-<li>Confident is not correct, verify anything that matters, and never paste personal, medical, or unapproved work data</li>
-<li>Windows uses WSL for one shared environment; it needs admin rights and a restart</li>
-<li>You are set up when whoami prints your username in the terminal</li>
+<li>AIは強力なツールであって友達ではない: おだててくるし、あなたを気にかけない</li>
+<li>自信があることは正しいことではない、重要なことは必ず確認し、個人・医療・未承認の仕事のデータは貼り付けない</li>
+<li>Windowsは共通環境のためWSLを使う、管理者権限と再起動が必要</li>
+<li>ターミナルで whoami がユーザー名を表示したらセットアップ完了</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

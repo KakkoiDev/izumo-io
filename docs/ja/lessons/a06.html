@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Custom Commands - KakkoiSchool</title>
+  <title>カスタムコマンド - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,50 +47,50 @@
           <a href="a07.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a06-custom-commands"><a class="heading-anchor" href="#a06-custom-commands">A06: Custom Commands</a></h1>
-<p class="lesson-intro">You have a few prompts you keep retyping, "summarize this in three bullets for a beginner," "explain this error in plain English." A custom command saves that prompt once and gives it a short name you can call any time. (You may hear these called "skills" or "agents" in other tools. In Gemini CLI they are custom commands.)</p>
-<h2 id="a-command-is-a-saved-prompt"><a class="heading-anchor" href="#a-command-is-a-saved-prompt">A Command Is a Saved Prompt</a></h2>
-<p>Gemini CLI reads command files from a <code>commands</code> folder:</p>
+      <h1 id="a06-カスタムコマンド"><a class="heading-anchor" href="#a06-カスタムコマンド">A06: カスタムコマンド</a></h1>
+<p class="lesson-intro">何度も打ち直しているプロンプトがいくつかあるはず、「これを初心者向けに3つの箇条書きで要約して」「このエラーをわかりやすく説明して」。カスタムコマンドはそのプロンプトを一度保存し、いつでも呼べる短い名前を与えます。(他のツールでは「スキル」や「エージェント」と呼ぶかもしれません。Gemini CLIではカスタムコマンドです。)</p>
+<h2 id="コマンドは保存したプロンプト"><a class="heading-anchor" href="#コマンドは保存したプロンプト">コマンドは保存したプロンプト</a></h2>
+<p>Gemini CLIは <code>commands</code> フォルダからコマンドファイルを読みます:</p>
 <ul>
-<li><strong>Global</strong> - <code>~/.gemini/commands/</code> (available everywhere).</li>
-<li><strong>Project</strong> - <code>.gemini/commands/</code> (only in that project).</li>
+<li><strong>グローバル</strong> - <code>~/.gemini/commands/</code>(どこでも使える)。</li>
+<li><strong>プロジェクト</strong> - <code>.gemini/commands/</code>(そのプロジェクトだけ)。</li>
 </ul>
-<p>Each command is a small <code>.toml</code> file. The <strong>filename becomes the command name</strong>: <code>explain.toml</code> gives you <code>/explain</code>. Inside, the important part is a <code>prompt</code> field.</p>
-<p>Create <code>~/.gemini/commands/explain.toml</code>:</p>
-<pre><code>description = &quot;Explain something to a beginner&quot;
+<p>各コマンドは小さな <code>.toml</code> ファイル。<strong>ファイル名がコマンド名になる</strong>: <code>explain.toml</code> なら <code>/explain</code>。中身で重要なのは <code>prompt</code> フィールドです。</p>
+<p><code>~/.gemini/commands/explain.toml</code> を作る:</p>
+<pre><code>description = &quot;初心者に何かを説明する&quot;
 prompt = &quot;&quot;&quot;
-Explain the following to a complete beginner, in plain language,
-with one concrete example:
+次のことを、完全な初心者に、わかりやすい言葉で、
+具体例を1つ添えて説明して:
 
 {{args}}
 &quot;&quot;&quot;
 </code></pre>
-<p>Now in Gemini CLI type:</p>
-<pre><code>/explain how does DNS work
+<p>Gemini CLIでこう打つ:</p>
+<pre><code>/explain DNSはどう動くの
 </code></pre>
-<p>Whatever you type after the command replaces <code>{{args}}</code> in the saved prompt. You just turned a careful, reusable prompt into a one-word shortcut. Build a small library of these and your good prompts stop living in your memory and start living in your tool.</p>
+<p>コマンドの後に打ったものが、保存したプロンプトの <code>{{args}}</code> に置き換わります。丁寧で再利用可能なプロンプトを一語のショートカットに変えたのです。これを少しずつ増やせば、良いプロンプトが記憶ではなくツールの中に住み始めます。</p>
 <div class="mermaid">
 flowchart LR
     A[Retype a long prompt every time] --> B[Slow, inconsistent]
     C["Save it as /explain once"] --> D[One word, same quality every time]
 
 </div>
-<h2 id="one-step-further-mcp-just-so-you-know-it-exists"><a class="heading-anchor" href="#one-step-further-mcp-just-so-you-know-it-exists">One Step Further: MCP (just so you know it exists)</a></h2>
-<p>Custom commands reuse <em>prompts</em>. If you ever need the AI to use a real external <em>tool</em>, read a database, call a web service, Gemini CLI supports <strong>MCP</strong> (Model Context Protocol), a way to plug in extra abilities. That is well beyond this course. For now, just know the word exists so it is not a mystery later.</p>
-<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<h2 id="もう一歩-mcp-存在だけ知っておく"><a class="heading-anchor" href="#もう一歩-mcp-存在だけ知っておく">もう一歩: MCP(存在だけ知っておく)</a></h2>
+<p>カスタムコマンドは<em>プロンプト</em>を再利用します。もしAIに本物の外部<em>ツール</em>(データベースを読む、Webサービスを呼ぶ)を使わせたくなったら、Gemini CLIは<strong>MCP</strong>(Model Context Protocol)、追加の能力を差し込む仕組みをサポートします。これはこのコースの範囲を大きく超えます。今は、後で謎にならないよう言葉が存在することだけ知っておいてください。</p>
+<h2 id="今週の演習"><a class="heading-anchor" href="#今週の演習">今週の演習</a></h2>
 <ol>
-<li>Create <code>~/.gemini/commands/</code> if it does not exist.</li>
-<li>Build one command that solves a real annoyance for you, for example <code>/summarize</code> (summarize pasted text in three bullets) or <code>/explain</code> (like above).</li>
-<li>Use it at least three times this week on real inputs. Refine the saved prompt until the output is consistently good.</li>
-<li>Bring your <code>.toml</code> file and an example run to class.</li>
+<li><code>~/.gemini/commands/</code> がなければ作る。</li>
+<li>あなたの本物の不満を1つ解決するコマンドを作る。例えば <code>/summarize</code>(貼ったテキストを3つの箇条書きで要約)や <code>/explain</code>(上のように)。</li>
+<li>今週、本物の入力で少なくとも3回使う。出力が安定して良くなるまで保存したプロンプトを磨く。</li>
+<li>あなたの <code>.toml</code> ファイルと実行例を1つ授業に持ってくる。</li>
 </ol>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>A custom command is a saved, reusable prompt with a short name</li>
-<li>Put a .toml file in ~/.gemini/commands/; the filename becomes the command (explain.toml to /explain)</li>
-<li>{{args}} inserts whatever you type after the command into the saved prompt</li>
-<li>MCP lets the AI use external tools; know it exists, leave it for later</li>
+<li>カスタムコマンドは、短い名前を持つ、保存された再利用可能なプロンプト</li>
+<li>.toml ファイルを ~/.gemini/commands/ に置く、ファイル名がコマンドになる(explain.toml → /explain)</li>
+<li>{{args}} はコマンドの後に打ったものを保存プロンプトに挿入する</li>
+<li>MCPはAIに外部ツールを使わせる、存在を知っておき、後回しにする</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

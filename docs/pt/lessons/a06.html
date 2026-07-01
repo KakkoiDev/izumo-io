@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Custom Commands - KakkoiSchool</title>
+  <title>Comandos Personalizados - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,50 +47,50 @@
           <a href="a07.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a06-custom-commands"><a class="heading-anchor" href="#a06-custom-commands">A06: Custom Commands</a></h1>
-<p class="lesson-intro">You have a few prompts you keep retyping, "summarize this in three bullets for a beginner," "explain this error in plain English." A custom command saves that prompt once and gives it a short name you can call any time. (You may hear these called "skills" or "agents" in other tools. In Gemini CLI they are custom commands.)</p>
-<h2 id="a-command-is-a-saved-prompt"><a class="heading-anchor" href="#a-command-is-a-saved-prompt">A Command Is a Saved Prompt</a></h2>
-<p>Gemini CLI reads command files from a <code>commands</code> folder:</p>
+      <h1 id="a06-comandos-personalizados"><a class="heading-anchor" href="#a06-comandos-personalizados">A06: Comandos Personalizados</a></h1>
+<p class="lesson-intro">Você tem alguns prompts que fica redigitando, "resuma isto em três tópicos para um iniciante", "explique este erro em linguagem simples". Um comando personalizado salva esse prompt uma vez e dá a ele um nome curto que você chama quando quiser. (Você pode ouvir chamarem isso de "skills" ou "agents" em outras ferramentas. No Gemini CLI são comandos personalizados.)</p>
+<h2 id="um-comando-um-prompt-salvo"><a class="heading-anchor" href="#um-comando-um-prompt-salvo">Um Comando é um Prompt Salvo</a></h2>
+<p>O Gemini CLI lê arquivos de comando de uma pasta <code>commands</code>:</p>
 <ul>
-<li><strong>Global</strong> - <code>~/.gemini/commands/</code> (available everywhere).</li>
-<li><strong>Project</strong> - <code>.gemini/commands/</code> (only in that project).</li>
+<li><strong>Global</strong> - <code>~/.gemini/commands/</code> (disponível em todo lugar).</li>
+<li><strong>Projeto</strong> - <code>.gemini/commands/</code> (só naquele projeto).</li>
 </ul>
-<p>Each command is a small <code>.toml</code> file. The <strong>filename becomes the command name</strong>: <code>explain.toml</code> gives you <code>/explain</code>. Inside, the important part is a <code>prompt</code> field.</p>
-<p>Create <code>~/.gemini/commands/explain.toml</code>:</p>
-<pre><code>description = &quot;Explain something to a beginner&quot;
+<p>Cada comando é um pequeno arquivo <code>.toml</code>. O <strong>nome do arquivo vira o nome do comando</strong>: <code>explain.toml</code> te dá <code>/explain</code>. Dentro, o importante é o campo <code>prompt</code>.</p>
+<p>Crie <code>~/.gemini/commands/explain.toml</code>:</p>
+<pre><code>description = &quot;Explicar algo para um iniciante&quot;
 prompt = &quot;&quot;&quot;
-Explain the following to a complete beginner, in plain language,
-with one concrete example:
+Explique o seguinte para um iniciante total, em linguagem simples,
+com um exemplo concreto:
 
 {{args}}
 &quot;&quot;&quot;
 </code></pre>
-<p>Now in Gemini CLI type:</p>
-<pre><code>/explain how does DNS work
+<p>Agora no Gemini CLI digite:</p>
+<pre><code>/explain como funciona o DNS
 </code></pre>
-<p>Whatever you type after the command replaces <code>{{args}}</code> in the saved prompt. You just turned a careful, reusable prompt into a one-word shortcut. Build a small library of these and your good prompts stop living in your memory and start living in your tool.</p>
+<p>O que você digita depois do comando substitui o <code>{{args}}</code> no prompt salvo. Você acabou de transformar um prompt cuidadoso e reutilizável num atalho de uma palavra. Monte uma pequena biblioteca deles e seus bons prompts param de morar na sua memória e passam a morar na sua ferramenta.</p>
 <div class="mermaid">
 flowchart LR
     A[Retype a long prompt every time] --> B[Slow, inconsistent]
     C["Save it as /explain once"] --> D[One word, same quality every time]
 
 </div>
-<h2 id="one-step-further-mcp-just-so-you-know-it-exists"><a class="heading-anchor" href="#one-step-further-mcp-just-so-you-know-it-exists">One Step Further: MCP (just so you know it exists)</a></h2>
-<p>Custom commands reuse <em>prompts</em>. If you ever need the AI to use a real external <em>tool</em>, read a database, call a web service, Gemini CLI supports <strong>MCP</strong> (Model Context Protocol), a way to plug in extra abilities. That is well beyond this course. For now, just know the word exists so it is not a mystery later.</p>
-<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<h2 id="um-passo-al-m-mcp-s-para-voc-saber-que-existe"><a class="heading-anchor" href="#um-passo-al-m-mcp-s-para-voc-saber-que-existe">Um Passo Além: MCP (só para você saber que existe)</a></h2>
+<p>Comandos personalizados reutilizam <em>prompts</em>. Se um dia você precisar que a IA use uma <em>ferramenta</em> externa de verdade, ler um banco de dados, chamar um serviço web, o Gemini CLI suporta <strong>MCP</strong> (Model Context Protocol), um jeito de plugar habilidades extras. Isso está bem além deste curso. Por ora, só saiba que a palavra existe para não ser um mistério depois.</p>
+<h2 id="exerc-cio-da-semana"><a class="heading-anchor" href="#exerc-cio-da-semana">Exercício da Semana</a></h2>
 <ol>
-<li>Create <code>~/.gemini/commands/</code> if it does not exist.</li>
-<li>Build one command that solves a real annoyance for you, for example <code>/summarize</code> (summarize pasted text in three bullets) or <code>/explain</code> (like above).</li>
-<li>Use it at least three times this week on real inputs. Refine the saved prompt until the output is consistently good.</li>
-<li>Bring your <code>.toml</code> file and an example run to class.</li>
+<li>Crie <code>~/.gemini/commands/</code> se não existir.</li>
+<li>Monte um comando que resolva um incômodo real seu, por exemplo <code>/summarize</code> (resumir texto colado em três tópicos) ou <code>/explain</code> (como acima).</li>
+<li>Use pelo menos três vezes esta semana com entradas reais. Refine o prompt salvo até a saída ficar consistentemente boa.</li>
+<li>Traga seu arquivo <code>.toml</code> e um exemplo de uso para a aula.</li>
 </ol>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
 <ul>
-<li>A custom command is a saved, reusable prompt with a short name</li>
-<li>Put a .toml file in ~/.gemini/commands/; the filename becomes the command (explain.toml to /explain)</li>
-<li>{{args}} inserts whatever you type after the command into the saved prompt</li>
-<li>MCP lets the AI use external tools; know it exists, leave it for later</li>
+<li>Um comando personalizado é um prompt salvo e reutilizável com um nome curto</li>
+<li>Coloque um arquivo .toml em ~/.gemini/commands/; o nome do arquivo vira o comando (explain.toml → /explain)</li>
+<li>{{args}} insere o que você digita depois do comando no prompt salvo</li>
+<li>MCP deixa a IA usar ferramentas externas; saiba que existe, deixe para depois</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

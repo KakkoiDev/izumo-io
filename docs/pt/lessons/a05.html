@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Memories with GEMINI.md - KakkoiSchool</title>
+  <title>Memória com GEMINI.md - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,45 +47,45 @@
           <a href="a06.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a05-memories-with-gemini-md"><a class="heading-anchor" href="#a05-memories-with-gemini-md">A05: Memories with GEMINI.md</a></h1>
-<p class="lesson-intro">By now you are probably retyping the same things every conversation: "I'm a beginner," "answer concisely," "I use a Mac." That is wasted effort. A memory file tells the assistant those things once, and it reads them at the start of every session automatically.</p>
-<h2 id="gemini-md-your-standing-instructions"><a class="heading-anchor" href="#gemini-md-your-standing-instructions">GEMINI.md: Your Standing Instructions</a></h2>
-<p><code>GEMINI.md</code> is an ordinary text file that Gemini CLI loads on startup and treats as instructions. Whatever you write there shapes every answer, without you repeating it. There are two levels:</p>
+      <h1 id="a05-mem-ria-com-gemini-md"><a class="heading-anchor" href="#a05-mem-ria-com-gemini-md">A05: Memória com GEMINI.md</a></h1>
+<p class="lesson-intro">A esta altura você provavelmente redigita as mesmas coisas toda conversa: "sou iniciante", "responda de forma concisa", "uso Mac". Isso é esforço desperdiçado. Um arquivo de memória diz isso uma vez, e ele o lê no início de toda sessão automaticamente.</p>
+<h2 id="gemini-md-suas-instru-es-permanentes"><a class="heading-anchor" href="#gemini-md-suas-instru-es-permanentes">GEMINI.md: Suas Instruções Permanentes</a></h2>
+<p><code>GEMINI.md</code> é um arquivo de texto comum que o Gemini CLI carrega ao iniciar e trata como instruções. O que você escreve ali molda toda resposta, sem você repetir. Há dois níveis:</p>
 <ul>
-<li><strong>Global</strong> - <code>~/.gemini/GEMINI.md</code> in your home folder. Applies everywhere, to every project.</li>
-<li><strong>Project</strong> - a <code>GEMINI.md</code> in the folder you launch <code>gemini</code> from. Applies only there. Good for rules specific to one piece of work.</li>
+<li><strong>Global</strong> - <code>~/.gemini/GEMINI.md</code> na sua pasta home. Vale em todo lugar, em todo projeto.</li>
+<li><strong>Projeto</strong> - um <code>GEMINI.md</code> na pasta de onde você inicia o <code>gemini</code>. Vale só ali. Bom para regras específicas de um trabalho.</li>
 </ul>
-<p>Put your global preferences up top ("I'm learning; explain simply, always give one example, keep answers short"), and project facts in the project file.</p>
+<p>Coloque suas preferências globais no topo ("estou aprendendo; explique de forma simples, sempre dê um exemplo, respostas curtas") e os fatos do projeto no arquivo do projeto.</p>
 <div class="mermaid">
 flowchart TD
     A[Without memory] --> B[Re-explain yourself every session]
     C[With GEMINI.md] --> D[Loaded once, applied every session]
 
 </div>
-<h2 id="check-what-it-loaded"><a class="heading-anchor" href="#check-what-it-loaded">Check What It Loaded</a></h2>
-<p>Two commands you will use:</p>
+<h2 id="cheque-o-que-foi-carregado"><a class="heading-anchor" href="#cheque-o-que-foi-carregado">Cheque o Que Foi Carregado</a></h2>
+<p>Dois comandos que você vai usar:</p>
 <ul>
-<li><code>/memory show</code> - prints exactly what instructions are currently loaded. Use it to confirm your file is being read.</li>
-<li><code>/memory refresh</code> - reloads the files after you edit them, so you do not have to restart.</li>
+<li><code>/memory show</code> - mostra exatamente quais instruções estão carregadas agora. Use para confirmar que seu arquivo está sendo lido.</li>
+<li><code>/memory refresh</code> - recarrega os arquivos depois de você editá-los, sem precisar reiniciar.</li>
 </ul>
-<h2 id="what-belongs-there-and-what-doesn-t"><a class="heading-anchor" href="#what-belongs-there-and-what-doesn-t">What Belongs There (and What Doesn't)</a></h2>
-<p>Good: your level and preferences, how you like answers formatted, stable facts about your setup, project conventions.</p>
-<p>Not there: <strong>secrets</strong>. A <code>GEMINI.md</code> is a plain file that gets sent to the AI, so the A01 rule still holds, no passwords, no personal data, no unapproved work details.</p>
-<p>Think of it as the onboarding note you hand a contractor so you never have to re-explain the basics each morning.</p>
-<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<h2 id="o-que-vai-ali-e-o-que-n-o-vai"><a class="heading-anchor" href="#o-que-vai-ali-e-o-que-n-o-vai">O Que Vai Ali (e o Que Não Vai)</a></h2>
+<p>Bom: seu nível e preferências, como você gosta das respostas formatadas, fatos estáveis do seu ambiente, convenções do projeto.</p>
+<p>Não ali: <strong>segredos</strong>. Um <code>GEMINI.md</code> é um arquivo comum que é enviado à IA, então a regra da A01 continua valendo, sem senhas, sem dados pessoais, sem detalhes de trabalho não aprovados.</p>
+<p>Pense nele como a nota de integração que você entrega a um prestador para nunca ter que reexplicar o básico toda manhã.</p>
+<h2 id="exerc-cio-da-semana"><a class="heading-anchor" href="#exerc-cio-da-semana">Exercício da Semana</a></h2>
 <ol>
-<li>Create <code>~/.gemini/GEMINI.md</code> with three or four rules for how you want the AI to answer you (level, length, "always show an example," language).</li>
-<li>Start <code>gemini</code> and run <code>/memory show</code>. Confirm your rules are loaded.</li>
-<li>Ask a question and check whether the answer actually follows your rules. If not, sharpen the wording, run <code>/memory refresh</code>, and try again.</li>
-<li>Bring your <code>GEMINI.md</code> and one before/after answer to class.</li>
+<li>Crie <code>~/.gemini/GEMINI.md</code> com três ou quatro regras de como você quer que a IA te responda (nível, tamanho, "sempre dê um exemplo", idioma).</li>
+<li>Inicie o <code>gemini</code> e rode <code>/memory show</code>. Confirme que suas regras foram carregadas.</li>
+<li>Faça uma pergunta e veja se a resposta realmente segue suas regras. Se não, afie o texto, rode <code>/memory refresh</code> e tente de novo.</li>
+<li>Traga seu <code>GEMINI.md</code> e uma resposta antes/depois para a aula.</li>
 </ol>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
 <ul>
-<li>GEMINI.md is loaded automatically every session, so you stop repeating yourself</li>
-<li>Global (~/.gemini/GEMINI.md) applies everywhere; a project GEMINI.md applies to that folder</li>
-<li>/memory show confirms what is loaded; /memory refresh reloads after edits</li>
-<li>Put preferences and project rules there, never secrets</li>
+<li>GEMINI.md é carregado automaticamente toda sessão, então você para de repetir</li>
+<li>Global (~/.gemini/GEMINI.md) vale em todo lugar; um GEMINI.md de projeto vale naquela pasta</li>
+<li>/memory show confirma o que foi carregado; /memory refresh recarrega após editar</li>
+<li>Coloque preferências e regras de projeto ali, nunca segredos</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

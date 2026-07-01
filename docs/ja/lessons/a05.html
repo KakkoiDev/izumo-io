@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Memories with GEMINI.md - KakkoiSchool</title>
+  <title>GEMINI.mdでメモリを持たせる - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,45 +47,45 @@
           <a href="a06.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a05-memories-with-gemini-md"><a class="heading-anchor" href="#a05-memories-with-gemini-md">A05: Memories with GEMINI.md</a></h1>
-<p class="lesson-intro">By now you are probably retyping the same things every conversation: "I'm a beginner," "answer concisely," "I use a Mac." That is wasted effort. A memory file tells the assistant those things once, and it reads them at the start of every session automatically.</p>
-<h2 id="gemini-md-your-standing-instructions"><a class="heading-anchor" href="#gemini-md-your-standing-instructions">GEMINI.md: Your Standing Instructions</a></h2>
-<p><code>GEMINI.md</code> is an ordinary text file that Gemini CLI loads on startup and treats as instructions. Whatever you write there shapes every answer, without you repeating it. There are two levels:</p>
+      <h1 id="a05-gemini-mdでメモリを持たせる"><a class="heading-anchor" href="#a05-gemini-mdでメモリを持たせる">A05: GEMINI.mdでメモリを持たせる</a></h1>
+<p class="lesson-intro">今ごろ、毎回同じことを打ち直しているはず: 「初心者です」「簡潔に答えて」「Macを使ってます」。それは無駄です。メモリファイルにそれを一度伝えれば、毎セッションの最初に自動で読みます。</p>
+<h2 id="gemini-md-あなたの常設指示"><a class="heading-anchor" href="#gemini-md-あなたの常設指示">GEMINI.md: あなたの常設指示</a></h2>
+<p><code>GEMINI.md</code> は、Gemini CLIが起動時に読み込み、指示として扱う普通のテキストファイルです。そこに書いたことは、繰り返さなくても毎回の答えに反映されます。2つのレベルがあります:</p>
 <ul>
-<li><strong>Global</strong> - <code>~/.gemini/GEMINI.md</code> in your home folder. Applies everywhere, to every project.</li>
-<li><strong>Project</strong> - a <code>GEMINI.md</code> in the folder you launch <code>gemini</code> from. Applies only there. Good for rules specific to one piece of work.</li>
+<li><strong>グローバル</strong> - ホームフォルダの <code>~/.gemini/GEMINI.md</code>。どこでも、すべてのプロジェクトに適用。</li>
+<li><strong>プロジェクト</strong> - <code>gemini</code> を起動するフォルダの <code>GEMINI.md</code>。そこだけに適用。1つの作業に固有のルールに良い。</li>
 </ul>
-<p>Put your global preferences up top ("I'm learning; explain simply, always give one example, keep answers short"), and project facts in the project file.</p>
+<p>グローバルの好み(「学習中です、簡潔に説明し、必ず例を1つ、答えは短く」)を上に、プロジェクトの事実をプロジェクトファイルに置く。</p>
 <div class="mermaid">
 flowchart TD
     A[Without memory] --> B[Re-explain yourself every session]
     C[With GEMINI.md] --> D[Loaded once, applied every session]
 
 </div>
-<h2 id="check-what-it-loaded"><a class="heading-anchor" href="#check-what-it-loaded">Check What It Loaded</a></h2>
-<p>Two commands you will use:</p>
+<h2 id="読み込んだ内容を確認する"><a class="heading-anchor" href="#読み込んだ内容を確認する">読み込んだ内容を確認する</a></h2>
+<p>よく使う2つのコマンド:</p>
 <ul>
-<li><code>/memory show</code> - prints exactly what instructions are currently loaded. Use it to confirm your file is being read.</li>
-<li><code>/memory refresh</code> - reloads the files after you edit them, so you do not have to restart.</li>
+<li><code>/memory show</code> - 今読み込まれている指示を正確に表示。ファイルが読まれているか確認するのに使う。</li>
+<li><code>/memory refresh</code> - 編集後にファイルを再読み込みする。再起動しなくてよい。</li>
 </ul>
-<h2 id="what-belongs-there-and-what-doesn-t"><a class="heading-anchor" href="#what-belongs-there-and-what-doesn-t">What Belongs There (and What Doesn't)</a></h2>
-<p>Good: your level and preferences, how you like answers formatted, stable facts about your setup, project conventions.</p>
-<p>Not there: <strong>secrets</strong>. A <code>GEMINI.md</code> is a plain file that gets sent to the AI, so the A01 rule still holds, no passwords, no personal data, no unapproved work details.</p>
-<p>Think of it as the onboarding note you hand a contractor so you never have to re-explain the basics each morning.</p>
-<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<h2 id="そこに置くもの-と置かないもの"><a class="heading-anchor" href="#そこに置くもの-と置かないもの">そこに置くもの(と置かないもの)</a></h2>
+<p>良い: あなたのレベルと好み、答えのフォーマットの好み、環境の安定した事実、プロジェクトの規約。</p>
+<p>置かない: <strong>秘密</strong>。<code>GEMINI.md</code> はAIに送られる普通のファイルなので、A01のルールは有効、パスワードなし、個人データなし、未承認の仕事の詳細なし。</p>
+<p>毎朝基本を説明し直さなくて済むように業務委託に渡すオンボーディングメモだと思ってください。</p>
+<h2 id="今週の演習"><a class="heading-anchor" href="#今週の演習">今週の演習</a></h2>
 <ol>
-<li>Create <code>~/.gemini/GEMINI.md</code> with three or four rules for how you want the AI to answer you (level, length, "always show an example," language).</li>
-<li>Start <code>gemini</code> and run <code>/memory show</code>. Confirm your rules are loaded.</li>
-<li>Ask a question and check whether the answer actually follows your rules. If not, sharpen the wording, run <code>/memory refresh</code>, and try again.</li>
-<li>Bring your <code>GEMINI.md</code> and one before/after answer to class.</li>
+<li><code>~/.gemini/GEMINI.md</code> を作り、AIにどう答えてほしいかのルールを3〜4個書く(レベル、長さ、「必ず例を1つ」、言語)。</li>
+<li><code>gemini</code> を起動し <code>/memory show</code> を実行。ルールが読み込まれているか確認。</li>
+<li>質問して、答えが実際にルールに従っているか確認。従っていなければ、言い回しを鋭くし、<code>/memory refresh</code> してもう一度。</li>
+<li>あなたの <code>GEMINI.md</code> とビフォーアフターの答えを1つ授業に持ってくる。</li>
 </ol>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>GEMINI.md is loaded automatically every session, so you stop repeating yourself</li>
-<li>Global (~/.gemini/GEMINI.md) applies everywhere; a project GEMINI.md applies to that folder</li>
-<li>/memory show confirms what is loaded; /memory refresh reloads after edits</li>
-<li>Put preferences and project rules there, never secrets</li>
+<li>GEMINI.mdは毎セッション自動で読み込まれるので、繰り返さなくて済む</li>
+<li>グローバル(~/.gemini/GEMINI.md)はどこでも、プロジェクトのGEMINI.mdはそのフォルダに適用</li>
+<li>/memory show で読み込み内容を確認、/memory refresh で編集後に再読み込み</li>
+<li>好みとプロジェクトのルールを置く、秘密は決して置かない</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
