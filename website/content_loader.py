@@ -9,6 +9,7 @@ Produces:
   LESSONS          {id: {lang: html_string}}
   TECH_LESSONS     [{id, phase, status, title_en/ja, desc_en/ja, ...}]
   THEORY_LESSONS   [{id, title_en/ja, desc_en/ja, analogy_en/ja}]
+  AI_LESSONS       [{id, title_en/ja, desc_en/ja}]
   TECH_PHASES      [{id, title_en/ja, subtitle_en/ja, analogy_en/ja}]
   UI               {key: {lang: string}}
   VIDEOS           [{youtube_id, title_en/ja, desc_en/ja}]
@@ -101,9 +102,9 @@ def parse_frontmatter(text: str) -> tuple[dict, str]:
 # -------- lesson loading --------
 
 def _lesson_paths() -> list[Path]:
-    """Every .md file under content/tech and content/theory."""
+    """Every .md file under content/tech, content/theory and content/ai."""
     paths = []
-    for sub in ('tech', 'theory'):
+    for sub in ('tech', 'theory', 'ai'):
         paths.extend((CONTENT / sub).glob('*.md'))
     return sorted(paths)
 
@@ -139,7 +140,7 @@ def load_all() -> dict:
     # build.py used. Metadata lives on the EN file (id, phase, status) and
     # on each lang's file (title, desc, analogy). Collect title/desc/analogy
     # for every supported language so localize_list can pick the right one.
-    tech, theory = [], []
+    tech, theory, ai = [], [], []
     for lid in lesson_data:
         en_meta = lesson_data[lid].get('en', {}).get('meta', {})
         entry = {'id': lid}
@@ -154,7 +155,9 @@ def load_all() -> dict:
             if 'analogy' in lang_meta:
                 entry[f'analogy_{lang}'] = lang_meta['analogy']
 
-        if lid.startswith('T'):
+        if lid.startswith('A'):
+            ai.append(entry)
+        elif lid.startswith('T'):
             tech.append(entry)
         else:
             theory.append(entry)
@@ -166,6 +169,7 @@ def load_all() -> dict:
 
     tech.sort(key=lambda e: _num(e['id']))
     theory.sort(key=lambda e: _num(e['id']))
+    ai.sort(key=lambda e: _num(e['id']))
 
     # -- YAML data files ---------------------------------------------
     def _y(path):
@@ -184,6 +188,7 @@ def load_all() -> dict:
         'LESSONS': LESSONS,
         'TECH_LESSONS': tech,
         'THEORY_LESSONS': theory,
+        'AI_LESSONS': ai,
         'TECH_PHASES': tech_phases,
         'VIDEOS': videos,
         'RESOURCES': resources,

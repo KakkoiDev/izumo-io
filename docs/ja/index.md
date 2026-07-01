@@ -15,6 +15,7 @@
 
 - [技術レッスン](tech-lessons.md) - HTMLからフルスタックAIアプリまでの実践レッスン。ステップバイステップで実際のプロジェクトを構築。
 - [理論](theory-lessons.md) - 優れたソフトウェアと優れた開発者の背後にある考え方。
+- [AI Assistant](ai-lessons.md) - A beginner course on using an AI coding assistant safely and well. No coding experience needed.
 - [動画](videos.md) - YouTubeで過去のレッスンを視聴。
 - [リソース](resources.md) - スキルアップのための厳選ツールとプラットフォーム。
 

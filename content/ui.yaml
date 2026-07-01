@@ -21,6 +21,9 @@ back_to_theory:
   ja: "理論レッスンに戻る"
   pt: "Voltar para as Aulas Teóricas"
 
+back_to_ai:
+  en: "Back to AI Assistant"
+
 prev_lesson:
   en: "Previous"
   ja: "前へ"
@@ -51,6 +54,9 @@ nav_theory:
   ja: "理論"
   pt: "Teoria"
 
+nav_ai:
+  en: "AI Assistant"
+
 nav_videos:
   en: "Videos"
   ja: "動画"
@@ -80,6 +86,12 @@ theory_desc:
   en: "The thinking behind great software and great developers."
   ja: "優れたソフトウェアと優れた開発者の背後にある考え方。"
   pt: "O pensamento por trás de grandes softwares e grandes desenvolvedores."
+
+ai_title:
+  en: "Using an AI Coding Assistant"
+
+ai_desc:
+  en: "A beginner course on using an AI coding assistant safely and well. No coding experience needed."
 
 videos_title:
   en: "Lesson Videos"

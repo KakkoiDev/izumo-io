@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" data-page="a03.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Install & Authenticate Gemini CLI - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Assistant</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">Back to AI Assistant</a>
+        <div class="lesson-pager">
+          <a href="a02.html">Previous</a>
+          <a href="a04.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="a03-install-amp-authenticate-gemini-cli"><a class="heading-anchor" href="#a03-install-amp-authenticate-gemini-cli">A03: Install &amp; Authenticate Gemini CLI</a></h1>
+<p class="lesson-intro">You have a terminal and Node.js. Now install the assistant itself, Gemini CLI, log in for free, and talk to it. By the end of this lesson you have a working AI in your terminal and you have already caught it being wrong once.</p>
+<h2 id="install-it"><a class="heading-anchor" href="#install-it">Install It</a></h2>
+<p>In your terminal, run:</p>
+<pre><code>npm install -g @google/gemini-cli
+</code></pre>
+<p>The <code>-g</code> means "install globally" so you can run it from anywhere. If you set up Node with nvm in <a href="a02.html">A02</a>, this just works. If you instead see a long red permission error (<code>EACCES</code>), that is the classic reason we recommended nvm, going back and installing Node through nvm fixes it.</p>
+<p>When it finishes, start it:</p>
+<pre><code>gemini
+</code></pre>
+<h2 id="log-in-for-free"><a class="heading-anchor" href="#log-in-for-free">Log In for Free</a></h2>
+<p>The first time you run <code>gemini</code>, it asks how you want to sign in. Choose <strong>Login with Google</strong>.</p>
+<ol>
+<li>Your web browser opens automatically.</li>
+<li>Pick your Google account and approve access.</li>
+<li>Return to the terminal, you are now logged in.</li>
+</ol>
+<p>This uses Google's free tier: no credit card, no API key, generous daily limits. If you ever hit the limit, the tool tells you, just wait a bit or continue tomorrow. (Later, in <a href="a08.html">A08</a>, automated scripts need a different kind of key. Ignore that for now.)</p>
+<div class="mermaid">
+flowchart LR
+    A[Run gemini] --> B[Choose Login with Google]
+    B --> C[Browser opens]
+    C --> D[Approve]
+    D --> E[Talking to AI in your terminal]
+
+</div>
+<h2 id="your-first-conversation"><a class="heading-anchor" href="#your-first-conversation">Your First Conversation</a></h2>
+<p>You are now at the Gemini prompt. Type a question in plain English and press Enter. It answers. Ask a follow-up, it remembers the conversation.</p>
+<p>A few controls you will use constantly:</p>
+<ul>
+<li><code>/help</code> - list available commands.</li>
+<li><code>/quit</code> - leave. (Or press Ctrl+C twice.)</li>
+<li>Up arrow - bring back your last message.</li>
+</ul>
+<p>That is the whole interface: type, read, verify, repeat. The verifying is the part most people skip, and A01 told you why not to.</p>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<ol>
+<li>Install Gemini CLI and log in with Google.</li>
+<li>Ask it five real questions, things you actually want to know this week.</li>
+<li>For at least one answer, verify it against a real source (official docs, run the command, check a fact). Find <strong>one</strong> thing it got wrong, incomplete, or made up.</li>
+<li>Write down the wrong answer and how you caught it. Bring it to class. If you could not find a single error, you were not checking hard enough, keep going.</li>
+</ol>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Install with npm install -g @google/gemini-cli, then run gemini</li>
+<li>Log in with a Google account: free tier, no credit card, no API key</li>
+<li>The interface is simple: type a question, read, verify, repeat</li>
+<li>/help lists commands, /quit leaves; the free tier has generous daily limits</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">Back to AI Assistant</a>
+        <div class="lesson-pager">
+          <a href="a02.html">Previous</a>
+          <a href="a04.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

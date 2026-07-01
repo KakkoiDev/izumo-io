@@ -25,6 +25,7 @@ LESSONS = _DATA['LESSONS']
 TECH_PHASES = _DATA['TECH_PHASES']
 TECH_LESSONS = _DATA['TECH_LESSONS']
 THEORY_LESSONS = _DATA['THEORY_LESSONS']
+AI_LESSONS = _DATA['AI_LESSONS']
 UI = _DATA['UI']
 VIDEOS = _DATA['VIDEOS']
 RESOURCES = _DATA['RESOURCES']
@@ -45,6 +46,7 @@ PAGE_TITLES = {
     'index.html': {'en': '', 'ja': ''},
     'tech-lessons.html': {'en': 'Technical Lessons', 'ja': '\u6280\u8853\u30ec\u30c3\u30b9\u30f3'},
     'theory-lessons.html': {'en': 'Theory & Life Lessons', 'ja': '\u7406\u8ad6\u3068\u30e9\u30a4\u30d5\u30ec\u30c3\u30b9\u30f3'},
+    'ai-lessons.html': {'en': 'Using an AI Coding Assistant', 'ja': 'AI\u30b3\u30fc\u30c7\u30a3\u30f3\u30b0\u30a2\u30b7\u30b9\u30bf\u30f3\u30c8\u306e\u4f7f\u3044\u65b9'},
     'videos.html': {'en': 'Lesson Videos', 'ja': '\u30ec\u30c3\u30b9\u30f3\u52d5\u753b'},
     'resources.html': {'en': 'Resources', 'ja': '\u30ea\u30bd\u30fc\u30b9'},
 }
@@ -185,6 +187,7 @@ def build_context(lang, page_file):
     tech_phases = localize_list(TECH_PHASES, lang)
     tech_lessons = localize_list(TECH_LESSONS, lang)
     theory_lessons = localize_list(THEORY_LESSONS, lang)
+    ai_lessons = localize_list(AI_LESSONS, lang)
     videos = localize_list(VIDEOS, lang)
     resources = localize_list(RESOURCES, lang)
 
@@ -212,6 +215,7 @@ def build_context(lang, page_file):
         'tech_phases': tech_phases,
         'tech_lessons': tech_lessons,
         'theory_lessons': theory_lessons,
+        'ai_lessons': ai_lessons,
         'videos': videos,
         'resources': resources,
     }
@@ -223,19 +227,27 @@ def build_lesson_context(lang, lesson_id, page_file):
     ui = {k: t(v, lang) for k, v in UI.items()}
 
     # Find lesson metadata for title, preferring current lang then EN fallback.
-    all_lessons = TECH_LESSONS + THEORY_LESSONS
+    all_lessons = TECH_LESSONS + THEORY_LESSONS + AI_LESSONS
     lesson_meta = next((l for l in all_lessons if l['id'] == lesson_id), {})
     page_title = (lesson_meta.get(f'title_{lang}')
                   or lesson_meta.get('title_en')
                   or lesson_id)
 
-    is_tech = lesson_id.startswith('T')
-    back_url = '../tech-lessons.html' if is_tech else '../theory-lessons.html'
-    back_label = ui.get('back_to_tech', '') if is_tech else ui.get('back_to_theory', '')
+    if lesson_id.startswith('A'):
+        back_url = '../ai-lessons.html'
+        back_label = ui.get('back_to_ai', '')
+        group_lessons = AI_LESSONS
+    elif lesson_id.startswith('T'):
+        back_url = '../tech-lessons.html'
+        back_label = ui.get('back_to_tech', '')
+        group_lessons = TECH_LESSONS
+    else:
+        back_url = '../theory-lessons.html'
+        back_label = ui.get('back_to_theory', '')
+        group_lessons = THEORY_LESSONS
 
     # Compute prev/next within same group
-    group = [l for l in (TECH_LESSONS if is_tech else THEORY_LESSONS)
-             if l.get('status') != 'coming-soon']
+    group = [l for l in group_lessons if l.get('status') != 'coming-soon']
     ids = [l['id'] for l in group]
     idx = ids.index(lesson_id) if lesson_id in ids else -1
     prev_url = f'{ids[idx - 1].lower()}.html' if idx > 0 else ''
@@ -296,6 +308,7 @@ def build_index_md(lang):
         '',
         f"- [{ui['nav_tech']}](tech-lessons.md) - {ui['tech_desc']}",
         f"- [{ui['nav_theory']}](theory-lessons.md) - {ui['theory_desc']}",
+        f"- [{ui['nav_ai']}](ai-lessons.md) - {ui['ai_desc']}",
         f"- [{ui['nav_videos']}](videos.md) - {ui['videos_desc']}",
         f"- [{ui['nav_resources']}](resources.md) - {ui['resources_desc']}",
         '',
@@ -353,6 +366,20 @@ def build_theory_lessons_md(lang):
     return '\n'.join(lines)
 
 
+def build_ai_lessons_md(lang):
+    ui = _ui(lang)
+    lessons = localize_list(AI_LESSONS, lang)
+    lines = [f"# {ui['ai_title']}", '']
+    for lesson in lessons:
+        slug = lesson['id'].lower()
+        title = lesson.get('title', '')
+        desc = lesson.get('desc', '')
+        suffix = f" - {desc}" if desc else ''
+        lines.append(f"- [{lesson['id']}: {title}](lessons/{slug}.md){suffix}")
+    lines.append('')
+    return '\n'.join(lines)
+
+
 def build_videos_md(lang):
     ui = _ui(lang)
     videos = localize_list(VIDEOS, lang)
@@ -385,6 +412,7 @@ PAGE_MD_BUILDERS = {
     'index.html': build_index_md,
     'tech-lessons.html': build_tech_lessons_md,
     'theory-lessons.html': build_theory_lessons_md,
+    'ai-lessons.html': build_ai_lessons_md,
     'videos.html': build_videos_md,
     'resources.html': build_resources_md,
 }
@@ -393,7 +421,12 @@ PAGE_MD_BUILDERS = {
 def lesson_source_path(lesson_id, lang):
     """Path to the source MD for a lesson, or None if it does not exist."""
     slug = lesson_id.lower()
-    sub = 'tech' if lesson_id.startswith('T') else 'theory'
+    if lesson_id.startswith('A'):
+        sub = 'ai'
+    elif lesson_id.startswith('T'):
+        sub = 'tech'
+    else:
+        sub = 'theory'
     base = ROOT.parent / 'content' / sub
     path = base / (f'{slug}.md' if lang == 'en' else f'{slug}.{lang}.md')
     if path.exists():
