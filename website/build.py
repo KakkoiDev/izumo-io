@@ -46,7 +46,7 @@ PAGE_TITLES = {
     'index.html': {'en': '', 'ja': ''},
     'tech-lessons.html': {'en': 'Technical Lessons', 'ja': '\u6280\u8853\u30ec\u30c3\u30b9\u30f3'},
     'theory-lessons.html': {'en': 'Theory & Life Lessons', 'ja': '\u7406\u8ad6\u3068\u30e9\u30a4\u30d5\u30ec\u30c3\u30b9\u30f3'},
-    'ai-lessons.html': {'en': 'Using an AI Coding Assistant', 'ja': 'AI\u30b3\u30fc\u30c7\u30a3\u30f3\u30b0\u30a2\u30b7\u30b9\u30bf\u30f3\u30c8\u306e\u4f7f\u3044\u65b9'},
+    'ai-lessons.html': {'en': 'AI Lessons', 'ja': 'AI\u30ec\u30c3\u30b9\u30f3'},
     'videos.html': {'en': 'Lesson Videos', 'ja': '\u30ec\u30c3\u30b9\u30f3\u52d5\u753b'},
     'resources.html': {'en': 'Resources', 'ja': '\u30ea\u30bd\u30fc\u30b9'},
 }

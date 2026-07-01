@@ -22,7 +22,9 @@ back_to_theory:
   pt: "Voltar para as Aulas Teóricas"
 
 back_to_ai:
-  en: "Back to AI Assistant"
+  en: "Back to AI Lessons"
+  ja: "AIレッスンに戻る"
+  pt: "Voltar para as Aulas de IA"
 
 prev_lesson:
   en: "Previous"
@@ -55,7 +57,9 @@ nav_theory:
   pt: "Teoria"
 
 nav_ai:
-  en: "AI Assistant"
+  en: "AI Lessons"
+  ja: "AIレッスン"
+  pt: "Aulas de IA"
 
 nav_videos:
   en: "Videos"
@@ -88,10 +92,14 @@ theory_desc:
   pt: "O pensamento por trás de grandes softwares e grandes desenvolvedores."
 
 ai_title:
-  en: "Using an AI Coding Assistant"
+  en: "AI Lessons"
+  ja: "AIレッスン"
+  pt: "Aulas de IA"
 
 ai_desc:
   en: "A beginner course on using an AI coding assistant safely and well. No coding experience needed."
+  ja: "AIコーディングアシスタントを安全に上手に使うための初心者向けコース。プログラミングの経験は不要です。"
+  pt: "Um curso para iniciantes sobre como usar um assistente de programação com IA de forma segura e eficaz. Não é preciso saber programar."
 
 videos_title:
   en: "Lesson Videos"

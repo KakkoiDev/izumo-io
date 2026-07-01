@@ -1,4 +1,4 @@
-# Using an AI Coding Assistant
+# AI Lessons
 
 - [A01: Safety, Privacy & Mindset](lessons/a01.md) - Before you install anything: what AI is, how it fails, and the three rules that keep you safe. AI is a power tool, not a friend.
 - [A02: Join Discord + Install Your Environment](lessons/a02.md) - Get set up as a group: join the Discord for help, then install one shared terminal environment (WSL on Windows). Goal for today: a terminal you can type into.

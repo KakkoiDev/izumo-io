@@ -15,7 +15,7 @@ Aulas práticas ensinando os 20% que cobrem 80% do desenvolvimento do mundo real
 
 - [Aulas Técnicas](tech-lessons.md) - Aulas práticas de HTML a aplicações de IA full stack. Construa projetos reais passo a passo.
 - [Teoria](theory-lessons.md) - O pensamento por trás de grandes softwares e grandes desenvolvedores.
-- [AI Assistant](ai-lessons.md) - A beginner course on using an AI coding assistant safely and well. No coding experience needed.
+- [Aulas de IA](ai-lessons.md) - Um curso para iniciantes sobre como usar um assistente de programação com IA de forma segura e eficaz. Não é preciso saber programar.
 - [Vídeos](videos.md) - Assista às gravações das aulas anteriores no YouTube.
 - [Recursos](resources.md) - Ferramentas e plataformas selecionadas para subir de nível.
 
