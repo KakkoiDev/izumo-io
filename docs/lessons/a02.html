@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Terminal Survival + Install the Environment - KakkoiSchool</title>
+  <title>Join Discord + Install Your Environment - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,65 +47,47 @@
           <a href="a03.html">Next</a>
         </div>
       </nav>
-      <h1 id="a02-terminal-survival-install-the-environment"><a class="heading-anchor" href="#a02-terminal-survival-install-the-environment">A02: Terminal Survival + Install the Environment</a></h1>
-<p class="lesson-intro">The AI assistant lives in the terminal, a window where you type commands instead of clicking. It looks intimidating and it is not. This lesson gives you the handful of commands you actually need, then sets up the same environment for everyone so every later instruction works the same on your machine as on your neighbour's.</p>
-<h2 id="the-terminal-is-just-typed-directions"><a class="heading-anchor" href="#the-terminal-is-just-typed-directions">The Terminal Is Just Typed Directions</a></h2>
-<p>Clicking a folder is pointing at it. The terminal is giving directions by name. Same computer, same files, different way to talk to it. You need six things:</p>
-<ul>
-<li><code>pwd</code> - "where am I?" Prints your current folder.</li>
-<li><code>ls</code> - "what is here?" Lists files and folders.</li>
-<li><code>cd foldername</code> - "go into that folder." <code>cd ..</code> goes back up. <code>cd ~</code> goes home.</li>
-<li><code>~</code> - shorthand for your home folder, your starting point.</li>
-<li><strong>Tab</strong> - autocomplete. Type a few letters of a name and press Tab. Less typing, fewer typos.</li>
-<li><strong>Up arrow</strong> - repeat your last command. <strong>Ctrl+C</strong> - cancel a stuck command.</li>
-</ul>
-<p>A path is an address. <code>~/projects/notes.txt</code> means "the file notes.txt, inside projects, inside home." That is all a path is.</p>
+      <h1 id="a02-join-discord-install-your-environment"><a class="heading-anchor" href="#a02-join-discord-install-your-environment">A02: Join Discord + Install Your Environment</a></h1>
+<p class="lesson-intro">Today has one goal: everyone leaves with a working terminal. On Windows that means installing WSL, which needs a restart and often a little troubleshooting, so we do it together with the Discord open for help. We do not touch Node or the AI yet; that is next lesson, once your terminal works.</p>
+<h2 id="first-join-discord"><a class="heading-anchor" href="#first-join-discord">First, Join Discord</a></h2>
+<p>This is where you ask for help between lessons and where setup problems get solved fast. Join before anything else, most install issues are quicker to fix with someone looking at your screenshot than alone.</p>
 <h2 id="one-environment-for-everyone"><a class="heading-anchor" href="#one-environment-for-everyone">One Environment for Everyone</a></h2>
-<p>Mac and Linux already have a Unix terminal built in, so their commands match. Windows does not, so Windows users install <strong>WSL</strong> (Windows Subsystem for Linux): a real Linux terminal inside Windows. After that, everyone in this course types the exact same commands. That is why we require it.</p>
+<p>Mac and Linux already have a Unix terminal built in. Windows does not, so Windows users install <strong>WSL</strong> (Windows Subsystem for Linux): a real Linux terminal inside Windows. After that, everyone in this course types the exact same commands and sees the same folders. That uniformity is the whole reason we require it, one set of instructions that works for the entire group.</p>
 <div class="mermaid">
 flowchart TD
     Q{Your OS?} -->|Mac| M[Open the Terminal app]
     Q -->|Linux| L[Open your terminal]
     Q -->|Windows| W[Install WSL, then use Ubuntu]
-    M --> Same[Everyone: same commands from here]
+    M --> Same[Goal: a terminal you can type into]
     L --> Same
     W --> Same
 
 </div>
 <h3 id="windows-install-wsl"><a class="heading-anchor" href="#windows-install-wsl">Windows: install WSL</a></h3>
-<p>Do this <strong>before class if possible</strong>, it needs a restart and can be slow.</p>
 <ol>
-<li>Click Start, type <code>PowerShell</code>, right-click <strong>Windows PowerShell</strong>, choose <strong>Run as administrator</strong>. Click Yes.</li>
-<li>In that window type <code>wsl --install</code> and press Enter. It downloads Ubuntu (Linux). Wait for it to finish.</li>
-<li><strong>Restart your computer.</strong> This is required, not optional.</li>
-<li>After restart, an <strong>Ubuntu</strong> window opens by itself. It asks you to create a UNIX username and password. The password stays invisible while you type, that is normal, just type it and press Enter.</li>
-<li>From now on, open <strong>Ubuntu</strong> from the Start menu, not PowerShell. That black window is your terminal for this course.</li>
+<li>Click Start, type <code>PowerShell</code>, right-click <strong>Windows PowerShell</strong>, and choose <strong>Run as administrator</strong>. Click Yes on the popup.</li>
+<li>In that blue window, type <code>wsl --install</code> and press Enter. It downloads Ubuntu (Linux). Let it finish.</li>
+<li><strong>Restart your computer.</strong> Required, not optional. Nothing works right until you do.</li>
+<li>After the restart, an <strong>Ubuntu</strong> window opens on its own and asks you to create a UNIX username and password. The password stays invisible as you type, that is normal. Type it, press Enter, confirm it.</li>
+<li>From now on, open <strong>Ubuntu</strong> from the Start menu, not PowerShell. That is your terminal for this course.</li>
 </ol>
-<p>If <code>wsl --install</code> fails saying you lack permission, your machine is locked down (common on work or school laptops). WSL needs administrator rights. Use a personal computer for this course, or ask us about a cloud option.</p>
+<p>If <code>wsl --install</code> fails with a permission error, your machine is locked down (common on work or school laptops, they block the admin rights WSL needs). Use a personal computer for this course, or ask in Discord about a cloud option.</p>
 <h3 id="mac-linux"><a class="heading-anchor" href="#mac-linux">Mac / Linux</a></h3>
-<p>Open the Terminal app (Mac: press Cmd+Space, type "Terminal"). You are ready. No install needed.</p>
-<h2 id="install-node-js"><a class="heading-anchor" href="#install-node-js">Install Node.js</a></h2>
-<p>Gemini CLI runs on Node.js, so install it. The clean way that avoids permission headaches later is <strong>nvm</strong> (Node Version Manager):</p>
-<ol>
-<li>Get the install command from the official nvm page (<code>github.com/nvm-sh/nvm</code>) and paste it into your terminal. We use the official source so you always get the current version, tools change.</li>
-<li>Close and reopen the terminal.</li>
-<li>Run <code>nvm install --lts</code> to install the latest long-term-support Node.</li>
-<li>Verify: <code>node -v</code>. You should see <code>v20</code> or higher. If you do, you are done.</li>
-</ol>
+<p>Open the Terminal app (Mac: press Cmd+Space, type "Terminal", press Enter). You already have everything. Nothing to install.</p>
 <h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
 <ol>
-<li>Get to a working terminal (Ubuntu on Windows, Terminal on Mac/Linux).</li>
-<li>Practice moving around: <code>pwd</code>, <code>ls</code>, <code>cd</code> into a folder and back out with <code>cd ..</code>, then <code>cd ~</code>.</li>
-<li>Make a folder called <code>ai-course</code>, rename it, then delete it. Ask a search engine for the commands (<code>mkdir</code>, <code>mv</code>, <code>rm</code>) and verify each did what you expected with <code>ls</code>.</li>
-<li>Install Node and confirm <code>node -v</code> shows v20 or higher. Bring the version number to class.</li>
+<li>Join the Discord and say hello.</li>
+<li>Get to a working terminal: install WSL and open <strong>Ubuntu</strong> (Windows), or open <strong>Terminal</strong> (Mac/Linux).</li>
+<li>Prove it works: type <code>whoami</code> and press Enter. It should print your username. If it does, you are ready for next lesson.</li>
+<li>If anything breaks, post a screenshot in Discord. Fixing setup is part of the work, not a sign you did it wrong.</li>
 </ol>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>The terminal is just giving your computer directions by name instead of clicking</li>
-<li>Six basics carry you far: pwd, ls, cd, ~, Tab, Ctrl+C</li>
-<li>Windows uses WSL so everyone shares one identical Linux environment</li>
-<li>Install Node via nvm and confirm node -v is v20+; locked-down laptops cannot install WSL</li>
+<li>Join Discord first, setup problems get solved fastest there</li>
+<li>Windows uses WSL so the whole group shares one identical Linux terminal</li>
+<li>WSL needs administrator rights and a restart; locked-down laptops cannot install it</li>
+<li>Today's only goal: a terminal that prints your name when you type whoami</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

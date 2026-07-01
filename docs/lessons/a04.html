@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>How to Ask: Prompting - KakkoiSchool</title>
+  <title>Install & Authenticate Gemini CLI - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,51 +47,55 @@
           <a href="a05.html">Next</a>
         </div>
       </nav>
-      <h1 id="a04-how-to-ask-prompting"><a class="heading-anchor" href="#a04-how-to-ask-prompting">A04: How to Ask: Prompting</a></h1>
-<p class="lesson-intro">The single biggest difference between people who get great results from AI and people who get junk is not the tool, it is how they ask. A prompt is a brief. A vague brief gets vague work. This lesson makes your briefs sharp.</p>
-<h2 id="vague-in-vague-out"><a class="heading-anchor" href="#vague-in-vague-out">Vague In, Vague Out</a></h2>
-<p>Compare:</p>
-<ul>
-<li>Weak: <em>"Write about dogs."</em></li>
-<li>Strong: <em>"Write three short tips for a first-time dog owner on house-training a puppy, one sentence each, plain language."</em></li>
-</ul>
-<p>The second one says the topic, the audience, the format, and the length. The model no longer has to guess, so it stops guessing and starts helping.</p>
-<h2 id="the-four-levers"><a class="heading-anchor" href="#the-four-levers">The Four Levers</a></h2>
-<p>You control four things in almost every prompt:</p>
-<ul>
-<li><strong>Task</strong> - what exactly do you want done? "Summarize," "compare," "fix," "explain."</li>
-<li><strong>Audience / level</strong> - "explain to a complete beginner," "assume I know nothing about code."</li>
-<li><strong>Format</strong> - a list, a table, numbered steps, one line. Ask for it and you get it.</li>
-<li><strong>Constraints</strong> - length, language, tone, what to avoid. "Under 100 words." "No jargon."</li>
-</ul>
-<p>Add an <strong>example</strong> of what good looks like when you can. Showing beats describing.</p>
+      <h1 id="a04-install-amp-authenticate-gemini-cli"><a class="heading-anchor" href="#a04-install-amp-authenticate-gemini-cli">A04: Install &amp; Authenticate Gemini CLI</a></h1>
+<p class="lesson-intro">You have a terminal and Node.js. Now install the assistant itself, Gemini CLI, log in for free, and talk to it. By the end of this lesson you have a working AI in your terminal and you have already caught it being wrong once.</p>
+<h2 id="install-it"><a class="heading-anchor" href="#install-it">Install It</a></h2>
+<p>In your terminal, run:</p>
+<pre><code>npm install -g @google/gemini-cli
+</code></pre>
+<p>The <code>-g</code> means "install globally" so you can run it from anywhere. If you set up Node with nvm in <a href="a03.html">A03</a>, this just works. If you instead see a long red permission error (<code>EACCES</code>), that is the classic reason we recommended nvm, going back and installing Node through nvm fixes it.</p>
+<p>When it finishes, start it:</p>
+<pre><code>gemini
+</code></pre>
+<h2 id="log-in-for-free"><a class="heading-anchor" href="#log-in-for-free">Log In for Free</a></h2>
+<p>The first time you run <code>gemini</code>, it asks how you want to sign in. Choose <strong>Login with Google</strong>.</p>
+<ol>
+<li>Your web browser opens automatically.</li>
+<li>Pick your Google account and approve access.</li>
+<li>Return to the terminal, you are now logged in.</li>
+</ol>
+<p>This uses Google's free tier: no credit card, no API key, generous daily limits. If you ever hit the limit, the tool tells you, just wait a bit or continue tomorrow. (Later, in <a href="a09.html">A09</a>, automated scripts need a different kind of key. Ignore that for now.)</p>
 <div class="mermaid">
 flowchart LR
-    V[Vague prompt] --> G[Generic, useless answer]
-    S[Task + Audience + Format + Constraints] --> U[Specific, useful answer]
+    A[Run gemini] --> B[Choose Login with Google]
+    B --> C[Browser opens]
+    C --> D[Approve]
+    D --> E[Talking to AI in your terminal]
 
 </div>
-<h2 id="the-first-answer-is-a-draft"><a class="heading-anchor" href="#the-first-answer-is-a-draft">The First Answer Is a Draft</a></h2>
-<p>You are not stuck with what comes back. Push on it:</p>
+<h2 id="your-first-conversation"><a class="heading-anchor" href="#your-first-conversation">Your First Conversation</a></h2>
+<p>You are now at the Gemini prompt. Type a question in plain English and press Enter. It answers. Ask a follow-up, it remembers the conversation.</p>
+<p>A few controls you will use constantly:</p>
 <ul>
-<li><em>"Shorter."</em> / <em>"Give me a concrete example."</em> / <em>"You assumed I use Windows, I use a Mac."</em></li>
-<li><em>"That link, does it actually exist? Show me the source."</em></li>
+<li><code>/help</code> - list available commands.</li>
+<li><code>/quit</code> - leave. (Or press Ctrl+C twice.)</li>
+<li>Up arrow - bring back your last message.</li>
 </ul>
-<p>And avoid the trap from A01: do not ask <em>"is this good?"</em>, the model is built to say yes. Ask <em>"what are three problems with this?"</em> You get far more by inviting criticism than by fishing for approval.</p>
+<p>That is the whole interface: type, read, verify, repeat. The verifying is the part most people skip, and A01 told you why not to.</p>
 <h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
 <ol>
-<li>Take a real question you have this week. Write the laziest one-line version of it.</li>
-<li>Rewrite it three ways: once adding <strong>format</strong>, once adding <strong>audience/level</strong>, once adding <strong>constraints</strong>.</li>
-<li>Run all four prompts. Note how the answer changed each time.</li>
-<li>Pick the best answer, then push on it once more ("shorter" / "with an example" / "what's wrong with this?"). Bring the before-and-after to class.</li>
+<li>Install Gemini CLI and log in with Google.</li>
+<li>Ask it five real questions, things you actually want to know this week.</li>
+<li>For at least one answer, verify it against a real source (official docs, run the command, check a fact). Find <strong>one</strong> thing it got wrong, incomplete, or made up.</li>
+<li>Write down the wrong answer and how you caught it. Bring it to class. If you could not find a single error, you were not checking hard enough, keep going.</li>
 </ol>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>A prompt is a brief; vague briefs get vague work</li>
-<li>Control four levers: task, audience/level, format, constraints, and show an example when you can</li>
-<li>The first answer is a draft, refine it with follow-ups</li>
-<li>Never ask "is this good?"; ask "what are three problems with this?"</li>
+<li>Install with npm install -g @google/gemini-cli, then run gemini</li>
+<li>Log in with a Google account: free tier, no credit card, no API key</li>
+<li>The interface is simple: type a question, read, verify, repeat</li>
+<li>/help lists commands, /quit leaves; the free tier has generous daily limits</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Capstone: Your AI Toolkit - KakkoiSchool</title>
+  <title>Making & Running Scripts with AI - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -44,57 +44,57 @@
         <a href="../ai-lessons.html">Back to AI Assistant</a>
         <div class="lesson-pager">
           <a href="a08.html">Previous</a>
-          
+          <a href="a10.html">Next</a>
         </div>
       </nav>
-      <h1 id="a09-capstone-your-ai-toolkit"><a class="heading-anchor" href="#a09-capstone-your-ai-toolkit">A09: Capstone: Your AI Toolkit</a></h1>
-<p class="lesson-intro">You have learned to install the assistant, ask it well, feed it context, give it memory, save commands, and script with it, all under one rule: use it heavily, trust it never. The capstone is not an app. It is your own tuned toolkit plus proof that you have the judgment to use it safely. Think of a chef's knife roll: not the fanciest kitchen, your own set, sharpened the way you work.</p>
-<h2 id="what-you-build"><a class="heading-anchor" href="#what-you-build">What You Build</a></h2>
-<p>Four pieces, each from a lesson you have already done:</p>
+      <h1 id="a09-making-amp-running-scripts-with-ai"><a class="heading-anchor" href="#a09-making-amp-running-scripts-with-ai">A09: Making &amp; Running Scripts with AI</a></h1>
+<p class="lesson-intro">A script is a saved list of terminal commands the computer runs for you in order. Anything you do by hand more than a few times is a candidate. The AI is very good at writing scripts, and it can also run <em>inside</em> one. This is where the assistant stops answering questions and starts doing work.</p>
+<h2 id="let-the-ai-write-the-script"><a class="heading-anchor" href="#let-the-ai-write-the-script">Let the AI Write the Script</a></h2>
+<p>Describe the chore; ask for a script. For example: <em>"Write a shell script that renames every <code>.jpg</code> in the current folder to <code>photo-1.jpg</code>, <code>photo-2.jpg</code>, and so on."</em> You get back a small script.</p>
+<p>Then apply the A01 rule, <strong>read it before you run it</strong>:</p>
 <ul>
-<li><strong>A <code>GEMINI.md</code></strong> with your standing rules (A06). It should make the AI answer the way <em>you</em> want by default.</li>
-<li><strong>One custom command</strong> you genuinely use (A07). Not a demo, something that saves you real time.</li>
-<li><strong>One script</strong> the AI helped you write (A08), that does something useful and that you have read and understood. Run by hand is fine.</li>
-<li><strong>A written reflection</strong> (A01): one real time you caught the AI being <em>confidently wrong</em>, what it claimed, and how you caught it. This is the most important piece.</li>
+<li>Read each line and ask the AI to explain anything you do not understand.</li>
+<li>Run it on <strong>copies</strong>, never your only files. Make a test folder first.</li>
+<li>Watch what actually happens and check the result with <code>ls</code>.</li>
 </ul>
+<p>A script that renames or deletes files does exactly what it says, correct or not. Treating "the AI wrote it" as "it is safe" is the mistake this whole course is trying to prevent.</p>
+<h2 id="call-the-ai-from-a-script"><a class="heading-anchor" href="#call-the-ai-from-a-script">Call the AI From a Script</a></h2>
+<p>Gemini CLI has a <strong>headless</strong> mode: give it <code>-p</code> with a prompt and it prints the answer straight to the terminal instead of chatting. That means a script can use it as a step:</p>
+<pre><code>cat notes.txt | gemini -p &quot;Summarize this in three bullets&quot;
+</code></pre>
+<p>Add <code>--output-format json</code> when another program needs to read the result. Now you can build things like "summarize every new file in this folder", the AI is one command in a larger recipe.</p>
 <div class="mermaid">
-flowchart TD
-    T[Your AI Toolkit] --> M[GEMINI.md: your rules]
-    T --> C["Custom command: /yours"]
-    T --> S[A script you read and trust]
-    T --> R[Reflection: a wrong answer you caught]
+flowchart LR
+    A[Describe the chore] --> B[AI writes the script]
+    B --> C[You read it]
+    C --> D[Run on copies, verify]
+    D --> E[Reusable one-command tool]
 
 </div>
-<h2 id="how-you-present-it"><a class="heading-anchor" href="#how-you-present-it">How You Present It</a></h2>
-<p>Show your toolkit and walk through each piece: what it does, why you made it, how you use it. Then tell the story of the error you caught, that story is the point. Anyone can run a tool. You are proving you can run it <em>and</em> stay in charge of it.</p>
-<h2 id="where-to-go-next"><a class="heading-anchor" href="#where-to-go-next">Where to Go Next</a></h2>
-<p>You now have the foundation. Natural next steps, on your own:</p>
-<ul>
-<li>Grow your command library as you spot repeated prompts.</li>
-<li>Learn a little more terminal so scripts feel easy.</li>
-<li>Read your AI provider's data and privacy terms once, properly.</li>
-<li>Revisit <a href="r20.html">R20: Never Trust an AI</a> in a few months. It reads differently once you have real hours with these tools.</li>
-</ul>
-<h2 id="this-week-s-exercise-the-capstone"><a class="heading-anchor" href="#this-week-s-exercise-the-capstone">This Week's Exercise (the capstone)</a></h2>
+<h2 id="appendix-running-unattended-optional-advanced"><a class="heading-anchor" href="#appendix-running-unattended-optional-advanced">Appendix: Running Unattended (optional, advanced)</a></h2>
+<p>You can schedule scripts to run on their own, <code>cron</code> on Mac/Linux, Task Scheduler on Windows. But there is a catch worth knowing: the free Google login from A04 needs a human at the browser, so it does <strong>not</strong> work for a script running while you are asleep. Unattended runs need an <strong>API key</strong> (<code>GOOGLE_API_KEY</code>, from Google AI Studio) set as an environment variable so the AI can authenticate on its own.</p>
+<p>You do not need this for the course, everything you run by hand works with the free login. Just know that "run it by myself" and "run it automatically forever" use two different keys to the kitchen.</p>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
 <ol>
-<li>Finalize your <code>GEMINI.md</code>, one custom command, and one script. Make sure each works.</li>
-<li>Write your reflection: the wrong AI answer, and how you caught it. A few honest sentences.</li>
-<li>Present your toolkit to the group. Be ready to answer: "how would someone misuse this, and how do you avoid that?"</li>
+<li>Pick a small real chore (renaming files, tidying a folder, summarizing a text file).</li>
+<li>Ask the AI to write a script for it. Read the script and have the AI explain any line you do not follow.</li>
+<li>Make a test folder with copies and run the script there. Verify the result.</li>
+<li>Bring the script, and one sentence on what you checked before trusting it, to class.</li>
 </ol>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>The deliverable is a personal toolkit: a GEMINI.md, a custom command, and a script you understand</li>
-<li>The most important piece is proof you can catch the AI being wrong</li>
-<li>Use it heavily, trust it never, that mindset is the real skill you leave with</li>
-<li>Keep building: grow your commands, learn more terminal, read the privacy terms</li>
+<li>A script turns a repeated chore into one command; the AI writes them well</li>
+<li>Always read a script and run it on copies before trusting it, "the AI wrote it" is not "it is safe"</li>
+<li>Headless mode (gemini -p "...") lets a script call the AI as a step</li>
+<li>Running by hand uses the free login; unattended scheduling needs an API key</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Back to AI Assistant</a>
         <div class="lesson-pager">
           <a href="a08.html">Previous</a>
-          
+          <a href="a10.html">Next</a>
         </div>
       </nav>
     </article>

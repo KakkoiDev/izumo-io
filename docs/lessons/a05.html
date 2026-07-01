@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Context Engineering - KakkoiSchool</title>
+  <title>How to Ask: Prompting - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,42 +47,51 @@
           <a href="a06.html">Next</a>
         </div>
       </nav>
-      <h1 id="a05-context-engineering"><a class="heading-anchor" href="#a05-context-engineering">A05: Context Engineering</a></h1>
-<p class="lesson-intro">The assistant is brilliant and has amnesia about your specific situation. It knows general things from training, but it does not know <em>your</em> file, <em>your</em> error, <em>your</em> folder, unless you show it. Putting the right information in front of it is called context engineering, and it is the difference between a guess and an answer.</p>
-<h2 id="show-don-t-describe"><a class="heading-anchor" href="#show-don-t-describe">Show, Don't Describe</a></h2>
-<p>Describing a file to the AI is like reading a document aloud over the phone: slow and lossy. Instead, hand it the file. In Gemini CLI you do this with <code>@</code>:</p>
-<pre><code>Explain what @notes.txt is about in two sentences.
-</code></pre>
-<p>The <code>@notes.txt</code> pulls that file's actual contents into your message. Point at the real thing, <code>@report.md</code>, <code>@script.js</code>, and the AI reads it directly instead of relying on your summary. Because Gemini CLI runs in a folder, it can also see the files in the folder you started it from.</p>
-<h2 id="focused-beats-everything"><a class="heading-anchor" href="#focused-beats-everything">Focused Beats Everything</a></h2>
-<p>More context is not better. There is a sweet spot:</p>
+      <h1 id="a05-how-to-ask-prompting"><a class="heading-anchor" href="#a05-how-to-ask-prompting">A05: How to Ask: Prompting</a></h1>
+<p class="lesson-intro">The single biggest difference between people who get great results from AI and people who get junk is not the tool, it is how they ask. A prompt is a brief. A vague brief gets vague work. This lesson makes your briefs sharp.</p>
+<h2 id="vague-in-vague-out"><a class="heading-anchor" href="#vague-in-vague-out">Vague In, Vague Out</a></h2>
+<p>Compare:</p>
 <ul>
-<li><strong>Too little</strong> - you paste an error with no code, and it guesses.</li>
-<li><strong>Too much</strong> - you dump twenty files, and it drowns, gets slower, mixes unrelated things together, and eats through your daily free-tier limit faster.</li>
+<li>Weak: <em>"Write about dogs."</em></li>
+<li>Strong: <em>"Write three short tips for a first-time dog owner on house-training a puppy, one sentence each, plain language."</em></li>
 </ul>
-<p>Give what is relevant to <em>this</em> question and no more. When you paste an error, paste it <strong>exactly</strong>, word for word, not "it said something about a module." The exact text is the clue.</p>
+<p>The second one says the topic, the audience, the format, and the length. The model no longer has to guess, so it stops guessing and starts helping.</p>
+<h2 id="the-four-levers"><a class="heading-anchor" href="#the-four-levers">The Four Levers</a></h2>
+<p>You control four things in almost every prompt:</p>
+<ul>
+<li><strong>Task</strong> - what exactly do you want done? "Summarize," "compare," "fix," "explain."</li>
+<li><strong>Audience / level</strong> - "explain to a complete beginner," "assume I know nothing about code."</li>
+<li><strong>Format</strong> - a list, a table, numbered steps, one line. Ask for it and you get it.</li>
+<li><strong>Constraints</strong> - length, language, tone, what to avoid. "Under 100 words." "No jargon."</li>
+</ul>
+<p>Add an <strong>example</strong> of what good looks like when you can. Showing beats describing.</p>
 <div class="mermaid">
-flowchart TD
-    Q[Question alone] --> G[AI guesses about your situation]
-    QC["Question + @the-actual-file"] --> A[AI answers about your real situation]
+flowchart LR
+    V[Vague prompt] --> G[Generic, useless answer]
+    S[Task + Audience + Format + Constraints] --> U[Specific, useful answer]
 
 </div>
-<h2 id="start-fresh-when-you-switch-topics"><a class="heading-anchor" href="#start-fresh-when-you-switch-topics">Start Fresh When You Switch Topics</a></h2>
-<p>A long conversation carries everything you said earlier as context. Helpful when it is related; confusing when you jump to a new topic and old details bleed in. When you change subject, start a new conversation so the AI is not still thinking about the last one.</p>
+<h2 id="the-first-answer-is-a-draft"><a class="heading-anchor" href="#the-first-answer-is-a-draft">The First Answer Is a Draft</a></h2>
+<p>You are not stuck with what comes back. Push on it:</p>
+<ul>
+<li><em>"Shorter."</em> / <em>"Give me a concrete example."</em> / <em>"You assumed I use Windows, I use a Mac."</em></li>
+<li><em>"That link, does it actually exist? Show me the source."</em></li>
+</ul>
+<p>And avoid the trap from A01: do not ask <em>"is this good?"</em>, the model is built to say yes. Ask <em>"what are three problems with this?"</em> You get far more by inviting criticism than by fishing for approval.</p>
 <h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
 <ol>
-<li>Create a short text file (some notes, a recipe, anything) in the folder where you run <code>gemini</code>.</li>
-<li>Ask a question about it <strong>without</strong> <code>@</code>, describing it in words. Note the answer.</li>
-<li>Ask the same question <strong>with</strong> <code>@yourfile</code>. Compare, which answer actually knew what was in the file?</li>
-<li>Now paste a real error message you hit this week (exact text) and ask what it means. Bring the comparison to class.</li>
+<li>Take a real question you have this week. Write the laziest one-line version of it.</li>
+<li>Rewrite it three ways: once adding <strong>format</strong>, once adding <strong>audience/level</strong>, once adding <strong>constraints</strong>.</li>
+<li>Run all four prompts. Note how the answer changed each time.</li>
+<li>Pick the best answer, then push on it once more ("shorter" / "with an example" / "what's wrong with this?"). Bring the before-and-after to class.</li>
 </ol>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>The AI only knows what you put in front of it, show the real file, don't describe it</li>
-<li>Use @filename to pull a file's actual contents into your message</li>
-<li>Focused context wins: too little makes it guess, too much makes it drown and costs quota</li>
-<li>Paste errors exactly, and start a fresh conversation when you change topics</li>
+<li>A prompt is a brief; vague briefs get vague work</li>
+<li>Control four levers: task, audience/level, format, constraints, and show an example when you can</li>
+<li>The first answer is a draft, refine it with follow-ups</li>
+<li>Never ask "is this good?"; ask "what are three problems with this?"</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

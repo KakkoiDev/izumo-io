@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Install & Authenticate Gemini CLI - KakkoiSchool</title>
+  <title>Terminal Survival + Install Node.js - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,55 +47,48 @@
           <a href="a04.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a03-install-amp-authenticate-gemini-cli"><a class="heading-anchor" href="#a03-install-amp-authenticate-gemini-cli">A03: Install &amp; Authenticate Gemini CLI</a></h1>
-<p class="lesson-intro">You have a terminal and Node.js. Now install the assistant itself, Gemini CLI, log in for free, and talk to it. By the end of this lesson you have a working AI in your terminal and you have already caught it being wrong once.</p>
-<h2 id="install-it"><a class="heading-anchor" href="#install-it">Install It</a></h2>
-<p>In your terminal, run:</p>
-<pre><code>npm install -g @google/gemini-cli
-</code></pre>
-<p>The <code>-g</code> means "install globally" so you can run it from anywhere. If you set up Node with nvm in <a href="a02.html">A02</a>, this just works. If you instead see a long red permission error (<code>EACCES</code>), that is the classic reason we recommended nvm, going back and installing Node through nvm fixes it.</p>
-<p>When it finishes, start it:</p>
-<pre><code>gemini
-</code></pre>
-<h2 id="log-in-for-free"><a class="heading-anchor" href="#log-in-for-free">Log In for Free</a></h2>
-<p>The first time you run <code>gemini</code>, it asks how you want to sign in. Choose <strong>Login with Google</strong>.</p>
-<ol>
-<li>Your web browser opens automatically.</li>
-<li>Pick your Google account and approve access.</li>
-<li>Return to the terminal, you are now logged in.</li>
-</ol>
-<p>This uses Google's free tier: no credit card, no API key, generous daily limits. If you ever hit the limit, the tool tells you, just wait a bit or continue tomorrow. (Later, in <a href="a08.html">A08</a>, automated scripts need a different kind of key. Ignore that for now.)</p>
+      <h1 id="a03-terminal-survival-install-node-js"><a class="heading-anchor" href="#a03-terminal-survival-install-node-js">A03: Terminal Survival + Install Node.js</a></h1>
+<p class="lesson-intro">You have a terminal (<a href="a02.html">A02</a>). It looks intimidating and it is not, you only need a handful of commands. This lesson makes you comfortable moving around, then installs Node.js, the engine the AI assistant runs on.</p>
+<h2 id="the-terminal-is-just-typed-directions"><a class="heading-anchor" href="#the-terminal-is-just-typed-directions">The Terminal Is Just Typed Directions</a></h2>
+<p>Clicking a folder is pointing at it. The terminal is giving directions by name. Same computer, same files, different way to talk to it. Six things carry you far:</p>
+<ul>
+<li><code>pwd</code> - "where am I?" Prints your current folder.</li>
+<li><code>ls</code> - "what is here?" Lists files and folders.</li>
+<li><code>cd foldername</code> - "go into that folder." <code>cd ..</code> goes back up. <code>cd ~</code> goes home.</li>
+<li><code>~</code> - shorthand for your home folder, your starting point.</li>
+<li><strong>Tab</strong> - autocomplete. Type a few letters of a name and press Tab. Less typing, fewer typos.</li>
+<li><strong>Up arrow</strong> - repeat your last command. <strong>Ctrl+C</strong> - cancel a stuck command.</li>
+</ul>
+<p>A path is an address. <code>~/projects/notes.txt</code> means "the file notes.txt, inside projects, inside home." That is all a path is.</p>
 <div class="mermaid">
 flowchart LR
-    A[Run gemini] --> B[Choose Login with Google]
-    B --> C[Browser opens]
-    C --> D[Approve]
-    D --> E[Talking to AI in your terminal]
+    A[pwd: where am I?] --> B[ls: what is here?]
+    B --> C[cd: move around]
+    C --> A
 
 </div>
-<h2 id="your-first-conversation"><a class="heading-anchor" href="#your-first-conversation">Your First Conversation</a></h2>
-<p>You are now at the Gemini prompt. Type a question in plain English and press Enter. It answers. Ask a follow-up, it remembers the conversation.</p>
-<p>A few controls you will use constantly:</p>
-<ul>
-<li><code>/help</code> - list available commands.</li>
-<li><code>/quit</code> - leave. (Or press Ctrl+C twice.)</li>
-<li>Up arrow - bring back your last message.</li>
-</ul>
-<p>That is the whole interface: type, read, verify, repeat. The verifying is the part most people skip, and A01 told you why not to.</p>
+<h2 id="install-node-js"><a class="heading-anchor" href="#install-node-js">Install Node.js</a></h2>
+<p>Gemini CLI runs on Node.js, so install it. The clean way that avoids permission headaches later is <strong>nvm</strong> (Node Version Manager):</p>
+<ol>
+<li>Get the install command from the official nvm page (<code>github.com/nvm-sh/nvm</code>) and paste it into your terminal. We use the official source so you always get the current version, tools change.</li>
+<li>Close and reopen the terminal.</li>
+<li>Run <code>nvm install --lts</code> to install the latest long-term-support Node.</li>
+<li>Verify: <code>node -v</code>. You should see <code>v20</code> or higher. If you do, you are done.</li>
+</ol>
+<p>If a command errors, copy the exact message into Discord. Reading error text is a skill you will use for the rest of the course.</p>
 <h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
 <ol>
-<li>Install Gemini CLI and log in with Google.</li>
-<li>Ask it five real questions, things you actually want to know this week.</li>
-<li>For at least one answer, verify it against a real source (official docs, run the command, check a fact). Find <strong>one</strong> thing it got wrong, incomplete, or made up.</li>
-<li>Write down the wrong answer and how you caught it. Bring it to class. If you could not find a single error, you were not checking hard enough, keep going.</li>
+<li>Practice moving around: <code>pwd</code>, <code>ls</code>, <code>cd</code> into a folder and back out with <code>cd ..</code>, then <code>cd ~</code>.</li>
+<li>Make a folder called <code>ai-course</code>, rename it, then delete it. Look up the commands (<code>mkdir</code>, <code>mv</code>, <code>rm</code>) and check each worked with <code>ls</code>.</li>
+<li>Install Node and confirm <code>node -v</code> shows v20 or higher. Bring the version number to class.</li>
 </ol>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Install with npm install -g @google/gemini-cli, then run gemini</li>
-<li>Log in with a Google account: free tier, no credit card, no API key</li>
-<li>The interface is simple: type a question, read, verify, repeat</li>
-<li>/help lists commands, /quit leaves; the free tier has generous daily limits</li>
+<li>The terminal is just giving your computer directions by name instead of clicking</li>
+<li>Six basics carry you far: pwd, ls, cd, ~, Tab, Ctrl+C</li>
+<li>A path is an address; ~ is your home folder</li>
+<li>Install Node via nvm and confirm node -v is v20 or higher</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Memories with GEMINI.md - KakkoiSchool</title>
+  <title>Context Engineering - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,45 +47,42 @@
           <a href="a07.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a06-memories-with-gemini-md"><a class="heading-anchor" href="#a06-memories-with-gemini-md">A06: Memories with GEMINI.md</a></h1>
-<p class="lesson-intro">By now you are probably retyping the same things every conversation: "I'm a beginner," "answer concisely," "I use a Mac." That is wasted effort. A memory file tells the assistant those things once, and it reads them at the start of every session automatically.</p>
-<h2 id="gemini-md-your-standing-instructions"><a class="heading-anchor" href="#gemini-md-your-standing-instructions">GEMINI.md: Your Standing Instructions</a></h2>
-<p><code>GEMINI.md</code> is an ordinary text file that Gemini CLI loads on startup and treats as instructions. Whatever you write there shapes every answer, without you repeating it. There are two levels:</p>
+      <h1 id="a06-context-engineering"><a class="heading-anchor" href="#a06-context-engineering">A06: Context Engineering</a></h1>
+<p class="lesson-intro">The assistant is brilliant and has amnesia about your specific situation. It knows general things from training, but it does not know <em>your</em> file, <em>your</em> error, <em>your</em> folder, unless you show it. Putting the right information in front of it is called context engineering, and it is the difference between a guess and an answer.</p>
+<h2 id="show-don-t-describe"><a class="heading-anchor" href="#show-don-t-describe">Show, Don't Describe</a></h2>
+<p>Describing a file to the AI is like reading a document aloud over the phone: slow and lossy. Instead, hand it the file. In Gemini CLI you do this with <code>@</code>:</p>
+<pre><code>Explain what @notes.txt is about in two sentences.
+</code></pre>
+<p>The <code>@notes.txt</code> pulls that file's actual contents into your message. Point at the real thing, <code>@report.md</code>, <code>@script.js</code>, and the AI reads it directly instead of relying on your summary. Because Gemini CLI runs in a folder, it can also see the files in the folder you started it from.</p>
+<h2 id="focused-beats-everything"><a class="heading-anchor" href="#focused-beats-everything">Focused Beats Everything</a></h2>
+<p>More context is not better. There is a sweet spot:</p>
 <ul>
-<li><strong>Global</strong> - <code>~/.gemini/GEMINI.md</code> in your home folder. Applies everywhere, to every project.</li>
-<li><strong>Project</strong> - a <code>GEMINI.md</code> in the folder you launch <code>gemini</code> from. Applies only there. Good for rules specific to one piece of work.</li>
+<li><strong>Too little</strong> - you paste an error with no code, and it guesses.</li>
+<li><strong>Too much</strong> - you dump twenty files, and it drowns, gets slower, mixes unrelated things together, and eats through your daily free-tier limit faster.</li>
 </ul>
-<p>Put your global preferences up top ("I'm learning; explain simply, always give one example, keep answers short"), and project facts in the project file.</p>
+<p>Give what is relevant to <em>this</em> question and no more. When you paste an error, paste it <strong>exactly</strong>, word for word, not "it said something about a module." The exact text is the clue.</p>
 <div class="mermaid">
 flowchart TD
-    A[Without memory] --> B[Re-explain yourself every session]
-    C[With GEMINI.md] --> D[Loaded once, applied every session]
+    Q[Question alone] --> G[AI guesses about your situation]
+    QC["Question + @the-actual-file"] --> A[AI answers about your real situation]
 
 </div>
-<h2 id="check-what-it-loaded"><a class="heading-anchor" href="#check-what-it-loaded">Check What It Loaded</a></h2>
-<p>Two commands you will use:</p>
-<ul>
-<li><code>/memory show</code> - prints exactly what instructions are currently loaded. Use it to confirm your file is being read.</li>
-<li><code>/memory refresh</code> - reloads the files after you edit them, so you do not have to restart.</li>
-</ul>
-<h2 id="what-belongs-there-and-what-doesn-t"><a class="heading-anchor" href="#what-belongs-there-and-what-doesn-t">What Belongs There (and What Doesn't)</a></h2>
-<p>Good: your level and preferences, how you like answers formatted, stable facts about your setup, project conventions.</p>
-<p>Not there: <strong>secrets</strong>. A <code>GEMINI.md</code> is a plain file that gets sent to the AI, so the A01 rule still holds, no passwords, no personal data, no unapproved work details.</p>
-<p>Think of it as the onboarding note you hand a contractor so you never have to re-explain the basics each morning.</p>
+<h2 id="start-fresh-when-you-switch-topics"><a class="heading-anchor" href="#start-fresh-when-you-switch-topics">Start Fresh When You Switch Topics</a></h2>
+<p>A long conversation carries everything you said earlier as context. Helpful when it is related; confusing when you jump to a new topic and old details bleed in. When you change subject, start a new conversation so the AI is not still thinking about the last one.</p>
 <h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
 <ol>
-<li>Create <code>~/.gemini/GEMINI.md</code> with three or four rules for how you want the AI to answer you (level, length, "always show an example," language).</li>
-<li>Start <code>gemini</code> and run <code>/memory show</code>. Confirm your rules are loaded.</li>
-<li>Ask a question and check whether the answer actually follows your rules. If not, sharpen the wording, run <code>/memory refresh</code>, and try again.</li>
-<li>Bring your <code>GEMINI.md</code> and one before/after answer to class.</li>
+<li>Create a short text file (some notes, a recipe, anything) in the folder where you run <code>gemini</code>.</li>
+<li>Ask a question about it <strong>without</strong> <code>@</code>, describing it in words. Note the answer.</li>
+<li>Ask the same question <strong>with</strong> <code>@yourfile</code>. Compare, which answer actually knew what was in the file?</li>
+<li>Now paste a real error message you hit this week (exact text) and ask what it means. Bring the comparison to class.</li>
 </ol>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>GEMINI.md is loaded automatically every session, so you stop repeating yourself</li>
-<li>Global (~/.gemini/GEMINI.md) applies everywhere; a project GEMINI.md applies to that folder</li>
-<li>/memory show confirms what is loaded; /memory refresh reloads after edits</li>
-<li>Put preferences and project rules there, never secrets</li>
+<li>The AI only knows what you put in front of it, show the real file, don't describe it</li>
+<li>Use @filename to pull a file's actual contents into your message</li>
+<li>Focused context wins: too little makes it guess, too much makes it drown and costs quota</li>
+<li>Paste errors exactly, and start a fresh conversation when you change topics</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
