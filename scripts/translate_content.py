@@ -253,7 +253,31 @@ def translate_missing_yaml() -> list[Path]:
     return updated
 
 
+def _preflight() -> None:
+    """Fail fast and loud if the API key is missing, invalid, or expired.
+
+    Without this, per-file auth errors are swallowed and the script still
+    exits 0, so a dead key looks like a green workflow that translated
+    nothing. One tiny call turns that into a clear, red failure.
+    """
+    try:
+        CLIENT.models.generate_content(model=MODEL, contents='ping')
+    except APIError as e:
+        status = getattr(e, 'code', None)
+        if status in (400, 401, 403):
+            print(
+                f'GEMINI_API_KEY was rejected by the API (status {status}). '
+                'It is most likely invalid or expired. Update the GEMINI_API_KEY '
+                'secret in the repository settings and re-run.\n'
+                f'  {e}',
+                file=sys.stderr,
+            )
+            sys.exit(2)
+        # Quota (429) or transient 5xx: let the normal retry/skip flow handle it.
+
+
 def main() -> int:
+    _preflight()
     created, failed = translate_missing_md()
     updated = translate_missing_yaml()
     print()
@@ -264,8 +288,11 @@ def main() -> int:
         print('  Failed files will be retried on the next workflow run.')
     if not created and not updated and not failed:
         print('Nothing to do.')
-    # Always exit 0 so the commit step saves whatever succeeded.
-    # The next run picks up the rest thanks to the idempotent skip-if-exists check.
+    # If everything attempted failed and nothing landed, exit non-zero so the
+    # workflow goes red instead of hiding a dead key behind a green check.
+    if failed and not created and not updated:
+        print('All translation attempts failed - see errors above.', file=sys.stderr)
+        return 1
     return 0
 
 
