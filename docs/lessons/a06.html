@@ -73,8 +73,8 @@ flowchart LR
 <p>Skills reuse <em>prompts and instructions</em>. If you ever need the AI to use a real external <em>tool</em>, read a database, call a web service, Antigravity supports <strong>MCP</strong> (Model Context Protocol), a way to plug in extra abilities. That is well beyond this course. For now, just know the word exists so it is not a mystery later.</p>
 <h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
 <ol>
-<li>In the folder where you run <code>agy</code>, create <code>.agents/skills/</code> if it does not exist.</li>
-<li>Build one skill that solves a real annoyance for you, for example a "summarize in three bullets" skill or an "explain simply" skill like above. Write a clear description so the agent knows when to use it.</li>
+<li>In the folder where you run <code>agy</code>, make a skill folder: <code>mkdir -p .agents/skills/explain-simply</code> (use your own name).</li>
+<li>Inside it, create <code>SKILL.md</code> for a skill that solves a real annoyance for you (a "summarize in three bullets" or "explain simply" skill like above). Write a clear description so the agent knows when to use it.</li>
 <li>Make three real requests this week that should trigger it. Run <code>agy inspect</code> to confirm the skill is loaded, and refine the wording until the output is consistently good.</li>
 <li>Bring your <code>SKILL.md</code> and an example run to class.</li>
 </ol>
