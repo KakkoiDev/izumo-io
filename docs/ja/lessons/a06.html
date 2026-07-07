@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>カスタムコマンド - KakkoiSchool</title>
+  <title>エージェントスキル - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,49 +47,43 @@
           <a href="a07.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a06-カスタムコマンド"><a class="heading-anchor" href="#a06-カスタムコマンド">A06: カスタムコマンド</a></h1>
-<p class="lesson-intro">何度も打ち直しているプロンプトがいくつかあるはず、「これを初心者向けに3つの箇条書きで要約して」「このエラーをわかりやすく説明して」。カスタムコマンドはそのプロンプトを一度保存し、いつでも呼べる短い名前を与えます。(他のツールでは「スキル」や「エージェント」と呼ぶかもしれません。Gemini CLIではカスタムコマンドです。)</p>
-<h2 id="コマンドは保存したプロンプト"><a class="heading-anchor" href="#コマンドは保存したプロンプト">コマンドは保存したプロンプト</a></h2>
-<p>Gemini CLIは <code>commands</code> フォルダからコマンドファイルを読みます:</p>
-<ul>
-<li><strong>グローバル</strong> - <code>~/.gemini/commands/</code>(どこでも使える)。</li>
-<li><strong>プロジェクト</strong> - <code>.gemini/commands/</code>(そのプロジェクトだけ)。</li>
-</ul>
-<p>各コマンドは小さな <code>.toml</code> ファイル。<strong>ファイル名がコマンド名になる</strong>: <code>explain.toml</code> なら <code>/explain</code>。中身で重要なのは <code>prompt</code> フィールドです。</p>
-<p><code>~/.gemini/commands/explain.toml</code> を作る:</p>
-<pre><code>description = &quot;初心者に何かを説明する&quot;
-prompt = &quot;&quot;&quot;
-次のことを、完全な初心者に、わかりやすい言葉で、
-具体例を1つ添えて説明して:
-
-{{args}}
-&quot;&quot;&quot;
+      <h1 id="a06-エージェントスキル"><a class="heading-anchor" href="#a06-エージェントスキル">A06: エージェントスキル</a></h1>
+<p class="lesson-intro">何度も打ち直しているプロンプトがいくつかあるはず、「これを初心者向けに3つの箇条書きで要約して」「このエラーをわかりやすく説明して」。スキルはそのプロンプトを一度保存し、あなたの依頼に合うたびエージェントが自分で手に取る能力にします。(他のツールではカスタムコマンドやエージェントと呼びます。Antigravityではスキルです。)</p>
+<h2 id="スキルは保存した能力"><a class="heading-anchor" href="#スキルは保存した能力">スキルは保存した能力</a></h2>
+<p>スキルは、中に <code>SKILL.md</code> ファイルを持つ小さなフォルダです。作業するフォルダの <code>.agents/skills/</code> に置きます:</p>
+<pre><code>.agents/skills/explain-simply/SKILL.md
 </code></pre>
-<p>Gemini CLIでこう打つ:</p>
-<pre><code>/explain DNSはどう動くの
+<p><code>SKILL.md</code> は短いヘッダーから始まり、それから指示。重要なのは <strong>description(説明)</strong> で、このスキルを<em>いつ</em>手に取るかをエージェントに伝えます:</p>
+<pre><code>---
+name: explain-simply
+description: コード、エラー、考えを、完全な初心者にわかりやすい言葉で具体例を1つ添えて説明する。説明や簡単にするよう頼まれたときに使う。
+---
+対象を完全な初心者に、わかりやすい言葉で説明する。
+3つの箇条書きの要約、それから具体例を1つ。
 </code></pre>
-<p>コマンドの後に打ったものが、保存したプロンプトの <code>{{args}}</code> に置き換わります。丁寧で再利用可能なプロンプトを一語のショートカットに変えたのです。これを少しずつ増やせば、良いプロンプトが記憶ではなくツールの中に住み始めます。</p>
+<p>あとは普通に「このエラーを説明して」と頼むと、エージェントが依頼をスキルの説明と照合し、それに従います。特別なコマンドは打ちません。再利用可能な能力を作り、合うときにエージェントが使うのです。</p>
+<p>これはあなたの <code>AGENTS.md</code>(A05)とは違います: あれはここでやること全部に常に効きます。スキルは、エージェントが関連すると判断したときだけ読み込まれるので、毎回の答えを散らかさずに専門的なスキルの小さなライブラリを作れます。</p>
 <div class="mermaid">
 flowchart LR
     A[毎回長いプロンプトを打ち直す] --> B[遅く、ばらつく]
-    C["/explain として一度保存"] --> D[一語で、毎回同じ品質]
+    C[一度スキルとして保存] --> D[エージェントが自動で適用、毎回同じ品質]
 
 </div>
 <h2 id="もう一歩-mcp-存在だけ知っておく"><a class="heading-anchor" href="#もう一歩-mcp-存在だけ知っておく">もう一歩: MCP(存在だけ知っておく)</a></h2>
-<p>カスタムコマンドは<em>プロンプト</em>を再利用します。もしAIに本物の外部<em>ツール</em>(データベースを読む、Webサービスを呼ぶ)を使わせたくなったら、Gemini CLIは<strong>MCP</strong>(Model Context Protocol)、追加の能力を差し込む仕組みをサポートします。これはこのコースの範囲を大きく超えます。今は、後で謎にならないよう言葉が存在することだけ知っておいてください。</p>
+<p>スキルは<em>プロンプトや指示</em>を再利用します。もしAIに本物の外部<em>ツール</em>(データベースを読む、Webサービスを呼ぶ)を使わせたくなったら、Antigravityは<strong>MCP</strong>(Model Context Protocol)、追加の能力を差し込む仕組みをサポートします。これはこのコースの範囲を大きく超えます。今は、後で謎にならないよう言葉が存在することだけ知っておいてください。</p>
 <h2 id="今週の演習"><a class="heading-anchor" href="#今週の演習">今週の演習</a></h2>
 <ol>
-<li><code>~/.gemini/commands/</code> がなければ作る。</li>
-<li>あなたの本物の不満を1つ解決するコマンドを作る。例えば <code>/summarize</code>(貼ったテキストを3つの箇条書きで要約)や <code>/explain</code>(上のように)。</li>
-<li>今週、本物の入力で少なくとも3回使う。出力が安定して良くなるまで保存したプロンプトを磨く。</li>
-<li>あなたの <code>.toml</code> ファイルと実行例を1つ授業に持ってくる。</li>
+<li><code>agy</code> を実行するフォルダに、なければ <code>.agents/skills/</code> を作る。</li>
+<li>あなたの本物の不満を1つ解決するスキルを作る。例えば「3つの箇条書きで要約」スキルや、上のような「わかりやすく説明」スキル。エージェントがいつ使うか分かるよう、説明を明確に書く。</li>
+<li>今週、それが手に取られるべき本物の依頼を3回する。<code>agy inspect</code> でスキルが読み込まれているか確認し、出力が安定して良くなるまで言い回しを磨く。</li>
+<li>あなたの <code>SKILL.md</code> と実行例を1つ授業に持ってくる。</li>
 </ol>
 <div class="takeaways">
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>カスタムコマンドは、短い名前を持つ、保存された再利用可能なプロンプト</li>
-<li>.toml ファイルを ~/.gemini/commands/ に置く、ファイル名がコマンドになる(explain.toml → /explain)</li>
-<li>{{args}} はコマンドの後に打ったものを保存プロンプトに挿入する</li>
+<li>スキルは保存された再利用可能な能力: .agents/skills/ の下のフォルダにある SKILL.md</li>
+<li>descriptionがエージェントにいつ使うかを伝えるので、明確に書く</li>
+<li>依頼が合うとエージェントが自動でスキルを読み込む、打つコマンドはない</li>
 <li>MCPはAIに外部ツールを使わせる、存在を知っておき、後回しにする</li>
 </ul>
 </div>

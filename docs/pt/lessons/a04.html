@@ -50,10 +50,10 @@
       <h1 id="a04-engenharia-de-contexto"><a class="heading-anchor" href="#a04-engenharia-de-contexto">A04: Engenharia de Contexto</a></h1>
 <p class="lesson-intro">O assistente é brilhante e tem amnésia sobre a sua situação específica. Ele sabe coisas gerais do treinamento, mas não conhece o <em>seu</em> arquivo, o <em>seu</em> erro, a <em>sua</em> pasta, a menos que você mostre. Colocar a informação certa na frente dele se chama engenharia de contexto, e é a diferença entre um chute e uma resposta.</p>
 <h2 id="mostre-n-o-descreva"><a class="heading-anchor" href="#mostre-n-o-descreva">Mostre, Não Descreva</a></h2>
-<p>Descrever um arquivo para a IA é como ler um documento em voz alta pelo telefone: lento e com perdas. Em vez disso, entregue o arquivo. No Gemini CLI você faz isso com <code>@</code>:</p>
+<p>Descrever um arquivo para a IA é como ler um documento em voz alta pelo telefone: lento e com perdas. Em vez disso, entregue o arquivo. No Antigravity CLI você faz isso com <code>@</code>:</p>
 <pre><code>Explique em duas frases sobre o que é @notes.txt
 </code></pre>
-<p>O <code>@notes.txt</code> puxa o conteúdo real daquele arquivo para sua mensagem. Aponte para a coisa real, <code>@report.md</code>, <code>@script.js</code>, e a IA lê direto em vez de depender do seu resumo. Como o Gemini CLI roda dentro de uma pasta, ele também vê os arquivos da pasta de onde você o iniciou.</p>
+<p>O <code>@notes.txt</code> puxa o conteúdo real daquele arquivo para sua mensagem. Aponte para a coisa real, <code>@report.md</code>, <code>@script.js</code>, ou uma pasta inteira com <code>@src/</code>, e a IA lê direto em vez de depender do seu resumo. Como o Antigravity CLI roda dentro de uma pasta, ele também vê os arquivos da pasta de onde você o iniciou.</p>
 <h2 id="focado-vence-tudo"><a class="heading-anchor" href="#focado-vence-tudo">Focado Vence Tudo</a></h2>
 <p>Mais contexto não é melhor. Existe um ponto ideal:</p>
 <ul>
@@ -71,7 +71,7 @@ flowchart TD
 <p>Uma conversa longa carrega tudo o que você disse antes como contexto. Útil quando é relacionado; confuso quando você pula para um assunto novo e detalhes antigos se misturam. Ao mudar de assunto, comece uma nova conversa para a IA não continuar pensando na anterior.</p>
 <h2 id="exerc-cio-da-semana"><a class="heading-anchor" href="#exerc-cio-da-semana">Exercício da Semana</a></h2>
 <ol>
-<li>Crie um arquivo de texto curto (anotações, uma receita, qualquer coisa) na pasta onde você roda o <code>gemini</code>.</li>
+<li>Crie um arquivo de texto curto (anotações, uma receita, qualquer coisa) na pasta onde você roda o <code>agy</code>.</li>
 <li>Faça uma pergunta sobre ele <strong>sem</strong> <code>@</code>, descrevendo em palavras. Anote a resposta.</li>
 <li>Faça a mesma pergunta <strong>com</strong> <code>@seuarquivo</code>. Compare, qual resposta realmente sabia o que estava no arquivo?</li>
 <li>Agora cole uma mensagem de erro real que você viu esta semana (texto exato) e pergunte o que significa. Traga a comparação para a aula.</li>

@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>ターミナル早見表とGeminiのインストール - KakkoiSchool</title>
+  <title>ターミナル早見表とAntigravityのインストール - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,7 +47,7 @@
           <a href="a03.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a02-ターミナル早見表とgeminiのインストール"><a class="heading-anchor" href="#a02-ターミナル早見表とgeminiのインストール">A02: ターミナル早見表とGeminiのインストール</a></h1>
+      <h1 id="a02-ターミナル早見表とantigravityのインストール"><a class="heading-anchor" href="#a02-ターミナル早見表とantigravityのインストール">A02: ターミナル早見表とAntigravityのインストール</a></h1>
 <p class="lesson-intro">ターミナルはあります(<a href="a01.html">A01</a>)。使いこなす必要はなく、いくつかのコマンドと、残りは調べればいいという自信があれば十分です。ここに早見表、それからAIをインストールして話し始めます。</p>
 <h2 id="ターミナル早見表"><a class="heading-anchor" href="#ターミナル早見表">ターミナル早見表</a></h2>
 <p>手元に置いておくこと。これで使うことの90%です。</p>
@@ -95,23 +95,20 @@
 </table>
 <p>パスは住所です: <code>~/projects/notes.txt</code> は「ホームの中のprojectsの中のnotes.txt」。始めるにはこれで十分。残りは出くわしたときに調べる。</p>
 <p>じっくり学ぶなら<a href="t02.html">ターミナルの基礎</a>へ。</p>
-<h2 id="node-jsをインストール"><a class="heading-anchor" href="#node-jsをインストール">Node.jsをインストール</a></h2>
-<p>Gemini CLIはNode.jsで動きます。権限の面倒を避ける<strong>nvm</strong>でインストールします:</p>
-<ol>
-<li>公式のnvmページ(<code>github.com/nvm-sh/nvm</code>)からインストールコマンドを取得して貼り付ける。最新版が手に入るよう公式ソースを使います。</li>
-<li>ターミナルを閉じて開き直す。</li>
-<li><code>nvm install --lts</code> を実行し、<code>node -v</code> で確認(v20以上が欲しい)。</li>
-</ol>
-<h2 id="gemini-cliのインストールとログイン"><a class="heading-anchor" href="#gemini-cliのインストールとログイン">Gemini CLIのインストールとログイン</a></h2>
-<pre><code>npm install -g @google/gemini-cli
+<h2 id="antigravity-cliのインストールとログイン"><a class="heading-anchor" href="#antigravity-cliのインストールとログイン">Antigravity CLIのインストールとログイン</a></h2>
+<p>Antigravityは一つのコマンド <code>agy</code> として提供されます。公式のワンライナーでインストールします(一行、Google公式サイトから直接なので最新版が手に入ります):</p>
+<pre><code>curl -fsSL https://antigravity.google/cli/install.sh | bash
+</code></pre>
+<p>ターミナルを閉じて開き直し、入ったか確認:</p>
+<pre><code>agy --version
 </code></pre>
 <p>次に起動:</p>
-<pre><code>gemini
+<pre><code>agy
 </code></pre>
-<p>初回起動でサインイン方法を聞かれるので、<strong>Login with Google</strong> を選ぶ。ブラウザが開くので、アカウントを選んで承認。ターミナルに戻れば完了。これが無料枠です: クレジットカード不要、APIキー不要、寛大な1日あたりの上限。(ずっと後で、自動化スクリプトには別のキーが必要、<a href="a07.html">A07</a>参照。今は無視。)</p>
+<p>初回起動でサインイン方法を聞かれるので、<strong>Login with Google</strong> を選ぶ。ブラウザが開くので、アカウントを選んで承認。ターミナルに戻れば完了。これが無料枠です: クレジットカード不要、APIキー不要。上限は有料プランより厳しめですが、学ぶには十分です。(後で <code>agy</code> をスクリプトの中で非対話に実行できます、<a href="a07.html">A07</a>参照。今は無視。)</p>
 <div class="mermaid">
 flowchart LR
-    A[gemini を実行] --> B[Googleでログイン]
+    A[agy を実行] --> B[Googleでログイン]
     B --> C[ブラウザで承認]
     C --> D[ターミナルで会話]
 
@@ -126,7 +123,7 @@ flowchart LR
 <p>入力し、読み、<strong>確認し</strong>、繰り返す。人が飛ばすのは確認の部分、A01がその理由を伝えました。</p>
 <h2 id="今週の演習"><a class="heading-anchor" href="#今週の演習">今週の演習</a></h2>
 <ol>
-<li>Nodeをインストールし、次にGemini CLI、Googleでログイン。</li>
+<li>Antigravity CLIをインストールし、Googleでログイン。</li>
 <li>今週あなたが本当に知りたい質問を5つする。</li>
 <li>1つの答えを実際の情報源と照合し、間違っている・でっち上げた点を1つ見つける。どう気づいたか書き留める。</li>
 </ol>
@@ -134,7 +131,7 @@ flowchart LR
 <h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>ターミナルのコマンドはいくつか知っていれば十分、残りは必要に応じて調べる</li>
-<li>Nodeはnvmでインストール(node -vがv20以上)、次に npm install -g @google/gemini-cli</li>
+<li>Antigravity CLIは一つのコマンドでインストール、agy --version で確認</li>
 <li>Googleでログイン: 無料枠、クレジットカード不要、APIキー不要</li>
 <li>ループはシンプル: 入力し、読み、確認し、繰り返す</li>
 </ul>

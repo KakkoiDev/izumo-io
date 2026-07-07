@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Guia Rápido do Terminal + Instalar o Gemini - KakkoiSchool</title>
+  <title>Guia Rápido do Terminal + Instalar o Antigravity - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,7 +47,7 @@
           <a href="a03.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a02-guia-r-pido-do-terminal-instalar-o-gemini"><a class="heading-anchor" href="#a02-guia-r-pido-do-terminal-instalar-o-gemini">A02: Guia Rápido do Terminal + Instalar o Gemini</a></h1>
+      <h1 id="a02-guia-r-pido-do-terminal-instalar-o-antigravity"><a class="heading-anchor" href="#a02-guia-r-pido-do-terminal-instalar-o-antigravity">A02: Guia Rápido do Terminal + Instalar o Antigravity</a></h1>
 <p class="lesson-intro">Você já tem um terminal (<a href="a01.html">A01</a>). Não precisa dominá-lo, precisa de um punhado de comandos e da confiança de procurar o resto. Aqui está seu guia rápido, depois instalamos a IA e começamos a conversar.</p>
 <h2 id="guia-r-pido-do-terminal"><a class="heading-anchor" href="#guia-r-pido-do-terminal">Guia Rápido do Terminal</a></h2>
 <p>Deixe por perto. É 90% do que você vai usar.</p>
@@ -95,23 +95,20 @@
 </table>
 <p>Um caminho é um endereço: <code>~/projects/notes.txt</code> é "notes.txt, dentro de projects, dentro da home". É o suficiente para começar. Procure o resto quando precisar.</p>
 <p>Quer o tour completo? Veja <a href="t02.html">Terminal do Zero</a>.</p>
-<h2 id="instale-o-node-js"><a class="heading-anchor" href="#instale-o-node-js">Instale o Node.js</a></h2>
-<p>O Gemini CLI roda no Node.js. Instale com o <strong>nvm</strong>, que evita dores de cabeça com permissões:</p>
-<ol>
-<li>Pegue o comando de instalação na página oficial do nvm (<code>github.com/nvm-sh/nvm</code>) e cole. Usamos a fonte oficial para você ter a versão atual.</li>
-<li>Feche e reabra o terminal.</li>
-<li>Rode <code>nvm install --lts</code>, depois cheque com <code>node -v</code> (queremos v20 ou mais).</li>
-</ol>
-<h2 id="instale-e-fa-a-login-no-gemini-cli"><a class="heading-anchor" href="#instale-e-fa-a-login-no-gemini-cli">Instale e Faça Login no Gemini CLI</a></h2>
-<pre><code>npm install -g @google/gemini-cli
+<h2 id="instale-e-fa-a-login-na-cli-do-antigravity"><a class="heading-anchor" href="#instale-e-fa-a-login-na-cli-do-antigravity">Instale e Faça Login na CLI do Antigravity</a></h2>
+<p>O Antigravity vem como um único comando, <code>agy</code>. Instale com a linha oficial (uma linha, direto do site do Google, para você ter a versão atual):</p>
+<pre><code>curl -fsSL https://antigravity.google/cli/install.sh | bash
+</code></pre>
+<p>Feche e reabra o terminal, depois cheque se instalou:</p>
+<pre><code>agy --version
 </code></pre>
 <p>Depois inicie:</p>
-<pre><code>gemini
+<pre><code>agy
 </code></pre>
-<p>A primeira execução pergunta como entrar, escolha <strong>Login with Google</strong>. O navegador abre; escolha sua conta e aprove. De volta ao terminal, você está dentro. Este é o plano gratuito: sem cartão de crédito, sem chave de API, limites diários generosos. (Muito mais tarde, scripts automatizados precisam de outra chave, veja <a href="a07.html">A07</a>. Ignore por enquanto.)</p>
+<p>A primeira execução pergunta como entrar, escolha <strong>Login with Google</strong>. O navegador abre; escolha sua conta e aprove. De volta ao terminal, você está dentro. Este é o plano gratuito: sem cartão de crédito, sem chave de API. Os limites são mais apertados que os planos pagos, mas dão de sobra para aprender. (Mais tarde você pode rodar o <code>agy</code> de forma não-interativa dentro de scripts, veja <a href="a07.html">A07</a>. Ignore por enquanto.)</p>
 <div class="mermaid">
 flowchart LR
-    A[Rode gemini] --> B[Faça login com o Google]
+    A[Rode agy] --> B[Faça login com o Google]
     B --> C[Aprove no navegador]
     C --> D[Conversando no terminal]
 
@@ -126,7 +123,7 @@ flowchart LR
 <p>Digite, leia, <strong>verifique</strong>, repita. A parte que as pessoas pulam é verificar, a A01 disse por que não pular.</p>
 <h2 id="exerc-cio-da-semana"><a class="heading-anchor" href="#exerc-cio-da-semana">Exercício da Semana</a></h2>
 <ol>
-<li>Instale o Node, depois o Gemini CLI, e faça login com o Google.</li>
+<li>Instale a CLI do Antigravity e faça login com o Google.</li>
 <li>Faça cinco perguntas reais que você realmente quer saber esta semana.</li>
 <li>Verifique uma resposta contra uma fonte real e ache uma coisa que ela errou ou inventou. Anote como você percebeu.</li>
 </ol>
@@ -134,7 +131,7 @@ flowchart LR
 <h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
 <ul>
 <li>Você só precisa de um punhado de comandos do terminal; procure o resto quando precisar</li>
-<li>Instale o Node com nvm (node -v mostra v20+), depois npm install -g @google/gemini-cli</li>
+<li>Instale a CLI do Antigravity com um comando, depois confirme com agy --version</li>
 <li>Faça login com o Google: plano gratuito, sem cartão de crédito, sem chave de API</li>
 <li>O ciclo é simples: digite, leia, verifique, repita</li>
 </ul>

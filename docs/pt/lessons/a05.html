@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Memória com GEMINI.md - KakkoiSchool</title>
+  <title>Memória com AGENTS.md - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,44 +47,42 @@
           <a href="a06.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a05-mem-ria-com-gemini-md"><a class="heading-anchor" href="#a05-mem-ria-com-gemini-md">A05: Memória com GEMINI.md</a></h1>
-<p class="lesson-intro">A esta altura você provavelmente redigita as mesmas coisas toda conversa: "sou iniciante", "responda de forma concisa", "uso Mac". Isso é esforço desperdiçado. Um arquivo de memória diz isso uma vez, e ele o lê no início de toda sessão automaticamente.</p>
-<h2 id="gemini-md-suas-instru-es-permanentes"><a class="heading-anchor" href="#gemini-md-suas-instru-es-permanentes">GEMINI.md: Suas Instruções Permanentes</a></h2>
-<p><code>GEMINI.md</code> é um arquivo de texto comum que o Gemini CLI carrega ao iniciar e trata como instruções. O que você escreve ali molda toda resposta, sem você repetir. Há dois níveis:</p>
-<ul>
-<li><strong>Global</strong> - <code>~/.gemini/GEMINI.md</code> na sua pasta home. Vale em todo lugar, em todo projeto.</li>
-<li><strong>Projeto</strong> - um <code>GEMINI.md</code> na pasta de onde você inicia o <code>gemini</code>. Vale só ali. Bom para regras específicas de um trabalho.</li>
-</ul>
-<p>Coloque suas preferências globais no topo ("estou aprendendo; explique de forma simples, sempre dê um exemplo, respostas curtas") e os fatos do projeto no arquivo do projeto.</p>
+      <h1 id="a05-mem-ria-com-agents-md"><a class="heading-anchor" href="#a05-mem-ria-com-agents-md">A05: Memória com AGENTS.md</a></h1>
+<p class="lesson-intro">A esta altura você provavelmente redigita as mesmas coisas toda conversa: "sou iniciante", "responda de forma concisa", "uso Mac". Isso é esforço desperdiçado. Um arquivo de memória diz isso uma vez, e ele o lê automaticamente toda vez que você trabalha naquela pasta.</p>
+<h2 id="agents-md-suas-instru-es-permanentes"><a class="heading-anchor" href="#agents-md-suas-instru-es-permanentes">AGENTS.md: Suas Instruções Permanentes</a></h2>
+<p><code>AGENTS.md</code> é um arquivo de texto comum que você coloca na pasta onde trabalha. A CLI do Antigravity o lê quando você roda o <code>agy</code> ali e o trata como instruções. O que você escreve molda toda resposta, sem você repetir.</p>
+<p>Mantenha curto e pessoal: quem você é, como quer as respostas, fatos estáveis do seu ambiente.</p>
+<pre><code># Sobre mim
+Estou aprendendo a programar. Explique de forma simples, sem jargão.
+Sempre dê um exemplo concreto.
+Respostas curtas.
+Uso Mac.
+</code></pre>
 <div class="mermaid">
 flowchart TD
     A[Sem memória] --> B[Reexplicar-se toda sessão]
-    C[Com GEMINI.md] --> D[Carregado uma vez, aplicado toda sessão]
+    C[Com AGENTS.md] --> D[Lido automaticamente, aplicado em toda resposta]
 
 </div>
 <h2 id="cheque-o-que-foi-carregado"><a class="heading-anchor" href="#cheque-o-que-foi-carregado">Cheque o Que Foi Carregado</a></h2>
-<p>Dois comandos que você vai usar:</p>
-<ul>
-<li><code>/memory show</code> - mostra exatamente quais instruções estão carregadas agora. Use para confirmar que seu arquivo está sendo lido.</li>
-<li><code>/memory refresh</code> - recarrega os arquivos depois de você editá-los, sem precisar reiniciar.</li>
-</ul>
+<p>Rode <code>agy inspect</code> para ver exatamente quais arquivos de instrução o <code>agy</code> pegou, incluindo seu <code>AGENTS.md</code>. Use para confirmar que seu arquivo está sendo lido. As edições valem a partir da sua próxima mensagem, então não há nada para reiniciar, é só salvar e seguir.</p>
 <h2 id="o-que-vai-ali-e-o-que-n-o-vai"><a class="heading-anchor" href="#o-que-vai-ali-e-o-que-n-o-vai">O Que Vai Ali (e o Que Não Vai)</a></h2>
 <p>Bom: seu nível e preferências, como você gosta das respostas formatadas, fatos estáveis do seu ambiente, convenções do projeto.</p>
-<p>Não ali: <strong>segredos</strong>. Um <code>GEMINI.md</code> é um arquivo comum que é enviado à IA, então a regra da A01 continua valendo, sem senhas, sem dados pessoais, sem detalhes de trabalho não aprovados.</p>
+<p>Não ali: <strong>segredos</strong>. Um <code>AGENTS.md</code> é um arquivo comum que é enviado à IA, então a regra da A01 continua valendo, sem senhas, sem dados pessoais, sem detalhes de trabalho não aprovados.</p>
 <p>Pense nele como a nota de integração que você entrega a um prestador para nunca ter que reexplicar o básico toda manhã.</p>
 <h2 id="exerc-cio-da-semana"><a class="heading-anchor" href="#exerc-cio-da-semana">Exercício da Semana</a></h2>
 <ol>
-<li>Crie <code>~/.gemini/GEMINI.md</code> com três ou quatro regras de como você quer que a IA te responda (nível, tamanho, "sempre dê um exemplo", idioma).</li>
-<li>Inicie o <code>gemini</code> e rode <code>/memory show</code>. Confirme que suas regras foram carregadas.</li>
-<li>Faça uma pergunta e veja se a resposta realmente segue suas regras. Se não, afie o texto, rode <code>/memory refresh</code> e tente de novo.</li>
-<li>Traga seu <code>GEMINI.md</code> e uma resposta antes/depois para a aula.</li>
+<li>Na pasta onde você roda o <code>agy</code>, crie um <code>AGENTS.md</code> com três ou quatro regras de como você quer que a IA te responda (nível, tamanho, "sempre dê um exemplo", idioma).</li>
+<li>Inicie o <code>agy</code> e rode <code>agy inspect</code>. Confirme que suas regras foram carregadas.</li>
+<li>Faça uma pergunta e veja se a resposta realmente segue suas regras. Se não, afie o texto, salve e tente de novo.</li>
+<li>Traga seu <code>AGENTS.md</code> e uma resposta antes/depois para a aula.</li>
 </ol>
 <div class="takeaways">
 <h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
 <ul>
-<li>GEMINI.md é carregado automaticamente toda sessão, então você para de repetir</li>
-<li>Global (~/.gemini/GEMINI.md) vale em todo lugar; um GEMINI.md de projeto vale naquela pasta</li>
-<li>/memory show confirma o que foi carregado; /memory refresh recarrega após editar</li>
+<li>AGENTS.md é lido automaticamente toda sessão, então você para de repetir</li>
+<li>Coloque na pasta onde você trabalha; o agy o lê quando você inicia ali</li>
+<li>agy inspect confirma o que foi carregado; edições valem na próxima mensagem</li>
 <li>Coloque preferências e regras de projeto ali, nunca segredos</li>
 </ul>
 </div>

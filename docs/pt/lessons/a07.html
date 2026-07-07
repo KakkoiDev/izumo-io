@@ -59,8 +59,8 @@
 </ul>
 <p>Um script que renomeia ou apaga arquivos faz exatamente o que diz, certo ou errado. Tratar "a IA escreveu" como "é seguro" é o erro que este curso inteiro tenta evitar.</p>
 <h2 id="chame-a-ia-de-dentro-de-um-script"><a class="heading-anchor" href="#chame-a-ia-de-dentro-de-um-script">Chame a IA de Dentro de um Script</a></h2>
-<p>O Gemini CLI tem um modo <strong>headless</strong>: dê a ele <code>-p</code> com um prompt e ele imprime a resposta direto no terminal em vez de conversar. Isso significa que um script pode usá-lo como um passo:</p>
-<pre><code>cat notes.txt | gemini -p &quot;Resuma isto em três tópicos&quot;
+<p>O Antigravity CLI tem um modo <strong>headless</strong>: dê ao <code>agy</code> um <code>-p</code> com um prompt e ele imprime a resposta direto no terminal em vez de conversar. Isso significa que um script pode usá-lo como um passo:</p>
+<pre><code>cat notes.txt | agy -p &quot;Resuma isto em três tópicos&quot;
 </code></pre>
 <p>Adicione <code>--output-format json</code> quando outro programa precisa ler o resultado. Agora você pode montar coisas como "resuma todo arquivo novo nesta pasta", a IA é um comando dentro de uma receita maior.</p>
 <div class="mermaid">
@@ -72,8 +72,8 @@ flowchart LR
 
 </div>
 <h2 id="ap-ndice-rodando-sem-supervis-o-opcional-avan-ado"><a class="heading-anchor" href="#ap-ndice-rodando-sem-supervis-o-opcional-avan-ado">Apêndice: Rodando sem Supervisão (opcional, avançado)</a></h2>
-<p>Você pode agendar scripts para rodarem sozinhos, <code>cron</code> no Mac/Linux, Task Scheduler no Windows. Mas há uma pegadinha que vale saber: o login gratuito do Google da A02 precisa de um humano no navegador, então ele <strong>não</strong> funciona para um script rodando enquanto você dorme. Execuções sem supervisão precisam de uma <strong>chave de API</strong> (<code>GOOGLE_API_KEY</code>, do Google AI Studio) definida como variável de ambiente para a IA se autenticar sozinha.</p>
-<p>Você não precisa disso no curso, tudo o que você roda na mão funciona com o login gratuito. Só saiba que "rodar eu mesmo" e "rodar automaticamente para sempre" usam duas chaves diferentes da cozinha.</p>
+<p>Você pode agendar scripts para rodarem sozinhos, <code>cron</code> no Mac/Linux, Task Scheduler no Windows. Mas há uma pegadinha que vale saber: o login do Google da A02 espera um humano no navegador, então ele não cobre bem um script rodando enquanto você dorme. Automatizar o <code>agy</code> num agendamento precisa de credenciais não-interativas, uma configuração separada e mais avançada.</p>
+<p>Você não precisa disso no curso, tudo o que você roda na mão funciona com o login gratuito. Só saiba que "rodar eu mesmo" e "rodar automaticamente para sempre" são duas configurações diferentes.</p>
 <h2 id="exerc-cio-da-semana"><a class="heading-anchor" href="#exerc-cio-da-semana">Exercício da Semana</a></h2>
 <ol>
 <li>Escolha uma tarefa pequena e real (renomear arquivos, arrumar uma pasta, resumir um arquivo de texto).</li>
@@ -86,8 +86,8 @@ flowchart LR
 <ul>
 <li>Um script transforma uma tarefa repetida em um comando; a IA os escreve bem</li>
 <li>Sempre leia um script e rode em cópias antes de confiar, "a IA escreveu" não é "é seguro"</li>
-<li>Modo headless (gemini -p "...") deixa um script chamar a IA como um passo</li>
-<li>Rodar na mão usa o login gratuito; agendamento sem supervisão precisa de uma chave de API</li>
+<li>Modo headless (agy -p "...") deixa um script chamar a IA como um passo</li>
+<li>Rodar na mão usa o login gratuito; agendamento sem supervisão precisa de uma configuração separada e não-interativa</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
