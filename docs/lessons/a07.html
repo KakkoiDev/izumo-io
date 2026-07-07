@@ -59,8 +59,8 @@
 </ul>
 <p>A script that renames or deletes files does exactly what it says, correct or not. Treating "the AI wrote it" as "it is safe" is the mistake this whole course is trying to prevent.</p>
 <h2 id="call-the-ai-from-a-script"><a class="heading-anchor" href="#call-the-ai-from-a-script">Call the AI From a Script</a></h2>
-<p>Gemini CLI has a <strong>headless</strong> mode: give it <code>-p</code> with a prompt and it prints the answer straight to the terminal instead of chatting. That means a script can use it as a step:</p>
-<pre><code>cat notes.txt | gemini -p &quot;Summarize this in three bullets&quot;
+<p>Antigravity CLI has a <strong>headless</strong> mode: give <code>agy</code> a <code>-p</code> with a prompt and it prints the answer straight to the terminal instead of chatting. That means a script can use it as a step:</p>
+<pre><code>cat notes.txt | agy -p &quot;Summarize this in three bullets&quot;
 </code></pre>
 <p>Add <code>--output-format json</code> when another program needs to read the result. Now you can build things like "summarize every new file in this folder", the AI is one command in a larger recipe.</p>
 <div class="mermaid">
@@ -72,8 +72,8 @@ flowchart LR
 
 </div>
 <h2 id="appendix-running-unattended-optional-advanced"><a class="heading-anchor" href="#appendix-running-unattended-optional-advanced">Appendix: Running Unattended (optional, advanced)</a></h2>
-<p>You can schedule scripts to run on their own, <code>cron</code> on Mac/Linux, Task Scheduler on Windows. But there is a catch worth knowing: the free Google login from A02 needs a human at the browser, so it does <strong>not</strong> work for a script running while you are asleep. Unattended runs need an <strong>API key</strong> (<code>GOOGLE_API_KEY</code>, from Google AI Studio) set as an environment variable so the AI can authenticate on its own.</p>
-<p>You do not need this for the course, everything you run by hand works with the free login. Just know that "run it by myself" and "run it automatically forever" use two different keys to the kitchen.</p>
+<p>You can schedule scripts to run on their own, <code>cron</code> on Mac/Linux, Task Scheduler on Windows. But there is a catch worth knowing: the Google login from A02 expects a human at the browser, so it does <strong>not</strong> cleanly cover a script running while you are asleep. Automating <code>agy</code> on a schedule needs non-interactive credentials, a separate and more advanced setup.</p>
+<p>You do not need this for the course, everything you run by hand works with the free login. Just know that "run it by myself" and "run it automatically forever" are two different setups.</p>
 <h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
 <ol>
 <li>Pick a small real chore (renaming files, tidying a folder, summarizing a text file).</li>
@@ -86,8 +86,8 @@ flowchart LR
 <ul>
 <li>A script turns a repeated chore into one command; the AI writes them well</li>
 <li>Always read a script and run it on copies before trusting it, "the AI wrote it" is not "it is safe"</li>
-<li>Headless mode (gemini -p "...") lets a script call the AI as a step</li>
-<li>Running by hand uses the free login; unattended scheduling needs an API key</li>
+<li>Headless mode (agy -p "...") lets a script call the AI as a step</li>
+<li>Running by hand uses the free login; unattended scheduling needs a separate, non-interactive setup</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

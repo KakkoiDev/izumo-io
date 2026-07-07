@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Custom Commands - KakkoiSchool</title>
+  <title>Agent Skills - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -47,49 +47,43 @@
           <a href="a07.html">Next</a>
         </div>
       </nav>
-      <h1 id="a06-custom-commands"><a class="heading-anchor" href="#a06-custom-commands">A06: Custom Commands</a></h1>
-<p class="lesson-intro">You have a few prompts you keep retyping, "summarize this in three bullets for a beginner," "explain this error in plain English." A custom command saves that prompt once and gives it a short name you can call any time. (You may hear these called "skills" or "agents" in other tools. In Gemini CLI they are custom commands.)</p>
-<h2 id="a-command-is-a-saved-prompt"><a class="heading-anchor" href="#a-command-is-a-saved-prompt">A Command Is a Saved Prompt</a></h2>
-<p>Gemini CLI reads command files from a <code>commands</code> folder:</p>
-<ul>
-<li><strong>Global</strong> - <code>~/.gemini/commands/</code> (available everywhere).</li>
-<li><strong>Project</strong> - <code>.gemini/commands/</code> (only in that project).</li>
-</ul>
-<p>Each command is a small <code>.toml</code> file. The <strong>filename becomes the command name</strong>: <code>explain.toml</code> gives you <code>/explain</code>. Inside, the important part is a <code>prompt</code> field.</p>
-<p>Create <code>~/.gemini/commands/explain.toml</code>:</p>
-<pre><code>description = &quot;Explain something to a beginner&quot;
-prompt = &quot;&quot;&quot;
-Explain the following to a complete beginner, in plain language,
-with one concrete example:
-
-{{args}}
-&quot;&quot;&quot;
+      <h1 id="a06-agent-skills"><a class="heading-anchor" href="#a06-agent-skills">A06: Agent Skills</a></h1>
+<p class="lesson-intro">You have a few prompts you keep retyping, "summarize this in three bullets for a beginner," "explain this error in plain English." A skill saves that once as a capability the agent picks up on its own, whenever your request matches. (Other tools call these custom commands or agents. Antigravity calls them skills.)</p>
+<h2 id="a-skill-is-a-saved-capability"><a class="heading-anchor" href="#a-skill-is-a-saved-capability">A Skill Is a Saved Capability</a></h2>
+<p>A skill is a small folder with a <code>SKILL.md</code> file inside. Put it in <code>.agents/skills/</code> in the folder you work in:</p>
+<pre><code>.agents/skills/explain-simply/SKILL.md
 </code></pre>
-<p>Now in Gemini CLI type:</p>
-<pre><code>/explain how does DNS work
+<p><code>SKILL.md</code> starts with a short header, then the instructions. The <strong>description</strong> is the important part, it tells the agent <em>when</em> to reach for this skill:</p>
+<pre><code>---
+name: explain-simply
+description: Explain code, errors, or ideas to a complete beginner in plain language with one concrete example. Use whenever the user asks to explain or simplify something.
+---
+Explain the thing to a complete beginner, in plain language.
+Give a three-bullet summary, then one concrete example.
 </code></pre>
-<p>Whatever you type after the command replaces <code>{{args}}</code> in the saved prompt. You just turned a careful, reusable prompt into a one-word shortcut. Build a small library of these and your good prompts stop living in your memory and start living in your tool.</p>
+<p>Now just ask naturally, "explain this error", and the agent notices your request matches the skill's description and follows it. You do not type a special command; you built a reusable capability and the agent uses it when it fits.</p>
+<p>This is different from your <code>AGENTS.md</code> (A05): that is always on for everything you do here. A skill loads only when the agent decides it is relevant, so you can build a small library of specialized skills without cluttering every answer.</p>
 <div class="mermaid">
 flowchart LR
     A[Retype a long prompt every time] --> B[Slow, inconsistent]
-    C["Save it as /explain once"] --> D[One word, same quality every time]
+    C[Save it as a skill once] --> D[Agent applies it automatically, same quality]
 
 </div>
 <h2 id="one-step-further-mcp-just-so-you-know-it-exists"><a class="heading-anchor" href="#one-step-further-mcp-just-so-you-know-it-exists">One Step Further: MCP (just so you know it exists)</a></h2>
-<p>Custom commands reuse <em>prompts</em>. If you ever need the AI to use a real external <em>tool</em>, read a database, call a web service, Gemini CLI supports <strong>MCP</strong> (Model Context Protocol), a way to plug in extra abilities. That is well beyond this course. For now, just know the word exists so it is not a mystery later.</p>
+<p>Skills reuse <em>prompts and instructions</em>. If you ever need the AI to use a real external <em>tool</em>, read a database, call a web service, Antigravity supports <strong>MCP</strong> (Model Context Protocol), a way to plug in extra abilities. That is well beyond this course. For now, just know the word exists so it is not a mystery later.</p>
 <h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
 <ol>
-<li>Create <code>~/.gemini/commands/</code> if it does not exist.</li>
-<li>Build one command that solves a real annoyance for you, for example <code>/summarize</code> (summarize pasted text in three bullets) or <code>/explain</code> (like above).</li>
-<li>Use it at least three times this week on real inputs. Refine the saved prompt until the output is consistently good.</li>
-<li>Bring your <code>.toml</code> file and an example run to class.</li>
+<li>In the folder where you run <code>agy</code>, create <code>.agents/skills/</code> if it does not exist.</li>
+<li>Build one skill that solves a real annoyance for you, for example a "summarize in three bullets" skill or an "explain simply" skill like above. Write a clear description so the agent knows when to use it.</li>
+<li>Make three real requests this week that should trigger it. Run <code>agy inspect</code> to confirm the skill is loaded, and refine the wording until the output is consistently good.</li>
+<li>Bring your <code>SKILL.md</code> and an example run to class.</li>
 </ol>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>A custom command is a saved, reusable prompt with a short name</li>
-<li>Put a .toml file in ~/.gemini/commands/; the filename becomes the command (explain.toml to /explain)</li>
-<li>{{args}} inserts whatever you type after the command into the saved prompt</li>
+<li>A skill is a saved, reusable capability: a SKILL.md in a folder under .agents/skills/</li>
+<li>The description tells the agent when to use the skill, so write it clearly</li>
+<li>The agent loads a skill automatically when your request matches, no command to type</li>
 <li>MCP lets the AI use external tools; know it exists, leave it for later</li>
 </ul>
 </div>
