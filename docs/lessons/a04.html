@@ -54,6 +54,9 @@
 <pre><code>Explain what @notes.txt is about in two sentences.
 </code></pre>
 <p>The <code>@notes.txt</code> pulls that file's actual contents into your message. Point at the real thing, <code>@report.md</code>, <code>@script.js</code>, or a whole folder with <code>@src/</code>, and the AI reads it directly instead of relying on your summary. Because Antigravity CLI runs in a folder, it can also see the files in the folder you started it from.</p>
+<h2 id="use-your-real-files"><a class="heading-anchor" href="#use-your-real-files">Use Your Real Files</a></h2>
+<p>Toy files are for practice; the point is your real work, an essay, meeting notes, a spreadsheet. On Mac and Linux they are already reachable. On Windows with WSL, your documents live under <code>/mnt/c/</code>, so <code>C:\Users\Alex\Documents</code> becomes <code>/mnt/c/Users/Alex/Documents</code>. <code>cd</code> into that folder (put quotes around any path with spaces) and <code>@</code> a file like any other.</p>
+<p>Plain text drops straight in, <code>@notes.txt</code>, <code>@data.csv</code>, <code>@essay.md</code>. A Word document or PDF is not plain text, so give the AI a text copy: in Word or Google Docs use File then Save As (or Download) as plain text or Markdown, then <code>@</code> that copy. For PDFs, or many files at once, a converter like <strong>markitdown</strong> does it in one command (<code>pip install 'markitdown[all]'</code>, then <code>markitdown essay.docx -o essay.md</code>). Either way you end up with clean text the AI reads perfectly and a copy you can edit.</p>
 <h2 id="focused-beats-everything"><a class="heading-anchor" href="#focused-beats-everything">Focused Beats Everything</a></h2>
 <p>More context is not better. There is a sweet spot:</p>
 <ul>
