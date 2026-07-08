@@ -54,6 +54,9 @@
 <pre><code>@notes.txt の内容を2文で説明して
 </code></pre>
 <p><code>@notes.txt</code> はそのファイルの実際の中身をメッセージに引き込みます。本物を指す、<code>@report.md</code>、<code>@script.js</code>、フォルダ全体なら <code>@src/</code> とすれば、AIはあなたの要約に頼らず直接読みます。Antigravity CLIはフォルダの中で動くので、起動したフォルダのファイルも見えます。</p>
+<h2 id="本物のファイルを使う"><a class="heading-anchor" href="#本物のファイルを使う">本物のファイルを使う</a></h2>
+<p>練習用のファイルは練習のため。肝心なのはあなたの本物の仕事、レポート、議事メモ、スプレッドシート。MacとLinuxではもう手が届きます。WindowsのWSLでは、書類は <code>/mnt/c/</code> の下にあるので、<code>C:\Users\Alex\Documents</code> は <code>/mnt/c/Users/Alex/Documents</code> になります。そのフォルダに <code>cd</code> して(スペースを含むパスは引用符で囲む)、他と同じように <code>@</code> でファイルを指す。</p>
+<p>プレーンテキストはそのまま入ります、<code>@notes.txt</code>、<code>@data.csv</code>、<code>@essay.md</code>。Wordの文書やPDFはプレーンテキストではないので、AIにはテキストのコピーを渡す: WordやGoogleドキュメントで「ファイル」→「名前を付けて保存」(またはダウンロード)でプレーンテキストかMarkdownにして、そのコピーを <code>@</code> で指す。PDFや、たくさんのファイルを一度にやるなら、<strong>markitdown</strong> のような変換ツールが一つのコマンドでやってくれます(<code>pip install 'markitdown[all]'</code>、それから <code>markitdown essay.docx -o essay.md</code>)。どちらでも、AIが完璧に読めるきれいなテキストと、あなたが編集できるコピーが手に入ります。</p>
 <h2 id="絞るほうが勝つ"><a class="heading-anchor" href="#絞るほうが勝つ">絞るほうが勝つ</a></h2>
 <p>コンテキストは多ければ良いわけではありません。ちょうど良い量があります:</p>
 <ul>

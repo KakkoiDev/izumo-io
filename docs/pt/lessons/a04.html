@@ -54,6 +54,9 @@
 <pre><code>Explique em duas frases sobre o que é @notes.txt
 </code></pre>
 <p>O <code>@notes.txt</code> puxa o conteúdo real daquele arquivo para sua mensagem. Aponte para a coisa real, <code>@report.md</code>, <code>@script.js</code>, ou uma pasta inteira com <code>@src/</code>, e a IA lê direto em vez de depender do seu resumo. Como o Antigravity CLI roda dentro de uma pasta, ele também vê os arquivos da pasta de onde você o iniciou.</p>
+<h2 id="use-seus-arquivos-reais"><a class="heading-anchor" href="#use-seus-arquivos-reais">Use Seus Arquivos Reais</a></h2>
+<p>Arquivos de brincadeira são para praticar; o ponto é seu trabalho real, uma redação, anotações de reunião, uma planilha. No Mac e no Linux eles já estão acessíveis. No Windows com WSL, seus documentos ficam sob <code>/mnt/c/</code>, então <code>C:\Users\Alex\Documents</code> vira <code>/mnt/c/Users/Alex/Documents</code>. <code>cd</code> para essa pasta (coloque aspas em caminhos com espaços) e use <code>@</code> num arquivo como em qualquer outro.</p>
+<p>Texto puro entra direto, <code>@notes.txt</code>, <code>@data.csv</code>, <code>@essay.md</code>. Um documento Word ou PDF não é texto puro, então dê à IA uma cópia em texto: no Word ou no Google Docs use Arquivo e então Salvar Como (ou Baixar) como texto simples ou Markdown, depois use <code>@</code> nessa cópia. Para PDFs, ou muitos arquivos de uma vez, um conversor como o <strong>markitdown</strong> faz isso num comando (<code>pip install 'markitdown[all]'</code>, depois <code>markitdown essay.docx -o essay.md</code>). De qualquer jeito você fica com texto limpo que a IA lê perfeitamente e uma cópia que você pode editar.</p>
 <h2 id="focado-vence-tudo"><a class="heading-anchor" href="#focado-vence-tudo">Focado Vence Tudo</a></h2>
 <p>Mais contexto não é melhor. Existe um ponto ideal:</p>
 <ul>
