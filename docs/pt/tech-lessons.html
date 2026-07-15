@@ -1,0 +1,1330 @@
+<!doctype html>
+<html lang="pt" data-page="tech-lessons.html" data-lang-paths='{"en":"../","ja":"../ja/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Technical Lessons - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="tech-lessons.html">Aulas Técnicas</a>
+      <a href="theory-lessons.html">Teoria</a>
+      <a href="ai-lessons.html">Aulas de IA</a>
+      <a href="videos.html">Vídeos</a>
+      <a href="resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <section class="page-header">
+      <h1 id="aulas-t-cnicas"><a class="heading-anchor" href="#aulas-t-cnicas">Aulas Técnicas</a></h1>
+      <p>Aulas práticas de HTML a aplicações de IA full stack. Construa projetos reais passo a passo.</p>
+    </section>
+
+    
+    <section class="phase">
+      <h2 id="fase-1-a-bancada-configura-o-do-ambiente"><a class="heading-anchor" href="#fase-1-a-bancada-configura-o-do-ambiente">Fase 1: A Bancada (Configuração do Ambiente)</a></h2>
+      <p class="phase-subtitle">Instale as ferramentas antes do primeiro corte</p>
+      <p class="phase-analogy">Um artesão prepara a bancada antes de começar a primeira peça</p>
+      <div class="lesson-grid">
+        
+        
+        
+        <a href="lessons/t01.html" class="lesson-card">
+          <span class="lesson-id">T01</span>
+          <h3>Configuração do Ambiente</h3>
+          <p>Instale VS Code, Node.js, Git e um navegador. Verifique pelo terminal. Escreva hello.html e veja rodar.</p>
+        </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="fase-2-a-linha-de-comando-terminal"><a class="heading-anchor" href="#fase-2-a-linha-de-comando-terminal">Fase 2: A Linha de Comando (Terminal)</a></h2>
+      <p class="phase-subtitle">Linha direta com a máquina - texto vence cliques em escala</p>
+      <p class="phase-analogy">Botões são para turistas. Comandos são para residentes</p>
+      <div class="lesson-grid">
+        
+        
+        
+        
+        
+        <a href="lessons/t02.html" class="lesson-card">
+          <span class="lesson-id">T02</span>
+          <h3>Terminal do Zero</h3>
+          <p>Navegar, criar, apagar arquivos. Ler o manual. Aprender o PATH e truques de velocidade.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t03.html" class="lesson-card">
+          <span class="lesson-id">T03</span>
+          <h3>Pipes & Ferramentas Poderosas</h3>
+          <p>stdin/stdout/stderr, pipes, grep/find/sed/awk, encadeamento, scripts shell pequenos.</p>
+        </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="fase-3-o-livro-html-css"><a class="heading-anchor" href="#fase-3-o-livro-html-css">Fase 3: O Livro (HTML/CSS)</a></h2>
+      <p class="phase-subtitle">Estrutura e decoração, nenhum JavaScript</p>
+      <p class="phase-analogy">Como construir um livro: esqueleto (HTML) e design (CSS)</p>
+      <div class="lesson-grid">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="lessons/t04.html" class="lesson-card">
+          <span class="lesson-id">T04</span>
+          <h3>Hello World</h3>
+          <p>Sua primeira página web. Crie um arquivo, abra num navegador.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t05.html" class="lesson-card">
+          <span class="lesson-id">T05</span>
+          <h3>Tags HTML</h3>
+          <p>Os blocos de construção: cabeçalhos, parágrafos, listas, links, imagens.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t06.html" class="lesson-card">
+          <span class="lesson-id">T06</span>
+          <h3>Formulários HTML e Blocos</h3>
+          <p>HTML interativo: input, select, textarea, validação, details/summary.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t07.html" class="lesson-card">
+          <span class="lesson-id">T07</span>
+          <h3>Fundamentos de CSS</h3>
+          <p>Deixando as coisas bonitas: seletores, cores, fontes, box model.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t08.html" class="lesson-card">
+          <span class="lesson-id">T08</span>
+          <h3>Layout com CSS</h3>
+          <p>Organizando a página: flexbox, grid, design responsivo, media queries.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t09.html" class="lesson-card">
+          <span class="lesson-id">T09</span>
+          <h3>CSS no Limite</h3>
+          <p>Interatividade pura em CSS: animações, transições, :target, accordion/tabs.</p>
+        </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="fase-4-o-c-rebro-javascript"><a class="heading-anchor" href="#fase-4-o-c-rebro-javascript">Fase 4: O Cérebro (JavaScript)</a></h2>
+      <p class="phase-subtitle">Adicionando pensamento e interação à página</p>
+      <p class="phase-analogy">Como adicionar músculos e um cérebro ao seu livro</p>
+      <div class="lesson-grid">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="lessons/t10.html" class="lesson-card">
+          <span class="lesson-id">T10</span>
+          <h3>Introdução ao JavaScript</h3>
+          <p>Primeiros passos com JS: console.log, variáveis, tipos, funções.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t11.html" class="lesson-card">
+          <span class="lesson-id">T11</span>
+          <h3>Manipulação do DOM</h3>
+          <p>Controlando a página: querySelector, createElement, eventos.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t12.html" class="lesson-card">
+          <span class="lesson-id">T12</span>
+          <h3>Formulários e Dialog</h3>
+          <p>Lidando com entrada do usuário: validação de form em JS, elemento dialog.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t13.html" class="lesson-card">
+          <span class="lesson-id">T13</span>
+          <h3>Estruturas de Dados</h3>
+          <p>Organizando informação: arrays, objetos, loops, listas dinâmicas.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t14.html" class="lesson-card">
+          <span class="lesson-id">T14</span>
+          <h3>Persistência</h3>
+          <p>Lembrando dados: localStorage, JSON parse/stringify.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t15.html" class="lesson-card">
+          <span class="lesson-id">T15</span>
+          <h3>Fetch API</h3>
+          <p>Falando com servidores: requisições HTTP, async/await, promises.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t16.html" class="lesson-card">
+          <span class="lesson-id">T16</span>
+          <h3>Site Dinâmico: Roteamento</h3>
+          <p>Uma página, várias visualizações: hash routing, componentes, estado.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t17.html" class="lesson-card">
+          <span class="lesson-id">T17</span>
+          <h3>Site Dinâmico: Offline</h3>
+          <p>Funciona sem internet: service workers, PWA, cache.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t18.html" class="lesson-card">
+          <span class="lesson-id">T18</span>
+          <h3>Site Dinâmico: Acabamento</h3>
+          <p>Qualidade de produção: performance, lazy loading, tratamento de erros.</p>
+        </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="fase-5-a-m-quina-do-tempo-git-e-github"><a class="heading-anchor" href="#fase-5-a-m-quina-do-tempo-git-e-github">Fase 5: A Máquina do Tempo (Git e GitHub)</a></h2>
+      <p class="phase-subtitle">Rastreie cada mudança, colabore sem pisar no pé um do outro</p>
+      <p class="phase-analogy">Git é sua máquina do tempo. GitHub é a oficina compartilhada onde os viajantes do tempo se encontram</p>
+      <div class="lesson-grid">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="lessons/t19.html" class="lesson-card">
+          <span class="lesson-id">T19</span>
+          <h3>Fundamentos de Git</h3>
+          <p>A máquina do tempo: três áreas, commits, branches, desfazer sem medo.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t20.html" class="lesson-card">
+          <span class="lesson-id">T20</span>
+          <h3>GitHub e Colaboração</h3>
+          <p>A oficina compartilhada: remotes, push/pull, GitHub Flow, pull requests.</p>
+        </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="fase-6-a-cozinha-backend"><a class="heading-anchor" href="#fase-6-a-cozinha-backend">Fase 6: A Cozinha (Backend)</a></h2>
+      <p class="phase-subtitle">Servidores, APIs e bancos de dados</p>
+      <p class="phase-analogy">Construindo a cozinha do restaurante que prepara a comida</p>
+      <div class="lesson-grid">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="lessons/t21.html" class="lesson-card">
+          <span class="lesson-id">T21</span>
+          <h3>Servidor Node.js</h3>
+          <p>Construindo a cozinha: servidor HTTP, servindo arquivos, tratando requisições.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t22.html" class="lesson-card">
+          <span class="lesson-id">T22</span>
+          <h3>Endpoints de API</h3>
+          <p>O cardápio: design REST, respostas JSON, roteamento.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t23.html" class="lesson-card">
+          <span class="lesson-id">T23</span>
+          <h3>Banco JSON</h3>
+          <p>O livro de receitas: ler/escrever arquivos, CRUD com JSON.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t24.html" class="lesson-card">
+          <span class="lesson-id">T24</span>
+          <h3>SQLite</h3>
+          <p>O arquivo suspenso: SQL, tabelas, CRUD, schema, chaves estrangeiras.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t25.html" class="lesson-card">
+          <span class="lesson-id">T25</span>
+          <h3>Autenticação</h3>
+          <p>A conferência de identidade: sessões, cookies, hashing de senha, login/logout.</p>
+        </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="fase-7-o-chef-rob-ia"><a class="heading-anchor" href="#fase-7-o-chef-rob-ia">Fase 7: O Chef Robô (IA)</a></h2>
+      <p class="phase-subtitle">Integrando inteligência artificial</p>
+      <p class="phase-analogy">Contratando um robô que leu milhões de livros para ajudar na sua cozinha</p>
+      <div class="lesson-grid">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="lessons/t26.html" class="lesson-card">
+          <span class="lesson-id">T26</span>
+          <h3>Ollama e Chat</h3>
+          <p>O chef robô: setup de LLM local, API de chat, interface de chat.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t27.html" class="lesson-card">
+          <span class="lesson-id">T27</span>
+          <h3>App Full Stack com IA</h3>
+          <p>O restaurante inteiro: conectar frontend, backend, IA e banco.</p>
+        </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="fase-8-o-kit-de-franquia-frameworks-frontend"><a class="heading-anchor" href="#fase-8-o-kit-de-franquia-frameworks-frontend">Fase 8: O Kit de Franquia (Frameworks Frontend)</a></h2>
+      <p class="phase-subtitle">UI baseada em componentes e JavaScript com tipagem segura</p>
+      <p class="phase-analogy">Atualizando de um cardápio desenhado à mão para um sistema PDV profissional</p>
+      <div class="lesson-grid">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="lessons/t28.html" class="lesson-card">
+          <span class="lesson-id">T28</span>
+          <h3>Fundamentos de React</h3>
+          <p>Pensando em componentes: JSX, props, tratamento de eventos, renderização de listas.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t29.html" class="lesson-card">
+          <span class="lesson-id">T29</span>
+          <h3>Estado e Efeitos no React</h3>
+          <p>UIs interativas: useState para memória, useEffect para efeitos colaterais.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t30.html" class="lesson-card">
+          <span class="lesson-id">T30</span>
+          <h3>TypeScript</h3>
+          <p>Segurança de tipo: anotações, interfaces, tipando componentes React.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t31.html" class="lesson-card">
+          <span class="lesson-id">T31</span>
+          <h3>Next.js: Roteamento e Renderização</h3>
+          <p>Roteamento baseado em arquivos, server vs client components, layouts.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t32.html" class="lesson-card">
+          <span class="lesson-id">T32</span>
+          <h3>Next.js: Dados e API</h3>
+          <p>Busca de dados em server components, rotas de API, montando uma página completa.</p>
+        </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="fase-9-a-sede-frameworks-backend"><a class="heading-anchor" href="#fase-9-a-sede-frameworks-backend">Fase 9: A Sede (Frameworks Backend)</a></h2>
+      <p class="phase-subtitle">Arquitetura backend de nível corporativo com Nest.js</p>
+      <p class="phase-analogy">Construindo a cozinha corporativa que gerencia todas as filiais da franquia</p>
+      <div class="lesson-grid">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="lessons/t33.html" class="lesson-card">
+          <span class="lesson-id">T33</span>
+          <h3>Nest.js: Arquitetura</h3>
+          <p>Módulos, controllers, services e injeção de dependência.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t34.html" class="lesson-card">
+          <span class="lesson-id">T34</span>
+          <h3>Nest.js: Dados e Autenticação</h3>
+          <p>DTOs, validação, integração com banco, guards de autenticação.</p>
+        </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="fase-10-o-kit-de-lego-web-components"><a class="heading-anchor" href="#fase-10-o-kit-de-lego-web-components">Fase 10: O Kit de Lego (Web Components)</a></h2>
+      <p class="phase-subtitle">Invente suas próprias tags HTML - componentes nativos da plataforma que funcionam em qualquer framework</p>
+      <p class="phase-analogy">Peças de Lego embutidas no navegador. Encaixe-as, sem precisar de framework</p>
+      <div class="lesson-grid">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="lessons/t35.html" class="lesson-card">
+          <span class="lesson-id">T35</span>
+          <h3>Web Components I</h3>
+          <p>Invente suas próprias tags: Custom Elements, Shadow DOM, :host e ::part.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t36.html" class="lesson-card">
+          <span class="lesson-id">T36</span>
+          <h3>Web Components II</h3>
+          <p>Templates, slots, callbacks de ciclo de vida e o Lit como camada de açúcar.</p>
+        </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="fase-11-a-planta-design-de-sistemas"><a class="heading-anchor" href="#fase-11-a-planta-design-de-sistemas">Fase 11: A Planta (Design de Sistemas)</a></h2>
+      <p class="phase-subtitle">Arquitete sistemas grandes: escala, armazenamento, cache, trade-offs</p>
+      <p class="phase-analogy">Arquitetos desenham plantas antes que alguém derrame concreto</p>
+      <div class="lesson-grid">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="lessons/t37.html" class="lesson-card">
+          <span class="lesson-id">T37</span>
+          <h3>Design de Sistemas: O Framework</h3>
+          <p>Requisitos, entidades, API, design de alto nível, deep dives, trade-offs.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t38.html" class="lesson-card">
+          <span class="lesson-id">T38</span>
+          <h3>Design de Sistemas: Escala e Armazenamento</h3>
+          <p>Vertical vs horizontal, SQL vs NoSQL, replicação, sharding, teorema CAP.</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t39.html" class="lesson-card">
+          <span class="lesson-id">T39</span>
+          <h3>Design de Sistemas: Cache, Filas e Padrões</h3>
+          <p>Cache-aside, filas, load balancers, CDNs, monolito vs microsserviços, números para saber.</p>
+        </a>
+        
+        
+        
+      </div>
+    </section>
+    
+
+  </main>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

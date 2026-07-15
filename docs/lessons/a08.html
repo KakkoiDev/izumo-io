@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" data-page="a08.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Capstone: Your AI Toolkit - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Lessons</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">Back to AI Lessons</a>
+        <div class="lesson-pager">
+          <a href="a07.html">Previous</a>
+          
+        </div>
+      </nav>
+      <h1 id="a08-capstone-your-ai-toolkit"><a class="heading-anchor" href="#a08-capstone-your-ai-toolkit">A08: Capstone: Your AI Toolkit</a></h1>
+<p class="lesson-intro">You have learned to install the assistant, ask it well, feed it context, give it memory, save skills, and script with it, all under one rule: use it heavily, trust it never. The capstone is not an app. It is your own tuned toolkit plus proof that you have the judgment to use it safely. Think of a chef's knife roll: not the fanciest kitchen, your own set, sharpened the way you work.</p>
+<h2 id="what-you-build"><a class="heading-anchor" href="#what-you-build">What You Build</a></h2>
+<p>Four pieces, each from a lesson you have already done:</p>
+<ul>
+<li><strong>An <code>AGENTS.md</code></strong> with your standing rules (A05). It should make the AI answer the way <em>you</em> want by default.</li>
+<li><strong>One skill</strong> you genuinely use (A06). Not a demo, something that saves you real time.</li>
+<li><strong>One script</strong> the AI helped you write (A07), that does something useful and that you have read and understood. Run by hand is fine.</li>
+<li><strong>A written reflection</strong> (A01): one real time you caught the AI being <em>confidently wrong</em>, what it claimed, and how you caught it. This is the most important piece.</li>
+</ul>
+<div class="mermaid">
+flowchart TD
+    T[Your AI Toolkit] --> M[AGENTS.md: your rules]
+    T --> C[A skill you wrote]
+    T --> S[A script you read and trust]
+    T --> R[Reflection: a wrong answer you caught]
+
+</div>
+<h2 id="how-you-present-it"><a class="heading-anchor" href="#how-you-present-it">How You Present It</a></h2>
+<p>Show your toolkit and walk through each piece: what it does, why you made it, how you use it. Then tell the story of the error you caught, that story is the point. Anyone can run a tool. You are proving you can run it <em>and</em> stay in charge of it.</p>
+<h2 id="where-to-go-next"><a class="heading-anchor" href="#where-to-go-next">Where to Go Next</a></h2>
+<p>You now have the foundation. Natural next steps, on your own:</p>
+<ul>
+<li>Grow your skill library as you spot repeated prompts.</li>
+<li>Learn a little more terminal so scripts feel easy.</li>
+<li>Read your AI provider's data and privacy terms once, properly.</li>
+<li>Revisit <a href="r20.html">R20: Never Trust an AI</a> in a few months. It reads differently once you have real hours with these tools.</li>
+</ul>
+<h2 id="this-week-s-exercise-the-capstone"><a class="heading-anchor" href="#this-week-s-exercise-the-capstone">This Week's Exercise (the capstone)</a></h2>
+<ol>
+<li>Finalize your <code>AGENTS.md</code>, one skill, and one script. Make sure each works.</li>
+<li>Write your reflection: the wrong AI answer, and how you caught it. A few honest sentences.</li>
+<li>Present your toolkit to the group. Be ready to answer: "how would someone misuse this, and how do you avoid that?"</li>
+</ol>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>The deliverable is a personal toolkit: an AGENTS.md, a skill, and a script you understand</li>
+<li>The most important piece is proof you can catch the AI being wrong</li>
+<li>Use it heavily, trust it never, that mindset is the real skill you leave with</li>
+<li>Keep building: grow your skills, learn more terminal, read the privacy terms</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">Back to AI Lessons</a>
+        <div class="lesson-pager">
+          <a href="a07.html">Previous</a>
+          
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

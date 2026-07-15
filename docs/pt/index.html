@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pt" data-page="index.html" data-lang-paths='{"en":"../","ja":"../ja/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="tech-lessons.html">Aulas Técnicas</a>
+      <a href="theory-lessons.html">Teoria</a>
+      <a href="ai-lessons.html">Aulas de IA</a>
+      <a href="videos.html">Vídeos</a>
+      <a href="resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <section class="hero">
+      <h1 id="aprenda-a-construir-a-web"><a class="heading-anchor" href="#aprenda-a-construir-a-web">Aprenda a Construir a Web</a></h1>
+      <p class="hero-sub">Aulas práticas ensinando os 20% que cobrem 80% do desenvolvimento do mundo real. Da sua primeira página HTML a uma aplicação de IA full stack.</p>
+      <a href="tech-lessons.html" class="btn">Começar a Aprender</a>
+    </section>
+
+    <section class="philosophy">
+      <h2 id="nossa-abordagem"><a class="heading-anchor" href="#nossa-abordagem">Nossa Abordagem</a></h2>
+      <ul class="philosophy-list">
+        <li>Aprenda os 20% que cobrem 80% do trabalho no mundo real</li>
+        <li>Construa projetos reais desde o primeiro dia</li>
+        <li>Entenda através de analogias do mundo real</li>
+        <li>Comece do zero absoluto, sem pré-requisitos</li>
+      </ul>
+    </section>
+
+    <section class="sections-grid">
+      <a href="tech-lessons.html" class="section-card">
+        <h3>Aulas Técnicas</h3>
+        <p>Aulas práticas de HTML a aplicações de IA full stack. Construa projetos reais passo a passo.</p>
+      </a>
+      <a href="theory-lessons.html" class="section-card">
+        <h3>Teoria</h3>
+        <p>O pensamento por trás de grandes softwares e grandes desenvolvedores.</p>
+      </a>
+      <a href="ai-lessons.html" class="section-card">
+        <h3>Aulas de IA</h3>
+        <p>Um curso para iniciantes sobre como usar um assistente de programação com IA de forma segura e eficaz. Não é preciso saber programar.</p>
+      </a>
+      <a href="videos.html" class="section-card">
+        <h3>Vídeos</h3>
+        <p>Assista às gravações das aulas anteriores no YouTube.</p>
+      </a>
+      <a href="resources.html" class="section-card">
+        <h3>Recursos</h3>
+        <p>Ferramentas e plataformas selecionadas para subir de nível.</p>
+      </a>
+    </section>
+
+    <section class="community">
+      <h2 id="entre-na-comunidade"><a class="heading-anchor" href="#entre-na-comunidade">Entre na Comunidade</a></h2>
+      <p>Aprenda junto, faça perguntas, compartilhe seu progresso.</p>
+      <a href="https://discord.gg/YrtdssGUJa" class="btn btn-outline" target="_blank" rel="noopener">Entre no nosso Discord</a>
+    </section>
+
+  </main>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

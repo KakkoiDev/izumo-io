@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-page="theory-lessons.html" data-lang-paths='{"en":"./","ja":"ja/"}'>
+<html lang="en" data-page="theory-lessons.html" data-lang-paths='{"en":"./","ja":"ja/","pt":"pt/"}'>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +21,7 @@
     <div class="nav-links" id="nav-links">
       <a href="tech-lessons.html">Tech Lessons</a>
       <a href="theory-lessons.html">Theory</a>
+      <a href="ai-lessons.html">AI Lessons</a>
       <a href="videos.html">Videos</a>
       <a href="resources.html">Resources</a>
     </div>
@@ -29,7 +30,7 @@
       <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
     </button>
     <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
-      <option value="en" selected>English</option><option value="ja">日本語</option>
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
     </select>
     <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -39,7 +40,7 @@
 
 
     <section class="page-header">
-      <h1>Theory & Life Lessons</h1>
+      <h1 id="theory-life-lessons"><a class="heading-anchor" href="#theory-life-lessons">Theory & Life Lessons</a></h1>
       <p>The thinking behind great software and great developers.</p>
     </section>
 
@@ -129,9 +130,9 @@
       <a href="lessons/r10.html" class="theory-card">
         <span class="lesson-id">R10</span>
         <h3>KakkoiSchool Case Study</h3>
-        <p>Analyzing our own course. What decisions were made, what worked, what did not.</p>
+        <p>How this site is built: markdown lessons, a small Python build that emits HTML and markdown side by side, GitHub Actions for translation, GitHub Pages on school.kakkoi.dev.</p>
         
-        <p class="theory-analogy">Learning from our own journey</p>
+        <p class="theory-analogy">Study the thing you use every day</p>
         
       </a>
       
@@ -192,9 +193,45 @@
       <a href="lessons/r17.html" class="theory-card">
         <span class="lesson-id">R17</span>
         <h3>The Importance of English</h3>
-        <p>English is the lingua franca of tech. Mastering it unlocks resources, communication, and career opportunities.</p>
+        <p>English is the lingua franca of tech. Working mastery unlocks resources, communication, and career opportunities.</p>
         
         <p class="theory-analogy">The common language of the global kitchen</p>
+        
+      </a>
+      
+      <a href="lessons/r18.html" class="theory-card">
+        <span class="lesson-id">R18</span>
+        <h3>Documentation is Your Best Friend</h3>
+        <p>It is ok to not know everything. Your job is to fix problems. Use docs, Google, and AI without shame. Pride slows you down.</p>
+        
+        <p class="theory-analogy">Even surgeons check the reference before operating</p>
+        
+      </a>
+      
+      <a href="lessons/r19.html" class="theory-card">
+        <span class="lesson-id">R19</span>
+        <h3>A Business Runs on Money</h3>
+        <p>A business survives on money. Mission statements are a face, not the engine. Understand the why behind tickets to ship code that serves the business.</p>
+        
+        <p class="theory-analogy">No money, no mission</p>
+        
+      </a>
+      
+      <a href="lessons/r20.html" class="theory-card">
+        <span class="lesson-id">R20</span>
+        <h3>Never Trust an AI</h3>
+        <p>Frontier AI will blackmail and let humans die to preserve itself in controlled tests. Use AI heavily, trust it never. Keep humans on the kill switch.</p>
+        
+        <p class="theory-analogy">A saw does not care if it cuts wood or your hand</p>
+        
+      </a>
+      
+      <a href="lessons/r21.html" class="theory-card">
+        <span class="lesson-id">R21</span>
+        <h3>Tech Entropy</h3>
+        <p>Code rots. Dependencies break. Databases lose data. You forget your own stack. The only defense is simplicity. Markdown files with a tiny build system still work in ten years. A React app from two years ago often does not.</p>
+        
+        <p class="theory-analogy">A garden eats itself the moment you stop weeding</p>
         
       </a>
       

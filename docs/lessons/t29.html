@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-page="t29.html" data-lang-paths='{"en":"./","ja":"../../ja/lessons/"}'>
+<html lang="en" data-page="t29.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Nest.js: Data & Auth - KakkoiSchool</title>
+  <title>React State & Effects - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -21,6 +21,7 @@
     <div class="nav-links" id="nav-links">
       <a href="../tech-lessons.html">Tech Lessons</a>
       <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Lessons</a>
       <a href="../videos.html">Videos</a>
       <a href="../resources.html">Resources</a>
     </div>
@@ -29,7 +30,7 @@
       <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
     </button>
     <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
-      <option value="en" selected>English</option><option value="ja">日本語</option>
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
     </select>
     <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -43,113 +44,80 @@
         <a href="../tech-lessons.html">Back to Tech Lessons</a>
         <div class="lesson-pager">
           <a href="t28.html">Previous</a>
-          
+          <a href="t30.html">Next</a>
         </div>
       </nav>
-      
-<h1>T29: Nest.js Data &amp; Auth</h1>
-<p class="lesson-intro">DTOs are like order tickets that ensure the waiter writes exactly what the kitchen understands. Guards are the bouncer checking IDs at the door. Together with database integration, they form the data and security layer of a Nest.js application.</p>
+      <h1 id="t29-react-state-amp-effects"><a class="heading-anchor" href="#t29-react-state-amp-effects">T29: React State &amp; Effects</a></h1>
+<p class="lesson-intro">State is a component's personal notebook - private data that persists across renders and triggers re-renders when updated. Effects are like alarm clocks that go off after the component renders, letting you synchronize with external systems like APIs or timers.</p>
+<h2 id="usestate-component-memory"><a class="heading-anchor" href="#usestate-component-memory">useState: Component Memory</a></h2>
+<p>The <code>useState</code> hook gives a component its own memory. It returns the current value and a setter function. When the setter is called, React re-renders the component with the new value.</p>
+<pre><code>import { useState } from &quot;react&quot;;
 
-<h2>DTOs and Validation</h2>
-<p>A Data Transfer Object defines the expected shape of incoming data. Combined with class-validator decorators, it automatically rejects invalid requests. Compare this to the manual validation from T17 - Nest.js handles it declaratively.</p>
-<pre><code>// create-menu-item.dto.ts
-import { IsString, IsNumber, Min, MaxLength } from "class-validator";
+function Counter() {
+    const [count, setCount] = useState(0);
 
-export class CreateMenuItemDto {
-    @IsString()
-    @MaxLength(100)
-    name: string;
-
-    @IsNumber()
-    @Min(0)
-    price: number;
-
-    @IsString()
-    category: string;
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;+1&lt;/button&gt;
+            &lt;button onClick={() =&gt; setCount(0)}&gt;Reset&lt;/button&gt;
+        &lt;/div&gt;
+    );
 }
+</code></pre>
+<h2 id="useeffect-side-effects"><a class="heading-anchor" href="#useeffect-side-effects">useEffect: Side Effects</a></h2>
+<p>The <code>useEffect</code> hook runs code after render. The dependency array controls when it re-runs. An empty array means "run once on mount." Including variables means "re-run when these change."</p>
+<pre><code>import { useState, useEffect } from &quot;react&quot;;
 
-// menu.controller.ts
-import { Controller, Post, Body } from "@nestjs/common";
+function MenuPage() {
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-@Controller("menu")
-export class MenuController {
-    constructor(private readonly menuService: MenuService) {}
+    useEffect(() =&gt; {
+        fetch(&quot;/api/menu&quot;)
+            .then(res =&gt; res.json())
+            .then(data =&gt; {
+                setItems(data);
+                setLoading(false);
+            });
+    }, []); // Empty array = run once on mount
 
-    @Post()
-    create(@Body() dto: CreateMenuItemDto) {
-        // dto is already validated - invalid requests never reach here
-        return this.menuService.create(dto);
-    }
-}</code></pre>
-
-<h2>Database Integration</h2>
-<p>Nest.js works with the SQLite database pattern from T19, but through a repository layer. The service interacts with the database, keeping data access separate from HTTP handling.</p>
-
-<h2>Authentication Guards</h2>
-<p>A guard is a class that decides whether a request should proceed. It checks authentication tokens before the controller ever sees the request. Apply it to specific routes or entire controllers with the <code>@UseGuards</code> decorator.</p>
-<pre><code>// auth.guard.ts
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
-
-@Injectable()
-export class AuthGuard implements CanActivate {
-    canActivate(context: ExecutionContext): boolean {
-        const request = context.switchToHttp().getRequest();
-        const token = request.headers["authorization"];
-        if (!token || !this.validateToken(token)) {
-            throw new UnauthorizedException("Invalid or missing token");
-        }
-        return true;
-    }
-
-    private validateToken(token: string): boolean {
-        // Token validation logic
-        return token.startsWith("Bearer ");
-    }
+    if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
+    return &lt;ul&gt;{items.map(i =&gt; &lt;li key={i.id}&gt;{i.name}&lt;/li&gt;)}&lt;/ul&gt;;
 }
-
-// Using the guard on a controller
-import { Controller, Get, UseGuards } from "@nestjs/common";
-
-@Controller("admin/menu")
-@UseGuards(AuthGuard)
-export class AdminMenuController {
-    constructor(private readonly menuService: MenuService) {}
-
-    @Get()
-    findAll() {
-        return this.menuService.findAll();
-    }
-}</code></pre>
-
+</code></pre>
+<h2 id="lifting-state-up"><a class="heading-anchor" href="#lifting-state-up">Lifting State Up</a></h2>
+<p>When two sibling components need to share data, move the state to their common parent. The parent owns the state and passes it down as props. This is React's primary data-sharing pattern.</p>
 <div class="mermaid">
-sequenceDiagram
-    participant Client
-    participant Guard as AuthGuard
-    participant Controller
-    participant DTO as DTO Validation
-    participant Service
-    participant DB as Database
-    Client->>Guard: Request with token
-    Guard->>Guard: Validate token
-    Guard->>Controller: Authorized
-    Controller->>DTO: Validate body
-    DTO->>Service: Valid data
-    Service->>DB: Query/Insert
-    DB-->>Service: Result
-    Service-->>Controller: Response data
-    Controller-->>Client: JSON response
-</div>
+flowchart TD
+    A[Render Component] --> B[useEffect Runs]
+    B --> C[User Interacts]
+    C --> D[State Changes via setState]
+    D --> E[Re-render]
+    E --> B
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style B fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style C fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style D fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+    style E fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
 
+</div>
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>DTOs with class-validator decorators handle validation declaratively - no manual checks needed</li>
-<li>The repository pattern keeps database access in services, separate from controllers</li>
-<li>Guards run before controllers, enforcing authentication at the framework level</li>
-<li>Decorators like @UseGuards and @Body wire security and validation without cluttering logic</li>
+<li>useState gives components memory that persists across renders</li>
+<li>useEffect runs side effects after render, controlled by the dependency array</li>
+<li>An empty dependency array means the effect runs only once on mount</li>
+<li>Lift state to the nearest common parent when siblings need to share data</li>
 </ul>
 </div>
-
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t28.html">Previous</a>
+          <a href="t30.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>
@@ -157,9 +125,17 @@ sequenceDiagram
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({
-      startOnLoad: true,
-      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
     });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
   </script>
   
   <footer>

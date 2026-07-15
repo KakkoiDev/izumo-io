@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja" data-page="tech-lessons.html" data-lang-paths='{"en":"../","ja":"./"}'>
+<html lang="ja" data-page="tech-lessons.html" data-lang-paths='{"en":"../","ja":"./","pt":"../pt/"}'>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +21,7 @@
     <div class="nav-links" id="nav-links">
       <a href="tech-lessons.html">技術レッスン</a>
       <a href="theory-lessons.html">理論</a>
+      <a href="ai-lessons.html">AIレッスン</a>
       <a href="videos.html">動画</a>
       <a href="resources.html">リソース</a>
     </div>
@@ -29,7 +30,7 @@
       <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
     </button>
     <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
-      <option value="en">English</option><option value="ja" selected>日本語</option>
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
     </select>
     <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -39,24 +40,111 @@
 
 
     <section class="page-header">
-      <h1>技術レッスン</h1>
+      <h1 id="技術レッスン"><a class="heading-anchor" href="#技術レッスン">技術レッスン</a></h1>
       <p>HTMLからフルスタックAIアプリまでの実践レッスン。ステップバイステップで実際のプロジェクトを構築。</p>
     </section>
 
     
     <section class="phase">
-      <h2>フェーズ1: 本 (HTML/CSS)</h2>
-      <p class="phase-subtitle">構造と装飾、JavaScriptなし</p>
-      <p class="phase-analogy">本を作るように: 骨格 (HTML) とデザイン (CSS)</p>
+      <h2 id="フェーズ1-作業台-環境セットアップ"><a class="heading-anchor" href="#フェーズ1-作業台-環境セットアップ">フェーズ1: 作業台 (環境セットアップ)</a></h2>
+      <p class="phase-subtitle">最初の切削の前に道具を揃える</p>
+      <p class="phase-analogy">職人は最初の作品を始める前に作業台を整える</p>
       <div class="lesson-grid">
         
         
         
         <a href="lessons/t01.html" class="lesson-card">
           <span class="lesson-id">T01</span>
-          <h3>Hello World</h3>
-          <p>初めてのウェブページ。ファイルを作成し、ブラウザで開く。</p>
+          <h3>環境セットアップ</h3>
+          <p>VS Code、Node.js、Git、ブラウザをインストールする。ターミナルで検証する。hello.htmlを書いて実行する。</p>
         </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="フェーズ2-コマンドライン-ターミナル"><a class="heading-anchor" href="#フェーズ2-コマンドライン-ターミナル">フェーズ2: コマンドライン (ターミナル)</a></h2>
+      <p class="phase-subtitle">マシンへの直通回線 - 大量作業ではテキストがクリックに勝る</p>
+      <p class="phase-analogy">ボタンは観光客向け。コマンドは住人向け</p>
+      <div class="lesson-grid">
         
         
         
@@ -64,8 +152,8 @@
         
         <a href="lessons/t02.html" class="lesson-card">
           <span class="lesson-id">T02</span>
-          <h3>HTMLタグ</h3>
-          <p>基本要素: 見出し、段落、リスト、リンク、画像。</p>
+          <h3>ターミナルの基礎</h3>
+          <p>ナビゲート、作成、削除。マニュアルを読む。PATHとスピード技。</p>
         </a>
         
         
@@ -74,9 +162,96 @@
         
         <a href="lessons/t03.html" class="lesson-card">
           <span class="lesson-id">T03</span>
-          <h3>HTMLフォームとブロック</h3>
-          <p>インタラクティブなHTML: input, select, textarea, バリデーション, details/summary。</p>
+          <h3>パイプ & パワーツール</h3>
+          <p>stdin/stdout/stderr、パイプ、grep/find/sed/awk、チェイン、小さなシェルスクリプト。</p>
         </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="フェーズ3-本-html-css"><a class="heading-anchor" href="#フェーズ3-本-html-css">フェーズ3: 本 (HTML/CSS)</a></h2>
+      <p class="phase-subtitle">構造と装飾、JavaScriptなし</p>
+      <p class="phase-analogy">本を作るように: 骨格 (HTML) とデザイン (CSS)</p>
+      <div class="lesson-grid">
+        
+        
+        
+        
         
         
         
@@ -84,8 +259,8 @@
         
         <a href="lessons/t04.html" class="lesson-card">
           <span class="lesson-id">T04</span>
-          <h3>CSS基礎</h3>
-          <p>見た目を整える: セレクタ、色、フォント、ボックスモデル。</p>
+          <h3>Hello World</h3>
+          <p>初めてのウェブページ。ファイルを作成し、ブラウザで開く。</p>
         </a>
         
         
@@ -94,8 +269,8 @@
         
         <a href="lessons/t05.html" class="lesson-card">
           <span class="lesson-id">T05</span>
-          <h3>CSSレイアウト</h3>
-          <p>ページの構成: flexbox, grid, レスポンシブデザイン, メディアクエリ。</p>
+          <h3>HTMLタグ</h3>
+          <p>基本要素: 見出し、段落、リスト、リンク、画像。</p>
         </a>
         
         
@@ -104,6 +279,36 @@
         
         <a href="lessons/t06.html" class="lesson-card">
           <span class="lesson-id">T06</span>
+          <h3>HTMLフォームとブロック</h3>
+          <p>インタラクティブなHTML: input, select, textarea, バリデーション, details/summary。</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t07.html" class="lesson-card">
+          <span class="lesson-id">T07</span>
+          <h3>CSS基礎</h3>
+          <p>見た目を整える: セレクタ、色、フォント、ボックスモデル。</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t08.html" class="lesson-card">
+          <span class="lesson-id">T08</span>
+          <h3>CSSレイアウト</h3>
+          <p>ページの構成: flexbox, grid, レスポンシブデザイン, メディアクエリ。</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t09.html" class="lesson-card">
+          <span class="lesson-id">T09</span>
           <h3>CSSの限界に挑む</h3>
           <p>CSSだけのインタラクティブ: アニメーション, トランジション, :target, アコーディオン/タブ。</p>
         </a>
@@ -156,11 +361,25 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
       </div>
     </section>
     
     <section class="phase">
-      <h2>フェーズ2: 脳 (JavaScript)</h2>
+      <h2 id="フェーズ4-脳-javascript"><a class="heading-anchor" href="#フェーズ4-脳-javascript">フェーズ4: 脳 (JavaScript)</a></h2>
       <p class="phase-subtitle">ページに思考とインタラクションを加える</p>
       <p class="phase-analogy">本に筋肉と脳を加える</p>
       <div class="lesson-grid">
@@ -179,8 +398,14 @@
         
         
         
-        <a href="lessons/t07.html" class="lesson-card">
-          <span class="lesson-id">T07</span>
+        
+        
+        
+        
+        
+        
+        <a href="lessons/t10.html" class="lesson-card">
+          <span class="lesson-id">T10</span>
           <h3>JavaScript入門</h3>
           <p>JSの第一歩: console.log, 変数, 型, 関数。</p>
         </a>
@@ -189,8 +414,8 @@
         
         
         
-        <a href="lessons/t08.html" class="lesson-card">
-          <span class="lesson-id">T08</span>
+        <a href="lessons/t11.html" class="lesson-card">
+          <span class="lesson-id">T11</span>
           <h3>DOM操作</h3>
           <p>ページの制御: querySelector, createElement, イベント。</p>
         </a>
@@ -199,8 +424,8 @@
         
         
         
-        <a href="lessons/t09.html" class="lesson-card">
-          <span class="lesson-id">T09</span>
+        <a href="lessons/t12.html" class="lesson-card">
+          <span class="lesson-id">T12</span>
           <h3>フォームとダイアログ</h3>
           <p>ユーザー入力の処理: JSフォームバリデーション, ダイアログ要素。</p>
         </a>
@@ -209,8 +434,8 @@
         
         
         
-        <a href="lessons/t10.html" class="lesson-card">
-          <span class="lesson-id">T10</span>
+        <a href="lessons/t13.html" class="lesson-card">
+          <span class="lesson-id">T13</span>
           <h3>データ構造</h3>
           <p>情報の整理: 配列, オブジェクト, ループ, 動的リスト。</p>
         </a>
@@ -219,8 +444,8 @@
         
         
         
-        <a href="lessons/t11.html" class="lesson-card">
-          <span class="lesson-id">T11</span>
+        <a href="lessons/t14.html" class="lesson-card">
+          <span class="lesson-id">T14</span>
           <h3>データの永続化</h3>
           <p>データの記憶: localStorage, JSON parse/stringify。</p>
         </a>
@@ -229,8 +454,8 @@
         
         
         
-        <a href="lessons/t12.html" class="lesson-card">
-          <span class="lesson-id">T12</span>
+        <a href="lessons/t15.html" class="lesson-card">
+          <span class="lesson-id">T15</span>
           <h3>Fetch API</h3>
           <p>サーバーとの通信: HTTPリクエスト, async/await, Promise。</p>
         </a>
@@ -239,8 +464,8 @@
         
         
         
-        <a href="lessons/t13.html" class="lesson-card">
-          <span class="lesson-id">T13</span>
+        <a href="lessons/t16.html" class="lesson-card">
+          <span class="lesson-id">T16</span>
           <h3>動的サイト: ルーティング</h3>
           <p>1ページで複数のビュー: ハッシュルーティング, コンポーネント, 状態管理。</p>
         </a>
@@ -249,8 +474,8 @@
         
         
         
-        <a href="lessons/t14.html" class="lesson-card">
-          <span class="lesson-id">T14</span>
+        <a href="lessons/t17.html" class="lesson-card">
+          <span class="lesson-id">T17</span>
           <h3>動的サイト: オフライン</h3>
           <p>インターネットなしで動作: サービスワーカー, PWA, キャッシュ。</p>
         </a>
@@ -259,8 +484,8 @@
         
         
         
-        <a href="lessons/t15.html" class="lesson-card">
-          <span class="lesson-id">T15</span>
+        <a href="lessons/t18.html" class="lesson-card">
+          <span class="lesson-id">T18</span>
           <h3>動的サイト: 仕上げ</h3>
           <p>プロダクション品質: パフォーマンス, 遅延読み込み, エラー処理。</p>
         </a>
@@ -295,13 +520,27 @@
         
         
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
       </div>
     </section>
     
     <section class="phase">
-      <h2>フェーズ3: 厨房 (バックエンド)</h2>
-      <p class="phase-subtitle">サーバー、API、データベース</p>
-      <p class="phase-analogy">料理を準備するレストランの厨房を作る</p>
+      <h2 id="フェーズ5-タイムマシン-gitとgithub"><a class="heading-anchor" href="#フェーズ5-タイムマシン-gitとgithub">フェーズ5: タイムマシン (GitとGitHub)</a></h2>
+      <p class="phase-subtitle">全ての変更を記録し、他の開発者と衝突せずに協働する</p>
+      <p class="phase-analogy">Gitはあなたのタイムマシン。GitHubはタイムトラベラーが集まる共有工房</p>
       <div class="lesson-grid">
         
         
@@ -336,31 +575,7 @@
         
         
         
-        <a href="lessons/t16.html" class="lesson-card">
-          <span class="lesson-id">T16</span>
-          <h3>Node.jsサーバー</h3>
-          <p>厨房を作る: HTTPサーバー, ファイル配信, リクエスト処理。</p>
-        </a>
         
-        
-        
-        
-        
-        <a href="lessons/t17.html" class="lesson-card">
-          <span class="lesson-id">T17</span>
-          <h3>APIエンドポイント</h3>
-          <p>メニュー: REST設計, JSONレスポンス, ルーティング。</p>
-        </a>
-        
-        
-        
-        
-        
-        <a href="lessons/t18.html" class="lesson-card">
-          <span class="lesson-id">T18</span>
-          <h3>JSONデータベース</h3>
-          <p>レシピブック: ファイルの読み書き, JSONでCRUD。</p>
-        </a>
         
         
         
@@ -368,8 +583,8 @@
         
         <a href="lessons/t19.html" class="lesson-card">
           <span class="lesson-id">T19</span>
-          <h3>SQLite</h3>
-          <p>ファイリングキャビネット: SQL, テーブル, CRUD, スキーマ, 外部キー。</p>
+          <h3>Gitの基礎</h3>
+          <p>タイムマシン: 3つの領域、コミット、ブランチ、恐れずに取り消す。</p>
         </a>
         
         
@@ -378,9 +593,29 @@
         
         <a href="lessons/t20.html" class="lesson-card">
           <span class="lesson-id">T20</span>
-          <h3>認証</h3>
-          <p>ID確認: セッション, クッキー, パスワードハッシュ, ログイン/ログアウト。</p>
+          <h3>GitHubとコラボレーション</h3>
+          <p>共有工房: リモート、push/pull、GitHub Flow、プルリクエスト。</p>
         </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -406,9 +641,9 @@
     </section>
     
     <section class="phase">
-      <h2>フェーズ4: ロボットシェフ (AI)</h2>
-      <p class="phase-subtitle">人工知能の統合</p>
-      <p class="phase-analogy">百万冊の本を読んだロボットを厨房に雇う</p>
+      <h2 id="フェーズ6-厨房-バックエンド"><a class="heading-anchor" href="#フェーズ6-厨房-バックエンド">フェーズ6: 厨房 (バックエンド)</a></h2>
+      <p class="phase-subtitle">サーバー、API、データベース</p>
+      <p class="phase-analogy">料理を準備するレストランの厨房を作る</p>
       <div class="lesson-grid">
         
         
@@ -455,8 +690,8 @@
         
         <a href="lessons/t21.html" class="lesson-card">
           <span class="lesson-id">T21</span>
-          <h3>Ollamaとチャット</h3>
-          <p>ロボットシェフ: ローカルLLMのセットアップ, チャットAPI, チャットインターフェース。</p>
+          <h3>Node.jsサーバー</h3>
+          <p>厨房を作る: HTTPサーバー, ファイル配信, リクエスト処理。</p>
         </a>
         
         
@@ -465,9 +700,53 @@
         
         <a href="lessons/t22.html" class="lesson-card">
           <span class="lesson-id">T22</span>
-          <h3>フルスタックAIアプリ</h3>
-          <p>レストラン全体: フロントエンド, バックエンド, AI, データベースをつなぐ。</p>
+          <h3>APIエンドポイント</h3>
+          <p>メニュー: REST設計, JSONレスポンス, ルーティング。</p>
         </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t23.html" class="lesson-card">
+          <span class="lesson-id">T23</span>
+          <h3>JSONデータベース</h3>
+          <p>レシピブック: ファイルの読み書き, JSONでCRUD。</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t24.html" class="lesson-card">
+          <span class="lesson-id">T24</span>
+          <h3>SQLite</h3>
+          <p>ファイリングキャビネット: SQL, テーブル, CRUD, スキーマ, 外部キー。</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t25.html" class="lesson-card">
+          <span class="lesson-id">T25</span>
+          <h3>認証</h3>
+          <p>ID確認: セッション, クッキー, パスワードハッシュ, ログイン/ログアウト。</p>
+        </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -489,9 +768,9 @@
     </section>
     
     <section class="phase">
-      <h2>フェーズ5: フランチャイズキット (フロントエンドフレームワーク)</h2>
-      <p class="phase-subtitle">コンポーネントベースUIと型安全なJavaScript</p>
-      <p class="phase-analogy">手書きメニューからプロのPOSシステムにアップグレード</p>
+      <h2 id="フェーズ7-ロボットシェフ-ai"><a class="heading-anchor" href="#フェーズ7-ロボットシェフ-ai">フェーズ7: ロボットシェフ (AI)</a></h2>
+      <p class="phase-subtitle">人工知能の統合</p>
+      <p class="phase-analogy">百万冊の本を読んだロボットを厨房に雇う</p>
       <div class="lesson-grid">
         
         
@@ -540,31 +819,7 @@
         
         
         
-        <a href="lessons/t23.html" class="lesson-card">
-          <span class="lesson-id">T23</span>
-          <h3>React基礎</h3>
-          <p>コンポーネント思考: JSX、Props、イベントハンドリング、リスト描画。</p>
-        </a>
         
-        
-        
-        
-        
-        <a href="lessons/t24.html" class="lesson-card">
-          <span class="lesson-id">T24</span>
-          <h3>Reactの状態とエフェクト</h3>
-          <p>インタラクティブUI: useStateで記憶、useEffectで副作用。</p>
-        </a>
-        
-        
-        
-        
-        
-        <a href="lessons/t25.html" class="lesson-card">
-          <span class="lesson-id">T25</span>
-          <h3>TypeScript</h3>
-          <p>型安全性: 型注釈、インターフェース、Reactコンポーネントの型付け。</p>
-        </a>
         
         
         
@@ -572,8 +827,8 @@
         
         <a href="lessons/t26.html" class="lesson-card">
           <span class="lesson-id">T26</span>
-          <h3>Next.js: ルーティングとレンダリング</h3>
-          <p>ファイルベースルーティング、サーバーvsクライアントコンポーネント、レイアウト。</p>
+          <h3>Ollamaとチャット</h3>
+          <p>ロボットシェフ: ローカルLLMのセットアップ, チャットAPI, チャットインターフェース。</p>
         </a>
         
         
@@ -582,9 +837,29 @@
         
         <a href="lessons/t27.html" class="lesson-card">
           <span class="lesson-id">T27</span>
-          <h3>Next.js: データとAPI</h3>
-          <p>サーバーコンポーネントでのデータ取得、APIルート、完全なページの構築。</p>
+          <h3>フルスタックAIアプリ</h3>
+          <p>レストラン全体: フロントエンド, バックエンド, AI, データベースをつなぐ。</p>
         </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
         
@@ -596,9 +871,9 @@
     </section>
     
     <section class="phase">
-      <h2>フェーズ6: 本部 (バックエンドフレームワーク)</h2>
-      <p class="phase-subtitle">Nest.jsによるエンタープライズ級のバックエンドアーキテクチャ</p>
-      <p class="phase-analogy">全フランチャイズ店を管理する本部キッチンを構築する</p>
+      <h2 id="フェーズ8-フランチャイズキット-フロントエンドフレームワーク"><a class="heading-anchor" href="#フェーズ8-フランチャイズキット-フロントエンドフレームワーク">フェーズ8: フランチャイズキット (フロントエンドフレームワーク)</a></h2>
+      <p class="phase-subtitle">コンポーネントベースUIと型安全なJavaScript</p>
+      <p class="phase-analogy">手書きメニューからプロのPOSシステムにアップグレード</p>
       <div class="lesson-grid">
         
         
@@ -659,8 +934,8 @@
         
         <a href="lessons/t28.html" class="lesson-card">
           <span class="lesson-id">T28</span>
-          <h3>Nest.js: アーキテクチャ</h3>
-          <p>モジュール、コントローラー、サービス、依存性注入。</p>
+          <h3>React基礎</h3>
+          <p>コンポーネント思考: JSX、Props、イベントハンドリング、リスト描画。</p>
         </a>
         
         
@@ -669,8 +944,369 @@
         
         <a href="lessons/t29.html" class="lesson-card">
           <span class="lesson-id">T29</span>
+          <h3>Reactの状態とエフェクト</h3>
+          <p>インタラクティブUI: useStateで記憶、useEffectで副作用。</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t30.html" class="lesson-card">
+          <span class="lesson-id">T30</span>
+          <h3>TypeScript</h3>
+          <p>型安全性: 型注釈、インターフェース、Reactコンポーネントの型付け。</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t31.html" class="lesson-card">
+          <span class="lesson-id">T31</span>
+          <h3>Next.js: ルーティングとレンダリング</h3>
+          <p>ファイルベースルーティング、サーバーvsクライアントコンポーネント、レイアウト。</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t32.html" class="lesson-card">
+          <span class="lesson-id">T32</span>
+          <h3>Next.js: データとAPI</h3>
+          <p>サーバーコンポーネントでのデータ取得、APIルート、完全なページの構築。</p>
+        </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="フェーズ9-本部-バックエンドフレームワーク"><a class="heading-anchor" href="#フェーズ9-本部-バックエンドフレームワーク">フェーズ9: 本部 (バックエンドフレームワーク)</a></h2>
+      <p class="phase-subtitle">Nest.jsによるエンタープライズ級のバックエンドアーキテクチャ</p>
+      <p class="phase-analogy">全フランチャイズ店を管理する本部キッチンを構築する</p>
+      <div class="lesson-grid">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="lessons/t33.html" class="lesson-card">
+          <span class="lesson-id">T33</span>
+          <h3>Nest.js: アーキテクチャ</h3>
+          <p>モジュール、コントローラ、サービス、依存性注入。</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t34.html" class="lesson-card">
+          <span class="lesson-id">T34</span>
           <h3>Nest.js: データと認証</h3>
           <p>DTO、バリデーション、データベース連携、認証ガード。</p>
+        </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="フェーズ10-レゴキット-web-components"><a class="heading-anchor" href="#フェーズ10-レゴキット-web-components">フェーズ10: レゴキット (Web Components)</a></h2>
+      <p class="phase-subtitle">自分のHTMLタグを発明する - どのフレームワークでも動くプラットフォームネイティブなコンポーネント</p>
+      <p class="phase-analogy">ブラウザに組み込まれたレゴブロック。フレームワーク不要で組み合わせる</p>
+      <div class="lesson-grid">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="lessons/t35.html" class="lesson-card">
+          <span class="lesson-id">T35</span>
+          <h3>Web Components I</h3>
+          <p>自分のタグを発明する: Custom Elements、Shadow DOM、:host と ::part。</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t36.html" class="lesson-card">
+          <span class="lesson-id">T36</span>
+          <h3>Web Components II</h3>
+          <p>テンプレート、スロット、ライフサイクル、シュガーレイヤーとしてのLit。</p>
+        </a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="フェーズ11-設計図-システム設計"><a class="heading-anchor" href="#フェーズ11-設計図-システム設計">フェーズ11: 設計図 (システム設計)</a></h2>
+      <p class="phase-subtitle">大規模システムの設計: スケール、ストレージ、キャッシング、トレードオフ</p>
+      <p class="phase-analogy">建築家はコンクリートを流す前に設計図を描く</p>
+      <div class="lesson-grid">
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <a href="lessons/t37.html" class="lesson-card">
+          <span class="lesson-id">T37</span>
+          <h3>システム設計: フレームワーク</h3>
+          <p>要件、エンティティ、API、高レベル設計、ディープダイブ、トレードオフ。</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t38.html" class="lesson-card">
+          <span class="lesson-id">T38</span>
+          <h3>システム設計: スケールとストレージ</h3>
+          <p>垂直 vs 水平、SQL vs NoSQL、レプリケーション、シャーディング、CAP定理。</p>
+        </a>
+        
+        
+        
+        
+        
+        <a href="lessons/t39.html" class="lesson-card">
+          <span class="lesson-id">T39</span>
+          <h3>システム設計: キャッシュ、キュー、パターン</h3>
+          <p>キャッシュアサイド、キュー、ロードバランサ、CDN、モノリス対マイクロサービス、押さえておくべき数字。</p>
         </a>
         
         

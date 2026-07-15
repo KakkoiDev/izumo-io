@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja" data-page="r17.html" data-lang-paths='{"en":"../../lessons/","ja":"./"}'>
+<html lang="ja" data-page="r17.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +21,7 @@
     <div class="nav-links" id="nav-links">
       <a href="../tech-lessons.html">技術レッスン</a>
       <a href="../theory-lessons.html">理論</a>
+      <a href="../ai-lessons.html">AIレッスン</a>
       <a href="../videos.html">動画</a>
       <a href="../resources.html">リソース</a>
     </div>
@@ -29,7 +30,7 @@
       <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
     </button>
     <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
-      <option value="en">English</option><option value="ja" selected>日本語</option>
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
     </select>
     <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -43,22 +44,14 @@
         <a href="../theory-lessons.html">理論レッスンに戻る</a>
         <div class="lesson-pager">
           <a href="r16.html">前へ</a>
-          
+          <a href="r18.html">次へ</a>
         </div>
       </nav>
-      
-<h1>R17: 英語の重要性</h1>
-<p class="lesson-intro">英語はテクノロジー世界の共通語です。完璧に話す必要はありませんが、実用的なレベルで使いこなせることは、開発者として身につけられる最もレバレッジの高いスキルの一つです。ドキュメント、チュートリアル、フォーラム、求人、オープンソースプロジェクトのほとんどが英語で書かれています。</p>
-
-<h2>なぜ英語がテックで重要か</h2>
-<p>プログラミング言語自体が英語で書かれています: function, return, class, import, export。エラーメッセージは英語です。Stack Overflowの回答は英語です。React、Node.js、Pythonなどほぼ全ての主要技術の公式ドキュメントは最初に英語で書かれます。読めなければ、誰かが翻訳してくれるのを常に待つことになります。</p>
-
-<h2>リソースへのアクセス</h2>
-<p>学習教材の大部分は英語です。チュートリアル、ブログ記事、カンファレンストーク、ポッドキャスト、書籍。新しいフレームワークがリリースされると、ドキュメントはまず英語で出ます。翻訳は数週間から数ヶ月後、あるいは全く出ないこともあります。英語力があれば、遅延したコピーではなくソースから直接学べます。</p>
-
-<h2>コミュニケーションとキャリア</h2>
-<p>国際チームは英語でコミュニケーションします。リモートの仕事では英語が求められることが多いです。コードレビュー、プルリクエスト、コミットメッセージ、技術仕様書 - ほとんどの企業で英語で書かれます。技術的なアイデアを英語で明確に表現できることは、技術力だけでは開けないドアを開きます。</p>
-
+      <h1 id="r17-英語の重要性"><a class="heading-anchor" href="#r17-英語の重要性">R17: 英語の重要性</a></h1>
+<p class="lesson-intro">英語はテクノロジー世界の共通語です。完璧である必要はありませんが、実用的な習熟は開発者として身につけられる最も効果の高いスキルの一つです。ドキュメント、チュートリアル、フォーラム、求人、オープンソースはどれもデフォルトで英語です。</p>
+<h2 id="なぜ重要か"><a class="heading-anchor" href="#なぜ重要か">なぜ重要か</a></h2>
+<p>プログラミング言語自体が英語です: <code>function</code>、<code>return</code>、<code>class</code>、<code>import</code>。エラーメッセージも英語。React、Node.js、Python、そしてほぼあらゆる主要ツールの公式ドキュメントは、まず英語で書かれます。翻訳は数週間から数ヶ月遅れ、そもそも出ないこともある。英語なしでは、常に誰かが翻訳するのを待つ側です。</p>
+<p>国際チームは英語でコミュニケーションします。リモート職はしばしば英語必須。コードレビュー、PR説明、コミットメッセージ、仕様 - ほとんどの企業で英語。技術的アイデアを英語で明確に表現できることは、技術スキルだけでは開かない扉を開きます。</p>
 <div class="mermaid">
 flowchart TD
     A[English Proficiency] --> B[Read docs directly]
@@ -68,27 +61,32 @@ flowchart TD
     F[Limited English] --> G[Wait for translations]
     F --> H[Local job market only]
     F --> I[Miss early knowledge]
-</div>
 
-<h2>英語力を伸ばす方法</h2>
+</div>
+<h2 id="上達の方法"><a class="heading-anchor" href="#上達の方法">上達の方法</a></h2>
 <ul>
-<li>翻訳版ではなく英語のドキュメントを読む</li>
-<li>テックトークやチュートリアルを英語で視聴する(字幕OK)</li>
+<li>翻訳版ではなく英語でドキュメントを読む</li>
+<li>英語の技術トークを見る(字幕OK)</li>
 <li>コミットメッセージ、コメント、READMEを英語で書く</li>
-<li>英語のコミュニティに参加する(GitHub、Discord、フォーラム)</li>
-<li>完璧を目指さない。明確なコミュニケーションを目指す</li>
+<li>英語圏コミュニティに参加する(GitHub、Discord、フォーラム)</li>
+<li>完璧ではなく明確なコミュニケーションを目指す</li>
 </ul>
-
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
-<li>英語はIT業界の共通語。流暢さは不要だが、実務レベルの習熟は必要</li>
-<li>ドキュメント、チュートリアル、リソースの大半は英語で最初に公開される</li>
-<li>英語力は就職市場をローカルからグローバルに広げる</li>
-<li>毎日の練習: ドキュメントを読み、コミットを書き、英語コミュニティに参加する</li>
+<li>英語はテクノロジー業界の共通語。完璧な流暢さより実用的な習熟</li>
+<li>ほとんどのドキュメントとチュートリアルはまず英語で公開される。翻訳は遅れるか出ない</li>
+<li>英語の習熟度が、求人市場をローカルからグローバルに広げる</li>
+<li>毎日実践する: 英語でドキュメントを読み、コミットを書き、コミュニティに参加する</li>
 </ul>
 </div>
-
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../theory-lessons.html">理論レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="r16.html">前へ</a>
+          <a href="r18.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>
@@ -96,9 +94,17 @@ flowchart TD
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({
-      startOnLoad: true,
-      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
     });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
   </script>
   
   <footer>

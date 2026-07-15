@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ja" data-page="a08.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>集大成: あなたのAIツールキット - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../ai-lessons.html">AIレッスン</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">AIレッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="a07.html">前へ</a>
+          
+        </div>
+      </nav>
+      <h1 id="a08-集大成-あなたのaiツールキット"><a class="heading-anchor" href="#a08-集大成-あなたのaiツールキット">A08: 集大成: あなたのAIツールキット</a></h1>
+<p class="lesson-intro">アシスタントのインストール、うまく聞くこと、コンテキストを与えること、メモリを持たせること、スキルを保存すること、スクリプトを書くこと、すべて一つのルールの下で学びました: 大いに使い、決して信頼しない。集大成はアプリではありません。あなた自身の調整されたツールキットと、それを安全に使う判断力の証明です。シェフのナイフロールを思い浮かべて: 一番豪華な厨房ではなく、自分の道具を、自分の働き方に合わせて研いだもの。</p>
+<h2 id="作るもの"><a class="heading-anchor" href="#作るもの">作るもの</a></h2>
+<p>4つのパーツ、それぞれすでにやったレッスンから:</p>
+<ul>
+<li><strong><code>AGENTS.md</code></strong> に常設ルール(A05)。AIがデフォルトで<em>あなたの</em>望む答え方をするようにする。</li>
+<li><strong>本当に使うスキル</strong>を1つ(A06)。デモではなく、本当に時間を節約するもの。</li>
+<li><strong>AIに手伝ってもらって書いたスクリプト</strong>を1つ(A07)、役に立ち、あなたが読んで理解したもの。手で実行でOK。</li>
+<li><strong>書いた振り返り</strong>(A01): AIが<em>自信満々に間違えた</em>本物の一回、何を主張し、どう見抜いたか。これが最も重要なパーツ。</li>
+</ul>
+<div class="mermaid">
+flowchart TD
+    T[あなたのAIツールキット] --> M[AGENTS.md: あなたのルール]
+    T --> C[自分で書いたスキル]
+    T --> S[あなたが読んで信頼するスクリプト]
+    T --> R[振り返り: 見抜いた間違った答え]
+
+</div>
+<h2 id="発表のしかた"><a class="heading-anchor" href="#発表のしかた">発表のしかた</a></h2>
+<p>ツールキットを見せ、各パーツを説明する: 何をするか、なぜ作ったか、どう使うか。それから見抜いた間違いの話をする、その話が肝心です。誰でもツールは動かせる。あなたは、動かせる<em>と同時に</em>主導権を握れることを証明しています。</p>
+<h2 id="次にどこへ"><a class="heading-anchor" href="#次にどこへ">次にどこへ</a></h2>
+<p>これで基礎ができました。自分での自然な次の一歩:</p>
+<ul>
+<li>繰り返すプロンプトに気づいたら、スキルライブラリを増やす。</li>
+<li>スクリプトが楽になるよう、ターミナルをもう少し学ぶ。</li>
+<li>AI提供元のデータとプライバシー規約を、一度きちんと読む。</li>
+<li>数ヶ月後に<a href="r20.html">R20: AIを決して信頼するな</a>を読み返す。これらのツールに実際に時間を使うと、違って読めます。</li>
+</ul>
+<h2 id="今週の演習-集大成"><a class="heading-anchor" href="#今週の演習-集大成">今週の演習(集大成)</a></h2>
+<ol>
+<li><code>AGENTS.md</code>、スキル1つ、スクリプト1つを仕上げる。それぞれ動くことを確認する。</li>
+<li>振り返りを書く: 間違ったAIの答えと、どう見抜いたか。正直に数文。</li>
+<li>ツールキットをグループに発表する。答えられるように: 「これを誰かがどう悪用しうるか、どう防ぐか?」</li>
+</ol>
+<div class="takeaways">
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
+<ul>
+<li>成果物は個人のツールキット: AGENTS.md、スキル、理解しているスクリプト</li>
+<li>最も重要なパーツは、AIの間違いを見抜けるという証明</li>
+<li>大いに使い、決して信頼しない、その心構えが持ち帰る本当のスキル</li>
+<li>作り続ける: スキルを増やし、ターミナルをもっと学び、プライバシー規約を読む</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">AIレッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="a07.html">前へ</a>
+          
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-page="t16.html" data-lang-paths='{"en":"./","ja":"../../ja/lessons/"}'>
+<html lang="en" data-page="t16.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Node.js Server - KakkoiSchool</title>
+  <title>Dynamic Site: Routing - KakkoiSchool</title>
   <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../static/style.css">
 </head>
@@ -21,6 +21,7 @@
     <div class="nav-links" id="nav-links">
       <a href="../tech-lessons.html">Tech Lessons</a>
       <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Lessons</a>
       <a href="../videos.html">Videos</a>
       <a href="../resources.html">Resources</a>
     </div>
@@ -29,7 +30,7 @@
       <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
     </button>
     <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
-      <option value="en" selected>English</option><option value="ja">日本語</option>
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
     </select>
     <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -46,59 +47,62 @@
           <a href="t17.html">Next</a>
         </div>
       </nav>
-      
-<h1>T16: Node.js Server</h1>
-<p class="lesson-intro">Until now, you have been opening HTML files directly in the browser. A web server is a program that listens for requests and sends back responses. Node.js lets you write that server in JavaScript - the same language you already know from the browser. It is like hiring a receptionist who speaks the same language as your entire team.</p>
+      <h1 id="t16-dynamic-site-routing"><a class="heading-anchor" href="#t16-dynamic-site-routing">T16: Dynamic Site - Routing</a></h1>
+<p class="lesson-intro">In a traditional website, each page is a separate HTML file. A Single Page Application (SPA) loads once and swaps content dynamically. Hash routing uses the URL fragment (the part after #) to determine which view to show - like chapters in a book that you flip to without getting a new book.</p>
+<h2 id="hash-based-routing"><a class="heading-anchor" href="#hash-based-routing">Hash-Based Routing</a></h2>
+<p>The hash portion of the URL (after #) does not trigger a page reload. We can listen for hash changes and render different content.</p>
+<pre><code>const routes = {
+    &quot;#/&quot;: renderHome,
+    &quot;#/about&quot;: renderAbout,
+    &quot;#/contact&quot;: renderContact
+};
 
-<h2>Creating an HTTP Server</h2>
-<pre><code>const http = require("http");
-const fs = require("fs");
-const path = require("path");
+function router() {
+    const hash = window.location.hash || &quot;#/&quot;;
+    const renderFn = routes[hash] || renderNotFound;
+    renderFn();
+}
 
-const server = http.createServer((req, res) =&gt; {
-    const filePath = path.join(__dirname, "public", req.url === "/" ? "index.html" : req.url);
-    const ext = path.extname(filePath);
-    const contentTypes = {
-        ".html": "text/html",
-        ".css": "text/css",
-        ".js": "text/javascript"
-    };
-
-    fs.readFile(filePath, (err, content) =&gt; {
-        if (err) {
-            res.writeHead(404);
-            res.end("Not Found");
-            return;
-        }
-        res.writeHead(200, { "Content-Type": contentTypes[ext] || "text/plain" });
-        res.end(content);
-    });
-});
-
-server.listen(3000, () =&gt; console.log("Server on http://localhost:3000"));</code></pre>
-
-<h2>Serving Static Files</h2>
-<p>The server reads files from the "public" folder and sends them to the browser with the correct content type header.</p>
-
+window.addEventListener(&quot;hashchange&quot;, router);
+window.addEventListener(&quot;load&quot;, router);
+</code></pre>
+<h2 id="dynamic-content-rendering"><a class="heading-anchor" href="#dynamic-content-rendering">Dynamic Content Rendering</a></h2>
+<pre><code>function renderHome() {
+    document.querySelector(&quot;#app&quot;).innerHTML = `
+        &lt;h1&gt;Home&lt;/h1&gt;
+        &lt;p&gt;Welcome to the site.&lt;/p&gt;
+        &lt;a href=&quot;#/about&quot;&gt;About Us&lt;/a&gt;
+    `;
+}
+</code></pre>
 <div class="mermaid">
-flowchart LR
-    A[Browser] -->|HTTP Request| B[Node.js Server]
-    B -->|Read file| C[File System]
-    C -->|File contents| B
-    B -->|HTTP Response| A
-    B -->|404| D[Not Found]
-</div>
+flowchart TD
+    A[User clicks link] --> B[URL hash changes]
+    B --> C[hashchange event fires]
+    C --> D{Match route?}
+    D -->|Yes| E[Render matched view]
+    D -->|No| F[Render 404 page]
+    E --> G[Update #app content]
+    F --> G
+    G --> H[Page stays loaded]
 
+</div>
 <div class="takeaways">
-<h2>Key Takeaways</h2>
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Node.js runs JavaScript outside the browser on your server</li>
-<li>http.createServer creates a server that handles requests and responses</li>
-<li>Content-Type headers tell the browser how to interpret the response</li>
-<li>Static file serving maps URL paths to files on disk</li>
+<li>SPAs load one HTML file and swap content dynamically via JavaScript</li>
+<li>Hash routing uses the URL fragment to determine which view to display</li>
+<li>The hashchange event fires whenever the URL hash changes</li>
+<li>A route map object connects hash patterns to render functions</li>
 </ul>
 </div>
-
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t15.html">Previous</a>
+          <a href="t17.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>
@@ -106,9 +110,17 @@ flowchart LR
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({
-      startOnLoad: true,
-      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
     });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
   </script>
   
   <footer>

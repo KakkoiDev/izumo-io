@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja" data-page="theory-lessons.html" data-lang-paths='{"en":"../","ja":"./"}'>
+<html lang="ja" data-page="theory-lessons.html" data-lang-paths='{"en":"../","ja":"./","pt":"../pt/"}'>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +21,7 @@
     <div class="nav-links" id="nav-links">
       <a href="tech-lessons.html">技術レッスン</a>
       <a href="theory-lessons.html">理論</a>
+      <a href="ai-lessons.html">AIレッスン</a>
       <a href="videos.html">動画</a>
       <a href="resources.html">リソース</a>
     </div>
@@ -29,7 +30,7 @@
       <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
     </button>
     <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
-      <option value="en">English</option><option value="ja" selected>日本語</option>
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
     </select>
     <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -39,7 +40,7 @@
 
 
     <section class="page-header">
-      <h1>理論とライフレッスン</h1>
+      <h1 id="理論とライフレッスン"><a class="heading-anchor" href="#理論とライフレッスン">理論とライフレッスン</a></h1>
       <p>優れたソフトウェアと優れた開発者の背後にある考え方。</p>
     </section>
 
@@ -66,9 +67,9 @@
       <a href="lessons/r03.html" class="theory-card">
         <span class="lesson-id">R03</span>
         <h3>問題解決</h3>
-        <p>作る前に理解する。ソフトウェア開発の大半は考えること。</p>
+        <p>作る前に理解せよ。ソフトウェアの仕事のほとんどはタイピングではなく思考である。</p>
         
-        <p class="theory-analogy">医者: 処方する前に診断する</p>
+        <p class="theory-analogy">医者: 処方の前に診断する</p>
         
       </a>
       
@@ -128,10 +129,10 @@
       
       <a href="lessons/r10.html" class="theory-card">
         <span class="lesson-id">R10</span>
-        <h3>KakkoiSchoolケーススタディ</h3>
-        <p>私たちのコースを分析。何を決定し、何がうまくいき、何がうまくいかなかったか。</p>
+        <h3>KakkoiSchool ケーススタディ</h3>
+        <p>このサイトの作り方: Markdownレッスン、HTMLとMarkdownを同時に出力する小さなPythonビルド、翻訳用のGitHub Actions、school.kakkoi.devで配信するGitHub Pages。</p>
         
-        <p class="theory-analogy">自分たちの旅から学ぶ</p>
+        <p class="theory-analogy">毎日使っているものを研究する</p>
         
       </a>
       
@@ -147,9 +148,9 @@
       <a href="lessons/r12.html" class="theory-card">
         <span class="lesson-id">R12</span>
         <h3>ワークライフバランス</h3>
-        <p>キャリアはマラソン。持続可能なペースが慢性的な過重労働に勝つ。</p>
+        <p>キャリアはマラソン。持続可能なペースが慢性的な過労に勝る。</p>
         
-        <p class="theory-analogy">マラソンを全力疾走はできない</p>
+        <p class="theory-analogy">マラソンで全力疾走はできない</p>
         
       </a>
       
@@ -192,9 +193,45 @@
       <a href="lessons/r17.html" class="theory-card">
         <span class="lesson-id">R17</span>
         <h3>英語の重要性</h3>
-        <p>英語は技術世界の共通語。英語を身につけることでリソース、コミュニケーション、キャリアの機会が広がる。</p>
+        <p>英語はテクノロジーの共通語。実用レベルでリソース、コミュニケーション、キャリアの機会が開く。</p>
         
-        <p class="theory-analogy">グローバルキッチンの共通言語</p>
+        <p class="theory-analogy">グローバル厨房の共通語</p>
+        
+      </a>
+      
+      <a href="lessons/r18.html" class="theory-card">
+        <span class="lesson-id">R18</span>
+        <h3>ドキュメントはあなたの親友</h3>
+        <p>すべてを知っている必要はない。仕事は問題を解くこと。ドキュメント、Google、AIを恥ずかしがらずに使え。プライドは足を引っ張る。</p>
+        
+        <p class="theory-analogy">外科医でさえ手術前にリファレンスを確認する</p>
+        
+      </a>
+      
+      <a href="lessons/r19.html" class="theory-card">
+        <span class="lesson-id">R19</span>
+        <h3>ビジネスはお金で動く</h3>
+        <p>ビジネスはお金で生き延びる。ミッションステートメントは顔であってエンジンではない。チケットの裏にあるWhyを理解し、ビジネスに資するコードを出荷せよ。</p>
+        
+        <p class="theory-analogy">お金がなければミッションもない</p>
+        
+      </a>
+      
+      <a href="lessons/r20.html" class="theory-card">
+        <span class="lesson-id">R20</span>
+        <h3>AIを決して信頼するな</h3>
+        <p>最先端AIは統制テストで自己保存のため脅迫し、人を死なせる選択をする。大いに使え、決して信じるな。危険操作には人間をキルスイッチに置け。</p>
+        
+        <p class="theory-analogy">ノコギリは木を切るか手を切るかを気にしない</p>
+        
+      </a>
+      
+      <a href="lessons/r21.html" class="theory-card">
+        <span class="lesson-id">R21</span>
+        <h3>技術的エントロピー</h3>
+        <p>コードは腐る。依存関係は壊れる。DBはデータを失う。自分のスタックも忘れる。唯一の防御はシンプルさ。小さなビルドシステムを伴うMarkdownファイルは10年後も動く。2年前のReactアプリは、しばしば動かない。</p>
+        
+        <p class="theory-analogy">庭は草取りをやめた瞬間から自分を食い始める</p>
         
       </a>
       

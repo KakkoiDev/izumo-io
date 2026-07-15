@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en" data-page="a05.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Memories with AGENTS.md - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Lessons</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">Back to AI Lessons</a>
+        <div class="lesson-pager">
+          <a href="a04.html">Previous</a>
+          <a href="a06.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="a05-memories-with-agents-md"><a class="heading-anchor" href="#a05-memories-with-agents-md">A05: Memories with AGENTS.md</a></h1>
+<p class="lesson-intro">By now you are probably retyping the same things every conversation: "I'm a beginner," "answer concisely," "I use a Mac." That is wasted effort. A memory file tells the assistant those things once, and it reads them automatically every time you work in that folder.</p>
+<h2 id="agents-md-your-standing-instructions"><a class="heading-anchor" href="#agents-md-your-standing-instructions">AGENTS.md: Your Standing Instructions</a></h2>
+<p><code>AGENTS.md</code> is an ordinary text file you put in the folder you work in. Antigravity CLI reads it when you run <code>agy</code> there and treats it as instructions. Whatever you write shapes every answer, without you repeating it.</p>
+<p>Keep it short and personal: who you are, how you want answers, stable facts about your setup.</p>
+<pre><code># About me
+I'm learning to code. Explain simply and assume no jargon.
+Always give one concrete example.
+Keep answers short.
+I'm on a Mac.
+</code></pre>
+<div class="mermaid">
+flowchart TD
+    A[Without memory] --> B[Re-explain yourself every session]
+    C[With AGENTS.md] --> D[Read automatically, applied every answer]
+
+</div>
+<h2 id="check-what-it-loaded"><a class="heading-anchor" href="#check-what-it-loaded">Check What It Loaded</a></h2>
+<p>Run <code>agy inspect</code> to see exactly which instruction files <code>agy</code> picked up, including your <code>AGENTS.md</code>. Use it to confirm your file is being read. Edits take effect on your next message, so there is nothing to restart, just save and keep going.</p>
+<h2 id="what-belongs-there-and-what-doesn-t"><a class="heading-anchor" href="#what-belongs-there-and-what-doesn-t">What Belongs There (and What Doesn't)</a></h2>
+<p>Good: your level and preferences, how you like answers formatted, stable facts about your setup, project conventions.</p>
+<p>Not there: <strong>secrets</strong>. An <code>AGENTS.md</code> is a plain file that gets sent to the AI, so the A01 rule still holds, no passwords, no personal data, no unapproved work details.</p>
+<p>Think of it as the onboarding note you hand a contractor so you never have to re-explain the basics each morning.</p>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<ol>
+<li>In the folder where you run <code>agy</code>, create an <code>AGENTS.md</code> (<code>touch AGENTS.md</code>, or just open it in your editor) with three or four rules for how you want the AI to answer you (level, length, "always show an example," language).</li>
+<li>Start <code>agy</code> and run <code>agy inspect</code>. Confirm your rules are loaded.</li>
+<li>Ask a question and check whether the answer actually follows your rules. If not, sharpen the wording, save, and try again.</li>
+<li>Bring your <code>AGENTS.md</code> and one before/after answer to class.</li>
+</ol>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>AGENTS.md is read automatically every session, so you stop repeating yourself</li>
+<li>Put it in the folder you work in; agy reads it when you start there</li>
+<li>agy inspect confirms what is loaded; edits take effect on your next message</li>
+<li>Put preferences and project rules there, never secrets</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">Back to AI Lessons</a>
+        <div class="lesson-pager">
+          <a href="a04.html">Previous</a>
+          <a href="a06.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

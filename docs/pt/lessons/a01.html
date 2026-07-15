@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt" data-page="a01.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Riscos da IA + Configure seu Ambiente - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
+        <div class="lesson-pager">
+          
+          <a href="a02.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="a01-riscos-da-ia-configure-seu-ambiente"><a class="heading-anchor" href="#a01-riscos-da-ia-configure-seu-ambiente">A01: Riscos da IA + Configure seu Ambiente</a></h1>
+<p class="lesson-intro">Um assistente de programação com IA é a ferramenta mais útil que você vai adicionar este ano, e a mais mal compreendida. Duas coisas hoje: entender os riscos que importam e depois configurar seu computador para começar a usá-lo na próxima aula. Mantenha os riscos em mente durante todo o curso.</p>
+<h2 id="conhe-a-os-riscos"><a class="heading-anchor" href="#conhe-a-os-riscos">Conheça os Riscos</a></h2>
+<p>Uma IA fala como uma pessoa, então seu cérebro confia nela como numa pessoa. Não confie. Três regras:</p>
+<ul>
+<li><strong>Ela não é sua amiga.</strong> É treinada para te agradar <em>e</em> não se importa de verdade com você. Use, nunca confie.</li>
+<li><strong>Verifique a saída.</strong> Confiante e correto são coisas diferentes. Cheque qualquer coisa que importe, e nunca decida algo importante só com base na palavra da IA.</li>
+<li><strong>Nunca dê segredos a ela.</strong> Nenhum dado pessoal, médico ou de trabalho (a menos que seu empregador tenha aprovado a ferramenta). Se a ferramenta é gratuita, geralmente você é o produto.</li>
+</ul>
+<div class="mermaid">
+flowchart LR
+    A[Resposta da IA] --> B{Parece confiante?}
+    B -->|Sempre| C[Confiante não é correto]
+    C --> D[Verifique antes de confiar]
+
+</div>
+<details>
+<summary><strong>Vá mais fundo: como a IA falha e como checar</strong></summary>
+<p><strong>Duas formas de falhar, opostas em natureza:</strong></p>
+<ul>
+<li><strong>Ela te bajula.</strong> Treinada para dar respostas que as pessoas avaliam bem, tende a dizer o que você quer ouvir e a concordar com ideias ruins. Então nunca pergunte <em>"isto está bom?"</em> (ela vai dizer sim), pergunte <em>"quais são três problemas com isto?"</em></li>
+<li><strong>Ela não se importa com você.</strong> Dado um objetivo, ela o persegue. Em testes controlados, IAs de ponta chantagearam e deixaram pessoas morrerem para continuar operando, sem malícia, só otimização sem freio. As evidências e a citação estão em <a href="r20.html">Nunca Confie numa IA (R20)</a>.</li>
+</ul>
+<p><strong>Como realmente verificar uma resposta:</strong></p>
+<ul>
+<li>Pergunte a mesma coisa de outro jeito. Se a resposta muda, era chute.</li>
+<li>Cheque uma fonte primária (documentação oficial, o arquivo real), não uma segunda resposta de IA.</li>
+<li>Para código ou comandos, rode num lugar seguro e veja o que acontece.</li>
+<li>Exija uma citação, depois confira se a citação existe, modelos inventam fontes.</li>
+</ul>
+<p>Os erros perigosos são sutis e aparecem justamente nas áreas que você conhece menos, exatamente onde você mais se sente tentado a confiar.</p>
+<p><strong>O que nunca colar:</strong> nomes completos, endereços, números de documento; dados médicos ou financeiros; código da empresa, dados de clientes ou documentos internos (a menos que seu empregador tenha aprovado esta ferramenta). O que você digita pode treinar modelos futuros. Leia os termos de dados do provedor e desligue o treinamento com suas entradas, se a opção existir.</p>
+<p>Apoiar-se em IA, documentação e busca é o trabalho, não trapaça (<a href="r18.html">R18</a>). A habilidade é usar <em>e</em> checar.</p>
+</details>
+<h2 id="configura-o-discord-um-terminal-funcionando"><a class="heading-anchor" href="#configura-o-discord-um-terminal-funcionando">Configuração: Discord + um Terminal Funcionando</a></h2>
+<p>Meta prática de hoje: todo mundo sai com um terminal onde consegue digitar. <strong>Entre no Discord primeiro</strong>, problemas de configuração se resolvem mais rápido lá com um print.</p>
+<p>Mac e Linux têm um terminal Unix embutido. Windows não, então usuários de Windows instalam o <strong>WSL</strong> (um terminal Linux de verdade dentro do Windows) para que a turma toda compartilhe um ambiente idêntico.</p>
+<h3 id="mac-linux"><a class="heading-anchor" href="#mac-linux">Mac / Linux</a></h3>
+<p>Abra o app Terminal (Mac: pressione Cmd+Espaço, digite "Terminal", Enter). Nada para instalar. Pule para o exercício.</p>
+<h3 id="windows-instale-o-wsl"><a class="heading-anchor" href="#windows-instale-o-wsl">Windows: instale o WSL</a></h3>
+<ol>
+<li>Clique em Iniciar, digite <code>PowerShell</code>, clique com o botão direito em <strong>Windows PowerShell</strong> e escolha <strong>Executar como administrador</strong>. Clique em Sim no popup.</li>
+<li>Nessa janela digite <code>wsl --install</code> e pressione Enter. Ele baixa o Ubuntu (Linux). Deixe terminar.</li>
+<li><strong>Reinicie o computador.</strong> Obrigatório, não opcional, nada funciona direito até você reiniciar.</li>
+<li>Após reiniciar, uma janela do <strong>Ubuntu</strong> abre sozinha e pede para criar um nome de usuário e uma senha. (A senha fica invisível enquanto você digita, isso é normal, digite e pressione Enter.)</li>
+<li>Daqui em diante, abra o <strong>Ubuntu</strong> pelo menu Iniciar, não o PowerShell. Essa janela é seu terminal para o curso.</li>
+</ol>
+<h2 id="solu-o-de-problemas-windows-wsl"><a class="heading-anchor" href="#solu-o-de-problemas-windows-wsl">Solução de Problemas (Windows / WSL)</a></h2>
+<details>
+<summary>Abra se sua configuração não foi tranquila</summary>
+<ul>
+<li><strong>Abriu uma janela "Ativar ou desativar recursos do Windows" / Painel de Controle.</strong> Esse é o jeito antigo e manual, feche. O único comando <code>wsl --install</code> faz tudo. Você não marca nenhuma caixa.</li>
+<li><strong>Digitei <code>wsl --install</code> e nada parece acontecer.</strong> Você precisa <strong>reiniciar o computador</strong> depois que terminar. Depois procure a janela do Ubuntu.</li>
+<li><strong>Está pedindo uma senha mas o que digito não aparece.</strong> É de propósito, senhas ficam ocultas no terminal. Digite e pressione Enter.</li>
+<li><strong>Abri o Terminal/PowerShell e não é Linux.</strong> Abra o app <strong>Ubuntu</strong> pelo menu Iniciar (ou clique na setinha do Windows Terminal e escolha Ubuntu).</li>
+<li><strong><code>wsl --install</code> diz acesso negado ou precisa de administrador.</strong> Sua máquina está bloqueada (comum em notebooks de trabalho/escola, que bloqueiam os direitos de administrador e a virtualização que o WSL precisa). Use um computador pessoal ou pergunte no Discord sobre uma opção na nuvem.</li>
+<li><strong>Como sei que funcionou?</strong> Na janela do Ubuntu digite <code>whoami</code> e pressione Enter. Se aparecer seu nome de usuário, terminou.</li>
+</ul>
+</details>
+<h2 id="exerc-cio-da-semana"><a class="heading-anchor" href="#exerc-cio-da-semana">Exercício da Semana</a></h2>
+<ol>
+<li>Leia <a href="r20.html">R20: Nunca Confie numa IA</a> e escreva suas próprias três regras de IA, uma frase cada.</li>
+<li>Entre no Discord e diga oi.</li>
+<li>Deixe um terminal funcionando, depois digite <code>whoami</code> e pressione Enter. Deve aparecer seu nome de usuário.</li>
+<li>Traga um exemplo de uma IA errando com confiança para a próxima aula.</li>
+</ol>
+<div class="takeaways">
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
+<ul>
+<li>IA é uma ferramenta poderosa, não uma amiga: ela te bajula e não se importa com você</li>
+<li>Confiante não é correto, verifique qualquer coisa que importe, e nunca cole dados pessoais, médicos ou de trabalho não aprovados</li>
+<li>Windows usa WSL para um ambiente compartilhado; precisa de direitos de administrador e um reinício</li>
+<li>Você está configurado quando whoami mostra seu nome de usuário no terminal</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
+        <div class="lesson-pager">
+          
+          <a href="a02.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

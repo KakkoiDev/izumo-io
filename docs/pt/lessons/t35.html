@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="pt" data-page="t35.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Web Components I - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t34.html">Anterior</a>
+          <a href="t36.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="t35-web-components-i-custom-elements-amp-shadow-dom"><a class="heading-anchor" href="#t35-web-components-i-custom-elements-amp-shadow-dom">T35: Web Components I - Custom Elements &amp; Shadow DOM</a></h1>
+<p class="lesson-intro">E se você pudesse inventar sua própria tag HTML? <code>&lt;user-card&gt;</code>, <code>&lt;rating-stars&gt;</code>, <code>&lt;search-box&gt;</code>. Web Components deixam você fazer isso sem framework e sem passo de build. Dois ingredientes: Custom Elements definem a tag, Shadow DOM sela o interior para nada vazar nem entrar.</p>
+<h2 id="custom-elements"><a class="heading-anchor" href="#custom-elements">Custom Elements</a></h2>
+<p>Um custom element é uma classe que estende <code>HTMLElement</code>, registrada no navegador com um nome de tag. O nome da tag <em>precisa</em> ter um hífen para o navegador distinguir das nativas. Registro é permanente na página.</p>
+<pre><code>class GreetingBox extends HTMLElement {
+    constructor() {
+        super();
+        this.textContent = &quot;Hello from a custom element!&quot;;
+    }
+}
+
+customElements.define(&quot;greeting-box&quot;, GreetingBox);
+</code></pre>
+<p>Agora essa tag funciona em qualquer lugar do HTML:</p>
+<pre><code>&lt;!-- Em qualquer página --&gt;
+&lt;greeting-box&gt;&lt;/greeting-box&gt;
+</code></pre>
+<h2 id="lendo-atributos"><a class="heading-anchor" href="#lendo-atributos">Lendo Atributos</a></h2>
+<p>Um custom element bom lê seus próprios atributos para se configurar. Elementos nativos fazem isso: <code>&lt;img src="..."&gt;</code>, <code>&lt;a href="..."&gt;</code>. Os seus também devem.</p>
+<pre><code>class GreetingBox extends HTMLElement {
+    connectedCallback() {
+        const name = this.getAttribute(&quot;name&quot;) || &quot;friend&quot;;
+        this.textContent = `Hello, ${name}!`;
+    }
+}
+customElements.define(&quot;greeting-box&quot;, GreetingBox);
+
+// &lt;greeting-box name=&quot;Alice&quot;&gt;&lt;/greeting-box&gt;
+</code></pre>
+<h2 id="shadow-dom-o-interior-selado"><a class="heading-anchor" href="#shadow-dom-o-interior-selado">Shadow DOM: O Interior Selado</a></h2>
+<p>Shadow DOM anexa uma árvore DOM privada ao seu elemento. Estilos de fora não entram, estilos de dentro não vazam. Sem isso, um <code>h2 { color: red }</code> perdido em qualquer lugar da página repintaria seu widget.</p>
+<pre><code>class UserCard extends HTMLElement {
+    connectedCallback() {
+        const root = this.attachShadow({ mode: &quot;open&quot; });
+        const name = this.getAttribute(&quot;name&quot;) || &quot;Anonymous&quot;;
+        root.innerHTML = `
+            &lt;style&gt;
+                :host { display: inline-block; padding: 1rem;
+                       border: 1px solid #ddd; border-radius: 8px; }
+                h2 { margin: 0; font-size: 1rem; color: #333; }
+                p  { margin: 0.25rem 0 0; color: #666; }
+            &lt;/style&gt;
+            &lt;h2&gt;${name}&lt;/h2&gt;
+            &lt;p&gt;Welcome back.&lt;/p&gt;
+        `;
+    }
+}
+customElements.define(&quot;user-card&quot;, UserCard);
+</code></pre>
+<div class="mermaid">
+flowchart TD
+    Page["Light DOM: the page"]
+    Tag["user-card element (name=Alice)"]
+    Shadow["Shadow DOM root"]
+    H["h2: Alice"]
+    P["p: Welcome back."]
+    Style["scoped style block"]
+    Page --> Tag
+    Tag -->|attachShadow| Shadow
+    Shadow --> Style
+    Shadow --> H
+    Shadow --> P
+
+</div>
+<h2 id="host-e-part"><a class="heading-anchor" href="#host-e-part">:host e ::part</a></h2>
+<p>Dentro da árvore shadow, o seletor <code>:host</code> estiliza o próprio custom element de fora para dentro. Se quiser deixar partes específicas serem estilizadas de fora, exponha-as com <code>part="..."</code> e consumidores estilizam via <code>::part()</code>.</p>
+<pre><code>&lt;style&gt;
+    :host { display: block; }
+    :host([featured]) { border-color: gold; }
+    button { cursor: pointer; }
+&lt;/style&gt;
+&lt;button part=&quot;action&quot;&gt;Click me&lt;/button&gt;
+
+/* No CSS da página externa */
+user-card::part(action) { background: tomato; color: white; }
+</code></pre>
+<div class="takeaways">
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
+<ul>
+<li>Estenda HTMLElement, registre com customElements.define("my-tag", Class) - tag precisa ter hífen</li>
+<li>Leia atributos com getAttribute para configurar o elemento pelo HTML</li>
+<li>Shadow DOM sela sua marcação e estilo internos do resto da página</li>
+<li>Use :host para estilizar o próprio elemento, ::part para expor ganchos de estilo ao CSS externo</li>
+<li>Web Components funcionam em qualquer framework ou nenhum - são nativos da plataforma</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t34.html">Anterior</a>
+          <a href="t36.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

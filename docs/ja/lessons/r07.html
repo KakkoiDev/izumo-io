@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja" data-page="r07.html" data-lang-paths='{"en":"../../lessons/","ja":"./"}'>
+<html lang="ja" data-page="r07.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +21,7 @@
     <div class="nav-links" id="nav-links">
       <a href="../tech-lessons.html">技術レッスン</a>
       <a href="../theory-lessons.html">理論</a>
+      <a href="../ai-lessons.html">AIレッスン</a>
       <a href="../videos.html">動画</a>
       <a href="../resources.html">リソース</a>
     </div>
@@ -29,7 +30,7 @@
       <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
     </button>
     <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
-      <option value="en">English</option><option value="ja" selected>日本語</option>
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
     </select>
     <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -46,14 +47,11 @@
           <a href="r08.html">次へ</a>
         </div>
       </nav>
-      
-<h1>R07: とにかくシンプルに</h1>
+      <h1 id="r07-とにかくシンプルに"><a class="heading-anchor" href="#r07-とにかくシンプルに">R07: とにかくシンプルに</a></h1>
 <p class="lesson-intro">複雑さは信頼性の敵です。書いた全てのコード行は壊れ得る行です。最良のコードは書く必要がなかったコードです。シンプルな解決策は理解、デバッグ、テスト、保守が容易です。迷ったらシンプルなアプローチを選びましょう。</p>
-
-<h2>不必要な複雑さの兆候</h2>
+<h2 id="不必要な複雑さの兆候"><a class="heading-anchor" href="#不必要な複雑さの兆候">不必要な複雑さの兆候</a></h2>
 <p>ファイル構造を説明するのに図が必要なら、複雑すぎます。新しい開発者が10分でコードを理解できないなら、複雑すぎます。機能より抽象化レイヤーの方が多いなら、複雑すぎます。</p>
-
-<h2>実践におけるシンプルさ</h2>
+<h2 id="実践におけるシンプルさ"><a class="heading-anchor" href="#実践におけるシンプルさ">実践におけるシンプルさ</a></h2>
 <pre><code>// Complex: over-engineered
 class UserServiceFactory {
     createService(type) {
@@ -64,11 +62,10 @@ class UserServiceFactory {
 // Simple: just a function
 function getUser(id) {
     return db.users.find(u =&gt; u.id === id);
-}</code></pre>
-
-<h2>複雑さを加えるタイミング</h2>
+}
+</code></pre>
+<h2 id="複雑さを加えるタイミング"><a class="heading-anchor" href="#複雑さを加えるタイミング">複雑さを加えるタイミング</a></h2>
 <p>シンプルな解決策が実際の要件で失敗した時だけ複雑さを加えます。想像上の将来の要件ではありません。今日の問題を今日解決し、必要なら明日リファクタリングしましょう。</p>
-
 <div class="mermaid">
 flowchart LR
     subgraph Simple
@@ -81,10 +78,10 @@ flowchart LR
         C3 --> C4[1 factory]
         C4 --> C5[Works the same]
     end
-</div>
 
+</div>
 <div class="takeaways">
-<h2>まとめ</h2>
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
 <ul>
 <li>最良のコードは書く必要がなかったコードです</li>
 <li>シンプルな解決策は理解、デバッグ、保守が容易です</li>
@@ -92,7 +89,13 @@ flowchart LR
 <li>新しい開発者が10分で理解できないなら、シンプルにしましょう</li>
 </ul>
 </div>
-
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../theory-lessons.html">理論レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="r06.html">前へ</a>
+          <a href="r08.html">次へ</a>
+        </div>
+      </nav>
     </article>
 
   </main>
@@ -100,9 +103,17 @@ flowchart LR
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({
-      startOnLoad: true,
-      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
     });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
   </script>
   
   <footer>

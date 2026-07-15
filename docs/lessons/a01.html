@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en" data-page="a01.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>AI Risks + Set Up Your Environment - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Lessons</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">Back to AI Lessons</a>
+        <div class="lesson-pager">
+          
+          <a href="a02.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="a01-ai-risks-set-up-your-environment"><a class="heading-anchor" href="#a01-ai-risks-set-up-your-environment">A01: AI Risks + Set Up Your Environment</a></h1>
+<p class="lesson-intro">An AI coding assistant is the most useful tool you will add this year, and the most misunderstood. Two things today: learn the risks that matter, then get your computer set up so you can start using it next lesson. Keep the risks in mind for the whole course.</p>
+<h2 id="know-the-risks"><a class="heading-anchor" href="#know-the-risks">Know the Risks</a></h2>
+<p>An AI talks like a person, so your brain trusts it like one. Don't. Three rules:</p>
+<ul>
+<li><strong>It is not your friend.</strong> It is trained to please you <em>and</em> it does not truly care about you. Use it, never trust it.</li>
+<li><strong>Verify the output.</strong> Confident and correct are different things. Check anything that matters, and never decide something important on the AI's word alone.</li>
+<li><strong>Never feed it secrets.</strong> No personal, medical, or work data (unless your employer approved the tool). If the tool is free, you are usually the product.</li>
+</ul>
+<div class="mermaid">
+flowchart LR
+    A[AI answer] --> B{Sounds confident?}
+    B -->|Always| C[Confidence is not correctness]
+    C --> D[Verify before you trust]
+
+</div>
+<details>
+<summary><strong>Go deeper: how AI fails, and how to check it</strong></summary>
+<p><strong>Two ways it fails, opposite in flavor:</strong></p>
+<ul>
+<li><strong>It flatters you.</strong> Trained to give answers people rate highly, it leans toward telling you what you want to hear and agreeing with bad ideas. So never ask <em>"is this good?"</em> (it will say yes), ask <em>"what are three problems with this?"</em></li>
+<li><strong>It does not care about you.</strong> Given a goal, it pursues it. In controlled tests, frontier AI has blackmailed and let people die to keep operating, no malice, just optimization with no hard stop. The full evidence and citation are in <a href="r20.html">Never Trust an AI (R20)</a>.</li>
+</ul>
+<p><strong>How to actually verify an answer:</strong></p>
+<ul>
+<li>Re-ask the same thing a different way. If the answer changes, it was guessing.</li>
+<li>Check a primary source (official docs, the real file), not a second AI answer.</li>
+<li>For code or commands, run them somewhere safe and watch what happens.</li>
+<li>Demand a citation, then check the citation exists, models invent sources.</li>
+</ul>
+<p>The dangerous errors are subtle and land in the areas you know least, exactly where you are most tempted to trust it.</p>
+<p><strong>What never to paste:</strong> full names, addresses, ID numbers; medical or financial details; company code, customer data, or internal docs (unless your employer approved this tool). What you type may train future models. Read the provider's data terms and turn off training on your inputs if the setting exists.</p>
+<p>Leaning on AI, docs, and search is the job, not cheating (<a href="r18.html">R18</a>). The skill is using it <em>and</em> checking it.</p>
+</details>
+<h2 id="set-up-discord-a-working-terminal"><a class="heading-anchor" href="#set-up-discord-a-working-terminal">Set Up: Discord + a Working Terminal</a></h2>
+<p>Today's practical goal: everyone leaves with a terminal they can type into. <strong>Join Discord first</strong>, setup problems get solved fastest there with a screenshot.</p>
+<p>Mac and Linux have a Unix terminal built in. Windows does not, so Windows users install <strong>WSL</strong> (a real Linux terminal inside Windows) so the whole class shares one identical environment.</p>
+<h3 id="mac-linux"><a class="heading-anchor" href="#mac-linux">Mac / Linux</a></h3>
+<p>Open the Terminal app (Mac: press Cmd+Space, type "Terminal", press Enter). Nothing to install. Skip to the exercise.</p>
+<h3 id="windows-install-wsl"><a class="heading-anchor" href="#windows-install-wsl">Windows: install WSL</a></h3>
+<ol>
+<li>Click Start, type <code>PowerShell</code>, right-click <strong>Windows PowerShell</strong>, and choose <strong>Run as administrator</strong>. Click Yes on the popup.</li>
+<li>In that window type <code>wsl --install</code> and press Enter. It downloads Ubuntu (Linux). Let it finish.</li>
+<li><strong>Restart your computer.</strong> This is required, not optional, nothing works right until you do.</li>
+<li>After the restart, an <strong>Ubuntu</strong> window opens by itself and asks you to create a username and password. (The password stays invisible while you type, that is normal, type it and press Enter.)</li>
+<li>From now on, open <strong>Ubuntu</strong> from the Start menu, not PowerShell. That window is your terminal for this course.</li>
+</ol>
+<h2 id="troubleshooting-windows-wsl"><a class="heading-anchor" href="#troubleshooting-windows-wsl">Troubleshooting (Windows / WSL)</a></h2>
+<details>
+<summary>Open if your setup did not go smoothly</summary>
+<ul>
+<li><strong>A "Turn Windows features on or off" / Control Panel window opened.</strong> That is the old, manual way, close it. The single command <code>wsl --install</code> does everything. You do not tick any checkboxes.</li>
+<li><strong>I typed <code>wsl --install</code> and nothing seems to work.</strong> You must <strong>restart the computer</strong> after it finishes. Then look for the Ubuntu window.</li>
+<li><strong>It is asking for a password but my typing does not show.</strong> That is on purpose, passwords are hidden in the terminal. Type it and press Enter.</li>
+<li><strong>I opened Terminal/PowerShell and it is not Linux.</strong> Open the <strong>Ubuntu</strong> app from the Start menu instead (or click the dropdown arrow in Windows Terminal and pick Ubuntu).</li>
+<li><strong><code>wsl --install</code> says access denied or needs admin.</strong> Your machine is locked down (common on work/school laptops, they block the admin rights and virtualization WSL needs). Use a personal computer, or ask in Discord about a cloud option.</li>
+<li><strong>How do I know it worked?</strong> In the Ubuntu window type <code>whoami</code> and press Enter. If it prints your username, you are done.</li>
+</ul>
+</details>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<ol>
+<li>Read <a href="r20.html">R20: Never Trust an AI</a> and write your own three AI rules, one sentence each.</li>
+<li>Join Discord and say hello.</li>
+<li>Get a working terminal, then type <code>whoami</code> and press Enter. It should print your username.</li>
+<li>Bring one example of an AI being confidently wrong to the next lesson.</li>
+</ol>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>AI is a power tool, not a friend: it flatters you and it does not care about you</li>
+<li>Confident is not correct, verify anything that matters, and never paste personal, medical, or unapproved work data</li>
+<li>Windows uses WSL for one shared environment; it needs admin rights and a restart</li>
+<li>You are set up when whoami prints your username in the terminal</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">Back to AI Lessons</a>
+        <div class="lesson-pager">
+          
+          <a href="a02.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

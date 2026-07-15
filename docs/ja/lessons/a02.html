@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ja" data-page="a02.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>ターミナル早見表とAntigravityのインストール - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../ai-lessons.html">AIレッスン</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">AIレッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="a01.html">前へ</a>
+          <a href="a03.html">次へ</a>
+        </div>
+      </nav>
+      <h1 id="a02-ターミナル早見表とantigravityのインストール"><a class="heading-anchor" href="#a02-ターミナル早見表とantigravityのインストール">A02: ターミナル早見表とAntigravityのインストール</a></h1>
+<p class="lesson-intro">ターミナルはあります(<a href="a01.html">A01</a>)。使いこなす必要はなく、いくつかのコマンドと、残りは調べればいいという自信があれば十分です。ここに早見表、それからAIをインストールして話し始めます。</p>
+<h2 id="ターミナル早見表"><a class="heading-anchor" href="#ターミナル早見表">ターミナル早見表</a></h2>
+<p>手元に置いておくこと。これで使うことの90%です。</p>
+<table>
+<thead>
+<tr>
+<th>コマンド</th>
+<th>何をするか</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pwd</code></td>
+<td>今どこ? 現在のフォルダを表示</td>
+</tr>
+<tr>
+<td><code>ls</code></td>
+<td>何がある? ファイルとフォルダを一覧</td>
+</tr>
+<tr>
+<td><code>cd name</code></td>
+<td>フォルダに入る</td>
+</tr>
+<tr>
+<td><code>cd ..</code></td>
+<td>一つ上のフォルダに戻る</td>
+</tr>
+<tr>
+<td><code>cd ~</code></td>
+<td>ホームフォルダに移動</td>
+</tr>
+<tr>
+<td><code>nano file</code></td>
+<td>ファイルを開いて編集(Ctrl+Oで保存、Ctrl+Xで終了)</td>
+</tr>
+<tr>
+<td><strong>Tab</strong></td>
+<td>名前を自動補完(入力が減り、打ち間違いも減る)</td>
+</tr>
+<tr>
+<td><strong>上矢印</strong></td>
+<td>直前のコマンドを繰り返す</td>
+</tr>
+<tr>
+<td><strong>Ctrl+C</strong></td>
+<td>固まったコマンドを中止</td>
+</tr>
+</tbody>
+</table>
+<p>パスは住所です: <code>~/projects/notes.txt</code> は「ホームの中のprojectsの中のnotes.txt」。始めるにはこれで十分。残りは出くわしたときに調べる。</p>
+<p>ターミナルでファイルを編集するには、<code>nano notes.txt</code> を実行し、変更して、上のショートカットで保存して終了。あるいはAIにやらせる、agyにファイルを作る・変えるよう頼めばいい。Windowsで、クリックで操作したいなら、<code>explorer.exe .</code> で今のフォルダを開くか、<code>\\wsl.localhost\&lt;distro&gt;\home\&lt;you&gt;</code> へのデスクトップショートカットを作って、好きなテキストエディタで編集する。</p>
+<p>じっくり学ぶなら<a href="t02.html">ターミナルの基礎</a>へ。</p>
+<h2 id="antigravity-cliのインストールとログイン"><a class="heading-anchor" href="#antigravity-cliのインストールとログイン">Antigravity CLIのインストールとログイン</a></h2>
+<p>Antigravityは一つのコマンド <code>agy</code> として提供されます。公式のワンライナーでインストールします(一行、Google公式サイトから直接なので最新版が手に入ります):</p>
+<pre><code>curl -fsSL https://antigravity.google/cli/install.sh | bash
+</code></pre>
+<p>ターミナルを閉じて開き直し、入ったか確認:</p>
+<pre><code>agy --version
+</code></pre>
+<p>次に起動:</p>
+<pre><code>agy
+</code></pre>
+<p>初回起動でサインイン方法を聞かれるので、<strong>Login with Google</strong> を選ぶ。ブラウザが開くので、アカウントを選んで承認。ターミナルに戻れば完了。これが無料枠です: クレジットカード不要、APIキー不要。上限は有料プランより厳しめですが、学ぶには十分です。(後で <code>agy</code> をスクリプトの中で非対話に実行できます、<a href="a07.html">A07</a>参照。今は無視。)</p>
+<div class="mermaid">
+flowchart LR
+    A[agy を実行] --> B[Googleでログイン]
+    B --> C[ブラウザで承認]
+    C --> D[ターミナルで会話]
+
+</div>
+<h2 id="初めての会話"><a class="heading-anchor" href="#初めての会話">初めての会話</a></h2>
+<p>普通の言葉で質問を入力しEnter、答えを読む。会話を覚えているので、続けて聞けます。よく使う操作:</p>
+<ul>
+<li><code>/help</code> はコマンド一覧。</li>
+<li><code>/quit</code> で終了(またはCtrl+Cを2回)。</li>
+<li>上矢印で直前のメッセージを呼び戻す。</li>
+</ul>
+<p>入力し、読み、<strong>確認し</strong>、繰り返す。人が飛ばすのは確認の部分、A01がその理由を伝えました。</p>
+<h2 id="今週の演習"><a class="heading-anchor" href="#今週の演習">今週の演習</a></h2>
+<ol>
+<li>Antigravity CLIをインストールし、Googleでログイン。</li>
+<li>今週あなたが本当に知りたい質問を5つする。</li>
+<li>1つの答えを実際の情報源と照合し、間違っている・でっち上げた点を1つ見つける。どう気づいたか書き留める。</li>
+</ol>
+<div class="takeaways">
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
+<ul>
+<li>ターミナルのコマンドはいくつか知っていれば十分、残りは必要に応じて調べる</li>
+<li>Antigravity CLIは一つのコマンドでインストール、agy --version で確認</li>
+<li>Googleでログイン: 無料枠、クレジットカード不要、APIキー不要</li>
+<li>ループはシンプル: 入力し、読み、確認し、繰り返す</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">AIレッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="a01.html">前へ</a>
+          <a href="a03.html">次へ</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

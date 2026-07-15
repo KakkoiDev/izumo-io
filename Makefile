@@ -1,9 +1,10 @@
 .PHONY: build serve watch _rebuild
 
 PORT ?= 3000
+PYTHON := $(if $(wildcard .venv/bin/python),.venv/bin/python,python3)
 
 build:
-	python3 website/build.py
+	$(PYTHON) website/build.py
 
 serve: build
 	python3 -m http.server $(PORT) -d docs
@@ -18,4 +19,4 @@ watch: build
 	cleanup
 
 _rebuild:
-	python3 website/build.py
+	$(PYTHON) website/build.py

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="pt" data-page="t03.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Pipes & Ferramentas Poderosas - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t02.html">Anterior</a>
+          <a href="t04.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="t03-pipes-amp-ferramentas-poderosas"><a class="heading-anchor" href="#t03-pipes-amp-ferramentas-poderosas">T03: Pipes &amp; Ferramentas Poderosas</a></h1>
+<p class="lesson-intro">O terminal deixa de ser um navegador de arquivos desajeitado e vira um superpoder no momento em que você entende o pipe. Cada comando é um pequeno especialista. O pipe <code>|</code> é fita adesiva: deixa você parafusar especialistas em linhas de montagem. Cinco comandos em pipe podem substituir uma macro de planilha, um script Python, ou uma tarde inteira.</p>
+<h2 id="streams-padr-o"><a class="heading-anchor" href="#streams-padr-o">Streams Padrão</a></h2>
+<p>Todo programa tem três canais. <strong>stdin</strong> é o stream de entrada. <strong>stdout</strong> é onde a saída normal vai. <strong>stderr</strong> é onde vão os erros. O shell permite redirecionar cada um independentemente.</p>
+<pre><code>echo &quot;hello&quot; &gt; greet.txt        # stdout PARA arquivo (sobrescreve)
+echo &quot;world&quot; &gt;&gt; greet.txt       # stdout APPEND no arquivo
+sort &lt; names.txt                 # stdin DE arquivo
+command 2&gt; errors.log            # stderr PARA arquivo
+command &gt; out.log 2&gt;&amp;1          # stdout e stderr juntos
+command &gt; /dev/null 2&gt;&amp;1         # descarta toda saída
+</code></pre>
+<h2 id="o-pipe"><a class="heading-anchor" href="#o-pipe">O Pipe</a></h2>
+<p>Um pipe conecta a stdout de um comando à stdin do próximo. Leia da esquerda para a direita, como uma frase.</p>
+<pre><code># Os 5 maiores arquivos desta pasta
+ls -lS | head -n 5
+
+# Quantos arquivos .ts o projeto tem
+find src -name &quot;*.ts&quot; | wc -l
+
+# Todo TODO no código
+grep -rn &quot;TODO&quot; src/ | less
+
+# Top 10 comandos que você mais usa
+history | awk '{print $2}' | sort | uniq -c | sort -rn | head
+</code></pre>
+<div class="mermaid">
+flowchart LR
+    H[history] -->|stdout| A[awk print command]
+    A -->|stdout| S1[sort]
+    S1 -->|stdout| U[uniq -c]
+    U -->|stdout| S2[sort -rn]
+    S2 -->|stdout| Hd[head]
+
+</div>
+<h2 id="especialistas-essenciais"><a class="heading-anchor" href="#especialistas-essenciais">Especialistas Essenciais</a></h2>
+<p>O kit padrão que todo pro mantém afiado:</p>
+<ul>
+<li><code>grep pattern file</code> - acha linhas que batem com um padrão. <code>-r</code> recursivo, <code>-i</code> case-insensitive, <code>-n</code> número da linha</li>
+<li><code>find path -name "*.ext"</code> - localiza arquivos por nome, tipo, tamanho, idade</li>
+<li><code>sort</code> / <code>uniq</code> - ordena linhas, colapsa duplicatas (<code>uniq -c</code> conta)</li>
+<li><code>wc -l</code> - conta linhas</li>
+<li><code>head -n 20</code> / <code>tail -n 20</code> - primeiras / últimas linhas. <code>tail -f</code> segue um log crescendo</li>
+</ul>
+<p>Avançado: <code>cut</code>, <code>sed</code>, <code>awk</code> para extrair coluna, edição em stream, processamento de texto. Pegue sob demanda.</p>
+<h2 id="encadeando-comandos"><a class="heading-anchor" href="#encadeando-comandos">Encadeando Comandos</a></h2>
+<p>Três operadores sequenciam comandos sem pipe.</p>
+<pre><code>cmd1 ; cmd2          # roda cmd1, depois cmd2 não importa o resultado
+cmd1 &amp;&amp; cmd2         # roda cmd2 SÓ se cmd1 teve sucesso
+cmd1 || cmd2         # roda cmd2 SÓ se cmd1 falhou
+
+# Exemplo prático
+npm test &amp;&amp; git push                     # push só se testes passarem
+mkdir build || echo &quot;already exists&quot;      # mensagem de fallback
+</code></pre>
+<h2 id="um-script-shell-pequeno"><a class="heading-anchor" href="#um-script-shell-pequeno">Um Script Shell Pequeno</a></h2>
+<p>Quando você roda o mesmo pipe todo dia, salve. Um script shell é um arquivo texto com cabeçalho <code>#!/usr/bin/env bash</code>, tornado executável com <code>chmod +x</code>.</p>
+<pre><code>#!/usr/bin/env bash
+# backup.sh - copia o projeto num tarball com timestamp
+
+set -euo pipefail                       # falha rápido em erros
+
+name=&quot;$(basename &quot;$PWD&quot;)&quot;
+stamp=&quot;$(date +%Y%m%d-%H%M%S)&quot;
+tar -czf &quot;../${name}-${stamp}.tar.gz&quot; .
+echo &quot;Saved ../${name}-${stamp}.tar.gz&quot;
+</code></pre>
+<pre><code>chmod +x backup.sh
+./backup.sh                             # rodar
+</code></pre>
+<h2 id="jobs-longos"><a class="heading-anchor" href="#jobs-longos">Jobs Longos</a></h2>
+<p>Alguns jobs levam minutos. Você não quer babá.</p>
+<pre><code>long-command &amp;                  # roda em background
+jobs                             # lista jobs de background neste shell
+long-command &gt; out.log 2&gt;&amp;1 &amp;   # background + captura saída
+ps aux | grep node               # acha processos rodando
+kill 12345                       # pede ao processo para parar
+kill -9 12345                    # força parar
+</code></pre>
+<div class="takeaways">
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
+<ul>
+<li>Três streams: stdin, stdout, stderr. Redirecione com &lt;, &gt;, &gt;&gt;, 2&gt;</li>
+<li>O pipe | conecta a stdout de um comando à stdin do próximo - leia da esquerda para a direita</li>
+<li>Kit de poder: grep, find, sort, uniq, wc, head, tail, cut, sed, awk. Aprenda um por dia</li>
+<li>Encadeie com ; (sempre), &amp;&amp; (no sucesso), || (na falha) para comandos seguros em vários passos</li>
+<li>Todo pipe que você roda duas vezes, salve como script. Torne executável com chmod +x</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t02.html">Anterior</a>
+          <a href="t04.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

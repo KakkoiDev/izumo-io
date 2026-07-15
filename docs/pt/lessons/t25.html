@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt" data-page="t25.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Autenticação - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t24.html">Anterior</a>
+          <a href="t26.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="t25-autentica-o"><a class="heading-anchor" href="#t25-autentica-o">T25: Autenticação</a></h1>
+<p class="lesson-intro">Autenticação responde à pergunta "quem é você?". É como um segurança numa balada conferindo a identidade. Sessões, cookies e hashing de senha trabalham juntos para verificar usuários com segurança. Errar aqui expõe seus usuários a danos reais.</p>
+<h2 id="hashing-de-senha"><a class="heading-anchor" href="#hashing-de-senha">Hashing de Senha</a></h2>
+<p>Nunca guarde senhas em texto puro. Faça hash com um algoritmo forte como bcrypt. Um hash é uma função de mão única - você pode verificar uma senha contra ele mas não consegue reverter.</p>
+<pre><code>const bcrypt = require(&quot;bcrypt&quot;);
+
+// Hash a password
+const hash = await bcrypt.hash(&quot;userPassword123&quot;, 10);
+
+// Verify a password
+const match = await bcrypt.compare(&quot;userPassword123&quot;, hash);
+if (match) { console.log(&quot;Access granted&quot;); }
+</code></pre>
+<h2 id="sess-es-e-cookies"><a class="heading-anchor" href="#sess-es-e-cookies">Sessões e Cookies</a></h2>
+<p>Depois do login, o servidor cria uma sessão e envia um ID de sessão via cookie. O navegador envia esse cookie a cada requisição seguinte para provar identidade.</p>
+<pre><code>// On login success
+const sessionId = crypto.randomUUID();
+sessions[sessionId] = { userId: user.id, createdAt: Date.now() };
+res.setHeader(&quot;Set-Cookie&quot;, `sid=${sessionId}; HttpOnly; Path=/`);
+
+// On each request
+function authenticate(req) {
+    const cookie = parseCookies(req.headers.cookie);
+    return sessions[cookie.sid] || null;
+}
+</code></pre>
+<div class="mermaid">
+sequenceDiagram
+    participant U as User
+    participant B as Browser
+    participant S as Server
+    U->>B: Enter credentials
+    B->>S: POST /login (email + password)
+    S->>S: Hash compare with stored hash
+    S-->>B: Set-Cookie: sid=abc123
+    B->>S: GET /dashboard (Cookie: sid=abc123)
+    S->>S: Validate session
+    S-->>B: 200 OK (protected content)
+
+</div>
+<div class="takeaways">
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
+<ul>
+<li>Nunca armazene senhas em texto puro - sempre use hash com bcrypt ou similar</li>
+<li>Sessões rastreiam usuários logados via um ID único de sessão guardado em um cookie</li>
+<li>Use cookies HttpOnly para impedir que JavaScript leia tokens de sessão</li>
+<li>Autenticação verifica identidade, autorização controla o que a pessoa pode acessar</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t24.html">Anterior</a>
+          <a href="t26.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

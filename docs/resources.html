@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-page="resources.html" data-lang-paths='{"en":"./","ja":"ja/"}'>
+<html lang="en" data-page="resources.html" data-lang-paths='{"en":"./","ja":"ja/","pt":"pt/"}'>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +21,7 @@
     <div class="nav-links" id="nav-links">
       <a href="tech-lessons.html">Tech Lessons</a>
       <a href="theory-lessons.html">Theory</a>
+      <a href="ai-lessons.html">AI Lessons</a>
       <a href="videos.html">Videos</a>
       <a href="resources.html">Resources</a>
     </div>
@@ -29,7 +30,7 @@
       <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
     </button>
     <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
-      <option value="en" selected>English</option><option value="ja">日本語</option>
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
     </select>
     <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -39,7 +40,7 @@
 
 
     <section class="page-header">
-      <h1>Resources</h1>
+      <h1 id="resources"><a class="heading-anchor" href="#resources">Resources</a></h1>
       <p>Curated tools and platforms to level up your skills.</p>
     </section>
 
@@ -67,6 +68,24 @@
         <h3>Hello Interview</h3>
         <p>System design and coding interview preparation. Learn how real-world systems are built and evaluated.</p>
         <span class="resource-url">hellointerview.com</span>
+      </a>
+      
+      <a href="https://react.dev/" class="resource-card" target="_blank" rel="noopener">
+        <h3>React</h3>
+        <p>The official React documentation. Learn components, hooks, and modern patterns from the team that builds React.</p>
+        <span class="resource-url">react.dev</span>
+      </a>
+      
+      <a href="https://www.typescriptlang.org/docs/" class="resource-card" target="_blank" rel="noopener">
+        <h3>TypeScript</h3>
+        <p>The official TypeScript handbook. Add type safety to JavaScript and catch bugs before they ship.</p>
+        <span class="resource-url">typescriptlang.org</span>
+      </a>
+      
+      <a href="https://nestjs.com/" class="resource-card" target="_blank" rel="noopener">
+        <h3>Nest.js</h3>
+        <p>Progressive Node.js framework for scalable server-side applications. Modules, decorators, and dependency injection done right.</p>
+        <span class="resource-url">nestjs.com</span>
       </a>
       
     </div>

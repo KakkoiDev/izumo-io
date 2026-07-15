@@ -544,9 +544,46 @@ a.theory-card:hover {
   font-size: 0.9rem;
 }
 
+.lesson-breadcrumb-bottom {
+  margin-top: 3rem;
+  margin-bottom: 0;
+  padding-top: 1rem;
+  padding-bottom: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: none;
+}
+
 .lesson-pager {
   display: flex;
   gap: 1.5rem;
+}
+
+h1 > a.heading-anchor,
+h2 > a.heading-anchor,
+h3 > a.heading-anchor,
+a.heading-anchor {
+  color: var(--text);
+  text-decoration: none;
+}
+
+a.heading-anchor::after {
+  content: " #";
+  color: var(--text-muted);
+  opacity: 0;
+  margin-left: 0.25rem;
+  font-weight: 400;
+  transition: opacity 0.2s;
+}
+
+h1:hover > a.heading-anchor::after,
+h2:hover > a.heading-anchor::after,
+h3:hover > a.heading-anchor::after,
+a.heading-anchor:focus::after {
+  opacity: 0.7;
+}
+
+a.heading-anchor:hover {
+  color: var(--accent);
 }
 
 .lesson h1 {

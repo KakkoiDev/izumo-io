@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-page="r10.html" data-lang-paths='{"en":"./","ja":"../../ja/lessons/"}'>
+<html lang="en" data-page="r10.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +21,7 @@
     <div class="nav-links" id="nav-links">
       <a href="../tech-lessons.html">Tech Lessons</a>
       <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Lessons</a>
       <a href="../videos.html">Videos</a>
       <a href="../resources.html">Resources</a>
     </div>
@@ -29,7 +30,7 @@
       <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
     </button>
     <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
-      <option value="en" selected>English</option><option value="ja">日本語</option>
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
     </select>
     <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -46,49 +47,90 @@
           <a href="r11.html">Next</a>
         </div>
       </nav>
-      
-<h1>R10: KakkoiSchool Case Study</h1>
-<p class="lesson-intro">The best way to understand web development is to analyze a real project. KakkoiSchool - the very course you are taking - is itself a full-stack web application. Let us examine how it applies every concept you have learned: HTML for structure, CSS for design, JavaScript for interactivity, a server for delivery, and a build system to tie it all together.</p>
-
-<h2>Course Architecture</h2>
-<p>The course website is built with a Python build system that generates static HTML pages from templates and lesson content. This approach combines the simplicity of static files with the power of a templating engine.</p>
-
-<h2>How Lessons Are Delivered</h2>
-<p>Lesson content is stored as Python data structures (the file you are reading about right now). A build script processes each lesson, wraps it in a template with navigation and styling, and outputs static HTML files. No server needed at runtime - just files served by any web host.</p>
-
-<h2>Design Decisions</h2>
-<p>Static site generation was chosen over a dynamic server because: simpler hosting (any file server works), faster load times (no server processing), and better reliability (no server to crash). This is the 20/80 rule and KISS principle in action.</p>
-
+      <h1 id="r10-kakkoischool-case-study"><a class="heading-anchor" href="#r10-kakkoischool-case-study">R10: KakkoiSchool Case Study</a></h1>
+<p class="lesson-intro">The best way to learn software architecture is to read one. This is the architecture of the site you are reading right now, running in production at <strong>school.kakkoi.dev</strong>. Four parts, four jobs. That separation is what keeps sixty lessons in three languages easy to edit.</p>
+<h2 id="the-four-parts"><a class="heading-anchor" href="#the-four-parts">The Four Parts</a></h2>
 <div class="mermaid">
-flowchart TB
-    subgraph "Build Time"
-        A[lessons.py] --> B[build.py]
-        C[templates/] --> B
-        D[static/css] --> B
-        B --> E[Generated HTML files]
+flowchart LR
+    subgraph Content
+        A["content/*.md<br/>frontmatter + body"]
+        B["content/*.yaml<br/>phases, ui, videos, resources"]
     end
-    subgraph "Runtime"
-        E --> F[Web Server]
-        F --> G[Browser]
+    subgraph Translation
+        T["translate-content.yml<br/>Gemini API, on push"]
     end
-    subgraph "Concepts Used"
-        H[HTML structure]
-        I[CSS styling]
-        J[Mermaid diagrams]
-        K[Responsive design]
+    subgraph Build
+        C["content_loader.py<br/>parses MD + YAML"]
+        D["build.py + engine.py<br/>renders HTML + MD into docs/"]
     end
-</div>
+    subgraph Deploy
+        F["GitHub Pages<br/>serves docs/ at school.kakkoi.dev"]
+    end
+    A --> T
+    T -->|fills missing .ja.md / .pt.md, commits back| A
+    A --> C
+    B --> C
+    C --> D
+    D -->|committed docs/| F
 
-<div class="takeaways">
-<h2>Key Takeaways</h2>
+</div>
+<p>Content is text on disk. Translation fills missing language siblings. Build renders HTML and a parallel markdown export into <code>docs/</code>. GitHub Pages serves <code>docs/</code> directly.</p>
+<h2 id="part-1-content"><a class="heading-anchor" href="#part-1-content">Part 1: Content</a></h2>
+<p>Every lesson is three sibling files: <code>content/tech/t01.md</code>, <code>t01.ja.md</code>, <code>t01.pt.md</code>. The English file carries the full frontmatter metadata. Translations carry only translated strings. Body is plain markdown with three escape hatches: <code>{: .lesson-intro }</code> for a CSS class, <code>```mermaid</code> blocks become interactive diagrams, raw <code>&lt;div class="takeaways"&gt;</code> passes through untouched.</p>
+<p>Structured data that does not belong in a lesson body lives in YAML. <code>phases.yaml</code> for the 11 phases. <code>ui.yaml</code> for nav labels, hero, buttons. <code>videos.yaml</code> and <code>resources.yaml</code> for gallery and resources. Each record has <code>_en</code>, <code>_ja</code>, <code>_pt</code> fields side by side.</p>
+<p>Current shape: 39 tech lessons, 21 theory lessons, three languages, all text.</p>
+<h2 id="part-2-translation"><a class="heading-anchor" href="#part-2-translation">Part 2: Translation</a></h2>
+<p><code>translate-content.yml</code> watches for pushes that touch <code>content/</code>. The rule is skip-if-exists: a sibling file that is present and non-empty is left alone forever. That single property gives four behaviors for free:</p>
 <ul>
-<li>Real projects apply multiple concepts together - HTML, CSS, JS, build tools</li>
-<li>Static site generation offers simplicity, speed, and reliability</li>
-<li>Architecture decisions should follow the principles you have learned (KISS, 20/80)</li>
-<li>Analyzing existing projects is one of the best ways to deepen your understanding</li>
+<li>First English push creates both translations.</li>
+<li>Hand-written translations survive every future run.</li>
+<li>To refresh a stale machine translation, delete it - the next push regenerates just that one.</li>
+<li>Adding a fourth language is one entry in <code>TARGETS</code> plus one in the build's language list.</li>
+</ul>
+<p>No "human wrote this, do not touch" flag. File presence is the signal. State lives on disk where everyone can see it.</p>
+<h2 id="part-3-build"><a class="heading-anchor" href="#part-3-build">Part 3: Build</a></h2>
+<p><code>content_loader.py</code> parses frontmatter and markdown, converts <code>```mermaid</code> fences into <code>&lt;div class="mermaid"&gt;</code>, and adds <code>target="_blank" rel="noopener"</code> to external links. <code>build.py</code> writes <strong>two files per page</strong>: rendered HTML and a parallel markdown file. Lesson markdown is the source copied verbatim. Index and listing markdown is generated from the same data the HTML templates use.</p>
+<pre><code>docs/
+├── index.html + index.md
+├── tech-lessons.html + tech-lessons.md
+├── theory-lessons.html + theory-lessons.md
+├── videos.html + videos.md
+├── resources.html + resources.md
+├── lessons/t*.html + t*.md, r*.html + r*.md
+├── ja/ (same structure)
+└── pt/ (same structure)
+</code></pre>
+<p>The dual emission is R21 tech-entropy defence in practice. If the HTML chain rots, every lesson is still a readable markdown file. HTML is polish. Markdown is the artifact.</p>
+<p>Missing titles or empty bodies fall back to English - that is how Portuguese worked on day one with no translations yet.</p>
+<h2 id="part-4-deploy"><a class="heading-anchor" href="#part-4-deploy">Part 4: Deploy</a></h2>
+<p>GitHub Pages serves <code>docs/</code> on <code>master</code> directly. Run <code>make build</code>, commit, push. A single <code>CNAME</code> points the domain at <strong>school.kakkoi.dev</strong>. No deploy workflow.</p>
+<p>Committing the built <code>docs/</code> is an intentional trade. Rebuild must happen locally before push. In exchange every commit is a self-contained snapshot of source + artifact, diffable and revertible in one operation. If someone forgets to rebuild, Pages keeps serving the last committed state.</p>
+<h2 id="why-it-looks-like-this"><a class="heading-anchor" href="#why-it-looks-like-this">Why It Looks Like This</a></h2>
+<ul>
+<li><strong>Content is not code.</strong> Writing a lesson should feel like writing a document.</li>
+<li><strong>Build is a function of source.</strong> One correct <code>docs/</code> tree per <code>content/</code> tree. Local, deterministic, one command.</li>
+<li><strong>Machine fills gaps, humans override.</strong> The pipeline never overwrites human work.</li>
+<li><strong>Each piece replaceable.</strong> Markdown lib, template engine, translation API, deploy target - four independent choices.</li>
+<li><strong>Plain text outlives the app.</strong> Every page ships a markdown twin. Drop the rendering and you still have a readable course.</li>
+</ul>
+<p>All four source files (<a href="https://github.com/KakkoiDev/izumo-io" target="_blank" rel="noopener">repo</a>) - <code>content_loader.py</code>, <code>build.py</code>, <code>translate_content.py</code>, <code>translate-content.yml</code> - are short enough to read in one sitting. That was a design goal.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Four parts: content in markdown + YAML, a gap-filling translation workflow, a local build, GitHub Pages</li>
+<li>Translation is idempotent - file presence is the state, humans always win</li>
+<li>Every page ships HTML plus parallel markdown - HTML is polish, markdown survives entropy (R21)</li>
+<li>docs/ is committed: every commit is a self-contained snapshot, no deploy state to chase</li>
+<li>Deployed at school.kakkoi.dev via a single CNAME file</li>
 </ul>
 </div>
-
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../theory-lessons.html">Back to Theory Lessons</a>
+        <div class="lesson-pager">
+          <a href="r09.html">Previous</a>
+          <a href="r11.html">Next</a>
+        </div>
+      </nav>
     </article>
 
   </main>
@@ -96,9 +138,17 @@ flowchart TB
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({
-      startOnLoad: true,
-      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default'
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
     });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
   </script>
   
   <footer>

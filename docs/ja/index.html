@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja" data-page="index.html" data-lang-paths='{"en":"../","ja":"./"}'>
+<html lang="ja" data-page="index.html" data-lang-paths='{"en":"../","ja":"./","pt":"../pt/"}'>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +21,7 @@
     <div class="nav-links" id="nav-links">
       <a href="tech-lessons.html">技術レッスン</a>
       <a href="theory-lessons.html">理論</a>
+      <a href="ai-lessons.html">AIレッスン</a>
       <a href="videos.html">動画</a>
       <a href="resources.html">リソース</a>
     </div>
@@ -29,7 +30,7 @@
       <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
     </button>
     <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
-      <option value="en">English</option><option value="ja" selected>日本語</option>
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
     </select>
     <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -39,13 +40,13 @@
 
 
     <section class="hero">
-      <h1>ウェブ開発を学ぼう</h1>
+      <h1 id="ウェブ開発を学ぼう"><a class="heading-anchor" href="#ウェブ開発を学ぼう">ウェブ開発を学ぼう</a></h1>
       <p class="hero-sub">実践的なレッスンで、現場の80%をカバーする20%を学ぶ。初めてのHTMLページからフルスタックAIアプリケーションまで。</p>
       <a href="tech-lessons.html" class="btn">学習を始める</a>
     </section>
 
     <section class="philosophy">
-      <h2>私たちのアプローチ</h2>
+      <h2 id="私たちのアプローチ"><a class="heading-anchor" href="#私たちのアプローチ">私たちのアプローチ</a></h2>
       <ul class="philosophy-list">
         <li>現場の80%をカバーする20%を学ぶ</li>
         <li>初日から実際のプロジェクトを構築する</li>
@@ -63,14 +64,22 @@
         <h3>理論</h3>
         <p>優れたソフトウェアと優れた開発者の背後にある考え方。</p>
       </a>
+      <a href="ai-lessons.html" class="section-card">
+        <h3>AIレッスン</h3>
+        <p>AIコーディングアシスタントを安全に上手に使うための初心者向けコース。プログラミングの経験は不要です。</p>
+      </a>
       <a href="videos.html" class="section-card">
         <h3>動画</h3>
         <p>YouTubeで過去のレッスンを視聴。</p>
       </a>
+      <a href="resources.html" class="section-card">
+        <h3>リソース</h3>
+        <p>スキルアップのための厳選ツールとプラットフォーム。</p>
+      </a>
     </section>
 
     <section class="community">
-      <h2>コミュニティに参加</h2>
+      <h2 id="コミュニティに参加"><a class="heading-anchor" href="#コミュニティに参加">コミュニティに参加</a></h2>
       <p>一緒に学び、質問し、進捗を共有しよう。</p>
       <a href="https://discord.gg/YrtdssGUJa" class="btn btn-outline" target="_blank" rel="noopener">Discordに参加する</a>
     </section>

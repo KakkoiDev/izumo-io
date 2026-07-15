@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="pt" data-page="t01.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Configuração do Ambiente - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          
+          <a href="t02.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="t01-configura-o-do-ambiente"><a class="heading-anchor" href="#t01-configura-o-do-ambiente">T01: Configuração do Ambiente</a></h1>
+<p class="lesson-intro">Todo artesão prepara a bancada antes do primeiro corte. Para construir para a web você precisa de quatro ferramentas: um editor para escrever código, um runtime para executar JavaScript fora do navegador, controle de versão para rastrear toda mudança, e um navegador para ver o resultado. Faça uma vez, esqueça para sempre.</p>
+<h2 id="o-que-voc-vai-instalar"><a class="heading-anchor" href="#o-que-voc-vai-instalar">O Que Você Vai Instalar</a></h2>
+<ul>
+<li><strong>Visual Studio Code</strong> - o editor. Grátis, da Microsoft, roda em Windows, Mac, Linux. Funciona para todas as linguagens deste curso.</li>
+<li><strong>Node.js</strong> - runtime JavaScript. Deixa você rodar arquivos .js do terminal sem navegador. Vem com <code>npm</code>, o gerenciador de pacotes.</li>
+<li><strong>Git</strong> - controle de versão. Rastreia toda mudança e é como você compartilha código no GitHub. Vem no macOS e na maioria dos Linux; no Windows precisa de instalador separado de <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>.</li>
+<li><strong>Um navegador moderno</strong> - Chrome ou Firefox. As devtools embutidas são como você inspeciona páginas, depura JavaScript e simula condições de rede.</li>
+</ul>
+<h2 id="instalar-vs-code"><a class="heading-anchor" href="#instalar-vs-code">Instalar VS Code</a></h2>
+<p>Vá em <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a> e baixe o instalador do seu SO. Aceite os padrões. Quando perguntar, marque <strong>Add to PATH</strong> e <strong>Register as editor for supported file types</strong>.</p>
+<p>Após instalar, abra o VS Code e olhe ao redor:</p>
+<ul>
+<li>Barra esquerda: Explorer (árvore de arquivos), Search, Source Control (git), Extensions</li>
+<li><strong>Cmd/Ctrl + P</strong> - abrir arquivo rápido. Digite parte do nome</li>
+<li><strong>Cmd/Ctrl + Shift + P</strong> - command palette. Digite qualquer comando pelo nome</li>
+<li><strong>Ctrl + `</strong> (crase) - abre o terminal integrado</li>
+</ul>
+<h2 id="instalar-node-js"><a class="heading-anchor" href="#instalar-node-js">Instalar Node.js</a></h2>
+<p>Vá em <a href="https://nodejs.org/" target="_blank" rel="noopener">nodejs.org</a> e baixe a versão <strong>LTS</strong> (Long-Term Support). Aceite os padrões. LTS é a escolha chata e confiável - evite o canal "Current" para aprender.</p>
+<p>No Mac, se você já usa Homebrew, <code>brew install node</code> funciona. No Linux, o gerenciador de pacotes da distro serve, mas a versão do Node pode estar velha; considere <a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a> para flexibilidade.</p>
+<h2 id="instalar-git"><a class="heading-anchor" href="#instalar-git">Instalar Git</a></h2>
+<p>Git é o sistema de controle de versão que toda codebase profissional usa, e o que o GitHub fala. Você vai usar diariamente a partir de T19.</p>
+<ul>
+<li><strong>Windows</strong>: baixe o instalador de <a href="https://git-scm.com/" target="_blank" rel="noopener">git-scm.com</a>. Aceite padrões. Vem com Git Bash, que você vai querer como terminal no Windows (muito melhor que <code>cmd.exe</code>).</li>
+<li><strong>Mac</strong>: macOS inclui git, mas <code>git --version</code> pode pedir para instalar as Xcode Command Line Tools na primeira vez. Aceite. Ou <code>brew install git</code> para uma versão mais nova.</li>
+<li><strong>Linux</strong>: instale pelo gerenciador da distro. Exemplo: <code>sudo apt install git</code> no Ubuntu/Debian, <code>sudo dnf install git</code> no Fedora.</li>
+</ul>
+<p>Depois de instalar, diga ao git quem você é. Isso roda uma vez por máquina e etiqueta todo commit que você fizer.</p>
+<pre><code>git config --global user.name &quot;Seu Nome&quot;
+git config --global user.email &quot;voce@example.com&quot;
+</code></pre>
+<h2 id="verificar-que-tudo-funciona"><a class="heading-anchor" href="#verificar-que-tudo-funciona">Verificar Que Tudo Funciona</a></h2>
+<p>Abra o VS Code, abra o terminal integrado (<strong>Ctrl + `</strong>). Rode esses quatro. Cada um deve imprimir um número de versão.</p>
+<pre><code>node -v      # v20.x.x ou mais novo
+npm -v       # 10.x.x ou mais novo
+code -v      # versão do VS Code
+git --version  # qualquer versão serve
+</code></pre>
+<p>Se algum disser "command not found", feche todos os terminais, abra um novo e tente de novo. O instalador atualizou seu <code>PATH</code>, e PATH só vale para terminais novos. Ainda quebrado? Reinicie o computador.</p>
+<h2 id="seu-primeiro-arquivo"><a class="heading-anchor" href="#seu-primeiro-arquivo">Seu Primeiro Arquivo</a></h2>
+<p>Vamos provar que a cadeia toda funciona.</p>
+<ol>
+<li>No VS Code, abra uma pasta: <strong>File &gt; Open Folder</strong>. Escolha ou crie uma pasta chamada <code>learning</code>.</li>
+<li>Crie um novo arquivo chamado <code>hello.html</code>.</li>
+<li>Cole isto e salve com Cmd/Ctrl + S:</li>
+</ol>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Hello&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;It works!&lt;/h1&gt;
+    &lt;script&gt;
+        console.log(&quot;Also in the browser console.&quot;);
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Abra o arquivo no navegador (duplo-clique, ou arraste para o navegador). Abra as devtools com <strong>F12</strong> e vá para a aba Console. Você deve ver a linha do log.</p>
+<div class="mermaid">
+flowchart LR
+    VSC[VS Code<br/>write code]
+    Disk[hello.html on disk]
+    Browser[Browser<br/>renders + runs JS]
+    DevTools[DevTools F12<br/>inspect + debug]
+    Terminal[VS Code terminal<br/>node, npm, git]
+    VSC -->|Save| Disk
+    Disk -->|Open| Browser
+    Browser --> DevTools
+    VSC -.->|Ctrl+backtick| Terminal
+    Terminal -.->|node, npm| Disk
+
+</div>
+<h2 id="extens-es-que-valem-a-pena"><a class="heading-anchor" href="#extens-es-que-valem-a-pena">Extensões Que Valem a Pena</a></h2>
+<p>Abra o painel de Extensions no VS Code (ícone quadrado na barra esquerda). Instale estes quatro:</p>
+<ul>
+<li><strong>Prettier - Code formatter</strong> - formata automaticamente ao salvar</li>
+<li><strong>ESLint</strong> - destaca bugs e problemas de estilo em JavaScript enquanto você digita</li>
+<li><strong>Live Server</strong> - botão direito em qualquer .html -&gt; "Open with Live Server" para recarga automática ao salvar</li>
+<li><strong>GitLens</strong> - integração git turbinada; vê quem mudou cada linha por último</li>
+</ul>
+<p>Para ligar format-on-save, abra settings (Cmd/Ctrl + ,), busque "format on save" e marque a caixa.</p>
+<div class="takeaways">
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
+<ul>
+<li>Três ferramentas: VS Code (editor), Node.js LTS (runtime), um navegador moderno com devtools</li>
+<li>Verifique com node -v, npm -v, git --version, code -v. Os quatro devem imprimir versões</li>
+<li>Aprenda os atalhos do VS Code cedo: Cmd/Ctrl+P (abrir rápido), Cmd/Ctrl+Shift+P (command palette), Ctrl+crase (terminal)</li>
+<li>Instale Prettier, ESLint, Live Server, GitLens. Ligue format-on-save</li>
+<li>Se "not found", abra um terminal novo. Se continuar quebrado, reinicie. Atualização de PATH exige shell nova</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          
+          <a href="t02.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

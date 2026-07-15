@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ja" data-page="r21.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>技術的エントロピー - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../ai-lessons.html">AIレッスン</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../theory-lessons.html">理論レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="r20.html">前へ</a>
+          
+        </div>
+      </nav>
+      <h1 id="r21-技術的エントロピー"><a class="heading-anchor" href="#r21-技術的エントロピー">R21: 技術的エントロピー</a></h1>
+<p class="lesson-intro">稼働中のプロジェクトは静的なものではありません。庭です。草取りをやめた瞬間、雑草が伸びます。2年放置すれば植えた植物は枯れます。ディスク上のコードのテキストは無事です。腐るのはコードと世界の間の「適合」です。Nodeのバージョンが上がり、依存関係が破壊的リリースを出し、データベースプロバイダがあなたのインスタンスを廃止し、ビルドツールは非推奨になる。誰も触っていなくても、静止しているものは何もありません。</p>
+<h2 id="2年でプロジェクトが死ぬ様子"><a class="heading-anchor" href="#2年でプロジェクトが死ぬ様子">2年でプロジェクトが死ぬ様子</a></h2>
+<p>典型的なモダンWebアプリを出荷したと想像してください。Reactフロントエンド、Nodeバックエンド、Postgresデータベース、どこかのPaaSにデプロイ。出荷し、動き、触るのをやめた。2年後に戻ってきてこう見つけます:</p>
+<ul>
+<li><strong>依存関係が壊れている。</strong><code>npm install</code>が失敗する。推移的な依存がunpublishされたか、yankされたか、新しいNodeを要求するようになったから。1つのパッケージをアップグレードすると、20個の連鎖が始まる。</li>
+<li><strong>データベースが消えたか劣化している。</strong>プロバイダが料金を変え、クラスターを移行し、プランを廃止し、無料枠が失効してデータが削除された。設定していなかったバックアップがあれば救えた。</li>
+<li><strong>スタックを忘れた。</strong>どの環境変数が必要か、どのNodeバージョンでビルドしたか、認証フローがどう動くか、なぜそのORMを選んだか、覚えていない。</li>
+<li><strong>ツールチェーンが非推奨になった。</strong>WebpackはViteになり、Viteは設定形式を変え、CSS-in-JSライブラリはメンテされておらず、状態マネージャーは流行遅れ。</li>
+</ul>
+<p>単一の失敗で死ぬわけではありません。組み合わさる。復旧コストが書き直しコストを超えるので、書き直す。そして同じサイクルが始まる。</p>
+<h2 id="4つの腐朽ベクター"><a class="heading-anchor" href="#4つの腐朽ベクター">4つの腐朽ベクター</a></h2>
+<div class="mermaid">
+flowchart TD
+    Project[Your Project]
+    Deps[Dependencies drift<br/>npm, apt, OS patches]
+    Data[Data evaporates<br/>DB pruned, provider sunset, no backups]
+    Knowledge[Knowledge fades<br/>you forget, teammates leave]
+    Tooling[Tooling shifts<br/>new frameworks, deprecated APIs]
+    Deps --> Project
+    Data --> Project
+    Knowledge --> Project
+    Tooling --> Project
+    Project -->|two years untouched| Dead[Does not run]
+
+</div>
+<p>全てのプロジェクトは、同時に4つのベクター全てから押されます。表面積が大きいほど、腐朽は速い。200依存のReactアプリは5依存のGoバイナリより速く腐り、それはHTMLとMarkdownのフォルダより速く腐る。</p>
+<h2 id="直し方-シンプルに保つ"><a class="heading-anchor" href="#直し方-シンプルに保つ">直し方: シンプルに保つ</a></h2>
+<p>システムを生かしておくコストは、その複雑さに比例してスケールします。全ての依存は維持すべき関係。全ての巧妙な抽象は未来の自分が学び直すべきもの。全ての可動部品は独立に壊れうる。</p>
+<ul>
+<li><strong>依存を減らす。</strong>100パッケージ = 100破壊ベクター。組み込みの答えが本当に劣るときだけライブラリに手を伸ばす。</li>
+<li><strong>最先端より退屈な技術。</strong>5年後も動かすつもりのものには、まだサポートされているツールを選ぶ。</li>
+<li><strong>ビルドなしで済むならビルドなし。</strong>ビルドステップは腐りうるもの。小規模サイトなら静的ファイルがバンドラーに勝つ。</li>
+<li><strong>エレガントより読みやすさ。</strong>不透明な抽象は火曜の夜に逆工学する未来の自分。冷え切った状態で読み返せるコードを書く。</li>
+</ul>
+<h2 id="プレーンテキストという脱出口"><a class="heading-anchor" href="#プレーンテキストという脱出口">プレーンテキストという脱出口</a></h2>
+<p>小さなビルドシステムを伴うMarkdownファイルは驚くほど耐久性があります。Markdownファイルはただのテキストです。どのマシンのどのエディタでも開ける。どのOSでも読める。英語を読める人間ならプログラムを走らせずに理解できる。<code>npm install</code>も、特定のNodeバージョンも、データベースも、インターネット接続も要らない。</p>
+<p><strong>ファイルはアプリより長生きする。</strong>アプリは来ては去る。独自形式はベンダーと共に死ぬ。プレーンテキストは生き残る。Markdownは2004年に設計され、当時書かれた文書は今日でも、どのレンダラーでも、変更ゼロでレンダリングされます。2004年のFlashアプリで同じことをやってみてください。</p>
+<p>あなたが今読んでいるサイトは、あえてこの方式で作られています。レッスンはフォルダ内のMarkdownファイル。ビルドは小さなPythonスクリプトで、それらをHTMLに変換する。明日そのスクリプトが消えても、全てのレッスンはどのテキストエディタでも読める。ホスティングが死んでも、コンテンツはUSBメモリにコピーできるファイルとして生き残る。チェーンに派手なものがないから何も腐らない。</p>
+<h2 id="3つの実践ルール"><a class="heading-anchor" href="#3つの実践ルール">3つの実践ルール</a></h2>
+<ul>
+<li><strong>仕事ができる最もシンプルなツールを選べ。</strong>ブログには静的サイト。設定にはフラットファイル。ドキュメントにはMarkdownメモ。フレームワークに手を伸ばすのは、シンプルなものが本当に足りない時だけ。</li>
+<li><strong>データはアプリとは別にバックアップせよ。</strong>コードは書き直せる。データは再生できない。定期的にエクスポートし、アプリなしで読める形式で保存し、プロバイダと無関係な場所にコピーを保管する。</li>
+<li><strong>覚えているうちにスタックを書き留めよ。</strong>ツール、バージョン、環境変数、「これをどう動かすか」をリストしたREADMEは、2年後の自分への贈り物。未来の自分は覚えていない。過去の自分がメモを残すべき。</li>
+</ul>
+<p>あなたが作るもので、触らずに永遠に動くものは一つもありません。問題は「戻ってきた時に復旧コストがいくらか」だけです。再構築が安いは保守が高いに勝る。エントロピーに噛ませる表面を減らせ。</p>
+<div class="takeaways">
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
+<ul>
+<li>2年の放置で、大抵のモダンWebアプリは死ぬ。コードではなく、周りの全てが動いたから</li>
+<li>4つの腐朽ベクター: 依存、データ、知識、ツーリング。全てのプロジェクトが同時に4つ全てから押される</li>
+<li>直し方はシンプルさ。依存を減らし、退屈な技術、ビルドなしで済むならビルドなし、エレガントより読みやすさ</li>
+<li>プレーンテキストとMarkdownは我々が持つ最も耐久性のある形式。どのエディタ、どのOS、どの未来でも</li>
+<li>データはアプリとは別にバックアップ。スタックを書き留めよ。READMEは未来の自分への贈り物</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../theory-lessons.html">理論レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="r20.html">前へ</a>
+          
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

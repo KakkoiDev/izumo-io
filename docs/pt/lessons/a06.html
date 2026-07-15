@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt" data-page="a06.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Agent Skills - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
+        <div class="lesson-pager">
+          <a href="a05.html">Anterior</a>
+          <a href="a07.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="a06-agent-skills"><a class="heading-anchor" href="#a06-agent-skills">A06: Agent Skills</a></h1>
+<p class="lesson-intro">Você tem alguns prompts que fica redigitando, "resuma isto em três tópicos para um iniciante", "explique este erro em linguagem simples". Uma skill salva esse prompt uma vez como uma capacidade que o agente busca sozinho, sempre que seu pedido combinar. (Outras ferramentas chamam isso de comandos personalizados ou agents. O Antigravity chama de skills.)</p>
+<h2 id="uma-skill-uma-capacidade-salva"><a class="heading-anchor" href="#uma-skill-uma-capacidade-salva">Uma Skill é uma Capacidade Salva</a></h2>
+<p>Uma skill é uma pequena pasta com um arquivo <code>SKILL.md</code> dentro. Coloque em <code>.agents/skills/</code> na pasta onde você trabalha:</p>
+<pre><code>.agents/skills/explain-simply/SKILL.md
+</code></pre>
+<p>O <code>SKILL.md</code> começa com um cabeçalho curto, depois as instruções. A <strong>description (descrição)</strong> é a parte importante, ela diz ao agente <em>quando</em> buscar esta skill:</p>
+<pre><code>---
+name: explain-simply
+description: Explicar código, erros ou ideias para um iniciante total em linguagem simples com um exemplo concreto. Use sempre que o usuário pedir para explicar ou simplificar algo.
+---
+Explique a coisa para um iniciante total, em linguagem simples.
+Dê um resumo em três tópicos, depois um exemplo concreto.
+</code></pre>
+<p>Agora é só pedir naturalmente, "explique este erro", e o agente percebe que seu pedido combina com a description da skill e a segue. Você não digita um comando especial; você montou uma capacidade reutilizável e o agente a usa quando encaixa.</p>
+<p>Isso é diferente do seu <code>AGENTS.md</code> (A05): aquele está sempre ligado para tudo o que você faz aqui. Uma skill carrega só quando o agente decide que é relevante, então você pode montar uma pequena biblioteca de skills especializadas sem entulhar toda resposta.</p>
+<div class="mermaid">
+flowchart LR
+    A[Redigitar um prompt longo toda vez] --> B[Lento, inconsistente]
+    C[Salvar como skill uma vez] --> D[O agente aplica automaticamente, mesma qualidade]
+
+</div>
+<h2 id="um-passo-al-m-mcp-s-para-voc-saber-que-existe"><a class="heading-anchor" href="#um-passo-al-m-mcp-s-para-voc-saber-que-existe">Um Passo Além: MCP (só para você saber que existe)</a></h2>
+<p>Skills reutilizam <em>prompts e instruções</em>. Se um dia você precisar que a IA use uma <em>ferramenta</em> externa de verdade, ler um banco de dados, chamar um serviço web, o Antigravity suporta <strong>MCP</strong> (Model Context Protocol), um jeito de plugar habilidades extras. Isso está bem além deste curso. Por ora, só saiba que a palavra existe para não ser um mistério depois.</p>
+<h2 id="exerc-cio-da-semana"><a class="heading-anchor" href="#exerc-cio-da-semana">Exercício da Semana</a></h2>
+<ol>
+<li>Na pasta onde você roda o <code>agy</code>, crie a pasta da skill: <code>mkdir -p .agents/skills/explain-simply</code> (use seu próprio nome).</li>
+<li>Dentro dela, crie o <code>SKILL.md</code> para uma skill que resolva um incômodo real seu (uma de "resumir em três tópicos" ou de "explicar de forma simples" como acima). Escreva uma description clara para o agente saber quando usar.</li>
+<li>Faça três pedidos reais esta semana que devem acioná-la. Rode <code>agy inspect</code> para confirmar que a skill está carregada, e refine o texto até a saída ficar consistentemente boa.</li>
+<li>Traga seu <code>SKILL.md</code> e um exemplo de uso para a aula.</li>
+</ol>
+<div class="takeaways">
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
+<ul>
+<li>Uma skill é uma capacidade salva e reutilizável: um SKILL.md numa pasta sob .agents/skills/</li>
+<li>A description diz ao agente quando usar a skill, então escreva com clareza</li>
+<li>O agente carrega a skill automaticamente quando seu pedido combina, sem comando para digitar</li>
+<li>MCP deixa a IA usar ferramentas externas; saiba que existe, deixe para depois</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
+        <div class="lesson-pager">
+          <a href="a05.html">Anterior</a>
+          <a href="a07.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

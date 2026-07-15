@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="pt" data-page="a04.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Engenharia de Contexto - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
+        <div class="lesson-pager">
+          <a href="a03.html">Anterior</a>
+          <a href="a05.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="a04-engenharia-de-contexto"><a class="heading-anchor" href="#a04-engenharia-de-contexto">A04: Engenharia de Contexto</a></h1>
+<p class="lesson-intro">O assistente é brilhante e tem amnésia sobre a sua situação específica. Ele sabe coisas gerais do treinamento, mas não conhece o <em>seu</em> arquivo, o <em>seu</em> erro, a <em>sua</em> pasta, a menos que você mostre. Colocar a informação certa na frente dele se chama engenharia de contexto, e é a diferença entre um chute e uma resposta.</p>
+<h2 id="mostre-n-o-descreva"><a class="heading-anchor" href="#mostre-n-o-descreva">Mostre, Não Descreva</a></h2>
+<p>Descrever um arquivo para a IA é como ler um documento em voz alta pelo telefone: lento e com perdas. Em vez disso, entregue o arquivo. No Antigravity CLI você faz isso com <code>@</code>:</p>
+<pre><code>Explique em duas frases sobre o que é @notes.txt
+</code></pre>
+<p>O <code>@notes.txt</code> puxa o conteúdo real daquele arquivo para sua mensagem. Aponte para a coisa real, <code>@report.md</code>, <code>@script.js</code>, ou uma pasta inteira com <code>@src/</code>, e a IA lê direto em vez de depender do seu resumo. Como o Antigravity CLI roda dentro de uma pasta, ele também vê os arquivos da pasta de onde você o iniciou.</p>
+<h2 id="use-seus-arquivos-reais"><a class="heading-anchor" href="#use-seus-arquivos-reais">Use Seus Arquivos Reais</a></h2>
+<p>Arquivos de brincadeira são para praticar; o ponto é seu trabalho real, uma redação, anotações de reunião, uma planilha. No Mac e no Linux eles já estão acessíveis. No Windows com WSL, seus documentos ficam sob <code>/mnt/c/</code>, então <code>C:\Users\Alex\Documents</code> vira <code>/mnt/c/Users/Alex/Documents</code>. <code>cd</code> para essa pasta (coloque aspas em caminhos com espaços) e use <code>@</code> num arquivo como em qualquer outro.</p>
+<p>Texto puro entra direto, <code>@notes.txt</code>, <code>@data.csv</code>, <code>@essay.md</code>. Um documento Word ou PDF não é texto puro, então dê à IA uma cópia em texto: no Word ou no Google Docs use Arquivo e então Salvar Como (ou Baixar) como texto simples ou Markdown, depois use <code>@</code> nessa cópia. Para PDFs, ou muitos arquivos de uma vez, um conversor como o <strong>markitdown</strong> faz isso num comando (<code>pip install 'markitdown[all]'</code>, depois <code>markitdown essay.docx -o essay.md</code>). De qualquer jeito você fica com texto limpo que a IA lê perfeitamente e uma cópia que você pode editar.</p>
+<h2 id="focado-vence-tudo"><a class="heading-anchor" href="#focado-vence-tudo">Focado Vence Tudo</a></h2>
+<p>Mais contexto não é melhor. Existe um ponto ideal:</p>
+<ul>
+<li><strong>Pouco demais</strong> - você cola um erro sem o código, e ela chuta.</li>
+<li><strong>Demais</strong> - você despeja vinte arquivos, e ela se afoga, fica mais lenta, mistura coisas sem relação e consome mais rápido seu limite diário do plano gratuito.</li>
+</ul>
+<p>Dê o que é relevante para <em>esta</em> pergunta e nada mais. Quando colar um erro, cole <strong>exatamente</strong>, palavra por palavra, não "disse algo sobre um módulo". O texto exato é a pista.</p>
+<div class="mermaid">
+flowchart TD
+    Q[Só a pergunta] --> G[A IA chuta sobre sua situação]
+    QC["Pergunta + @o-arquivo-real"] --> A[A IA responde sobre sua situação real]
+
+</div>
+<h2 id="comece-do-zero-ao-trocar-de-assunto"><a class="heading-anchor" href="#comece-do-zero-ao-trocar-de-assunto">Comece do Zero ao Trocar de Assunto</a></h2>
+<p>Uma conversa longa carrega tudo o que você disse antes como contexto. Útil quando é relacionado; confuso quando você pula para um assunto novo e detalhes antigos se misturam. Ao mudar de assunto, comece uma nova conversa para a IA não continuar pensando na anterior.</p>
+<h2 id="exerc-cio-da-semana"><a class="heading-anchor" href="#exerc-cio-da-semana">Exercício da Semana</a></h2>
+<ol>
+<li>Crie um arquivo de texto curto (anotações, uma receita, qualquer coisa) na pasta onde você roda o <code>agy</code>.</li>
+<li>Faça uma pergunta sobre ele <strong>sem</strong> <code>@</code>, descrevendo em palavras. Anote a resposta.</li>
+<li>Faça a mesma pergunta <strong>com</strong> <code>@seuarquivo</code>. Compare, qual resposta realmente sabia o que estava no arquivo?</li>
+<li>Agora cole uma mensagem de erro real que você viu esta semana (texto exato) e pergunte o que significa. Traga a comparação para a aula.</li>
+</ol>
+<div class="takeaways">
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
+<ul>
+<li>A IA só sabe o que você coloca na frente dela, mostre o arquivo real, não descreva</li>
+<li>Use @arquivo para puxar o conteúdo real do arquivo para sua mensagem</li>
+<li>Contexto focado vence: pouco demais faz ela chutar, demais a afoga e consome o limite</li>
+<li>Cole erros exatamente, e comece uma conversa nova ao trocar de assunto</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
+        <div class="lesson-pager">
+          <a href="a03.html">Anterior</a>
+          <a href="a05.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

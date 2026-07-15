@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="pt" data-page="theory-lessons.html" data-lang-paths='{"en":"../","ja":"../ja/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Theory & Life Lessons - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="tech-lessons.html">Aulas Técnicas</a>
+      <a href="theory-lessons.html">Teoria</a>
+      <a href="ai-lessons.html">Aulas de IA</a>
+      <a href="videos.html">Vídeos</a>
+      <a href="resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <section class="page-header">
+      <h1 id="teoria-e-li-es-de-vida"><a class="heading-anchor" href="#teoria-e-li-es-de-vida">Teoria e Lições de Vida</a></h1>
+      <p>O pensamento por trás de grandes softwares e grandes desenvolvedores.</p>
+    </section>
+
+    <div class="theory-grid">
+      
+      <a href="lessons/r01.html" class="theory-card">
+        <span class="lesson-id">R01</span>
+        <h3>O que é TI?</h3>
+        <p>Tudo é informação. TI trata de coletar, enviar, processar e armazenar informação.</p>
+        
+        <p class="theory-analogy">Uma agência dos correios para dados</p>
+        
+      </a>
+      
+      <a href="lessons/r02.html" class="theory-card">
+        <span class="lesson-id">R02</span>
+        <h3>Arquitetura Web</h3>
+        <p>Clientes pedem, servidores respondem. Como um restaurante em que você faz o pedido e a cozinha prepara a refeição.</p>
+        
+        <p class="theory-analogy">Restaurante: clientes pedem, cozinha prepara</p>
+        
+      </a>
+      
+      <a href="lessons/r03.html" class="theory-card">
+        <span class="lesson-id">R03</span>
+        <h3>Resolução de Problemas</h3>
+        <p>Entenda antes de construir. Grande parte do trabalho de software é pensar, não digitar.</p>
+        
+        <p class="theory-analogy">Médico: diagnostica antes de receitar</p>
+        
+      </a>
+      
+      <a href="lessons/r04.html" class="theory-card">
+        <span class="lesson-id">R04</span>
+        <h3>A Regra 20/80</h3>
+        <p>20% do conhecimento cobre 80% do trabalho real. Foque no que mais importa.</p>
+        
+        <p class="theory-analogy">5 técnicas de cozinha cobrem a maioria dos pratos</p>
+        
+      </a>
+      
+      <a href="lessons/r05.html" class="theory-card">
+        <span class="lesson-id">R05</span>
+        <h3>Consistência Vence a Paixão</h3>
+        <p>Prática diária vence surtos de inspiração. O maratonista vence no longo prazo.</p>
+        
+        <p class="theory-analogy">O maratonista vence o velocista</p>
+        
+      </a>
+      
+      <a href="lessons/r06.html" class="theory-card">
+        <span class="lesson-id">R06</span>
+        <h3>O Caminho de Menor Resistência</h3>
+        <p>Ferramentas novas são adotadas quando são mais fáceis que o jeito antigo. Inovação flui como água.</p>
+        
+        <p class="theory-analogy">A água corre ladeira abaixo</p>
+        
+      </a>
+      
+      <a href="lessons/r07.html" class="theory-card">
+        <span class="lesson-id">R07</span>
+        <h3>Mantenha Tudo Super Simples</h3>
+        <p>Soluções simples vencem as complexas. Algumas ferramentas básicas vencem um canivete suíço no trabalho real.</p>
+        
+        <p class="theory-analogy">A caixa de ferramentas vence o canivete suíço</p>
+        
+      </a>
+      
+      <a href="lessons/r08.html" class="theory-card">
+        <span class="lesson-id">R08</span>
+        <h3>Qualidade de Código</h3>
+        <p>Bom código funciona, roda rápido e é fácil de mudar. Três níveis como num restaurante.</p>
+        
+        <p class="theory-analogy">Restaurante: comestível, delicioso, cozinha fluida</p>
+        
+      </a>
+      
+      <a href="lessons/r09.html" class="theory-card">
+        <span class="lesson-id">R09</span>
+        <h3>Como Aprender</h3>
+        <p>Aprender é explorar um mapa. No começo você não sabe o que não sabe.</p>
+        
+        <p class="theory-analogy">Explorando um mapa desconhecido</p>
+        
+      </a>
+      
+      <a href="lessons/r10.html" class="theory-card">
+        <span class="lesson-id">R10</span>
+        <h3>Estudo de Caso: KakkoiSchool</h3>
+        <p>Como este site é construído: aulas em Markdown, um build Python pequeno que emite HTML e Markdown lado a lado, GitHub Actions para tradução, GitHub Pages em school.kakkoi.dev.</p>
+        
+        <p class="theory-analogy">Estude aquilo que você usa todo dia</p>
+        
+      </a>
+      
+      <a href="lessons/r11.html" class="theory-card">
+        <span class="lesson-id">R11</span>
+        <h3>Adaptabilidade</h3>
+        <p>A indústria de tecnologia recompensa quem abraça a mudança. Fundamentos duram mais que frameworks.</p>
+        
+        <p class="theory-analogy">Fundamentos duram mais que qualquer ferramenta</p>
+        
+      </a>
+      
+      <a href="lessons/r12.html" class="theory-card">
+        <span class="lesson-id">R12</span>
+        <h3>Equilíbrio Entre Trabalho e Vida</h3>
+        <p>Carreira é maratona. Ritmo sustentável vence trabalho excessivo crônico.</p>
+        
+        <p class="theory-analogy">Não dá para correr uma maratona em ritmo de tiro</p>
+        
+      </a>
+      
+      <a href="lessons/r13.html" class="theory-card">
+        <span class="lesson-id">R13</span>
+        <h3>Política no Trabalho</h3>
+        <p>Navegando pela política de escritório, protegendo seu trabalho e sabendo quando sair.</p>
+        
+        <p class="theory-analogy">Documente, crie alianças, mantenha o foco</p>
+        
+      </a>
+      
+      <a href="lessons/r14.html" class="theory-card">
+        <span class="lesson-id">R14</span>
+        <h3>Comunicação e Trabalho em Equipe</h3>
+        <p>Habilidade técnica te contrata. Habilidade de comunicação te promove.</p>
+        
+        <p class="theory-analogy">Código brilhante que ninguém entende não serve para nada</p>
+        
+      </a>
+      
+      <a href="lessons/r15.html" class="theory-card">
+        <span class="lesson-id">R15</span>
+        <h3>Trabalhando com IA</h3>
+        <p>IA é um multiplicador de força. Aprenda a trabalhar com ela, não contra ela.</p>
+        
+        <p class="theory-analogy">Um assistente robô que leu milhões de livros</p>
+        
+      </a>
+      
+      <a href="lessons/r16.html" class="theory-card">
+        <span class="lesson-id">R16</span>
+        <h3>Entregar é uma Habilidade</h3>
+        <p>Muitos sabem programar, poucos sabem entregar. Terminar e apresentar o trabalho profissionalmente é uma habilidade à parte.</p>
+        
+        <p class="theory-analogy">Um projeto terminado vence um impressionante inacabado</p>
+        
+      </a>
+      
+      <a href="lessons/r17.html" class="theory-card">
+        <span class="lesson-id">R17</span>
+        <h3>A Importância do Inglês</h3>
+        <p>Inglês é a língua franca da tecnologia. Domínio funcional destrava recursos, comunicação e oportunidades de carreira.</p>
+        
+        <p class="theory-analogy">A língua comum da cozinha global</p>
+        
+      </a>
+      
+      <a href="lessons/r18.html" class="theory-card">
+        <span class="lesson-id">R18</span>
+        <h3>A Documentação é Sua Melhor Amiga</h3>
+        <p>Está ok não saber tudo. Seu trabalho é resolver problemas. Use docs, Google e IA sem vergonha. Orgulho atrasa.</p>
+        
+        <p class="theory-analogy">Até cirurgiões conferem a referência antes de operar</p>
+        
+      </a>
+      
+      <a href="lessons/r19.html" class="theory-card">
+        <span class="lesson-id">R19</span>
+        <h3>Uma Empresa Roda com Dinheiro</h3>
+        <p>Uma empresa sobrevive de dinheiro. Missão é a cara, não o motor. Entenda o porquê por trás dos tickets para entregar código que serve o negócio.</p>
+        
+        <p class="theory-analogy">Sem dinheiro, sem missão</p>
+        
+      </a>
+      
+      <a href="lessons/r20.html" class="theory-card">
+        <span class="lesson-id">R20</span>
+        <h3>Nunca Confie numa IA</h3>
+        <p>IAs de ponta chantageiam e deixam humanos morrerem para se preservar em testes controlados. Use muito, confie nunca. Mantenha humanos no botão de desligar.</p>
+        
+        <p class="theory-analogy">Uma serra não liga se corta madeira ou sua mão</p>
+        
+      </a>
+      
+      <a href="lessons/r21.html" class="theory-card">
+        <span class="lesson-id">R21</span>
+        <h3>Entropia Técnica</h3>
+        <p>Código apodrece. Dependências quebram. Banco de dados perde dados. Você esquece a própria stack. A única defesa é simplicidade. Arquivos Markdown com um buildzinho ainda funcionam em dez anos. Um app React de dois anos atrás, muitas vezes, não.</p>
+        
+        <p class="theory-analogy">Um jardim começa a se devorar no instante em que você para de capinar</p>
+        
+      </a>
+      
+    </div>
+
+  </main>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

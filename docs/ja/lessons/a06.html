@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ja" data-page="a06.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>エージェントスキル - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../ai-lessons.html">AIレッスン</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">AIレッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="a05.html">前へ</a>
+          <a href="a07.html">次へ</a>
+        </div>
+      </nav>
+      <h1 id="a06-エージェントスキル"><a class="heading-anchor" href="#a06-エージェントスキル">A06: エージェントスキル</a></h1>
+<p class="lesson-intro">何度も打ち直しているプロンプトがいくつかあるはず、「これを初心者向けに3つの箇条書きで要約して」「このエラーをわかりやすく説明して」。スキルはそのプロンプトを一度保存し、あなたの依頼に合うたびエージェントが自分で手に取る能力にします。(他のツールではカスタムコマンドやエージェントと呼びます。Antigravityではスキルです。)</p>
+<h2 id="スキルは保存した能力"><a class="heading-anchor" href="#スキルは保存した能力">スキルは保存した能力</a></h2>
+<p>スキルは、中に <code>SKILL.md</code> ファイルを持つ小さなフォルダです。作業するフォルダの <code>.agents/skills/</code> に置きます:</p>
+<pre><code>.agents/skills/explain-simply/SKILL.md
+</code></pre>
+<p><code>SKILL.md</code> は短いヘッダーから始まり、それから指示。重要なのは <strong>description(説明)</strong> で、このスキルを<em>いつ</em>手に取るかをエージェントに伝えます:</p>
+<pre><code>---
+name: explain-simply
+description: コード、エラー、考えを、完全な初心者にわかりやすい言葉で具体例を1つ添えて説明する。説明や簡単にするよう頼まれたときに使う。
+---
+対象を完全な初心者に、わかりやすい言葉で説明する。
+3つの箇条書きの要約、それから具体例を1つ。
+</code></pre>
+<p>あとは普通に「このエラーを説明して」と頼むと、エージェントが依頼をスキルの説明と照合し、それに従います。特別なコマンドは打ちません。再利用可能な能力を作り、合うときにエージェントが使うのです。</p>
+<p>これはあなたの <code>AGENTS.md</code>(A05)とは違います: あれはここでやること全部に常に効きます。スキルは、エージェントが関連すると判断したときだけ読み込まれるので、毎回の答えを散らかさずに専門的なスキルの小さなライブラリを作れます。</p>
+<div class="mermaid">
+flowchart LR
+    A[毎回長いプロンプトを打ち直す] --> B[遅く、ばらつく]
+    C[一度スキルとして保存] --> D[エージェントが自動で適用、毎回同じ品質]
+
+</div>
+<h2 id="もう一歩-mcp-存在だけ知っておく"><a class="heading-anchor" href="#もう一歩-mcp-存在だけ知っておく">もう一歩: MCP(存在だけ知っておく)</a></h2>
+<p>スキルは<em>プロンプトや指示</em>を再利用します。もしAIに本物の外部<em>ツール</em>(データベースを読む、Webサービスを呼ぶ)を使わせたくなったら、Antigravityは<strong>MCP</strong>(Model Context Protocol)、追加の能力を差し込む仕組みをサポートします。これはこのコースの範囲を大きく超えます。今は、後で謎にならないよう言葉が存在することだけ知っておいてください。</p>
+<h2 id="今週の演習"><a class="heading-anchor" href="#今週の演習">今週の演習</a></h2>
+<ol>
+<li><code>agy</code> を実行するフォルダに、スキルフォルダを作る: <code>mkdir -p .agents/skills/explain-simply</code>(名前は自分のものに)。</li>
+<li>その中に <code>SKILL.md</code> を作り、あなたの本物の不満を1つ解決するスキルにする(「3つの箇条書きで要約」や、上のような「わかりやすく説明」)。エージェントがいつ使うか分かるよう、説明を明確に書く。</li>
+<li>今週、それが手に取られるべき本物の依頼を3回する。<code>agy inspect</code> でスキルが読み込まれているか確認し、出力が安定して良くなるまで言い回しを磨く。</li>
+<li>あなたの <code>SKILL.md</code> と実行例を1つ授業に持ってくる。</li>
+</ol>
+<div class="takeaways">
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
+<ul>
+<li>スキルは保存された再利用可能な能力: .agents/skills/ の下のフォルダにある SKILL.md</li>
+<li>descriptionがエージェントにいつ使うかを伝えるので、明確に書く</li>
+<li>依頼が合うとエージェントが自動でスキルを読み込む、打つコマンドはない</li>
+<li>MCPはAIに外部ツールを使わせる、存在を知っておき、後回しにする</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">AIレッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="a05.html">前へ</a>
+          <a href="a07.html">次へ</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

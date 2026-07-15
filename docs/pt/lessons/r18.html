@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt" data-page="r18.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>A Documentação é Sua Melhor Amiga - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../theory-lessons.html">Voltar para as Aulas Teóricas</a>
+        <div class="lesson-pager">
+          <a href="r17.html">Anterior</a>
+          <a href="r19.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="r18-a-documenta-o-sua-melhor-amiga"><a class="heading-anchor" href="#r18-a-documenta-o-sua-melhor-amiga">R18: A Documentação é Sua Melhor Amiga</a></h1>
+<p class="lesson-intro">Ninguém lembra de tudo. Nem sêniores, nem autores de framework, nem principal engineers no Google. O que separa pessoa efetiva de pessoa travada não é quanto memoriza, é a velocidade com que encontra o que precisa. Docs, busca e IA não são cola. Usar é o trabalho.</p>
+<h2 id="seu-trabalho-resolver-problemas"><a class="heading-anchor" href="#seu-trabalho-resolver-problemas">Seu Trabalho é Resolver Problemas</a></h2>
+<p>Você não é pago para recitar assinaturas de função. É pago para entregar software funcionando. Quando empaca, a pergunta não é "sou inteligente o bastante" e sim "qual o caminho mais rápido para uma solução que funciona?". Esse caminho quase sempre passa por docs, busca, IA, código fonte ou um colega.</p>
+<h2 id="as-ferramentas-do-of-cio"><a class="heading-anchor" href="#as-ferramentas-do-of-cio">As Ferramentas do Ofício</a></h2>
+<ul>
+<li><strong>Documentação oficial.</strong> Comece aqui. Escrita por quem construiu a coisa.</li>
+<li><strong>Buscadores.</strong> Stack Overflow, posts de blog e issues no GitHub já resolveram a maioria dos problemas.</li>
+<li><strong>Assistentes de IA.</strong> Explique o problema em palavras simples. Peça exemplos. Itere.</li>
+<li><strong>Código fonte.</strong> Quando a doc falha, leia a implementação. Ela não mente.</li>
+<li><strong>Seu time.</strong> Uma conversa de cinco minutos pode salvar cinco horas de busca.</li>
+</ul>
+<div class="mermaid">
+flowchart TD
+    A[Stuck on a problem] --> B{How long?}
+    B -->|Minutes| C[Read the docs]
+    B -->|Tens of minutes| D[Search Google]
+    B -->|Hours| E[Ask AI or a teammate]
+    C --> F[Ship it]
+    D --> F
+    E --> F
+
+</div>
+<h2 id="orgulho-o-inimigo"><a class="heading-anchor" href="#orgulho-o-inimigo">Orgulho é o Inimigo</a></h2>
+<p>Quem recusa buscar porque "eu deveria saber isso" desperdiça horas. Quem recusa perguntar porque "fica mal" entrega mais devagar. Procurar coisas não é fraqueza. Sênior significa rapidez em achar respostas, não saber tudo de antemão.</p>
+<div class="takeaways">
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
+<ul>
+<li>Ninguém sabe de tudo. O campo é grande demais para memorizar</li>
+<li>Seu trabalho é software funcionando, não recitar de memória</li>
+<li>Docs, busca, IA, código fonte e colegas são todas ferramentas legítimas</li>
+<li>Orgulho atrasa. Sênior = rápido em achar respostas, não saber tudo</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../theory-lessons.html">Voltar para as Aulas Teóricas</a>
+        <div class="lesson-pager">
+          <a href="r17.html">Anterior</a>
+          <a href="r19.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

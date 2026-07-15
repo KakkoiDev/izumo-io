@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt" data-page="r01.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>O que é TI? - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../theory-lessons.html">Voltar para as Aulas Teóricas</a>
+        <div class="lesson-pager">
+          
+          <a href="r02.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="r01-o-que-ti"><a class="heading-anchor" href="#r01-o-que-ti">R01: O que é TI?</a></h1>
+<p class="lesson-intro">Tecnologia da Informação trata de quatro ações: coletar informação, enviá-la para algum lugar, processá-la em algo útil e armazená-la para depois. Cada app, site e sistema que você usa é apenas alguma combinação dessas quatro coisas - de uma calculadora a uma rede social.</p>
+<h2 id="os-quatro-pilares"><a class="heading-anchor" href="#os-quatro-pilares">Os Quatro Pilares</a></h2>
+<p><strong>Coletar:</strong> Teclados, câmeras, sensores, formulários - qualquer coisa que capture informação do mundo.</p>
+<p><strong>Enviar:</strong> Redes, Wi-Fi, cabos, APIs - movendo informação do ponto A ao ponto B.</p>
+<p><strong>Processar:</strong> CPUs, algoritmos, código - transformando dados brutos em saída útil.</p>
+<p><strong>Armazenar:</strong> HDs, bancos de dados, nuvem - guardando informação para uso futuro.</p>
+<h2 id="exemplo-do-mundo-real"><a class="heading-anchor" href="#exemplo-do-mundo-real">Exemplo do Mundo Real</a></h2>
+<p>Quando você posta uma foto numa rede social: a câmera do celular coleta a imagem, a rede a envia a um servidor, o servidor a processa (redimensiona, comprime) e o banco de dados a armazena. Os quatro pilares em ação.</p>
+<div class="mermaid">
+flowchart LR
+    A[Collect] -->|keyboard, camera, sensor| B[Send]
+    B -->|network, API, cable| C[Process]
+    C -->|CPU, algorithm, code| D[Store]
+    D -->|database, disk, cloud| E[Retrieve]
+    E -->|query, request| C
+    C -->|output| F[Display to User]
+
+</div>
+<div class="takeaways">
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
+<ul>
+<li>TI se resume a quatro ações: coletar, enviar, processar, armazenar</li>
+<li>Toda aplicação é uma combinação dessas quatro operações</li>
+<li>Entender esses pilares ajuda a enxergar o quadro geral em qualquer sistema</li>
+<li>Desenvolvimento web toca os quatro: formulários coletam, HTTP envia, servidores processam, bancos de dados armazenam</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../theory-lessons.html">Voltar para as Aulas Teóricas</a>
+        <div class="lesson-pager">
+          
+          <a href="r02.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

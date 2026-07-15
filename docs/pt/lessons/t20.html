@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="pt" data-page="t20.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>GitHub e Colaboração - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t19.html">Anterior</a>
+          <a href="t21.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="t20-github-e-colabora-o"><a class="heading-anchor" href="#t20-github-e-colabora-o">T20: GitHub e Colaboração</a></h1>
+<p class="lesson-intro">Git é sua máquina do tempo pessoal na sua mesa. GitHub é a oficina compartilhada onde vários viajantes do tempo se encontram, comparam anotações e constroem juntos. O mesmo repositório vive em dois lugares ao mesmo tempo: seu laptop e a nuvem. Push e pull mantêm os dois sincronizados.</p>
+<h2 id="remotes-onde-a-c-pia-vive"><a class="heading-anchor" href="#remotes-onde-a-c-pia-vive">Remotes: Onde a Cópia Vive</a></h2>
+<p>Um <strong>remote</strong> é uma URL nomeada que aponta para uma cópia do seu repositório em outro lugar. Por convenção, o remote principal se chama <code>origin</code>. Você faz push dos commits para o origin e pull dos commits de lá.</p>
+<pre><code># Start from an existing GitHub repo
+git clone https://github.com/you/my-project.git
+cd my-project
+git remote -v                  # list remotes
+
+# Or push an existing local repo to a new GitHub repo
+git remote add origin https://github.com/you/my-project.git
+git branch -M main
+git push -u origin main        # -u sets the default upstream
+</code></pre>
+<h2 id="push-e-pull"><a class="heading-anchor" href="#push-e-pull">Push e Pull</a></h2>
+<p>Push envia seus commits locais para o remote. Pull baixa e faz merge de commits do remote no seu branch atual. Sempre dê pull antes de começar trabalho novo para construir em cima do mais recente.</p>
+<pre><code>git pull                       # fetch + merge from origin
+git push                       # send your commits up
+
+# First push of a new branch
+git push -u origin feature/login
+</code></pre>
+<h2 id="github-flow-o-fluxo-amig-vel-para-iniciantes"><a class="heading-anchor" href="#github-flow-o-fluxo-amig-vel-para-iniciantes">GitHub Flow: O Fluxo Amigável para Iniciantes</a></h2>
+<p>GitHub Flow é o fluxo profissional mais simples. Uma regra: <strong>main</strong> está sempre pronto para deploy. Todo o resto acontece em branches de vida curta por trás de um pull request.</p>
+<ol>
+<li>Crie um branch a partir de main para sua mudança</li>
+<li>Faça commits conforme trabalha</li>
+<li>Push o branch e abra um <strong>pull request</strong> (PR)</li>
+<li>Um colega revisa, o CI roda testes automaticamente</li>
+<li>Merge quando estiver verde, delete o branch, pull o main mais recente</li>
+</ol>
+<div class="mermaid">
+gitGraph
+    commit id: "main"
+    branch feature/contact
+    checkout feature/contact
+    commit id: "form markup"
+    commit id: "validation"
+    commit id: "styles"
+    checkout main
+    commit id: "hotfix"
+    checkout feature/contact
+    commit id: "address review"
+    checkout main
+    merge feature/contact tag: "PR #42"
+    commit id: "next feature"
+
+</div>
+<p>O branch só vive enquanto o pull request está aberto. Depois do merge, é deletado. A tag <code>PR #42</code> é o registro permanente da conversa, da revisão e dos checks de CI que aconteceram em torno daquele merge commit.</p>
+<div class="mermaid">
+sequenceDiagram
+    participant You as Your Laptop
+    participant Origin as GitHub (origin)
+    participant Team as Teammate
+    You->>You: git checkout -b feature/x
+    You->>You: edit, add, commit
+    You->>Origin: git push -u origin feature/x
+    You->>Origin: Open Pull Request
+    Origin->>Team: Review request
+    Team->>Origin: Approve + comments
+    Origin->>Origin: CI runs tests
+    Origin->>Origin: Merge to main
+    Team->>Team: git pull
+    You->>You: git pull (to get merged main)
+
+</div>
+<h2 id="pull-requests-conversas-em-torno-de-c-digo"><a class="heading-anchor" href="#pull-requests-conversas-em-torno-de-c-digo">Pull Requests: Conversas em Torno de Código</a></h2>
+<p>Um PR é mais que um botão de merge. É um registro permanente do que você fez, por quê, quem revisou e quais testes rodaram. Escreva descrições de PR como se estivesse explicando a mudança para um colega daqui a seis meses.</p>
+<pre><code>## Summary
+Adds a contact form to the landing page.
+
+## Why
+Closes #42. Users had no way to reach us outside Discord.
+
+## Test plan
+- [x] Form validates required fields
+- [x] Submission shows success toast
+- [ ] Confirm email arrives in inbox
+</code></pre>
+<h2 id="conflitos-de-merge"><a class="heading-anchor" href="#conflitos-de-merge">Conflitos de Merge</a></h2>
+<p>Quando dois branches editam a mesma linha, o git para e pede para você decidir. Ele marca o conflito no arquivo com <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> e <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. Escolha a versão certa, apague os marcadores, faça stage e commit.</p>
+<pre><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+color: blue;
+=======
+color: green;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/login
+</code></pre>
+<div class="takeaways">
+<h2 id="pontos-chave"><a class="heading-anchor" href="#pontos-chave">Pontos-chave</a></h2>
+<ul>
+<li>GitHub guarda uma cópia remota do seu repo. origin é o nome convencional</li>
+<li>Push envia commits para cima, pull traz para baixo. Dê pull antes de começar trabalho novo</li>
+<li>GitHub Flow: branch a partir de main, commit, push, abra PR, revisão, merge, delete o branch</li>
+<li>Escreva descrições de pull request para o leitor, não para o autor. Explique o porquê</li>
+<li>Conflitos de merge são normais. Leia os marcadores, escolha uma versão, re-commite</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t19.html">Anterior</a>
+          <a href="t21.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

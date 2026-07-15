@@ -1,0 +1,1 @@
+/home/kakkoidev/.claude-database/izumo-io/master/MEMO.md

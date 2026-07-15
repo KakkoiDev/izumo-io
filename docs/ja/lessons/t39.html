@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ja" data-page="t39.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>システム設計: キャッシュ、キュー、パターン - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../ai-lessons.html">AIレッスン</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t38.html">前へ</a>
+          
+        </div>
+      </nav>
+      <h1 id="t39-システム設計-キャッシュ-キュー-パターン"><a class="heading-anchor" href="#t39-システム設計-キャッシュ-キュー-パターン">T39: システム設計 - キャッシュ、キュー、パターン</a></h1>
+<p class="lesson-intro">キャッシュは高価な読み取りを先に刻んでおく。キューはユーザーリクエストから遅い仕事を切り離す。CDNは全ユーザーの近くにコピーを置く。ロードバランサとレプリケーションが障害を吸収する。システム設計の深掘りは、レイテンシとスループットの数字が合うまでこれらを縫い合わせる作業。</p>
+<h2 id="キャッシング-あなたとdbの間の高速メモリ"><a class="heading-anchor" href="#キャッシング-あなたとdbの間の高速メモリ">キャッシング: あなたとDBの間の高速メモリ</a></h2>
+<p>キャッシュは遅いまたは高価な操作の結果を高速メモリに保存する。王道パターンは <strong>cache-aside</strong>: アプリがキャッシュを確認し、ミスならDBを読みキャッシュを埋める。ヒットならDBを完全にスキップ。</p>
+<div class="mermaid">
+sequenceDiagram
+    participant App
+    participant Cache as Redis
+    participant DB as Database
+    App->>Cache: GET key
+    alt cache hit
+        Cache-->>App: value (fast)
+    else cache miss
+        Cache-->>App: nil
+        App->>DB: SELECT ...
+        DB-->>App: row
+        App->>Cache: SET key value ttl
+    end
+
+</div>
+<pre><code>// Node.jsでのcache-aside
+async function getUser(id) {
+    const cached = await redis.get(`user:${id}`);
+    if (cached) return JSON.parse(cached);
+
+    const row = await db.query(&quot;SELECT * FROM users WHERE id = $1&quot;, [id]);
+    await redis.set(`user:${id}`, JSON.stringify(row), &quot;EX&quot;, 300);
+    return row;
+}
+</code></pre>
+<p>キャッシングの2つの難問は <strong>無効化</strong>(古いデータをいつ捨てるか)と <strong>スタンピード</strong>(多数のリクエストが同時にミスしてDBを叩く)。TTL、ライトスルー更新、ミス時のシングルフライトロックで対処。</p>
+<h2 id="どこにキャッシュを置くか"><a class="heading-anchor" href="#どこにキャッシュを置くか">どこにキャッシュを置くか</a></h2>
+<ul>
+<li><strong>ブラウザキャッシュ</strong> - ユーザーに最も近い。<code>Cache-Control</code> ヘッダーで制御</li>
+<li><strong>CDN(エッジキャッシュ)</strong> - 静的アセット、公開APIレスポンス。グローバル、安い、速い</li>
+<li><strong>アプリキャッシュ</strong> - インプロセスメモリまたはRedis。ユーザー別データやホット行に良い</li>
+<li><strong>DBキャッシュ</strong> - DB自身のバッファプール。無料で既に調整済み</li>
+</ul>
+<h2 id="メッセージキュー-遅い仕事を切り離す"><a class="heading-anchor" href="#メッセージキュー-遅い仕事を切り離す">メッセージキュー: 遅い仕事を切り離す</a></h2>
+<p>数百ミリ秒を超える操作はユーザーをブロックすべきではない。キューがあれば、アプリはジョブを受け取ってすぐ返せる。<strong>ワーカー</strong>がキューを読んで遅い仕事を後でやる。</p>
+<div class="mermaid">
+sequenceDiagram
+    participant User
+    participant API
+    participant Q as Queue (Kafka/SQS)
+    participant W as Worker
+    participant DB
+    User->>API: POST /upload
+    API->>Q: enqueue job
+    API-->>User: 202 Accepted (fast)
+    W->>Q: pull job
+    W->>W: resize, transcode, scan
+    W->>DB: write result
+
+</div>
+<p>キューはトラフィックスパイクも吸収する。ワーカーが1000/秒処理できてスパイクが10,000/秒押し寄せた時、キューがカーブを平らにしリクエストを落とさない。Kafka、RabbitMQ、SQSは順序、耐久性、リプレイ周りでそれぞれ違うトレードオフをする。</p>
+<h2 id="ロードバランサと冗長化"><a class="heading-anchor" href="#ロードバランサと冗長化">ロードバランサと冗長化</a></h2>
+<p>ロードバランサは同一のアプリサーバーの前に立ち、リクエストを分散する。3つの仕事: 負荷分散、死んだサーバーの検出(ヘルスチェック)、TLSの終端。ロードバランサ、アプリ、DBレプリカ、どれも最低2台動かす - 単一障害が吸収されるように。</p>
+<pre><code>Client -&gt; DNS -&gt; LB (primary) --&gt; app1
+                    LB (standby)   app2
+                                   app3
+</code></pre>
+<h2 id="cdn-各ユーザーの近くにコピー"><a class="heading-anchor" href="#cdn-各ユーザーの近くにコピー">CDN: 各ユーザーの近くにコピー</a></h2>
+<p>Content Delivery Networkは静的アセット(時にはAPIレスポンス)を世界中の数百のエッジロケーションにキャッシュする。東京の最初のユーザーはバージニアのオリジンまでの全旅程を払う。次の1万人の東京ユーザーは10msで東京エッジにヒットする。</p>
+<pre><code>// CDNに置くもの
+- 画像、動画、フォント、JS/CSSバンドル
+- Cache-Control付きでめったに変わらないAPIレスポンス
+- ログアウト状態のページのHTML
+</code></pre>
+<h2 id="モノリス対マイクロサービス"><a class="heading-anchor" href="#モノリス対マイクロサービス">モノリス対マイクロサービス</a></h2>
+<p>マイクロサービスで始めるな。分割のたびにネットワークホップ、デプロイ対象、障害モードが増える。</p>
+<ul>
+<li><strong>モノリス</strong>: 1つのコードベース、1つのデプロイ。反復が速く、デバッグが簡単。~50人のエンジニアまたは明らかなボトルネックで限界。</li>
+<li><strong>マイクロサービス</strong>: 別々のコードベース、別々のデプロイ、間にAPIまたはキュー。各チームが1サービスを所有。スケールで報われるが、初期コストが大きい。モノリスが明らかに痛くなった時だけ抽出。</li>
+</ul>
+<h2 id="押さえておく数字"><a class="heading-anchor" href="#押さえておく数字">押さえておく数字</a></h2>
+<ul>
+<li>L1キャッシュ: ~1 ns。メモリ: ~100 ns。SSD: ~100 us。同リージョンのネットワーク往復: ~1 ms。クロスリージョン: ~100 ms。</li>
+<li>現代のCPUサーバーはシンプルなJSONで ~10k-100k req/秒をさばく。</li>
+<li>Postgresはチューニング前で ~10k 書き込み/秒 / ~50k 読み取り/秒。</li>
+<li>Redisは ~100k-1M 操作/秒。</li>
+<li>1億イベント/日 = ~1,160/秒 平均、~10k/秒 ピーク。</li>
+</ul>
+<div class="takeaways">
+<h2 id="まとめ"><a class="heading-anchor" href="#まとめ">まとめ</a></h2>
+<ul>
+<li>Cache-asideがデフォルト: キャッシュ確認、ミス -&gt; DBヒット -&gt; キャッシュを埋める。スタンピードと無効化に注意</li>
+<li>キューはワーカーに遅い仕事を渡してAPIを高速に応答させる。スパイクも平らにする</li>
+<li>ロードバランサの後ろに全てを2台ずつ動かす。単一障害でシステムが落ちないように</li>
+<li>CDNはグローバルレイテンシを安く買える。全ての静的アセットとキャッシュ可能なレスポンスをエッジにプッシュ</li>
+<li>モノリス優先、マイクロサービスはモノリスが明らかに痛い時だけ。抽出は非抽出より安い</li>
+<li>概算の数字表を頭に持っておく: ns、us、msのレイテンシとコンポーネント別スループット</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">技術レッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="t38.html">前へ</a>
+          
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+
