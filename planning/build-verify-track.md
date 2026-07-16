@@ -83,4 +83,64 @@ System design (advanced, your own phase 11): t37.html, t38.html, t39.html
 - Rename it. "Become a pro" promises an outcome you can't guarantee in a shrinking-junior market at light workload - that's the "job that won't come" false hope you set out to avoid. Name it after the skill you actually deliver: e.g. **"Build & Verify"** / **"Real Code"**. Under-promise.
 
 ---
+
+## Discord launch message (week 1, #code-challenge)
+
+```
+**新トラック（任意）：AIを「使う」だけでなく「理解する」**
+就職を目指す人向け。週1問、AI使用OK。
+
+**今週**
+・準備運動: Hello World → https://exercism.org/tracks/javascript/exercises/hello-world
+・本番: Lasagna（変数・関数・戻り値）→ https://exercism.org/tracks/javascript/exercises/lasagna
+・基礎レッスン → https://school.kakkoi.dev/lessons/t10.html （参照用、写経禁止）
+
+**AIは一瞬でコードを書ける。だから基準は「合格した」ではなく「理解している証明」。**
+
+**#code-challenge に3つ投稿:**
+1. 解答
+2. メモ：どこで詰まったか／最初に試したこと／(AI使用時)AIが間違えた点と動作確認の方法
+3. ペアのレビュー：具体的な指摘を1つ以上（バグ・抜けてるケース等。「いいね」は不可）
+
+今週だけ、僕が全員のペアになります。来週からはペアを毎週交代。
+週1の授業で一緒に確認。
+```
+
+## Exemplar 3-post (model of the deliverable)
+
+Purpose: show the FORMAT on the trivial warmup. hello-world has no bug (one line), so
+the only finding available is cosmetic - the post says so explicitly and points students
+to the real bar (bug/edge-case) starting with Lasagna. Models verification (`npm test` green),
+not just editing.
+
+```
+【お手本】3点投稿の形（今週の準備運動 Hello World で）
+
+**1. 解答**
+Exercism が最初にこのスケルトンをくれる:
+​```js
+//
+// This is only a SKELETON file for the 'Hello World' exercise. It's been provided as a
+// convenience to get you started writing code faster.
+//
+
+export function hello() {
+  return 'Hello, World!';
+}
+​```
+中身はもう正しい。`npm test` を回して緑を確認 → 提出。
+
+**2. メモ**
+1つ気になった：先頭の `//` コメントは「これはスケルトンです」という説明で、
+コードの動作には関係ないノイズ。自分のコードじゃないので削除。テストは緑のまま。
+
+**3. レビュー（ペア視点）**
+おつかれさま。指摘1つ：スケルトンの説明コメントが残ってる。動作に不要なので消してOK。
+
+（※今週は準備運動なのでバグが無く、指摘がコメント整理だけになる。
+本番の Lasagna からは「バグ・抜けてるケース」を1つ挙げるのがレビュー。
+見た目だけの指摘は"レビュー"に数えない。）
+```
+
+---
 Verification note: Exercism slugs pulled from the track's authoritative config.json. School lesson URLs pulled from school.kakkoi.dev/tech-lessons.html. hellointerview deep links NOT verified - link the homepage and navigate.
