@@ -118,6 +118,7 @@ The launch message's "3つ投稿" bundles them; in practice B happens after a pa
 
 ```
 【提出例 / Example submission】
+問題: https://exercism.org/tracks/javascript/exercises/hello-world
 
 **1. 解答**
 ​```js
