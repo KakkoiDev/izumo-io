@@ -110,8 +110,9 @@ System design (advanced, your own phase 11): t37.html, t38.html, t39.html
 
 Purpose: show the FORMAT on the trivial warmup. hello-world has no bug (one line), so
 the only finding available is cosmetic - the post says so explicitly and points students
-to the real bar (bug/edge-case) starting with Lasagna. Models verification (`npm test` green),
-not just editing.
+to the real bar (bug/edge-case) starting with Lasagna. Verification stays but stays EASY:
+the browser "Run Tests" button, not a CLI. Also models honest AI use (translate the prompt
+to understand it; code written by the student).
 
 ```
 【お手本】3点投稿の形（今週の準備運動 Hello World で）
@@ -128,11 +129,12 @@ export function hello() {
   return 'Hello, World!';
 }
 ​```
-中身はもう正しい。`npm test` を回して緑を確認 → 提出。
+中身はもう正しい。Exercism の「Run Tests」ボタンで緑を確認 → 提出。
 
 **2. メモ**
-1つ気になった：先頭の `//` コメントは「これはスケルトンです」という説明で、
-コードの動作には関係ないノイズ。自分のコードじゃないので削除。テストは緑のまま。
+・AIで問題文を日本語に翻訳して内容を理解した（コードは自分で書いた）。
+・先頭の `//` コメントは「これはスケルトンです」という説明で、動作に関係ないノイズ。
+　自分のコードじゃないので削除。もう一度 Run Tests → 緑のまま。
 
 **3. レビュー（ペア視点）**
 おつかれさま。指摘1つ：スケルトンの説明コメントが残ってる。動作に不要なので消してOK。
