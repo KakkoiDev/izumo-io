@@ -106,6 +106,34 @@ System design (advanced, your own phase 11): t37.html, t38.html, t39.html
 週1の授業で一緒に確認。
 ```
 
+## Post format: submission vs review are TWO posts
+
+A review is about your PARTNER's code, so it can't go in the same post as your own solution.
+- **Post A - submission**: your solution + verification + (if used) how you used AI.
+- **Post B - review**: posted on a partner's submission, >=1 concrete finding.
+
+The launch message's "3つ投稿" bundles them; in practice B happens after a partner posts A.
+
+### Minimal submission example (Post A)
+
+```
+【提出例 / Example submission】
+
+**1. 解答**
+​```js
+export function hello() {
+  return 'Hello, World!';
+}
+​```
+Run Tests → 緑を確認して提出。
+
+**2. AIの使用**
+問題文を英語→日本語に翻訳して理解するのに使った。コードは自分で書いた。
+```
+
+Note: "AIで翻訳した" is a thin disclosure, fine for hello-world. On Lasagna onward the
+AI-use note must cover any CODE the AI wrote and what the student verified, not just translation.
+
 ## Exemplar 3-post (model of the deliverable)
 
 Purpose: show the FORMAT on the trivial warmup. hello-world has no bug (one line), so
