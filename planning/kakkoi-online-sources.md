@@ -117,7 +117,9 @@ Worth playing before finalising the duel — this is the genre we're in.
 |---|---|
 | GitHub ToS — minimum age 13 (A09) | https://docs.github.com/en/site-policy/github-terms/github-terms-of-service |
 | Anthropic consumer terms — minimum age 18 (A09) | https://www.anthropic.com/legal/consumer-terms |
-| GitHub Classroom — teacher-owned student repos | https://classroom.github.com/ |
+| GitHub Classroom — teacher-owned student repos (students still need 13+ accounts) | https://classroom.github.com/ |
+| GitHub plans — free orgs get unlimited public repos + members | https://docs.github.com/en/get-started/learning-about-github/githubs-plans |
+| Actions billing — free/unlimited on public repos, standard runners | https://docs.github.com/billing/managing-billing-for-github-actions/about-billing-for-github-actions |
 | Bun HTML entrypoints / dev server & bundler | https://bun.com/docs/bundler/html |
 | trystero API, strategies, TURN config | https://github.com/dmotz/trystero |
 | Basecoat installation (CDN, no Tailwind) | https://basecoatui.com/installation/ |

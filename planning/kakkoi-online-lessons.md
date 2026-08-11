@@ -463,9 +463,47 @@ to lie about their age in lesson one, which is not a thing this course should do
   need no account at all. Only *publishing* does.
 - **13–17:** own GitHub account is fine; the Claude account still needs an adult.
 
-**[OPEN]** Which shape do you want for class — a `kakkoi-school` organisation with per-student repos, or
-GitHub Classroom? It changes A09's screenshots and A10's deploy instructions, so it's worth settling
-before those two lessons get written.
+#### Can a free organisation host one repo per student? **Yes — cost is not the problem**
+
+Verified against the docs, not assumed:
+
+| Thing | Free plan reality |
+|---|---|
+| Repos in a free org | **"unlimited collaborators on unlimited public repositories with a full feature set"** — so one repo per student is fine |
+| Org members | Unlimited on GitHub Free |
+| **GitHub Pages** | *"available in public repositories with GitHub Free and GitHub Free for organizations, and in public and private repositories with GitHub Pro, GitHub Team…"* → **free for us, because our repos are public anyway** |
+| GitHub Actions (our deploy) | **Free and unlimited for public repos on standard runners**, on every plan. A private repo would eat the org's 2,000 min/month; public doesn't |
+| Pages limits | Documented soft limits are roughly 1 GB per site, ~100 GB bandwidth/month, ~10 builds/hour. **[unverified this session — treat as approximate]** Our game is 1–2 MB, so irrelevant either way |
+
+So: a free `kakkoi-school` org, one public repo per student, each with its own Pages URL, each deploying
+via Actions. **Zero cost, no plan upgrade, no card.**
+
+**The catch is the age floor, not the price.** Pages being free doesn't create accounts. Every student who
+wants to push needs their own GitHub account, and that still means 13+. Two further wrinkles:
+
+- **GitHub Classroom does not solve this** — it manages student repos, but students still need accounts.
+  It's genuinely good for a 13+ class and useless for a 12-year-old one.
+- **Sharing one login is against the ToS** (*"Your login may only be used by one person"*), so a single
+  class account for everyone isn't a legitimate workaround.
+
+**So, by age:**
+
+| Students | Setup |
+|---|---|
+| **13+** | Free org, one public repo each, students are members and push themselves. Or GitHub Classroom. Everything works as written |
+| **Under 13** | Free org, one public repo each — **an adult publishes.** The student writes all the code locally (needs no account at all), and you push. They still get their own live URL, which is the part that motivates them |
+
+**Recommendation:** the free org either way, because it works for both ages and keeps every student's site
+under one place you control. Publishing for under-13s is the only manual step, and it's the last five
+minutes of class rather than an ongoing burden.
+
+**One privacy point worth deciding now:** free Pages requires **public** repos, so a student's code and
+repo name are world-visible. Use handles, not real names — and mention it in A09, since a 12-year-old
+won't think of it. (This also matches the fork-and-play property we want: public is a feature here, not
+just a constraint.)
+
+**[OPEN]** How old are your students, actually? It changes A09's screenshots and A10's deploy steps, and
+it's the one fact I can't guess.
 
 **Tone note:** frame this as *"here are the rules these companies have, and here's how we work with
 them"* — matter-of-fact, one short box. Not a warning, not an apology.
