@@ -22,3 +22,4 @@
 > 道具は揃った。次は家具を作り、人に座ってもらう
 
 - [A09: ゲームを構築する: ツールを入手する](lessons/a09.md) - ゲームプロジェクトの開始。アシスタントを実際のビルドに向け、GitHubアカウントを取得し、空のリポジトリを作成して、次のレッスンでゲームをインターネット上で公開できるようにします。
+- [A10: Build a Game: Put It on the Internet](lessons/a10.md) - Draw on a canvas, learn why a web page needs a server even on your own computer, and publish your page so anyone can open it.

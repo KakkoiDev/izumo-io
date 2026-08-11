@@ -5,6 +5,7 @@ Third document in the set:
 - `kakkoi-online-design.md` — design rationale + decision log (*why*)
 - `kakkoi-online-trd.md` — technical requirements (*what to build*)
 - `kakkoi-online-sources.md` — every asset pack, library, blog, and game referenced, with licences
+- `HANDOFF.md` — pick-up-cold briefing: repo locations, state, environment gotchas, settled decisions
 - **this file** — the lesson series (*how it gets taught*)
 
 Nothing is implemented, by design: **we write code only once the game exists in these documents.**
@@ -269,7 +270,7 @@ Milestone column refers to TRD §9.
 | # | Title | The one idea | Builds | M |
 |---|---|---|---|---|
 | A09 | Get your tools | **The two accounts a programmer needs**: the assistant, and somewhere to put your work | Claude Code working, GitHub account, empty repo | — |
-| A10 | Ship an empty page | HTTP vs `file://`, origins, secure contexts, **deploy in week two** | Bun dev server + **your live URL, working** | — |
+| A10 | Put it on the internet | **A page with no origin can't load modules** — so even your own computer needs a server | canvas + module, Bun dev server, **live URL on github.io** | — |
 | A11 | Plan before you prompt | Requirements vs implementation; **a spec is what makes an agent useful** | your own `DESIGN.md`, committed | — |
 | A12 | Types that never run | Static vs dynamic typing; **something has to strip the types** | `tsc --noEmit` in CI, first typed module | — |
 
@@ -540,7 +541,22 @@ answer: one clear main line, optional depth beside it.
 **Tone note:** frame this as *"here are the rules these companies have, and here's how we work with
 them"* — matter-of-fact, one short box. Not a warning, not an apology.
 
-### A10 — Ship an empty page
+### A10 — Put it on the internet *(written)*
+
+**Two design choices made while writing it:**
+
+- **No custom domains.** Students stay on `their-name.github.io/kakkoi-online/`. DNS is a separate topic,
+  the inert-`CNAME` trap would derail a first deploy, and nobody needs a domain to send someone a link.
+  The lesson notes in one line that ours uses one and that it doesn't matter.
+- **Branch-based Pages, not the Actions workflow.** There is nothing to *build* yet, so a dropdown beats
+  20 lines of YAML. The workflow arrives in A12 with TypeScript, which is also where the "a robot that
+  never runs looks exactly like one that works" failure belongs. **Our reference repo is workflow-based
+  from the start** because it already builds TS — the lesson says so rather than pretending otherwise.
+- **The `file://` demo needed a module to be truthful.** A plain HTML page opens fine from disk; the
+  origin-`null` block only bites an ES module. So A10 ships `index.html` + `main.js` as a module, and the
+  blank canvas plus console error are real rather than asserted.
+
+### A10 — original sketch
 
 - **Goal:** a dev server, a repo, and a **live public URL** — on day one.
 - **Idea:** why `file://` fails and `http://` works: origins and **secure contexts** (`crypto.subtle`

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt" data-page="a10.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Build a Game: Put It on the Internet - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
+        <div class="lesson-pager">
+          <a href="a09.html">Anterior</a>
+          
+        </div>
+      </nav>
+      <h1 id="a10-build-a-game-put-it-on-the-internet"><a class="heading-anchor" href="#a10-build-a-game-put-it-on-the-internet">A10: Build a Game: Put It on the Internet</a></h1>
+<p class="lesson-intro">You have an empty repo (<a href="a09.html">A09</a>). Today it becomes a real web page with your own address, one you can send to a friend. There is almost no game in it yet, and that is on purpose: getting the publishing out of the way now means every lesson after this one goes live the moment you push it.</p>
+<h2 id="the-canvas"><a class="heading-anchor" href="#the-canvas">The Canvas</a></h2>
+<p>A canvas is a rectangle of pixels you can draw on with code. Everything in our game world will be drawn there.</p>
+<p>Create <code>index.html</code>:</p>
+<pre><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Kakkoi Online&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;canvas id=&quot;world&quot; width=&quot;640&quot; height=&quot;480&quot;&gt;&lt;/canvas&gt;
+  &lt;script type=&quot;module&quot; src=&quot;./main.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>And <code>main.js</code>:</p>
+<pre><code>const canvas = document.querySelector('#world');
+const ctx = canvas.getContext('2d');
+
+ctx.fillStyle = '#1b1b22';
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+ctx.fillStyle = '#e8e8ef';
+ctx.font = '20px monospace';
+ctx.fillText('Kakkoi Online', 20, 40);
+</code></pre>
+<p><code>ctx</code> is short for <strong>context</strong>: the thing you give drawing orders to. <code>fillRect</code> paints a rectangle, <code>fillText</code> paints words. That is the whole drawing toolkit for now.</p>
+<h2 id="now-try-to-open-it-the-obvious-way"><a class="heading-anchor" href="#now-try-to-open-it-the-obvious-way">Now Try to Open It the Obvious Way</a></h2>
+<p>Double-click <code>index.html</code>. Your browser opens it, and the canvas is <strong>blank</strong>.</p>
+<p>Open the developer console (<strong>F12</strong>, then the Console tab). There is an error, something like:</p>
+<pre><code>Access to script at 'file:///.../main.js' from origin 'null'
+has been blocked by CORS policy
+</code></pre>
+<p>Nothing is broken. You have just met a rule that will follow you for your whole career.</p>
+<h2 id="why-a-page-needs-a-server-even-on-your-own-computer"><a class="heading-anchor" href="#why-a-page-needs-a-server-even-on-your-own-computer">Why a Page Needs a Server, Even on Your Own Computer</a></h2>
+<p>When you double-click a file, the browser loads it from <strong><code>file://</code></strong> — straight off your disk. There is no website involved, so the browser cannot tell which website the page belongs to. Its name for that is <strong>origin <code>null</code></strong>: no address, no identity.</p>
+<p>Browsers refuse to load JavaScript modules into a page with no origin. If they allowed it, a file you downloaded could quietly read other files on your computer, and there would be no website to blame.</p>
+<p>Serve the same folder over <strong><code>http://</code></strong> and the page has an origin — <code>localhost</code> — so the rule is satisfied.</p>
+<div class="mermaid">
+flowchart LR
+    A[Double-click the file] -->|file:// origin null| B[Module blocked, blank canvas]
+    C[Run a small server] -->|http://localhost| D[Module loads, canvas draws]
+
+</div>
+<p>Two more things need a real origin later in this project, so this is worth remembering: <strong>saving data</strong> in the browser, and the <strong>scrambling function</strong> we use to make duels fair (<a href="a25.html">A25</a>).</p>
+<h2 id="run-a-server"><a class="heading-anchor" href="#run-a-server">Run a Server</a></h2>
+<p>Install <strong>Bun</strong>, a tool that both serves your files and, later, understands TypeScript:</p>
+<pre><code>curl -fsSL https://bun.com/install | bash
+</code></pre>
+<p>Close and reopen the terminal, then, inside your project folder:</p>
+<pre><code>bun ./index.html
+</code></pre>
+<p>It prints an address like <code>http://localhost:3000</code>. Open it. <strong>Now the canvas draws.</strong> Same files, different door.</p>
+<p>Leave it running while you work. Edit <code>main.js</code>, save, refresh: your change is there.</p>
+<h2 id="publish-it"><a class="heading-anchor" href="#publish-it">Publish It</a></h2>
+<p>Commit and push:</p>
+<pre><code>git add .
+git commit -m &quot;A canvas that draws&quot;
+git push
+</code></pre>
+<p>Now switch on the free hosting. On your repo page: <strong>Settings → Pages</strong>, and under <em>Build and deployment</em> set <strong>Source: Deploy from a branch</strong>, branch <strong>main</strong>, folder <strong>/ (root)</strong>. Save.</p>
+<p>Wait a minute, then open:</p>
+<pre><code>https://YOUR-USERNAME.github.io/kakkoi-online/
+</code></pre>
+<p>That is your game, on the internet, at your own address, for free, forever. Send it to someone.</p>
+<blockquote>
+<p>Our version lives at <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a> instead of a <code>github.io</code> address. That is a custom domain, which needs a domain name and some DNS setup — a separate topic you do not need. A <code>github.io</code> address works exactly as well.</p>
+</blockquote>
+<h2 id="ask-your-assistant"><a class="heading-anchor" href="#ask-your-assistant">Ask Your Assistant</a></h2>
+<pre><code>My repo has index.html with a &lt;canvas id=&quot;world&quot;&gt; and main.js loaded as a module.
+Change main.js to also draw a red circle in the middle of the canvas, whatever
+the canvas size is. Explain what each new line does, and tell me which numbers
+would change if the canvas were a different size.
+</code></pre>
+<p><strong>Check the output for:</strong> is the circle actually in the middle when you resize the canvas in <code>index.html</code>? Did it use <code>canvas.width / 2</code> or did it hardcode <code>320</code>? Hardcoded numbers are the most common thing an assistant gets away with, because the page still looks right — until something changes.</p>
+<h2 id="what-went-wrong-when-we-did-this"><a class="heading-anchor" href="#what-went-wrong-when-we-did-this">What Went Wrong When We Did This</a></h2>
+<p>Two real mistakes from building the version you can play, both worth recognising:</p>
+<p><strong>A file that looked like configuration.</strong> We had a file in the repo that was supposed to set the site's address. It did nothing at all — that file only works for a different way of publishing than the one we used. The address was empty on GitHub's side the whole time. <strong>Lesson: when something should be live and isn't, check each end separately</strong> — is the page published? is the address pointing at it? — instead of staring at the middle.</p>
+<p><strong>A publishing robot that never ran.</strong> Later we set up automatic publishing, and it was watching a branch called <code>master</code> while our code was on <code>main</code>. No error, no warning, just nothing happening. <strong>Lesson: a robot that never runs looks exactly like a robot that works.</strong> Go and look at the run; do not assume.</p>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<ol>
+<li>Create <code>index.html</code> and <code>main.js</code>, and see the blank canvas from <code>file://</code> plus the console error.</li>
+<li>Install Bun, run <code>bun ./index.html</code>, and see the same page work on <code>localhost</code>.</li>
+<li>Push, turn on GitHub Pages, and open your live address.</li>
+<li>Use the prompt above to add the circle, and check whether it hardcoded the middle.</li>
+<li>Post your live link in the channel.</li>
+</ol>
+<p><strong>Check it worked:</strong> the live address opens on a phone, on someone else's computer, with your project folder closed.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>A canvas is a rectangle of pixels; `ctx` takes your drawing orders</li>
+<li>Opening a file directly gives the page no origin, so modules are blocked — serve it over http instead</li>
+<li>`bun ./index.html` serves your folder while you work</li>
+<li>GitHub Pages publishes your repo for free at your own address</li>
+<li>Publishing early means every later lesson goes live the moment you push</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
+        <div class="lesson-pager">
+          <a href="a09.html">Anterior</a>
+          
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

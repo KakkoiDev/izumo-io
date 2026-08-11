@@ -22,3 +22,4 @@ One real project, start to finish: a multiplayer game with no server, live on th
 > You have the tools. Now build the furniture, and let people sit on it
 
 - [A09: Build a Game: Get Your Tools](lessons/a09.md) - Start of the game project. Point your assistant at a real build, get a GitHub account, and create an empty repo, so next lesson your game is live on the internet.
+- [A10: Build a Game: Put It on the Internet](lessons/a10.md) - Draw on a canvas, learn why a web page needs a server even on your own computer, and publish your page so anyone can open it.
