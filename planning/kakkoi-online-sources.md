@@ -69,7 +69,7 @@ authority.
 
 ## 4. Considered and rejected
 
-The reasoning lives in `p2p-mmo.md` §10.1 and §12; this is the index.
+The reasoning lives in `kakkoi-online-design.md` §10.1 and §12; this is the index.
 
 | Thing | Licence | Link | Why not |
 |---|---|---|---|
@@ -133,8 +133,8 @@ Worth playing before finalising the duel — this is the genre we're in.
 
 | Doc | Contents |
 |---|---|
-| `p2p-mmo.md` | Design rationale, constraints, the decision log (42 rows, including six recorded reversals) |
-| `p2p-mmo-trd.md` | Technical requirements: data model, protocol, battle rules, milestones, tests |
+| `kakkoi-online-design.md` | Design rationale, constraints, the decision log (42 rows, including six recorded reversals) |
+| `kakkoi-online-trd.md` | Technical requirements: data model, protocol, battle rules, milestones, tests |
 | `kakkoi-online-lessons.md` | The 21-lesson track (A09–A29), writing standard, safety, build process |
 | `kakkoi-online-sources.md` | This file |
 | `build-verify-track.md` | The wider programme this fits inside |

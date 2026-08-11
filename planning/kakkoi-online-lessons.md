@@ -2,8 +2,8 @@
 
 Third document in the set:
 
-- `p2p-mmo.md` — design rationale + decision log (*why*)
-- `p2p-mmo-trd.md` — technical requirements (*what to build*)
+- `kakkoi-online-design.md` — design rationale + decision log (*why*)
+- `kakkoi-online-trd.md` — technical requirements (*what to build*)
 - `kakkoi-online-sources.md` — every asset pack, library, blog, and game referenced, with licences
 - **this file** — the lesson series (*how it gets taught*)
 
@@ -233,7 +233,7 @@ as "use an AI chatbot to build an online multiplayer game." Verified against the
   change, no `phases.yaml` entry, no new nav item, no new page.
 - `scripts/translate_content.py` already covers `content/ai/`.
 - Only real edit: a line in `content/ui.yaml` describing the AI track's new second half, ×3
-  languages, plus a **"Play the game"** link to `mmo.kakkoi.dev`.
+  languages, plus a **"Play the game"** link to `online.kakkoi.dev`.
 
 Two happy consequences of living inside the AI track:
 
@@ -500,7 +500,7 @@ wants to push needs their own GitHub account, and that still means 13+. Two furt
 - **The org already exists: `KakkoiSchool`** (free plan, created 2026-05-06, members `KakkoiDev`,
   `davidrobel`, `roversi`). Nothing to create.
 - **Split of ownership:** the **canonical game lives in the org** at `KakkoiSchool/kakkoi-online` with the
-  `mmo.kakkoi.dev` CNAME. **Students fork it to their own accounts** and deploy to
+  `online.kakkoi.dev` CNAME. **Students fork it to their own accounts** and deploy to
   `their-name.github.io/kakkoi-online/`. They own their work, it survives the course, and it sits on their
   own profile.
 - **Fork, not "use this template".** A fork keeps the upstream link, so a stuck student can
@@ -717,7 +717,7 @@ Nothing punishes either choice — that's what self-serve buys.
 4. **Tags vs branches** for the reference repo (§8).
 5. ~~Cohort or self-serve?~~ **Settled: self-serve, with one taught lesson per week** (§13).
 6. ~~Screenshots in English only?~~ **Settled: yes.**
-7. **Do we publish the reference game as the canonical one at `mmo.kakkoi.dev`, or is the live URL a
+7. **Do we publish the reference game as the canonical one at `online.kakkoi.dev`, or is the live URL a
    student's build?** Recommend ours is canonical, forks are equals — but only ours is in the lessons.
 8. **Prerequisite enforcement:** state T10–T14/T19 and let people through, or gate the track?
 9. ~~Where does the balance research live?~~ **Settled: two short sidebars in A26/A27, no R essay** —

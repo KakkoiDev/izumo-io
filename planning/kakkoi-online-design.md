@@ -1,18 +1,18 @@
 # Kakkoi Online — requirements & design (discussion draft)
 
-*Title: **Kakkoi Online**. Repo: `kakkoi-online`. URL: `mmo.kakkoi.dev`.*
+*Title: **Kakkoi Online**. Repo: `kakkoi-online`. URL: `online.kakkoi.dev`.*
 
 > Status: **discussion document, nothing implemented.** Everything marked **[DECIDE]** needs
 > your call before code. Everything marked **[HONEST]** is a limitation we should state to
 > students rather than paper over — the limitations are half the teaching value.
 
-Companion docs: `p2p-mmo-trd.md` (technical spec) · `kakkoi-online-lessons.md` (the lesson track) ·
+Companion docs: `kakkoi-online-trd.md` (technical spec) · `kakkoi-online-lessons.md` (the lesson track) ·
 **`kakkoi-online-sources.md` (every asset pack, library, and reference used, with licences)**.
 
 Two deliverables, one project:
 
 1. **The game** — a top-down, serverless, peer-to-peer multiplayer creature-battler, hosted free
-   on GitHub Pages at `mmo.kakkoi.dev`.
+   on GitHub Pages at `online.kakkoi.dev`.
 2. **The lesson series** — lessons **A09–A29**, continuing the existing AI track on school.kakkoi.dev,
    walking a student from a plan to a deployed game using an AI coding agent, teaching the
    computer-science idea behind each step, why we chose it, what we rejected, and an example prompt.
@@ -689,7 +689,7 @@ bun test                                    # unit tests for battle/rules.ts
 ## 12. Hosting & assets
 
 - **Repo layout — DECIDED: separate repo** `kakkoi-online`, publishing to Pages with a `CNAME` of
-  `mmo.kakkoi.dev`; DNS `CNAME mmo → kakkoidev.github.io`. The game is a student-forkable artifact;
+  `online.kakkoi.dev`; DNS `CNAME mmo → kakkoischool.github.io`. The game is a student-forkable artifact;
   mixing it into the lesson site's Python build muddies both. Lessons stay here in `izumo-io`.
 - **Lovely property worth building a lesson around:** signaling doesn't care about origin. A student
   who forks the repo and deploys to `their-name.github.io/kakkoi-online/` **can still play with
@@ -843,7 +843,7 @@ propagate the consequences.
 | # | Question | Default | Why |
 |---|---|---|---|
 | 1 | TypeScript | **Bun**: real `.ts`, `bun ./index.html` in dev, CI builds on push | your call, and it works; §10 |
-| 2 | Repo | **Separate `kakkoi-online`** + `CNAME mmo.kakkoi.dev` | student-forkable; keeps the Python site build clean |
+| 2 | Repo | **Separate `kakkoi-online`** + `CNAME online.kakkoi.dev` | student-forkable; keeps the Python site build clean |
 | 3 | Dependencies | **Vendor** trystero + Basecoat, pinned, in-repo | a CDN outage must not brick every student's deployed game |
 | 4 | Creature art | **A fixed set of ~6 CC0 monsters (Kenney Tiny Creatures); player picks one** | the name is enough for identity; deletes the whole generation module (§12) |
 | 5 | Environment art | **Kenney Tiny Dungeon** (CC0), vendored — same family as Tiny Creatures | creatures and terrain match by construction |
@@ -868,7 +868,7 @@ propagate the consequences.
 | 24 | Track prefix | **G**, page `game-lessons.html` | reads cleanly against T / R / A |
 | 25 | Milestones | **M0 solo → M1 multiplayer early**, PvE by M4 | seeing another human move is what makes students finish |
 | 26 | Delivery | **Self-serve pages + one lesson taught per week in class** — the class *is* the play window | solves the empty-world problem with no scheduling machinery; students may run ahead alone (lessons doc §13) |
-| 27 | Name | **Kakkoi Online** / repo `kakkoi-online` / URL `mmo.kakkoi.dev` | your call; `-online` is the honest genre signal that `-mmo` overclaims |
+| 27 | Name | **Kakkoi Online** / repo `kakkoi-online` / URL `online.kakkoi.dev` | your call; `-online` is the honest genre signal that `-mmo` overclaims |
 | 28 | Block payoff | **A successful Block banks a charge** | Yomi: every win must pay in a *different currency*; a Block paying nothing collapses the triangle (§6.1) |
 | 29 | Damage variance | **0.9–1.0 roll seeded from XOR of both reveal nonces** | Pokémon-style texture, zero determinism cost, ~5 lines — a commit–reveal randomness beacon |
 | 30 | NPCs | **Yes — trainers, tutor, townsfolk, board keeper, rest point**; client-local | attacks the empty-world risk at zero networking cost, gives a difficulty ladder, and earns the polymorphism lesson |
@@ -885,7 +885,7 @@ propagate the consequences.
 | 40 | Phaser | **No for v1** — replaces ~150–200 lines of ours with a ~1 MB bundle and a bigger API to learn; deletes the best lessons (A13–A15). **Appendix X7 ports to it instead** | §10.1 |
 | 41 | Audio lib | ~~ZzFX + ZzFXM~~ **None — plain `Audio` elements** | reversal #6: generation was clever but riskier and no smaller in practice than loading files |
 | 42 | Sprite lib | ~~`pixel-sprite-generator`~~ **Dropped — no generation at all** | set monsters instead; element is bound to the monster you pick |
-| 39 | Owner presence | **The canonical world at `mmo.kakkoi.dev` is the showcase**; you log in and students see it working | inspiration is the point; note that without keypairs (X1) your name is impersonable |
+| 39 | Owner presence | **The canonical world at `online.kakkoi.dev` is the showcase**; you log in and students see it working | inspiration is the point; note that without keypairs (X1) your name is impersonable |
 
 ---
 

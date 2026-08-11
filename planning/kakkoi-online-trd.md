@@ -1,13 +1,13 @@
 # Kakkoi Online — Technical Requirements Document (v0.1, for review)
 
-Companion to `p2p-mmo.md` (design rationale + decision log). That doc says *why*; this one says
+Companion to `kakkoi-online-design.md` (design rationale + decision log). That doc says *why*; this one says
 *what to build*. Links and licences for everything referenced here live in `kakkoi-online-sources.md`. Every number here is a starting default, chosen to be changed.
 
 - **Title:** **Kakkoi Online**.
 - **Audience:** lessons must be readable by a 12-year-old. **Chat is preset-phrase only — no free text in v1.**
 - **Product:** browser, top-down, serverless P2P creature-battler.
 - **Repo:** `kakkoi-online` (new, separate). Lessons stay in `izumo-io`.
-- **URL:** `https://mmo.kakkoi.dev`.
+- **URL:** `https://online.kakkoi.dev`.
 - **Scale target:** ~5 concurrent players. Correctness at 2, comfort at 8, no design work beyond that.
 - **Status:** nothing implemented. Awaiting review of this document.
 
@@ -51,7 +51,7 @@ kakkoi-online/
 ├─ audio/                      8 CC0 effects (Kenney) + 2 CC0 chiptune loops (OpenGameArt)
 ├─ tests/                      bun test
 ├─ .github/workflows/deploy.yml
-├─ CNAME                       mmo.kakkoi.dev
+├─ CNAME                       online.kakkoi.dev
 └─ Makefile                    dev / check / test / build
 ```
 
