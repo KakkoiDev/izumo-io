@@ -11,6 +11,7 @@ Produces:
   THEORY_LESSONS   [{id, title_en/ja, desc_en/ja, analogy_en/ja}]
   AI_LESSONS       [{id, title_en/ja, desc_en/ja}]
   TECH_PHASES      [{id, title_en/ja, subtitle_en/ja, analogy_en/ja}]
+  AI_PHASES        same shape, for the AI track (Part 1 using AI / Part 2 the game)
   UI               {key: {lang: string}}
   VIDEOS           [{youtube_id, title_en/ja, desc_en/ja}]
   RESOURCES        [{url, domain, title_en/ja, desc_en/ja}]
@@ -179,6 +180,7 @@ def load_all() -> dict:
         return yaml.safe_load(p.read_text(encoding='utf-8')) or []
 
     tech_phases = _y('phases.yaml')
+    ai_phases = _y('ai-phases.yaml')
     videos = _y('videos.yaml')
     resources = _y('resources.yaml')
 
@@ -190,6 +192,7 @@ def load_all() -> dict:
         'THEORY_LESSONS': theory,
         'AI_LESSONS': ai,
         'TECH_PHASES': tech_phases,
+        'AI_PHASES': ai_phases,
         'VIDEOS': videos,
         'RESOURCES': resources,
         'UI': ui_raw,

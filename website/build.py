@@ -23,6 +23,7 @@ OUT = ROOT.parent / 'docs'
 _DATA = load_all()
 LESSONS = _DATA['LESSONS']
 TECH_PHASES = _DATA['TECH_PHASES']
+AI_PHASES = _DATA['AI_PHASES']
 TECH_LESSONS = _DATA['TECH_LESSONS']
 THEORY_LESSONS = _DATA['THEORY_LESSONS']
 AI_LESSONS = _DATA['AI_LESSONS']
@@ -185,6 +186,7 @@ def build_context(lang, page_file):
     page_title = t(titles, lang)
 
     tech_phases = localize_list(TECH_PHASES, lang)
+    ai_phases = localize_list(AI_PHASES, lang)
     tech_lessons = localize_list(TECH_LESSONS, lang)
     theory_lessons = localize_list(THEORY_LESSONS, lang)
     ai_lessons = localize_list(AI_LESSONS, lang)
@@ -213,6 +215,7 @@ def build_context(lang, page_file):
         'GITHUB_URL': 'https://github.com/KakkoiDev/izumo-io',
         **ui,
         'tech_phases': tech_phases,
+        'ai_phases': ai_phases,
         'tech_lessons': tech_lessons,
         'theory_lessons': theory_lessons,
         'ai_lessons': ai_lessons,
@@ -368,15 +371,25 @@ def build_theory_lessons_md(lang):
 
 def build_ai_lessons_md(lang):
     ui = _ui(lang)
+    phases = localize_list(AI_PHASES, lang)
     lessons = localize_list(AI_LESSONS, lang)
     lines = [f"# {ui['ai_title']}", '']
-    for lesson in lessons:
-        slug = lesson['id'].lower()
-        title = lesson.get('title', '')
-        desc = lesson.get('desc', '')
-        suffix = f" - {desc}" if desc else ''
-        lines.append(f"- [{lesson['id']}: {title}](lessons/{slug}.md){suffix}")
-    lines.append('')
+    for phase in phases:
+        lines.append(f"## {phase.get('title', '')}")
+        lines.append('')
+        if phase.get('subtitle'):
+            lines.append(phase['subtitle'])
+            lines.append('')
+        if phase.get('analogy'):
+            lines.append(f"> {phase['analogy']}")
+            lines.append('')
+        for lesson in [l for l in lessons if l.get('phase') == phase['id']]:
+            slug = lesson['id'].lower()
+            title = lesson.get('title', '')
+            desc = lesson.get('desc', '')
+            suffix = f" - {desc}" if desc else ''
+            lines.append(f"- [{lesson['id']}: {title}](lessons/{slug}.md){suffix}")
+        lines.append('')
     return '\n'.join(lines)
 
 

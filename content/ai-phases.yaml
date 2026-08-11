@@ -1,0 +1,24 @@
+# Phase metadata for the AI track. Same shape as phases.yaml (tech track).
+# Part 1 = learning to use an assistant. Part 2 = building one real thing with it.
+
+- id: 1
+  title_en: "Part 1: Talking to the Machine (Using AI)"
+  title_ja: "パート1: 機械と話す (AIを使う)"
+  title_pt: "Parte 1: Conversando com a Máquina (Usando IA)"
+  subtitle_en: "Install an assistant, learn to ask well, and never trust it blindly"
+  subtitle_ja: "アシスタントを導入し、上手に尋ね、決して盲信しない"
+  subtitle_pt: "Instale um assistente, aprenda a perguntar bem e nunca confie cegamente"
+  analogy_en: "Learning to use a power tool before you build furniture with it"
+  analogy_ja: "家具を作る前に、電動工具の使い方を覚える"
+  analogy_pt: "Aprender a usar uma ferramenta elétrica antes de construir móveis com ela"
+
+- id: 2
+  title_en: "Part 2: Build an Online Game (Kakkoi Online)"
+  title_ja: "パート2: オンラインゲームを作る (Kakkoi Online)"
+  title_pt: "Parte 2: Construa um Jogo Online (Kakkoi Online)"
+  subtitle_en: "One real project, start to finish: a multiplayer game with no server, live on the internet"
+  subtitle_ja: "実際のプロジェクトを最初から最後まで: サーバー無しのマルチプレイヤーゲームをインターネット上に公開"
+  subtitle_pt: "Um projeto real, do início ao fim: um jogo multijogador sem servidor, publicado na internet"
+  analogy_en: "You have the tools. Now build the furniture, and let people sit on it"
+  analogy_ja: "道具は揃った。次は家具を作り、人に座ってもらう"
+  analogy_pt: "Você tem as ferramentas. Agora construa o móvel e deixe as pessoas sentarem nele"
