@@ -493,17 +493,38 @@ wants to push needs their own GitHub account, and that still means 13+. Two furt
 | **13+** | Free org, one public repo each, students are members and push themselves. Or GitHub Classroom. Everything works as written |
 | **Under 13** | Free org, one public repo each — **an adult publishes.** The student writes all the code locally (needs no account at all), and you push. They still get their own live URL, which is the part that motivates them |
 
-**Recommendation:** the free org either way, because it works for both ages and keeps every student's site
-under one place you control. Publishing for under-13s is the only manual step, and it's the last five
-minutes of class rather than an ongoing burden.
+**SETTLED for this class: everyone is 13+** (one 13-year-old, the rest adults). That resolves it:
+
+- **Every student owns their own GitHub account and pushes their own work.** No adult-publishes step, no
+  per-student repo admin for you.
+- **The org already exists: `KakkoiSchool`** (free plan, created 2026-05-06, members `KakkoiDev`,
+  `davidrobel`, `roversi`). Nothing to create.
+- **Split of ownership:** the **canonical game lives in the org** at `KakkoiSchool/kakkoi-online` with the
+  `mmo.kakkoi.dev` CNAME. **Students fork it to their own accounts** and deploy to
+  `their-name.github.io/kakkoi-online/`. They own their work, it survives the course, and it sits on their
+  own profile.
+- **Fork, not "use this template".** A fork keeps the upstream link, so a stuck student can
+  `git fetch upstream && git diff a14-end` against the reference tags. That's the whole point of tagging
+  each lesson, and a template repo throws it away.
+- **Claude is the only account with an adult in the loop** — 18+ means the 13-year-old works under a
+  parent's or your subscription, with you present. The adults use their own.
+- **Optional and cheap: a class gallery.** A markdown list of everyone's live URLs (in `izumo-io`, or a
+  page on school.kakkoi.dev). Costs nothing, and seeing five classmates' games side by side does more for
+  motivation than any lesson text. It's also how you find out whose deploy broke.
+
+The lesson text still states the general age rules, because the published lessons are read by strangers
+and some will be under 13 — but no part of *our* class needs the adult-publishes path.
 
 **One privacy point worth deciding now:** free Pages requires **public** repos, so a student's code and
 repo name are world-visible. Use handles, not real names — and mention it in A09, since a 12-year-old
 won't think of it. (This also matches the fork-and-play property we want: public is a feature here, not
 just a constraint.)
 
-**[OPEN]** How old are your students, actually? It changes A09's screenshots and A10's deploy steps, and
-it's the one fact I can't guess.
+**Mixed-age class, one useful consequence.** Writing for a 13-year-old keeps the main path readable for
+everyone — adults are not insulted by clarity, only by padding, and the writing standard (§3.5) forbids
+padding. Depth for the adults goes in the **appendices** (X1 keypair identity, X6 the balance simulator,
+X7 the Phaser port), which they can take at their own pace without slowing the class. That's the mixed-age
+answer: one clear main line, optional depth beside it.
 
 **Tone note:** frame this as *"here are the rules these companies have, and here's how we work with
 them"* — matter-of-fact, one short box. Not a warning, not an apology.
