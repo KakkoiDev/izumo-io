@@ -876,7 +876,7 @@ propagate the consequences.
 | 32 | Ghost notes | **Templated phrases, not free text** + appraisal taps + no mechanical effect | Dark Souls' answer: moderation-by-construction *and* automatic translation across en/ja/pt (§2.4) |
 | 33 | AI difficulty | **Ladder = prediction depth** (random → frequency → history → one meta layer), with a 25% random floor and 8-round memory | Iocaine Powder shows an uncapped predictor beats humans; we're building a teacher, not a champion (§6.2) |
 | 33b | Assistant | **`agy` (Antigravity CLI), free** — as A01/A02 already install. Claude Code optional | leaves GitHub's 13+ as the only account rule, and costs students nothing |
-| 33c | Student repos | **Empty repo each + `reference` remote with per-lesson tags** — no forking | a fork hands over the finished game; the tags still give the diff-when-stuck path |
+| 33c | Student repos | **Own empty repo. No fork, no extra remote.** Stuck students read our tagged snapshot in a browser | a fork hands over the finished game; a second remote is machinery a beginner doesn't need |
 | 34 | Lesson track | **Continues the AI track as A09–A29** (21 lessons) — zero build changes. A09 sets up tools + GitHub account, A10 goes live | see `kakkoi-online-lessons.md` |
 | 35 | Reading level | **A 12-year-old must understand every sentence** | outranks completeness; also makes JA/PT translation far better |
 | 36 | v1 scope | **Cut levels/XP, dual types, cosmetics, audio, wild creatures, ghost notes, whisper, zones, keypairs, simulator** | "as small as possible"; each cut shortens every lesson (lessons doc §6.1) |

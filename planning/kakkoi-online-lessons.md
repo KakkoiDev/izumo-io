@@ -508,13 +508,15 @@ wants to push needs their own GitHub account, and that still means 13+. Two furt
   `online.kakkoi.dev` CNAME. **Students fork it to their own accounts** and deploy to
   `their-name.github.io/kakkoi-online/`. They own their work, it survives the course, and it sits on their
   own profile.
-- **CORRECTION — students do NOT fork. They start from an empty repo.** Forking would hand them the
-  finished game in one command, and a student who owns code they can't explain has gained nothing. So:
-  `gh repo create kakkoi-online --public --clone`, empty, theirs.
-- **The reference repo is a second remote, not a starting point:**
-  `git remote add reference https://github.com/KakkoiSchool/kakkoi-online.git && git fetch reference --tags`.
-  Per-lesson tags (`a14-end`) still give the diff-when-stuck path — which was the only real reason to
-  fork — without giving away the answers. The lesson tells them to peek *after* trying, not before.
+- **CORRECTION — students do NOT fork. They start from an empty repo:**
+  `gh repo create kakkoi-online --public --clone`. Forking would hand them the finished game in one
+  command, and a student who owns code they can't explain has gained nothing.
+- **CORRECTION 2 — no `reference` remote either.** An earlier draft had students add our repo as a second
+  remote and fetch tags, so they could `git diff a14-end`. That was too much machinery for lesson one and
+  it taught nothing the lesson was about. **They just read our repo in a browser.** Per-lesson tags still
+  exist on our side and give a browsable URL
+  (`github.com/KakkoiSchool/kakkoi-online/tree/a14-end`), which is all a stuck student actually needs:
+  open our file, compare with theirs. Look *after* trying, not before.
 - **Claude is the only account with an adult in the loop** — 18+ means the 13-year-old works under a
   parent's or your subscription, with you present. The adults use their own.
 - **Optional and cheap: a class gallery.** A markdown list of everyone's live URLs (in `izumo-io`, or a
@@ -629,7 +631,7 @@ the tone wrong does real harm. It must not read like a warning label a child ski
 - **[OPEN]** Tags on `master` vs a branch per lesson. Tags are simpler; branches let you fix an early
   lesson without rewriting history. Leaning tags plus a `lesson-fixes` process where a correction
   moves the tag and bumps a `CHANGELOG` line.
-- Students **fork** and work in their own repo, deploying to `their-name.github.io/kakkoi-online/`.
+- Students create their **own empty repo** and deploy to `their-name.github.io/kakkoi-online/`.
   Their fork **still plays with everyone else's** — peers meet on the relay, not on a domain. This is
   the single best demo in the track (A10 sets it up; A20–A21 make it visible).
 - Submissions flow through the existing `/submissions/<handle>/` PR mechanism in `izumo-io`: per

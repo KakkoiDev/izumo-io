@@ -110,17 +110,12 @@ git config --global user.email &quot;you@example.com&quot;
 cd kakkoi-online
 </code></pre>
 <p>That is it. An empty folder that exists on the internet.</p>
-<p><strong>Why empty?</strong> You could copy our finished game in one command. Then you would own a game you cannot explain, which is worth nothing. You are going to build it a piece at a time, and <em>your</em> repo will hold <em>your</em> code.</p>
-<p>Our version stays available for when you are stuck. Add it as a second source you can peek at:</p>
-<pre><code>git remote add reference https://github.com/KakkoiSchool/kakkoi-online.git
-git fetch reference --tags
-</code></pre>
-<p>Every lesson has a tag in there, like <code>a14-end</code>. When something will not work, you can compare your code with ours instead of guessing. Peek <em>after</em> you have tried, not before.</p>
+<p><strong>Why empty?</strong> You could copy our finished game in one command. Then you would own a game you cannot explain, which is worth nothing. You build it a piece at a time, and <em>your</em> repo holds <em>your</em> code.</p>
+<p>Stuck later? Our version is public: <a href="https://github.com/KakkoiSchool/kakkoi-online" target="_blank" rel="noopener">github.com/KakkoiSchool/kakkoi-online</a>. Every lesson leaves a snapshot you can read in your browser, so you can compare our file with yours. Look <em>after</em> you have tried, not before.</p>
 <div class="mermaid">
 flowchart LR
     A[Your computer] -->|git push| B[Your repo on GitHub]
     B -->|GitHub Pages| C[A real web address]
-    D[reference repo] -.->|peek when stuck| A
 
 </div>
 <h2 id="ask-your-assistant"><a class="heading-anchor" href="#ask-your-assistant">Ask Your Assistant</a></h2>
@@ -135,7 +130,7 @@ the exact git commands to commit and push it, and explain what each one does.
 <ol>
 <li>Check <code>agy --version</code> works, and start it inside your project folder.</li>
 <li>Create your GitHub account and run <code>gh auth login</code>.</li>
-<li>Create your empty <code>kakkoi-online</code> repo and add the <code>reference</code> remote.</li>
+<li>Create your empty <code>kakkoi-online</code> repo.</li>
 <li>Use the prompt above to write and push a README.</li>
 <li>Post your repo link in the channel. Next week it becomes a live website.</li>
 </ol>
@@ -147,7 +142,7 @@ the exact git commands to commit and push it, and explain what each one does.
 <li>GitHub requires you to be 13 or older; that is the only account rule in this project</li>
 <li>Free hosting means a public repo: use a nickname and keep personal details out of your code</li>
 <li>Start from an empty repo. Copying a finished game gives you code you cannot explain</li>
-<li>Keep the reference repo to compare against when stuck, after you have tried yourself</li>
+<li>Our version is public if you get stuck; read it after you have tried, not before</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
