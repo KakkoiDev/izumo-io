@@ -8,3 +8,4 @@
 - [A06: エージェントスキル](lessons/a06.md) - お気に入りのプロンプトを、エージェントが自分で手に取る再利用可能なスキルとして保存する。他のツールではカスタムコマンドと呼ぶもの、Antigravityではスキル。
 - [A07: AIでスクリプトを作って実行する](lessons/a07.md) - スクリプトは繰り返しの雑用を一つのコマンドに変える。AIにスクリプトを書かせ、スクリプトの中からAIを呼ぶ。実行する前に読む。
 - [A08: 集大成: あなたのAIツールキット](lessons/a08.md) - すべてをまとめる。個人のAIツールキットを組み立て、最も重要なスキルを証明する: AIが間違っているときに見抜くこと。
+- [A09: Build a Game: Get Your Tools](lessons/a09.md) - Start of the game project. Point your assistant at a real build, get a GitHub account, and create an empty repo, so next lesson your game is live on the internet.

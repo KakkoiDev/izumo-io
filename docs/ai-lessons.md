@@ -8,3 +8,4 @@
 - [A06: Agent Skills](lessons/a06.md) - Save your best prompts as reusable skills the agent reaches for on its own. Other tools call these custom commands; Antigravity calls them skills.
 - [A07: Making & Running Scripts with AI](lessons/a07.md) - A script turns a repeated chore into one command. Have the AI write scripts for you, and call the AI from inside a script. Read before you run.
 - [A08: Capstone: Your AI Toolkit](lessons/a08.md) - Put it all together. Assemble a personal AI toolkit and prove the one skill that matters most: catching the AI when it is wrong.
+- [A09: Build a Game: Get Your Tools](lessons/a09.md) - Start of the game project. Point your assistant at a real build, get a GitHub account, and create an empty repo, so next lesson your game is live on the internet.

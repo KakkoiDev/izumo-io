@@ -239,9 +239,14 @@ Two happy consequences of living inside the AI track:
 
 - **We don't rewrite the install.** A01/A02 already cover installing the assistant and the risk rules,
   translated and shipped. **A09 links to them** and adds only what's new and specific to shipping a
-  game: a **GitHub account**, `gh` signed in, and an empty repo ready for A10 to deploy from. If a
-  student came through A01–A08 they'll finish A09 in minutes; if they arrive cold, A09 is where they're
-  sent back.
+  game: a **GitHub account**, `gh` signed in, and an empty repo ready for A10 to deploy from.
+- **CORRECTION — the assistant is `agy` (Antigravity CLI), not Claude Code.** A01/A02 install `agy`,
+  free with a Google login, and the track continues on it. Consequences, all good:
+  - **The only account rule left is GitHub's 13+.** Claude requires 18+, which would have forced a
+    parent's account for the youngest student; `agy`'s free tier removes that from the critical path.
+  - **No subscription, no card.** A student can do the entire project for free.
+  - Lessons say "**ask your assistant**" and every prompt is plain English, so Claude Code or Copilot
+    work equally well for anyone who prefers them. Stated once in A09, not repeated.
 - The framing is honest: this *is* an AI-lessons capstone. A08 is currently "Capstone: your AI
   toolkit"; A09+ becomes "now build something real with it."
 
@@ -503,9 +508,13 @@ wants to push needs their own GitHub account, and that still means 13+. Two furt
   `online.kakkoi.dev` CNAME. **Students fork it to their own accounts** and deploy to
   `their-name.github.io/kakkoi-online/`. They own their work, it survives the course, and it sits on their
   own profile.
-- **Fork, not "use this template".** A fork keeps the upstream link, so a stuck student can
-  `git fetch upstream && git diff a14-end` against the reference tags. That's the whole point of tagging
-  each lesson, and a template repo throws it away.
+- **CORRECTION — students do NOT fork. They start from an empty repo.** Forking would hand them the
+  finished game in one command, and a student who owns code they can't explain has gained nothing. So:
+  `gh repo create kakkoi-online --public --clone`, empty, theirs.
+- **The reference repo is a second remote, not a starting point:**
+  `git remote add reference https://github.com/KakkoiSchool/kakkoi-online.git && git fetch reference --tags`.
+  Per-lesson tags (`a14-end`) still give the diff-when-stuck path — which was the only real reason to
+  fork — without giving away the answers. The lesson tells them to peek *after* trying, not before.
 - **Claude is the only account with an adult in the loop** — 18+ means the 13-year-old works under a
   parent's or your subscription, with you present. The adults use their own.
 - **Optional and cheap: a class gallery.** A markdown list of everyone's live URLs (in `izumo-io`, or a

@@ -8,3 +8,4 @@
 - [A06: Agent Skills](lessons/a06.md) - Salve seus melhores prompts como skills reutilizáveis que o agente busca sozinho. Outras ferramentas chamam de comandos personalizados; o Antigravity chama de skills.
 - [A07: Criando e Rodando Scripts com IA](lessons/a07.md) - Um script transforma uma tarefa repetida em um comando. Faça a IA escrever scripts e chame a IA de dentro de um script. Leia antes de rodar.
 - [A08: Projeto Final: Seu Kit de Ferramentas de IA](lessons/a08.md) - Junte tudo. Monte um kit pessoal de ferramentas de IA e prove a habilidade que mais importa: pegar a IA quando ela está errada.
+- [A09: Build a Game: Get Your Tools](lessons/a09.md) - Start of the game project. Point your assistant at a real build, get a GitHub account, and create an empty repo, so next lesson your game is live on the internet.
