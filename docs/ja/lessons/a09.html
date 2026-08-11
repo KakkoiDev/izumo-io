@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Build a Game: Get Your Tools - KakkoiSchool</title>
+  <title>ゲームを構築する: ツールを入手する - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,102 +47,102 @@
           
         </div>
       </nav>
-      <h1 id="a09-build-a-game-get-your-tools"><a class="heading-anchor" href="#a09-build-a-game-get-your-tools">A09: Build a Game: Get Your Tools</a></h1>
-<p class="lesson-intro">You can talk to an AI assistant now (<a href="a02.html">A02</a>) and you know not to trust it blindly (<a href="a01.html">A01</a>). Time to build one real thing with it: a small online game other people can actually play. Today is only setup: one new account and an empty folder, nothing else.</p>
-<h2 id="what-you-are-going-to-build"><a class="heading-anchor" href="#what-you-are-going-to-build">What You Are Going to Build</a></h2>
-<p>A game called <strong>Kakkoi Online</strong>. You walk around a small world as a monster. Other players walk around the same world. You can talk to them, and you can duel them: fire, water, earth, where water beats fire, fire beats earth, earth beats water.</p>
-<p>The strange part, and the reason this project is worth your time: <strong>there is no server.</strong> Your browser talks straight to the other players' browsers. Nothing to pay for, nothing to run, nothing to keep alive. It costs zero forever.</p>
-<p>Here is the version we build in these lessons: <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a></p>
-<p>By the end of next lesson, <strong>your own copy will have its own web address</strong> that you can send to anyone.</p>
-<h2 id="a-programmer-needs-two-things"><a class="heading-anchor" href="#a-programmer-needs-two-things">A Programmer Needs Two Things</a></h2>
-<p>One that helps you write, and one that holds your work where others can see it.</p>
+      <h1 id="a09-ゲームを構築する-ツールを入手する"><a class="heading-anchor" href="#a09-ゲームを構築する-ツールを入手する">A09: ゲームを構築する: ツールを入手する</a></h1>
+<p class="lesson-intro">あなたはAIアシスタントと会話できるようになり（<a href="a02.html">A02</a>）、盲目的に信用してはいけないことも知っています（<a href="a01.html">A01</a>）。さあ、それを使って本物のもの、つまり他の人が実際にプレイできる小さなオンラインゲームを1つ作りましょう。今日は設定のみです。新しいアカウントを1つ作成し、空のフォルダーを用意するだけです。他には何もありません。</p>
+<h2 id="何を構築するのか"><a class="heading-anchor" href="#何を構築するのか">何を構築するのか</a></h2>
+<p><strong>カッコー・オンライン</strong>というゲームです。あなたはモンスターとして小さな世界を歩き回ります。他のプレイヤーも同じ世界を歩き回ります。彼らと話したり、決闘したりできます。火、水、土の属性があり、水は火に勝ち、火は土に勝ち、土は水に勝ちます。</p>
+<p>奇妙な点、そしてこのプロジェクトに時間を費やす価値がある理由：<strong>サーバーがありません。</strong> あなたのブラウザは他のプレイヤーのブラウザと直接通信します。支払うものも、実行するものも、維持するものもありません。永遠にゼロコストです。</p>
+<p>これらのレッスンで構築するバージョンはこちらです: <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a></p>
+<p>次のレッスンの終わりまでに、<strong>あなた自身のコピーが独自のウェブアドレスを持ち</strong>、誰にでも送れるようになります。</p>
+<h2 id="プログラマーに必要な2つのこと"><a class="heading-anchor" href="#プログラマーに必要な2つのこと">プログラマーに必要な2つのこと</a></h2>
+<p>1つは記述を助けるもの、もう1つは他の人が見られる場所に作業を保存するものです。</p>
 <table>
 <thead>
 <tr>
-<th>Thing</th>
-<th>What it is for</th>
+<th>もの</th>
+<th>用途</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>An AI assistant (<code>agy</code>, from A02)</td>
-<td>Writes code with you, explains code to you, fixes what it broke</td>
+<td>AIアシスタント（A02の<code>agy</code>）</td>
+<td>あなたと一緒にコードを書き、コードを説明し、壊れたものを修正します</td>
 </tr>
 <tr>
-<td>A GitHub account</td>
-<td>Keeps every version of your work, and puts it on the internet for free</td>
+<td>GitHubアカウント</td>
+<td>作業の全バージョンを保持し、無料でインターネット上に公開します</td>
 </tr>
 </tbody>
 </table>
-<p>You have the first one already, from A02. Today you add the second.</p>
-<h2 id="your-assistant"><a class="heading-anchor" href="#your-assistant">Your Assistant</a></h2>
-<p>You already have one: <strong><code>agy</code></strong>, the Antigravity CLI you installed in <a href="a02.html">A02</a>. It is free, you are logged in, and it is what these lessons use. Nothing new to install.</p>
-<p>Check it still runs:</p>
+<p>1つ目はA02で既に持っています。今日、2つ目を追加します。</p>
+<h2 id="あなたのアシスタント"><a class="heading-anchor" href="#あなたのアシスタント">あなたのアシスタント</a></h2>
+<p>あなたはすでに1つ持っています: <a href="a02.html">A02</a>でインストールしたAntigravity CLI、<strong><code>agy</code></strong>です。それは無料で、ログイン済みであり、これらのレッスンで使用するものです。新しくインストールするものはありません。</p>
+<p>それがまだ動作するか確認してください:</p>
 <pre><code>agy --version
 </code></pre>
-<p>One new habit for this project: <strong>start it inside your project folder</strong>, not in your home folder. An assistant that can see your files can read your code before it changes it, and that is the difference between help and guesswork.</p>
+<p>このプロジェクトの新しい習慣の1つ: ホームフォルダーではなく、<strong>プロジェクトフォルダー内で起動してください</strong>。ファイルを見ることができるアシスタントは、コードを変更する前にそれを読み取ることができ、それが助けと当て推量の違いです。</p>
 <blockquote>
-<p>Using something else? Fine. Every prompt in this project is plain English and works with any assistant — Claude Code, Copilot, whatever you like. Where a lesson says "ask your assistant", use whichever one you have. The paid ones handle big changes across many files better; you do not need that to finish this game.</p>
+<p>他のものを使っていますか？問題ありません。このプロジェクトのすべてのプロンプトは平易な英語であり、Claude Code、Copilotなど、お好きなどのアシスタントでも動作します。レッスンで「アシスタントに尋ねる」と指示されたら、お持ちのアシスタントを使用してください。有料のアシスタントは多数のファイルにわたる大きな変更をより良く処理しますが、このゲームを完成させるのにそれらは必要ありません。</p>
 </blockquote>
-<h2 id="your-github-account"><a class="heading-anchor" href="#your-github-account">Your GitHub Account</a></h2>
-<p>GitHub is where code lives. Think of it as a shared shelf: every version of your work is kept, nothing is lost, and anything you put on the shelf can be published as a website for free.</p>
+<h2 id="あなたのgithubアカウント"><a class="heading-anchor" href="#あなたのgithubアカウント">あなたのGitHubアカウント</a></h2>
+<p>GitHubはコードが存在する場所です。共有の棚と考えてください。あなたの作業のすべてのバージョンが保存され、何も失われず、棚に置いたものはすべて無料でウェブサイトとして公開できます。</p>
 <ol>
-<li>Go to <a href="https://github.com" target="_blank" rel="noopener">github.com</a> and sign up. <strong>You must be 13 or older</strong> — that is GitHub's rule, in their terms of service.</li>
-<li>Pick a username you would not mind an employer reading. It becomes part of your game's web address.</li>
-<li>Install the GitHub command line tool, then log in:</li>
+<li><a href="https://github.com" target="_blank" rel="noopener">github.com</a>にアクセスしてサインアップしてください。<strong>13歳以上である必要があります</strong> — これはGitHubの利用規約にあるルールです。</li>
+<li>雇用主が見ても問題ないようなユーザー名を選んでください。それがあなたのゲームのウェブアドレスの一部になります。</li>
+<li>GitHubコマンドラインツールをインストールし、ログインしてください:</li>
 </ol>
 <pre><code>sudo apt install gh          # WSL / Ubuntu, from A01
 brew install gh              # macOS
 </code></pre>
 <pre><code>gh auth login
 </code></pre>
-<p>Choose <strong>GitHub.com</strong>, then <strong>SSH</strong>, then <strong>Login with a web browser</strong>, and paste the code it gives you.</p>
-<p>Tell git who you are, so your work has your name on it:</p>
+<p><strong>GitHub.com</strong>を選択し、次に<strong>SSH</strong>、そして<strong>Login with a web browser</strong>を選択し、表示されたコードを貼り付けてください。</p>
+<p>gitにあなたが誰であるかを伝え、あなたの作業にあなたの名前が記されるようにします:</p>
 <pre><code>git config --global user.name &quot;Your Name&quot;
 git config --global user.email &quot;you@example.com&quot;
 </code></pre>
 <blockquote>
-<p><strong>Your repo will be public.</strong> Free website hosting on GitHub only works for public code, so anyone can read it. That is good for showing people your game. It also means: use a nickname, not your full real name, and never put your address, school, or phone number in your code.</p>
+<p><strong>あなたのリポジトリは公開されます。</strong> GitHubでの無料ウェブサイトホスティングは公開コードでのみ機能するため、誰でもそれを読むことができます。これは、人々にあなたのゲームを見せるのに良いことです。また、ニックネームを使用し、本名をフルで使わないこと、そしてあなたの住所、学校、電話番号をコードに決して入れないことを意味します。</p>
 </blockquote>
-<h2 id="your-empty-repo"><a class="heading-anchor" href="#your-empty-repo">Your Empty Repo</a></h2>
-<p>A <strong>repo</strong> (repository) is one project's folder, with its full history. Make one:</p>
+<h2 id="あなたの空のリポジトリ"><a class="heading-anchor" href="#あなたの空のリポジトリ">あなたの空のリポジトリ</a></h2>
+<p><strong>リポジトリ</strong>とは、あるプロジェクトのフォルダーで、その完全な履歴が含まれます。作成しましょう:</p>
 <pre><code>gh repo create kakkoi-online --public --clone
 cd kakkoi-online
 </code></pre>
-<p>That is it. An empty folder that exists on the internet.</p>
-<p><strong>Why empty?</strong> You could copy our finished game in one command. Then you would own a game you cannot explain, which is worth nothing. You build it a piece at a time, and <em>your</em> repo holds <em>your</em> code.</p>
-<p>Stuck later? Our version is public: <a href="https://github.com/KakkoiSchool/kakkoi-online" target="_blank" rel="noopener">github.com/KakkoiSchool/kakkoi-online</a>. Every lesson leaves a snapshot you can read in your browser, so you can compare our file with yours. Look <em>after</em> you have tried, not before.</p>
+<p>これで終わりです。インターネット上に存在する空のフォルダーです。</p>
+<p><strong>なぜ空なのか？</strong> 私たちの完成したゲームを1つのコマンドでコピーすることもできます。しかし、それでは説明できないゲームを所有することになり、それは何の価値もありません。あなたはそれを少しずつ構築し、<em>あなたの</em>リポジトリが<em>あなたの</em>コードを保持します。</p>
+<p>後で詰まったら？私たちのバージョンは公開されています: <a href="https://github.com/KakkoiSchool/kakkoi-online" target="_blank" rel="noopener">github.com/KakkoiSchool/kakkoi-online</a>。各レッスンにはブラウザで読めるスナップショットが残されているので、私たちのファイルとあなたのファイルを比較できます。試した後で見てください、その前ではありません。</p>
 <div class="mermaid">
 flowchart LR
     A[Your computer] -->|git push| B[Your repo on GitHub]
     B -->|GitHub Pages| C[A real web address]
 
 </div>
-<h2 id="ask-your-assistant"><a class="heading-anchor" href="#ask-your-assistant">Ask Your Assistant</a></h2>
-<p>A first real prompt. Notice it asks for an explanation, not just an action:</p>
+<h2 id="アシスタントに尋ねる"><a class="heading-anchor" href="#アシスタントに尋ねる">アシスタントに尋ねる</a></h2>
+<p>初めての実際のプロンプトです。行動だけでなく、説明も求めている点に注目してください:</p>
 <pre><code>I just created an empty git repo called kakkoi-online. Add a README.md that says
 in two sentences what the project will be: a small top-down multiplayer browser
 game with no server, where players duel with fire, water and earth. Then show me
 the exact git commands to commit and push it, and explain what each one does.
 </code></pre>
-<p><strong>Check the output for:</strong> does the README actually exist afterwards (<code>ls</code>)? Do the commands it gave you match what it said they do? If it invented a command that does not exist, you have just seen the thing <a href="a01.html">A01</a> warned you about, on day one.</p>
-<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<p><strong>出力を確認してください:</strong> READMEは実際に後で存在しますか（<code>ls</code>）？アシスタントが示したコマンドは、それがすると言ったことと一致しますか？もし存在しないコマンドを発明した場合、あなたは初日に<a href="a01.html">A01</a>で警告されたことを見たばかりです。</p>
+<h2 id="今週の演習"><a class="heading-anchor" href="#今週の演習">今週の演習</a></h2>
 <ol>
-<li>Check <code>agy --version</code> works, and start it inside your project folder.</li>
-<li>Create your GitHub account and run <code>gh auth login</code>.</li>
-<li>Create your empty <code>kakkoi-online</code> repo.</li>
-<li>Use the prompt above to write and push a README.</li>
-<li>Post your repo link in the channel. Next week it becomes a live website.</li>
+<li><code>agy --version</code>が動作することを確認し、プロジェクトフォルダー内で起動してください。</li>
+<li>GitHubアカウントを作成し、<code>gh auth login</code>を実行してください。</li>
+<li>空の<code>kakkoi-online</code>リポジトリを作成してください。</li>
+<li>上記のプロンプトを使用してREADMEを作成し、プッシュしてください。</li>
+<li>リポジトリのリンクをチャンネルに投稿してください。来週、それがライブウェブサイトになります。</li>
 </ol>
-<p><strong>Check it worked:</strong> <code>gh repo view --web</code> opens your repo in a browser and your README is there.</p>
+<p><strong>動作確認:</strong> <code>gh repo view --web</code>でブラウザでリポジトリが開き、READMEが存在することを確認してください。</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="重要なポイント"><a class="heading-anchor" href="#重要なポイント">重要なポイント</a></h2>
 <ul>
-<li>A programmer needs something to write with and somewhere to keep the work</li>
-<li>GitHub requires you to be 13 or older; that is the only account rule in this project</li>
-<li>Free hosting means a public repo: use a nickname and keep personal details out of your code</li>
-<li>Start from an empty repo. Copying a finished game gives you code you cannot explain</li>
-<li>Our version is public if you get stuck; read it after you have tried, not before</li>
+<li>プログラマーは、コードを書くためのものと、作業を保存するための場所が必要です</li>
+<li>GitHubは13歳以上である必要があります。これはこのプロジェクトにおける唯一のアカウントルールです</li>
+<li>無料ホスティングは公開リポジトリを意味します: ニックネームを使用し、個人情報をコードに入れないでください</li>
+<li>空のリポジトリから始めましょう。完成したゲームをコピーしても、説明できないコードしか手に入りません</li>
+<li>詰まった場合は私たちのバージョンが公開されています。試した後で読んでください、その前ではありません</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

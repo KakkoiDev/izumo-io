@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Build a Game: Get Your Tools - KakkoiSchool</title>
+  <title>Construa um Jogo: Prepare Suas Ferramentas - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,102 +47,102 @@
           
         </div>
       </nav>
-      <h1 id="a09-build-a-game-get-your-tools"><a class="heading-anchor" href="#a09-build-a-game-get-your-tools">A09: Build a Game: Get Your Tools</a></h1>
-<p class="lesson-intro">You can talk to an AI assistant now (<a href="a02.html">A02</a>) and you know not to trust it blindly (<a href="a01.html">A01</a>). Time to build one real thing with it: a small online game other people can actually play. Today is only setup: one new account and an empty folder, nothing else.</p>
-<h2 id="what-you-are-going-to-build"><a class="heading-anchor" href="#what-you-are-going-to-build">What You Are Going to Build</a></h2>
-<p>A game called <strong>Kakkoi Online</strong>. You walk around a small world as a monster. Other players walk around the same world. You can talk to them, and you can duel them: fire, water, earth, where water beats fire, fire beats earth, earth beats water.</p>
-<p>The strange part, and the reason this project is worth your time: <strong>there is no server.</strong> Your browser talks straight to the other players' browsers. Nothing to pay for, nothing to run, nothing to keep alive. It costs zero forever.</p>
-<p>Here is the version we build in these lessons: <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a></p>
-<p>By the end of next lesson, <strong>your own copy will have its own web address</strong> that you can send to anyone.</p>
-<h2 id="a-programmer-needs-two-things"><a class="heading-anchor" href="#a-programmer-needs-two-things">A Programmer Needs Two Things</a></h2>
-<p>One that helps you write, and one that holds your work where others can see it.</p>
+      <h1 id="a09-construa-um-jogo-prepare-suas-ferramentas"><a class="heading-anchor" href="#a09-construa-um-jogo-prepare-suas-ferramentas">A09: Construa um Jogo: Prepare Suas Ferramentas</a></h1>
+<p class="lesson-intro">Você já pode conversar com um assistente de IA (<a href="a02.html">A02</a>) e sabe que não deve confiar cegamente nele (<a href="a01.html">A01</a>). É hora de construir algo real com ele: um pequeno jogo online que outras pessoas podem realmente jogar. Hoje é apenas a configuração: uma nova conta e uma pasta vazia, nada mais.</p>
+<h2 id="o-que-voc-vai-construir"><a class="heading-anchor" href="#o-que-voc-vai-construir">O Que Você Vai Construir</a></h2>
+<p>Um jogo chamado <strong>Kakkoi Online</strong>. Você anda por um pequeno mundo como um monstro. Outros jogadores andam pelo mesmo mundo. Você pode conversar com eles e duelar com eles: fogo, água, terra, onde água vence fogo, fogo vence terra, terra vence água.</p>
+<p>A parte estranha, e a razão pela qual este projeto vale o seu tempo: <strong>não há servidor.</strong> Seu navegador se comunica diretamente com os navegadores de outros jogadores. Nada para pagar, nada para executar, nada para manter ativo. Custa zero para sempre.</p>
+<p>Aqui está a versão que construímos nestas lições: <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a></p>
+<p>Ao final da próxima lição, <strong>sua própria cópia terá seu próprio endereço web</strong> que você poderá enviar a qualquer pessoa.</p>
+<h2 id="um-programador-precisa-de-duas-coisas"><a class="heading-anchor" href="#um-programador-precisa-de-duas-coisas">Um Programador Precisa de Duas Coisas</a></h2>
+<p>Um que te ajude a escrever, e outro que guarde seu trabalho onde outros possam vê-lo.</p>
 <table>
 <thead>
 <tr>
-<th>Thing</th>
-<th>What it is for</th>
+<th>Coisa</th>
+<th>Para que serve</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>An AI assistant (<code>agy</code>, from A02)</td>
-<td>Writes code with you, explains code to you, fixes what it broke</td>
+<td>Um assistente de IA (<code>agy</code>, do A02)</td>
+<td>Escreve código com você, explica código para você, conserta o que quebrou</td>
 </tr>
 <tr>
-<td>A GitHub account</td>
-<td>Keeps every version of your work, and puts it on the internet for free</td>
+<td>Uma conta GitHub</td>
+<td>Mantém todas as versões do seu trabalho e o coloca na internet gratuitamente</td>
 </tr>
 </tbody>
 </table>
-<p>You have the first one already, from A02. Today you add the second.</p>
-<h2 id="your-assistant"><a class="heading-anchor" href="#your-assistant">Your Assistant</a></h2>
-<p>You already have one: <strong><code>agy</code></strong>, the Antigravity CLI you installed in <a href="a02.html">A02</a>. It is free, you are logged in, and it is what these lessons use. Nothing new to install.</p>
-<p>Check it still runs:</p>
+<p>Você já tem o primeiro, do A02. Hoje você adiciona o segundo.</p>
+<h2 id="seu-assistente"><a class="heading-anchor" href="#seu-assistente">Seu Assistente</a></h2>
+<p>Você já tem um: <strong><code>agy</code></strong>, a CLI Antigravity que você instalou em <a href="a02.html">A02</a>. É gratuito, você está logado, e é o que estas lições usam. Nada de novo para instalar.</p>
+<p>Verifique se ainda funciona:</p>
 <pre><code>agy --version
 </code></pre>
-<p>One new habit for this project: <strong>start it inside your project folder</strong>, not in your home folder. An assistant that can see your files can read your code before it changes it, and that is the difference between help and guesswork.</p>
+<p>Um novo hábito para este projeto: <strong>inicie-o dentro da pasta do seu projeto</strong>, não na sua pasta pessoal. Um assistente que pode ver seus arquivos pode ler seu código antes de alterá-lo, e essa é a diferença entre ajuda e adivinhação.</p>
 <blockquote>
-<p>Using something else? Fine. Every prompt in this project is plain English and works with any assistant — Claude Code, Copilot, whatever you like. Where a lesson says "ask your assistant", use whichever one you have. The paid ones handle big changes across many files better; you do not need that to finish this game.</p>
+<p>Usando outra coisa? Tudo bem. Cada prompt neste projeto está em inglês simples e funciona com qualquer assistente — Claude Code, Copilot, o que você preferir. Onde uma lição diz "pergunte ao seu assistente", use o que você tiver. Os pagos lidam melhor com grandes mudanças em muitos arquivos; você não precisa disso para terminar este jogo.</p>
 </blockquote>
-<h2 id="your-github-account"><a class="heading-anchor" href="#your-github-account">Your GitHub Account</a></h2>
-<p>GitHub is where code lives. Think of it as a shared shelf: every version of your work is kept, nothing is lost, and anything you put on the shelf can be published as a website for free.</p>
+<h2 id="sua-conta-github"><a class="heading-anchor" href="#sua-conta-github">Sua Conta GitHub</a></h2>
+<p>GitHub é onde o código vive. Pense nisso como uma estante compartilhada: cada versão do seu trabalho é mantida, nada é perdido, e qualquer coisa que você coloque na estante pode ser publicada como um site gratuitamente.</p>
 <ol>
-<li>Go to <a href="https://github.com" target="_blank" rel="noopener">github.com</a> and sign up. <strong>You must be 13 or older</strong> — that is GitHub's rule, in their terms of service.</li>
-<li>Pick a username you would not mind an employer reading. It becomes part of your game's web address.</li>
-<li>Install the GitHub command line tool, then log in:</li>
+<li>Vá para <a href="https://github.com" target="_blank" rel="noopener">github.com</a> e inscreva-se. <strong>Você deve ter 13 anos ou mais</strong> — essa é a regra do GitHub, em seus termos de serviço.</li>
+<li>Escolha um nome de usuário que você não se importaria que um empregador lesse. Ele se tornará parte do endereço web do seu jogo.</li>
+<li>Instale a ferramenta de linha de comando do GitHub e, em seguida, faça login:</li>
 </ol>
-<pre><code>sudo apt install gh          # WSL / Ubuntu, from A01
+<pre><code>sudo apt install gh          # WSL / Ubuntu, do A01
 brew install gh              # macOS
 </code></pre>
 <pre><code>gh auth login
 </code></pre>
-<p>Choose <strong>GitHub.com</strong>, then <strong>SSH</strong>, then <strong>Login with a web browser</strong>, and paste the code it gives you.</p>
-<p>Tell git who you are, so your work has your name on it:</p>
+<p>Escolha <strong>GitHub.com</strong>, depois <strong>SSH</strong>, depois <strong>Login with a web browser</strong>, e cole o código que ele te der.</p>
+<p>Diga ao git quem você é, para que seu trabalho tenha seu nome nele:</p>
 <pre><code>git config --global user.name &quot;Your Name&quot;
 git config --global user.email &quot;you@example.com&quot;
 </code></pre>
 <blockquote>
-<p><strong>Your repo will be public.</strong> Free website hosting on GitHub only works for public code, so anyone can read it. That is good for showing people your game. It also means: use a nickname, not your full real name, and never put your address, school, or phone number in your code.</p>
+<p><strong>Seu repositório será público.</strong> A hospedagem gratuita de sites no GitHub só funciona para código público, então qualquer um pode lê-lo. Isso é bom para mostrar seu jogo às pessoas. Também significa: use um apelido, não seu nome real completo, e nunca coloque seu endereço, escola ou número de telefone em seu código.</p>
 </blockquote>
-<h2 id="your-empty-repo"><a class="heading-anchor" href="#your-empty-repo">Your Empty Repo</a></h2>
-<p>A <strong>repo</strong> (repository) is one project's folder, with its full history. Make one:</p>
+<h2 id="seu-reposit-rio-vazio"><a class="heading-anchor" href="#seu-reposit-rio-vazio">Seu Repositório Vazio</a></h2>
+<p>Um <strong>repo</strong> (repositório) é a pasta de um projeto, com seu histórico completo. Crie um:</p>
 <pre><code>gh repo create kakkoi-online --public --clone
 cd kakkoi-online
 </code></pre>
-<p>That is it. An empty folder that exists on the internet.</p>
-<p><strong>Why empty?</strong> You could copy our finished game in one command. Then you would own a game you cannot explain, which is worth nothing. You build it a piece at a time, and <em>your</em> repo holds <em>your</em> code.</p>
-<p>Stuck later? Our version is public: <a href="https://github.com/KakkoiSchool/kakkoi-online" target="_blank" rel="noopener">github.com/KakkoiSchool/kakkoi-online</a>. Every lesson leaves a snapshot you can read in your browser, so you can compare our file with yours. Look <em>after</em> you have tried, not before.</p>
+<p>É isso. Uma pasta vazia que existe na internet.</p>
+<p><strong>Por que vazio?</strong> Você poderia copiar nosso jogo finalizado em um comando. Então você seria dono de um jogo que não consegue explicar, o que não vale nada. Você o constrói pedaço por pedaço, e <em>seu</em> repositório contém <em>seu</em> código.</p>
+<p>Travou depois? Nossa versão é pública: <a href="https://github.com/KakkoiSchool/kakkoi-online" target="_blank" rel="noopener">github.com/KakkoiSchool/kakkoi-online</a>. Cada lição deixa um instantâneo que você pode ler no seu navegador, para que você possa comparar nosso arquivo com o seu. Olhe <em>depois</em> de ter tentado, não antes.</p>
 <div class="mermaid">
 flowchart LR
     A[Your computer] -->|git push| B[Your repo on GitHub]
     B -->|GitHub Pages| C[A real web address]
 
 </div>
-<h2 id="ask-your-assistant"><a class="heading-anchor" href="#ask-your-assistant">Ask Your Assistant</a></h2>
-<p>A first real prompt. Notice it asks for an explanation, not just an action:</p>
+<h2 id="pergunte-ao-seu-assistente"><a class="heading-anchor" href="#pergunte-ao-seu-assistente">Pergunte ao Seu Assistente</a></h2>
+<p>Um primeiro prompt real. Observe que ele pede uma explicação, não apenas uma ação:</p>
 <pre><code>I just created an empty git repo called kakkoi-online. Add a README.md that says
 in two sentences what the project will be: a small top-down multiplayer browser
 game with no server, where players duel with fire, water and earth. Then show me
 the exact git commands to commit and push it, and explain what each one does.
 </code></pre>
-<p><strong>Check the output for:</strong> does the README actually exist afterwards (<code>ls</code>)? Do the commands it gave you match what it said they do? If it invented a command that does not exist, you have just seen the thing <a href="a01.html">A01</a> warned you about, on day one.</p>
-<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<p><strong>Verifique na saída se:</strong> o README realmente existe depois (<code>ls</code>)? Os comandos que ele te deu correspondem ao que ele disse que fazem? Se ele inventou um comando que não existe, você acabou de ver a coisa sobre a qual <a href="a01.html">A01</a> te avisou, no primeiro dia.</p>
+<h2 id="exerc-cio-desta-semana"><a class="heading-anchor" href="#exerc-cio-desta-semana">Exercício desta Semana</a></h2>
 <ol>
-<li>Check <code>agy --version</code> works, and start it inside your project folder.</li>
-<li>Create your GitHub account and run <code>gh auth login</code>.</li>
-<li>Create your empty <code>kakkoi-online</code> repo.</li>
-<li>Use the prompt above to write and push a README.</li>
-<li>Post your repo link in the channel. Next week it becomes a live website.</li>
+<li>Verifique se <code>agy --version</code> funciona e inicie-o dentro da pasta do seu projeto.</li>
+<li>Crie sua conta GitHub e execute <code>gh auth login</code>.</li>
+<li>Crie seu repositório <code>kakkoi-online</code> vazio.</li>
+<li>Use o prompt acima para escrever e enviar um README.</li>
+<li>Publique o link do seu repositório no canal. Na próxima semana ele se tornará um site ao vivo.</li>
 </ol>
-<p><strong>Check it worked:</strong> <code>gh repo view --web</code> opens your repo in a browser and your README is there.</p>
+<p><strong>Verifique se funcionou:</strong> <code>gh repo view --web</code> abre seu repositório em um navegador e seu README estará lá.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>A programmer needs something to write with and somewhere to keep the work</li>
-<li>GitHub requires you to be 13 or older; that is the only account rule in this project</li>
-<li>Free hosting means a public repo: use a nickname and keep personal details out of your code</li>
-<li>Start from an empty repo. Copying a finished game gives you code you cannot explain</li>
-<li>Our version is public if you get stuck; read it after you have tried, not before</li>
+<li>Um programador precisa de algo para escrever e de um lugar para guardar o trabalho</li>
+<li>O GitHub exige que você tenha 13 anos ou mais; essa é a única regra de conta neste projeto</li>
+<li>Hospedagem gratuita significa um repositório público: use um apelido e mantenha detalhes pessoais fora do seu código</li>
+<li>Comece com um repositório vazio. Copiar um jogo pronto lhe dá um código que você não consegue explicar</li>
+<li>Nossa versão é pública se você ficar preso; leia-a depois de ter tentado, não antes</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

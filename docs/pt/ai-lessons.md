@@ -21,4 +21,4 @@ Um projeto real, do início ao fim: um jogo multijogador sem servidor, publicado
 
 > Você tem as ferramentas. Agora construa o móvel e deixe as pessoas sentarem nele
 
-- [A09: Build a Game: Get Your Tools](lessons/a09.md) - Start of the game project. Point your assistant at a real build, get a GitHub account, and create an empty repo, so next lesson your game is live on the internet.
+- [A09: Construa um Jogo: Prepare Suas Ferramentas](lessons/a09.md) - Início do projeto do jogo. Aponte seu assistente para uma construção real, crie uma conta no GitHub e um repositório vazio, para que na próxima lição seu jogo esteja ativo na internet.

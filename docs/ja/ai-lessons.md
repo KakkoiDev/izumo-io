@@ -21,4 +21,4 @@
 
 > 道具は揃った。次は家具を作り、人に座ってもらう
 
-- [A09: Build a Game: Get Your Tools](lessons/a09.md) - Start of the game project. Point your assistant at a real build, get a GitHub account, and create an empty repo, so next lesson your game is live on the internet.
+- [A09: ゲームを構築する: ツールを入手する](lessons/a09.md) - ゲームプロジェクトの開始。アシスタントを実際のビルドに向け、GitHubアカウントを取得し、空のリポジトリを作成して、次のレッスンでゲームをインターネット上で公開できるようにします。
