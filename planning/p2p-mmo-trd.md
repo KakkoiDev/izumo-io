@@ -348,7 +348,7 @@ number[], spawn: {x,y} }` — flat arrays, row-major, indices into a vendored Ke
 `{src, tileW, tileH, cols}`. Collision is AABB against solid tiles. Hand-authored small map for v1;
 Tiled export is drop-in later since the format matches.
 
-**UI (Basecoat, DOM over canvas).** First-run dialog (name + element + **the safety card**, A18); chat card
+**UI (Basecoat, DOM over canvas).** First-run dialog (name + element + **the safety card**, A19); chat card
 with a preset-phrase picker (no text input); players-online popover; battle overlay (two HP bars, charge pips, three action
 buttons, round log); settings dialog (export/import save, mute list, safety card link, language);
 connection status badge with an explicit **"You're the only one here"** state and a NAT-failure
@@ -410,12 +410,12 @@ nothing to subpoena, no cookie banner.
 
 | M | Ships | Done when | Lessons |
 |---|---|---|---|
-| **M0** | canvas, loop, tilemap, collision, movement, procedural creature, save | you walk around, reload, and your creature is identical | A12–A16 |
-| **M1** | trystero room, presence, `pos` sync, nameplates, online count | two tabs see each other move smoothly; closing one removes it within 5 s | A17–A21 |
-| **M2** | preset-phrase chat, mute, `validate.ts`, rate limits, **safety card on first join** | a garbage-fuzzing peer cannot crash or spam the other client; muting visibly stops phrases arriving | A18, A22 |
-| **M3** | duel invite/accept, FSM, commit–reveal, rules, **local AI opponent** | a full duel completes vs a human and vs the AI; a tampered reveal is caught | A23–A25 |
-| **M3.5** | **NPCs**: townsfolk with waypoints/barks, tutor, trainer ladder | a first-time visitor alone in the world is taught the triangle and has someone to fight | A26 |
-| **M4** | audio, polish, "only one here" state, NAT diagnostic, safety page | an empty world never looks broken; a stranger can arrive, play, and understand it | A27 |
+| **M0** | canvas, loop, tilemap, collision, movement, procedural creature, save | you walk around, reload, and your creature is identical | A13–A17 |
+| **M1** | trystero room, presence, `pos` sync, nameplates, online count | two tabs see each other move smoothly; closing one removes it within 5 s | A18–A22 |
+| **M2** | preset-phrase chat, mute, `validate.ts`, rate limits, **safety card on first join** | a garbage-fuzzing peer cannot crash or spam the other client; muting visibly stops phrases arriving | A19, A23 |
+| **M3** | duel invite/accept, FSM, commit–reveal, rules, **local AI opponent** | a full duel completes vs a human and vs the AI; a tampered reveal is caught | A24–A26 |
+| **M3.5** | **NPCs**: townsfolk with waypoints/barks, tutor, trainer ladder | a first-time visitor alone in the world is taught the triangle and has someone to fight | A27 |
+| **M4** | audio, polish, "only one here" state, NAT diagnostic, safety page | an empty world never looks broken; a stranger can arrive, play, and understand it | A28 |
 
 **Deferred to v2 / appendices** (see lessons doc §6.1): levels & XP, dual types & evolution,
 cosmetics, wild encounters, ghost notes, whisper, low-bandwidth mode, zones & sharding

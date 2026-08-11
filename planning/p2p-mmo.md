@@ -13,7 +13,7 @@ Two deliverables, one project:
 
 1. **The game** — a top-down, serverless, peer-to-peer multiplayer creature-battler, hosted free
    on GitHub Pages at `mmo.kakkoi.dev`.
-2. **The lesson series** — lessons **A09–A27**, continuing the existing AI track on school.kakkoi.dev,
+2. **The lesson series** — lessons **A09–A29**, continuing the existing AI track on school.kakkoi.dev,
    walking a student from a plan to a deployed game using an AI coding agent, teaching the
    computer-science idea behind each step, why we chose it, what we rejected, and an example prompt.
    **Written so a 12-year-old can follow every sentence.**
@@ -32,7 +32,7 @@ The whole thing costs nothing to run, forever.
 
 - **Not a real MMO.** A browser can hold a limited number of WebRTC connections, and a full mesh
   costs `n·(n−1)/2` links. Realistic ceiling is ~8–16 players per zone. We call it an MMO for the
-  vibe; we teach *why* real MMOs need servers. Lesson A27 is exactly this postmortem.
+  vibe; we teach *why* real MMOs need servers. Lesson A28 is exactly this postmortem.
 - **Not fair, not authoritative.** No referee means no trustworthy stats, no leaderboard, no ranked
   ladder, no economy. Accepted by design (see §7).
 - **Not moderated.** No server means no bans, no logs, no reports. Because the readers are 12-year-olds,
@@ -97,7 +97,7 @@ and costs:
 
 **Simplifies (cut or downgrade to "teach, don't build"):**
 - **One room for the whole world in v1.** Zones become a *design* choice (map variety), not a
-  networking necessity. Sharding: teach the idea in A20, don't implement it. (§8)
+  networking necessity. Sharding: teach the idea in A21, don't implement it. (§8)
 - Bandwidth, tick-rate tuning, interest management: all comfortable. 10 Hz × 4 peers is nothing.
 - Lobby population counts become less about capacity and more about **proving someone is there** —
   which raises their value, see below.
@@ -490,7 +490,7 @@ must not be strictly better than being one:
 - **Zones: v1 ships ONE room — one connected world.** At ~5 concurrent players (§2.4), splitting the
   population is actively harmful: two people in different zones each see an empty game. Have several
   *map areas* if you want variety, but keep every player on one connection. Everything below is the
-  design you'd reach for if it ever got popular — teach it as theory in A20, and in appendix X4, don't build it:
+  design you'd reach for if it ever got popular — teach it as theory in A21, and in appendix X4, don't build it:
   - **one zone = one trystero room.** Only peers in your zone connect to you, so you only pay for
     connections you can see. That's **interest management**, the exact technique real MMOs use,
     arrived at from first principles.
@@ -536,11 +536,11 @@ stats is fine" does **not** extend to "crashing my client is fine." This is the 
 series, in the purest available setting: **every single input is hostile.**
 
 **Local mute list**, persisted in the save, permanent, one tap — the only enforcement mechanism that
-exists without a server, and therefore the one we make sure works and teach people to use (A18).
+exists without a server, and therefore the one we make sure works and teach people to use (A19).
 
 **Privacy upside worth teaching:** no server means **no data collection**. Nothing is stored anywhere,
 nothing to leak, nothing to subpoena, no cookie banner. Serverless as a *privacy* architecture, not just
-a cheap one. The flip side, stated honestly in A18: nothing is stored, so nobody can check later what
+a cheap one. The flip side, stated honestly in A19: nothing is stored, so nobody can check later what
 was said — which is exactly why muting is the tool that works.
 
 **Deferred to v2:** whisper/DM, free text of any kind.
@@ -571,12 +571,12 @@ Costs, so they're on the record:
 
 Alternative considered and rejected: plain `.js` + JSDoc types + `tsc --noEmit`. Genuinely zero
 build and "view source is the source," but `/** @type {} */` comments are wordier and it teaches
-syntax nobody uses at work. Bun's ergonomics win. (Worth keeping the *idea* in the A11 lesson as
+syntax nobody uses at work. Bun's ergonomics win. (Worth keeping the *idea* in the A12 lesson as
 "here's the other way, and why types are a development-time tool that never runs" — that insight is
 the real lesson either way.)
 
 Note: Node 26 (installed here) also strips types natively, but only for code it runs itself — that
-doesn't help the browser. Good footnote for A11.
+doesn't help the browser. Good footnote for A12.
 
 ### Everything else
 
@@ -618,7 +618,7 @@ Reasons it loses *here* — note that most of them are specific to this project,
 - **We already cut everything Phaser is best at.** Sprite-sheet animation, tweens, particles, physics,
   multiple scenes — all v2 or gone (§6.1 of the lessons doc). Our UI and the whole battle screen are DOM
   + Basecoat, not canvas. So Phaser would be carrying ~1 MB to draw a tilemap and one blob.
-- **The lessons that would disappear are the good ones.** A12–A14 are where a child learns what a frame
+- **The lessons that would disappear are the good ones.** A13–A15 are where a child learns what a frame
   is, why movement must be multiplied by elapsed time, and that a map is data. With Phaser those become
   "call this API," and the track's promise — *you understand every part* — weakens.
 
@@ -628,7 +628,7 @@ who gets stuck. **If the game grows past v1 in the graphical direction, hand-rol
 the liability and porting is the right call.**
 
 So: **appendix X7, "Port it to Phaser."** Build it yourself, then port it and see exactly what a
-framework gives you and what it charges. That's the same move as A27 ("what a server would have bought
+framework gives you and what it charges. That's the same move as A28 ("what a server would have bought
 us") applied to frameworks — framework *literacy* without framework dependence, and it's a better lesson
 than either choice alone.
 
@@ -650,7 +650,7 @@ randomise → mirror → render, patched to use our seeded PRNG. **That's been r
 fixed set of ~6 CC0 monsters and let the player pick one, because the name already tells players apart
 and a set is far less code than any generator.
 
-Kept here as the record of a decision we changed, since that's exactly the material A09 teaches from:
+Kept here as the record of a decision we changed, since that's exactly the material A11 teaches from:
 the generator was the right answer to "how do we make every player unique," and became the wrong answer
 the moment we stopped needing that.
 
@@ -671,7 +671,7 @@ bun test                                    # unit tests for battle/rules.ts
 ```
 
 - **Bun transpiles, it does not type-check.** Types are stripped and thrown away, errors and all, so
-  `tsc --noEmit` in CI is what actually enforces them. That distinction *is* lesson A11.
+  `tsc --noEmit` in CI is what actually enforces them. That distinction *is* lesson A12.
 - Still teach why `file://` fails and a server is needed (A10) — Bun just happens to be the server.
 - Add `Makefile` targets (repo convention already): `make dev`, `make check`, `make build`.
 - **The two-tab dev loop is the core skill:** open `localhost:8000` twice, and you are two players.
@@ -724,7 +724,7 @@ What this simplifies, beyond the obvious:
   which we already do for tiles.
 - **The animation question stays solved.** Bob while walking, flip horizontally for left/right. Still no
   directional walk cycles.
-- **A15 shrinks from "procedural generation" to "sprite atlases"** — a smaller lesson, and one that
+- **A16 shrinks from "procedural generation" to "sprite atlases"** — a smaller lesson, and one that
   teaches something we need anyway (a sprite sheet is one image, and you draw a rectangle out of it).
 
 What we give up, honestly:
@@ -734,7 +734,7 @@ What we give up, honestly:
   is a few lines — but that's v2, not now.
 - **Appearance must now be sent over the wire**, since it's a choice rather than a derivation. It's one
   small integer in the `id` payload. Trivial, but it's a real (tiny) loss of the old design's elegance.
-- The seeded-PRNG lesson is gone. The determinism idea still appears in A24, where the damage roll is
+- The seeded-PRNG lesson is gone. The determinism idea still appears in A25, where the damage roll is
   derived from both players' nonces.
 
 **Dropped as a result:** `pixel-sprite-generator` (adopted one turn ago, now unnecessary — reversal #5),
@@ -817,10 +817,13 @@ how we serve both. Zone sharding is gone from the ladder entirely; it's theory n
 lesson list; keeping two lesson lists in two documents guarantees they drift, so it's gone rather than
 updated. What survives here is the summary:
 
-- The track is **A09–A27** (19 lessons), continuing the **existing AI track** — not a new track. No
+- The track is **A09–A29** (21 lessons), continuing the **existing AI track** — not a new track. No
   build changes needed: `content/ai/*.md` is a flat list sorted by id.
 - The install lesson already exists as **A01/A02**.
-- **A18 "Playing with strangers"** is the safety lesson, placed before the first peer connection.
+- **A09** gets the tools and a GitHub account; **A10 deploys a live URL in week two**; **A11** plans.
+- **A19 "Playing with strangers"** is the safety lesson, placed before the first peer connection.
+- **Age limits are real and stated plainly in A09:** GitHub is 13+, Claude is 18+, so an adult owns the
+  accounts and under-13s publish through a class organisation. Local play needs no account at all.
 - Every lesson: one CS idea, a physical analogy, why-we-chose-it, what-we-rejected, an example prompt
   plus what to verify, an observable two-tab test, and one "your turn" extension the prompt doesn't
   produce.
@@ -860,7 +863,7 @@ propagate the consequences.
 | 19 | Tile size | **16×16 assets, drawn at 2× (32 px on screen)** | matches what the CC0 packs actually are |
 | 20 | Zones | **One room in v1**; sharding is theory only | splitting 5 players is self-harm |
 | 21 | Chat safety | **Notice on first join + local mute + rate limit + length cap**; chat locked until a name is set | minors arrive from school.kakkoi.dev |
-| 22 | Lessons | **19: A09–A27**, inside the existing AI track | superseded row 34; small lessons, small game (§6.1 of the lessons doc) |
+| 22 | Lessons | **21: A09–A29**, inside the existing AI track | superseded row 34; small lessons, small game (§6.1 of the lessons doc) |
 | 23 | Reference repo | **Per-lesson git tags** (`g05-end`) | a stuck student can diff against canonical |
 | 24 | Track prefix | **G**, page `game-lessons.html` | reads cleanly against T / R / A |
 | 25 | Milestones | **M0 solo → M1 multiplayer early**, PvE by M4 | seeing another human move is what makes students finish |
@@ -872,14 +875,14 @@ propagate the consequences.
 | 31 | NPC honesty | **NPCs never impersonate players** — distinct nameplates, absent from the online list | faking human presence poisons the real thing in a game about meeting people |
 | 32 | Ghost notes | **Templated phrases, not free text** + appraisal taps + no mechanical effect | Dark Souls' answer: moderation-by-construction *and* automatic translation across en/ja/pt (§2.4) |
 | 33 | AI difficulty | **Ladder = prediction depth** (random → frequency → history → one meta layer), with a 25% random floor and 8-round memory | Iocaine Powder shows an uncapped predictor beats humans; we're building a teacher, not a champion (§6.2) |
-| 34 | Lesson track | **Continues the AI track as A09–A27** (18 lessons) — zero build changes, install lesson already exists as A01 | see `kakkoi-online-lessons.md` |
+| 34 | Lesson track | **Continues the AI track as A09–A29** (21 lessons) — zero build changes. A09 sets up tools + GitHub account, A10 goes live | see `kakkoi-online-lessons.md` |
 | 35 | Reading level | **A 12-year-old must understand every sentence** | outranks completeness; also makes JA/PT translation far better |
 | 36 | v1 scope | **Cut levels/XP, dual types, cosmetics, audio, wild creatures, ghost notes, whisper, zones, keypairs, simulator** | "as small as possible"; each cut shortens every lesson (lessons doc §6.1) |
 | 37 | Chat | **Preset phrases only in v1 — no free text at all, not even as a setting** | readers are children and there is no moderation, no bans, no logs; presets also translate themselves, and it's less code (lessons doc §3.6) |
-| 37b | Safety | **A18 "Playing with strangers"** — a lesson placed *before* the first connection, and an in-game safety card on first join | the same words must reach players who never read the lessons |
+| 37b | Safety | **A19 "Playing with strangers"** — a lesson placed *before* the first connection, and an in-game safety card on first join | the same words must reach players who never read the lessons |
 | 38 | Screenshots | **One per lesson, English only, captured from the reference build** | no videos; reused across all three languages |
-| 39b | Game theory content | **Two short sidebars inside A25 and A26. No R-track essay** | the R track is Cyril's own voice; a borrowed game-theory essay would be pretending to be that. Sidebars also reach a 12-year-old better — 90 words attached to a thing they just built (lessons doc §6.2) |
-| 40 | Phaser | **No for v1** — replaces ~150–200 lines of ours with a ~1 MB bundle and a bigger API to learn; deletes the best lessons (A12–A14). **Appendix X7 ports to it instead** | §10.1 |
+| 39b | Game theory content | **Two short sidebars inside A26 and A27. No R-track essay** | the R track is Cyril's own voice; a borrowed game-theory essay would be pretending to be that. Sidebars also reach a 12-year-old better — 90 words attached to a thing they just built (lessons doc §6.2) |
+| 40 | Phaser | **No for v1** — replaces ~150–200 lines of ours with a ~1 MB bundle and a bigger API to learn; deletes the best lessons (A13–A15). **Appendix X7 ports to it instead** | §10.1 |
 | 41 | Audio lib | ~~ZzFX + ZzFXM~~ **None — plain `Audio` elements** | reversal #6: generation was clever but riskier and no smaller in practice than loading files |
 | 42 | Sprite lib | ~~`pixel-sprite-generator`~~ **Dropped — no generation at all** | set monsters instead; element is bound to the monster you pick |
 | 39 | Owner presence | **The canonical world at `mmo.kakkoi.dev` is the showcase**; you log in and students see it working | inspiration is the point; note that without keypairs (X1) your name is impersonable |

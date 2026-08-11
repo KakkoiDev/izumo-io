@@ -6,7 +6,7 @@ licence and why it's here. Three jobs:
 1. **Attribution and licence provenance** — for a project students will fork and redeploy, "where did this
    file come from and may I ship it?" must have an answer that isn't someone's memory.
 2. **A citation list for the lessons.** Several lessons point students at these directly.
-3. **A record of what we rejected**, which is A09's teaching material.
+3. **A record of what we rejected**, which is A11's teaching material.
 
 Keep this updated as the build proceeds. If something new gets vendored, it gets a row here in the same
 commit.
@@ -73,7 +73,7 @@ The reasoning lives in `p2p-mmo.md` §10.1 and §12; this is the index.
 
 | Thing | Licence | Link | Why not |
 |---|---|---|---|
-| **Phaser** | MIT | https://phaser.io | Replaces ~150–200 lines of ours with a ~1 MB bundle and a larger API to learn; deletes lessons A12–A14, which are the good ones. **Appendix X7 ports to it instead** |
+| **Phaser** | MIT | https://phaser.io | Replaces ~150–200 lines of ours with a ~1 MB bundle and a larger API to learn; deletes lessons A13–A15, which are the good ones. **Appendix X7 ports to it instead** |
 | **ZzFX** | MIT | https://github.com/KilledByAPixel/ZzFX | Synthesised SFX in ~900 bytes. Elegant, but a generated sound that's wrong on one browser is very hard for a 12-year-old to debug. Files can't fail that way |
 | **ZzFXM** | MIT | https://keithclark.co.uk/articles/zzfxm/ | Same, for music (~1.5 kB gzip for 2–3 minutes). Same reason |
 | **Tone.js** | MIT | https://tonejs.github.io | ~200 kB and a large API. Right for a music app, overkill for eight bleeps |
@@ -115,11 +115,14 @@ Worth playing before finalising the duel — this is the genre we're in.
 
 | Topic | Link |
 |---|---|
+| GitHub ToS — minimum age 13 (A09) | https://docs.github.com/en/site-policy/github-terms/github-terms-of-service |
+| Anthropic consumer terms — minimum age 18 (A09) | https://www.anthropic.com/legal/consumer-terms |
+| GitHub Classroom — teacher-owned student repos | https://classroom.github.com/ |
 | Bun HTML entrypoints / dev server & bundler | https://bun.com/docs/bundler/html |
 | trystero API, strategies, TURN config | https://github.com/dmotz/trystero |
 | Basecoat installation (CDN, no Tailwind) | https://basecoatui.com/installation/ |
-| Web Crypto `subtle.digest` (commit–reveal, A23) | https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest |
-| WebRTC / NAT / STUN & TURN background (A19) | https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API |
+| Web Crypto `subtle.digest` (commit–reveal, A24) | https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest |
+| WebRTC / NAT / STUN & TURN background (A20) | https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API |
 | GitHub Pages + custom domain (A10) | https://docs.github.com/en/pages |
 
 ---
@@ -130,7 +133,7 @@ Worth playing before finalising the duel — this is the genre we're in.
 |---|---|
 | `p2p-mmo.md` | Design rationale, constraints, the decision log (42 rows, including six recorded reversals) |
 | `p2p-mmo-trd.md` | Technical requirements: data model, protocol, battle rules, milestones, tests |
-| `kakkoi-online-lessons.md` | The 20-lesson track (A09–A28), writing standard, safety, build process |
+| `kakkoi-online-lessons.md` | The 21-lesson track (A09–A29), writing standard, safety, build process |
 | `kakkoi-online-sources.md` | This file |
 | `build-verify-track.md` | The wider programme this fits inside |
 
