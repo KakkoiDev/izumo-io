@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Build a Game: Put It on the Internet - KakkoiSchool</title>
+  <title>ゲームを作る：インターネットに公開する - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,11 +47,11 @@
           
         </div>
       </nav>
-      <h1 id="a10-build-a-game-put-it-on-the-internet"><a class="heading-anchor" href="#a10-build-a-game-put-it-on-the-internet">A10: Build a Game: Put It on the Internet</a></h1>
-<p class="lesson-intro">You have an empty repo (<a href="a09.html">A09</a>). Today it becomes a real web page with your own address, one you can send to a friend. There is almost no game in it yet, and that is on purpose: getting the publishing out of the way now means every lesson after this one goes live the moment you push it.</p>
-<h2 id="the-canvas"><a class="heading-anchor" href="#the-canvas">The Canvas</a></h2>
-<p>A canvas is a rectangle of pixels you can draw on with code. Everything in our game world will be drawn there.</p>
-<p>Create <code>index.html</code>:</p>
+      <h1 id="a10-ゲームを作る-インターネットに公開する"><a class="heading-anchor" href="#a10-ゲームを作る-インターネットに公開する">A10: ゲームを作る：インターネットに公開する</a></h1>
+<p class="lesson-intro">空のリポジトリを持っていますね（<a href="a09.html">A09</a>）。今日は、それが自分のアドレスを持つ実際のウェブページになり、友達に送ることもできるようになります。まだほとんどゲームはありませんが、それは意図的なものです。今、公開を済ませておくことで、この後のすべてのレッスンがプッシュした瞬間に公開されるようになります。</p>
+<h2 id="キャンバス"><a class="heading-anchor" href="#キャンバス">キャンバス</a></h2>
+<p>キャンバスとは、コードで絵を描くことができるピクセルでできた長方形のことです。私たちのゲームの世界のすべてがそこに描かれます。</p>
+<p><code>index.html</code> を作成します。</p>
 <pre><code>&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
@@ -64,7 +64,7 @@
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p>And <code>main.js</code>:</p>
+<p>そして <code>main.js</code>：</p>
 <pre><code>const canvas = document.querySelector('#world');
 const ctx = canvas.getContext('2d');
 
@@ -75,76 +75,82 @@ ctx.fillStyle = '#e8e8ef';
 ctx.font = '20px monospace';
 ctx.fillText('Kakkoi Online', 20, 40);
 </code></pre>
-<p><code>ctx</code> is short for <strong>context</strong>: the thing you give drawing orders to. <code>fillRect</code> paints a rectangle, <code>fillText</code> paints words. That is the whole drawing toolkit for now.</p>
-<h2 id="now-try-to-open-it-the-obvious-way"><a class="heading-anchor" href="#now-try-to-open-it-the-obvious-way">Now Try to Open It the Obvious Way</a></h2>
-<p>Double-click <code>index.html</code>. Your browser opens it, and the canvas is <strong>blank</strong>.</p>
-<p>Open the developer console (<strong>F12</strong>, then the Console tab). There is an error, something like:</p>
+<p><code>ctx</code> は <strong>context（コンテキスト）</strong> の略で、描画命令を与える対象です。<code>fillRect</code> は長方形を描画し、<code>fillText</code> は文字を描画します。今のところ、これが描画ツールキットのすべてです。</p>
+<h2 id="さて-一般的な方法で開いてみましょう"><a class="heading-anchor" href="#さて-一般的な方法で開いてみましょう">さて、一般的な方法で開いてみましょう</a></h2>
+<p><code>index.html</code> をダブルクリックします。ブラウザが開きますが、キャンバスは<strong>空白</strong>です。</p>
+<p>開発者コンソールを開きます（<strong>F12</strong>を押し、Consoleタブ）。次のようなエラーが表示されます。</p>
 <pre><code>Access to script at 'file:///.../main.js' from origin 'null'
 has been blocked by CORS policy
 </code></pre>
-<p>Nothing is broken. You have just met a rule that will follow you for your whole career.</p>
-<h2 id="why-a-page-needs-a-server-even-on-your-own-computer"><a class="heading-anchor" href="#why-a-page-needs-a-server-even-on-your-own-computer">Why a Page Needs a Server, Even on Your Own Computer</a></h2>
-<p>When you double-click a file, the browser loads it from <strong><code>file://</code></strong> — straight off your disk. There is no website involved, so the browser cannot tell which website the page belongs to. Its name for that is <strong>origin <code>null</code></strong>: no address, no identity.</p>
-<p>Browsers refuse to load JavaScript modules into a page with no origin. If they allowed it, a file you downloaded could quietly read other files on your computer, and there would be no website to blame.</p>
-<p>Serve the same folder over <strong><code>http://</code></strong> and the page has an origin — <code>localhost</code> — so the rule is satisfied.</p>
+<p>何も壊れていません。あなたはキャリア全体にわたって付きまとうことになるルールに出会っただけです。</p>
+<h2 id="自分のコンピューター上でもページにサーバーが必要な理由"><a class="heading-anchor" href="#自分のコンピューター上でもページにサーバーが必要な理由">自分のコンピューター上でもページにサーバーが必要な理由</a></h2>
+<p>ファイルをダブルクリックすると、ブラウザは <strong><code>file://</code></strong> から、つまり直接ディスクからファイルを読み込みます。ウェブサイトは関与していないため、ブラウザはどのウェブサイトにページが属しているかを判断できません。その場合の名称は <strong>origin <code>null</code></strong> です。アドレスもIDもありません。</p>
+<p>ブラウザは、オリジンがないページにJavaScriptモジュールを読み込むことを拒否します。もし許可していたら、ダウンロードしたファイルがあなたのコンピューター上の他のファイルを密かに読み取ることができ、責任を負うべきウェブサイトも存在しないことになります。</p>
+<p>同じフォルダを <strong><code>http://</code></strong> で提供すると、ページには <code>localhost</code> というオリジンが与えられ、ルールが満たされます。</p>
 <div class="mermaid">
 flowchart LR
-    A[Double-click the file] -->|file:// origin null| B[Module blocked, blank canvas]
-    C[Run a small server] -->|http://localhost| D[Module loads, canvas draws]
+    A[ファイルをダブルクリック] -->|file:// origin null| B[モジュールがブロックされ、空白のキャンバス]
+    C[小さなサーバーを実行] -->|http://localhost| D[モジュールが読み込まれ、キャンバスに描画]
 
 </div>
-<p>Two more things need a real origin later in this project, so this is worth remembering: <strong>saving data</strong> in the browser, and the <strong>scrambling function</strong> we use to make duels fair (<a href="a25.html">A25</a>).</p>
-<h2 id="run-a-server"><a class="heading-anchor" href="#run-a-server">Run a Server</a></h2>
-<p>Install <strong>Bun</strong>, a tool that both serves your files and, later, understands TypeScript:</p>
+<p>このプロジェクトの後半で、さらに2つのものが実際のオリジンを必要としますので、これは覚えておく価値があります。ブラウザでの<strong>データの保存</strong>と、決闘を公平にするために使用する<strong>スクランブル関数</strong>です（<a href="a25.html">A25</a>）。</p>
+<h2 id="サーバーを実行する"><a class="heading-anchor" href="#サーバーを実行する">サーバーを実行する</a></h2>
+<p>ファイルを提供し、後にはTypeScriptを理解するツールである <strong>Bun</strong> をインストールします。</p>
 <pre><code>curl -fsSL https://bun.com/install | bash
 </code></pre>
-<p>Close and reopen the terminal, then, inside your project folder:</p>
+<p>ターミナルを閉じて再度開き、プロジェクトフォルダ内で次を実行します。</p>
 <pre><code>bun ./index.html
 </code></pre>
-<p>It prints an address like <code>http://localhost:3000</code>. Open it. <strong>Now the canvas draws.</strong> Same files, different door.</p>
-<p>Leave it running while you work. Edit <code>main.js</code>, save, refresh: your change is there.</p>
-<h2 id="publish-it"><a class="heading-anchor" href="#publish-it">Publish It</a></h2>
-<p>Commit and push:</p>
+<p><code>http://localhost:3000</code> のようなアドレスが表示されます。開いてみてください。<strong>今、キャンバスに描画されます。</strong> 同じファイルですが、違う入り口です。</p>
+<p>作業中はそのまま実行し続けてください。<code>main.js</code> を編集して保存し、リフレッシュすると、変更が反映されます。</p>
+<h2 id="公開する"><a class="heading-anchor" href="#公開する">公開する</a></h2>
+<p>コミットしてプッシュします。</p>
 <pre><code>git add .
 git commit -m &quot;A canvas that draws&quot;
 git push
 </code></pre>
-<p>Now switch on the free hosting. On your repo page: <strong>Settings → Pages</strong>, and under <em>Build and deployment</em> set <strong>Source: Deploy from a branch</strong>, branch <strong>main</strong>, folder <strong>/ (root)</strong>. Save.</p>
-<p>Wait a minute, then open:</p>
+<p>次に無料ホスティングを有効にします。リポジトリページで、<strong>Settings → Pages</strong> に進み、<em>Build and deployment</em> の下で、<strong>Source: Deploy from a branch</strong>、ブランチ <strong>main</strong>、フォルダ <strong>/ (root)</strong> を設定します。保存します。</p>
+<p>1分ほど待ってから、次を開きます。</p>
 <pre><code>https://YOUR-USERNAME.github.io/kakkoi-online/
 </code></pre>
-<p>That is your game, on the internet, at your own address, for free, forever. Send it to someone.</p>
+<p>それがあなたのゲームです。インターネット上に、あなた自身のアドレスで、無料で、永遠に公開されます。誰かに送ってみましょう。</p>
 <blockquote>
-<p>Our version lives at <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a> instead of a <code>github.io</code> address. That is a custom domain, which needs a domain name and some DNS setup — a separate topic you do not need. A <code>github.io</code> address works exactly as well.</p>
+<p>私たちのバージョンは <code>github.io</code> アドレスではなく、<a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a> にあります。これはカスタムドメインで、ドメイン名とDNS設定が必要です。これは別のトピックであり、あなたが知る必要はありません。<code>github.io</code> アドレスでもまったく同じように機能します。</p>
 </blockquote>
-<h2 id="ask-your-assistant"><a class="heading-anchor" href="#ask-your-assistant">Ask Your Assistant</a></h2>
+<h2 id="アシスタントに質問する"><a class="heading-anchor" href="#アシスタントに質問する">アシスタントに質問する</a></h2>
 <pre><code>My repo has index.html with a &lt;canvas id=&quot;world&quot;&gt; and main.js loaded as a module.
 Change main.js to also draw a red circle in the middle of the canvas, whatever
 the canvas size is. Explain what each new line does, and tell me which numbers
 would change if the canvas were a different size.
 </code></pre>
-<p><strong>Check the output for:</strong> is the circle actually in the middle when you resize the canvas in <code>index.html</code>? Did it use <code>canvas.width / 2</code> or did it hardcode <code>320</code>? Hardcoded numbers are the most common thing an assistant gets away with, because the page still looks right — until something changes.</p>
-<h2 id="what-went-wrong-when-we-did-this"><a class="heading-anchor" href="#what-went-wrong-when-we-did-this">What Went Wrong When We Did This</a></h2>
-<p>Two real mistakes from building the version you can play, both worth recognising:</p>
-<p><strong>A file that looked like configuration.</strong> We had a file in the repo that was supposed to set the site's address. It did nothing at all — that file only works for a different way of publishing than the one we used. The address was empty on GitHub's side the whole time. <strong>Lesson: when something should be live and isn't, check each end separately</strong> — is the page published? is the address pointing at it? — instead of staring at the middle.</p>
-<p><strong>A publishing robot that never ran.</strong> Later we set up automatic publishing, and it was watching a branch called <code>master</code> while our code was on <code>main</code>. No error, no warning, just nothing happening. <strong>Lesson: a robot that never runs looks exactly like a robot that works.</strong> Go and look at the run; do not assume.</p>
-<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
-<ol>
-<li>Create <code>index.html</code> and <code>main.js</code>, and see the blank canvas from <code>file://</code> plus the console error.</li>
-<li>Install Bun, run <code>bun ./index.html</code>, and see the same page work on <code>localhost</code>.</li>
-<li>Push, turn on GitHub Pages, and open your live address.</li>
-<li>Use the prompt above to add the circle, and check whether it hardcoded the middle.</li>
-<li>Post your live link in the channel.</li>
-</ol>
-<p><strong>Check it worked:</strong> the live address opens on a phone, on someone else's computer, with your project folder closed.</p>
-<div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<p><strong>出力で確認してください:</strong> <code>index.html</code> でキャンバスのサイズを変更したとき、円は本当に中央にありますか？ <code>canvas.width / 2</code> を使いましたか、それとも <code>320</code> をハードコードしましたか？ ハードコードされた数値は、アシスタントがよくやってしまうことの最も一般的なもので、ページは正しく見えていても、何かが変更されるまではそうではありません。</p>
+<h2 id="これをやった時に何が問題だったか"><a class="heading-anchor" href="#これをやった時に何が問題だったか">これをやった時に何が問題だったか</a></h2>
+<p>あなたがプレイできるバージョンを構築する際に犯した、認識しておくべき2つの本当の間違いです。</p>
 <ul>
-<li>A canvas is a rectangle of pixels; `ctx` takes your drawing orders</li>
-<li>Opening a file directly gives the page no origin, so modules are blocked — serve it over http instead</li>
-<li>`bun ./index.html` serves your folder while you work</li>
-<li>GitHub Pages publishes your repo for free at your own address</li>
-<li>Publishing early means every later lesson goes live the moment you push</li>
+<li>
+<p><strong>設定ファイルのように見えたファイル。</strong> リポジトリ内にサイトのアドレスを設定するはずのファイルがありました。しかし、それはまったく機能しませんでした。そのファイルは、私たちが使用した公開方法とは異なる方法でしか動作しません。GitHub側では、アドレスがずっと空でした。<strong>教訓：何かが公開されるべきなのに公開されていない場合、途中に目を向けるのではなく、それぞれの端を別々に確認する</strong> — ページは公開されているか？アドレスはそれを指しているか？</p>
+</li>
+<li>
+<p><strong>一度も実行されなかった公開ロボット。</strong> 後に自動公開を設定しましたが、私たちのコードが <code>main</code> ブランチにあったのに、<code>master</code> というブランチを監視していました。エラーも警告もなく、ただ何も起こりませんでした。<strong>教訓：一度も実行されないロボットは、まるで動作しているロボットのように見えます。</strong> 実行の様子を見に行きなさい。推測してはいけません。</p>
+</li>
+</ul>
+<h2 id="今週の演習"><a class="heading-anchor" href="#今週の演習">今週の演習</a></h2>
+<ol>
+<li><code>index.html</code> と <code>main.js</code> を作成し、<code>file://</code> からの空白のキャンバスとコンソールエラーを確認します。</li>
+<li>Bun をインストールし、<code>bun ./index.html</code> を実行して、同じページが <code>localhost</code> で動作することを確認します。</li>
+<li>プッシュし、GitHub Pages を有効にし、ライブアドレスを開きます。</li>
+<li>上記のプロンプトを使用して円を追加し、中央がハードコードされていないか確認します。</li>
+<li>チャネルにライブリンクを投稿します。</li>
+</ol>
+<p><strong>動作確認:</strong> ライブアドレスが、電話や他の人のコンピューターで、あなたのプロジェクトフォルダが閉じられた状態で開くこと。</p>
+<div class="takeaways">
+<h2 id="主なポイント"><a class="heading-anchor" href="#主なポイント">主なポイント</a></h2>
+<ul>
+<li>キャンバスはピクセルの長方形であり、`ctx` が描画命令を受け取ります</li>
+<li>ファイルを直接開くとページにオリジンがないため、モジュールがブロックされます — 代わりに HTTP 経由で提供します</li>
+<li>`bun ./index.html` は作業中にフォルダを提供します</li>
+<li>GitHub Pages はあなたのリポジトリをあなた自身のアドレスで無料で公開します</li>
+<li>早めに公開することで、後のすべてのレッスンがプッシュした瞬間に公開されます</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

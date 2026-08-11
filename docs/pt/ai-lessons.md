@@ -22,4 +22,4 @@ Um projeto real, do início ao fim: um jogo multijogador sem servidor, publicado
 > Você tem as ferramentas. Agora construa o móvel e deixe as pessoas sentarem nele
 
 - [A09: Construa um Jogo: Prepare Suas Ferramentas](lessons/a09.md) - Início do projeto do jogo. Aponte seu assistente para uma construção real, crie uma conta no GitHub e um repositório vazio, para que na próxima lição seu jogo esteja ativo na internet.
-- [A10: Build a Game: Put It on the Internet](lessons/a10.md) - Draw on a canvas, learn why a web page needs a server even on your own computer, and publish your page so anyone can open it.
+- [A10: Construa um Jogo: Coloque-o na Internet](lessons/a10.md) - Desenhe em uma tela, aprenda por que uma página web precisa de um servidor mesmo em seu próprio computador e publique sua página para que qualquer pessoa possa abri-la.

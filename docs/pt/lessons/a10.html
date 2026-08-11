@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Build a Game: Put It on the Internet - KakkoiSchool</title>
+  <title>Construa um Jogo: Coloque-o na Internet - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,11 +47,11 @@
           
         </div>
       </nav>
-      <h1 id="a10-build-a-game-put-it-on-the-internet"><a class="heading-anchor" href="#a10-build-a-game-put-it-on-the-internet">A10: Build a Game: Put It on the Internet</a></h1>
-<p class="lesson-intro">You have an empty repo (<a href="a09.html">A09</a>). Today it becomes a real web page with your own address, one you can send to a friend. There is almost no game in it yet, and that is on purpose: getting the publishing out of the way now means every lesson after this one goes live the moment you push it.</p>
-<h2 id="the-canvas"><a class="heading-anchor" href="#the-canvas">The Canvas</a></h2>
-<p>A canvas is a rectangle of pixels you can draw on with code. Everything in our game world will be drawn there.</p>
-<p>Create <code>index.html</code>:</p>
+      <h1 id="a10-construa-um-jogo-coloque-o-na-internet"><a class="heading-anchor" href="#a10-construa-um-jogo-coloque-o-na-internet">A10: Construa um Jogo: Coloque-o na Internet</a></h1>
+<p class="lesson-intro">Você tem um repositório vazio (<a href="a09.html">A09</a>). Hoje ele se torna uma página web real com seu próprio endereço, um que você pode enviar para um amigo. Quase não há jogo nele ainda, e isso é de propósito: resolver a publicação agora significa que cada lição depois desta estará online no momento em que você a enviar.</p>
+<h2 id="a-tela"><a class="heading-anchor" href="#a-tela">A Tela</a></h2>
+<p>Uma tela (canvas) é um retângulo de pixels no qual você pode desenhar com código. Tudo em nosso mundo de jogo será desenhado ali.</p>
+<p>Crie <code>index.html</code>:</p>
 <pre><code>&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
@@ -64,7 +64,7 @@
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p>And <code>main.js</code>:</p>
+<p>E <code>main.js</code>:</p>
 <pre><code>const canvas = document.querySelector('#world');
 const ctx = canvas.getContext('2d');
 
@@ -75,76 +75,76 @@ ctx.fillStyle = '#e8e8ef';
 ctx.font = '20px monospace';
 ctx.fillText('Kakkoi Online', 20, 40);
 </code></pre>
-<p><code>ctx</code> is short for <strong>context</strong>: the thing you give drawing orders to. <code>fillRect</code> paints a rectangle, <code>fillText</code> paints words. That is the whole drawing toolkit for now.</p>
-<h2 id="now-try-to-open-it-the-obvious-way"><a class="heading-anchor" href="#now-try-to-open-it-the-obvious-way">Now Try to Open It the Obvious Way</a></h2>
-<p>Double-click <code>index.html</code>. Your browser opens it, and the canvas is <strong>blank</strong>.</p>
-<p>Open the developer console (<strong>F12</strong>, then the Console tab). There is an error, something like:</p>
+<p><code>ctx</code> é a abreviação de <strong>contexto</strong>: a coisa a que você dá ordens de desenho. <code>fillRect</code> pinta um retângulo, <code>fillText</code> pinta palavras. Esse é todo o kit de ferramentas de desenho por enquanto.</p>
+<h2 id="agora-tente-abrir-do-jeito-bvio"><a class="heading-anchor" href="#agora-tente-abrir-do-jeito-bvio">Agora Tente Abrir do Jeito Óbvio</a></h2>
+<p>Dê um duplo clique em <code>index.html</code>. Seu navegador o abre, e a tela (canvas) está <strong>em branco</strong>.</p>
+<p>Abra o console do desenvolvedor (<strong>F12</strong>, depois a aba Console). Há um erro, algo como:</p>
 <pre><code>Access to script at 'file:///.../main.js' from origin 'null'
 has been blocked by CORS policy
 </code></pre>
-<p>Nothing is broken. You have just met a rule that will follow you for your whole career.</p>
-<h2 id="why-a-page-needs-a-server-even-on-your-own-computer"><a class="heading-anchor" href="#why-a-page-needs-a-server-even-on-your-own-computer">Why a Page Needs a Server, Even on Your Own Computer</a></h2>
-<p>When you double-click a file, the browser loads it from <strong><code>file://</code></strong> — straight off your disk. There is no website involved, so the browser cannot tell which website the page belongs to. Its name for that is <strong>origin <code>null</code></strong>: no address, no identity.</p>
-<p>Browsers refuse to load JavaScript modules into a page with no origin. If they allowed it, a file you downloaded could quietly read other files on your computer, and there would be no website to blame.</p>
-<p>Serve the same folder over <strong><code>http://</code></strong> and the page has an origin — <code>localhost</code> — so the rule is satisfied.</p>
+<p>Nada está quebrado. Você acabou de conhecer uma regra que o acompanhará por toda a sua carreira.</p>
+<h2 id="por-que-uma-p-gina-precisa-de-um-servidor-mesmo-no-seu-pr-prio-computador"><a class="heading-anchor" href="#por-que-uma-p-gina-precisa-de-um-servidor-mesmo-no-seu-pr-prio-computador">Por Que Uma Página Precisa de Um Servidor, Mesmo no Seu Próprio Computador</a></h2>
+<p>Quando você clica duas vezes em um arquivo, o navegador o carrega de <strong><code>file://</code></strong> — diretamente do seu disco. Não há nenhum site envolvido, então o navegador não consegue dizer a qual site a página pertence. O nome que ele dá para isso é <strong>origem <code>null</code></strong>: sem endereço, sem identidade.</p>
+<p>Os navegadores se recusam a carregar módulos JavaScript em uma página sem origem. Se permitissem, um arquivo que você baixou poderia ler silenciosamente outros arquivos em seu computador, e não haveria nenhum site para culpar.</p>
+<p>Sirva a mesma pasta via <strong><code>http://</code></strong> e a página terá uma origem — <code>localhost</code> — então a regra é satisfeita.</p>
 <div class="mermaid">
 flowchart LR
     A[Double-click the file] -->|file:// origin null| B[Module blocked, blank canvas]
     C[Run a small server] -->|http://localhost| D[Module loads, canvas draws]
 
 </div>
-<p>Two more things need a real origin later in this project, so this is worth remembering: <strong>saving data</strong> in the browser, and the <strong>scrambling function</strong> we use to make duels fair (<a href="a25.html">A25</a>).</p>
-<h2 id="run-a-server"><a class="heading-anchor" href="#run-a-server">Run a Server</a></h2>
-<p>Install <strong>Bun</strong>, a tool that both serves your files and, later, understands TypeScript:</p>
+<p>Mais duas coisas precisarão de uma origem real mais adiante neste projeto, então vale a pena lembrar: <strong>salvar dados</strong> no navegador e a <strong>função de embaralhamento</strong> que usamos para tornar os duelos justos (<a href="a25.html">A25</a>).</p>
+<h2 id="execute-um-servidor"><a class="heading-anchor" href="#execute-um-servidor">Execute um Servidor</a></h2>
+<p>Instale <strong>Bun</strong>, uma ferramenta que tanto serve seus arquivos quanto, mais tarde, entende TypeScript:</p>
 <pre><code>curl -fsSL https://bun.com/install | bash
 </code></pre>
-<p>Close and reopen the terminal, then, inside your project folder:</p>
+<p>Feche e reabra o terminal, então, dentro da sua pasta de projeto:</p>
 <pre><code>bun ./index.html
 </code></pre>
-<p>It prints an address like <code>http://localhost:3000</code>. Open it. <strong>Now the canvas draws.</strong> Same files, different door.</p>
-<p>Leave it running while you work. Edit <code>main.js</code>, save, refresh: your change is there.</p>
-<h2 id="publish-it"><a class="heading-anchor" href="#publish-it">Publish It</a></h2>
-<p>Commit and push:</p>
+<p>Ele imprime um endereço como <code>http://localhost:3000</code>. Abra-o. <strong>Agora a tela (canvas) desenha.</strong> Mesmos arquivos, porta diferente.</p>
+<p>Deixe-o rodando enquanto trabalha. Edite <code>main.js</code>, salve, atualize: sua alteração estará lá.</p>
+<h2 id="publique-o"><a class="heading-anchor" href="#publique-o">Publique-o</a></h2>
+<p>Commit e push:</p>
 <pre><code>git add .
 git commit -m &quot;A canvas that draws&quot;
 git push
 </code></pre>
-<p>Now switch on the free hosting. On your repo page: <strong>Settings → Pages</strong>, and under <em>Build and deployment</em> set <strong>Source: Deploy from a branch</strong>, branch <strong>main</strong>, folder <strong>/ (root)</strong>. Save.</p>
-<p>Wait a minute, then open:</p>
+<p>Agora ative a hospedagem gratuita. Na página do seu repositório: <strong>Settings → Pages</strong>, e em <em>Build and deployment</em> defina <strong>Source: Deploy from a branch</strong>, branch <strong>main</strong>, folder <strong>/ (root)</strong>. Salve.</p>
+<p>Espere um minuto, então abra:</p>
 <pre><code>https://YOUR-USERNAME.github.io/kakkoi-online/
 </code></pre>
-<p>That is your game, on the internet, at your own address, for free, forever. Send it to someone.</p>
+<p>Esse é o seu jogo, na internet, no seu próprio endereço, de graça, para sempre. Envie-o para alguém.</p>
 <blockquote>
-<p>Our version lives at <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a> instead of a <code>github.io</code> address. That is a custom domain, which needs a domain name and some DNS setup — a separate topic you do not need. A <code>github.io</code> address works exactly as well.</p>
+<p>Nossa versão reside em <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a> em vez de um endereço <code>github.io</code>. Isso é um domínio personalizado, que requer um nome de domínio e alguma configuração de DNS — um tópico separado que você não precisa. Um endereço <code>github.io</code> funciona exatamente tão bem.</p>
 </blockquote>
-<h2 id="ask-your-assistant"><a class="heading-anchor" href="#ask-your-assistant">Ask Your Assistant</a></h2>
+<h2 id="pergunte-ao-seu-assistente"><a class="heading-anchor" href="#pergunte-ao-seu-assistente">Pergunte ao Seu Assistente</a></h2>
 <pre><code>My repo has index.html with a &lt;canvas id=&quot;world&quot;&gt; and main.js loaded as a module.
 Change main.js to also draw a red circle in the middle of the canvas, whatever
 the canvas size is. Explain what each new line does, and tell me which numbers
 would change if the canvas were a different size.
 </code></pre>
-<p><strong>Check the output for:</strong> is the circle actually in the middle when you resize the canvas in <code>index.html</code>? Did it use <code>canvas.width / 2</code> or did it hardcode <code>320</code>? Hardcoded numbers are the most common thing an assistant gets away with, because the page still looks right — until something changes.</p>
-<h2 id="what-went-wrong-when-we-did-this"><a class="heading-anchor" href="#what-went-wrong-when-we-did-this">What Went Wrong When We Did This</a></h2>
-<p>Two real mistakes from building the version you can play, both worth recognising:</p>
-<p><strong>A file that looked like configuration.</strong> We had a file in the repo that was supposed to set the site's address. It did nothing at all — that file only works for a different way of publishing than the one we used. The address was empty on GitHub's side the whole time. <strong>Lesson: when something should be live and isn't, check each end separately</strong> — is the page published? is the address pointing at it? — instead of staring at the middle.</p>
-<p><strong>A publishing robot that never ran.</strong> Later we set up automatic publishing, and it was watching a branch called <code>master</code> while our code was on <code>main</code>. No error, no warning, just nothing happening. <strong>Lesson: a robot that never runs looks exactly like a robot that works.</strong> Go and look at the run; do not assume.</p>
-<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<p><strong>Verifique a saída para:</strong> o círculo está realmente no meio quando você redimensiona a tela (canvas) em <code>index.html</code>? Ele usou <code>canvas.width / 2</code> ou codificou <code>320</code>? Números codificados são a coisa mais comum com que um assistente se safa, porque a página ainda parece correta — até que algo mude.</p>
+<h2 id="o-que-deu-errado-quando-fizemos-isso"><a class="heading-anchor" href="#o-que-deu-errado-quando-fizemos-isso">O Que Deu Errado Quando Fizemos Isso</a></h2>
+<p>Dois erros reais da construção da versão que você pode jogar, ambos dignos de reconhecimento:</p>
+<p><strong>Um arquivo que parecia configuração.</strong> Tínhamos um arquivo no repositório que deveria definir o endereço do site. Ele não fez absolutamente nada — esse arquivo só funciona para uma forma diferente de publicação da que usamos. O endereço estava vazio no lado do GitHub o tempo todo. <strong>Lição: quando algo deveria estar online e não está, verifique cada ponta separadamente</strong> — a página está publicada? o endereço está apontando para ela? — em vez de ficar olhando para o meio.</p>
+<p><strong>Um robô de publicação que nunca rodou.</strong> Mais tarde, configuramos a publicação automática, e ele estava monitorando uma branch chamada <code>master</code> enquanto nosso código estava na <code>main</code>. Nenhum erro, nenhum aviso, apenas nada acontecendo. <strong>Lição: um robô que nunca roda parece exatamente com um robô que funciona.</strong> Vá e veja a execução; não presuma.</p>
+<h2 id="exerc-cio-desta-semana"><a class="heading-anchor" href="#exerc-cio-desta-semana">Exercício Desta Semana</a></h2>
 <ol>
-<li>Create <code>index.html</code> and <code>main.js</code>, and see the blank canvas from <code>file://</code> plus the console error.</li>
-<li>Install Bun, run <code>bun ./index.html</code>, and see the same page work on <code>localhost</code>.</li>
-<li>Push, turn on GitHub Pages, and open your live address.</li>
-<li>Use the prompt above to add the circle, and check whether it hardcoded the middle.</li>
-<li>Post your live link in the channel.</li>
+<li>Crie <code>index.html</code> e <code>main.js</code>, e veja a tela (canvas) em branco de <code>file://</code> mais o erro no console.</li>
+<li>Instale o Bun, execute <code>bun ./index.html</code>, e veja a mesma página funcionando em <code>localhost</code>.</li>
+<li>Faça push, ative o GitHub Pages e abra seu endereço ao vivo.</li>
+<li>Use o prompt acima para adicionar o círculo e verifique se ele codificou o meio.</li>
+<li>Publique seu link ao vivo no canal.</li>
 </ol>
-<p><strong>Check it worked:</strong> the live address opens on a phone, on someone else's computer, with your project folder closed.</p>
+<p><strong>Verifique se funcionou:</strong> o endereço ao vivo abre em um telefone, no computador de outra pessoa, com a pasta do seu projeto fechada.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>A canvas is a rectangle of pixels; `ctx` takes your drawing orders</li>
-<li>Opening a file directly gives the page no origin, so modules are blocked — serve it over http instead</li>
-<li>`bun ./index.html` serves your folder while you work</li>
-<li>GitHub Pages publishes your repo for free at your own address</li>
-<li>Publishing early means every later lesson goes live the moment you push</li>
+<li>Uma tela (canvas) é um retângulo de pixels; `ctx` recebe suas ordens de desenho</li>
+<li>Abrir um arquivo diretamente não dá origem à página, então os módulos são bloqueados — sirva-o via http em vez disso</li>
+<li>`bun ./index.html` serve sua pasta enquanto você trabalha</li>
+<li>GitHub Pages publica seu repositório gratuitamente em seu próprio endereço</li>
+<li>Publicar cedo significa que cada lição posterior estará online no momento em que você fizer push</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
