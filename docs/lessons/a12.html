@@ -184,6 +184,21 @@ change update(). Plain JavaScript, no build step, no npm.
 <li>Open a third tab. A second blue square appears — the picture above was taken with three players in the room.</li>
 </ol>
 <p>If step 1 never happens, read the note about networks above before you change any code.</p>
+<h2 id="what-went-wrong-when-we-did-this"><a class="heading-anchor" href="#what-went-wrong-when-we-did-this">What went wrong when we did this</a></h2>
+<p>Read this <strong>after</strong> you have folded the three blocks into your game, because that is when it happens.</p>
+<p>Two tabs is how you test this step, and for the demo above it works perfectly. Then we added it to the real game — the one that saves your name and your position from <a href="a11.html">A11</a> — and opened two tabs.</p>
+<p><strong>There were two of us.</strong> Same name, same monster, both walking around, both real. Closing the second tab did not help, because the first one was still going.</p>
+<p>Nothing was broken. Both tabs read the same save, because a save belongs to the <em>browser</em>, not to the tab. So both tabs were correctly, honestly, you. The game simply had no idea that only one of you should be playing at a time.</p>
+<p>The fix is to decide that <strong>the newest window wins</strong>:</p>
+<ol>
+<li>A window that opens announces itself to any other window of the same game.</li>
+<li>An older window that hears this saves where it actually is right now, hands that over, <strong>leaves the room</strong>, and shows a quiet message with a button to take the game back.</li>
+<li>The new window starts from the handed-over position.</li>
+</ol>
+<p>Two details in there are easy to get wrong, and both cost us time:</p>
+<p><strong>The old window has to genuinely leave</strong>, not just stop drawing. If it only pauses, it is still connected, so everyone else still sees two of you and the bug looks unfixed.</p>
+<p><strong>The new window must use the handed-over position, not the saved one.</strong> A game saves every so often, not every frame. Use the saved copy and you jump back to wherever the last save happened to land, which feels like the game losing your place.</p>
+<p><em>Windows of the same site can talk to each other directly — grown-up programmers call it a <code>BroadcastChannel</code>, so now you know that name too. It only works between windows of the same site, which is exactly the problem here.</em></p>
 <h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
 <p>Take your game from <a href="a11.html">A11</a> and add the three blocks. Nothing already there changes. <code>update</code> and the loop stay exactly as they were — you are adding a second source of numbers, not rewriting the first one.</p>
 <div class="takeaways">
@@ -194,6 +209,7 @@ change update(). Plain JavaScript, no build step, no npm.
 <li>Send rarely and on a timer, not every frame; the picture is the same and the cost is far lower</li>
 <li>Remove a player when they leave, or their square haunts your screen forever</li>
 <li>Some networks will not let two computers talk directly, and that is not a bug in your code</li>
+<li>A save belongs to the browser, not the tab — so two tabs are two of you until you decide which one is playing</li>
 </ul>
 </div>
 
