@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Construa um Jogo: Prepare Suas Ferramentas - KakkoiSchool</title>
+  <title>Pegue Suas Ferramentas - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,104 +47,125 @@
           <a href="a10.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a09-construa-um-jogo-prepare-suas-ferramentas"><a class="heading-anchor" href="#a09-construa-um-jogo-prepare-suas-ferramentas">A09: Construa um Jogo: Prepare Suas Ferramentas</a></h1>
-<p class="lesson-intro">Você já pode conversar com um assistente de IA (<a href="a02.html">A02</a>) e sabe que não deve confiar cegamente nele (<a href="a01.html">A01</a>). É hora de construir algo real com ele: um pequeno jogo online que outras pessoas podem realmente jogar. Hoje é apenas a configuração: uma nova conta e uma pasta vazia, nada mais.</p>
-<h2 id="o-que-voc-vai-construir"><a class="heading-anchor" href="#o-que-voc-vai-construir">O Que Você Vai Construir</a></h2>
-<p>Um jogo chamado <strong>Kakkoi Online</strong>. Você anda por um pequeno mundo como um monstro. Outros jogadores andam pelo mesmo mundo. Você pode conversar com eles e duelar com eles: fogo, água, terra, onde água vence fogo, fogo vence terra, terra vence água.</p>
-<p>A parte estranha, e a razão pela qual este projeto vale o seu tempo: <strong>não há servidor.</strong> Seu navegador se comunica diretamente com os navegadores de outros jogadores. Nada para pagar, nada para executar, nada para manter ativo. Custa zero para sempre.</p>
-<p>Aqui está a versão que construímos nestas lições: <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a></p>
-<p>Ao final da próxima lição, <strong>sua própria cópia terá seu próprio endereço web</strong> que você poderá enviar a qualquer pessoa.</p>
-<h2 id="um-programador-precisa-de-duas-coisas"><a class="heading-anchor" href="#um-programador-precisa-de-duas-coisas">Um Programador Precisa de Duas Coisas</a></h2>
-<p>Um que te ajude a escrever, e outro que guarde seu trabalho onde outros possam vê-lo.</p>
+      <h1 id="a09-pegue-suas-ferramentas"><a class="heading-anchor" href="#a09-pegue-suas-ferramentas">A09: Pegue Suas Ferramentas</a></h1>
+<p class="lesson-intro">Este é o início do jogo. Ao final desta etapa, você terá uma página da web, em seu próprio computador, que lhe dará as boas-vindas — e quando você a alterar e salvar, a página se atualizará sozinha.</p>
+<p><strong>Necessário:</strong> <a href="a08.html">A01–A08</a>. <strong>Oferece:</strong> uma configuração funcional e sua primeira página.</p>
+<h2 id="o-jogo-completo-e-a-parte-de-hoje"><a class="heading-anchor" href="#o-jogo-completo-e-a-parte-de-hoje">O jogo completo e a parte de hoje</a></h2>
+<p>Esta imagem estará no topo de cada etapa. Cada parte do jogo é uma dessas caixas. A caixa de hoje é aquela em que você está trabalhando, e as verdes já estão construídas.</p>
+<div class="mermaid">
+flowchart LR
+    subgraph loop["Round and round, 60 times a second"]
+        direction LR
+        N["Notice<br/>keys, touches"] --> D["Decide<br/>where everything is"] --> R["Draw<br/>the screen"]
+    end
+    R -. "and again" .-> N
+
+    S["Remember<br/>your game"] --> D
+    O["Other people"] --> D
+    F["The fight"] --> D
+    W["The world<br/>walls, map"] --> R
+    A["Sound"] --> R
+
+</div>
+<p>Nada está verde ainda. Esse é o objetivo da imagem: você está prestes a construir algo bastante grande, e é feito de pequenas caixas. Você as construirá uma de cada vez.</p>
+<h2 id="dividindo-em-blocos"><a class="heading-anchor" href="#dividindo-em-blocos">Dividindo em blocos</a></h2>
+<p>A configuração consiste em três coisas, e cada uma faz um trabalho:</p>
+<ol>
+<li><strong>O assistente</strong> escreve o código</li>
+<li><strong>O editor</strong> mostra o código, para que você possa lê-lo e alterá-lo</li>
+<li><strong>O navegador</strong> mostra o resultado</li>
+</ol>
+<p>Você precisa dos três abertos ao mesmo tempo. Essa é a ideia principal, e é assim que você trabalhará a partir de agora: pergunte, olhe, verifique.</p>
+<p>Por que não menos? Porque se algo der errado, você precisa saber <em>qual</em> dos três está errado. O assistente escreveu algo estranho? Você verifica no editor. O editor salvou? Você verifica no navegador. Três janelas separadas significam três lugares separados para verificar.</p>
+<h2 id="bloco-1-o-assistente"><a class="heading-anchor" href="#bloco-1-o-assistente">Bloco 1: O assistente</a></h2>
+<p>Você instalou isso em <a href="a02.html">A02</a>. Abra um terminal e verifique se ainda funciona:</p>
+<pre><code>agy
+</code></pre>
+<p>Se isso abrir o assistente, você terminou. Se não, volte para <a href="a02.html">A02</a>.</p>
+<blockquote>
+<p>Qualquer assistente de IA funciona para todo este projeto. Cada prompt nestas etapas está em inglês simples. Usamos <code>agy</code> porque é gratuito e você já o tem.</p>
+</blockquote>
+<h2 id="bloco-2-o-editor"><a class="heading-anchor" href="#bloco-2-o-editor">Bloco 2: O editor</a></h2>
+<p>Instale o <strong>VS Code</strong>, um programa gratuito para escrever código: <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a>.</p>
+<p>Crie uma pasta para o seu jogo. Chame-a de <code>kakkoi-online</code>. Abra-a no VS Code: <strong>Arquivo → Abrir Pasta</strong>.</p>
+<h2 id="bloco-3-a-p-gina-no-navegador"><a class="heading-anchor" href="#bloco-3-a-p-gina-no-navegador">Bloco 3: A página no navegador</a></h2>
+<p>Uma página da web precisa ser <em>servida</em> ao navegador, não apenas aberta. Há uma razão para isso e você a entenderá corretamente em <a href="a18.html">A18</a>. Por enquanto, uma extensão faz isso por você.</p>
+<p>No VS Code, clique no ícone <strong>Extensões</strong> na barra esquerda, pesquise por <strong>Live Server</strong> e instale-o.</p>
+<p>Agora crie dois arquivos em sua pasta.</p>
+<p><code>index.html</code>:</p>
+<pre><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Kakkoi Online&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1 id=&quot;greeting&quot;&gt;…&lt;/h1&gt;
+  &lt;script src=&quot;main.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><code>main.js</code>:</p>
+<pre><code>const name = 'Kakkoi';
+
+document.querySelector('#greeting').textContent = `Hello, ${name}!`;
+</code></pre>
+<p>Clique com o botão direito em <code>index.html</code> e escolha <strong>Abrir com Live Server</strong>. Seu navegador abrirá e dirá <strong>Hello, Kakkoi!</strong></p>
+<p>Agora, mude <code>Kakkoi</code> para o seu próprio nome e salve o arquivo. <strong>O navegador se atualiza sozinho.</strong> Você não o recarregou. O Live Server está monitorando a pasta.</p>
+<p>Esse ciclo — mudar, salvar, olhar — é do que o resto do projeto é feito.</p>
+<h2 id="por-que-fizemos-desta-forma"><a class="heading-anchor" href="#por-que-fizemos-desta-forma">Por que fizemos desta forma</a></h2>
+<p>Um editor e um navegador lado a lado é a configuração mais simples possível. Não há nada para instalar com um terminal, nada para compilar e nada que possa estar desatualizado. Tudo o que você escreve é um arquivo que o navegador pode ler diretamente.</p>
+<h2 id="o-que-poder-amos-ter-feito-em-vez-disso"><a class="heading-anchor" href="#o-que-poder-amos-ter-feito-em-vez-disso">O que poderíamos ter feito em vez disso</a></h2>
 <table>
 <thead>
 <tr>
-<th>Coisa</th>
-<th>Para que serve</th>
+<th>Em vez disso</th>
+<th>Qual seria o custo</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Um assistente de IA (<code>agy</code>, do A02)</td>
-<td>Escreve código com você, explica código para você, conserta o que quebrou</td>
+<td>Apenas clicar duas vezes em <code>index.html</code></td>
+<td>Funciona por enquanto, mas para de funcionar no momento em que o código fica maior — o navegador bloqueia algumas coisas em uma página que ele pensa que veio do nada. Melhor começar da maneira certa</td>
 </tr>
 <tr>
-<td>Uma conta GitHub</td>
-<td>Mantém todas as versões do seu trabalho e o coloca na internet gratuitamente</td>
+<td>Uma ferramenta de build que transforma seu código em outro código</td>
+<td>Outro programa para instalar, outra coisa que quebra, e o código rodando no navegador não é mais o código que você escreveu. Não vale a pena para um jogo deste tamanho</td>
+</tr>
+<tr>
+<td>Um motor de jogo como Godot ou Unity</td>
+<td>Você ganharia muito de graça. Você também aprenderia aquele motor em vez de aprender como tudo funciona — e você não poderia enviar seu jogo como um link</td>
 </tr>
 </tbody>
 </table>
-<p>Você já tem o primeiro, do A02. Hoje você adiciona o segundo.</p>
-<h2 id="seu-assistente"><a class="heading-anchor" href="#seu-assistente">Seu Assistente</a></h2>
-<p>Você já tem um: <strong><code>agy</code></strong>, a CLI Antigravity que você instalou em <a href="a02.html">A02</a>. É gratuito, você está logado, e é o que estas lições usam. Nada de novo para instalar.</p>
-<p>Verifique se ainda funciona:</p>
-<pre><code>agy --version
+<h2 id="copie-sua-pasta-antes-de-grandes-mudan-as"><a class="heading-anchor" href="#copie-sua-pasta-antes-de-grandes-mudan-as">Copie sua pasta antes de grandes mudanças</a></h2>
+<p>Você ainda não tem desfazer. Se o assistente reescrever cinco arquivos e fizer uma bagunça, não há como voltar atrás.</p>
+<p>Então, uma regra por enquanto: <strong>antes de pedir ao assistente para fazer uma grande mudança, copie toda a pasta do projeto e coloque a data na cópia.</strong> <code>kakkoi-online-aug-16</code>. É desajeitado, e funciona.</p>
+<p>Em <a href="a18.html">A18</a> você aprenderá a verdadeira solução para este problema. Fará muito mais sentido depois que você precisar dela.</p>
+<h2 id="o-prompt"><a class="heading-anchor" href="#o-prompt">O prompt</a></h2>
+<pre><code>I have index.html with an &lt;h1 id=&quot;greeting&quot;&gt; and main.js that sets its text.
+Change main.js so the greeting also shows the time right now, and updates
+every second. Explain each new line to me like I have never seen it before.
 </code></pre>
-<p>Um novo hábito para este projeto: <strong>inicie-o dentro da pasta do seu projeto</strong>, não na sua pasta pessoal. Um assistente que pode ver seus arquivos pode ler seu código antes de alterá-lo, e essa é a diferença entre ajuda e adivinhação.</p>
-<blockquote>
-<p>Usando outra coisa? Tudo bem. Cada prompt neste projeto está em inglês simples e funciona com qualquer assistente — Claude Code, Copilot, o que você preferir. Onde uma lição diz "pergunte ao seu assistente", use o que você tiver. Os pagos lidam melhor com grandes mudanças em muitos arquivos; você não precisa disso para terminar este jogo.</p>
-</blockquote>
-<h2 id="sua-conta-github"><a class="heading-anchor" href="#sua-conta-github">Sua Conta GitHub</a></h2>
-<p>GitHub é onde o código vive. Pense nisso como uma estante compartilhada: cada versão do seu trabalho é mantida, nada é perdido, e qualquer coisa que você coloque na estante pode ser publicada como um site gratuitamente.</p>
-<ol>
-<li>Vá para <a href="https://github.com" target="_blank" rel="noopener">github.com</a> e inscreva-se. <strong>Você deve ter 13 anos ou mais</strong> — essa é a regra do GitHub, em seus termos de serviço.</li>
-<li>Escolha um nome de usuário que você não se importaria que um empregador lesse. Ele se tornará parte do endereço web do seu jogo.</li>
-<li>Instale a ferramenta de linha de comando do GitHub e, em seguida, faça login:</li>
-</ol>
-<pre><code>sudo apt install gh          # WSL / Ubuntu, do A01
-brew install gh              # macOS
-</code></pre>
-<pre><code>gh auth login
-</code></pre>
-<p>Escolha <strong>GitHub.com</strong>, depois <strong>SSH</strong>, depois <strong>Login with a web browser</strong>, e cole o código que ele te der.</p>
-<p>Diga ao git quem você é, para que seu trabalho tenha seu nome nele:</p>
-<pre><code>git config --global user.name &quot;Your Name&quot;
-git config --global user.email &quot;you@example.com&quot;
-</code></pre>
-<blockquote>
-<p><strong>Seu repositório será público.</strong> A hospedagem gratuita de sites no GitHub só funciona para código público, então qualquer um pode lê-lo. Isso é bom para mostrar seu jogo às pessoas. Também significa: use um apelido, não seu nome real completo, e nunca coloque seu endereço, escola ou número de telefone em seu código.</p>
-</blockquote>
-<h2 id="seu-reposit-rio-vazio"><a class="heading-anchor" href="#seu-reposit-rio-vazio">Seu Repositório Vazio</a></h2>
-<p>Um <strong>repo</strong> (repositório) é a pasta de um projeto, com seu histórico completo. Crie um:</p>
-<pre><code>gh repo create kakkoi-online --public --clone
-cd kakkoi-online
-</code></pre>
-<p>É isso. Uma pasta vazia que existe na internet.</p>
-<p><strong>Por que vazio?</strong> Você poderia copiar nosso jogo finalizado em um comando. Então você seria dono de um jogo que não consegue explicar, o que não vale nada. Você o constrói pedaço por pedaço, e <em>seu</em> repositório contém <em>seu</em> código.</p>
-<p>Travou depois? Nossa versão é pública: <a href="https://github.com/KakkoiSchool/kakkoi-online" target="_blank" rel="noopener">github.com/KakkoiSchool/kakkoi-online</a>. Cada lição deixa um instantâneo que você pode ler no seu navegador, para que você possa comparar nosso arquivo com o seu. Olhe <em>depois</em> de ter tentado, não antes.</p>
-<div class="mermaid">
-flowchart LR
-    A[Your computer] -->|git push| B[Your repo on GitHub]
-    B -->|GitHub Pages| C[A real web address]
-
-</div>
-<h2 id="pergunte-ao-seu-assistente"><a class="heading-anchor" href="#pergunte-ao-seu-assistente">Pergunte ao Seu Assistente</a></h2>
-<p>Um primeiro prompt real. Observe que ele pede uma explicação, não apenas uma ação:</p>
-<pre><code>I just created an empty git repo called kakkoi-online. Add a README.md that says
-in two sentences what the project will be: a small top-down multiplayer browser
-game with no server, where players duel with fire, water and earth. Then show me
-the exact git commands to commit and push it, and explain what each one does.
-</code></pre>
-<p><strong>Verifique na saída se:</strong> o README realmente existe depois (<code>ls</code>)? Os comandos que ele te deu correspondem ao que ele disse que fazem? Se ele inventou um comando que não existe, você acabou de ver a coisa sobre a qual <a href="a01.html">A01</a> te avisou, no primeiro dia.</p>
-<h2 id="exerc-cio-desta-semana"><a class="heading-anchor" href="#exerc-cio-desta-semana">Exercício desta Semana</a></h2>
-<ol>
-<li>Verifique se <code>agy --version</code> funciona e inicie-o dentro da pasta do seu projeto.</li>
-<li>Crie sua conta GitHub e execute <code>gh auth login</code>.</li>
-<li>Crie seu repositório <code>kakkoi-online</code> vazio.</li>
-<li>Use o prompt acima para escrever e enviar um README.</li>
-<li>Publique o link do seu repositório no canal. Na próxima semana ele se tornará um site ao vivo.</li>
-</ol>
-<p><strong>Verifique se funcionou:</strong> <code>gh repo view --web</code> abre seu repositório em um navegador e seu README estará lá.</p>
+<p><strong>Verifique a saída para:</strong> a hora realmente muda a cada segundo, ou apenas mostra a hora em que a página foi carregada? Ele explicou o que adicionou, ou apenas colou o código? Se você não entender uma linha, pergunte sobre essa linha — isso é algo normal a fazer, não um sinal de que você está atrasado.</p>
+<h2 id="veja-funcionar"><a class="heading-anchor" href="#veja-funcionar">Veja funcionar</a></h2>
+<p><img alt="Uma página dizendo Hello, Kakkoi em um navegador" src="../static/img/game/a09.png"></p>
+<p>Você deve ter: o assistente em um terminal, <code>main.js</code> aberto no VS Code e sua página em um navegador. Mude o nome, salve e observe o navegador mudar.</p>
+<h2 id="coloque-no-jogo"><a class="heading-anchor" href="#coloque-no-jogo">Coloque no jogo</a></h2>
+<p>Este <em>é</em> o jogo — a pasta que você acabou de criar é aquela em que você continuará construindo a cada etapa. Nada para mover.</p>
 <div class="takeaways">
 <h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>Um programador precisa de algo para escrever e de um lugar para guardar o trabalho</li>
-<li>O GitHub exige que você tenha 13 anos ou mais; essa é a única regra de conta neste projeto</li>
-<li>Hospedagem gratuita significa um repositório público: use um apelido e mantenha detalhes pessoais fora do seu código</li>
-<li>Comece com um repositório vazio. Copiar um jogo pronto lhe dá um código que você não consegue explicar</li>
-<li>Nossa versão é pública se você ficar preso; leia-a depois de ter tentado, não antes</li>
+<li>Três janelas: o assistente escreve, o editor mostra, o navegador comprova</li>
+<li>Três janelas separadas significam três lugares separados para verificar quando algo está errado</li>
+<li>O Live Server serve sua pasta e recarrega a página quando você salva</li>
+<li>Copie a pasta antes de uma grande mudança — você não tem desfazer até A18</li>
+<li>Você não precisa entender cada linha, mas precisa perguntar sobre aquelas que não entende</li>
 </ul>
 </div>
+
+<h2 id="sua-vez"><a class="heading-anchor" href="#sua-vez">Sua vez</a></h2>
+<p>Faça a página dizer olá em dois idiomas ao mesmo tempo. Faça você mesmo, sem o assistente. É uma pequena mudança e fazê-la à mão é como você descobre quais partes realmente entendeu.</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">

@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Construa um Jogo: Coloque-o na Internet - KakkoiSchool</title>
+  <title>Criar o Jogador - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,106 +47,190 @@
           
         </div>
       </nav>
-      <h1 id="a10-construa-um-jogo-coloque-o-na-internet"><a class="heading-anchor" href="#a10-construa-um-jogo-coloque-o-na-internet">A10: Construa um Jogo: Coloque-o na Internet</a></h1>
-<p class="lesson-intro">Você tem um repositório vazio (<a href="a09.html">A09</a>). Hoje ele se torna uma página web real com seu próprio endereço, um que você pode enviar para um amigo. Quase não há jogo nele ainda, e isso é de propósito: resolver a publicação agora significa que cada lição depois desta estará online no momento em que você a enviar.</p>
-<h2 id="a-tela"><a class="heading-anchor" href="#a-tela">A Tela</a></h2>
-<p>Uma tela (canvas) é um retângulo de pixels no qual você pode desenhar com código. Tudo em nosso mundo de jogo será desenhado ali.</p>
-<p>Crie <code>index.html</code>:</p>
-<pre><code>&lt;!doctype html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-  &lt;meta charset=&quot;utf-8&quot;&gt;
-  &lt;title&gt;Kakkoi Online&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;canvas id=&quot;world&quot; width=&quot;640&quot; height=&quot;480&quot;&gt;&lt;/canvas&gt;
-  &lt;script type=&quot;module&quot; src=&quot;./main.js&quot;&gt;&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-<p>E <code>main.js</code>:</p>
-<pre><code>const canvas = document.querySelector('#world');
-const ctx = canvas.getContext('2d');
-
-ctx.fillStyle = '#1b1b22';
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-ctx.fillStyle = '#e8e8ef';
-ctx.font = '20px monospace';
-ctx.fillText('Kakkoi Online', 20, 40);
-</code></pre>
-<p><code>ctx</code> é a abreviação de <strong>contexto</strong>: a coisa a que você dá ordens de desenho. <code>fillRect</code> pinta um retângulo, <code>fillText</code> pinta palavras. Esse é todo o kit de ferramentas de desenho por enquanto.</p>
-<h2 id="agora-tente-abrir-do-jeito-bvio"><a class="heading-anchor" href="#agora-tente-abrir-do-jeito-bvio">Agora Tente Abrir do Jeito Óbvio</a></h2>
-<p>Dê um duplo clique em <code>index.html</code>. Seu navegador o abre, e a tela (canvas) está <strong>em branco</strong>.</p>
-<p>Abra o console do desenvolvedor (<strong>F12</strong>, depois a aba Console). Há um erro, algo como:</p>
-<pre><code>Access to script at 'file:///.../main.js' from origin 'null'
-has been blocked by CORS policy
-</code></pre>
-<p>Nada está quebrado. Você acabou de conhecer uma regra que o acompanhará por toda a sua carreira.</p>
-<h2 id="por-que-uma-p-gina-precisa-de-um-servidor-mesmo-no-seu-pr-prio-computador"><a class="heading-anchor" href="#por-que-uma-p-gina-precisa-de-um-servidor-mesmo-no-seu-pr-prio-computador">Por Que Uma Página Precisa de Um Servidor, Mesmo no Seu Próprio Computador</a></h2>
-<p>Quando você clica duas vezes em um arquivo, o navegador o carrega de <strong><code>file://</code></strong> — diretamente do seu disco. Não há nenhum site envolvido, então o navegador não consegue dizer a qual site a página pertence. O nome que ele dá para isso é <strong>origem <code>null</code></strong>: sem endereço, sem identidade.</p>
-<p>Os navegadores se recusam a carregar módulos JavaScript em uma página sem origem. Se permitissem, um arquivo que você baixou poderia ler silenciosamente outros arquivos em seu computador, e não haveria nenhum site para culpar.</p>
-<p>Sirva a mesma pasta via <strong><code>http://</code></strong> e a página terá uma origem — <code>localhost</code> — então a regra é satisfeita.</p>
+      <h1 id="a10-criar-o-jogador"><a class="heading-anchor" href="#a10-criar-o-jogador">A10: Criar o Jogador</a></h1>
+<p class="lesson-intro">Ao final deste passo, haverá um quadrado na tela e você poderá movê-lo. Isso é algo pequeno. A forma como o construímos não é pequena — é a forma como você construirá todo o resto.</p>
+<p><strong>Requisitos:</strong> <a href="a09.html">A09</a>. <strong>Oferece:</strong> um quadrado que você pode mover com as teclas de seta ou com o dedo.</p>
+<h2 id="o-jogo-completo-e-a-parte-de-hoje"><a class="heading-anchor" href="#o-jogo-completo-e-a-parte-de-hoje">O jogo completo, e a parte de hoje</a></h2>
 <div class="mermaid">
 flowchart LR
-    A[Double-click the file] -->|file:// origin null| B[Module blocked, blank canvas]
-    C[Run a small server] -->|http://localhost| D[Module loads, canvas draws]
+    subgraph loop["Round and round, 60 times a second"]
+        direction LR
+        N["Notice<br/>keys, touches"] --> D["Decide<br/>where everything is"] --> R["Draw<br/>the screen"]
+    end
+    R -. "and again" .-> N
+
+    S["Remember<br/>your game"] --> D
+    O["Other people"] --> D
+    F["The fight"] --> D
+    W["The world<br/>walls, map"] --> R
+    A["Sound"] --> R
+
+    classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    class N,D,R now
 
 </div>
-<p>Mais duas coisas precisarão de uma origem real mais adiante neste projeto, então vale a pena lembrar: <strong>salvar dados</strong> no navegador e a <strong>função de embaralhamento</strong> que usamos para tornar os duelos justos (<a href="a25.html">A25</a>).</p>
-<h2 id="execute-um-servidor"><a class="heading-anchor" href="#execute-um-servidor">Execute um Servidor</a></h2>
-<p>Instale <strong>Bun</strong>, uma ferramenta que tanto serve seus arquivos quanto, mais tarde, entende TypeScript:</p>
-<pre><code>curl -fsSL https://bun.com/install | bash
-</code></pre>
-<p>Feche e reabra o terminal, então, dentro da sua pasta de projeto:</p>
-<pre><code>bun ./index.html
-</code></pre>
-<p>Ele imprime um endereço como <code>http://localhost:3000</code>. Abra-o. <strong>Agora a tela (canvas) desenha.</strong> Mesmos arquivos, porta diferente.</p>
-<p>Deixe-o rodando enquanto trabalha. Edite <code>main.js</code>, salve, atualize: sua alteração estará lá.</p>
-<h2 id="publique-o"><a class="heading-anchor" href="#publique-o">Publique-o</a></h2>
-<p>Commit e push:</p>
-<pre><code>git add .
-git commit -m &quot;A canvas that draws&quot;
-git push
-</code></pre>
-<p>Agora ative a hospedagem gratuita. Na página do seu repositório: <strong>Settings → Pages</strong>, e em <em>Build and deployment</em> defina <strong>Source: Deploy from a branch</strong>, branch <strong>main</strong>, folder <strong>/ (root)</strong>. Salve.</p>
-<p>Espere um minuto, então abra:</p>
-<pre><code>https://YOUR-USERNAME.github.io/kakkoi-online/
-</code></pre>
-<p>Esse é o seu jogo, na internet, no seu próprio endereço, de graça, para sempre. Envie-o para alguém.</p>
-<blockquote>
-<p>Nossa versão reside em <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a> em vez de um endereço <code>github.io</code>. Isso é um domínio personalizado, que requer um nome de domínio e alguma configuração de DNS — um tópico separado que você não precisa. Um endereço <code>github.io</code> funciona exatamente tão bem.</p>
-</blockquote>
-<h2 id="pergunte-ao-seu-assistente"><a class="heading-anchor" href="#pergunte-ao-seu-assistente">Pergunte ao Seu Assistente</a></h2>
-<pre><code>My repo has index.html with a &lt;canvas id=&quot;world&quot;&gt; and main.js loaded as a module.
-Change main.js to also draw a red circle in the middle of the canvas, whatever
-the canvas size is. Explain what each new line does, and tell me which numbers
-would change if the canvas were a different size.
-</code></pre>
-<p><strong>Verifique a saída para:</strong> o círculo está realmente no meio quando você redimensiona a tela (canvas) em <code>index.html</code>? Ele usou <code>canvas.width / 2</code> ou codificou <code>320</code>? Números codificados são a coisa mais comum com que um assistente se safa, porque a página ainda parece correta — até que algo mude.</p>
-<h2 id="o-que-deu-errado-quando-fizemos-isso"><a class="heading-anchor" href="#o-que-deu-errado-quando-fizemos-isso">O Que Deu Errado Quando Fizemos Isso</a></h2>
-<p>Dois erros reais da construção da versão que você pode jogar, ambos dignos de reconhecimento:</p>
-<p><strong>Um arquivo que parecia configuração.</strong> Tínhamos um arquivo no repositório que deveria definir o endereço do site. Ele não fez absolutamente nada — esse arquivo só funciona para uma forma diferente de publicação da que usamos. O endereço estava vazio no lado do GitHub o tempo todo. <strong>Lição: quando algo deveria estar online e não está, verifique cada ponta separadamente</strong> — a página está publicada? o endereço está apontando para ela? — em vez de ficar olhando para o meio.</p>
-<p><strong>Um robô de publicação que nunca rodou.</strong> Mais tarde, configuramos a publicação automática, e ele estava monitorando uma branch chamada <code>master</code> enquanto nosso código estava na <code>main</code>. Nenhum erro, nenhum aviso, apenas nada acontecendo. <strong>Lição: um robô que nunca roda parece exatamente com um robô que funciona.</strong> Vá e veja a execução; não presuma.</p>
-<h2 id="exerc-cio-desta-semana"><a class="heading-anchor" href="#exerc-cio-desta-semana">Exercício Desta Semana</a></h2>
+<p>Este é o jogo completo. Hoje você construirá as três caixas do meio — e essas três são o coração dele. Tudo o mais que você adicionar estará ligado a uma delas.</p>
+<h2 id="dividindo-em-blocos"><a class="heading-anchor" href="#dividindo-em-blocos">Dividindo em blocos</a></h2>
+<p>"Um quadrado que você pode mover" parece uma coisa só. São três:</p>
 <ol>
-<li>Crie <code>index.html</code> e <code>main.js</code>, e veja a tela (canvas) em branco de <code>file://</code> mais o erro no console.</li>
-<li>Instale o Bun, execute <code>bun ./index.html</code>, e veja a mesma página funcionando em <code>localhost</code>.</li>
-<li>Faça push, ative o GitHub Pages e abra seu endereço ao vivo.</li>
-<li>Use o prompt acima para adicionar o círculo e verifique se ele codificou o meio.</li>
-<li>Publique seu link ao vivo no canal.</li>
+<li><strong>Perceber</strong> — quais teclas estão sendo pressionadas e onde o dedo está</li>
+<li><strong>Decidir</strong> — onde o quadrado deve estar agora</li>
+<li><strong>Desenhar</strong> — colocá-lo na tela</li>
 </ol>
-<p><strong>Verifique se funcionou:</strong> o endereço ao vivo abre em um telefone, no computador de outra pessoa, com a pasta do seu projeto fechada.</p>
+<p>Em seguida, faça os três novamente. E novamente. Cerca de sessenta vezes por segundo.</p>
+<p><strong>Por que se preocupar em dividir?</strong> Porque quando o quadrado não se move, você precisa saber qual dos três está quebrado. Ele não está percebendo a tecla? Está percebendo, mas não mudando o número? Está mudando o número, mas desenhando no lugar antigo? Três blocos separados significam que você pode verificar cada um por si.</p>
+<p>Se fosse um bloco de código único, você teria uma única pergunta — <em>"por que não funciona?"</em> — e nenhuma maneira de restringir a busca. Essa é a diferença sobre a qual este curso inteiro se trata, e esta é a primeira vez que você a usa.</p>
+<p>Esta parte é confusa para quase todo mundo na primeira vez. Fica fácil rapidamente.</p>
+<h2 id="configurar-o-canvas"><a class="heading-anchor" href="#configurar-o-canvas">Configurar o canvas</a></h2>
+<p>Um <strong>canvas</strong> é um retângulo de pixels no qual você pode desenhar com código. Coloque um em <code>index.html</code>:</p>
+<pre><code class="language-html">&lt;canvas id=&quot;world&quot; width=&quot;640&quot; height=&quot;480&quot;&gt;&lt;/canvas&gt;
+&lt;script src=&quot;main.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<h2 id="bloco-1-perceber"><a class="heading-anchor" href="#bloco-1-perceber">Bloco 1: Perceber</a></h2>
+<p>Dois tipos de entrada, uma tarefa: lembrar o que está acontecendo agora.</p>
+<pre><code class="language-javascript">const held = new Set();
+addEventListener('keydown', (e) =&gt; held.add(e.key));
+addEventListener('keyup', (e) =&gt; held.delete(e.key));
+</code></pre>
+<p>Um <strong>Set</strong> é uma "sacola" que contém cada item apenas uma vez. Pressione a seta para a esquerda e <code>ArrowLeft</code> entra na sacola. Solte e ela sai. A qualquer momento, a sacola é a resposta para "o que está sendo pressionado?"</p>
+<p>Agora o mesmo para um dedo:</p>
+<pre><code class="language-javascript">let pointer = null;
+canvas.addEventListener('pointerdown', (e) =&gt; { canvas.setPointerCapture(e.pointerId); pointer = at(e); });
+canvas.addEventListener('pointermove', (e) =&gt; { if (pointer) pointer = at(e); });
+canvas.addEventListener('pointerup', () =&gt; { pointer = null; });
+
+function at(e) {
+  const box = canvas.getBoundingClientRect();
+  return { x: e.clientX - box.left, y: e.clientY - box.top };
+}
+</code></pre>
+<p>Eventos de <strong>Ponteiro</strong> cobrem mouse, dedo e caneta com o mesmo código. É por isso que os usamos: seu jogo funciona em um telefone sem que você precise escrevê-lo duas vezes.</p>
+<p>Observe o que este bloco <em>não</em> faz. Ele não move nada. Ele apenas anota o que está acontecendo.</p>
+<h2 id="bloco-2-decidir"><a class="heading-anchor" href="#bloco-2-decidir">Bloco 2: Decidir</a></h2>
+<pre><code class="language-javascript">const SIZE = 32;
+const SPEED = 220;
+const player = { x: 100, y: 100 };
+
+function update(dt) {
+  let dx = 0;
+  let dy = 0;
+
+  if (held.has('ArrowLeft')  || held.has('a')) dx -= 1;
+  if (held.has('ArrowRight') || held.has('d')) dx += 1;
+  if (held.has('ArrowUp')    || held.has('w')) dy -= 1;
+  if (held.has('ArrowDown')  || held.has('s')) dy += 1;
+
+  if (pointer) {
+    const toX = pointer.x - (player.x + SIZE / 2);
+    const toY = pointer.y - (player.y + SIZE / 2);
+    const distance = Math.hypot(toX, toY);
+    if (distance &gt; 1) { dx = toX / distance; dy = toY / distance; }
+  }
+
+  player.x += dx * SPEED * dt;
+  player.y += dy * SPEED * dt;
+
+  player.x = Math.max(0, Math.min(canvas.width - SIZE, player.x));
+  player.y = Math.max(0, Math.min(canvas.height - SIZE, player.y));
+}
+</code></pre>
+<p>Este bloco lê a sacola e altera dois números. Ele nunca toca a tela.</p>
+<p><strong><code>dt</code> é o tempo que o último frame levou, em segundos.</strong> <code>SPEED</code> é 220 pixels <em>por segundo</em>, então multiplicar por <code>dt</code> te dá o quanto mover neste frame. Isso é mais importante do que parece:</p>
+<blockquote>
+<p><strong>Nem toda tela funciona na mesma velocidade.</strong> Uma tela normal redesenha 60 vezes por segundo. Uma tela de jogo pode fazer 144. Se você escrevesse <code>player.x += 2</code>, seu quadrado se moveria mais de duas vezes mais rápido na tela mais rápida — o mesmo código, um jogo diferente. Multiplicar por <code>dt</code> significa que o quadrado percorre 220 pixels a cada segundo em ambas. <em>Programadores experientes chamam isso de ser independente da taxa de quadros, então agora você também conhece essa frase.</em></p>
+</blockquote>
+<p>As duas últimas linhas mantêm o quadrado dentro do canvas.</p>
+<h2 id="bloco-3-desenhar"><a class="heading-anchor" href="#bloco-3-desenhar">Bloco 3: Desenhar</a></h2>
+<pre><code class="language-javascript">function draw() {
+  ctx.fillStyle = '#1b1b22';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#7ee081';
+  ctx.fillRect(player.x, player.y, SIZE, SIZE);
+}
+</code></pre>
+<p><code>ctx</code> é a abreviação de <strong>contexto</strong> — a coisa para a qual você dá ordens de desenho. <code>fillRect</code> pinta um retângulo.</p>
+<p>As duas primeiras linhas pintam sobre todo o canvas. Sem elas, o canvas mantém tudo o que foi desenhado antes, e seu quadrado deixa um rastro na tela. Tente excluí-las uma vez — vale a pena ver.</p>
+<p>Escolha sua própria cor para o quadrado. Ele é seu jogador.</p>
+<h2 id="fazendo-isso-de-novo-e-de-novo"><a class="heading-anchor" href="#fazendo-isso-de-novo-e-de-novo">Fazendo isso de novo, e de novo</a></h2>
+<pre><code class="language-javascript">let previous = performance.now();
+function frame(now) {
+  const dt = Math.min((now - previous) / 1000, 0.25);
+  previous = now;
+  update(dt);
+  draw();
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</code></pre>
+<p><code>requestAnimationFrame</code> significa "chame-me novamente pouco antes de você pintar a tela da próxima vez". Então: perceber, decidir, desenhar, e de novo — cerca de sessenta vezes por segundo, para sempre.</p>
+<h2 id="por-que-fizemos-isso-desta-forma"><a class="heading-anchor" href="#por-que-fizemos-isso-desta-forma">Por que fizemos isso desta forma</a></h2>
+<p>Os três blocos são separados porque não ficarão juntos. Em <a href="a12.html">A12</a> outro jogador aparecerá na sua tela. Esse jogador tem uma posição, mas não um teclado no seu computador. Como "decidir" apenas lê números e não acessa o teclado em si, o quadrado de outro jogador pode ser movido pelo mesmo código que move o seu.</p>
+<p>Essa é a recompensa pela divisão, e você a obtém sem fazer nada extra.</p>
+<h2 id="o-que-poder-amos-ter-feito-em-vez-disso"><a class="heading-anchor" href="#o-que-poder-amos-ter-feito-em-vez-disso">O que poderíamos ter feito em vez disso</a></h2>
+<table>
+<thead>
+<tr>
+<th>Em vez disto</th>
+<th>Qual seria o custo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Escrever os três como um único bloco</td>
+<td>Mais curto. Mas no momento em que algo der errado, você terá uma grande questão e nenhuma forma de dividi-la — e outros jogadores se tornariam quase impossíveis de adicionar</td>
+</tr>
+<tr>
+<td>Mover o quadrado dentro do manipulador de teclas</td>
+<td>Você só pode mover uma direção por pressionamento de tecla, então sem diagonais. E a velocidade com que você se move depende de como seu sistema operacional repete as teclas, o que você não controla</td>
+</tr>
+<tr>
+<td>Lidar com toque e mouse com código separado</td>
+<td>Dois conjuntos de código fazendo o mesmo trabalho, e um bug clássico onde um toque conta duas vezes. Eventos de ponteiro são uma API para mouse, dedo e caneta</td>
+</tr>
+<tr>
+<td>Usar elementos HTML em vez de um canvas</td>
+<td>Bom para alguns quadrados, e você obtém estilização gratuitamente. Mas um jogo desenha centenas de coisas a cada quadro, e pedir ao navegador para organizar uma página centenas de vezes por segundo é a tarefa errada para ele</td>
+</tr>
+</tbody>
+</table>
+<h2 id="a-solicita-o"><a class="heading-anchor" href="#a-solicita-o">A solicitação</a></h2>
+<pre><code>I have a canvas game with three parts in main.js: a Set of held keys, an
+update(dt) that changes the player's x and y, and a draw() that paints the
+canvas. Add a second square that moves on its own, bouncing off the edges.
+Keep my three parts separate — put the new movement in update() and the new
+painting in draw(). Explain which lines you put where, and why.
+</code></pre>
+<p><strong>Verifique a saída para:</strong> ele manteve os três blocos separados, ou colocou código de desenho dentro de <code>update</code>? O quadrado quicante usa <code>dt</code>, ou ele se move uma quantidade fixa a cada quadro? Os assistentes muitas vezes esquecem o <code>dt</code> para a segunda coisa que adicionam, porque a página ainda parece bem na tela imaginária deles.</p>
+<h2 id="veja-funcionar"><a class="heading-anchor" href="#veja-funcionar">Veja funcionar</a></h2>
+<p><img alt="A green square on a dark canvas, with arrow keys or touch to move it" src="../static/img/game/a10.png"></p>
+<p>Abra a página com o Live Server e:</p>
+<ol>
+<li>Mantenha uma tecla de seta pressionada. O quadrado se move suavemente, não em passos.</li>
+<li>Mantenha duas teclas de seta pressionadas. Ele se move diagonalmente.</li>
+<li>Pressione e arraste no canvas. O quadrado segue seu dedo.</li>
+<li>Empurre-o para um canto. Ele para em vez de sair da tela.</li>
+</ol>
+<p>Se algum deles falhar, você agora sabe onde procurar. Não se movendo de forma alguma? Bloco 1 ou 2. Movendo, mas deixando um rastro? Bloco 3.</p>
+<h2 id="o-que-deu-errado-quando-fizemos-isso"><a class="heading-anchor" href="#o-que-deu-errado-quando-fizemos-isso">O que deu errado quando fizemos isso</a></h2>
+<p>Dois erros reais da construção do quadrado que você acabou de fazer.</p>
+<p><strong>Nosso teste quebrou a si mesmo.</strong> Escrevemos uma verificação que primeiro clicava no canvas, para garantir que a página estivesse ouvindo, e depois pressionava a seta para a direita. O quadrado se moveu diagonalmente. Gastamos um tempo procurando no código da tecla de seta — que estava bom. <strong>O clique era o bug.</strong> Um clique <em>é</em> um <code>pointerdown</code>, então nosso próprio teste havia dito ao quadrado para ir até o mouse antes do teste começar. Percebemos isso porque a posição vertical do quadrado havia mudado, e a seta para a direita não pode fazer isso. <em>Lição: quando algo se comporta de forma estranha, verifique se o que está fazendo o teste faz parte do problema.</em></p>
+<p><strong>Algo que funcionava parecia quebrado.</strong> Dissemos ao computador para arrastar pelo canvas, e o quadrado se moveu sete pixels. Parecia que o código do dedo estava quebrado. Não estava. O arrasto terminou em alguns milésimos de segundo, e o quadrado só percorre 220 pixels em um segundo inteiro — então sete pixels estava exatamente certo. <em>Lição: "mal se moveu" e "está quebrado" são afirmações diferentes, e é a mesma ideia de <code>dt</code> de antes vista pelo outro lado.</em></p>
+<h2 id="coloque-no-jogo"><a class="heading-anchor" href="#coloque-no-jogo">Coloque no jogo</a></h2>
+<p>Este <em>é</em> o seu jogo até agora — um arquivo, três blocos, na pasta de <a href="a09.html">A09</a>. Tudo a partir daqui é adicionado a esses três.</p>
 <div class="takeaways">
-<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
+<h2 id="principais-conclus-es"><a class="heading-anchor" href="#principais-conclus-es">Principais Conclusões</a></h2>
 <ul>
-<li>Uma tela (canvas) é um retângulo de pixels; `ctx` recebe suas ordens de desenho</li>
-<li>Abrir um arquivo diretamente não dá origem à página, então os módulos são bloqueados — sirva-o via http em vez disso</li>
-<li>`bun ./index.html` serve sua pasta enquanto você trabalha</li>
-<li>GitHub Pages publica seu repositório gratuitamente em seu próprio endereço</li>
-<li>Publicar cedo significa que cada lição posterior estará online no momento em que você fizer push</li>
+<li>Uma funcionalidade que parece ser uma coisa só geralmente são três: perceber, decidir, desenhar</li>
+<li>Dividir significa que, quando algo quebrar, você sabe onde procurar</li>
+<li>"Perceber" anota o que está acontecendo; não age sobre isso</li>
+<li>Multiplique o movimento pelo tempo que passou, ou seu jogo rodará em uma velocidade diferente em uma tela diferente</li>
+<li>Eventos de ponteiro oferecem mouse, dedo e caneta de uma só vez — seu jogo funciona em um telefone</li>
 </ul>
 </div>
+
+<h2 id="sua-vez"><a class="heading-anchor" href="#sua-vez">Sua vez</a></h2>
+<p>Mantenha a seta para cima e a seta para a esquerda pressionadas ao mesmo tempo, e observe cuidadosamente. O quadrado se move diagonalmente — mas ele se move <em>mais rápido</em> na diagonal do que em linha reta. Olhe o código e descubra o porquê. Depois, corrija-o.</p>
+<p>Este é um bug real e está no código acima de propósito. Quase todo primeiro jogo tem isso.</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">

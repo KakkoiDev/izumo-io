@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>ゲームを構築する: ツールを入手する - KakkoiSchool</title>
+  <title>ツールを準備する - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,104 +47,125 @@
           <a href="a10.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a09-ゲームを構築する-ツールを入手する"><a class="heading-anchor" href="#a09-ゲームを構築する-ツールを入手する">A09: ゲームを構築する: ツールを入手する</a></h1>
-<p class="lesson-intro">あなたはAIアシスタントと会話できるようになり（<a href="a02.html">A02</a>）、盲目的に信用してはいけないことも知っています（<a href="a01.html">A01</a>）。さあ、それを使って本物のもの、つまり他の人が実際にプレイできる小さなオンラインゲームを1つ作りましょう。今日は設定のみです。新しいアカウントを1つ作成し、空のフォルダーを用意するだけです。他には何もありません。</p>
-<h2 id="何を構築するのか"><a class="heading-anchor" href="#何を構築するのか">何を構築するのか</a></h2>
-<p><strong>カッコー・オンライン</strong>というゲームです。あなたはモンスターとして小さな世界を歩き回ります。他のプレイヤーも同じ世界を歩き回ります。彼らと話したり、決闘したりできます。火、水、土の属性があり、水は火に勝ち、火は土に勝ち、土は水に勝ちます。</p>
-<p>奇妙な点、そしてこのプロジェクトに時間を費やす価値がある理由：<strong>サーバーがありません。</strong> あなたのブラウザは他のプレイヤーのブラウザと直接通信します。支払うものも、実行するものも、維持するものもありません。永遠にゼロコストです。</p>
-<p>これらのレッスンで構築するバージョンはこちらです: <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a></p>
-<p>次のレッスンの終わりまでに、<strong>あなた自身のコピーが独自のウェブアドレスを持ち</strong>、誰にでも送れるようになります。</p>
-<h2 id="プログラマーに必要な2つのこと"><a class="heading-anchor" href="#プログラマーに必要な2つのこと">プログラマーに必要な2つのこと</a></h2>
-<p>1つは記述を助けるもの、もう1つは他の人が見られる場所に作業を保存するものです。</p>
+      <h1 id="a09-ツールを準備する"><a class="heading-anchor" href="#a09-ツールを準備する">A09: ツールを準備する</a></h1>
+<p class="lesson-intro">これはゲームの始まりです。このステップの終わりには、あなたのコンピューター上に、あなたに挨拶するウェブページができあがります。そして、それを変更して保存すると、ページは自動的に更新されます。</p>
+<p><strong>前提:</strong> <a href="a08.html">A01–A08</a>。 <strong>得られるもの:</strong> 動作するセットアップと最初のページ。</p>
+<h2 id="ゲーム全体と今日の部分"><a class="heading-anchor" href="#ゲーム全体と今日の部分">ゲーム全体と今日の部分</a></h2>
+<p>この図は、すべてのステップの冒頭に表示されます。ゲームの各部分はこれらのボックスの1つです。今日のボックスはあなたが作業する部分であり、緑色の部分はすでに構築済みです。</p>
+<div class="mermaid">
+flowchart LR
+    subgraph loop["Round and round, 60 times a second"]
+        direction LR
+        N["Notice<br/>keys, touches"] --> D["Decide<br/>where everything is"] --> R["Draw<br/>the screen"]
+    end
+    R -. "and again" .-> N
+
+    S["Remember<br/>your game"] --> D
+    O["Other people"] --> D
+    F["The fight"] --> D
+    W["The world<br/>walls, map"] --> R
+    A["Sound"] --> R
+
+</div>
+<p>まだ何も緑色ではありません。それがこの図のポイントです。あなたはこれからかなり大きなものを作ろうとしていますが、それは小さなボックスで構成されています。それらを一つずつ作っていきます。</p>
+<h2 id="ブロックに分割する"><a class="heading-anchor" href="#ブロックに分割する">ブロックに分割する</a></h2>
+<p>セットアップは3つの要素からなり、それぞれが1つの役割を果たします。</p>
+<ol>
+<li><strong>アシスタント</strong> がコードを書く</li>
+<li><strong>エディタ</strong> がコードを表示し、読み書きできるようにする</li>
+<li><strong>ブラウザ</strong> が結果を表示する</li>
+</ol>
+<p>これら3つすべてを同時に開いておく必要があります。これが全体の考え方であり、今後は「質問し、見て、確認する」という方法で作業を進めます。</p>
+<p>なぜ少なくないのか？ 何か問題が起きたとき、3つのうちの<em>どれ</em>が間違っているのかを知る必要があるからです。アシスタントが何かおかしなものを書いたのか？ エディタで確認します。エディタはそれを保存したのか？ ブラウザで確認します。3つの別々のウィンドウは、3つの別々の確認場所を意味します。</p>
+<h2 id="ブロック1-アシスタント"><a class="heading-anchor" href="#ブロック1-アシスタント">ブロック1：アシスタント</a></h2>
+<p>これは<a href="a02.html">A02</a>でインストールしました。ターミナルを開いて、まだ動作するか確認してください。</p>
+<pre><code>agy
+</code></pre>
+<p>それでアシスタントが開けば完了です。開かない場合は、<a href="a02.html">A02</a>に戻ってください。</p>
+<blockquote>
+<p>どんなAIアシスタントでも、このプロジェクト全体で機能します。これらのステップのすべてのプロンプトは平易な英語です。<code>agy</code> を使用するのは、それが無料で、すでに持っているからです。</p>
+</blockquote>
+<h2 id="ブロック2-エディタ"><a class="heading-anchor" href="#ブロック2-エディタ">ブロック2：エディタ</a></h2>
+<p>コードを書くための無料プログラムである <strong>VS Code</strong> をインストールしてください: <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com</a>。</p>
+<p>ゲーム用のフォルダを作成します。<code>kakkoi-online</code> という名前にしてください。VS Codeでそれを開きます: <strong>ファイル → フォルダを開く</strong>。</p>
+<h2 id="ブロック3-ブラウザのページ"><a class="heading-anchor" href="#ブロック3-ブラウザのページ">ブロック3：ブラウザのページ</a></h2>
+<p>ウェブページは、ただ開くだけでなく、ブラウザに<em>提供される</em>必要があります。これには理由があり、<a href="a18.html">A18</a>で詳しく説明します。今のところ、1つの拡張機能がこれを代行してくれます。</p>
+<p>VS Codeで、左側のバーにある<strong>拡張機能</strong>アイコンをクリックし、<strong>Live Server</strong> を検索してインストールしてください。</p>
+<p>次に、フォルダ内に2つのファイルを作成します。</p>
+<p><code>index.html</code>:</p>
+<pre><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Kakkoi Online&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1 id=&quot;greeting&quot;&gt;…&lt;/h1&gt;
+  &lt;script src=&quot;main.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><code>main.js</code>:</p>
+<pre><code>const name = 'Kakkoi';
+
+document.querySelector('#greeting').textContent = `Hello, ${name}!`;
+</code></pre>
+<p><code>index.html</code> を右クリックし、<strong>Open with Live Server</strong> を選択します。ブラウザが開き、「<strong>Hello, Kakkoi!</strong>」と表示されます。</p>
+<p>次に、<code>Kakkoi</code> を自分の名前に変更してファイルを保存してください。<strong>ブラウザは自動的に更新されます。</strong> あなたはリロードしていません。Live Serverがフォルダを監視しているからです。</p>
+<p>この「変更し、保存し、確認する」というループが、プロジェクトの残りの部分の基盤となります。</p>
+<h2 id="なぜこの方法をとったのか"><a class="heading-anchor" href="#なぜこの方法をとったのか">なぜこの方法をとったのか</a></h2>
+<p>エディタとブラウザを並べて表示するのは、考えられる限り最もシンプルなセットアップです。ターミナルでインストールするものも、コンパイルするものも、古くなる可能性のあるものもありません。あなたが書くものはすべて、ブラウザが直接読み取れるファイルです。</p>
+<h2 id="代わりにできたこと"><a class="heading-anchor" href="#代わりにできたこと">代わりにできたこと</a></h2>
 <table>
 <thead>
 <tr>
-<th>もの</th>
-<th>用途</th>
+<th>これの代わりに</th>
+<th>どのような代償があるか</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>AIアシスタント（A02の<code>agy</code>）</td>
-<td>あなたと一緒にコードを書き、コードを説明し、壊れたものを修正します</td>
+<td><code>index.html</code> をダブルクリックするだけ</td>
+<td>今のところは動作しますが、コードが大きくなった瞬間に動作しなくなります。ブラウザは、どこから来たか分からないページ上の一部のものをブロックするためです。正しい方法で始める方が良いでしょう。</td>
 </tr>
 <tr>
-<td>GitHubアカウント</td>
-<td>作業の全バージョンを保持し、無料でインターネット上に公開します</td>
+<td>コードを別のコードに変換するビルドツール</td>
+<td>インストールするプログラムが増え、壊れる可能性のあるものが増え、ブラウザで実行されているコードはもはやあなたが書いたコードではなくなります。このサイズのゲームには価値がありません。</td>
+</tr>
+<tr>
+<td>GodotやUnityのようなゲームエンジン</td>
+<td>多くのものを無料で手に入れることができます。しかし、それがどのように機能するかを学ぶ代わりに、そのエンジンを学ぶことになり、ゲームをリンクとして送ることができなくなります。</td>
 </tr>
 </tbody>
 </table>
-<p>1つ目はA02で既に持っています。今日、2つ目を追加します。</p>
-<h2 id="あなたのアシスタント"><a class="heading-anchor" href="#あなたのアシスタント">あなたのアシスタント</a></h2>
-<p>あなたはすでに1つ持っています: <a href="a02.html">A02</a>でインストールしたAntigravity CLI、<strong><code>agy</code></strong>です。それは無料で、ログイン済みであり、これらのレッスンで使用するものです。新しくインストールするものはありません。</p>
-<p>それがまだ動作するか確認してください:</p>
-<pre><code>agy --version
+<h2 id="大きな変更を行う前にフォルダをコピーする"><a class="heading-anchor" href="#大きな変更を行う前にフォルダをコピーする">大きな変更を行う前にフォルダをコピーする</a></h2>
+<p>まだ「元に戻す」機能がありません。アシスタントが5つのファイルを書き換えてめちゃくちゃにしてしまった場合、元に戻る方法がありません。</p>
+<p>したがって、当面の間は1つのルールがあります: <strong>アシスタントに大きな変更を依頼する前に、プロジェクトフォルダ全体をコピーし、コピーに日付を付けてください。</strong> <code>kakkoi-online-aug-16</code> のように。不格好ですが、機能します。</p>
+<p><a href="a18.html">A18</a>で、この問題に対する本当の解決策を学びます。それを必要とした後に、より理解できるようになるでしょう。</p>
+<h2 id="プロンプト"><a class="heading-anchor" href="#プロンプト">プロンプト</a></h2>
+<pre><code>I have index.html with an &lt;h1 id=&quot;greeting&quot;&gt; and main.js that sets its text.
+Change main.js so the greeting also shows the time right now, and updates
+every second. Explain each new line to me like I have never seen it before.
 </code></pre>
-<p>このプロジェクトの新しい習慣の1つ: ホームフォルダーではなく、<strong>プロジェクトフォルダー内で起動してください</strong>。ファイルを見ることができるアシスタントは、コードを変更する前にそれを読み取ることができ、それが助けと当て推量の違いです。</p>
-<blockquote>
-<p>他のものを使っていますか？問題ありません。このプロジェクトのすべてのプロンプトは平易な英語であり、Claude Code、Copilotなど、お好きなどのアシスタントでも動作します。レッスンで「アシスタントに尋ねる」と指示されたら、お持ちのアシスタントを使用してください。有料のアシスタントは多数のファイルにわたる大きな変更をより良く処理しますが、このゲームを完成させるのにそれらは必要ありません。</p>
-</blockquote>
-<h2 id="あなたのgithubアカウント"><a class="heading-anchor" href="#あなたのgithubアカウント">あなたのGitHubアカウント</a></h2>
-<p>GitHubはコードが存在する場所です。共有の棚と考えてください。あなたの作業のすべてのバージョンが保存され、何も失われず、棚に置いたものはすべて無料でウェブサイトとして公開できます。</p>
-<ol>
-<li><a href="https://github.com" target="_blank" rel="noopener">github.com</a>にアクセスしてサインアップしてください。<strong>13歳以上である必要があります</strong> — これはGitHubの利用規約にあるルールです。</li>
-<li>雇用主が見ても問題ないようなユーザー名を選んでください。それがあなたのゲームのウェブアドレスの一部になります。</li>
-<li>GitHubコマンドラインツールをインストールし、ログインしてください:</li>
-</ol>
-<pre><code>sudo apt install gh          # WSL / Ubuntu, from A01
-brew install gh              # macOS
-</code></pre>
-<pre><code>gh auth login
-</code></pre>
-<p><strong>GitHub.com</strong>を選択し、次に<strong>SSH</strong>、そして<strong>Login with a web browser</strong>を選択し、表示されたコードを貼り付けてください。</p>
-<p>gitにあなたが誰であるかを伝え、あなたの作業にあなたの名前が記されるようにします:</p>
-<pre><code>git config --global user.name &quot;Your Name&quot;
-git config --global user.email &quot;you@example.com&quot;
-</code></pre>
-<blockquote>
-<p><strong>あなたのリポジトリは公開されます。</strong> GitHubでの無料ウェブサイトホスティングは公開コードでのみ機能するため、誰でもそれを読むことができます。これは、人々にあなたのゲームを見せるのに良いことです。また、ニックネームを使用し、本名をフルで使わないこと、そしてあなたの住所、学校、電話番号をコードに決して入れないことを意味します。</p>
-</blockquote>
-<h2 id="あなたの空のリポジトリ"><a class="heading-anchor" href="#あなたの空のリポジトリ">あなたの空のリポジトリ</a></h2>
-<p><strong>リポジトリ</strong>とは、あるプロジェクトのフォルダーで、その完全な履歴が含まれます。作成しましょう:</p>
-<pre><code>gh repo create kakkoi-online --public --clone
-cd kakkoi-online
-</code></pre>
-<p>これで終わりです。インターネット上に存在する空のフォルダーです。</p>
-<p><strong>なぜ空なのか？</strong> 私たちの完成したゲームを1つのコマンドでコピーすることもできます。しかし、それでは説明できないゲームを所有することになり、それは何の価値もありません。あなたはそれを少しずつ構築し、<em>あなたの</em>リポジトリが<em>あなたの</em>コードを保持します。</p>
-<p>後で詰まったら？私たちのバージョンは公開されています: <a href="https://github.com/KakkoiSchool/kakkoi-online" target="_blank" rel="noopener">github.com/KakkoiSchool/kakkoi-online</a>。各レッスンにはブラウザで読めるスナップショットが残されているので、私たちのファイルとあなたのファイルを比較できます。試した後で見てください、その前ではありません。</p>
-<div class="mermaid">
-flowchart LR
-    A[Your computer] -->|git push| B[Your repo on GitHub]
-    B -->|GitHub Pages| C[A real web address]
-
-</div>
-<h2 id="アシスタントに尋ねる"><a class="heading-anchor" href="#アシスタントに尋ねる">アシスタントに尋ねる</a></h2>
-<p>初めての実際のプロンプトです。行動だけでなく、説明も求めている点に注目してください:</p>
-<pre><code>I just created an empty git repo called kakkoi-online. Add a README.md that says
-in two sentences what the project will be: a small top-down multiplayer browser
-game with no server, where players duel with fire, water and earth. Then show me
-the exact git commands to commit and push it, and explain what each one does.
-</code></pre>
-<p><strong>出力を確認してください:</strong> READMEは実際に後で存在しますか（<code>ls</code>）？アシスタントが示したコマンドは、それがすると言ったことと一致しますか？もし存在しないコマンドを発明した場合、あなたは初日に<a href="a01.html">A01</a>で警告されたことを見たばかりです。</p>
-<h2 id="今週の演習"><a class="heading-anchor" href="#今週の演習">今週の演習</a></h2>
-<ol>
-<li><code>agy --version</code>が動作することを確認し、プロジェクトフォルダー内で起動してください。</li>
-<li>GitHubアカウントを作成し、<code>gh auth login</code>を実行してください。</li>
-<li>空の<code>kakkoi-online</code>リポジトリを作成してください。</li>
-<li>上記のプロンプトを使用してREADMEを作成し、プッシュしてください。</li>
-<li>リポジトリのリンクをチャンネルに投稿してください。来週、それがライブウェブサイトになります。</li>
-</ol>
-<p><strong>動作確認:</strong> <code>gh repo view --web</code>でブラウザでリポジトリが開き、READMEが存在することを確認してください。</p>
+<p><strong>出力の確認点:</strong> 時刻は本当に毎秒変わるか、それともページが読み込まれたときの時刻を表示するだけか？ 追加された内容を説明したか、それともコードを貼り付けただけか？ もし理解できない行があれば、その行について質問してください。それはごく普通のことであり、あなたが遅れているという兆候ではありません。</p>
+<h2 id="動作を確認する"><a class="heading-anchor" href="#動作を確認する">動作を確認する</a></h2>
+<p><img alt="ブラウザで「Hello, Kakkoi」と表示されているページ" src="../static/img/game/a09.png"></p>
+<p>次のものが揃っているはずです: ターミナルにアシスタント、VS Codeで開かれた <code>main.js</code>、そしてブラウザで表示されたあなたのページ。名前を変更し、保存し、ブラウザが変化するのを確認してください。</p>
+<h2 id="ゲームに取り込む"><a class="heading-anchor" href="#ゲームに取り込む">ゲームに取り込む</a></h2>
+<p>これこそがゲームです。あなたが作成したフォルダは、すべてのステップで構築を続けるものになります。移動するものはありません。</p>
 <div class="takeaways">
 <h2 id="重要なポイント"><a class="heading-anchor" href="#重要なポイント">重要なポイント</a></h2>
 <ul>
-<li>プログラマーは、コードを書くためのものと、作業を保存するための場所が必要です</li>
-<li>GitHubは13歳以上である必要があります。これはこのプロジェクトにおける唯一のアカウントルールです</li>
-<li>無料ホスティングは公開リポジトリを意味します: ニックネームを使用し、個人情報をコードに入れないでください</li>
-<li>空のリポジトリから始めましょう。完成したゲームをコピーしても、説明できないコードしか手に入りません</li>
-<li>詰まった場合は私たちのバージョンが公開されています。試した後で読んでください、その前ではありません</li>
+<li>3つのウィンドウ: アシスタントが書き、エディタが見せ、ブラウザがそれを証明する</li>
+<li>3つの別々のウィンドウは、問題が発生したときに確認すべき3つの別々の場所を意味する</li>
+<li>Live Serverはフォルダを提供し、保存時にページをリロードする</li>
+<li>大きな変更を行う前にフォルダをコピーすること — A18までは「元に戻す」機能がない</li>
+<li>すべての行を理解する必要はないが、理解できない行については質問する必要がある</li>
 </ul>
 </div>
+
+<h2 id="あなたの番"><a class="heading-anchor" href="#あなたの番">あなたの番</a></h2>
+<p>ページで2つの言語で同時に挨拶するようにしてください。アシスタントを使わずに自分でやってみましょう。これは小さな変更ですが、手作業で行うことで、どの部分を実際に理解したかを知ることができます。</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">AIレッスンに戻る</a>
         <div class="lesson-pager">
