@@ -15,12 +15,28 @@ See §10 for the build/iterate process that follows.
 
 ## 1. What this track is
 
-The **second half of the AI track** on school.kakkoi.dev (A09–A29): having learned to use an AI
-assistant in A01–A08, the student now builds one real thing with it — a deployed, multiplayer,
-serverless game at their own URL — understanding each computer-science idea underneath it.
+The **second half of the AI track** on school.kakkoi.dev (A09 onwards): having learned to use an AI
+assistant in A01–A08, the student now builds one real thing with it — a multiplayer, serverless game
+they can send to a friend — understanding each computer-science idea underneath it.
 
-**Delivery — DECIDED: self-serve, and you teach one lesson per week in class** (see §13 for what that
-implies). Nothing is gated: a student who wants to run ahead alone can.
+**The skill being taught is decomposition.** Not JavaScript, not networking, not game design. The
+student should finish this track able to look at any feature and cut it into small blocks they can
+build and check one at a time. Everything else is the vehicle. This sentence outranks every other
+goal in this document; when a lesson has to choose between teaching more computer science and
+demonstrating the cut more clearly, it demonstrates the cut.
+
+**Delivery — DECIDED: two levels, parts and steps.**
+
+- A **part** is a chapter of the game — "create the player", "other people". There are seven.
+- A **step** is one lesson: one visible result, one sitting. There are fifteen.
+
+A part takes as long as it takes. A quick group does a whole part in an evening; a slower one spends
+three weeks on the same part. Neither is behind — they are at a different step. **Nothing in the
+lesson text ever names a unit of time.** No "this week", no "last week", no "by next lesson". Steps
+refer to each other by id, and each one opens with what it needs before you start it.
+
+Everything is published at once and nothing is gated. The class meeting is a place to get unstuck and
+to play together, not a release schedule.
 
 **Audience — DECIDED: a 12-year-old must be able to read and follow it.** Trilingual (EN/JA/PT),
 light workload (~3–5 hrs/week). This is the strictest constraint in the whole project and it outranks
@@ -28,8 +44,18 @@ completeness: if a sentence can't be understood by a bright 12-year-old, it gets
 §3.5 for the writing standard, and §3.6 for the safety consequences — which are not optional.
 
 **Prerequisites.** A01–A08 (the agent is installed and they can drive it), plus T10–T14 (JS, DOM,
-persistence) and T19 (git). Stated at the top of A09, not enforced. **A09 re-checks the tooling** and adds
-the GitHub account, so a student arriving cold has one clear place to start.
+persistence). Stated at the top of A09, not enforced. **A09 re-checks the tooling** and adds an editor
+and a local server, so a student arriving cold has one clear place to start.
+
+**No GitHub account until part 5.** Git, an account and publishing arrive only when there is something
+worth sending to someone. Consequences, all deliberate:
+
+- Nothing gates starting on being 13 years old. A student opens the editor and has a moving square in
+  the first sitting.
+- Parts 1–4 have **no version control**. The mitigation is stated once, plainly, in A09: *before you
+  let the agent make a big change, copy the whole project folder and put the date on the copy.* Crude,
+  correct at this level, and it means git arrives in part 5 as the answer to a problem they have
+  already felt rather than a chore they were told to do in week one.
 
 **[OPEN] The 12-year-old tension.** T10–T14 is a real prerequisite for *understanding*, and a 12-year-old
 probably hasn't done it. Two ways out, and I lean hard on the first:
@@ -37,8 +63,8 @@ probably hasn't done it. Two ways out, and I lean hard on the first:
   sentence reminds them what it is. Costs a few lines per lesson; makes the track self-contained.
 - Gate the track behind T10–T14. Cleaner for us, and it turns away exactly the reader you asked for.
 
-**A practical note:** Claude Code needs a paid subscription and a computer they can install software on.
-For a 12-year-old that means a parent is involved. A01 should say so plainly.
+**A practical note:** the assistant is `agy` (Antigravity CLI, free with a Google login), installed in
+A01/A02 — not Claude Code, which requires a paid subscription and an 18+ account. See §5.
 
 **The promise:** "you will ship a real multiplayer game and be able to explain how every part works."
 **Not promised:** a job, a portfolio guarantee, or that AI wrote it all for you. Under-promise, per
@@ -62,18 +88,51 @@ your existing philosophy.
 | T (tech) | one concept per lesson, small isolated examples |
 | R (theory) | essays, no code |
 | A01–A08 (AI) | how to use AI tooling |
-| **A09–A29 (this one)** | **one continuous artefact**, built across every lesson; each lesson adds a working feature to the same repo |
+| **A09+ (this one)** | **a small standalone demo per step**, each one a whole feature you can look at, then folded into one growing game |
 
-The difference that matters: **lesson N+1 depends on lesson N's code existing.** That creates two
-obligations we must design for — a reference repo with per-lesson tags (§8), and a "if you're joining
-here, start from this tag" line at the top of every lesson. It is also why lessons stay small: a
-student must be able to hold the whole codebase in their head at every step, not just the diff.
+### 2.1 Demos, then the game — the shape of every step
+
+**DECIDED, and it is the structural decision of the whole track.** Each step is built twice:
+
+1. **The demo.** A tiny standalone page — its own folder, its own `index.html`, nothing else in it —
+   that does exactly one visible thing. It runs on its own from a blank slate. This is what the lesson
+   teaches and what the screenshot shows.
+2. **Put it in the game.** The last section of every lesson: the smallest change that folds the demo
+   into the game the student is growing, with its own prompt.
+
+Why this and not one accreting codebase:
+
+- **A broken game does not end the course.** In an accreting track, a student whose code breaks at
+  step 6 is stuck for the remaining nine steps, because every later lesson assumes working code they
+  do not have. With demos, every step starts from zero and always works. For a self-serve track this
+  is the difference between finishing and quitting.
+- **A demo is small enough to read entirely.** One screen of code. That is the only enforceable
+  definition of "a 12-year-old can understand it".
+- **The integration is the lesson the demo cannot teach** — that existing code constrains new code —
+  so it gets its own named section rather than being assumed.
+
+Each demo is labelled **keep** or **scaffold**. A *scaffold* demo teaches an idea and is then
+superseded and thrown away. Saying so in the lesson stops a student feeling they wasted an evening.
+**As of the current list, every demo is `keep`** — where a step looked like it needed a throwaway, it
+turned out to be better merged into the step that superseded it (see A14 in §6).
+
+Demos live in the game repo under `demos/NN-name/`, so they are also all publishable and none of the
+work is lost.
 
 ---
 
 ## 3. Pedagogical principles
 
-1. **One CS idea per lesson.** Never two. If a lesson needs two, it's two lessons.
+1. **One lesson = one feature you can see, cut into 2–4 named blocks.** Not one lesson per block. A
+   block on its own is not something a student can look at, and a lesson that ends with nothing
+   visible is a bad lesson. The cutting happens *inside* the lesson, which is where they can watch it
+   happen. "A square you can move" is one lesson with three blocks: **notice** what is being pressed,
+   **decide** where it should now be, **draw** it.
+1b. **The reason for every cut is the same, and it is stated every time.** If all the blocks are one
+   lump of code and it goes wrong, you cannot tell which part is wrong. Split it, and you can check
+   each piece on its own — is it noticing the key? is it changing the number? is it drawing in the
+   right place? That sentence is the transferable skill; the computer science is the excuse to
+   practise it.
 2. **The idea comes with a physical analogy**, matching how `content/phases.yaml` already works
    (workbench, time machine, kitchen).
 3. **Every lesson ships something runnable.** No lesson ends with "we'll wire this up next time."
@@ -82,10 +141,15 @@ student must be able to hold the whole codebase in their head at every step, not
    the reason a student can later make decisions we never taught them.
 5. **The prompt is a specimen, not a script.** We give a full example prompt *and* what to verify in
    the output. Students who paste blindly will hit the verification step and fail it.
-6. **AI failure is curriculum.** Every third lesson includes a real "here's what the agent produced
-   that was subtly wrong, and how I caught it" — this is `build-verify-track.md`'s ethos applied.
-   These must be **real** failures collected while building the reference implementation (§10), not
-   invented ones.
+6. **AI failure is curriculum, and only real failures qualify.** Every third lesson includes a "here's
+   what the agent produced that was subtly wrong, and how I caught it" — this is
+   `build-verify-track.md`'s ethos applied. These must be **real** failures collected while building
+   the demos (§10), taken from `FAILURES.md`, never invented.
+6b. **No manufactured bugs.** A tempting lesson shape is *write it the naive way, feel it break, fix
+   it*. It is only allowed when the naive way is what a student would genuinely have written and the
+   break genuinely happened to us. Inventing a plausible-sounding bug to justify a lesson boundary is
+   the single fastest way to lose a class's trust, because a student who tries the "broken" version
+   and finds it works fine now distrusts everything else in the track.
 7. **Verification is observable.** Every lesson ends with a two-tab test whose result you can see,
    not "it should work now."
 8. **Honesty about limits is content, not a caveat.** The NAT lesson, the "no moderation is possible"
@@ -172,42 +236,64 @@ is about hostile *data*, not rude words.
 
 ## 4. The lesson template
 
-Every lesson, same seven beats, same order. Frontmatter matches what `content/ai/*.md` actually uses —
-**`id` / `title` / `desc` only**, no `phase`, no `status` (verified against `a01.md`).
+Every lesson, same beats, same order. Frontmatter uses **`id` / `phase` / `title` / `desc`** — `phase`
+is the part number, added for this track and read by `content/ai-phases.yaml`.
 
 ```markdown
 ---
-id: "A15"
-title: "The Map"
-desc: "Grids as data, AABB collision, and why the map is JSON instead of code."
+id: "A12"
+phase: 2
+title: "Create the Player"
+desc: "A square you can move — cut into noticing, deciding, and drawing."
 ---
-# A15: The Map
+# A12: Create the Player
 
-[Intro: what the game can't do yet, and what it will do by the end.]
+[Intro: what you will be looking at by the end. One or two sentences.]
 {: .lesson-intro }
 
-## Where we are
-Start from tag `a14-end`. Screenshot: before → after.
+**Needs:** A09. **Gives you:** a square you can drive with the keyboard or your finger.
 
-## The idea: a grid is a data structure
-[ONE concept. Physical analogy. A mermaid diagram where it helps.]
+## The whole game, and today's piece
 
-## Why we chose this
-[The constraint that forced it.]
+[THE SAME DIAGRAM IN EVERY LESSON. Blocks already built are filled in, today's block is
+highlighted, the rest are outlined. Mermaid, which the site already renders.]
+
+## Cutting it into blocks
+
+Three pieces:
+
+1. **Notice** — which keys are held down, where the finger is
+2. **Decide** — where the square should now be
+3. **Draw** — put it on the screen
+
+[Then the reason, every time: if this were one lump and the square moved wrong, you could not tell
+which piece was wrong.]
+
+## Block 1: Notice
+## Block 2: Decide
+## Block 3: Draw
+[One short section each. Code fits on one screen in total.]
+
+## Why we did it this way
+[The constraint that forced it, in one paragraph.]
 
 ## What we could have done instead
-| Alternative | Cost |
+| Instead of this | What it would cost |
 |---|---|
+| Writing all three as one block | ... |
 | ... | ... |
 
 ## The prompt
-[A full example prompt to the agent.]
+[A full example prompt to the assistant.]
 **Check the output for:** [3 specific things — the failure modes we actually hit.]
 
-## Verify it works
-1. `bun ./index.html`
-2. [Observable check. Two tabs where relevant.]
-3. `bunx tsc --noEmit && bun test`
+## See it work
+[Observable check. Screenshot. Two windows where relevant.]
+
+## Put it in the game
+[The smallest change that folds this demo into the growing game, with its own prompt.
+Or, for a scaffold demo: "This one does not go in the game — it was here to show you X,
+and A22 replaces it."]
 
 <div class="takeaways">
 <h2>Key Takeaways</h2>
@@ -218,8 +304,15 @@ Start from tag `a14-end`. Screenshot: before → after.
 [One small extension the prompt above does NOT produce.]
 ```
 
+**The diagram is the same picture in all fifteen lessons**, filling in as the track goes. The student
+sees the cut before reading a line of code, and by the end has watched a big thing get built entirely
+out of small ones. That is the track's actual curriculum made visible.
+
 **"Your turn" is deliberate.** If a student only runs our prompt, they've watched a video. The
 extension must be something the given prompt does *not* produce.
+
+**Banned from every lesson:** "this week", "last week", "next week", "by next lesson", and any other
+unit of time (§1). Steps are referred to by id.
 
 ---
 
@@ -257,79 +350,98 @@ so translations reuse the same images. No screencasts, no per-language image wor
 
 ---
 
-## 6. The definitive lesson list — 21 lessons, A09–A29
+## 6. The definitive list — 7 parts, 15 steps, A09–A23
 
-Two constraints from you shape this list: **each lesson stays small enough to read and understand in
-one sitting**, and **the game itself stays as small as possible**. So the list is *not* shortened by
-merging lessons — it's shortened by **cutting game features** (§6.1). Small lessons, small game.
+**This replaces the earlier 21-lesson list.** That list had one lesson per computer-science idea, which
+produced lessons ending in nothing you could look at, and a mandatory weekly cadence baked into the
+prose. The rule now is §3.1: **one step = one feature you can see, cut into 2–4 named blocks.**
 
-Milestone column refers to TRD §9.
+A **part** is a chapter and takes as long as it takes. A **step** is one sitting.
 
-### Getting ready (A09–A12)
+Part numbers are the `phase:` values in `content/ai-phases.yaml`. **Part 1 is the existing A01–A08**
+(learning to use an assistant), so this track's seven parts are numbered **2–8**.
 
-| # | Title | The one idea | Builds | M |
+| Part | Name | Steps | The question it answers |
+|---|---|---|---|
+| 2 | Set up | A09 | What do I need before I can start? |
+| 3 | Create the player | A10 | How does something move on a screen? |
+| 4 | Save the game | A11 | How does a computer remember me? |
+| 5 | Other people | A12–A13 | How do two computers talk with nothing in between? |
+| 6 | Make it a real game | A14–A18 | How do I make it look, sound and feel like a game — and put it online? |
+| 7 | The fight | A19–A22 | How do you settle a contest when nobody is in charge? |
+| 8 | Look back | A23 | What did we choose not to build, and what did that buy us? |
+
+### The steps
+
+| # | Step | What you can see at the end | The blocks | Needs |
 |---|---|---|---|---|
-| A09 | Get your tools | **The two accounts a programmer needs**: the assistant, and somewhere to put your work | Claude Code working, GitHub account, empty repo | — |
-| A10 | Put it on the internet | **A page with no origin can't load modules** — so even your own computer needs a server | canvas + module, Bun dev server, **live URL on github.io** | — |
-| A11 | Plan before you prompt | Requirements vs implementation; **a spec is what makes an agent useful** | your own `DESIGN.md`, committed | — |
-| A12 | Types that never run | Static vs dynamic typing; **something has to strip the types** | `tsc --noEmit` in CI, first typed module | — |
+| **A09** | Get your tools | A page saying your name, in your browser, reloading when you save | install the assistant; install the editor; run Live Server | A01–A08 |
+| **A10** | Create the player | A square you can drive with the arrow keys or your finger | **notice** what is pressed · **decide** where it goes · **draw** it | A09 |
+| **A11** | Save the game | Close the tab, reopen it, and your square is where you left it | **write** it down · **read** it back · **cope** when the saved thing is old or broken | A10 |
+| **A12** | Other people | A second square, driven by someone else, moving on your screen | **connect** to the room · **send** where you are · **draw** everyone else | A11 |
+| **A13** | Talking, safely | Tap a phrase, and it appears above your head on their screen too | **pick** a phrase · **send** it · **show** it, and drop anything that isn't on the list | A12 |
+| **A14** | Your monster | The square becomes a monster, and its legs move when it walks | **cut** one picture out of a big image · **change** which picture, over time | A10 |
+| **A15** | Walls | Walk into a rock and stop | **describe** where the solid things are · **check** before moving · **stop** | A10 |
+| **A16** | The map | A world bigger than the screen, that scrolls as you walk | **store** the map as data, not code · **draw** the tiles · **follow** the player with a camera | A15 |
+| **A17** | Sound | A footstep when you walk, music when you press play | **load** the files · **play** on an event · **let the player turn it off** | A10 |
+| **A18** | Put it online | A link you can send to anyone, that opens your game | **save your history** with git · **make an account** · **switch on the free hosting** | A14 |
+| **A19** | Challenge someone | Walk up to another player, press a button, and a fight screen opens for both of you | **ask** · **agree** · **change what screen you are on** | A12 |
+| **A20** | Three moves | Pick fire, water or earth; see who won and why | **choose** · **compare** the two choices · **show** the result | A19 |
+| **A21** | Someone to fight | A computer opponent, when nobody else is online | **give it a way to choose** · **make the fight code not care who it is fighting** | A20 |
+| **A22** | No peeking | Neither player can wait to see the other's move first | **hide** your move · **both show at once** · **check** nobody swapped theirs | A20 |
+| **A23** | What we didn't build | — | — | all |
 
-Shipping in A10 rather than at the end is deliberate: the student has a public URL from lesson two,
-every later lesson redeploys, and the scariest step (does it work outside my laptop?) is answered
-while the code is 20 lines long instead of 2,000.
+Fifteen steps, every one of them ending in something you can look at.
 
-### A world (A13–A17)
+### Notes on the ordering
 
-| # | Title | The one idea | Builds | M |
-|---|---|---|---|---|
-| A13 | The game loop | Fixed timestep; **why frame-rate-dependent movement breaks** | 60 Hz loop, delta time | M0 |
-| A14 | Moving around | Event-driven vs polling; input state | walking with held keys | M0 |
-| A15 | The map | A grid is a data structure; AABB collision; **data-driven design** | JSON tilemap, camera, walls | M0 |
-| A16 | Pick your monster | **A sprite sheet is one image you draw rectangles out of** | the ~6 CC0 monsters, a picker, your monster on screen | M0 |
-| A17 | Remembering you | Serialisation; **schema versioning** | localStorage save, `v` field | M0 |
+**Publishing is A18, not A09.** Two reasons, both discovered in discussion and both reversals of what
+this document said before:
 
-### Other people (A18–A24)
+- **Peer-to-peer works fine on `localhost`.** Trystero's signalling goes out over public relays, so two
+  students each running their own Live Server find each other and connect directly. Nothing has to be
+  published for A12 to work. The earlier claim that A12 required a live URL was wrong.
+- So publishing lands where it is honestly motivated: you put it online when it looks good enough to
+  send to someone — after the monster, the map and the sound. A18 is the biggest single step in the
+  track (git, an account, and Pages) and may well take several sittings. That is fine and the lesson
+  says so.
 
-| # | Title | The one idea | Builds | M |
-|---|---|---|---|---|
-| A18 | Who are you? | **Identification vs authentication** | name + element, persisted id | M1 |
-| A19 | Playing with strangers | **Nobody is in charge here** — what other people can and cannot see, and what to do if someone is unkind | the in-game safety card, shown on first join | M1 |
-| A20 | Two browsers, one wire | NAT, STUN/TURN, signaling vs data plane; **"serverless" is a half-truth** | first real peer connection | M1 |
-| A21 | Seeing each other | Full mesh is **O(n²)**; join/leave; eventual consistency | other players visible, online count | M1 |
-| A22 | Moving together | Tick rate, **interpolation**; latency hiding | smooth remote players at 10 Hz | M1 |
-| A23 | Chat, and hostile input | **Every input is hostile**: schemas, clamps, rate limits, mute | working chat | M2 |
+**A14 needs A10, not A13.** The steps in part 6 are deliberately near-independent of part 5, so a
+student who cannot get peer-to-peer working on their network is not blocked from the entire rest of
+the course. They can do the monster, walls, the map and sound, publish, and come back to A12.
 
-A21 is the payoff lesson of the whole track — the first time a student sees another human being move
-on their own screen, in their own code, with no server. Everything before it is setup and everything
-after it is depth.
+**The NPC (A21) sits inside the fight (part 7), not in the cosmetics part.** A computer opponent is only
+interesting once there is something to fight about, and it is the lesson where the fight code stops
+caring whether it is facing a human — which is the payoff of A19's cut and cannot be shown earlier.
 
-### The duel (A24–A27)
+**A22 could be cut.** If the class is running out of energy, "no peeking" is the one step whose feature
+is invisible when it works. It is also the single most beautiful idea in the track, so it stays unless
+something forces the issue.
 
-| # | Title | The one idea | Builds | M |
-|---|---|---|---|---|
-| A24 | A fight is a state machine | FSM; **pure functions vs I/O** | invite/accept, turn phases | M3 |
-| A25 | Fair play with no referee | **Commit–reveal hashing**, WebCrypto; classes of cheating | honest simultaneous moves | M3 |
-| A26 | Three buttons | Game theory: **if playing randomly is optimal, there's no game** | Strike/Block/Charge + type triangle | M3 |
-| A27 | Someone to fight | **Polymorphism earned**: the battle can't tell human from AI | NPC trainer + townsfolk | M3.5 |
+### Scrapped from the earlier list, and why
 
-### Sound and reflect (A28–A29)
+| Was | Why it is gone |
+|---|---|
+| A separate "game loop" lesson | It is one of the three blocks of A10. A loop with nothing to move is not a feature you can see. The frame-rate point (a square moves faster on a 144 Hz screen) survives as a sidebar in A10 with its one-line fix, not as a lesson |
+| "Types that never run" | No TypeScript in the track at all — see §6.3 |
+| A separate "who are you?" lesson | Your name is part of what A11 saves |
+| A separate safety lesson before the networking one | Merged into A13, which is where strangers actually appear. Same words, better timing |
+| A "move the square badly, then fix it" pair | The bug was invented; `keydown`/`keyup` into a set of held keys does not stutter. See §3.6b |
+| A coloured-rectangle animation scaffold before sprites | Merged into A14. Sprite plus walk cycle is one feature — "a monster that walks" — and nothing is thrown away |
 
-| # | Title | The one idea | Builds | M |
-|---|---|---|---|---|
-| A28 | Sound | **Loading a file is not the same as playing it** — browsers refuse to play audio until you interact with the page | 8 CC0 effects + two music loops, muted by default | M4 |
+### 6.3 No build step, anywhere — DECIDED
 
-| # | Title | The one idea |
-|---|---|---|
-| A29 | What we didn't build | Authority, persistence, moderation, matchmaking — what a server buys, what it costs, and **why we cut features on purpose** |
+**No TypeScript, no npm, no Bun, no bundler.** The student installs an editor and the Live Server
+extension, and that is the entire toolchain. Plain JavaScript, plain HTML, opened in a browser.
 
-A29 is the honest close, and it doubles as the design lesson: every item in §6.1's cut list is an
-example of scoping to what you can actually finish.
+- It matches the original requirement for "a way to use it without a compile step".
+- It removes an entire category of student confusion at the exact age where confusion means quitting.
+- Nothing in a game this small is made safer by types.
+- Live Server is one click in the editor and needs no terminal, which is meaningfully fewer moving
+  parts for a 12-year-old than `npm install`.
 
-**Appendix X7 is the same move applied to tools.** Having hand-written the loop, input, map, and camera,
-the student ports the game to Phaser and measures both sides: how much code disappeared, how much bundle
-size arrived, and what they can no longer explain. Framework literacy without framework dependence — and
-it only works *because* they built it themselves first. If we had started with Phaser, this lesson would
-be impossible.
+**This reverses the TRD**, which specified `.ts` sources, a `tsc --noEmit` gate and `bun test`, and it
+means the game repo scaffold gets converted to plain JavaScript. Recorded in the design decision log.
 
 ### Appendices (English only, written if wanted)
 
@@ -415,23 +527,28 @@ from real play later, and that fixing is itself lesson material.
 
 ## 7. Per-lesson detail: what "written down" means
 
-Each lesson gets a detail sheet before it is written. Template, then the first three filled in as
-specimens; the rest get filled during §10's build loop, because the real AI failure modes and the real
-verification steps can only be collected by actually building it.
+> **The detail sheets below are from the 21-lesson version and are superseded by §6.** They are kept
+> because the *content* in them (the alternatives tables, the safety wording, the prompt specimens) is
+> still good and gets reused; the ids, tags and orderings in them are not. Where a sheet contradicts
+> §6, §6 wins.
+
+Each step gets a detail sheet before it is written. Template, then specimens; the rest get filled
+during §10's build loop, because the real AI failure modes and the real verification steps can only be
+collected by actually building it.
 
 ```
-ID / title / prerequisite tag
+ID / title / what it needs
 Goal (one sentence, student-facing)
-CS idea + analogy
-Builds (files touched, feature added)
+The feature you can see at the end
+The 2–4 blocks it cuts into
 Why this solution (the forcing constraint)
 Alternatives + cost (2–3)
 Example prompt (full text)
-Verify (observable steps)
-Common AI failure to catch (collected during the build)
+See it work (observable steps)
+Put it in the game (the smallest fold-in)
+Real AI failure to catch (from FAILURES.md, never invented)
 Takeaways (3–5)
 Your turn (extension)
-Time estimate
 ```
 
 ### A09 — Get your tools
@@ -658,34 +775,44 @@ the tone wrong does real harm. It must not read like a warning label a child ski
 
 ## 9. Trilingual production
 
-- 18 lessons × 3 languages = 54 files, plus phases/UI strings. `scripts/translate_content.py` exists
+- 15 steps × 3 languages = 45 files, plus phases/UI strings. `scripts/translate_content.py` exists
   and the pipeline is proven on T/R/A.
-- **In-game strings are separate** and live in the game repo's `i18n.ts` (en/ja/pt), including NPC
+- **In-game strings are separate** and live in the game repo's `i18n.js` (en/ja/pt), including NPC
   barks and ghost-note phrases. Budget ~8 NPCs × 3 lines + ~20 note phrases + UI.
 - **Screenshots: English only, one per lesson, reused across all three languages** (decided). Keeping
   in-game text out of the framing where possible makes them language-neutral; where UI text is visible,
   English is acceptable and avoids 3× the image work.
-- **[HONEST] Sizing:** one lesson per week including its reference implementation is ~4–5 months. The
-  §6.1 cuts and the no-new-track decision both pulled this down; it is still the largest content
-  commitment on the site after T01–T39. Two
-  ways to de-risk: publish phase by phase (A–B first) with later lessons `status: coming-soon` (the
-  frontmatter already supports it), and write EN first, translating a phase at a time.
+- **[HONEST] Sizing:** fifteen steps including their demos is a smaller commitment than the earlier
+  21-lesson plan, and the demo model makes each one cheaper to produce because a demo is one screen of
+  code that can be verified automatically (§10). Write EN first; the translate workflow fills JA and PT
+  and rebuilds the site.
 
 ---
 
 ## 10. The build process (your loop, written down)
 
-Explicitly: **no code until the game exists in these documents.** Then per milestone:
+Explicitly: **no code until the game exists in these documents.** Then per step:
 
 ```
-1. Docs are current for milestone M         (design + TRD updated, decisions recorded)
-2. Build the MVP slice for M                (reference repo, real code)
-3. Play it. Two tabs, then with a person.   ← the step that generates truth
-4. Fix what's actually wrong                (mechanics, numbers, bugs)
-5. Update the TRD + design doc to match     (docs follow reality, never diverge)
-6. NOW write the lesson(s) for M            (with the real AI failures + real verify steps)
-7. Screenshot + tag aNN-end. Repeat.
+1. Docs are current for the step            (design + TRD updated, decisions recorded)
+2. Build the demo in demos/NN-name/         (standalone, one screen of code, plain JS)
+3. Open it in a real browser and drive it   <- the step that generates truth
+   - console and network must be CLEAN; a demo that throws still screenshots nicely
+   - interact: press the keys, open a second window for the peer demos
+4. Fix what's actually wrong
+5. Screenshot -> website/static/img/game/aNN.png
+6. Append anything that went wrong to FAILURES.md
+7. Fold the demo into the game (the "Put it in the game" section)
+8. Update the TRD + design doc to match     (docs follow reality, never diverge)
+9. NOW write the lesson, using the real failures from step 6. Repeat.
 ```
+
+**Step 3 is automated, and that is the point.** It runs through `ego-browser` driven by a subagent:
+open the demo, `drainEvents()` for console errors and failed requests, act on the page, verify, then
+`captureScreenshot()`. Previously "play it" was aspirational and got skipped; now a demo cannot
+produce a screenshot without having actually run clean. There is no `--debug` flag on the
+`ego-browser` CLI — "debug mode" here means the agent reads the console rather than only looking at
+the picture.
 
 Rules that make this work:
 
@@ -698,39 +825,38 @@ Rules that make this work:
   Block paying nothing → Block banks a charge, free-text notes → templated notes).
 - **Collect AI failures as you go**, in a running `FAILURES.md` in the game repo. They are curriculum
   and they are impossible to reconstruct later.
-- **Balance changes must move numbers in `tuning.json` and re-run the simulator**, never edit rules
-  code ad hoc. The CI assertions (duel length, mirror win rate, `history` beating `random`) are the
-  guardrail (TRD §8).
+- **Balance changes must move numbers in `tuning.json`**, never edit rules code ad hoc.
+- **A demo with a dirty console is not done**, even if it looks right. Most of the bugs worth putting
+  in `FAILURES.md` announce themselves there and nowhere else.
 
 ---
 
-## 13. Delivery: self-serve pages, one taught lesson a week
+## 13. Delivery: self-serve, and the class is the play window
 
-**Self-serve** — every lesson is public, nothing is gated, no start date, no waiting. **Plus one lesson
-taught per week in class**, which is where the multiplayer actually comes alive.
+**Self-serve** — every step is public, nothing is gated, no start date, no waiting. The class meeting
+is where people get unstuck and where the multiplayer actually comes alive. It is not a release
+schedule, and the lesson text never implies one (§1).
 
 Three consequences worth designing for:
 
-- **The weekly class *is* the play window.** This quietly solves the empty-world problem (design §2.4)
-  without any scheduling machinery: from the week the class reaches A20–A21, the world has a whole room
-  of people in it at a known time each week. No Discord slot needed at first — the lesson is the event.
-  Worth saying to students plainly: *"the world is busiest during class."*
-- **Every lesson must survive being done alone**, because students are explicitly invited to run ahead.
-  That raises the value of three things already in the plan: the "start from tag `aNN-end`" line, the
-  observable verification step (a student with no teacher needs to know for certain whether it worked),
-  and the two-tab test (so solo students can test multiplayer without another person).
-- **Students will be at different lessons.** Someone who ran ahead to A25 is already duelling while the
-  class is on A21 — which is *good* (they populate the world and demo what's coming), and is only
-  possible because the game is one shared world with no version gate beyond the protocol `v` check.
+- **The class *is* the play window.** This quietly solves the empty-world problem (design §2.4) with no
+  scheduling machinery: once the class reaches A12, the world has a room of people in it at a known
+  time. Worth saying to students plainly: *"the world is busiest during class."*
+- **Every step must survive being done alone**, because students are explicitly invited to run ahead.
+  That is most of the reason for the demo model (§2.1): a standalone demo always works, so a student
+  with no teacher can tell for certain whether they succeeded. The two-window test matters for the
+  same reason — a solo student must be able to test multiplayer without another person.
+- **Students will be at different steps, and that is fine.** Someone who ran ahead to A20 is already
+  duelling while others are on A12, which is *good* — they populate the world and demo what is coming.
+  It works because a demo has no dependency on anyone else's progress.
 
-**Pace:** 21 lessons at one per week is ~5 months, which lines up with the 6-month arc in
-`build-verify-track.md`. **[OPEN]** how long is your class session? Lessons are budgeted at 800–1,200
-words plus a "your turn" extension, which suits roughly 60–90 minutes of guided work. If your session is
-shorter, the lesson list splits further rather than the lessons getting denser.
+**Pace:** fifteen steps. A fast group does two or three in a sitting; a slow one takes several sittings
+on A18 alone. Both are correct. The only hard rule is that a step ends in something visible, so nobody
+finishes an evening unsure whether it worked.
 
-**Between classes:** a student who does nothing keeps up next week (each lesson starts from a tag).
-A student who wants more has the "your turn" extension, the appendices, and the option of running ahead.
-Nothing punishes either choice — that's what self-serve buys.
+**Between sittings:** a student who does nothing is not behind, because the next step starts from its
+own demo rather than from their code. A student who wants more has the "your turn" extension, the
+appendices, and the option of running ahead.
 
 ---
 

@@ -11,14 +11,16 @@
       <p class="phase-subtitle">{{ phase.subtitle }}</p>
       <p class="phase-analogy">{{ phase.analogy }}</p>
       <div class="theory-grid">
-        {% for lesson in ai_lessons %}
-        {% if lesson.phase == phase.id %}
+        {% for lesson in ai_lessons | where: phase=phase.id %}
         <a href="lessons/{{ lesson.id | slugify }}.html" class="theory-card">
           <span class="lesson-id">{{ lesson.id }}</span>
           <h3>{{ lesson.title }}</h3>
           <p>{{ lesson.desc }}</p>
         </a>
-        {% endif %}
+        {% else %}
+        <div class="lesson-card coming-soon">
+          <span class="badge">{{ coming_soon }}</span>
+        </div>
         {% endfor %}
       </div>
     </section>

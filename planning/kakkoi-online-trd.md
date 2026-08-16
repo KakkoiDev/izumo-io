@@ -15,32 +15,39 @@ Companion to `kakkoi-online-design.md` (design rationale + decision log). That d
 
 ## 1. Toolchain, repo layout, CI
 
+**DECIDED (2026-08-16, reversal): plain JavaScript, no build step, no npm, no Bun, no bundler.**
+The student's entire toolchain is a code editor plus the **Live Server** extension. See lessons §6.3
+and design-log rows 1 and 43. Every file below is `.js`, loaded directly by the browser.
+
 ```
 kakkoi-online/
-├─ index.html                  Bun entrypoint: canvas + Basecoat shell
+├─ index.html                  the game: canvas + Basecoat shell
+├─ demos/                      ONE standalone demo per lesson step (lessons §2.1)
+│  ├─ 09-hello/                index.html + main.js, self-contained
+│  ├─ 10-player/               the moving square
+│  └─ NN-name/                 ... each runnable on its own, each publishable
 ├─ src/
-│  ├─ main.ts                  boot & wiring
-│  ├─ loop.ts                  fixed-timestep loop
-│  ├─ input.ts                 keyboard/touch → Intent
-│  ├─ world.ts                 tilemap + collision
-│  ├─ render.ts                camera, layers, nameplates
-│  ├─ sprites.ts               atlas → draw a 16×16 rect (tiles, monsters, NPCs)
-│  ├─ audio.ts                 load + play CC0 files (~30 lines, no library)
-│  ├─ save.ts                  load / save / migrate / export / import
-│  ├─ identity.ts              player id, name, element
-│  ├─ net.ts                   trystero wrapper: room, actions, presence
-│  ├─ validate.ts              every inbound message passes through here
-│  ├─ sync.ts                  position broadcast + interpolation
-│  ├─ chat.ts                  preset-phrase chat + mute
-│  ├─ ghost.ts                 (v2) async presence notes
-│  ├─ npc.ts                   client-local NPCs: waypoints, barks, trainers
+│  ├─ main.js                  boot & wiring
+│  ├─ loop.js                  requestAnimationFrame loop, movement × elapsed time
+│  ├─ input.js                 keyboard + Pointer Events → held state
+│  ├─ world.js                 tilemap + collision
+│  ├─ render.js                camera, layers, nameplates
+│  ├─ sprites.js               atlas → draw a 16×16 rect (tiles, monsters, NPCs)
+│  ├─ audio.js                 load + play CC0 files (~30 lines, no library)
+│  ├─ save.js                  load / save / migrate / export / import
+│  ├─ identity.js              player id, name, element
+│  ├─ net.js                   trystero wrapper: room, actions, presence
+│  ├─ validate.js              every inbound message passes through here
+│  ├─ sync.js                  position broadcast + interpolation
+│  ├─ chat.js                  preset-phrase chat + mute
+│  ├─ npc.js                   client-local NPCs: waypoints, barks, trainers
 │  ├─ battle/
-│  │  ├─ rules.ts              PURE: type chart, resolution, damage
-│  │  ├─ fsm.ts                turn state machine
-│  │  ├─ protocol.ts           commit / reveal / state-hash over the wire
-│  │  └─ ai.ts                 local opponent move picker
+│  │  ├─ rules.js              PURE: type chart, resolution, damage
+│  │  ├─ fsm.js                turn state machine
+│  │  ├─ protocol.js           commit / reveal / state-hash over the wire
+│  │  └─ ai.js                 local opponent move picker
 │  ├─ ui/                      Basecoat-driven DOM panels
-│  └─ i18n.ts                  en / ja / pt strings
+│  └─ i18n.js                  en / ja / pt strings
 ├─ data/
 │  ├─ tuning.json              all balance numbers
 │  ├─ type-chart.json          element multipliers
@@ -49,36 +56,45 @@ kakkoi-online/
 │  └─ maps/town.json           tilemap
 ├─ vendor/                     trystero, basecoat.css, kenney atlases (Tiny Dungeon + Tiny Creatures)
 ├─ audio/                      8 CC0 effects (Kenney) + 2 CC0 chiptune loops (OpenGameArt)
-├─ tests/                      bun test
+├─ tests/rules.test.html       assertions that run in the browser and print PASS/FAIL. No runner.
+├─ FAILURES.md                 real mistakes, collected while building. Lesson material.
 ├─ .github/workflows/deploy.yml
-├─ CNAME                       online.kakkoi.dev
-└─ Makefile                    dev / check / test / build
+└─ CNAME                       online.kakkoi.dev (inert — see HANDOFF gotchas)
 ```
 
 **Commands**
 
-| Task | Command |
+| Task | How |
 |---|---|
-| dev | `bun ./index.html` (TS on the fly, hot reload) |
-| typecheck | `bunx tsc --noEmit` — Bun strips types without checking them; this is the real gate |
-| test | `bun test` |
-| build | `bun build ./index.html --minify --outdir=dist --sourcemap` |
+| dev | Open the folder in the editor, right-click `index.html` → "Open with Live Server" |
+| dev (no editor) | `python3 -m http.server 8000` |
+| test | Open `tests/rules.test.html` in the browser and read the rows |
+| build | There is none. The repo *is* the deployable artefact |
 
-**CI** (`deploy.yml`), on push to `master`: `bunx tsc --noEmit` → `bun test` → `bun build` →
-`actions/deploy-pages`. On PR: the first two only. **A red build must not deploy** — the live site is
-the students' shared world.
+**CI** (`deploy.yml`), on push to `main`: publish the repo as static files with
+`actions/deploy-pages`. There is nothing to compile and nothing to gate on.
 
-**Dependency rule, enforced by review:** `battle/rules.ts` and `validate.ts` import
-nothing from `net.ts`, `render.ts`, or the DOM. They are pure and unit-testable. Everything else may
-depend on them, never the reverse.
+**Why no automated test gate any more.** With `bun test` gone there is no CI assertion protecting the
+live world. Accepted, because the deployed thing is a small game for about five people and the demo
+verification loop (lessons §10 — every demo driven in a real browser with a clean console before it
+ships) catches more real breakage than the unit tests did. If this bites, the fix is a headless
+smoke check in CI, not the return of the toolchain.
+
+**Dependency rule, enforced by review:** `battle/rules.js` and `validate.js` import nothing from
+`net.js`, `render.js`, or the DOM. They are pure and testable on their own. Everything else may depend
+on them, never the reverse.
 
 **Browser support:** Chrome/Edge/Firefox current, Safari 16+. Requires a **secure context** for
-`crypto.subtle` (battle commitments) — `https://` in production, `localhost` in dev. Opening
-`file://` fails, deliberately, and that's lesson A10.
+`crypto.subtle` (battle commitments, A22) — `https://` in production, `localhost` in dev. `file://`
+fails, which is why Live Server is installed in A09 rather than "just open the file".
 
 ---
 
 ## 2. Data model
+
+> The shapes below are written in TypeScript notation because it is the clearest way to describe data
+> in a spec. **There is no TypeScript in the project** — these are plain JavaScript objects, and the
+> notation is documentation only.
 
 ```ts
 type Element = 'fire' | 'water' | 'earth';
@@ -123,7 +139,7 @@ interface SaveFile {
 
 ---
 
-## 3. Battle rules (pure, `battle/rules.ts`)
+## 3. Battle rules (pure, `battle/rules.js`)
 
 **Type cycle:** water beats fire, fire beats earth, earth beats water. Attacking with advantage ×2,
 into resistance ×0.5, otherwise ×1.
@@ -179,14 +195,14 @@ NPCs are **entirely client-local**: no protocol, no consensus, no authority, not
 client simulates its own. Two interfaces do the heavy lifting:
 
 ```ts
-interface Opponent {                        // battle/fsm.ts talks only to this
+// Shape, not a type: battle/fsm.js talks only to objects that look like this
   readonly kind: 'peer' | 'ai';
   commit(round: number): Promise<Hash>;     // peer: over the wire | ai: local, immediate
   reveal(round: number): Promise<Reveal>;
   readonly profile: { name: string; elements: Element[]; level: number };
 }
 
-interface Actor {                           // render.ts draws anything shaped like this
+// Shape, not a type: render.js draws anything that looks like this
   id: string; x: number; y: number; dir: Dir; moving: boolean;
   creatureSeed: string; name: string; nameplate: 'player' | 'npc';
 }
@@ -233,7 +249,7 @@ do not fake human presence. Barks are i18n keys (en/ja/pt), budget ~8 NPCs × 3 
 ## 4. Network protocol
 
 Transport: trystero over Nostr signaling, one room (`mmo-town-v1`). Action names are kept short
-because trystero caps their length. Every inbound message goes through `validate.ts` first — no
+because trystero caps their length. Every inbound message goes through `validate.js` first — no
 exceptions, no shortcuts.
 
 | Action | Direction | Payload | Rate limit |
@@ -307,7 +323,7 @@ Teaches: bandwidth vs smoothness, latency hiding, and that what's on your screen
 
 ---
 
-## 5. Monsters and sprites (`sprites.ts`)
+## 5. Monsters and sprites (`sprites.js`)
 
 No generation. `data/monsters.json` lists the playable set:
 
@@ -363,7 +379,7 @@ of unmuted laptops), one obvious toggle, persisted.
 
 **Accessibility & i18n.** All UI keyboard-reachable; battle actions bound to `1`/`2`/`3`; chat and
 battle log are `aria-live`; element shown by icon **and** colour, never colour alone;
-`prefers-reduced-motion` respected. Strings in `i18n.ts` for en/ja/pt to match school.kakkoi.dev —
+`prefers-reduced-motion` respected. Strings in `i18n.js` for en/ja/pt to match school.kakkoi.dev —
 cheap now, painful to retrofit.
 
 ---
@@ -377,7 +393,7 @@ cheap now, painful to retrofit.
 | Lying at reveal | **Detected** | hash mismatch ⇒ abort + forfeit |
 | Rage-quit | Tolerated | forfeit after grace; only your local record changes |
 | Impersonating a player id | Possible in v1 | keypair identity in appendix X1 |
-| Malformed / flooding packets | **Blocked** | `validate.ts`, rate limits, auto-mute |
+| Malformed / flooding packets | **Blocked** | `validate.js`, rate limits, auto-mute |
 | Abusive chat | **Designed out** | preset phrases only — there is nothing arbitrary to say; plus local mute. No moderation is possible, so we removed the need for it |
 | Client-local PvE cheating | Irrelevant | it's single-player |
 
@@ -388,7 +404,7 @@ nothing to subpoena, no cookie banner.
 
 ## 8. Testing
 
-- **`bun test` on pure modules:** every cell of the action matrix; type-chart symmetry; damage clamps;
+- **`tests/rules.test.html` on pure modules:** every cell of the action matrix; type-chart symmetry; damage clamps;
   `maxHitFraction` never exceeded; migration `v0→v1`.
 - **Headless battle simulator (the balance regression test):** 1,000 duels per AI pairing — assert no
   crashes, no infinite games (round cap), duel length inside `targetRounds` (4–12), mirror-matchup win
@@ -412,7 +428,7 @@ nothing to subpoena, no cookie banner.
 |---|---|---|---|
 | **M0** | canvas, loop, tilemap, collision, movement, procedural creature, save | you walk around, reload, and your creature is identical | A13–A17 |
 | **M1** | trystero room, presence, `pos` sync, nameplates, online count | two tabs see each other move smoothly; closing one removes it within 5 s | A18–A22 |
-| **M2** | preset-phrase chat, mute, `validate.ts`, rate limits, **safety card on first join** | a garbage-fuzzing peer cannot crash or spam the other client; muting visibly stops phrases arriving | A19, A23 |
+| **M2** | preset-phrase chat, mute, `validate.js`, rate limits, **safety card on first join** | a garbage-fuzzing peer cannot crash or spam the other client; muting visibly stops phrases arriving | A19, A23 |
 | **M3** | duel invite/accept, FSM, commit–reveal, rules, **local AI opponent** | a full duel completes vs a human and vs the AI; a tampered reveal is caught | A24–A26 |
 | **M3.5** | **NPCs**: townsfolk with waypoints/barks, tutor, trainer ladder | a first-time visitor alone in the world is taught the triangle and has someone to fight | A27 |
 | **M4** | audio, polish, "only one here" state, NAT diagnostic, safety page | an empty world never looks broken; a stranger can arrive, play, and understand it | A28 |

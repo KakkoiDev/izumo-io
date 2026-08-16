@@ -842,7 +842,7 @@ propagate the consequences.
 
 | # | Question | Default | Why |
 |---|---|---|---|
-| 1 | TypeScript | **Bun**: real `.ts`, `bun ./index.html` in dev, CI builds on push | your call, and it works; §10 |
+| 1 | Language & toolchain | ~~Bun + real `.ts` + CI build~~ **Plain JavaScript, no build step, no npm, no Bun. Editor + Live Server is the entire toolchain** | reversal #7, 2026-08-16; see rows 43–48 |
 | 2 | Repo | **Separate `kakkoi-online`** + `CNAME online.kakkoi.dev` | student-forkable; keeps the Python site build clean |
 | 3 | Dependencies | **Vendor** trystero + Basecoat, pinned, in-repo | a CDN outage must not brick every student's deployed game |
 | 4 | Creature art | **A fixed set of ~6 CC0 monsters (Kenney Tiny Creatures); player picks one** | the name is enough for identity; deletes the whole generation module (§12) |
@@ -888,6 +888,15 @@ propagate the consequences.
 | 41 | Audio lib | ~~ZzFX + ZzFXM~~ **None — plain `Audio` elements** | reversal #6: generation was clever but riskier and no smaller in practice than loading files |
 | 42 | Sprite lib | ~~`pixel-sprite-generator`~~ **Dropped — no generation at all** | set monsters instead; element is bound to the monster you pick |
 | 39 | Owner presence | **The canonical world at `online.kakkoi.dev` is the showcase**; you log in and students see it working | inspiration is the point; note that without keypairs (X1) your name is impersonable |
+| 43 | No build step | **No TypeScript, no npm, no Bun, no bundler.** Student installs an editor + the Live Server extension. Plain JS/HTML | reversal #7: matches the original "usable without a compile step"; removes a whole class of confusion at the age where confusion means quitting; nothing in a game this small is made safer by types (lessons §6.3) |
+| 44 | Lesson granularity | ~~one CS idea per lesson~~ **one step = one feature you can SEE, cut into 2–4 named blocks** | reversal #8: per-block lessons end with nothing to look at. The cut happens *inside* the lesson, which is where a student can watch it. Took 21 lessons → 15 steps |
+| 45 | What the track actually teaches | **Decomposition.** Not JS, not networking. "Look at a feature, cut it into blocks you can check one at a time" | Cyril, 2026-08-16: "I just want my students to be able to see a feature and cut it in smaller blocks." Outranks CS coverage when the two conflict |
+| 46 | Code shape | **A standalone demo per step (`demos/NN-name/`), then a "Put it in the game" section** | reversal #9: one accreting codebase means a student whose code breaks at step 6 is stuck for nine more steps. A demo always works from a blank slate (lessons §2.1) |
+| 47 | Pacing | **Parts (chapters) and steps (sittings). No unit of time appears in any lesson text** | 2–3 steps in one sitting must be possible for a fast group, and 3 sittings on one step must not read as "behind" |
+| 48 | Publishing / GitHub | ~~lesson 1~~ **A18, end of part 5** | reversal #10: I claimed A12 needed a live URL for peer-to-peer. **Wrong** — trystero signals over public relays, so two students on their own Live Servers connect fine. Publishing therefore lands where it is honestly motivated, and nothing gates starting on being 13 |
+| 49 | Version control in parts 1–4 | **None. Told once, plainly: copy the project folder and date it before a big agent change** | Cyril's call. Crude and right at this level; git then arrives in A18 as the answer to a problem already felt |
+| 50 | Verifying demos | **A subagent drives every demo in `ego-browser`: console must be clean, then screenshot** | "play it" was aspirational and got skipped. A demo that throws still screenshots nicely, so the console check is the real gate (lessons §10) |
+| 51 | Mobile | ~~Appendix X3~~ **Pointer Events in A10; phones supported from the second step** | a 12-year-old is likelier to own a phone than a laptop. One API covers mouse, touch and pen, so it costs one code path rather than two |
 
 ---
 

@@ -1,5 +1,7 @@
 # Phase metadata for the AI track. Same shape as phases.yaml (tech track).
-# Part 1 = learning to use an assistant. Part 2 = building one real thing with it.
+# Part 1 = learning to use an assistant. Parts 2-8 = building one real thing with it.
+# A "part" is a chapter and takes as long as it takes. A "step" is one lesson: one sitting,
+# one thing you can look at. Never name a unit of time here.
 
 - id: 1
   title_en: "Part 1: Talking to the Machine (Using AI)"
@@ -13,12 +15,78 @@
   analogy_pt: "Aprender a usar uma ferramenta elétrica antes de construir móveis com ela"
 
 - id: 2
-  title_en: "Part 2: Build an Online Game (Kakkoi Online)"
-  title_ja: "パート2: オンラインゲームを作る (Kakkoi Online)"
-  title_pt: "Parte 2: Construa um Jogo Online (Kakkoi Online)"
-  subtitle_en: "One real project, start to finish: a multiplayer game with no server, live on the internet"
-  subtitle_ja: "実際のプロジェクトを最初から最後まで: サーバー無しのマルチプレイヤーゲームをインターネット上に公開"
-  subtitle_pt: "Um projeto real, do início ao fim: um jogo multijogador sem servidor, publicado na internet"
-  analogy_en: "You have the tools. Now build the furniture, and let people sit on it"
-  analogy_ja: "道具は揃った。次は家具を作り、人に座ってもらう"
-  analogy_pt: "Você tem as ferramentas. Agora construa o móvel e deixe as pessoas sentarem nele"
+  title_en: "Part 2: Set Up"
+  title_ja: "パート2: 準備する"
+  title_pt: "Parte 2: Preparar"
+  subtitle_en: "The three things you need open: the assistant, the editor, and your page in the browser"
+  subtitle_ja: "開いておくべき3つ: アシスタント、エディタ、ブラウザに映る自分のページ"
+  subtitle_pt: "As três coisas que você precisa abertas: o assistente, o editor e sua página no navegador"
+  analogy_en: "Laying out your tools on the bench before you start"
+  analogy_ja: "始める前に、作業台に道具を並べる"
+  analogy_pt: "Arrumar as ferramentas na bancada antes de começar"
+
+- id: 3
+  title_en: "Part 3: Create the Player"
+  title_ja: "パート3: プレイヤーを作る"
+  title_pt: "Parte 3: Criar o Jogador"
+  subtitle_en: "A square you can move — and the way of cutting a feature into blocks that you will use for everything else"
+  subtitle_ja: "動かせる四角。そして、これ以降ずっと使う「機能をブロックに切り分ける」やり方"
+  subtitle_pt: "Um quadrado que você move — e o jeito de cortar uma funcionalidade em blocos que você vai usar em tudo"
+  analogy_en: "Noticing, deciding, then doing — the same three steps you use to cross a road"
+  analogy_ja: "気づく、決める、動く。道を渡るときと同じ3つの手順"
+  analogy_pt: "Perceber, decidir, agir — os mesmos três passos que você usa para atravessar a rua"
+
+- id: 4
+  title_en: "Part 4: Save the Game"
+  title_ja: "パート4: ゲームを保存する"
+  title_pt: "Parte 4: Salvar o Jogo"
+  subtitle_en: "Close the tab, come back, and everything is where you left it"
+  subtitle_ja: "タブを閉じて戻ってきても、すべてが元のまま"
+  subtitle_pt: "Feche a aba, volte, e tudo está onde você deixou"
+  analogy_en: "Writing something in a notebook so you do not have to hold it in your head"
+  analogy_ja: "頭の中に抱えなくていいように、ノートに書いておく"
+  analogy_pt: "Anotar algo num caderno para não ter que guardar na cabeça"
+
+- id: 5
+  title_en: "Part 5: Other People"
+  title_ja: "パート5: ほかの人たち"
+  title_pt: "Parte 5: Outras Pessoas"
+  subtitle_en: "Two computers talking directly to each other, with nothing in between — and how to keep that safe"
+  subtitle_ja: "間に何もはさまず、2台のコンピュータが直接話す。そして、それを安全に保つ方法"
+  subtitle_pt: "Dois computadores falando direto um com o outro, sem nada no meio — e como manter isso seguro"
+  analogy_en: "Two tin cans and a string, instead of posting a letter through an office"
+  analogy_ja: "郵便局を通さず、糸電話で直接話す"
+  analogy_pt: "Dois latões e um barbante, em vez de mandar carta pelo correio"
+
+- id: 6
+  title_en: "Part 6: Make It a Real Game"
+  title_ja: "パート6: ちゃんとしたゲームにする"
+  title_pt: "Parte 6: Fazer Virar um Jogo de Verdade"
+  subtitle_en: "A monster instead of a square, walls, a world bigger than the screen, sound — and a link you can send to anyone"
+  subtitle_ja: "四角のかわりにモンスター、壁、画面より広い世界、音。そして誰にでも送れるリンク"
+  subtitle_pt: "Um monstro em vez de um quadrado, paredes, um mundo maior que a tela, som — e um link para enviar a qualquer um"
+  analogy_en: "The house is standing; now it gets paint, doors, and an address"
+  analogy_ja: "家は建った。次は塗装とドア、そして住所"
+  analogy_pt: "A casa está de pé; agora ganha pintura, portas e um endereço"
+
+- id: 7
+  title_en: "Part 7: The Fight"
+  title_ja: "パート7: たたかい"
+  title_pt: "Parte 7: A Luta"
+  subtitle_en: "Fire, water, earth — and how you settle a contest fairly when nobody is in charge"
+  subtitle_ja: "火・水・土。そして、誰も審判がいない場所で、どう公平に勝負をつけるか"
+  subtitle_pt: "Fogo, água, terra — e como resolver uma disputa de forma justa quando ninguém está no comando"
+  analogy_en: "Both players write their move down and put it face down before either one turns it over"
+  analogy_ja: "ふたりとも手を紙に書いて伏せてから、同時にめくる"
+  analogy_pt: "Os dois escrevem a jogada e viram para baixo antes de qualquer um revelar"
+
+- id: 8
+  title_en: "Part 8: Look Back"
+  title_ja: "パート8: ふりかえる"
+  title_pt: "Parte 8: Olhar para Trás"
+  subtitle_en: "What we chose not to build, and what that choice bought us"
+  subtitle_ja: "作らないと決めたもの。その選択で何が手に入ったか"
+  subtitle_pt: "O que escolhemos não construir, e o que essa escolha nos deu"
+  analogy_en: "Every good builder can tell you what they left out, and why"
+  analogy_ja: "よい作り手は、何を省いたか、なぜ省いたかを説明できる"
+  analogy_pt: "Todo bom construtor sabe dizer o que deixou de fora, e por quê"

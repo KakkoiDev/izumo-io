@@ -8,8 +8,20 @@ Written for **another agent on another computer** picking this up cold. Read thi
 Two things being built together:
 
 1. **A game** — `Kakkoi Online`, a serverless P2P browser game. Live: **https://online.kakkoi.dev**
-2. **A lesson track** — lessons **A09–A29** on https://school.kakkoi.dev, continuing the existing AI
+2. **A lesson track** — steps **A09–A23** on https://school.kakkoi.dev, continuing the existing AI
    track, teaching a 12–13-year-old to build that game with an AI assistant.
+
+**Read this before anything else: the plan changed substantially on 2026-08-16.** Five reversals, all
+in the design decision log (rows 43–51). If a doc you are reading contradicts them, the log wins.
+
+| What changed | Now |
+|---|---|
+| Toolchain | **Plain JavaScript. No TypeScript, no npm, no Bun, no build step.** Editor + Live Server extension is the whole thing |
+| Lesson size | **One step = one feature you can SEE**, cut into 2–4 named blocks. 21 lessons → 15 steps |
+| Code shape | **A standalone demo per step** in `demos/NN-name/`, then a "Put it in the game" section. Not one accreting codebase |
+| What the track teaches | **Decomposition.** Cut a feature into blocks you can check one at a time. Everything else is the vehicle |
+| Publishing / GitHub | Moved from A09 to **A18**. P2P works fine on localhost, so nothing needs to be online until part 6 |
+| Pacing | **Parts** (chapters) and **steps** (sittings). No unit of time appears in any lesson text — 2–3 steps in a sitting must be possible |
 
 ## Two repos
 
@@ -22,27 +34,34 @@ Clone both. They are independent; the planning docs live in `izumo-io/planning/`
 
 ## Read these first, in order
 
-1. `planning/kakkoi-online-design.md` — why every decision is what it is. **A 42-row decision log with
-   six recorded reversals.** Read the log before proposing changes; several "obvious" ideas were already
+1. `planning/kakkoi-online-design.md` — why every decision is what it is. **A 51-row decision log with
+   ten recorded reversals.** Read the log before proposing changes; several "obvious" ideas were already
    tried and rejected for reasons.
 2. `planning/kakkoi-online-trd.md` — what to build: data model, network protocol, battle rules,
    milestones, tests.
-3. `planning/kakkoi-online-lessons.md` — the 21-lesson track, the **writing standard (§3.5)**, the safety
-   lesson, and **§10, the build process you must follow**.
+3. `planning/kakkoi-online-lessons.md` — **§6 is the current list (7 parts, 15 steps)**, plus §2.1 (the
+   demo model), the **writing standard (§3.5)**, and **§10, the build process you must follow**. §7's
+   per-lesson detail sheets are from the old 21-lesson plan and are marked superseded.
 4. `planning/kakkoi-online-sources.md` — every asset pack, library and reference, with licences.
 
 ## The rule that matters most
 
-**Docs first, then code, then play it, then fix, then update the docs, and only then write the lesson.**
+**Docs first, then the demo, then run it in a real browser, then fix, then update the docs, and only
+then write the lesson.** Full version in lessons §10.
 
 ```
-1. Docs current for the milestone
-2. Build the slice
-3. PLAY IT (two tabs, then with a person)   ← generates the truth
+1. Docs current for the step
+2. Build the demo in demos/NN-name/  (standalone, one screen of code, plain JS)
+3. RUN IT in a real browser          ← generates the truth
+   - via ego-browser, driven by a subagent
+   - console + network must be CLEAN; a demo that throws still screenshots nicely
+   - actually press the keys; open a second window for the peer demos
 4. Fix what is actually wrong
-5. Update the docs to match reality
-6. NOW write the lesson, using real failures from FAILURES.md
-7. Screenshot + tag aNN-end. Repeat.
+5. Screenshot → izumo-io/website/static/img/game/aNN.png
+6. Append what went wrong to FAILURES.md
+7. Fold the demo into the game
+8. Update the docs to match reality
+9. NOW write the lesson, using real failures from FAILURES.md. Repeat.
 ```
 
 A lesson written before the code contains invented verification steps and invented AI mistakes, and
@@ -51,33 +70,36 @@ lesson shows students a real mistake, and they cannot be reconstructed later.
 
 ## State: done
 
-- **Game repo scaffolded and live.** Canvas, fixed-timestep loop (`src/loop.ts`), pure battle rules with
-  passing tests (`src/battle/rules.ts`, `tests/rules.test.ts`), `data/*.json` for tuning/type-chart/
-  monsters, CI that gates the Pages deploy on `tsc --noEmit` + `bun test`.
+- **Planning docs rewritten for the 2026-08-16 reversals** — lessons §1/§2.1/§3/§4/§6/§10/§13, the TRD
+  toolchain and repo layout, design-log rows 43–51.
+- **`content/ai-phases.yaml` now has 8 parts** (part 1 = the existing A01–A08; parts 2–8 = this track).
 - **`online.kakkoi.dev`** — HTTPS enforced, custom domain set **in the Pages API config** (not by the
   `CNAME` file; see gotchas).
-- **Lessons A09 and A10 written**, live in EN/JA/PT.
-- **AI track split into two phases** (`content/ai-phases.yaml`): Part 1 = using AI (A01–A08),
-  Part 2 = the game (A09+). Needed `phase:` frontmatter on the EN AI lesson files, `AI_PHASES` in
-  `content_loader.py`, `ai_phases` in `build.py`, and a phase loop in `website/pages/ai-lessons.html`.
 - **Translation pipeline fixed** (it had been silently losing every translation since 2026-07-08).
+- Site plumbing for phases: `AI_PHASES` in `content_loader.py`, `ai_phases` in `build.py`, a phase loop
+  in `website/pages/ai-lessons.html`, and `phase:` frontmatter on the EN AI lesson files.
 
 ## State: not done
 
-- **`vendor/` and `audio/` in the game repo are empty** except READMEs listing exactly what to put there.
-  The two Kenney atlases are **browser downloads from kenney.nl** — an agent cannot fetch them. They gate
-  the map and monster lessons (A15–A16), which gates milestone M0.
-- **trystero is not vendored yet.** Needs bundling: `bun build --target=browser` (see
-  `vendor/README.md`).
-- **No game yet** beyond the loop. Next: M0 = tile map + camera → input/movement → monster picker →
-  save. Lessons A13–A17.
-- Lessons A11–A29 unwritten.
+- **The game repo is mid-conversion to plain JS** — `src/*.ts`, `tests/rules.test.ts` and the
+  `tsc`/`bun test` CI gate are being removed, and `demos/09-hello/` + `demos/10-player/` created. Check
+  `git log` and `git status` in `kakkoi-online` before assuming anything about its state. **Nothing has
+  been pushed** — `main` deploys straight to the live world, so review first.
+- **A09 and A10 are published but now WRONG.** A09 creates a GitHub account and repo (moved to A18) and
+  installs Bun (gone); A10 is "put it on the internet" (moved to A18) and must become "create the
+  player". Both are live in EN/JA/PT, so both need rewriting and re-translating.
+- **`vendor/` and `audio/` in the game repo are empty** except READMEs listing what to put there. The
+  two Kenney atlases are **browser downloads from kenney.nl** — an agent cannot fetch them. They gate
+  A14 (the monster) and A16 (the map).
+- **trystero is not vendored yet**, and the old instruction to bundle it with `bun build` no longer
+  applies — with no build step it needs a prebuilt browser ESM copy vendored directly. Gates A12.
+- **Steps A11–A23 unwritten**, and none of their demos exist.
 
 ## Environment gotchas (these cost real time)
 
 | Gotcha | Detail |
 |---|---|
-| **Bun not installed** on the original machine | `curl -fsSL https://bun.com/install \| bash`. Without it you cannot run `bun ./index.html` or `bun test` — the scaffold has only ever been typechecked locally and built by CI |
+| **Bun and npm are not installed, and are no longer needed** | The project is plain JS with no build step. To serve locally: `python3 -m http.server 8000`. Do not reintroduce a toolchain |
 | **Python 3.9.6 vs `requirements.txt`** | The site build wants `markdown>=3.10`, which needs Python ≥3.10. Local builds were done with `markdown==3.9` in `.venv` (renders fine, not what is pinned). Fix properly: `brew install python@3.12`, recreate `.venv`, `pip install -r requirements.txt` |
 | **`make build` needs the venv** | `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt`. The Makefile prefers `.venv/bin/python` if present |
 | **`master` has a ruleset requiring PRs** | "Protect Master"; bypass list = repository admin only. The owner's pushes report "Bypassed rule violations" and succeed. **`github-actions[bot]` cannot push to master** |
@@ -105,6 +127,11 @@ The workflow now **fails loudly** if any lesson is missing a `.ja.md`/`.pt.md` s
 All settled, with reasons in the decision log. Do not silently reverse them:
 
 - **No Phaser.** Hand-written canvas. Appendix X7 ports to Phaser *afterwards* as a lesson.
+- **No TypeScript and no build step.** Reversal, 2026-08-16. Do not "improve" this back.
+- **Demos are standalone, not one growing codebase.** The whole point is that a student whose game
+  breaks is not stuck for the rest of the track.
+- **No invented bugs.** The "write it naively, feel it break, fix it" shape is only allowed when the
+  break really happened to us and is in `FAILURES.md`. One was caught being fabricated already.
 - **No procedural art or audio.** A fixed set of ~6 Kenney CC0 monsters, CC0 audio files, no synthesis.
 - **Chat is preset phrases only.** No free text at all — the readers are children and there is no
   moderation possible. Abuse is designed out, not policed.
