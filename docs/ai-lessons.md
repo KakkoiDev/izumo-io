@@ -29,7 +29,9 @@ One real project, start to finish: a game with no server, that you can send to a
 - [A14: Your Monster](lessons/a14.md) - The square becomes a monster, and its legs move when it walks.
 - [A15: Walls](lessons/a15.md) - Walk into a rock and stop — and slide along it instead of sticking.
 - [A16: The Map](lessons/a16.md) - A world far bigger than the screen, that slides past you as you walk.
+- [A17: Sound](lessons/a17.md) - A footstep every time you walk, music when you ask for it, and a button that makes it all stop.
 - [A18: Put It Online](lessons/a18.md) - Give your game a real address on the internet, and get a proper undo button while you are at it.
+- [A19: Challenge Someone](lessons/a19.md) - Walk up to another player, press one key, and a fight screen opens on both computers at the same moment.
 - [A20: Three Moves](lessons/a20.md) - Pick fire, water or earth, and see on the screen who won the round and why.
 - [A21: Someone to Fight](lessons/a21.md) - A computer opponent, so there is always someone to fight even when nobody else is online.
 - [A22: No Peeking](lessons/a22.md) - Both players lock in their move before either one is shown, and a cheat who swaps their move gets caught on screen.

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ja" data-page="a19.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Challenge Someone - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../ai-lessons.html">AIレッスン</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">AIレッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="a18.html">前へ</a>
+          <a href="a20.html">次へ</a>
+        </div>
+      </nav>
+      <h1 id="a19-challenge-someone"><a class="heading-anchor" href="#a19-challenge-someone">A19: Challenge Someone</a></h1>
+<p class="lesson-intro">You stand next to another player and press F. On their screen, a question appears. They press Y, and both of you are looking at a fight screen. Nothing happens inside it yet — opening it together is today's whole job.</p>
+<p><strong>Needs:</strong> <a href="a12.html">A12</a>. <strong>Gives you:</strong> a challenge one player can send, another can accept or refuse, and a screen that changes for both of them at once.</p>
+<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+<div class="mermaid">
+flowchart LR
+    subgraph loop["Round and round, 60 times a second"]
+        direction LR
+        N["Notice<br/>keys, touches"] --> D["Decide<br/>where everything is"] --> R["Draw<br/>the screen"]
+    end
+    R -. "and again" .-> N
+
+    S["Remember<br/>your game"] --> D
+    O["Other people"] --> D
+    F["The fight"] --> D
+    W["The world<br/>walls, map"] --> R
+    A["Sound"] --> R
+
+    classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    class O,F now
+
+</div>
+<p>Today you build the door between "other people" and "the fight". The fight itself is <a href="a20.html">A20</a>.</p>
+<h2 id="the-one-idea-in-this-step"><a class="heading-anchor" href="#the-one-idea-in-this-step">The one idea in this step</a></h2>
+<p>Your game is in exactly <strong>one</strong> state at a time. Not two. Never two.</p>
+<div class="mermaid">
+stateDiagram-v2
+    [*] --> walking
+    walking --> waiting: you press F
+    walking --> asked: someone challenges you
+    waiting --> fighting: they say yes
+    waiting --> walking: they say no, or they leave
+    asked --> fighting: you press Y
+    asked --> walking: you press N, or they leave
+
+</div>
+<p>Four states, and every arrow is one thing that can happen. Read it out loud: <em>from walking, pressing F takes you to waiting.</em> That is the whole feature.</p>
+<p><strong>A bug is very often just being in two states at once.</strong> You are walking <em>and</em> waiting for an answer. You are being asked <em>and</em> already fighting. When you write it as one variable that holds one word, that cannot happen, because a variable holds one thing.</p>
+<p>In the code it is exactly this:</p>
+<pre><code>let state = 'walking';   // walking | waiting | asked | fighting
+let them = null;         // who this conversation is with
+
+function go(next, id) { state = next; them = id; }
+</code></pre>
+<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
+<p>"Challenge somebody" is three things:</p>
+<ol>
+<li><strong>Ask</strong> — send a challenge to the nearest player</li>
+<li><strong>Agree</strong> — answer one, and decide what every awkward case means</li>
+<li><strong>Change screen</strong> — draw a different picture depending on the state</li>
+</ol>
+<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Nothing happening on their screen means ask. Something happening but the two of you disagreeing about what state you are in means agree. Both states right but the picture wrong means change screen. Three blocks, three separate questions — and the state variable is the thing you read to answer them.</p>
+<h2 id="block-1-ask"><a class="heading-anchor" href="#block-1-ask">Block 1: Ask</a></h2>
+<pre><code>addEventListener('keydown', (e) =&gt; {
+  held.add(e.key);
+  const k = e.key.toLowerCase();
+  if (k === 'f' &amp;&amp; state === 'walking') {
+    const id = nearest();
+    if (id) { sendAsk({}, id); go('waiting', id); }
+  }
+  if (k === 'y' &amp;&amp; state === 'asked') { sendReply({ yes: true }, them); go('fighting', them); }
+  if (k === 'n' &amp;&amp; state === 'asked') { sendReply({ yes: false }, them); go('walking', null); }
+});
+</code></pre>
+<p>Look at every line: <strong>each key names the state it works in.</strong> F only does something while walking. Y and N only do something while being asked. A key pressed in the wrong state does nothing at all, and that is not an accident you have to remember — it is written down.</p>
+<p><code>sendAsk</code> and <code>sendReply</code> come from the same room as <a href="a12.html">A12</a>'s <code>sendMove</code>:</p>
+<pre><code>const [sendAsk, onAsk] = room.makeAction('ask');
+const [sendReply, onReply] = room.makeAction('reply');
+</code></pre>
+<p>Passing a second argument, <code>sendAsk({}, id)</code>, sends it to <strong>that one player</strong> instead of everybody. Everything else about the room is unchanged from A12.</p>
+<pre><code>function nearest() {
+  let best = null, bestDistance = REACH;
+  for (const id in others) {
+    const d = Math.hypot(others[id].x - player.x, others[id].y - player.y);
+    if (d &lt; bestDistance) { bestDistance = d; best = id; }
+  }
+  return best;
+}
+</code></pre>
+<p><code>REACH</code> is 90 pixels — under three squares' width. You have to walk over to somebody to challenge them, which is the point.</p>
+<h2 id="block-2-agree"><a class="heading-anchor" href="#block-2-agree">Block 2: Agree</a></h2>
+<p>Here is the whole block. Every awkward case is one line, and every line is a decision somebody made on purpose.</p>
+<pre><code>onAsk((_, id) =&gt; {
+  if (state === 'waiting' &amp;&amp; id === them) return go('fighting', id); // asked at once
+  if (state !== 'walking') return sendReply({ yes: false }, id);     // busy: no
+  go('asked', id);
+});
+
+onReply((answer, id) =&gt; {
+  if (state !== 'waiting' || id !== them) return;                    // not for me
+  if (answer.yes) go('fighting', id); else go('walking', null);
+});
+</code></pre>
+<p><strong>You both press F at the same moment.</strong> Each of you sent a challenge, and each challenge arrives at somebody who is already waiting for an answer. We treat that as agreement: you both said yes to the same fight, so both of you go straight to fighting. It is one line, and it is fair to both players. The alternative — deciding one of you asked "first" — needs a rule about whose clock to believe, and clocks on two computers do not agree.</p>
+<p><strong>Somebody challenges you while you are busy.</strong> Any state that is not walking means you are mid-conversation or already fighting. Send back a no, immediately and automatically. They get a clear answer instead of waiting for nothing.</p>
+<p><strong>A reply arrives that you were not waiting for.</strong> Ignore it. This is the <code>state !== 'waiting' || id !== them</code> line, and it costs nothing to have. Late messages happen.</p>
+<p><strong>The other player closes their tab while you wait.</strong> That one is handled in the room code, in a single line:</p>
+<pre><code>room.onPeerLeave((id) =&gt; { delete others[id]; if (id === them) go('walking', null); });
+</code></pre>
+<p>If the person who disappeared was the person you were talking to, stop talking and walk again. We tested this by closing the challenger's tab, and the other player sat in "being asked" for about seven seconds — the time the connection takes to notice a silence — and then went back to walking on their own. Not instant, but never stuck.</p>
+<h2 id="block-3-change-screen"><a class="heading-anchor" href="#block-3-change-screen">Block 3: Change screen</a></h2>
+<pre><code>function update(dt) {
+  if (state !== 'walking') return;
+  ...
+}
+</code></pre>
+<p>One line at the top of the movement code, and your square stops moving whenever you are not walking. You cannot wander off mid-question. That is the state machine doing work for you.</p>
+<pre><code>function draw() {
+  ctx.fillStyle = state === 'fighting' ? '#3a1420' : '#1b1b22';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  if (state === 'fighting') {
+    ctx.fillText('FIGHT!   you  vs  ' + short(them), canvas.width / 2, canvas.height / 2);
+    return;
+  }
+
+  if (state === 'waiting') ctx.fillText('Waiting for ' + short(them) + ' to answer…', ...);
+  if (state === 'asked') ctx.fillText(short(them) + ' challenges you.   Y = yes,   N = no', ...);
+  ... the squares, exactly as in A12 ...
+}
+</code></pre>
+<p>The <code>return</code> in the middle matters: when you are fighting, drawing stops there and the walking world is never painted. One state, one picture. In <a href="a20.html">A20</a> the three lines after that <code>return</code> become the whole fight.</p>
+<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
+<p>One variable holding one word, because two players have to agree about something that is happening in two places at once. If "am I fighting?" and "am I waiting?" were separate true-or-false values, there would be four combinations, two of them nonsense, and no way to stop your code reaching them. With one word there is nothing to keep in step: reading <code>state</code> on both computers is the whole check, and it is the check we ran.</p>
+<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<table>
+<thead>
+<tr>
+<th>Instead of this</th>
+<th>What it would cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Separate flags: <code>isWaiting</code>, <code>isFighting</code>, <code>isAsked</code></td>
+<td>Eight combinations, most of them impossible, and every new feature has to remember to clear all of them. This is where "two states at once" bugs come from</td>
+</tr>
+<tr>
+<td>Start the fight immediately, with no question</td>
+<td>Half the code. Also anyone can drag you into a fight while you are doing something else, which is the kind of thing that ends a game with friends</td>
+</tr>
+<tr>
+<td>Deciding who asked "first" by comparing times</td>
+<td>Two computers do not agree about the time, and the gap is often smaller than the disagreement. You would have written a rule that gives a different answer depending on which computer you ask</td>
+</tr>
+<tr>
+<td>Waiting for the other player to answer forever</td>
+<td>Feels fine until somebody closes their laptop, and then you are stuck on a screen with no way out and no explanation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<pre><code>I have a plain-JavaScript canvas game with trystero multiplayer: a room, a
+'move' action, an others object of peer positions, and update(dt)/draw().
+Add challenging in three blocks with a comment above each: ASK (press F to
+challenge the nearest peer within 90px), AGREE (handle the answer), SCREEN
+(draw a different screen per state). Use ONE variable `state` holding
+'walking' | 'waiting' | 'asked' | 'fighting', and one `them` for who you are
+talking to. Handle: both players challenging at once, a refusal, and the other
+player leaving. Do not change the movement code except to stop it when state
+is not 'walking'. No build step, no npm.
+</code></pre>
+<p><strong>Check the output for:</strong> did it use one <code>state</code> variable, or did it quietly give you <code>isWaiting</code> and <code>isFighting</code> as separate flags? Does anything clear <code>them</code> when the conversation ends, or does a stale name hang around and show up in the next challenge? And is there a line for <code>onPeerLeave</code> — the case nobody remembers until a friend closes a laptop mid-question?</p>
+<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><img alt="Two squares close together on a dark canvas, with an orange line at the top reading &quot;boVn challenges you. Y = yes, N = no&quot;" src="../static/img/game/a19.png"></p>
+<p>Open the page in two tabs, side by side, and wait for each to show the other's square:</p>
+<ol>
+<li>In tab A, type <code>getState()</code> in the console. You get <code>{state: 'walking', them: '', me: 'boVn', ...}</code>. Do the same in tab B.</li>
+<li>Walk tab A's square up next to tab B's square, then press F. Tab A now says <em>Waiting for … to answer</em>, and tab B shows the orange question at the top.</li>
+<li>Read the state in both consoles. We got <code>{state: 'waiting', them: 'QgQL'}</code> in A and <code>{state: 'asked', them: 'boVn'}</code> in B — each one naming the other.</li>
+<li>Press Y in tab B. Both screens turn dark red and say <strong>FIGHT!</strong>. <code>getState()</code> says <code>fighting</code> in both, each with the other's name.</li>
+<li>Reload both, do it again, and press N instead. Both go straight back to <code>walking</code> with <code>them</code> empty.</li>
+<li>Do it once more, and this time close tab A while tab B still has the question on screen. About seven seconds later tab B returns to walking by itself. You may see a red <code>RTCErrorEvent … User-Initiated Abort, reason=Close called</code> in the console — that is the connection reporting that the other side closed it, and the game handled it correctly. An error in the console is not the same as a broken game.</li>
+</ol>
+<p>Try pressing F while a question is on your screen. Nothing happens — F only works while walking.</p>
+<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
+<p>Take your game from <a href="a18.html">A18</a> and add the three blocks. The only edit to code you already had is the single <code>if (state !== 'walking') return;</code> at the top of <code>update</code>. Your movement, your walls and your other players are untouched — you are adding a switch above them, not rewriting them.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>One variable holding one word out of a short list is a <strong>state machine</strong>, and now you know that phrase too</li>
+<li>Many bugs are just being in two states at once; one variable makes that impossible</li>
+<li>Every key press should say which state it works in, so nothing surprising happens in the wrong one</li>
+<li>The awkward cases — both at once, a refusal, somebody leaving — are the feature, not extras</li>
+<li>Never leave a player waiting forever on something that may never arrive</li>
+</ul>
+</div>
+
+<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
+<p>Right now a challenge waits until it is answered. Add a time limit: if nobody answers within ten seconds, the challenger goes back to walking and the person who was asked has the question disappear. Draw the seconds counting down so both players can see it. Watch out for one thing — when the answer arrives just as the clock runs out, both sides must still end up in the same state.</p>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">AIレッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="a18.html">前へ</a>
+          <a href="a20.html">次へ</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+
