@@ -116,7 +116,10 @@ for (let i = 0; i &lt; PHRASES.length; i++) {
 <p><code>until</code> is the time this phrase should stop being drawn. <code>SHOW_FOR</code> is 3000 milliseconds, three seconds — long enough to read, short enough that the screen does not fill with old chatter.</p>
 <h2 id="block-3-show"><a class="heading-anchor" href="#block-3-show">Block 3: Show</a></h2>
 <pre><code>onSay((i, id) =&gt; {
-  if (!Number.isInteger(i) || i &lt; 0 || i &gt;= PHRASES.length) return;
+  if (!Number.isInteger(i) || i &lt; 0 || i &gt;= PHRASES.length) {
+    window.dropped = (window.dropped || 0) + 1;   // so you can check it worked
+    return;
+  }
   others[id] = { ...others[id], said: PHRASES[i], until: performance.now() + SHOW_FOR };
 });
 </code></pre>
@@ -175,8 +178,8 @@ peer's square for 3 seconds). No text input anywhere. Plain JavaScript.
 <ol>
 <li>Tap <strong>Let's fight!</strong> in the first tab. The phrase appears above your green square, and above the blue square in the other tab. After three seconds it fades from both.</li>
 <li>Tap phrases in both tabs. Each phrase appears above the square that sent it, not somewhere in a corner.</li>
-<li>Now break it on purpose. In the first tab's console, send rubbish by hand: <code>sendSay(99)</code>, then <code>sendSay("Hi!")</code>, then <code>sendSay(1.5)</code>.</li>
-<li>Look at the second tab. Nothing was drawn. Nothing changed. Type <code>dropped</code> in its console and you get <code>3</code> — the three bad messages arrived and all three were thrown away. Then move the square and tap a phrase: everything still works.</li>
+<li>Now break it on purpose. In the first tab's console, send rubbish by hand: <code>sendSay(99)</code>, <code>sendSay("Hi!")</code>, <code>sendSay(1.5)</code>, <code>sendSay(-1)</code>. One is past the end of the list, one is words instead of a number, one is not a whole number, one is below the start.</li>
+<li>Look at the second tab. Nothing was drawn. Nothing changed — the other player's entry still says exactly what it said before. Type <code>dropped</code> in its console and you get <code>4</code>: all four arrived and all four were thrown away. Then move your square and tap a phrase. Everything still works, because refusing a message is not the same as crashing.</li>
 </ol>
 <p>Step 4 is the real test of this step. A check you have never seen refuse anything is a check you have not tested.</p>
 <h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>

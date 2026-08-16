@@ -31,10 +31,51 @@ Deliberately **zero** runtime npm dependencies beyond trystero.
 
 ## 2. Art assets
 
-| Pack | Licence | Link | Use |
-|---|---|---|---|
-| **Kenney — Tiny Dungeon** | CC0 | https://kenney.nl/assets/tiny-dungeon | Tiles, terrain, objects. 16×16, drawn at 2× |
-| **Kenney — Tiny Creatures** | CC0 | https://opengameart.org/content/tiny-creatures | The ~6 playable monsters + NPCs. 180 sprites, 100+ monsters. **An expansion of Tiny Dungeon**, so terrain and creatures match by construction |
+All four atlases below are **vendored and verified** (2026-08-16). Sizes and grids were measured by
+loading each file in a real browser, not read off a readme.
+
+| Vendored as | Pack | Author | Licence | Real size / grid |
+|---|---|---|---|---|
+| `vendor/kenney/tiny-dungeon.png` | Kenney — Tiny Dungeon | Kenney | CC0 | 192×176 · 16×16 · 12 cols × 11 rows = 132 |
+| `vendor/kenney/tiny-town.png` | Kenney — Tiny Town | Kenney | CC0 | 192×176 · 16×16 · 12 cols × 11 rows = 132 |
+| `vendor/kenney/pixel-platformer-characters.png` | Kenney — Pixel Platformer 1.2 | Kenney | CC0 | 216×72 · 24×24 · 9 cols × 3 rows = 27 |
+| `vendor/opengameart/tiny-creatures.png` | Tiny Creatures 1.0 | Clint Bellanger | CC0 | 160×288 · 16×16 · 10 cols × 18 rows = 180 |
+
+**Exact download URLs** (Kenney's zip URLs carry a content hash and change on re-upload; they are not
+guessable — read them off the asset page, where they sit behind "Continue without donating"):
+
+| File | Zip | Path inside |
+|---|---|---|
+| tiny-dungeon | https://kenney.nl/media/pages/assets/tiny-dungeon/f8422efb44-1674742415/kenney_tiny-dungeon.zip | `Tilemap/tilemap_packed.png` |
+| tiny-town | https://kenney.nl/media/pages/assets/tiny-town/a415fbeb49-1735736916/kenney_tiny-town.zip | `Tilemap/tilemap_packed.png` |
+| pixel-platformer | https://kenney.nl/media/pages/assets/pixel-platformer/33bb4921eb-1696667883/kenney_pixel-platformer.zip | `Tilemap/tilemap-characters_packed.png` |
+| tiny-creatures | https://opengameart.org/sites/default/files/tiny-creatures.zip | `tiny-creatures/Tilemap/tilemap_packed.png` |
+
+Asset pages, which are where each licence is **stated**:
+https://kenney.nl/assets/tiny-dungeon · https://kenney.nl/assets/tiny-town ·
+https://kenney.nl/assets/pixel-platformer (each has a **License** row reading "Creative Commons CC0",
+linking `https://creativecommons.org/publicdomain/zero/1.0/`) ·
+https://opengameart.org/content/tiny-creatures (page reads `License(s): CC0`). Each pack's own
+`License.txt` says the same and is committed next to the image as `*-LICENSE.txt`.
+
+**Two corrections on the record:**
+
+1. **There is no Kenney pack called "Tiny Creatures."** Kenney's Tiny series is farm, town, battle,
+   ski, dungeon. *Tiny Creatures* is a real, CC0, 180-sprite set — but it is by **Clint Bellanger**,
+   published on OpenGameArt, and built as a deliberate expansion of Kenney's Tiny Dungeon and Tiny
+   Town *"made with Kenney's permission"* (his `License.txt`). So terrain and creatures still match
+   by construction; the attribution was wrong, not the plan.
+2. **Tiny Dungeon has no walk cycle.** Its 20 characters (cells 84–88, 96–100, 108–112, 120–124) are
+   one pose each, and Tiny Creatures' 180 monsters are also one pose each. A14 needs at least two
+   frames, so **Kenney Pixel Platformer's character sheet** was added: 24×24 cells laid out as
+   adjacent pairs (0/1, 2/3, 4/5, 6/7 = four characters, legs-together and legs-apart). It is a
+   different art style from the 16 px dungeon set — a known compromise, flagged here so A14 can say
+   so out loud.
+
+For A16, in `tiny-dungeon.png`: cell **48** is a plain sandy floor, cell **40** is a solid stone wall.
+
+Always take the **`*_packed.png`** variant. Kenney's packs also ship a plain `tilemap.png` with a 1 px
+gap between tiles, which breaks the `x = (n % cols) * cell` arithmetic the lessons teach.
 
 **CC0** means public domain: commercial use, no attribution required. We credit anyway — it's free and it's
 right. Kenney's full CC0 catalogue: https://opengameart.org/content/all-cc0-uploader-kenney
@@ -47,20 +88,52 @@ into every student's fork.
 
 ## 3. Audio assets
 
-| Pack | Licence | Link | Use |
-|---|---|---|---|
-| **Kenney — RPG Audio** | CC0 | https://kenney.nl/assets/rpg-audio | Hits, blocks, footsteps (~50 sounds) |
-| **Kenney — UI Audio** | CC0 | https://kenney.nl/assets/ui-audio | Clicks, confirms, errors (~50 sounds) |
-| **Kenney — Music Jingles** | CC0 | https://kenney.nl/assets/music-jingles | Short stingers: won / levelled (~85) |
-| **Juhani Junkala — 5 Chiptunes (Action)** | CC0 | https://opengameart.org/content/5-chiptunes-action | Background loops. **All five loop seamlessly** — the property that matters |
+### Shipped — vendored and verified 2026-08-16
 
-Alternate CC0 music if those don't fit: https://opengameart.org/content/4-chiptunes-adventure ·
-https://opengameart.org/content/cc0-chiptune-music · Kenney's audio index:
-https://kenney.nl/assets/category:Audio
+Seven files, ~700 kB total, all CC0, all confirmed to load **and actually play** in a real browser.
+
+| Vendored as | Length | Original file | Pack |
+|---|---|---|---|
+| `audio/step.wav` | 0.049 s | `Movement/Footsteps/sfx_movement_footsteps1a.wav` | 512 Sound Effects (8-bit style) |
+| `audio/strike.wav` | 0.111 s | `Weapons/Melee/sfx_wpn_sword1.wav` | same |
+| `audio/block.wav` | 0.046 s | `General Sounds/Impacts/sfx_sounds_impact3.wav` | same |
+| `audio/charge.wav` | 0.188 s | `General Sounds/Positive Sounds/sfx_sounds_powerup15.wav` | same |
+| `audio/ping.wav` | 0.039 s | `General Sounds/Menu Sounds/sfx_menu_move1.wav` | same |
+| `audio/win.wav` | 0.280 s | `General Sounds/Fanfares/sfx_sounds_fanfare2.wav` | same |
+| `audio/music-loop.mp3` | 46.8 s | `happy_adveture.mp3` | Happy Adventure (Loop) |
+
+| Pack | Author | Licence | Page (where the licence is stated) | Direct file |
+|---|---|---|---|---|
+| **512 Sound Effects (8-bit style)** | SubspaceAudio / Juhani Junkala | CC0 | https://opengameart.org/content/512-sound-effects-8-bit-style (`License(s): CC0`) | `https://opengameart.org/sites/default/files/The%20Essential%20Retro%20Video%20Game%20Sound%20Effects%20Collection%20%5B512%20sounds%5D.zip` (20.6 MB, 512 WAVs, 44.1 kHz/16-bit/mono) |
+| **Happy Adventure (Loop)** | TinyWorlds | CC0 | https://opengameart.org/content/happy-adventure-loop (`License(s): CC0`) | `https://opengameart.org/sites/default/files/happy_adveture.mp3` |
+
+The 512-sounds pack's own `INFO.txt` also states CC0; it is committed as `audio/sfx-512-LICENSE.txt`.
+
+### Not used, but confirmed downloadable
+
+Kenney's audio packs are CC0 and their zips **do** fetch with plain `curl` once you read the hashed URL
+off the asset page:
+
+| Pack | Licence | Page | Zip |
+|---|---|---|---|
+| **Kenney — RPG Audio** | CC0 | https://kenney.nl/assets/rpg-audio | `https://kenney.nl/media/pages/assets/rpg-audio/8e99002d76-1677590336/kenney_rpg-audio.zip` |
+| **Kenney — UI Audio** | CC0 | https://kenney.nl/assets/ui-audio | `https://kenney.nl/media/pages/assets/ui-audio/490d233f68-1677590494/kenney_ui-audio.zip` |
+| **Kenney — Music Jingles** | CC0 | https://kenney.nl/assets/music-jingles | `https://kenney.nl/media/pages/assets/music-jingles/f37e530b9e-1677590399/kenney_music-jingles.zip` |
+| **Juhani Junkala — 5 Chiptunes (Action)** | CC0 | https://opengameart.org/content/5-chiptunes-action | `https://opengameart.org/sites/default/files/5%20Action%20Chiptunes%20By%20Juhani%20Junkala.zip` (50 MB, **WAV only**) |
+| **Juhani Junkala — 4 Chiptunes (Adventure)** | CC0 | https://opengameart.org/content/4-chiptunes-adventure | `https://opengameart.org/sites/default/files/Juhani%20Junkala%20%5BChiptune%20Adventures%5D%20OGG.zip` (8 MB, OGG) |
+
+They were skipped on **format**, not licence: all three Kenney packs ship `.ogg` only, and OGG Vorbis
+is the one common audio format with patchy Safari support. There is no `ffmpeg`, `sox` or `oggenc` on
+the build machine, so an OGG cannot be converted locally — whatever a source ships is what we get.
+Choosing WAV (tiny, because these effects are all under 0.3 s) plus one MP3 gives universal playback
+with no second copy of every file. The 5-Chiptunes pack is WAV-only and 50 MB, so it cannot be the
+music loop either.
 
 **Correction on the record:** Kenney has **no background-music pack** — only the short jingles above. An
-earlier draft of the design doc assumed a "Music Loops" pack existed. It does not; the category page is the
-authority.
+earlier draft of the design doc assumed a "Music Loops" pack existed. It does not; the category page
+(https://kenney.nl/assets/category:Audio) is the authority: casino-audio, digital-audio,
+impact-sounds, interface-sounds, music-jingles, rpg-audio, sci-fi-sounds, ui-audio, voiceover-pack,
+voiceover-pack-fighter. Loops come from OpenGameArt.
 
 **No audio library.** Plain `HTMLAudioElement`. On the shelf if mobile playback quirks appear:
 **howler.js** (MIT, ~9 kB gzip) https://howlerjs.com

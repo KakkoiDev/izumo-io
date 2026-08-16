@@ -89,7 +89,10 @@ flowchart LR
 <p>The connecting is done by a library called <strong>trystero</strong>. A <strong>library</strong> is code somebody else wrote that you use instead of writing your own. This one handles the noticeboard and the direct connection.</p>
 <pre><code>import { joinRoom, selfId } from '../../vendor/trystero/nostr.js';
 
-const room = joinRoom({ appId: 'kakkoi-online' }, 'demo');
+const RELAYS = ['wss://relay.snort.social', 'wss://nostr.sathoarder.com',
+                'wss://nos.lol', 'wss://nostr.vulpem.com'];
+
+const room = joinRoom({ appId: 'kakkoi-online', relayUrls: RELAYS }, 'demo');
 const [sendMove, onMove] = room.makeAction('move');
 
 const others = {};
@@ -99,6 +102,10 @@ room.onPeerLeave((id) =&gt; { delete others[id]; });
 
 onMove((where, id) =&gt; { others[id] = { x: where.x, y: where.y } });
 </code></pre>
+<p><code>RELAYS</code> is the list of noticeboards. There are four because any one of them can be busy, can refuse your note, or can simply be switched off — and if that happens the other three still do the job.</p>
+<blockquote>
+<p><strong>You may see red errors about relays, and your game may work anyway.</strong> These noticeboards are run by strangers, for free, and they come and go. While writing this step we picked four that worked, and by the time we checked again one of them had stopped answering — so the console showed <code>WebSocket connection to ... failed</code> every few seconds while the game ran perfectly. If you see that, swap the dead one for another and carry on. <strong>An error in the console is not the same as a broken game</strong>, and telling the difference is a real skill. It also explains why there are four and not one.</p>
+</blockquote>
 <p><code>'demo'</code> is the room name. Everybody using the same room name meets each other.</p>
 <p><code>selfId</code> is a random name for your tab, made fresh every time the page loads. <strong>The other players never learn who you are.</strong> They get twenty random letters.</p>
 <p><code>others</code> is the only thing this block keeps: a list of where everybody else is, one entry per player. <code>onPeerLeave</code> deletes them, so when somebody closes their tab their square goes away instead of standing there forever.</p>
@@ -172,8 +179,9 @@ change update(). Plain JavaScript, no build step, no npm.
 <ol>
 <li>A blue square appears in each tab, with four letters above it. That is the other tab.</li>
 <li>Drive the green square in one tab with the arrow keys. The blue square in the other tab moves the same way.</li>
-<li>Open the console in the second tab and type <code>others</code>. You get an object like <code>{4mcIop8Hqh5xsEKzbqPZ: {x: 360.128, y: 235.872}}</code> — and those two numbers are the same numbers as <code>player</code> in the first tab. That is the proof. The picture could be a coincidence; matching numbers to three decimal places cannot be.</li>
+<li>Open the console in the second tab and type <code>others</code>. You get an object like <code>{6phtXPzeOsFqgp95188x: {x: 411.696, y: 288}}</code> — and those two numbers are the same numbers as <code>player</code> in the first tab. That is the proof. The picture could be a coincidence; matching numbers to three decimal places cannot be.</li>
 <li>Close the first tab. Within a few seconds the blue square in the second tab disappears and <code>others</code> becomes <code>{}</code>.</li>
+<li>Open a third tab. A second blue square appears — the picture above was taken with three players in the room.</li>
 </ol>
 <p>If step 1 never happens, read the note about networks above before you change any code.</p>
 <h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
@@ -190,7 +198,7 @@ change update(). Plain JavaScript, no build step, no npm.
 </div>
 
 <h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Right now a player who freezes — laptop lid closed, connection dropped — leaves a square standing still on your screen until the room notices they are gone. Store the time each message arrived, and fade or hide any square you have not heard from for three seconds. <em>Grown-up programmers call a message like that a heartbeat, so now you know that word too.</em></p>
+<p>Right now a player who freezes — laptop lid closed, connection dropped — leaves a square standing still on your screen until the room notices they are gone. This happened to us while building the step: a tab that was killed rather than closed left a blue square parked at <code>{x: 100, y: 100}</code> for minutes, because "goodbye" was never sent. Store the time each message arrived, and fade or hide any square you have not heard from for three seconds. <em>Grown-up programmers call a message like that a heartbeat, so now you know that word too.</em></p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">
