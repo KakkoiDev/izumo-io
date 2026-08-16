@@ -28,7 +28,7 @@ demonstrating the cut more clearly, it demonstrates the cut.
 **Delivery — DECIDED: two levels, parts and steps.**
 
 - A **part** is a chapter of the game — "create the player", "other people". There are seven.
-- A **step** is one lesson: one visible result, one sitting. There are fifteen.
+- A **step** is one lesson: one visible result, one sitting. There are fifteen — fourteen core, plus A22 which is optional.
 
 A part takes as long as it takes. A quick group does a whole part in an evening; a slower one spends
 three weeks on the same part. Neither is behind — they are at a different step. **Nothing in the
@@ -425,7 +425,7 @@ than planned. The parts below are for grouping and pacing here in the doc.
 | **A19** | Challenge someone | Walk up to another player, press a button, and a fight screen opens for both of you | **ask** · **agree** · **change what screen you are on** | A12 |
 | **A20** | Three moves | Pick rock, paper or scissors; see who won and why | **choose** · **compare** the two choices · **show** the result | A19 |
 | **A21** | Someone to fight | A computer opponent, when nobody else is online | **give it a way to choose** · **make the fight code not care who it is fighting** | A20 |
-| **A22** | No peeking | Neither player can wait to see the other's move first | **hide** your move · **both show at once** · **check** nobody swapped theirs | A20 |
+| **A22** | No peeking *(optional)* | Neither player can wait to see the other's move first | **hide** your move · **both show at once** · **check** nobody swapped theirs | A20 |
 | **A23** | What we didn't build | — | — | all |
 
 Fifteen steps, every one of them ending in something you can look at.
@@ -457,9 +457,20 @@ the course. They can do the monster, walls, the map and sound, publish, and come
 interesting once there is something to fight about, and it is the lesson where the fight code stops
 caring whether it is facing a human — which is the payoff of A19's cut and cannot be shown earlier.
 
-**A22 could be cut.** If the class is running out of energy, "no peeking" is the one step whose feature
-is invisible when it works. It is also the single most beautiful idea in the track, so it stays unless
-something forces the issue.
+**A22 is optional — DECIDED, 2026-08-17.** The shipped game does not do commit–reveal: it sends the
+move straight across, and a player who edited the code could answer whatever arrived first. That was
+Cyril's call after playing it (*"I just want an easy minigame"*), and it is defensible — the audience
+is a handful of friends, and cheating the game takes more effort than winning it.
+
+So the track is **14 core steps plus one optional**. A22 keeps its place and its id, carries
+`status: "optional"` in its frontmatter (which renders an "Optional" badge on the lessons page), and
+opens by saying plainly that the game does not do this and nothing later breaks if you skip it.
+
+Keeping it rather than deleting it is deliberate. The problem is real, the solution is genuinely
+beautiful, and the lesson now also demonstrates something the rest of the track only asserts: that
+**deciding not to build something, for a reason you can say out loud, is a real engineering answer.**
+Its "Put it in the game" section says what the change would cost — two messages a round instead of
+one, and a new way for a round to hang — which is the honest shape of that judgement.
 
 ### Scrapped from the earlier list, and why
 

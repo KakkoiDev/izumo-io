@@ -16,6 +16,7 @@
           <span class="lesson-id">{{ lesson.id }}</span>
           <h3>{{ lesson.title }}</h3>
           <p>{{ lesson.desc }}</p>
+          {% if lesson.status == "optional" %}<span class="badge">{{ optional_step }}</span>{% endif %}
         </a>
         {% else %}
         <div class="lesson-card coming-soon">

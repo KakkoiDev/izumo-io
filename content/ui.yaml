@@ -71,6 +71,11 @@ coming_soon:
   ja: "近日公開"
   pt: "Em Breve"
 
+optional_step:
+  en: "Optional"
+  ja: "任意"
+  pt: "Opcional"
+
 tech_title:
   en: "Technical Lessons"
   ja: "技術レッスン"

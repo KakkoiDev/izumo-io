@@ -49,7 +49,12 @@
       </nav>
       <h1 id="a22-no-peeking"><a class="heading-anchor" href="#a22-no-peeking">A22: No Peeking</a></h1>
 <p class="lesson-intro">Two players, no referee. So how do you stop someone waiting to see your move before choosing theirs? You both write it down, fold the note, and only then unfold.</p>
-<p><strong>Needs:</strong> <a href="a20.html">A20</a>. <strong>Gives you:</strong> a round nobody can win by peeking — and a "try to cheat" button that gets caught.</p>
+<blockquote>
+<p><strong>This step is optional, and the game we built does not do it.</strong></p>
+<p>Our game sends your move straight across. That means whoever's move arrives first has, in a sense, shown their hand — and somebody who opened the code and edited it could answer it. We decided that was fine: it is a game for a few friends, and cheating it takes more effort than winning it.</p>
+<p>This step is here because <strong>the problem is real and the solution is beautiful</strong>, and because you will meet it again the moment you build anything where people have a reason to lie. Skip it and nothing later breaks. Come back to it when you are curious.</p>
+</blockquote>
+<p><strong>Needs:</strong> <a href="a20.html">A20</a>. <strong>Gives you:</strong> a round nobody can win by peeking, and an idea used by real voting systems and lotteries.</p>
 <h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
 <div class="mermaid">
 flowchart LR
@@ -179,7 +184,9 @@ a secure context.
 <li>Press the same move twice and look at the two fingerprints. They are different every time, because the secret is new every time. A cheat cannot even tell whether you played the same move twice.</li>
 </ol>
 <h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
+<p><strong>Only if you want it.</strong> Our game does not do this, so this is a change you are choosing to make rather than one the course needs.</p>
 <p>In the fight from <a href="a20.html">A20</a>, send <code>folded</code> instead of the move. Wait for theirs. Then send <code>{ move, secret }</code>, and run <code>check</code> on what comes back before you let <code>compare</code> decide anything. If the check says false, no winner — the round is thrown away and nobody scores.</p>
+<p>Be warned that it costs more than it looks. You now have two messages per round instead of one, and a new way for a round to get stuck: somebody folds and then never unfolds. That is why the "Your turn" below asks for a clock. <strong>Weighing that against a cheat nobody is likely to attempt is exactly the kind of judgement this whole course is about</strong> — and deciding not to build something, for a reason you can say out loud, is a real answer.</p>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>

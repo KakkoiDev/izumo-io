@@ -34,5 +34,5 @@ Um projeto real, do início ao fim: um jogo sem servidor, que você pode enviar 
 - [A19: Challenge Someone](lessons/a19.md) - Walk up to another player, press one key, and a fight screen opens on both computers at the same moment.
 - [A20: Three Moves](lessons/a20.md) - Pick scissors, rock or paper, and see on the screen who won the round and why.
 - [A21: Someone to Fight](lessons/a21.md) - A computer opponent, so there is always someone to fight even when nobody else is online.
-- [A22: No Peeking](lessons/a22.md) - Both players lock in their move before either one is shown, and a cheat who swaps their move gets caught on screen.
+- [A22: No Peeking](lessons/a22.md) - Optional: how two players lock in their moves before either is shown, so neither can win by waiting to see the other's.
 - [A23: What We Didn't Build](lessons/a23.md) - The things this game deliberately does not have, what each one would have cost, and why leaving them out was the design.
