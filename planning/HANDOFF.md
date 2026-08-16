@@ -70,30 +70,34 @@ lesson shows students a real mistake, and they cannot be reconstructed later.
 
 ## State: done
 
-- **Planning docs rewritten for the 2026-08-16 reversals** — lessons §1/§2.1/§3/§4/§6/§10/§13, the TRD
-  toolchain and repo layout, design-log rows 43–51.
-- **`content/ai-phases.yaml` now has 8 parts** (part 1 = the existing A01–A08; parts 2–8 = this track).
-- **`online.kakkoi.dev`** — HTTPS enforced, custom domain set **in the Pages API config** (not by the
-  `CNAME` file; see gotchas).
-- **Translation pipeline fixed** (it had been silently losing every translation since 2026-07-08).
-- Site plumbing for phases: `AI_PHASES` in `content_loader.py`, `ai_phases` in `build.py`, a phase loop
-  in `website/pages/ai-lessons.html`, and `phase:` frontmatter on the EN AI lesson files.
+- **All fifteen steps A09–A23 are written and live, English only.** Each carries `translate: false`;
+  drop that flag when a lesson has settled and the pipeline translates it.
+- **Eleven demos** in `kakkoi-online/demos/`, every one driven in a real browser with a canary-proven
+  console check before its screenshot was taken.
+- **Peer-to-peer works.** trystero 0.21.5 vendored as six plain ES modules, no bundler. Verified across
+  two tabs: a position of x=448 in one appeared as x=448 in the other.
+- **Art and audio sourced**, all CC0 with licence files vendored beside them: Kenney Tiny Dungeon and
+  Tiny Town atlases, Kenney Pixel Platformer characters (the only sheet we found with a real walk
+  cycle), Clint Bellanger's Tiny Creatures, six sound effects and one music loop.
+- Planning docs, TRD and decision log rewritten for the 2026-08-16 restructure.
+- `content/ai-phases.yaml` has two parts; every game step is `phase: 2`.
+- Translation pipeline: fixed, plus `source_sha` staleness detection and the `translate: false` draft
+  flag.
 
 ## State: not done
 
-- **The game repo is mid-conversion to plain JS** — `src/*.ts`, `tests/rules.test.ts` and the
-  `tsc`/`bun test` CI gate are being removed, and `demos/09-hello/` + `demos/10-player/` created. Check
-  `git log` and `git status` in `kakkoi-online` before assuming anything about its state. **Nothing has
-  been pushed** — `main` deploys straight to the live world, so review first.
-- **A09 and A10 are published but now WRONG.** A09 creates a GitHub account and repo (moved to A18) and
-  installs Bun (gone); A10 is "put it on the internet" (moved to A18) and must become "create the
-  player". Both are live in EN/JA/PT, so both need rewriting and re-translating.
-- **`vendor/` and `audio/` in the game repo are empty** except READMEs listing what to put there. The
-  two Kenney atlases are **browser downloads from kenney.nl** — an agent cannot fetch them. They gate
-  A14 (the monster) and A16 (the map).
-- **trystero is not vendored yet**, and the old instruction to bundle it with `bun build` no longer
-  applies — with no build step it needs a prebuilt browser ESM copy vendored directly. Gates A12.
-- **Steps A11–A23 unwritten**, and none of their demos exist.
+- **Nothing is translated.** Deliberate — Cyril is reviewing the English first.
+- **No lesson has been read by a student yet.** The whole set is a first pass awaiting his corrections.
+- **The game itself (`src/`) is still the old scaffold.** Every "Put it in the game" section describes
+  the fold-in, but the demos have not actually been merged into a single playable game. This is the
+  biggest outstanding piece of work.
+- **A16 has no collision** — you walk through walls. Joining A15's checking code to A16's map is left
+  as the student exercise, and the lesson says so.
+- **A14's character art does not match A16's world** (24px platformer vs 16px top-down). Named openly
+  in A14. No pack we found offers both a matching world and a character that walks.
+- **Lessons run long**: 1,300–1,800 words of prose against the 800–1,200 standard in `-lessons.md`
+  §3.5. Consistent across all fifteen, mostly in the alternatives tables and honesty paragraphs.
+- A18 and A23 have no screenshot (neither has a demo).
 
 ## Environment gotchas (these cost real time)
 
