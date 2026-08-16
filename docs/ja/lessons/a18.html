@@ -160,7 +160,7 @@ file and forget to commit before I push.
 <li>Change one thing, <code>git add .</code>, <code>git commit -m "..."</code>, <code>git push</code>. Wait a minute and refresh the live link. Your change is there.</li>
 </ol>
 <h2 id="what-went-wrong-when-we-did-this"><a class="heading-anchor" href="#what-went-wrong-when-we-did-this">What went wrong when we did this</a></h2>
-<p>Both of these are real, from publishing the version you can play at <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a>.</p>
+<p>Both of these are real, from publishing our own copy of this project at <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a>.</p>
 <p><strong>A file that looked like configuration.</strong> We had a file in the repository whose whole job was to set the site's address. It did nothing at all — that file only works for a different way of publishing than the one we were using. The address was empty the whole time, and the file sat there looking correct. <em>Lesson: when something should be live and is not, check each end separately. Are the files there? Is the host expecting this name? Do not stare at the middle.</em></p>
 <p><strong>A publishing robot that never ran.</strong> We later set up automatic publishing, and it was watching for changes on a branch called <code>master</code> while our code was on <code>main</code>. No error. No warning. Nothing happened, quietly. <em>Lesson: a robot that never runs looks exactly like a robot that works. Go and look at the run.</em></p>
 <h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
