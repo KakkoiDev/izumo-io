@@ -128,7 +128,7 @@ async function reveal() {
 </code></pre>
 <p>That is the whole thing. Take the move and secret they showed you, fingerprint them again exactly the way they should have, and compare with the fingerprint they sent before. Same, honest. Different, they swapped their move after seeing yours.</p>
 <p>Notice this is a pure block, like <code>compare</code> in <a href="a20.html">A20</a>: values in, true or false out, nothing touched. Both players run it and both get the same answer, which is exactly what you need when there is nobody to appeal to.</p>
-<p>The demo's red button reveals a move that was never folded, so you can watch this line catch it.</p>
+<p>This is the block you cannot see working. When everybody is honest, <code>check</code> returns <code>true</code> every time and nothing happens — which is exactly what a piece of security code looks like when it is doing its job. To watch it earn its place you have to lie to it on purpose, which is what "Your turn" at the bottom of this step asks you to do.</p>
 <h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
 <p>The forcing constraint: <strong>there is no server.</strong> In most games a company's computer holds both moves and opens them at the same time, and you trust the company. Your game has no company and no referee. The only thing two computers share is messages, and either one could lie about anything.</p>
 <p>So instead of trusting, you make lying not work. A fingerprint you cannot reverse means sending it early gives nothing away; a fingerprint you cannot fake means changing your move afterwards is caught, every time, by arithmetic. <em>Grown-up programmers call this commit–reveal, and it is used far outside games — in auctions and in voting.</em></p>
@@ -170,12 +170,12 @@ a secure context.
 </code></pre>
 <p><strong>Check the output for:</strong> does the "cheat" button always reveal a move that is genuinely different from the folded one? Ours did not at first — it revealed the move that beats yours, which is sometimes the move the opponent had already folded, so the check passed and nothing was caught about one press in three. Also check that <code>check</code> refingerprints the move <em>and</em> the secret in the same order they were joined; get the order wrong and every honest round is reported as cheating.</p>
 <h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
-<p><img alt="The demo showing two folded fingerprints as long strings of characters, and the verdict &quot;Caught cheating! They showed rock, but the note they folded was not rock.&quot;" src="../static/img/game/a22.png"></p>
+<p><img alt="The demo showing two folded fingerprints as long strings of characters, then both moves revealed and the line &quot;Both fingerprints match what was folded, so the round counts.&quot;" src="../static/img/game/a22.png"></p>
 <p>Open the page with Live Server and:</p>
 <ol>
 <li>Press <strong>scissors</strong>. Two long fingerprints appear. Neither of them tells you anything about either move — that is the point.</li>
 <li>Press <strong>Unfold both</strong>. Both moves appear and the round counts. We read the checking result back and got <code>{ youHonest: true, theyHonest: true }</code>, with the verdict "A draw." and both fingerprints matching.</li>
-<li>Press a move again, then press <strong>Try to cheat</strong>. The screen says <strong>"Caught cheating!"</strong> We read the same result back and got <code>{ youHonest: true, theyHonest: false }</code>: the opponent had folded <code>paper</code> and showed <code>rock</code>.</li>
+<li>Open the console and type <code>lastCheck</code>. You get both moves, both secrets, and <code>youHonest: true, theyHonest: true</code> — the proof that the check ran and passed, rather than being skipped.</li>
 <li>Press the same move twice and look at the two fingerprints. They are different every time, because the secret is new every time. A cheat cannot even tell whether you played the same move twice.</li>
 </ol>
 <h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
@@ -192,7 +192,12 @@ a secure context.
 </div>
 
 <h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Add a clock. If someone does not send their move within ten seconds of both fingerprints being down, the round is thrown away. Then work out why this is needed at all: what does a player gain by folding a move and then never unfolding it, and what would they do it for?</p>
+<p><strong>Lie to it on purpose.</strong> Play a round, then in the console change the move that gets shown so it is not the one that was folded, and check it again:</p>
+<pre><code>const faked = { move: 'rock', secret: lastCheck.theirShown.secret };
+await check(faked, lastCheck.theirShown === lastCheck.yourShown ? null : them.folded);
+</code></pre>
+<p>You should get <code>false</code>. That is the whole block earning its place, and until you have seen it return <code>false</code> you have only seen it agree with you.</p>
+<p>Then, if you want a harder one: add a clock. If someone does not show their move within ten seconds of both fingerprints being down, throw the round away. Work out why that is needed at all — what does a player gain by folding a move and then never showing it?</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Back to AI Lessons</a>
         <div class="lesson-pager">
