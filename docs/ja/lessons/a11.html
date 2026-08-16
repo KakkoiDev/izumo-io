@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ja" data-page="a11.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Save the Game - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../ai-lessons.html">AIレッスン</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">AIレッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="a10.html">前へ</a>
+          <a href="a12.html">次へ</a>
+        </div>
+      </nav>
+      <h1 id="a11-save-the-game"><a class="heading-anchor" href="#a11-save-the-game">A11: Save the Game</a></h1>
+<p class="lesson-intro">Right now your game forgets everything the moment you close the tab. By the end of this step it remembers where your square was and what you are called — and it survives a save file written by an older version of your own game.</p>
+<p><strong>Needs:</strong> <a href="a10.html">A10</a>. <strong>Gives you:</strong> a square that comes back where you left it, with your name above it.</p>
+<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+<div class="mermaid">
+flowchart LR
+    subgraph loop["Round and round, 60 times a second"]
+        direction LR
+        N["Notice<br/>keys, touches"] --> D["Decide<br/>where everything is"] --> R["Draw<br/>the screen"]
+    end
+    R -. "and again" .-> N
+
+    S["Remember<br/>your game"] --> D
+    O["Other people"] --> D
+    F["The fight"] --> D
+    W["The world<br/>walls, map"] --> R
+    A["Sound"] --> R
+
+    classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    class S now
+
+</div>
+<p>Today you build the box on the side: <strong>Remember your game</strong>. It feeds the middle. When the page starts, it hands "Decide" a position to start from.</p>
+<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
+<p>"Save the game" sounds like one thing. It is three:</p>
+<ol>
+<li><strong>Write</strong> — put the position and the name somewhere that outlives the page</li>
+<li><strong>Read</strong> — get them back when the page starts again</li>
+<li><strong>Cope</strong> — deal with what you read back being old, or broken, or missing</li>
+</ol>
+<p><strong>Why bother splitting it?</strong> Because these three fail in completely different ways, and they fail at different times. Writing fails now, while you watch. Reading fails when the page starts. Coping fails on somebody else's computer, one day, when they open a game they last played a long time ago.</p>
+<p>If it were one lump and it went wrong, you could not tell which part was wrong. Is nothing being written? Is it written but never read? Is it read but thrown away? Three blocks, three separate questions.</p>
+<p>Block 3 is the one almost everybody skips. It is the whole point of this step.</p>
+<h2 id="block-1-write"><a class="heading-anchor" href="#block-1-write">Block 1: Write</a></h2>
+<p>The browser gives every website a small drawer it can keep text in. It is called <strong>localStorage</strong>, and what you put in it stays there after the tab closes. It only holds text, so we turn our object into text first.</p>
+<pre><code>const KEY = 'kakkoi-save';   // one name in the drawer, one save
+const VERSION = 2;           // stamped on everything we write
+
+function save() {
+  const data = { version: VERSION, name: player.name, x: player.x, y: player.y };
+  localStorage.setItem(KEY, JSON.stringify(data));
+}
+setInterval(save, 500);
+</code></pre>
+<p><code>JSON.stringify</code> turns an object into text. <strong>JSON</strong> is just a way of writing an object down as characters, so it can be stored or sent somewhere.</p>
+<p><code>setInterval(save, 500)</code> runs <code>save</code> <strong>twice a second</strong>. Not every frame.</p>
+<blockquote>
+<p><strong>Why not every frame?</strong> Your square moves 60 times a second. Nobody closes a tab 60 times a second. Saving every frame means 60 times the work for exactly the same result: a game that comes back where you left it. Twice a second, you can lose at most half a second of walking — and half a second of walking is nothing.</p>
+</blockquote>
+<p>Notice the <code>version</code> number sitting in the saved object. Nothing uses it yet. Block 3 does.</p>
+<h2 id="block-2-read"><a class="heading-anchor" href="#block-2-read">Block 2: Read</a></h2>
+<pre><code>function read() {
+  const text = localStorage.getItem(KEY);
+  if (text === null) return null;
+  return JSON.parse(text);
+}
+</code></pre>
+<p><code>getItem</code> gives back the text you stored, or <code>null</code> if nothing was ever stored under that name. <code>JSON.parse</code> is the opposite of <code>JSON.stringify</code>: text back into an object.</p>
+<p>This block does one job and nothing else. It does not decide what to do about what it found.</p>
+<h2 id="block-3-cope"><a class="heading-anchor" href="#block-3-cope">Block 3: Cope</a></h2>
+<p>Here is the fact that makes this block necessary:</p>
+<p><strong>A save outlives the code that wrote it.</strong> You will change your game. The save sitting in somebody's browser was written by the <em>old</em> version of your game. It might have no name in it, because you added names later. It might be half-written, because the computer was closed in the middle of writing. It is not under your control any more.</p>
+<p>So every bad case ends the same way: start fresh instead of crashing.</p>
+<pre><code>function fresh() {
+  return { x: 100, y: 100, name: '' };
+}
+
+function load() {
+  let data;
+  try {
+    data = read();
+  } catch (err) {
+    console.warn('save is not readable, starting fresh:', err.message);
+    return fresh();
+  }
+  if (data === null) return fresh();
+  if (data.version !== VERSION) {
+    console.warn('save is version', data.version, 'and we speak', VERSION, '- starting fresh');
+    return fresh();
+  }
+  if (typeof data.x !== 'number' || typeof data.y !== 'number') {
+    return fresh();
+  }
+  return { x: data.x, y: data.y, name: String(data.name || '') };
+}
+
+const player = load();
+</code></pre>
+<p><code>try</code> means "attempt this". <code>catch</code> means "and if it explodes, do this instead of stopping the whole page". <code>JSON.parse</code> throws — explodes — the moment the text is not proper JSON, and without the <code>catch</code> your whole game would stop before it ever drew a frame.</p>
+<p>Four things can be wrong, and each gets one line: unreadable text, nothing saved at all, a save from an older version, a save with no position in it.</p>
+<p>This is the part that feels boring while you write it. It is the part that stops a real person losing a game.</p>
+<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
+<p>The version number is the forcing constraint. Without it, an old save is <em>silently</em> wrong: it parses fine, it has numbers in it, and your new code quietly builds a broken player out of it — and you will chase that bug for hours because everything looks normal. With one number stamped on every save, "this is from an older game" becomes a thing your code can simply see and answer. When you change what you save in a later step, you raise <code>VERSION</code> by one, and every old save politely steps aside.</p>
+<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<table>
+<thead>
+<tr>
+<th>Instead of this</th>
+<th>What it would cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Saving on every frame</td>
+<td>60 writes a second instead of 2, for a result nobody can tell apart. Storage is not free and the browser does real work each time</td>
+</tr>
+<tr>
+<td>Saving only when the page closes</td>
+<td>The browser is allowed to kill a tab without warning — crash, low battery, phone swiping the app away. Sometimes your goodbye code never runs, and the whole session is gone</td>
+</tr>
+<tr>
+<td>No version number</td>
+<td>Old saves parse fine and produce a wrong player. The bug looks like a movement bug, not a save bug, and you look in the wrong place</td>
+</tr>
+<tr>
+<td>Storing x and y under separate keys</td>
+<td>Two writes instead of one. If the computer stops between them you get a save that is half old and half new — the square jumps to a place it has never been</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<pre><code>I have a canvas game in plain JavaScript. The player is an object with x, y and
+name. Add saving to localStorage under one key, as one JSON object, written
+twice a second with setInterval. On startup, load it. Put a version number in
+the saved object and handle three bad cases separately: nothing saved yet,
+text that is not valid JSON, and a save whose version is not the current one.
+In every bad case start from default values and never throw. Keep write, read
+and cope as three separate functions.
+</code></pre>
+<p><strong>Check the output for:</strong> did it actually wrap <code>JSON.parse</code> in <code>try</code>/<code>catch</code>, or did it only check for <code>null</code>? Those are different failures and only one of them is caught by a null check. Does the version check compare with <code>!==</code>, or did it only handle <em>older</em> versions and forget a save from a version that does not exist yet? And did it save on every frame in the game loop instead of on a timer — assistants do that often, because it is one line shorter.</p>
+<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><img alt="A green square on a dark canvas with the name Mika above it, and a name box below the canvas" src="../static/img/game/a11.png"></p>
+<p>Open the page with Live Server and:</p>
+<ol>
+<li>Type a name into the box. It appears above the square.</li>
+<li><strong>Click on the canvas first</strong>, then hold an arrow key. (While the name box has the keyboard, the arrows go into the box, not into the game. That is on purpose.)</li>
+<li>Reload the page. The square is at the same place and the name is still in the box. We drove ours to <code>{x: 253.98, y: 177}</code>, reloaded, and it came back at <code>{x: 253.98, y: 177}</code> with the name <code>Mika</code>.</li>
+<li>Open the browser console and run <code>localStorage.setItem('kakkoi-save', '{{{')</code>, then reload. The page still works. The square starts fresh at <code>{x: 100, y: 100}</code> and the console says <em>save is not readable, starting fresh: Expected property name or '}' in JSON at position 1</em>.</li>
+<li>Now run <code>localStorage.setItem('kakkoi-save', JSON.stringify({ version: 1, name: 'Old Mika', x: 300, y: 40 }))</code> and reload. Again the square starts fresh, and the console says <em>save is version 1 and we speak 2</em>. That is Block 3 doing its job — the position <code>300, 40</code> in that save was thrown away on purpose.</li>
+<li>Move again after either of those. It still moves. Nothing was broken by the broken save.</li>
+</ol>
+<p>Steps 4 and 5 are the real test. A save file you never abuse is a save file you have not tested.</p>
+<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
+<p>Take the game from <a href="a10.html">A10</a>. Add the three functions, replace <code>const player = { x: 100, y: 100 }</code> with <code>const player = load()</code>, and add one <code>&lt;input id="name"&gt;</code> under the canvas. Add one line to <code>draw</code> so the name is painted above the square, and one guard in the key handler so typing your name does not steer:</p>
+<pre><code>addEventListener('keydown', (e) =&gt; { if (e.target !== nameBox) held.add(e.key); });
+</code></pre>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Saving is three jobs, not one: write it down, read it back, cope with what you read</li>
+<li>Save on a timer, not every frame — the extra 58 writes a second buy you nothing</li>
+<li>Put a version number in every save, because a save outlives the code that wrote it</li>
+<li>Every bad save ends the same way: start fresh, never crash</li>
+<li><code>try</code> and <code>catch</code> mean "attempt this, and if it explodes do that instead" — <code>JSON.parse</code> explodes on rubbish</li>
+</ul>
+</div>
+
+<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
+<p>Add a <strong>Forget me</strong> button that clears the save and puts the square back at the start, without reloading the page. Two things to think about: <code>localStorage.removeItem</code> empties the drawer, but the timer will write a new save half a second later, so you also have to move the player back yourself. And should the name go too, or should it stay? Decide, and be able to say why.</p>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">AIレッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="a10.html">前へ</a>
+          <a href="a12.html">次へ</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

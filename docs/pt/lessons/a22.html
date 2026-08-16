@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="pt" data-page="a22.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>No Peeking - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
+        <div class="lesson-pager">
+          <a href="a21.html">Anterior</a>
+          <a href="a23.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="a22-no-peeking"><a class="heading-anchor" href="#a22-no-peeking">A22: No Peeking</a></h1>
+<p class="lesson-intro">Two players, no referee. So how do you stop someone waiting to see your move before choosing theirs? You both write it down, fold the paper, and only then unfold.</p>
+<p><strong>Needs:</strong> <a href="a20.html">A20</a>. <strong>Gives you:</strong> a round nobody can win by peeking — and a "try to cheat" button that gets caught.</p>
+<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+<div class="mermaid">
+flowchart LR
+    subgraph loop["Round and round, 60 times a second"]
+        direction LR
+        N["Notice<br/>keys, touches"] --> D["Decide<br/>where everything is"] --> R["Draw<br/>the screen"]
+    end
+    R -. "and again" .-> N
+
+    S["Remember<br/>your game"] --> D
+    O["Other people"] --> D
+    F["The fight"] --> D
+    W["The world<br/>walls, map"] --> R
+    A["Sound"] --> R
+
+    classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    class F,O now
+
+</div>
+<p>The real game sends these messages over the wire, using the connection from <a href="a19.html">A19</a>. Here both players are on one page so you can see the whole thing at once — including the cheating.</p>
+<h2 id="the-problem-on-paper-first"><a class="heading-anchor" href="#the-problem-on-paper-first">The problem, on paper first</a></h2>
+<p>You and a friend play fire, water, earth across a table. If your friend can see your hand before they move, they win every round. So you both put a fist out and open on three.</p>
+<p>Now put your friend on another computer. Your move has to travel to them as a message. Whoever sends first has shown their hand, and the other one can simply pick the move that beats it. Nobody can prove it happened. <strong>There is no server in this game to hold both moves and open them together</strong> — that is the whole point of the design, and it is why this problem is yours to solve.</p>
+<p>The paper trick works: write your move down, fold it, put it on the table, and only unfold when both papers are down. What you need is a way to fold a piece of paper made of text.</p>
+<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
+<ol>
+<li><strong>Hide</strong> — turn your move into something that proves nothing and reveals nothing</li>
+<li><strong>Show both at once</strong> — nobody unfolds until both folded papers are on the table</li>
+<li><strong>Check</strong> — make sure the move someone showed is really the one they folded</li>
+</ol>
+<p><strong>Why bother splitting it?</strong> Because these three fail in completely different ways, and if they were one lump you could not tell which one failed. Hiding badly means the other player can read your move. Showing too early means they never had to guess. Not checking means they can fold one move and show another. The demo has a button for that last one, so you can watch the check do its job.</p>
+<p>This part is confusing for everyone the first time. Read it twice. It is the most beautiful idea in the whole track.</p>
+<h2 id="block-1-hide"><a class="heading-anchor" href="#block-1-hide">Block 1: Hide</a></h2>
+<p>A <strong>fingerprint</strong> of some text is a fixed string of characters worked out from it. The same text always gives the same fingerprint, and there is no way to work backwards from the fingerprint to the text. The browser has this built in:</p>
+<pre><code>async function fingerprint(text) {
+  const bytes = new TextEncoder().encode(text);
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return [...new Uint8Array(digest)].map((b) =&gt; b.toString(16).padStart(2, '0')).join('');
+}
+</code></pre>
+<p><code>SHA-256</code> is the name of the recipe. It gives back 32 numbers; the last line turns each into two characters, so you always end up with the same 64 characters no matter how long the text was.</p>
+<p><code>async</code> and <code>await</code> are there because this takes a moment and the browser refuses to freeze the page while it happens. Anything that calls <code>fingerprint</code> has to <code>await</code> it too.</p>
+<p>Now the important part. <strong>Three moves is not many.</strong> If you sent the fingerprint of just <code>'fire'</code>, a cheat could fingerprint <code>'fire'</code>, <code>'water'</code> and <code>'earth'</code> themselves — three tries, ten seconds — and see which one matches yours. The fold would be transparent.</p>
+<p>So mix in a secret nobody can guess:</p>
+<pre><code>function randomSecret() {
+  const bytes = crypto.getRandomValues(new Uint8Array(8));
+  return [...bytes].map((b) =&gt; b.toString(16).padStart(2, '0')).join('');
+}
+
+async function fold(move) {
+  const secret = randomSecret();
+  return { move, secret, folded: await fingerprint(move + ':' + secret) };
+}
+</code></pre>
+<p><code>crypto.getRandomValues</code> fills the list with proper unguessable randomness. Now there are not three things to try — there are more than a million million million. Trying them all is not a plan.</p>
+<p>You send <code>folded</code>. You keep <code>move</code> and <code>secret</code> to yourself, for now.</p>
+<blockquote>
+<p><strong>This needs a secure context.</strong> <code>crypto.subtle</code> is only handed to pages the browser considers safe: an <code>https</code> address, or <code>http://localhost</code>. Live Server gives you <code>localhost</code>, so it works — that is one of the reasons <a href="a09.html">A09</a> had you install it. Do not assume opening the file some other way will behave the same; serve it and you never have to wonder.</p>
+</blockquote>
+<h2 id="block-2-show-both-at-once"><a class="heading-anchor" href="#block-2-show-both-at-once">Block 2: Show both at once</a></h2>
+<pre><code>let you = null;
+let them = null;
+
+async function reveal() {
+  const yourShown = { move: you.move, secret: you.secret };
+  const theirShown = { move: them.move, secret: them.secret };
+  ...
+}
+</code></pre>
+<p>The rule is one sentence: <strong>nobody sends their move until both fingerprints have arrived.</strong> In the demo that is one click, because both players are on this page. In the real game each side sends its fingerprint, waits for the other one, and only then sends the move and the secret.</p>
+<p>By that moment it is too late to change your mind. Your fingerprint is already in their hands, and any other move you now claim will not match it.</p>
+<h2 id="block-3-check"><a class="heading-anchor" href="#block-3-check">Block 3: Check</a></h2>
+<pre><code>async function check(shown, folded) {
+  return (await fingerprint(shown.move + ':' + shown.secret)) === folded;
+}
+</code></pre>
+<p>That is the whole thing. Take the move and secret they showed you, fingerprint them again exactly the way they should have, and compare with the fingerprint they sent before. Same, honest. Different, they swapped their move after seeing yours.</p>
+<p>Notice this is a pure block, like <code>compare</code> in <a href="a20.html">A20</a>: values in, true or false out, nothing touched. Both players run it and both get the same answer, which is exactly what you need when there is nobody to appeal to.</p>
+<p>The demo's red button reveals a move that was never folded, so you can watch this line catch it.</p>
+<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
+<p>The forcing constraint: <strong>there is no server.</strong> In most games a company's computer holds both moves and opens them at the same time, and you trust the company. Your game has no company and no referee. The only thing two computers share is messages, and either one could lie about anything.</p>
+<p>So instead of trusting, you make lying not work. A fingerprint you cannot reverse means sending it early gives nothing away; a fingerprint you cannot fake means changing your move afterwards is caught, every time, by arithmetic. <em>Grown-up programmers call this commit–reveal, and it is used far outside games — in auctions and in voting.</em></p>
+<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<table>
+<thead>
+<tr>
+<th>Instead of this</th>
+<th>What it would cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Whoever sends first, sends first</td>
+<td>Free, and completely broken. The second player wins every round by reading the first move and answering it</td>
+</tr>
+<tr>
+<td>One player's computer decides and tells the other</td>
+<td>Now one player is the referee in their own match. You cannot even tell whether they cheated</td>
+</tr>
+<tr>
+<td>Fingerprint the move with no secret</td>
+<td>Only three possible moves. Anyone can fingerprint all three and read yours in seconds</td>
+</tr>
+<tr>
+<td>A tiny server holding both moves</td>
+<td>It works, and it is what most games do. But it costs money, it needs looking after, and the game stops when it does. Yours keeps running with nothing in the middle</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<pre><code>In plain JavaScript with no libraries, I have a fight where each side picks
+fire, water or earth. Add commit-reveal with crypto.subtle SHA-256: a fold()
+that hashes the move with a random secret, a reveal step that only runs once
+both hashes exist, and a pure check(shown, folded) returning true or false.
+Then add a button that reveals a move that was never folded, so I can see the
+check fail. Keep check() free of DOM code. Warn me about anything that needs
+a secure context.
+</code></pre>
+<p><strong>Check the output for:</strong> does the "cheat" button always reveal a move that is genuinely different from the folded one? Ours did not at first — it revealed the move that beats yours, which is sometimes the move the opponent had already folded, so the check passed and nothing was caught about one press in three. Also check that <code>check</code> refingerprints the move <em>and</em> the secret in the same order they were joined; get the order wrong and every honest round is reported as cheating.</p>
+<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><img alt="The demo showing two folded fingerprints as long strings of characters, and the verdict &quot;Caught cheating! They showed water, but the paper they folded was not water.&quot;" src="../static/img/game/a22.png"></p>
+<p>Open the page with Live Server and:</p>
+<ol>
+<li>Press <strong>fire</strong>. Two long fingerprints appear. Neither of them tells you anything about either move — that is the point.</li>
+<li>Press <strong>Unfold both</strong>. Both moves appear and the round counts. We read the checking result back and got <code>{ youHonest: true, theyHonest: true }</code>, with the verdict "A draw." and both fingerprints matching.</li>
+<li>Press a move again, then press <strong>Try to cheat</strong>. The screen says <strong>"Caught cheating!"</strong> We read the same result back and got <code>{ youHonest: true, theyHonest: false }</code>: the opponent had folded <code>earth</code> and showed <code>water</code>.</li>
+<li>Press the same move twice and look at the two fingerprints. They are different every time, because the secret is new every time. A cheat cannot even tell whether you played the same move twice.</li>
+</ol>
+<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
+<p>In the fight from <a href="a20.html">A20</a>, send <code>folded</code> instead of the move. Wait for theirs. Then send <code>{ move, secret }</code>, and run <code>check</code> on what comes back before you let <code>compare</code> decide anything. If the check says false, no winner — the round is thrown away and nobody scores.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Fold your move before anyone shows theirs: send a fingerprint first, the move second</li>
+<li>A fingerprint always comes out the same for the same text, and cannot be read backwards</li>
+<li>With only three possible moves, a fingerprint with no secret mixed in can be guessed in three tries</li>
+<li>You do not need a referee to stop cheating — you need a check that catches it, and arithmetic does not take sides</li>
+<li><code>crypto.subtle</code> needs a secure context, which is what <code>http://localhost</code> from Live Server gives you</li>
+</ul>
+</div>
+
+<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
+<p>Add a clock. If someone does not send their move within ten seconds of both fingerprints being down, the round is thrown away. Then work out why this is needed at all: what does a player gain by folding a move and then never unfolding it, and what would they do it for?</p>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
+        <div class="lesson-pager">
+          <a href="a21.html">Anterior</a>
+          <a href="a23.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+
