@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Other People - KakkoiSchool</title>
+  <title>Outras Pessoas - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a13.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a12-other-people"><a class="heading-anchor" href="#a12-other-people">A12: Other People</a></h1>
-<p class="lesson-intro">Somebody else opens your game on their computer. Their square appears on your screen and moves when they move. This is the step the whole track has been walking towards.</p>
-<p><strong>Needs:</strong> <a href="a11.html">A11</a>. <strong>Gives you:</strong> every other player's square, moving live on your canvas.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a12-outras-pessoas"><a class="heading-anchor" href="#a12-outras-pessoas">A12: Outras Pessoas</a></h1>
+<p class="lesson-intro">Alguém abre seu jogo no computador deles. O quadrado deles aparece na sua tela e se move quando eles se movem. Este é o passo para o qual todo o percurso tem caminhado.</p>
+<p><strong>Precisa de:</strong> <a href="a11.html">A11</a>. <strong>Oferece:</strong> o quadrado de cada outro jogador, movendo-se ao vivo na sua tela.</p>
+<h2 id="o-jogo-inteiro-e-a-parte-de-hoje"><a class="heading-anchor" href="#o-jogo-inteiro-e-a-parte-de-hoje">O jogo inteiro e a parte de hoje</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -69,24 +69,24 @@ flowchart LR
     class O now
 
 </div>
-<p>Today you build the "other people" box. Notice where its arrow points: into <strong>decide</strong>, exactly like your keyboard. To the rest of your game, another player is just another set of numbers that changed.</p>
-<h2 id="there-is-no-server-and-that-is-a-half-truth"><a class="heading-anchor" href="#there-is-no-server-and-that-is-a-half-truth">There is no server, and that is a half-truth</a></h2>
-<p>A <strong>server</strong> is a computer that is always on, that everybody's game talks to. Most online games have one. It holds the world, and if it stops, the game stops.</p>
-<p>Your game does not have one. Your browser talks straight to the other person's browser. The pictures on your screen never pass through anybody's computer in the middle.</p>
-<p>Here is the honest part. Two browsers cannot find each other out of nothing. They need somewhere to leave a note saying <em>"I am here, this is how to reach me"</em>. So your game uses a <strong>noticeboard</strong> — a public message service, run by other people, that anyone can post small notes to. Both browsers post a note, read each other's, and then connect directly. After that the noticeboard is not involved.</p>
-<p>So "serverless" is only half true. There is no server holding your game. There <em>is</em> a noticeboard used for the introduction. When people say a game is serverless, this is almost always what they mean, and now you know to ask.</p>
-<p><strong>One more true thing, and it is not your fault when it happens.</strong> On some home networks, and on a lot of school networks, two computers are not allowed to reach each other directly. The introduction works, the connection never forms, and no second square appears. If that is your network, nothing in this step is broken and you have not made a mistake. Everything from <a href="a14.html">A14</a> onwards works without this step, so carry on and come back with a different network.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"Other people appear" is three things:</p>
+<p>Hoje você constrói a caixa de "outras pessoas". Observe para onde a seta aponta: para <strong>decidir</strong>, exatamente como seu teclado. Para o resto do seu jogo, outro jogador é apenas outro conjunto de números que mudou.</p>
+<h2 id="n-o-h-servidor-e-isso-uma-meia-verdade"><a class="heading-anchor" href="#n-o-h-servidor-e-isso-uma-meia-verdade">Não há servidor, e isso é uma meia-verdade</a></h2>
+<p>Um <strong>servidor</strong> é um computador que está sempre ligado, com o qual o jogo de todos se comunica. A maioria dos jogos online tem um. Ele mantém o mundo, e se ele parar, o jogo para.</p>
+<p>Seu jogo não tem um. Seu navegador se comunica diretamente com o navegador da outra pessoa. As imagens na sua tela nunca passam pelo computador de ninguém no meio.</p>
+<p>Aqui está a parte honesta. Dois navegadores não conseguem se encontrar do nada. Eles precisam de um lugar para deixar um recado dizendo <em>"Estou aqui, é assim que você me encontra"</em>. Então seu jogo usa um <strong>quadro de avisos</strong> — um serviço de mensagens público, administrado por outras pessoas, onde qualquer um pode postar pequenas notas. Ambos os navegadores postam uma nota, leem a do outro e então se conectam diretamente. Depois disso, o quadro de avisos não está envolvido.</p>
+<p>Então "sem servidor" é apenas uma meia-verdade. Não há um servidor que mantenha seu jogo. Há um <em>quadro de avisos</em> usado para a introdução. Quando as pessoas dizem que um jogo é sem servidor, é quase sempre isso que elas querem dizer, e agora você sabe perguntar.</p>
+<p><strong>Mais uma coisa verdadeira, e não é sua culpa quando acontece.</strong> Em algumas redes domésticas, e em muitas redes escolares, dois computadores não têm permissão para se comunicar diretamente. A introdução funciona, a conexão nunca se estabelece e nenhum segundo quadrado aparece. Se essa for sua rede, nada nesta etapa está quebrado e você não cometeu um erro. Tudo de <a href="a14.html">A14</a> em diante funciona sem esta etapa, então continue e volte com uma rede diferente.</p>
+<h2 id="dividindo-em-blocos"><a class="heading-anchor" href="#dividindo-em-blocos">Dividindo em blocos</a></h2>
+<p>“Outras pessoas aparecem” são três coisas:</p>
 <ol>
-<li><strong>Connect</strong> — join a room, and be told when somebody arrives or leaves</li>
-<li><strong>Send</strong> — tell everyone where your square is, ten times a second</li>
-<li><strong>Draw</strong> — paint everyone else's squares</li>
+<li><strong>Conectar</strong> — entrar em uma sala e ser avisado quando alguém chega ou sai</li>
+<li><strong>Enviar</strong> — dizer a todos onde seu quadrado está, dez vezes por segundo</li>
+<li><strong>Desenhar</strong> — pintar os quadrados de todos os outros</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Nobody in the room means connect. Somebody in the room but no square moving means send. Numbers arriving but nothing on screen means draw. Three blocks, three separate questions — and you can answer each one from the console without touching the other two.</p>
-<p>Almost nobody gets this working the first time. That is normal here, more than anywhere else in the track.</p>
-<h2 id="block-1-connect"><a class="heading-anchor" href="#block-1-connect">Block 1: Connect</a></h2>
-<p>The connecting is done by a library called <strong>trystero</strong>. A <strong>library</strong> is code somebody else wrote that you use instead of writing your own. This one handles the noticeboard and the direct connection.</p>
+<p><strong>Por que se preocupar em dividir?</strong> Porque se fosse um bloco só e desse errado, você não conseguiria saber qual parte estava errada. Ninguém na sala significa conectar. Alguém na sala, mas nenhum quadrado se movendo, significa enviar. Números chegando, mas nada na tela, significa desenhar. Três blocos, três perguntas separadas — e você pode responder a cada uma pelo console sem tocar nas outras duas.</p>
+<p>Quase ninguém consegue fazer isso funcionar na primeira vez. Isso é normal aqui, mais do que em qualquer outro lugar no percurso.</p>
+<h2 id="bloco-1-conectar"><a class="heading-anchor" href="#bloco-1-conectar">Bloco 1: Conectar</a></h2>
+<p>A conexão é feita por uma biblioteca chamada <strong>trystero</strong>. Uma <strong>biblioteca</strong> é um código que outra pessoa escreveu e que você usa em vez de escrever o seu próprio. Esta lida com o quadro de avisos e a conexão direta.</p>
 <pre><code>import { joinRoom, selfId } from '../../vendor/trystero/nostr.js';
 
 const RELAYS = ['wss://relay.snort.social', 'wss://nostr.sathoarder.com',
@@ -102,21 +102,21 @@ room.onPeerLeave((id) =&gt; { delete others[id]; });
 
 onMove((where, id) =&gt; { others[id] = { x: where.x, y: where.y } });
 </code></pre>
-<p><code>RELAYS</code> is the list of noticeboards. There are four because any one of them can be busy, can refuse your note, or can simply be switched off — and if that happens the other three still do the job.</p>
+<p><code>RELAYS</code> é a lista de quadros de avisos. Há quatro porque qualquer um deles pode estar ocupado, pode recusar sua nota ou pode simplesmente ser desligado — e se isso acontecer, os outros três ainda fazem o trabalho.</p>
 <blockquote>
-<p><strong>You may see red errors about relays, and your game may work anyway.</strong> These noticeboards are run by strangers, for free, and they come and go. While writing this step we picked four that worked, and by the time we checked again one of them had stopped answering — so the console showed <code>WebSocket connection to ... failed</code> every few seconds while the game ran perfectly. If you see that, swap the dead one for another and carry on. <strong>An error in the console is not the same as a broken game</strong>, and telling the difference is a real skill. It also explains why there are four and not one.</p>
+<p><strong>Você pode ver erros vermelhos sobre relays, e seu jogo pode funcionar mesmo assim.</strong> Esses quadros de avisos são operados por estranhos, gratuitamente, e eles vêm e vão. Ao escrever esta etapa, escolhemos quatro que funcionavam, e quando verificamos novamente, um deles havia parado de responder — então o console mostrava <code>WebSocket connection to ... failed</code> a cada poucos segundos enquanto o jogo rodava perfeitamente. Se você vir isso, troque o que não funciona por outro e continue. <strong>Um erro no console não é o mesmo que um jogo quebrado</strong>, e saber diferenciar é uma habilidade real. Isso também explica por que existem quatro e não apenas um.</p>
 </blockquote>
-<p><code>'demo'</code> is the room name. Everybody using the same room name meets each other.</p>
-<p><code>selfId</code> is a random name for your tab, made fresh every time the page loads. <strong>The other players never learn who you are.</strong> They get twenty random letters.</p>
-<p><code>others</code> is the only thing this block keeps: a list of where everybody else is, one entry per player. <code>onPeerLeave</code> deletes them, so when somebody closes their tab their square goes away instead of standing there forever.</p>
-<p>The line inside <code>onPeerJoin</code> sends your position to the new arrival straight away, so they see you immediately instead of waiting.</p>
-<h2 id="block-2-send"><a class="heading-anchor" href="#block-2-send">Block 2: Send</a></h2>
+<p><code>'demo'</code> é o nome da sala. Todos que usam o mesmo nome de sala se encontram.</p>
+<p><code>selfId</code> é um nome aleatório para sua aba, gerado a cada vez que a página carrega. <strong>Os outros jogadores nunca descobrem quem você é.</strong> Eles recebem vinte letras aleatórias.</p>
+<p><code>others</code> é a única coisa que este bloco mantém: uma lista de onde todos os outros estão, uma entrada por jogador. <code>onPeerLeave</code> os exclui, então quando alguém fecha sua aba, o quadrado deles desaparece em vez de ficar lá para sempre.</p>
+<p>A linha dentro de <code>onPeerJoin</code> envia sua posição para o novo participante imediatamente, para que ele o veja na hora, em vez de esperar.</p>
+<h2 id="bloco-2-enviar"><a class="heading-anchor" href="#bloco-2-enviar">Bloco 2: Enviar</a></h2>
 <pre><code>setInterval(() =&gt; sendMove({ x: player.x, y: player.y }), 100);
 </code></pre>
-<p><code>setInterval(f, 100)</code> runs <code>f</code> every 100 milliseconds — <strong>ten times a second</strong>, about as often as you can tap a finger.</p>
-<p>Your square moves 60 times a second. You could send 60 times a second too. Do not. Every message goes to every player, so in a room of six people that is 360 messages a second leaving your computer instead of 60, to draw squares that would look the same. Ten times a second is enough to look alive.</p>
-<p>This is the same idea as saving twice a second in <a href="a11.html">A11</a>: do the expensive thing as rarely as you can get away with.</p>
-<h2 id="block-3-draw"><a class="heading-anchor" href="#block-3-draw">Block 3: Draw</a></h2>
+<p><code>setInterval(f, 100)</code> executa <code>f</code> a cada 100 milissegundos — <strong>dez vezes por segundo</strong>, com a mesma frequência com que você pode tocar um dedo.</p>
+<p>Seu quadrado se move 60 vezes por segundo. Você também poderia enviar 60 vezes por segundo. Não faça isso. Cada mensagem vai para cada jogador, então em uma sala com seis pessoas, são 360 mensagens por segundo saindo do seu computador em vez de 60, para desenhar quadrados que pareceriam os mesmos. Dez vezes por segundo é suficiente para parecer vivo.</p>
+<p>Esta é a mesma ideia de salvar duas vezes por segundo em <a href="a11.html">A11</a>: faça a coisa cara com a menor frequência possível.</p>
+<h2 id="bloco-3-desenhar"><a class="heading-anchor" href="#bloco-3-desenhar">Bloco 3: Desenhar</a></h2>
 <pre><code>function draw() {
   ctx.fillStyle = '#1b1b22';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -132,38 +132,38 @@ onMove((where, id) =&gt; { others[id] = { x: where.x, y: where.y } });
   ctx.fillRect(player.x, player.y, SIZE, SIZE);
 }
 </code></pre>
-<p>Other players are blue, you are green, and four letters of each player's id go above their square so you can tell two of them apart.</p>
-<p>Look at what this block does <em>not</em> do. It does not ask anybody where they are. It reads the <code>others</code> list, exactly the way it reads <code>player</code>. That is why <a href="a10.html">A10</a> split notice from decide from draw: your drawing code never cared where the numbers came from, so another person's square costs three extra lines.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The whole shape follows from one decision: no server, because a server costs money every month and somebody has to keep it running. A 12-year-old should be able to publish this game, send the link to a friend, and have it still work in a year without paying anyone. That rules out a server holding the game — so the browsers talk to each other, and a free public noticeboard does the introductions.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p>Outros jogadores são azuis, você é verde, e quatro letras do ID de cada jogador vão acima do seu quadrado para que você possa distinguir dois deles.</p>
+<p>Olhe o que este bloco <em>não</em> faz. Ele não pergunta a ninguém onde eles estão. Ele lê a lista <code>others</code>, exatamente da mesma forma que lê <code>player</code>. É por isso que <a href="a10.html">A10</a> separou "perceber" de "decidir" de "desenhar": seu código de desenho nunca se importou de onde os números vieram, então o quadrado de outra pessoa custa três linhas extras.</p>
+<h2 id="por-que-fizemos-assim"><a class="heading-anchor" href="#por-que-fizemos-assim">Por que fizemos assim</a></h2>
+<p>Toda a estrutura decorre de uma decisão: sem servidor, porque um servidor custa dinheiro todo mês e alguém tem que mantê-lo funcionando. Um garoto de 12 anos deveria ser capaz de publicar este jogo, enviar o link para um amigo e tê-lo funcionando daqui a um ano sem pagar a ninguém. Isso descarta um servidor que hospede o jogo — então os navegadores conversam entre si, e um quadro de avisos público gratuito faz as introduções.</p>
+<h2 id="o-que-poder-amos-ter-feito-em-vez-disso"><a class="heading-anchor" href="#o-que-poder-amos-ter-feito-em-vez-disso">O que poderíamos ter feito em vez disso</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>Em vez disso</th>
+<th>O que custaria</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>A real server holding the world</td>
-<td>It always works, even on strict school networks, and it can stop cheating. But it costs money every month, it must be kept running, and when it goes down every player's game goes down</td>
+<td>Um servidor real hospedando o mundo</td>
+<td>Sempre funciona, mesmo em redes escolares restritas, e pode impedir trapaças. Mas custa dinheiro todo mês, deve ser mantido funcionando, e quando cai, o jogo de todos os jogadores cai</td>
 </tr>
 <tr>
-<td>Sending your position every frame</td>
-<td>Six times the messages for a picture nobody can tell apart. On a phone that is battery you spent for nothing</td>
+<td>Enviar sua posição a cada quadro</td>
+<td>Seis vezes mais mensagens para uma imagem que ninguém consegue distinguir. Em um celular, isso é bateria gasta à toa</td>
 </tr>
 <tr>
-<td>Sending "I pressed right" instead of "I am at x, y"</td>
-<td>Fewer messages. But every computer would have to work out where everybody ended up, and one dropped message means two players see different worlds forever</td>
+<td>Enviar "Pressionei direita" em vez de "Estou em x, y"</td>
+<td>Menos mensagens. Mas cada computador teria que descobrir onde todos acabaram, e uma mensagem perdida significa que dois jogadores veem mundos diferentes para sempre</td>
 </tr>
 <tr>
-<td>Writing the connection code yourself</td>
-<td>You would learn a lot. It is also several hundred lines of hard code that fails in ways that are very hard to see, which is exactly what a library is for</td>
+<td>Escrever o código de conexão você mesmo</td>
+<td>Você aprenderia muito. São também várias centenas de linhas de código difícil que falha de maneiras muito difíceis de ver, o que é exatamente para o que serve uma biblioteca</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="o-prompt"><a class="heading-anchor" href="#o-prompt">O prompt</a></h2>
 <pre><code>I have a canvas game in plain JavaScript. main.js keeps the player in
 {x, y}, moves it in update(dt), and paints it in draw(). I have trystero
 vendored at ../../vendor/trystero/nostr.js. Add multiplayer in three
@@ -172,49 +172,49 @@ called 'move', a peers object, remove a peer when they leave), SEND (a
 setInterval at 10 per second), DRAW (paint the other squares). Do not
 change update(). Plain JavaScript, no build step, no npm.
 </code></pre>
-<p><strong>Check the output for:</strong> did it put the sending inside <code>requestAnimationFrame</code> instead of a timer? That is the most common answer and it sends six times more than you asked for. Did it handle <code>onPeerLeave</code>, or do squares stay on screen forever after someone leaves? And does it import from the vendored file, or did it quietly add <code>import ... from 'https://...'</code>, which is a build step in disguise?</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
-<p><img alt="Two squares on a dark canvas, one green labelled &quot;you&quot; and one blue with a short id above it" src="../static/img/game/a12.png"></p>
-<p>Open the page twice, in two browser tabs, and wait a few seconds:</p>
+<p><strong>Verifique a saída para:</strong> ele colocou o envio dentro de <code>requestAnimationFrame</code> em vez de um timer? Essa é a resposta mais comum e envia seis vezes mais do que você pediu. Ele lidou com <code>onPeerLeave</code>, ou os quadrados permanecem na tela para sempre depois que alguém sai? E ele importa do arquivo <code>vendored</code>, ou adicionou silenciosamente <code>import ... from 'https://...'</code>, que é uma etapa de compilação disfarçada?</p>
+<h2 id="veja-funcionar"><a class="heading-anchor" href="#veja-funcionar">Veja funcionar</a></h2>
+<p><img alt="Dois quadrados em uma tela escura, um verde rotulado &quot;você&quot; e um azul com um ID curto acima dele" src="../static/img/game/a12.png"></p>
+<p>Abra a página duas vezes, em duas abas do navegador, e espere alguns segundos:</p>
 <ol>
-<li>A blue square appears in each tab, with four letters above it. That is the other tab.</li>
-<li>Drive the green square in one tab with the arrow keys. The blue square in the other tab moves the same way.</li>
-<li>Open the console in the second tab and type <code>others</code>. You get an object like <code>{6phtXPzeOsFqgp95188x: {x: 411.696, y: 288}}</code> — and those two numbers are the same numbers as <code>player</code> in the first tab. That is the proof. The picture could be a coincidence; matching numbers to three decimal places cannot be.</li>
-<li>Close the first tab. Within a few seconds the blue square in the second tab disappears and <code>others</code> becomes <code>{}</code>.</li>
-<li>Open a third tab. A second blue square appears — the picture above was taken with three players in the room.</li>
+<li>Um quadrado azul aparece em cada aba, com quatro letras acima dele. Essa é a outra aba.</li>
+<li>Dirija o quadrado verde em uma aba com as setas do teclado. O quadrado azul na outra aba se move da mesma forma.</li>
+<li>Abra o console na segunda aba e digite <code>others</code>. Você obterá um objeto como <code>{6phtXPzeOsFqgp95188x: {x: 411.696, y: 288}}</code> — e esses dois números são os mesmos números que <code>player</code> na primeira aba. Essa é a prova. A imagem poderia ser uma coincidência; números coincidentes com três casas decimais não podem ser.</li>
+<li>Feche a primeira aba. Em poucos segundos, o quadrado azul na segunda aba desaparece e <code>others</code> se torna <code>{}</code>.</li>
+<li>Abra uma terceira aba. Um segundo quadrado azul aparece — a imagem acima foi tirada com três jogadores na sala.</li>
 </ol>
-<p>If step 1 never happens, read the note about networks above before you change any code.</p>
-<h2 id="what-went-wrong-when-we-did-this"><a class="heading-anchor" href="#what-went-wrong-when-we-did-this">What went wrong when we did this</a></h2>
-<p>Read this <strong>after</strong> you have folded the three blocks into your game, because that is when it happens.</p>
-<p>Two tabs is how you test this step, and for the demo above it works perfectly. Then we added it to the real game — the one that saves your name and your position from <a href="a11.html">A11</a> — and opened two tabs.</p>
-<p><strong>There were two of us.</strong> Same name, same monster, both walking around, both real. Closing the second tab did not help, because the first one was still going.</p>
-<p>Nothing was broken. Both tabs read the same save, because a save belongs to the <em>browser</em>, not to the tab. So both tabs were correctly, honestly, you. The game simply had no idea that only one of you should be playing at a time.</p>
-<p>The fix is to decide that <strong>the newest window wins</strong>:</p>
+<p>Se o passo 1 nunca acontecer, leia a nota sobre redes acima antes de mudar qualquer código.</p>
+<h2 id="o-que-deu-errado-quando-fizemos-isso"><a class="heading-anchor" href="#o-que-deu-errado-quando-fizemos-isso">O que deu errado quando fizemos isso</a></h2>
+<p>Leia isso <strong>depois</strong> de ter incorporado os três blocos ao seu jogo, porque é quando isso acontece.</p>
+<p>Duas abas é como você testa esta etapa, e para a demonstração acima, funciona perfeitamente. Então nós a adicionamos ao jogo real — aquele que salva seu nome e sua posição de <a href="a11.html">A11</a> — e abrimos duas abas.</p>
+<p><strong>Havia dois de nós.</strong> Mesmo nome, mesmo monstro, ambos andando, ambos reais. Fechar a segunda aba não ajudou, porque a primeira ainda estava ativa.</p>
+<p>Nada estava quebrado. Ambas as abas liam o mesmo save, porque um save pertence ao <em>navegador</em>, não à aba. Então ambas as abas eram corretamente, honestamente, você. O jogo simplesmente não tinha ideia de que apenas um de vocês deveria estar jogando por vez.</p>
+<p>A solução é decidir que <strong>a janela mais recente vence</strong>:</p>
 <ol>
-<li>A window that opens announces itself to any other window of the same game.</li>
-<li>An older window that hears this saves where it actually is right now, hands that over, <strong>leaves the room</strong>, and shows a quiet message with a button to take the game back.</li>
-<li>The new window waits a moment for that handover — we allow four hundred milliseconds — and starts from the position it receives. If nothing answers, there was no other window, and it just reads the save as usual.</li>
+<li>Uma janela que se abre anuncia-se a qualquer outra janela do mesmo jogo.</li>
+<li>Uma janela mais antiga que ouve isso salva onde ela realmente está no momento, entrega essa posição, <strong>sai da sala</strong>, e mostra uma mensagem discreta com um botão para retomar o jogo.</li>
+<li>A nova janela espera um momento por essa entrega — permitimos quatrocentos milissegundos — e começa da posição que recebe. Se nada responder, não havia outra janela, e ela apenas lê o save como de costume.</li>
 </ol>
-<p>Two details in there are easy to get wrong, and both cost us time:</p>
-<p><strong>The old window has to genuinely leave</strong>, not just stop drawing. If it only pauses, it is still connected, so everyone else still sees two of you and the bug looks unfixed.</p>
-<p><strong>The new window must use the handed-over position, not the saved one.</strong> A game saves every so often, not every frame. Use the saved copy and you jump back to wherever the last save happened to land, which feels like the game losing your place.</p>
-<p><em>Windows of the same site can talk to each other directly — grown-up programmers call it a <code>BroadcastChannel</code>, so now you know that name too. It only works between windows of the same site, which is exactly the problem here.</em></p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Take your game from <a href="a11.html">A11</a> and add the three blocks. Nothing already there changes. <code>update</code> and the loop stay exactly as they were — you are adding a second source of numbers, not rewriting the first one.</p>
+<p>Dois detalhes são fáceis de errar, e ambos nos custaram tempo:</p>
+<p><strong>A janela antiga tem que sair de verdade</strong>, não apenas parar de desenhar. Se ela apenas pausar, ainda estará conectada, então todos os outros ainda verão dois de você e o bug parecerá não corrigido.</p>
+<p><strong>A nova janela deve usar a posição transferida, não a salva.</strong> Um jogo salva de tempos em tempos, não a cada quadro. Use a cópia salva e você voltará para onde o último save aconteceu, o que parece que o jogo perdeu seu lugar.</p>
+<p><em>Janelas do mesmo site podem se comunicar diretamente — programadores adultos chamam isso de <code>BroadcastChannel</code>, então agora você também conhece esse nome. Funciona apenas entre janelas do mesmo site, o que é exatamente o problema aqui.</em></p>
+<h2 id="coloque-no-jogo"><a class="heading-anchor" href="#coloque-no-jogo">Coloque no jogo</a></h2>
+<p>Pegue seu jogo de <a href="a11.html">A11</a> e adicione os três blocos. Nada do que já existe muda. <code>update</code> e o loop permanecem exatamente como estavam — você está adicionando uma segunda fonte de números, não reescrevendo a primeira.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>"Serverless" usually means no server holds the game, but something still introduces the players</li>
-<li>Other players are just numbers that change, the same as your keyboard — that is why A10's split pays off here</li>
-<li>Send rarely and on a timer, not every frame; the picture is the same and the cost is far lower</li>
-<li>Remove a player when they leave, or their square haunts your screen forever</li>
-<li>Some networks will not let two computers talk directly, and that is not a bug in your code</li>
-<li>A save belongs to the browser, not the tab — so two tabs are two of you until you decide which one is playing</li>
+<li>"Sem servidor" geralmente significa que nenhum servidor hospeda o jogo, mas algo ainda apresenta os jogadores</li>
+<li>Outros jogadores são apenas números que mudam, o mesmo que seu teclado — é por isso que a divisão do A10 compensa aqui</li>
+<li>Envie raramente e em um temporizador, não a cada quadro; a imagem é a mesma e o custo é muito menor</li>
+<li>Remova um jogador quando ele sair, ou o quadrado dele assombrará sua tela para sempre</li>
+<li>Algumas redes não permitirão que dois computadores se comuniquem diretamente, e isso não é um bug no seu código</li>
+<li>Um save pertence ao navegador, não à aba — então duas abas são dois de você até você decidir qual está jogando</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Right now a player who freezes — laptop lid closed, connection dropped — leaves a square standing still on your screen until the room notices they are gone. This happened to us while building the step: a tab that was killed rather than closed left a blue square parked at <code>{x: 100, y: 100}</code> for minutes, because "goodbye" was never sent. Store the time each message arrived, and fade or hide any square you have not heard from for three seconds. <em>Grown-up programmers call a message like that a heartbeat, so now you know that word too.</em></p>
+<h2 id="sua-vez"><a class="heading-anchor" href="#sua-vez">Sua vez</a></h2>
+<p>No momento, um jogador que trava — tampa do laptop fechada, conexão perdida — deixa um quadrado parado na sua tela até que a sala perceba que ele se foi. Isso aconteceu conosco ao construir a etapa: uma aba que foi encerrada em vez de fechada deixou um quadrado azul estacionado em <code>{x: 100, y: 100}</code> por minutos, porque o "adeus" nunca foi enviado. Armazene o tempo em que cada mensagem chegou e faça um fade ou oculte qualquer quadrado do qual você não tenha recebido notícias por três segundos. <em>Programadores adultos chamam uma mensagem como essa de heartbeat (batimento cardíaco), então agora você também conhece essa palavra.</em></p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">

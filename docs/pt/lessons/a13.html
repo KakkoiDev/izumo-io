@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Talking, Safely - KakkoiSchool</title>
+  <title>Conversando, com Segurança - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a14.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a13-talking-safely"><a class="heading-anchor" href="#a13-talking-safely">A13: Talking, Safely</a></h1>
-<p class="lesson-intro">Now that other people are on your screen, you want to say something to them. You will build a way to talk that cannot be used to be cruel, and a check that throws away anything strange that arrives.</p>
-<p><strong>Needs:</strong> <a href="a12.html">A12</a>. <strong>Gives you:</strong> six phrases you can tap, appearing above your square on everybody's screen.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a13-conversando-com-seguran-a"><a class="heading-anchor" href="#a13-conversando-com-seguran-a">A13: Conversando, com Segurança</a></h1>
+<p class="lesson-intro">Agora que outras pessoas estão na sua tela, você quer dizer algo a elas. Você construirá uma maneira de conversar que não possa ser usada para ser cruel, e uma verificação que descarta qualquer coisa estranha que chegue.</p>
+<p><strong>Necessita:</strong> <a href="a12.html">A12</a>. <strong>Oferece:</strong> seis frases que você pode tocar, aparecendo acima do seu quadrado na tela de todos.</p>
+<h2 id="o-jogo-completo-e-a-parte-de-hoje"><a class="heading-anchor" href="#o-jogo-completo-e-a-parte-de-hoje">O jogo completo e a parte de hoje</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -69,30 +69,30 @@ flowchart LR
     class O now
 
 </div>
-<p>Same box as <a href="a12.html">A12</a>, second half. Other people already send you their position; now they send you words too.</p>
-<h2 id="there-is-no-text-box-on-purpose"><a class="heading-anchor" href="#there-is-no-text-box-on-purpose">There is no text box, on purpose</a></h2>
-<p>Your game has six buttons. It has nowhere to type. That is a decision, and here is the reasoning behind it, because you should be able to argue with it.</p>
-<p>In a game with a company behind it, somebody is watching. If a player is cruel, they can be reported, warned, or banned, and a person reads the report. Your game has no server, so it has no records of what was said, nobody in charge, and nobody to report anyone to. Nothing can be checked afterwards, because there is no afterwards — the words went straight from one browser to another and no copy exists anywhere.</p>
-<p>So the choice is: build a way to be cruel and have no way to deal with it, or do not build it. We chose not to build it. <em>You cannot moderate what you cannot see, so do not create what you cannot moderate.</em></p>
-<p>Six phrases is enough to play together. "Follow me" and "Let's fight!" do the actual work of a game.</p>
-<h3 id="what-other-people-can-see"><a class="heading-anchor" href="#what-other-people-can-see">What other people can see</a></h3>
-<p>This matters and it is short. From your game, other players can see:</p>
+<p>Mesma caixa de <a href="a12.html">A12</a>, segunda metade. Outras pessoas já enviam sua posição; agora elas também enviam palavras.</p>
+<h2 id="n-o-h-caixa-de-texto-de-prop-sito"><a class="heading-anchor" href="#n-o-h-caixa-de-texto-de-prop-sito">Não há caixa de texto, de propósito</a></h2>
+<p>Seu jogo tem seis botões. Não há onde digitar. Essa é uma decisão, e aqui está o raciocínio por trás dela, porque você deve ser capaz de argumentar contra ela.</p>
+<p>Em um jogo com uma empresa por trás, alguém está observando. Se um jogador for cruel, ele pode ser denunciado, avisado ou banido, e uma pessoa lê o relatório. Seu jogo não tem servidor, então não tem registros do que foi dito, ninguém encarregado e ninguém a quem denunciar. Nada pode ser verificado depois, porque não há depois — as palavras foram diretamente de um navegador para outro e nenhuma cópia existe em lugar nenhum.</p>
+<p>Então a escolha é: construir uma maneira de ser cruel e não ter como lidar com isso, ou não construí-la. Nós escolhemos não construí-la. <em>Você não pode moderar o que não pode ver, então não crie o que você não pode moderar.</em></p>
+<p>Seis frases são suficientes para jogar juntos. "Siga-me" e "Vamos lutar!" fazem o trabalho real de um jogo.</p>
+<h3 id="o-que-outras-pessoas-podem-ver"><a class="heading-anchor" href="#o-que-outras-pessoas-podem-ver">O que outras pessoas podem ver</a></h3>
+<p>Isso importa e é breve. Do seu jogo, outros jogadores podem ver:</p>
 <ul>
-<li>The name your square shows, which you chose, and which does not have to be your real name</li>
-<li>Where your square is on the canvas</li>
-<li>Which of the six phrases you tapped</li>
+<li>O nome que seu quadrado exibe, que você escolheu, e que não precisa ser seu nome real</li>
+<li>Onde seu quadrado está na tela</li>
+<li>Qual das seis frases você tocou</li>
 </ul>
-<p>They cannot see your real name, where you live, your school, your face, or anything at all on your computer. Your game never asks for any of it, so it has none of it to give away.</p>
-<p>Two more things, said plainly. <strong>Nobody is in charge here.</strong> There is no report button, because there is nobody to report to. And if somebody is unkind to you — even with six polite phrases, people find ways — close the tab. You lose nothing. Then tell an adult you trust. That is not a small or embarrassing thing to do; it is exactly the right move, and it works.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"Talking" is three things:</p>
+<p>Eles não podem ver seu nome real, onde você mora, sua escola, seu rosto ou qualquer coisa em seu computador. Seu jogo nunca pede nada disso, então não tem nada disso para entregar.</p>
+<p>Mais duas coisas, ditas claramente. <strong>Ninguém está no comando aqui.</strong> Não há botão de denúncia, porque não há ninguém para denunciar. E se alguém for indelicado com você — mesmo com seis frases educadas, as pessoas encontram maneiras — feche a aba. Você não perde nada. Depois, conte a um adulto de sua confiança. Isso não é algo pequeno ou embaraçoso de fazer; é exatamente a atitude correta, e funciona.</p>
+<h2 id="dividindo-em-blocos"><a class="heading-anchor" href="#dividindo-em-blocos">Dividindo em blocos</a></h2>
+<p>"Conversar" são três coisas:</p>
 <ol>
-<li><strong>Pick</strong> — choose one of the phrases that exist</li>
-<li><strong>Send</strong> — send which one you picked</li>
-<li><strong>Show</strong> — put an arriving phrase above the sender's square, after checking it</li>
+<li><strong>Escolher</strong> — selecione uma das frases existentes</li>
+<li><strong>Enviar</strong> — envie qual você escolheu</li>
+<li><strong>Exibir</strong> — coloque uma frase recebida acima do quadrado do remetente, após verificá-la</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Nothing happens when you tap means pick. Your own phrase shows but theirs does not means send. And <strong>show</strong> is the one that matters most: it is the only block that deals with data from somebody else's computer, so it is the only block that has to distrust what it is given. Keeping it separate is what lets you test it by sending deliberate rubbish and watching it get thrown away.</p>
-<h2 id="block-1-pick"><a class="heading-anchor" href="#block-1-pick">Block 1: Pick</a></h2>
+<p><strong>Por que se dar ao trabalho de dividir?</strong> Porque se fosse um bloco único e algo desse errado, você não saberia qual parte estava errada. Nada acontece quando você toca significa escolher. Sua própria frase aparece, mas a deles não significa enviar. E <strong>exibir</strong> é o que mais importa: é o único bloco que lida com dados do computador de outra pessoa, então é o único bloco que tem que desconfiar do que lhe é dado. Mantê-lo separado é o que permite testá-lo enviando lixo intencionalmente e observando-o ser descartado.</p>
+<h2 id="bloco-1-escolher"><a class="heading-anchor" href="#bloco-1-escolher">Bloco 1: Escolher</a></h2>
 <pre><code>const PHRASES = [&quot;Hi!&quot;, &quot;Nice one!&quot;, &quot;Let's fight!&quot;, &quot;Follow me&quot;, &quot;Good game&quot;, &quot;Bye&quot;];
 
 for (let i = 0; i &lt; PHRASES.length; i++) {
@@ -102,19 +102,19 @@ for (let i = 0; i &lt; PHRASES.length; i++) {
   document.querySelector('#phrases').append(button);
 }
 </code></pre>
-<p>One list, six buttons made from it. Change the list and the buttons change with it.</p>
-<p>Each button remembers <code>i</code> — its <strong>index</strong>, which means its position in the list. <code>"Hi!"</code> is index 0, <code>"Nice one!"</code> is index 1, and so on. Counting from 0 rather than 1 is a habit that will look odd for a while and then stop.</p>
-<h2 id="block-2-send"><a class="heading-anchor" href="#block-2-send">Block 2: Send</a></h2>
+<p>Uma lista, seis botões feitos a partir dela. Mude a lista e os botões mudarão com ela.</p>
+<p>Cada botão lembra <code>i</code> — seu <strong>índice</strong>, o que significa sua posição na lista. <code>"Hi!"</code> é o índice 0, <code>"Nice one!"</code> é o índice 1, e assim por diante. Contar a partir de 0 em vez de 1 é um hábito que parecerá estranho por um tempo e depois deixará de parecer.</p>
+<h2 id="bloco-2-enviar"><a class="heading-anchor" href="#bloco-2-enviar">Bloco 2: Enviar</a></h2>
 <pre><code>function say(i) {
   sendSay(i);
   player.said = PHRASES[i];
   player.until = performance.now() + SHOW_FOR;
 }
 </code></pre>
-<p><strong>You send the number, never the words.</strong> Sending <code>2</code> is enough, because the other player's game has the same list, and looks up <code>PHRASES[2]</code> themselves.</p>
-<p>That is not to save space. Six short phrases are tiny. It is because a number cannot contain a sentence. If words travelled, a modified game could send any words at all. A number can only ever mean one of the six things on the list — and if it does not, Block 3 throws it away.</p>
-<p><code>until</code> is the time this phrase should stop being drawn. <code>SHOW_FOR</code> is 3000 milliseconds, three seconds — long enough to read, short enough that the screen does not fill with old chatter.</p>
-<h2 id="block-3-show"><a class="heading-anchor" href="#block-3-show">Block 3: Show</a></h2>
+<p><strong>Você envia o número, nunca as palavras.</strong> Enviar <code>2</code> é suficiente, porque o jogo do outro jogador tem a mesma lista e procura <code>PHRASES[2]</code> por conta própria.</p>
+<p>Isso não é para economizar espaço. Seis frases curtas são minúsculas. É porque um número não pode conter uma frase. Se as palavras viajassem, um jogo modificado poderia enviar qualquer palavra. Um número só pode significar uma das seis coisas na lista — e se não significar, o Bloco 3 o descarta.</p>
+<p><code>until</code> é o tempo em que esta frase deve parar de ser desenhada. <code>SHOW_FOR</code> são 3000 milissegundos, três segundos — tempo suficiente para ler, curto o suficiente para que a tela não se encha de conversas antigas.</p>
+<h2 id="bloco-3-exibir"><a class="heading-anchor" href="#bloco-3-exibir">Bloco 3: Exibir</a></h2>
 <pre><code>onSay((i, id) =&gt; {
   if (!Number.isInteger(i) || i &lt; 0 || i &gt;= PHRASES.length) {
     window.dropped = (window.dropped || 0) + 1;   // so you can check it worked
@@ -123,46 +123,46 @@ for (let i = 0; i &lt; PHRASES.length; i++) {
   others[id] = { ...others[id], said: PHRASES[i], until: performance.now() + SHOW_FOR };
 });
 </code></pre>
-<p>Read the check out loud: <em>if what arrived is not a whole number, or is below zero, or is past the end of the list, stop — do nothing at all.</em></p>
-<p><code>Number.isInteger</code> asks "is this a whole number?" It says no to <code>"Hi!"</code>, no to <code>1.5</code>, no to nothing at all. The two comparisons then ask "does this number point at a phrase we really have?"</p>
-<p><strong>Never believe what another computer sends you.</strong> Your code is running on your machine, but the message came from somebody else's, and you have no idea what their copy of the game does. Perhaps they changed it. Perhaps their connection scrambled something. Perhaps they are being clever on purpose. Without the check, <code>PHRASES[99]</code> is <code>undefined</code> and your game draws the word "undefined" above their square; other bad values do worse. With the check, nothing happens at all — which is precisely what should happen.</p>
-<p>Then draw it, next to the square it belongs to:</p>
+<p>Leia a verificação em voz alta: <em>se o que chegou não for um número inteiro, ou for menor que zero, ou passar do fim da lista, pare — não faça absolutamente nada.</em></p>
+<p><code>Number.isInteger</code> pergunta "isso é um número inteiro?". Ele diz não para <code>"Hi!"</code>, não para <code>1.5</code>, não para nada. As duas comparações então perguntam "este número aponta para uma frase que realmente temos?"</p>
+<p><strong>Nunca acredite no que outro computador lhe envia.</strong> Seu código está sendo executado em sua máquina, mas a mensagem veio de outro computador, e você não tem ideia do que a cópia do jogo deles faz. Talvez eles a tenham mudado. Talvez a conexão deles tenha embaralhado algo. Talvez eles estejam sendo espertos de propósito. Sem a verificação, <code>PHRASES[99]</code> é <code>undefined</code> e seu jogo desenha a palavra "undefined" acima do quadrado deles; outros valores ruins fazem pior. Com a verificação, nada acontece — o que é precisamente o que deveria acontecer.</p>
+<p>Então desenhe, ao lado do quadrado a que pertence:</p>
 <pre><code>if (who.until &gt; performance.now()) {
   ctx.fillStyle = '#fff';
   ctx.fillText(who.said, who.x, who.y - 20);
 }
 </code></pre>
-<p>No list of messages, no scrolling history. The phrase floats above the square, then goes.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The forcing constraint is the same one that made <a href="a12.html">A12</a> peer-to-peer: no server. No server means no logs, no moderators, no bans and no way to undo anything. Every other safety idea — filtering rude words, reporting, muting — needs somebody watching, and nobody is watching. Only one approach survives that: make the unkind thing impossible to express in the first place. Six phrases is not a limitation we regret. It is the only design that is honest about what this game can protect you from.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p>Sem lista de mensagens, sem histórico de rolagem. A frase flutua acima do quadrado, depois desaparece.</p>
+<h2 id="por-que-fizemos-isso-dessa-forma"><a class="heading-anchor" href="#por-que-fizemos-isso-dessa-forma">Por que fizemos isso dessa forma</a></h2>
+<p>A restrição imposta é a mesma que tornou <a href="a12.html">A12</a> peer-to-peer: nenhum servidor. Nenhum servidor significa nenhum registro, nenhum moderador, nenhum banimento e nenhuma maneira de desfazer qualquer coisa. Todas as outras ideias de segurança — filtrar palavras rudes, denunciar, silenciar — precisam de alguém observando, e ninguém está observando. Apenas uma abordagem sobrevive a isso: tornar a coisa indelicada impossível de expressar em primeiro lugar. Seis frases não é uma limitação da qual nos arrependemos. É o único design que é honesto sobre o que este jogo pode protegê-lo.</p>
+<h2 id="o-que-poder-amos-ter-feito-em-vez-disso"><a class="heading-anchor" href="#o-que-poder-amos-ter-feito-em-vez-disso">O que poderíamos ter feito em vez disso</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>Em vez disso</th>
+<th>O que custaria</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>A text box with a rude-word filter</td>
-<td>Filters are easy to get around and they block innocent words. Worse, a filter looks like protection, so people relax — and there is still nobody to report anything to</td>
+<td>Uma caixa de texto com filtro de palavras ofensivas</td>
+<td>Filtros são fáceis de contornar e bloqueiam palavras inocentes. Pior, um filtro parece proteção, então as pessoas relaxam — e ainda não há ninguém para denunciar nada</td>
 </tr>
 <tr>
-<td>A text box with a report button</td>
-<td>The button would do nothing. There is no server to receive the report and no person to read it. A button that lies is worse than no button</td>
+<td>Uma caixa de texto com botão de denúncia</td>
+<td>O botão não faria nada. Não há servidor para receber a denúncia e nenhuma pessoa para lê-la. Um botão que mente é pior do que não ter botão</td>
 </tr>
 <tr>
-<td>Sending the words instead of the number</td>
-<td>A changed copy of the game could then send anything at all onto your screen, and no check on your side could tell the difference</td>
+<td>Enviar as palavras em vez do número</td>
+<td>Uma cópia modificada do jogo poderia então enviar qualquer coisa para sua tela, e nenhuma verificação do seu lado poderia dizer a diferença</td>
 </tr>
 <tr>
-<td>Trusting the number without checking it</td>
-<td>Works perfectly right up to the first strange message, then draws "undefined" above someone's head or breaks the drawing loop for everyone</td>
+<td>Confiar no número sem verificá-lo</td>
+<td>Funciona perfeitamente até a primeira mensagem estranha, então desenha "undefined" acima da cabeça de alguém ou quebra o loop de desenho para todos</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="o-prompt"><a class="heading-anchor" href="#o-prompt">O prompt</a></h2>
 <pre><code>My canvas game already has multiplayer with trystero: a room, a 'move'
 action, and an `others` object of peer positions. Add preset-phrase chat
 in three blocks with a comment above each: PICK (make one button per
@@ -171,32 +171,32 @@ the array INDEX, not the text), SHOW (on receive, reject the value unless
 it is a whole number inside the array, then display the phrase above that
 peer's square for 3 seconds). No text input anywhere. Plain JavaScript.
 </code></pre>
-<p><strong>Check the output for:</strong> did it add a text input anyway? Assistants add one very often, because almost every chat they have ever seen has one — if it appears, say no and ask again. Does it send the index or the string? And does the check use <code>Number.isInteger</code>, or only <code>i &lt; PHRASES.length</code>, which happily accepts <code>-1</code> and <code>2.5</code>?</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>Verifique a saída para:</strong> adicionou uma entrada de texto de qualquer maneira? Assistentes adicionam uma com muita frequência, porque quase todo chat que eles já viram tem uma — se aparecer, diga não e peça novamente. Ele envia o índice ou a string? E a verificação usa <code>Number.isInteger</code>, ou apenas <code>i &lt; PHRASES.length</code>, que aceita alegremente <code>-1</code> e <code>2.5</code>?</p>
+<h2 id="veja-funcionando"><a class="heading-anchor" href="#veja-funcionando">Veja funcionando</a></h2>
 <p><img alt="Two squares on a dark canvas, each with a phrase floating above it, and six phrase buttons underneath" src="../static/img/game/a13.png"></p>
-<p>Open the page in two tabs and wait for the other square to appear:</p>
+<p>Abra a página em duas abas e espere o outro quadrado aparecer:</p>
 <ol>
-<li>Tap <strong>Let's fight!</strong> in the first tab. The phrase appears above your green square, and above the blue square in the other tab. After three seconds it fades from both.</li>
-<li>Tap phrases in both tabs. Each phrase appears above the square that sent it, not somewhere in a corner.</li>
-<li>Now break it on purpose. In the first tab's console, send rubbish by hand: <code>sendSay(99)</code>, <code>sendSay("Hi!")</code>, <code>sendSay(1.5)</code>, <code>sendSay(-1)</code>. One is past the end of the list, one is words instead of a number, one is not a whole number, one is below the start.</li>
-<li>Look at the second tab. Nothing was drawn. Nothing changed — the other player's entry still says exactly what it said before. Type <code>dropped</code> in its console and you get <code>4</code>: all four arrived and all four were thrown away. Then move your square and tap a phrase. Everything still works, because refusing a message is not the same as crashing.</li>
+<li>Toque em <strong>Vamos lutar!</strong> na primeira aba. A frase aparece acima do seu quadrado verde e acima do quadrado azul na outra aba. Após três segundos, ela desaparece de ambos.</li>
+<li>Toque nas frases em ambas as abas. Cada frase aparece acima do quadrado que a enviou, não em algum canto.</li>
+<li>Agora, quebre-o de propósito. No console da primeira aba, envie lixo manualmente: <code>sendSay(99)</code>, <code>sendSay("Hi!")</code>, <code>sendSay(1.5)</code>, <code>sendSay(-1)</code>. Um está além do fim da lista, um são palavras em vez de um número, um não é um número inteiro, um está abaixo do início.</li>
+<li>Olhe para a segunda aba. Nada foi desenhado. Nada mudou — a entrada do outro jogador ainda diz exatamente o que dizia antes. Digite <code>dropped</code> no console e você obterá <code>4</code>: todos os quatro chegaram e todos os quatro foram descartados. Em seguida, mova seu quadrado e toque em uma frase. Tudo ainda funciona, porque recusar uma mensagem não é o mesmo que causar um crash.</li>
 </ol>
-<p>Step 4 is the real test of this step. A check you have never seen refuse anything is a check you have not tested.</p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Add the three blocks to your game from <a href="a12.html">A12</a>, plus one empty <code>&lt;div id="phrases"&gt;</code> under the canvas. The <code>others</code> object is already there; each entry gains two extra fields, <code>said</code> and <code>until</code>. Nothing about movement changes.</p>
+<p>O passo 4 é o verdadeiro teste desta etapa. Uma verificação que você nunca viu recusar nada é uma verificação que você não testou.</p>
+<h2 id="coloque-no-jogo"><a class="heading-anchor" href="#coloque-no-jogo">Coloque no jogo</a></h2>
+<p>Adicione os três blocos ao seu jogo de <a href="a12.html">A12</a>, mais uma <code>div</code> vazia <code>&lt;div id="phrases"&gt;</code> abaixo do canvas. O objeto <code>others</code> já está lá; cada entrada ganha dois campos extras, <code>said</code> e <code>until</code>. Nada sobre o movimento muda.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>With nobody watching, the only working safety is making the harmful thing impossible to say</li>
-<li>Send a number that points into a list you both have, never the words themselves</li>
-<li>Never believe what another computer sends you — check it before you use it, every time</li>
-<li>Other players see your chosen name, your square, and your phrase; nothing about you or your computer</li>
-<li>If somebody is unkind: leave, and tell an adult you trust. There is nobody here to report them to</li>
+<li>Sem ninguém observando, a única segurança que funciona é tornar a coisa prejudicial impossível de ser dita</li>
+<li>Envie um número que aponte para uma lista que ambos possuem, nunca as palavras em si</li>
+<li>Nunca acredite no que outro computador lhe envia — verifique antes de usar, sempre</li>
+<li>Outros jogadores veem seu nome escolhido, seu quadrado e sua frase; nada sobre você ou seu computador</li>
+<li>Se alguém for indelicado: saia e conte a um adulto de sua confiança. Não há ninguém aqui para denunciá-los</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Add a rule the given prompt does not produce: nobody may send more than one phrase per second. Someone tapping "Bye" forty times in a row is not saying anything, and it is the one unkind thing six polite phrases still allow. Remember the time of the last phrase you sent, and in <code>say</code>, return early if it was less than a second ago. Then decide the harder half: should you also ignore phrases that <em>arrive</em> too fast, or only limit your own? <em>Grown-up programmers call this rate limiting, so now you know that phrase too.</em></p>
+<h2 id="sua-vez"><a class="heading-anchor" href="#sua-vez">Sua vez</a></h2>
+<p>Adicione uma regra que o prompt dado não produz: ninguém pode enviar mais de uma frase por segundo. Alguém tocando "Tchau" quarenta vezes seguidas não está dizendo nada, e é a única coisa indelicada que seis frases educadas ainda permitem. Lembre-se do tempo da última frase que você enviou, e em <code>say</code>, retorne cedo se foi há menos de um segundo. Então decida a parte mais difícil: você também deve ignorar frases que <em>chegam</em> muito rápido, ou apenas limitar as suas próprias? <em>Programadores adultos chamam isso de limitação de taxa (rate limiting), então agora você também conhece essa frase.</em></p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">

@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Other People - KakkoiSchool</title>
+  <title>他のプレイヤー - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a13.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a12-other-people"><a class="heading-anchor" href="#a12-other-people">A12: Other People</a></h1>
-<p class="lesson-intro">Somebody else opens your game on their computer. Their square appears on your screen and moves when they move. This is the step the whole track has been walking towards.</p>
-<p><strong>Needs:</strong> <a href="a11.html">A11</a>. <strong>Gives you:</strong> every other player's square, moving live on your canvas.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a12-他のプレイヤー"><a class="heading-anchor" href="#a12-他のプレイヤー">A12: 他のプレイヤー</a></h1>
+<p class="lesson-intro">誰かが自分のコンピューターであなたのゲームを開きます。彼らの正方形があなたの画面に表示され、彼らが動くと一緒に動きます。これこそが、このトラック全体が目指してきたステップです。</p>
+<p><strong>必要なもの:</strong> <a href="a11.html">A11</a>。 <strong>得られるもの:</strong> 他のすべてのプレイヤーの正方形が、キャンバス上でライブで動きます。</p>
+<h2 id="ゲーム全体と今日のピース"><a class="heading-anchor" href="#ゲーム全体と今日のピース">ゲーム全体と今日のピース</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -69,24 +69,24 @@ flowchart LR
     class O now
 
 </div>
-<p>Today you build the "other people" box. Notice where its arrow points: into <strong>decide</strong>, exactly like your keyboard. To the rest of your game, another player is just another set of numbers that changed.</p>
-<h2 id="there-is-no-server-and-that-is-a-half-truth"><a class="heading-anchor" href="#there-is-no-server-and-that-is-a-half-truth">There is no server, and that is a half-truth</a></h2>
-<p>A <strong>server</strong> is a computer that is always on, that everybody's game talks to. Most online games have one. It holds the world, and if it stops, the game stops.</p>
-<p>Your game does not have one. Your browser talks straight to the other person's browser. The pictures on your screen never pass through anybody's computer in the middle.</p>
-<p>Here is the honest part. Two browsers cannot find each other out of nothing. They need somewhere to leave a note saying <em>"I am here, this is how to reach me"</em>. So your game uses a <strong>noticeboard</strong> — a public message service, run by other people, that anyone can post small notes to. Both browsers post a note, read each other's, and then connect directly. After that the noticeboard is not involved.</p>
-<p>So "serverless" is only half true. There is no server holding your game. There <em>is</em> a noticeboard used for the introduction. When people say a game is serverless, this is almost always what they mean, and now you know to ask.</p>
-<p><strong>One more true thing, and it is not your fault when it happens.</strong> On some home networks, and on a lot of school networks, two computers are not allowed to reach each other directly. The introduction works, the connection never forms, and no second square appears. If that is your network, nothing in this step is broken and you have not made a mistake. Everything from <a href="a14.html">A14</a> onwards works without this step, so carry on and come back with a different network.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"Other people appear" is three things:</p>
+<p>今日、あなたは「他のプレイヤー」のボックスを構築します。その矢印がどこを指しているかに注目してください：<strong>決定</strong>へと向かっており、あなたのキーボードと全く同じです。ゲームの他の部分にとって、別のプレイヤーは単に変化した別の数値のセットに過ぎません。</p>
+<h2 id="サーバーはありません-そしてそれは半分真実です"><a class="heading-anchor" href="#サーバーはありません-そしてそれは半分真実です">サーバーはありません、そしてそれは半分真実です</a></h2>
+<p><strong>サーバー</strong>とは、常に稼働しており、全員のゲームが通信するコンピューターです。ほとんどのオンラインゲームにはこれがあります。世界を保持し、停止するとゲームも停止します。</p>
+<p>あなたのゲームにはサーバーがありません。あなたのブラウザは相手のブラウザと直接通信します。あなたの画面上の画像は、途中のどのコンピューターも通過しません。</p>
+<p>正直な部分をお話しします。2つのブラウザは何もないところからお互いを見つけることはできません。『私はここにいます、これが私に連絡する方法です』というメモを残す場所が必要です。そこであなたのゲームは<strong>掲示板</strong>を利用します。これは他の人々が運営する公開メッセージサービスで、誰でも小さなメモを投稿できます。両方のブラウザがメモを投稿し、お互いのメモを読み、その後直接接続します。その後、掲示板は関与しません。</p>
+<p>したがって、「サーバーレス」というのは半分しか真実ではありません。あなたのゲームを保持するサーバーはありません。しかし、導入のために使われる<strong>掲示板</strong>はあります。人々がゲームをサーバーレスだと言うとき、これはほとんどの場合彼らが意味することであり、今あなたは尋ねるべきことを知っています。</p>
+<p><strong>もう一つ本当のこと、そしてそれが起こってもあなたのせいではありません。</strong>一部の家庭用ネットワークや多くの学校のネットワークでは、2台のコンピューターが直接通信することを許可していません。導入は機能しますが、接続が確立されず、2番目の正方形が表示されません。もしあなたのネットワークがそうであるなら、このステップの何も壊れておらず、あなたは間違いを犯していません。<a href="a14.html">A14</a>以降のすべてはこのステップがなくても機能するので、作業を進め、別のネットワークで戻ってきてください。</p>
+<h2 id="ブロックに分割する"><a class="heading-anchor" href="#ブロックに分割する">ブロックに分割する</a></h2>
+<p>「他のプレイヤーの出現」は3つのことです。</p>
 <ol>
-<li><strong>Connect</strong> — join a room, and be told when somebody arrives or leaves</li>
-<li><strong>Send</strong> — tell everyone where your square is, ten times a second</li>
-<li><strong>Draw</strong> — paint everyone else's squares</li>
+<li><strong>接続</strong> — 部屋に参加し、誰かが到着または退出したときに通知を受ける</li>
+<li><strong>送信</strong> — 自分の正方形がどこにあるかを、毎秒10回全員に伝える</li>
+<li><strong>描画</strong> — 他の全員の正方形を描画する</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Nobody in the room means connect. Somebody in the room but no square moving means send. Numbers arriving but nothing on screen means draw. Three blocks, three separate questions — and you can answer each one from the console without touching the other two.</p>
-<p>Almost nobody gets this working the first time. That is normal here, more than anywhere else in the track.</p>
-<h2 id="block-1-connect"><a class="heading-anchor" href="#block-1-connect">Block 1: Connect</a></h2>
-<p>The connecting is done by a library called <strong>trystero</strong>. A <strong>library</strong> is code somebody else wrote that you use instead of writing your own. This one handles the noticeboard and the direct connection.</p>
+<p><strong>なぜわざわざ分割するのか？</strong> もしそれが一つの塊で、うまくいかなかった場合、どの部分が悪いのか判断できないからです。部屋に誰もいないというのは接続の問題を意味します。部屋に誰かはいるが正方形が動かないというのは送信の問題を意味します。数値は届いているが画面に何も表示されないというのは描画の問題を意味します。3つのブロック、3つの別々の問題 — そして、他の2つに触れることなく、コンソールからそれぞれに答えることができます。</p>
+<p>ほとんどの人はこれを最初から動作させることはできません。このトラックの他のどの部分よりも、ここではそれが普通です。</p>
+<h2 id="ブロック1-接続"><a class="heading-anchor" href="#ブロック1-接続">ブロック1: 接続</a></h2>
+<p>接続は、<strong>trystero</strong>というライブラリによって行われます。<strong>ライブラリ</strong>とは、あなたが自分で書く代わりに利用する、誰かが書いたコードのことです。これは掲示板と直接接続を処理します。</p>
 <pre><code>import { joinRoom, selfId } from '../../vendor/trystero/nostr.js';
 
 const RELAYS = ['wss://relay.snort.social', 'wss://nostr.sathoarder.com',
@@ -102,21 +102,21 @@ room.onPeerLeave((id) =&gt; { delete others[id]; });
 
 onMove((where, id) =&gt; { others[id] = { x: where.x, y: where.y } });
 </code></pre>
-<p><code>RELAYS</code> is the list of noticeboards. There are four because any one of them can be busy, can refuse your note, or can simply be switched off — and if that happens the other three still do the job.</p>
+<p><code>RELAYS</code>は掲示板のリストです。4つあるのは、どれか一つが混雑していたり、メモを拒否したり、単にオフになっていたりする可能性があるためです — そして、そうなった場合でも残りの3つが仕事を果たします。</p>
 <blockquote>
-<p><strong>You may see red errors about relays, and your game may work anyway.</strong> These noticeboards are run by strangers, for free, and they come and go. While writing this step we picked four that worked, and by the time we checked again one of them had stopped answering — so the console showed <code>WebSocket connection to ... failed</code> every few seconds while the game ran perfectly. If you see that, swap the dead one for another and carry on. <strong>An error in the console is not the same as a broken game</strong>, and telling the difference is a real skill. It also explains why there are four and not one.</p>
+<p><strong>リレーに関する赤いエラーが表示されることがありますが、ゲームはそれでも動作する場合があります。</strong> これらの掲示板は見知らぬ人によって無料で運営されており、消えたり現れたりします。このステップを書いている間、私たちは機能する4つを選びましたが、再び確認したときにはそのうちの1つが応答しなくなっていました — そのため、ゲームは完璧に動作していましたが、コンソールには数秒ごとに<code>WebSocket connection to ... failed</code>と表示されました。もしそれを見たら、機能しなくなったものを別のものと交換して続けてください。<strong>コンソール内のエラーは壊れたゲームと同じではありません</strong>。その違いを見分けるのは真のスキルです。これは、なぜ一つではなく四つあるのかも説明しています。</p>
 </blockquote>
-<p><code>'demo'</code> is the room name. Everybody using the same room name meets each other.</p>
-<p><code>selfId</code> is a random name for your tab, made fresh every time the page loads. <strong>The other players never learn who you are.</strong> They get twenty random letters.</p>
-<p><code>others</code> is the only thing this block keeps: a list of where everybody else is, one entry per player. <code>onPeerLeave</code> deletes them, so when somebody closes their tab their square goes away instead of standing there forever.</p>
-<p>The line inside <code>onPeerJoin</code> sends your position to the new arrival straight away, so they see you immediately instead of waiting.</p>
-<h2 id="block-2-send"><a class="heading-anchor" href="#block-2-send">Block 2: Send</a></h2>
+<p><code>'demo'</code>はルーム名です。同じルーム名を使用している全員がお互いに会うことができます。</p>
+<p><code>selfId</code>はあなたのタブのランダムな名前で、ページがロードされるたびに新しく作成されます。<strong>他のプレイヤーはあなたが誰であるかを知ることはありません。</strong> 彼らは20文字のランダムな文字を受け取ります。</p>
+<p><code>others</code>はこのブロックが保持する唯一のものです。他の全員がどこにいるかのリストで、プレイヤーごとに1つのエントリがあります。<code>onPeerLeave</code>はそれらを削除するので、誰かがタブを閉じると、その正方形は永遠にそこに留まるのではなく消えます。</p>
+<p><code>onPeerJoin</code>内の行は、新しい参加者へあなたの位置をすぐに送信するので、彼らは待つことなくすぐにあなたを見ることができます。</p>
+<h2 id="ブロック2-送信"><a class="heading-anchor" href="#ブロック2-送信">ブロック2: 送信</a></h2>
 <pre><code>setInterval(() =&gt; sendMove({ x: player.x, y: player.y }), 100);
 </code></pre>
-<p><code>setInterval(f, 100)</code> runs <code>f</code> every 100 milliseconds — <strong>ten times a second</strong>, about as often as you can tap a finger.</p>
-<p>Your square moves 60 times a second. You could send 60 times a second too. Do not. Every message goes to every player, so in a room of six people that is 360 messages a second leaving your computer instead of 60, to draw squares that would look the same. Ten times a second is enough to look alive.</p>
-<p>This is the same idea as saving twice a second in <a href="a11.html">A11</a>: do the expensive thing as rarely as you can get away with.</p>
-<h2 id="block-3-draw"><a class="heading-anchor" href="#block-3-draw">Block 3: Draw</a></h2>
+<p><code>setInterval(f, 100)</code>は、100ミリ秒ごとに<code>f</code>を実行します — <strong>毎秒10回</strong>、指でタップできるのと同じくらいの頻度です。</p>
+<p>あなたの正方形は毎秒60回動きます。毎秒60回送信することもできます。しかし、そうしないでください。すべてのメッセージがすべてのプレイヤーに送られるため、6人部屋では、同じように見える正方形を描画するために、あなたのコンピューターから毎秒60メッセージではなく360メッセージが送信されることになります。毎秒10回で十分に生きているように見えます。</p>
+<p>これは、<a href="a11.html">A11</a>で毎秒2回セーブするのと同じ考え方です。高価な処理は、できるだけ少ない頻度で行うべきです。</p>
+<h2 id="ブロック3-描画"><a class="heading-anchor" href="#ブロック3-描画">ブロック3: 描画</a></h2>
 <pre><code>function draw() {
   ctx.fillStyle = '#1b1b22';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -132,38 +132,38 @@ onMove((where, id) =&gt; { others[id] = { x: where.x, y: where.y } });
   ctx.fillRect(player.x, player.y, SIZE, SIZE);
 }
 </code></pre>
-<p>Other players are blue, you are green, and four letters of each player's id go above their square so you can tell two of them apart.</p>
-<p>Look at what this block does <em>not</em> do. It does not ask anybody where they are. It reads the <code>others</code> list, exactly the way it reads <code>player</code>. That is why <a href="a10.html">A10</a> split notice from decide from draw: your drawing code never cared where the numbers came from, so another person's square costs three extra lines.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The whole shape follows from one decision: no server, because a server costs money every month and somebody has to keep it running. A 12-year-old should be able to publish this game, send the link to a friend, and have it still work in a year without paying anyone. That rules out a server holding the game — so the browsers talk to each other, and a free public noticeboard does the introductions.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p>他のプレイヤーは青、あなたは緑で、各プレイヤーのIDの4文字が彼らの正方形の上に表示されるので、2人を区別できます。</p>
+<p>このブロックが<strong>しない</strong>ことを見てください。誰かにどこにいるか尋ねません。<code>player</code>を読むのと全く同じ方法で<code>others</code>リストを読みます。これが<a href="a10.html">A10</a>で通知と決定、描画を分離した理由です。あなたの描画コードは数字がどこから来たかに関心がなかったため、別のプレイヤーの正方形を描くのに3行追加するだけです。</p>
+<h2 id="このようにした理由"><a class="heading-anchor" href="#このようにした理由">このようにした理由</a></h2>
+<p>全体的な構造は一つの決定から来ています：サーバーなし。なぜなら、サーバーは毎月費用がかかり、誰かが稼働させ続ける必要があるからです。12歳の子どもがこのゲームを公開し、友達にリンクを送り、誰にもお金を払うことなく1年後も動作するべきです。そのため、ゲームを保持するサーバーは除外されます — したがって、ブラウザ同士が通信し、無料の公開掲示板が紹介の役割を果たします。</p>
+<h2 id="代わりにできたこと"><a class="heading-anchor" href="#代わりにできたこと">代わりにできたこと</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>これの代わりに</th>
+<th>費用</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>A real server holding the world</td>
-<td>It always works, even on strict school networks, and it can stop cheating. But it costs money every month, it must be kept running, and when it goes down every player's game goes down</td>
+<td>世界を保持する実際のサーバー</td>
+<td>厳格な学校ネットワークでも常に動作し、チートを防ぐことができます。しかし、毎月費用がかかり、稼働させ続ける必要があり、ダウンするとすべてのプレイヤーのゲームもダウンします</td>
 </tr>
 <tr>
-<td>Sending your position every frame</td>
-<td>Six times the messages for a picture nobody can tell apart. On a phone that is battery you spent for nothing</td>
+<td>毎フレーム自分の位置を送信する</td>
+<td>誰も区別できない絵のためにメッセージが6倍になります。携帯電話では、無駄にバッテリーを消費します</td>
 </tr>
 <tr>
-<td>Sending "I pressed right" instead of "I am at x, y"</td>
-<td>Fewer messages. But every computer would have to work out where everybody ended up, and one dropped message means two players see different worlds forever</td>
+<td>「私はx, yにいる」ではなく「右を押した」と送信する</td>
+<td>メッセージは少なくなります。しかし、すべてのコンピューターが全員がどこにたどり着いたかを計算する必要があり、1つのメッセージが欠落すると2人のプレイヤーが永遠に異なる世界を見ることになります</td>
 </tr>
 <tr>
-<td>Writing the connection code yourself</td>
-<td>You would learn a lot. It is also several hundred lines of hard code that fails in ways that are very hard to see, which is exactly what a library is for</td>
+<td>自分で接続コードを書く</td>
+<td>多くのことを学ぶでしょう。しかし、それは何百行もの見つけるのが非常に困難な方法で失敗する難しいコードでもあり、それこそがライブラリの目的です</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="プロンプト"><a class="heading-anchor" href="#プロンプト">プロンプト</a></h2>
 <pre><code>I have a canvas game in plain JavaScript. main.js keeps the player in
 {x, y}, moves it in update(dt), and paints it in draw(). I have trystero
 vendored at ../../vendor/trystero/nostr.js. Add multiplayer in three
@@ -172,49 +172,49 @@ called 'move', a peers object, remove a peer when they leave), SEND (a
 setInterval at 10 per second), DRAW (paint the other squares). Do not
 change update(). Plain JavaScript, no build step, no npm.
 </code></pre>
-<p><strong>Check the output for:</strong> did it put the sending inside <code>requestAnimationFrame</code> instead of a timer? That is the most common answer and it sends six times more than you asked for. Did it handle <code>onPeerLeave</code>, or do squares stay on screen forever after someone leaves? And does it import from the vendored file, or did it quietly add <code>import ... from 'https://...'</code>, which is a build step in disguise?</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>出力の確認事項:</strong> 送信処理をタイマーではなく<code>requestAnimationFrame</code>内に記述していないか？ これは最も一般的な回答ですが、要求した量の6倍ものデータを送信します。<code>onPeerLeave</code>を処理しているか、それとも誰かが去った後も正方形が画面に残り続けるか？ そして、ベンダーファイルからインポートしているか、それとも密かに<code>import ... from 'https://...'</code>を追加していないか？ それは偽装されたビルドステップです。</p>
+<h2 id="動作を確認する"><a class="heading-anchor" href="#動作を確認する">動作を確認する</a></h2>
 <p><img alt="Two squares on a dark canvas, one green labelled &quot;you&quot; and one blue with a short id above it" src="../static/img/game/a12.png"></p>
-<p>Open the page twice, in two browser tabs, and wait a few seconds:</p>
+<p>ページを2回、2つのブラウザタブで開き、数秒待ちます。</p>
 <ol>
-<li>A blue square appears in each tab, with four letters above it. That is the other tab.</li>
-<li>Drive the green square in one tab with the arrow keys. The blue square in the other tab moves the same way.</li>
-<li>Open the console in the second tab and type <code>others</code>. You get an object like <code>{6phtXPzeOsFqgp95188x: {x: 411.696, y: 288}}</code> — and those two numbers are the same numbers as <code>player</code> in the first tab. That is the proof. The picture could be a coincidence; matching numbers to three decimal places cannot be.</li>
-<li>Close the first tab. Within a few seconds the blue square in the second tab disappears and <code>others</code> becomes <code>{}</code>.</li>
-<li>Open a third tab. A second blue square appears — the picture above was taken with three players in the room.</li>
+<li>各タブに青い正方形が表示され、その上に4文字が表示されます。それがもう一方のタブです。</li>
+<li>片方のタブで緑の正方形を矢印キーで動かします。もう一方のタブの青い正方形も同じように動きます。</li>
+<li>2番目のタブでコンソールを開き、<code>others</code>と入力します。<code>{6phtXPzeOsFqgp95188x: {x: 411.696, y: 288}}</code>のようなオブジェクトが表示されます — そして、これら2つの数値は1番目のタブの<code>player</code>と同じ数値です。これが証拠です。画像は偶然かもしれませんが、小数点以下3桁まで一致する数値は偶然ではありえません。</li>
+<li>1番目のタブを閉じます。数秒以内に2番目のタブの青い正方形が消え、<code>others</code>は<code>{}</code>になります。</li>
+<li>3番目のタブを開きます。2番目の青い正方形が現れます — 上の写真は3人のプレイヤーが部屋にいる状態で撮影されました。</li>
 </ol>
-<p>If step 1 never happens, read the note about networks above before you change any code.</p>
-<h2 id="what-went-wrong-when-we-did-this"><a class="heading-anchor" href="#what-went-wrong-when-we-did-this">What went wrong when we did this</a></h2>
-<p>Read this <strong>after</strong> you have folded the three blocks into your game, because that is when it happens.</p>
-<p>Two tabs is how you test this step, and for the demo above it works perfectly. Then we added it to the real game — the one that saves your name and your position from <a href="a11.html">A11</a> — and opened two tabs.</p>
-<p><strong>There were two of us.</strong> Same name, same monster, both walking around, both real. Closing the second tab did not help, because the first one was still going.</p>
-<p>Nothing was broken. Both tabs read the same save, because a save belongs to the <em>browser</em>, not to the tab. So both tabs were correctly, honestly, you. The game simply had no idea that only one of you should be playing at a time.</p>
-<p>The fix is to decide that <strong>the newest window wins</strong>:</p>
+<p>ステップ1が一度も発生しない場合は、コードを変更する前に上記のネットワークに関する注意書きを読んでください。</p>
+<h2 id="これを行ったときに何が問題だったか"><a class="heading-anchor" href="#これを行ったときに何が問題だったか">これを行ったときに何が問題だったか</a></h2>
+<p>このセクションは、3つのブロックをあなたのゲームに組み込んだ<strong>後</strong>に読んでください。なぜなら、そのときに問題が発生するからです。</p>
+<p>このステップをテストするには2つのタブを使用し、上記のデモでは完全に機能します。その後、<a href="a11.html">A11</a>で名前と位置を保存する実際のゲームに追加し、2つのタブを開きました。</p>
+<p><strong>二人の自分が出現しました。</strong> 同じ名前、同じモンスターが両方歩き回り、両方とも本物でした。2番目のタブを閉じても解決しませんでした。なぜなら、1番目のタブがまだ稼働していたからです。</p>
+<p>何も壊れていませんでした。両方のタブが同じセーブデータを読み込んでいたのです。なぜなら、セーブデータはタブではなく<strong>ブラウザ</strong>に属しているからです。そのため、両方のタブは正しく、正直にあなた自身でした。ゲームは単に、同時にプレイすべきなのは一人だけだということを知らなかっただけです。</p>
+<p>解決策は、<strong>最新のウィンドウが優先される</strong>と決めることです。</p>
 <ol>
-<li>A window that opens announces itself to any other window of the same game.</li>
-<li>An older window that hears this saves where it actually is right now, hands that over, <strong>leaves the room</strong>, and shows a quiet message with a button to take the game back.</li>
-<li>The new window waits a moment for that handover — we allow four hundred milliseconds — and starts from the position it receives. If nothing answers, there was no other window, and it just reads the save as usual.</li>
+<li>開いたウィンドウは、同じゲームの他のすべてのウィンドウに自分自身を通知します。</li>
+<li>これを聞いた古いウィンドウは、現在の実際の位置を保存し、それを渡し、<strong>部屋から退出</strong>し、ゲームを取り戻すためのボタン付きの静かなメッセージを表示します。</li>
+<li>新しいウィンドウは、その引き渡しを少し待ち（400ミリ秒を許容します）、受け取った位置から開始します。何も応答がない場合は、他のウィンドウは存在せず、通常通りセーブデータを読み込みます。</li>
 </ol>
-<p>Two details in there are easy to get wrong, and both cost us time:</p>
-<p><strong>The old window has to genuinely leave</strong>, not just stop drawing. If it only pauses, it is still connected, so everyone else still sees two of you and the bug looks unfixed.</p>
-<p><strong>The new window must use the handed-over position, not the saved one.</strong> A game saves every so often, not every frame. Use the saved copy and you jump back to wherever the last save happened to land, which feels like the game losing your place.</p>
-<p><em>Windows of the same site can talk to each other directly — grown-up programmers call it a <code>BroadcastChannel</code>, so now you know that name too. It only works between windows of the same site, which is exactly the problem here.</em></p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Take your game from <a href="a11.html">A11</a> and add the three blocks. Nothing already there changes. <code>update</code> and the loop stay exactly as they were — you are adding a second source of numbers, not rewriting the first one.</p>
+<p>そこには間違いやすい2つの詳細があり、どちらも時間を費やしました。</p>
+<p><strong>古いウィンドウは実際に退出する</strong>必要があり、描画を停止するだけではいけません。一時停止するだけではまだ接続されているため、他の全員にはまだ2人のあなたが見え、バグが未修正に見えます。</p>
+<p><strong>新しいウィンドウは、セーブされた位置ではなく、引き渡された位置を使用する必要があります。</strong> ゲームは毎フレームではなく、時々セーブします。セーブされたコピーを使用すると、最後にセーブされた場所にジャンプしてしまい、ゲームがあなたの場所を見失ったように感じられます。</p>
+<p><em>同じサイトのウィンドウは直接互いに通信できます — 熟練したプログラマーはそれを<code>BroadcastChannel</code>と呼びます。これであなたもその名前を知ったことになります。これは同じサイトのウィンドウ間でのみ機能し、まさにここでの問題に合致します。</em></p>
+<h2 id="ゲームに組み込む"><a class="heading-anchor" href="#ゲームに組み込む">ゲームに組み込む</a></h2>
+<p><a href="a11.html">A11</a>からゲームを取り出し、3つのブロックを追加します。既存のものは何も変更しません。<code>update</code>とループは全く同じままです — 最初の数値ソースを書き換えるのではなく、2番目の数値ソースを追加するのです。</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="重要なポイント"><a class="heading-anchor" href="#重要なポイント">重要なポイント</a></h2>
 <ul>
-<li>"Serverless" usually means no server holds the game, but something still introduces the players</li>
-<li>Other players are just numbers that change, the same as your keyboard — that is why A10's split pays off here</li>
-<li>Send rarely and on a timer, not every frame; the picture is the same and the cost is far lower</li>
-<li>Remove a player when they leave, or their square haunts your screen forever</li>
-<li>Some networks will not let two computers talk directly, and that is not a bug in your code</li>
-<li>A save belongs to the browser, not the tab — so two tabs are two of you until you decide which one is playing</li>
+<li>「サーバーレス」は通常、ゲームを保持するサーバーがないことを意味しますが、プレイヤー同士を紹介する何らかの仕組みは依然として存在します。</li>
+<li>他のプレイヤーは、あなたのキーボードと同じく、単に変化する数値に過ぎません — だからこそ、A10の分割がここで報われます。</li>
+<li>送信は毎フレームではなく、タイマーを使って稀に行うこと。画像は同じでも、コストははるかに低くなります。</li>
+<li>プレイヤーが去ったら削除すること。そうしないと、彼らの正方形が永遠にあなたの画面に残り続けます。</li>
+<li>一部のネットワークでは、2台のコンピューターが直接通信することを許可しませんが、それはあなたのコードのバグではありません。</li>
+<li>セーブデータはタブではなくブラウザに属します — したがって、どちらがプレイしているかを決定するまでは、2つのタブは2人のあなたです。</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Right now a player who freezes — laptop lid closed, connection dropped — leaves a square standing still on your screen until the room notices they are gone. This happened to us while building the step: a tab that was killed rather than closed left a blue square parked at <code>{x: 100, y: 100}</code> for minutes, because "goodbye" was never sent. Store the time each message arrived, and fade or hide any square you have not heard from for three seconds. <em>Grown-up programmers call a message like that a heartbeat, so now you know that word too.</em></p>
+<h2 id="あなたの番"><a class="heading-anchor" href="#あなたの番">あなたの番</a></h2>
+<p>現在、フリーズしたプレイヤー（ラップトップの蓋を閉じた、接続が切れたなど）は、部屋がそのプレイヤーが去ったことに気づくまで、あなたの画面に静止した正方形を残します。このステップを構築中に、私たちにもこれが起こりました。閉じられずに強制終了されたタブが、数分間<code>{x: 100, y: 100}</code>に青い正方形を停滞させたままにしました。なぜなら、「さようなら」が送信されなかったからです。各メッセージが到着した時間を保存し、3秒間応答のない正方形はフェードアウトさせるか、非表示にしてください。<em>熟練したプログラマーは、そのようなメッセージをハートビートと呼びます。これであなたもその言葉を知ったことになりますね。</em></p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">AIレッスンに戻る</a>
         <div class="lesson-pager">

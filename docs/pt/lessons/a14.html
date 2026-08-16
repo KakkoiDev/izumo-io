@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Your Monster - KakkoiSchool</title>
+  <title>Seu Monstro - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a15.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a14-your-monster"><a class="heading-anchor" href="#a14-your-monster">A14: Your Monster</a></h1>
-<p class="lesson-intro">Your player has been a coloured square since <a href="a10.html">A10</a>. By the end of this step it is a monster, and when you walk it the legs move. When you stop, they stop.</p>
-<p><strong>Needs:</strong> <a href="a10.html">A10</a>. <strong>Gives you:</strong> a drawn character, cut out of one picture file, that animates while it walks.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a14-seu-monstro"><a class="heading-anchor" href="#a14-seu-monstro">A14: Seu Monstro</a></h1>
+<p class="lesson-intro">Seu jogador tem sido um quadrado colorido desde <a href="a10.html">A10</a>. Ao final deste passo, ele é um monstro, e quando você o move, as pernas se movem. Quando você para, elas param.</p>
+<p><strong>Necessita de:</strong> <a href="a10.html">A10</a>. <strong>Oferece:</strong> um personagem desenhado, recortado de um único arquivo de imagem, que anima enquanto anda.</p>
+<h2 id="o-jogo-completo-e-a-parte-de-hoje"><a class="heading-anchor" href="#o-jogo-completo-e-a-parte-de-hoje">O jogo completo, e a parte de hoje</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -69,20 +69,20 @@ flowchart LR
     class R now
 
 </div>
-<p>Only <strong>Draw</strong> changes. "Notice" and "Decide" are untouched — the monster moves for exactly the same reason the square did.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"A monster whose legs move" sounds like one thing. It is two:</p>
+<p>Apenas <strong>Desenhar</strong> muda. "Perceber" e "Decidir" permanecem intocados — o monstro se move exatamente pela mesma razão que o quadrado se movia.</p>
+<h2 id="dividindo-em-blocos"><a class="heading-anchor" href="#dividindo-em-blocos">Dividindo em blocos</a></h2>
+<p>"Um monstro cujas pernas se movem" parece uma coisa só. São duas:</p>
 <ol>
-<li><strong>Cut</strong> — take one small picture out of one big picture file</li>
-<li><strong>Change</strong> — pick a different small picture as time passes</li>
+<li><strong>Recortar</strong> — pegar uma pequena imagem de um grande arquivo de imagem</li>
+<li><strong>Mudar</strong> — escolher uma imagem pequena diferente conforme o tempo passa</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Nothing on screen at all is a cutting problem — wrong file, wrong rectangle. A monster that appears but never animates is a changing problem — the timer, or the list of pictures. Those are two different bugs, and from the outside both of them just look like "the monster is broken".</p>
-<h2 id="the-picture-file"><a class="heading-anchor" href="#the-picture-file">The picture file</a></h2>
-<p>Everything the monster needs is in <strong>one file</strong>: <code>vendor/kenney/pixel-platformer-characters.png</code>. It is 216 pixels wide and 72 tall, and inside it are 27 small pictures in a grid — 9 across, 3 down, each one 24 by 24 pixels.</p>
-<p>The first two pictures are the same green monster twice. In picture 0 its legs are together. In picture 1 they are apart. That is all a walk needs.</p>
-<p><strong>One honest warning.</strong> This character is drawn in a 24-pixel style, and the walls and floors you will use in <a href="a16.html">A16</a> are drawn in a 16-pixel style by a different artist. Side by side they do not quite match — the monster's pixels are slightly bigger than the world's pixels. We chose that on purpose, because no pack we could find had both a matching world <em>and</em> a character that walks. Small real projects end up mixing packs like this all the time. If it bothers you later, the fix is to pick one style and redraw the other, and that is a real afternoon of work, not a line of code.</p>
-<h2 id="block-1-cut"><a class="heading-anchor" href="#block-1-cut">Block 1: Cut</a></h2>
-<pre><code>const sheet = new Image();
+<p><strong>Por que se dar ao trabalho de dividir?</strong> Porque se fosse uma única "coisa" e desse errado, você não saberia qual parte estava errada. Nada na tela é um problema de recorte — arquivo errado, retângulo errado. Um monstro que aparece mas nunca anima é um problema de mudança — o temporizador, ou a lista de imagens. Esses são dois bugs diferentes, e de fora, ambos parecem apenas "o monstro está quebrado".</p>
+<h2 id="o-arquivo-de-imagem"><a class="heading-anchor" href="#o-arquivo-de-imagem">O arquivo de imagem</a></h2>
+<p>Tudo que o monstro precisa está em <strong>um arquivo</strong>: <code>vendor/kenney/pixel-platformer-characters.png</code>. Ele tem 216 pixels de largura e 72 de altura, e dentro dele há 27 pequenas imagens em uma grade — 9 na horizontal, 3 na vertical, cada uma com 24 por 24 pixels.</p>
+<p>As duas primeiras imagens são do mesmo monstro verde duas vezes. Na imagem 0, suas pernas estão juntas. Na imagem 1, elas estão separadas. Isso é tudo que uma caminhada precisa.</p>
+<p><strong>Um aviso honesto.</strong> Este personagem é desenhado em um estilo de 24 pixels, e as paredes e pisos que você usará em <a href="a16.html">A16</a> são desenhados em um estilo de 16 pixels por um artista diferente. Lado a lado, eles não combinam perfeitamente — os pixels do monstro são ligeiramente maiores que os pixels do mundo. Escolhemos isso de propósito, porque nenhum pacote que pudéssemos encontrar tinha um mundo que combinasse <em>e</em> um personagem que andasse. Pequenos projetos reais acabam misturando pacotes como este o tempo todo. Se isso te incomodar mais tarde, a solução é escolher um estilo e redesenhar o outro, e isso é uma tarde inteira de trabalho, não uma linha de código.</p>
+<h2 id="bloco-1-recorte"><a class="heading-anchor" href="#bloco-1-recorte">Bloco 1: Recorte</a></h2>
+<pre><code class="language-javascript">const sheet = new Image();
 sheet.src = '../../vendor/kenney/pixel-platformer-characters.png';
 
 const CELL = 24;          // one picture in the sheet, in pixels
@@ -96,20 +96,20 @@ function drawPicture(n, x, y) {
   ctx.drawImage(sheet, sx, sy, CELL, CELL, x, y, SIZE, SIZE);
 }
 </code></pre>
-<p><code>drawImage</code> with nine things after it looks frightening. It is really two rectangles and a question.</p>
+<p><code>drawImage</code> com nove argumentos depois dela parece assustador. Na verdade, são dois retângulos e uma pergunta.</p>
 <ul>
-<li>The first is the file.</li>
-<li>The next four — <code>sx, sy, CELL, CELL</code> — are <strong>which little square to copy out of the big picture</strong>: how far from its left, how far from its top, how wide, how tall.</li>
-<li>The last four — <code>x, y, SIZE, SIZE</code> — are <strong>where to paste it on the canvas, and how big to make it there</strong>.</li>
+<li>O primeiro é o arquivo.</li>
+<li>Os próximos quatro — <code>sx, sy, CELL, CELL</code> — são <strong>qual pequeno quadrado copiar da imagem grande</strong>: a que distância de sua esquerda, a que distância de seu topo, quão largo, quão alto.</li>
+<li>Os últimos quatro — <code>x, y, SIZE, SIZE</code> — são <strong>onde colar no canvas, e quão grande fazer lá</strong>.</li>
 </ul>
-<p>Copy from <em>there</em>, paste to <em>here</em>. That is the whole nine.</p>
-<p>Finding <code>sx</code> and <code>sy</code> is division. Picture 0 is at the start. Picture 9 is one row down, because there are 9 across. So <code>n % COLS</code> is how far along the row you are, and <code>Math.floor(n / COLS)</code> is which row. Multiply each by 24 and you have the corner of the picture.</p>
-<p>Two more lines matter:</p>
-<pre><code>ctx.imageSmoothingEnabled = false;
+<p>Copiar de <em>lá</em>, colar <em>aqui</em>. Isso é tudo.</p>
+<p>Encontrar <code>sx</code> e <code>sy</code> é divisão. A imagem 0 está no início. A imagem 9 está uma linha abaixo, porque há 9 na horizontal. Então <code>n % COLS</code> é quão longe você está na linha, e <code>Math.floor(n / COLS)</code> é qual linha. Multiplique cada um por 24 e você terá o canto da imagem.</p>
+<p>Duas linhas a mais importam:</p>
+<pre><code class="language-javascript">ctx.imageSmoothingEnabled = false;
 </code></pre>
-<p>24 pixels is tiny on a modern screen, so we draw at 3 times the size. When a browser makes a picture bigger it normally <em>blurs</em> it, to make photographs look smooth. On pixel art that turns crisp squares into mush. Turning smoothing off tells the browser to make each pixel into a solid 3-by-3 block instead. Try it both ways once — the difference is the whole look of the game.</p>
-<h2 id="block-2-change"><a class="heading-anchor" href="#block-2-change">Block 2: Change</a></h2>
-<pre><code>const STAND = 0;
+<p>24 pixels é minúsculo em uma tela moderna, então desenhamos 3 vezes maior. Quando um navegador aumenta uma imagem, ele normalmente a <em>borra</em>, para fazer as fotografias parecerem suaves. Em pixel art, isso transforma quadrados nítidos em uma pasta. Desligar o suavização diz ao navegador para transformar cada pixel em um bloco sólido de 3 por 3. Experimente de ambas as formas uma vez — a diferença é o visual completo do jogo.</p>
+<h2 id="bloco-2-mudan-a"><a class="heading-anchor" href="#bloco-2-mudan-a">Bloco 2: Mudança</a></h2>
+<pre><code class="language-javascript">const STAND = 0;
 const WALK = [0, 1];
 const STEP = 0.14;        // seconds each picture stays up
 
@@ -126,44 +126,44 @@ function animate(dt, moving) {
   frame = WALK[Math.floor(walked / STEP) % WALK.length];
 }
 </code></pre>
-<p>A <strong>frame</strong> is one picture of an animation. <code>WALK</code> is the list of frames the walk is made of, in order.</p>
-<p>Read the important line backwards. <code>walked</code> counts up in seconds while you hold a direction. Divide by <code>STEP</code> and you get "how many pictures have gone by since you started walking" — after 0.28 seconds, two. <code>Math.floor</code> throws away the part after the dot. <code>% WALK.length</code> wraps that number back to the start of the list, so 0, 1, 2, 3, 4 becomes 0, 1, 0, 1, 0.</p>
-<p>So the picture you see is worked out <strong>from the clock</strong>. You do not tell the animation to advance; you ask it what it looks like right now. <em>Frames are data with time as the index.</em> Nothing anywhere counts frames by hand, which means nothing can drift out of step.</p>
-<p>And when you are not moving, <code>walked</code> goes back to zero and the frame is <code>STAND</code>. Legs stop. That one <code>if</code> is the difference between a monster and a monster having a fit.</p>
-<p>Then <code>update</code> ends with one line:</p>
-<pre><code>animate(dt, dx !== 0 || dy !== 0);
+<p>Um <strong>quadro</strong> é uma imagem de uma animação. <code>WALK</code> é a lista de quadros que compõem a caminhada, em ordem.</p>
+<p>Leia a linha importante de trás para frente. <code>walked</code> conta em segundos enquanto você mantém uma direção. Divida por <code>STEP</code> e você obtém "quantas imagens se passaram desde que você começou a andar" — após 0,28 segundos, duas. <code>Math.floor</code> descarta a parte após o ponto. <code>% WALK.length</code> retorna esse número para o início da lista, então 0, 1, 2, 3, 4 se torna 0, 1, 0, 1, 0.</p>
+<p>Então a imagem que você vê é calculada <strong>a partir do relógio</strong>. Você não diz à animação para avançar; você pergunta a ela como ela se parece agora. <em>Quadros são dados com o tempo como índice.</em> Nada em lugar nenhum conta os quadros manualmente, o que significa que nada pode sair de sincronia.</p>
+<p>E quando você não está se movendo, <code>walked</code> volta a zero e o quadro é <code>STAND</code>. As pernas param. Aquele <code>if</code> é a diferença entre um monstro e um monstro tendo um ataque.</p>
+<p>Então <code>update</code> termina com uma linha:</p>
+<pre><code class="language-javascript">animate(dt, dx !== 0 || dy !== 0);
 </code></pre>
-<p>"Moving" simply means a direction was pressed. <code>update</code> already knows that, so nothing new has to be noticed.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The forcing constraint is that <a href="a12.html">A12</a> puts other people on your screen. Another player's monster is drawn from the same sheet, but it walks at different moments to yours. Because <code>drawPicture</code> takes a picture number and a place, and <code>animate</code> keeps its counting in plain numbers, a second monster needs a second <code>walked</code> and nothing else. Nothing about cutting or changing knows the word "player".</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p>"Movendo" significa simplesmente que uma direção foi pressionada. <code>update</code> já sabe disso, então nada de novo precisa ser percebido.</p>
+<h2 id="por-que-fizemos-isso-desta-forma"><a class="heading-anchor" href="#por-que-fizemos-isso-desta-forma">Por que fizemos isso desta forma</a></h2>
+<p>A restrição obrigatória é que <a href="a12.html">A12</a> coloca outras pessoas na sua tela. O monstro de outro jogador é desenhado da mesma folha, mas ele anda em momentos diferentes do seu. Porque <code>drawPicture</code> pega um número de imagem e um lugar, e <code>animate</code> mantém sua contagem em números simples, um segundo monstro precisa de um segundo <code>walked</code> e nada mais. Nada sobre recortar ou mudar conhece a palavra "jogador".</p>
+<h2 id="o-que-poder-amos-ter-feito-em-vez-disso"><a class="heading-anchor" href="#o-que-poder-amos-ter-feito-em-vez-disso">O que poderíamos ter feito em vez disso</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>Em vez disso</th>
+<th>Qual seria o custo</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>One image file per frame</td>
-<td>The browser asks the server for every single file, one at a time, and they arrive whenever they arrive. Your monster can animate with holes in it while it waits. Twenty characters would be a hundred files</td>
+<td>Um arquivo de imagem por quadro</td>
+<td>O navegador pede ao servidor cada arquivo individualmente, um por um, e eles chegam quando chegam. Seu monstro pode animar com buracos enquanto espera. Vinte personagens seriam cem arquivos</td>
 </tr>
 <tr>
-<td>Advancing the frame once per loop, with no clock</td>
-<td>Your monster's legs would move at whatever speed the screen refreshes. On a 144-times-a-second screen they blur; on a slow one they crawl. Same bug as forgetting <code>dt</code> in A10</td>
+<td>Avançar o quadro uma vez por loop, sem relógio</td>
+<td>As pernas do seu monstro se moveriam na velocidade em que a tela atualiza. Em uma tela de 144 vezes por segundo, elas borram; em uma lenta, elas rastejam. Mesmo bug de esquecer <code>dt</code> em A10</td>
 </tr>
 <tr>
-<td>HTML <code>&lt;img&gt;</code> elements moved around with CSS</td>
-<td>It works for one monster. Then you add fifty and ask the browser to lay out a whole page sixty times a second, which is not what page layout is for</td>
+<td>Elementos <code>&lt;img&gt;</code> HTML movidos com CSS</td>
+<td>Funciona para um monstro. Então você adiciona cinquenta e pede ao navegador para organizar uma página inteira sessenta vezes por segundo, o que não é para o que o layout de página serve</td>
 </tr>
 <tr>
-<td>Drawing at the real 24 pixels, with no zoom</td>
-<td>Your monster would be smaller than this letter <em>o</em> on most screens. Zooming without turning smoothing off is worse: a blurry small monster</td>
+<td>Desenhar com os reais 24 pixels, sem zoom</td>
+<td>Seu monstro seria menor que esta letra <em>o</em> na maioria das telas. Ampliar sem desligar o suavização é pior: um monstro pequeno e borrado</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="o-enunciado"><a class="heading-anchor" href="#o-enunciado">O enunciado</a></h2>
 <pre><code>I have a plain JavaScript canvas game. main.js has a Set of held keys, an
 update(dt) that changes player.x and player.y, and a draw() that paints a
 rectangle for the player. Replace the rectangle with a sprite from a single
@@ -174,44 +174,44 @@ two-frame walk animation that advances on a timer measured in seconds and
 holds a single standing frame when no direction is held. Keep the cutting code
 and the animation code in separate functions.
 </code></pre>
-<p><strong>Check the output for:</strong> does the frame advance from <code>dt</code>, or does it advance once per call with no clock? Assistants very often write <code>frame++</code> inside the loop, which looks perfect on their screen and runs at the wrong speed on yours. Does it reset to the standing frame when you let go, or keep the legs moving forever? And did it turn <code>imageSmoothingEnabled</code> off — this is the single most forgotten line in pixel-art code, and the result is not an error message, just a soft blurry mess you might blame on the artist.</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>Verifique a saída para:</strong> o quadro avança a partir de <code>dt</code>, ou avança uma vez por chamada sem relógio? Assistentes com muita frequência escrevem <code>frame++</code> dentro do loop, o que parece perfeito na tela deles e roda na velocidade errada na sua. Ele redefine para o quadro parado quando você solta, ou mantém as pernas se movendo para sempre? E ele desligou <code>imageSmoothingEnabled</code> — esta é a linha mais esquecida no código de pixel-art, e o resultado não é uma mensagem de erro, apenas uma bagunça suave e embaçada que você pode culpar o artista.</p>
+<h2 id="veja-funcionar"><a class="heading-anchor" href="#veja-funcionar">Veja funcionar</a></h2>
 <p><img alt="A small green monster on a dark canvas, drawn from a sprite sheet, with its legs spread mid-step" src="../static/img/game/a14.png"></p>
-<p>Open the page with Live Server and:</p>
+<p>Abra a página com Live Server e:</p>
 <ol>
-<li>The monster appears straight away. If you get nothing, the file path is wrong — check the browser's network list before you touch any code.</li>
-<li>Hold the right arrow. We read the frame number back fourteen times while it walked and got <code>0,0,0,1,1,0,0,0,1,1,0,0,0,1</code>. It really is swapping pictures, roughly seven times a second.</li>
-<li>Let go. We read it six more times and got <code>0,0,0,0,0,0</code>. The legs are still, and they stay still.</li>
-<li>While it walked, its position went from <code>x: 200</code> to <code>x: 312</code>. Moving and animating are two separate things happening at once, and each one can be checked on its own.</li>
-<li>Look closely at the edges of the monster. The pixels are hard squares, not soft edges. That is smoothing being off.</li>
+<li>O monstro aparece imediatamente. Se você não vir nada, o caminho do arquivo está errado — verifique a lista de rede do navegador antes de tocar em qualquer código.</li>
+<li>Segure a seta para a direita. Lemos o número do quadro catorze vezes enquanto ele andava e obtivemos <code>0,0,0,1,1,0,0,0,1,1,0,0,0,1</code>. Ele realmente está trocando imagens, aproximadamente sete vezes por segundo.</li>
+<li>Solte. Lemos mais seis vezes e obtivemos <code>0,0,0,0,0,0</code>. As pernas estão paradas, e elas permanecem paradas.</li>
+<li>Enquanto ele andava, sua posição foi de <code>x: 200</code> para <code>x: 312</code>. Mover e animar são duas coisas separadas acontecendo ao mesmo tempo, e cada uma pode ser verificada por conta própria.</li>
+<li>Olhe atentamente para as bordas do monstro. Os pixels são quadrados duros, não bordas suaves. Isso é o suavização desativado.</li>
 </ol>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Take the game from <a href="a10.html">A10</a>. Add the <code>sheet</code> image, <code>drawPicture</code> and <code>animate</code>. Add one line to the end of <code>update</code>:</p>
-<pre><code>animate(dt, dx !== 0 || dy !== 0);
+<h2 id="coloque-no-jogo"><a class="heading-anchor" href="#coloque-no-jogo">Coloque no jogo</a></h2>
+<p>Pegue o jogo de <a href="a10.html">A10</a>. Adicione a imagem <code>sheet</code>, <code>drawPicture</code> e <code>animate</code>. Adicione uma linha ao final de <code>update</code>:</p>
+<pre><code class="language-javascript">animate(dt, dx !== 0 || dy !== 0);
 </code></pre>
-<p>Then in <code>draw</code>, replace this:</p>
-<pre><code>ctx.fillStyle = '#7ee081';
+<p>Então em <code>draw</code>, substitua isto:</p>
+<pre><code class="language-javascript">ctx.fillStyle = '#7ee081';
 ctx.fillRect(player.x, player.y, SIZE, SIZE);
 </code></pre>
-<p>with this:</p>
-<pre><code>drawPicture(frame, Math.round(player.x), Math.round(player.y));
+<p>por isto:</p>
+<pre><code class="language-javascript">drawPicture(frame, Math.round(player.x), Math.round(player.y));
 </code></pre>
-<p><code>Math.round</code> is there because <code>player.x</code> is usually something like <code>216.656</code>. Drawing pixel art at half a pixel makes its edges shimmer as it moves.</p>
+<p><code>Math.round</code> está lá porque <code>player.x</code> é geralmente algo como <code>216.656</code>. Desenhar pixel art em meio pixel faz suas bordas cintilarem enquanto ele se move.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-li-es"><a class="heading-anchor" href="#principais-li-es">Principais Lições</a></h2>
 <ul>
-<li>One image file can hold hundreds of pictures; you cut out the one you want with a rectangle</li>
-<li><code>drawImage</code>'s nine numbers are just "copy from this square" and "paste to this square"</li>
-<li>An animation is a list of pictures, and the clock decides which one you are on</li>
-<li>Stopping the animation when the player stops is what makes it look alive instead of broken</li>
-<li>Turn smoothing off and round your positions, or pixel art goes soft and shimmery</li>
+<li>Um arquivo de imagem pode conter centenas de imagens; você recorta a que deseja com um retângulo</li>
+<li>Os nove números de <code>drawImage</code> são apenas "copiar deste quadrado" e "colar neste quadrado"</li>
+<li>Uma animação é uma lista de imagens, e o relógio decide em qual você está</li>
+<li>Parar a animação quando o jogador para é o que a faz parecer viva em vez de quebrada</li>
+<li>Desligue o suavização e arredonde suas posições, ou a pixel art fica suave e cintilante</li>
 </ul>
 </div>
 
-<p>One file, one request from the server, twenty-seven pictures. That is why sheets like this exist. <em>Grown-up programmers call this a sprite atlas — an atlas is a book of maps, and this is a book of pictures. Now you know that word too.</em></p>
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Your monster walks to the left looking exactly the same as when it walks to the right. Make it face the way it is going.</p>
-<p>You need to remember the last sideways direction, and then flip the picture when you draw it. Look up <code>ctx.scale(-1, 1)</code> and <code>ctx.save()</code> / <code>ctx.restore()</code>. Flipping is one of those things that feels impossible until you have done it once, and then takes four lines forever after.</p>
+<p>Um arquivo, uma requisição do servidor, vinte e sete imagens. É por isso que folhas como esta existem. <em>Programadores experientes chamam isso de atlas de sprites — um atlas é um livro de mapas, e este é um livro de imagens. Agora você também conhece essa palavra.</em></p>
+<h2 id="sua-vez"><a class="heading-anchor" href="#sua-vez">Sua vez</a></h2>
+<p>Seu monstro anda para a esquerda parecendo exatamente o mesmo que quando anda para a direita. Faça-o virar para a direção em que está indo.</p>
+<p>Você precisa lembrar a última direção lateral e, em seguida, virar a imagem ao desenhá-la. Pesquise <code>ctx.scale(-1, 1)</code> e <code>ctx.save()</code> / <code>ctx.restore()</code>. Virar é uma daquelas coisas que parece impossível até que você faça uma vez, e depois leva quatro linhas para sempre.</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">

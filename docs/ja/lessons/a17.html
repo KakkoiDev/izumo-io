@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Sound - KakkoiSchool</title>
+  <title>音 - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a18.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a17-sound"><a class="heading-anchor" href="#a17-sound">A17: Sound</a></h1>
-<p class="lesson-intro">Walk, and you hear a footstep. Press a button, and music plays. And because a room full of laptops all making noise at once is horrible, sound starts switched off.</p>
-<p><strong>Needs:</strong> <a href="a10.html">A10</a>. <strong>Gives you:</strong> a footstep when you move, music when you ask for it, and one button that silences everything.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a17-音"><a class="heading-anchor" href="#a17-音">A17: 音</a></h1>
+<p class="lesson-intro">歩くと足音が聞こえます。ボタンを押すと音楽が再生されます。そして、ラップトップが一斉に騒音を立てる部屋はひどいので、音はオフの状態で開始されます。</p>
+<p><strong>必要:</strong> <a href="a10.html">A10</a>。<strong>得られるもの:</strong> 動いたときの足音、要求したときの音楽、そしてすべてを静かにする1つのボタン。</p>
+<h2 id="ゲーム全体と今日の部分"><a class="heading-anchor" href="#ゲーム全体と今日の部分">ゲーム全体と今日の部分</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -69,24 +69,24 @@ flowchart LR
     class A now
 
 </div>
-<p>Today you build the "sound" box. It sits next to drawing, because it does the same job: it turns numbers that already changed into something a person can notice.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"The game makes sounds" is three things:</p>
+<p>今日は「音」のボックスを作ります。描画の隣に配置されるのは、同じ役割を果たすからです。つまり、すでに変化した数値を人が気づくことができるものに変えます。</p>
+<h2 id="ブロックに分割する"><a class="heading-anchor" href="#ブロックに分割する">ブロックに分割する</a></h2>
+<p><code>ゲームが音を出す</code>ことは3つの要素からなります。</p>
 <ol>
-<li><strong>Load</strong> — get the files ready before you need them</li>
-<li><strong>Play</strong> — start a sound when something happens</li>
-<li><strong>Turn it off</strong> — one control that silences everything</li>
+<li><strong>ロード</strong> — 必要な前にファイルを準備する</li>
+<li><strong>再生</strong> — 何かが起こったときに音を鳴らす</li>
+<li><strong>オフにする</strong> — すべてを静かにする1つのコントロール</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Silence has at least three different causes here, and they need three different repairs. The file never arrived. The file arrived but the browser refused to play it. Or it played perfectly and the sound is switched off. Three blocks, three separate questions.</p>
-<h2 id="the-rule-that-surprises-everyone"><a class="heading-anchor" href="#the-rule-that-surprises-everyone">The rule that surprises everyone</a></h2>
-<p><strong>A browser will not play sound until the person has done something on the page.</strong> A click. A key press. A tap. Until then, every attempt to play is refused.</p>
-<p>This is not a bug and it is not your code. It is a rule that exists so a page cannot ambush you with noise the moment you open it. Think of every website you have ever opened at night with the volume up.</p>
-<p>Our demo asks to play music on load, on purpose, so you can see the refusal:</p>
+<p><strong>なぜ分割する必要があるのか？</strong> なぜなら、もしそれが一つの塊で問題が発生した場合、どの部分が悪いのかを判断できないからです。ここでは、サイレンスには少なくとも3つの異なる原因があり、それぞれに3つの異なる修正が必要です。ファイルが届かなかった。ファイルは届いたが、ブラウザが再生を拒否した。あるいは完璧に再生されたが、音はオフになっている。3つのブロック、3つの独立した問題。</p>
+<h2 id="誰もが驚くルール"><a class="heading-anchor" href="#誰もが驚くルール">誰もが驚くルール</a></h2>
+<p><strong>ユーザーがページ上で何らかのアクションを起こすまで、ブラウザは音を再生しません。</strong> クリック。キープレス。タップ。それまでは、再生の試みはすべて拒否されます。</p>
+<p>これはバグではなく、あなたのコードの問題でもありません。ページを開いた瞬間に騒音で奇襲されないように存在するルールです。これまでに音量を上げたまま夜中に開いたすべてのウェブサイトを思い出してください。</p>
+<p>私たちのデモでは、意図的にロード時に音楽を再生するように要求しているので、拒否を見ることができます。</p>
 <pre><code>NotAllowedError: play() failed because the user didn't interact with the document first.
 </code></pre>
-<p>That is the exact message we got. Now here is the part that catches people. <code>play()</code> does not throw an error you trip over. It hands back a <strong>promise</strong> — an object that means <em>"an answer is coming later"</em>. If you ignore it, the refusal is thrown away, and all you get is silence with a clean console and nothing to look at.</p>
-<p>So: <strong>always put a <code>.catch</code> on <code>play()</code></strong>. Then you get told.</p>
-<h2 id="block-1-load"><a class="heading-anchor" href="#block-1-load">Block 1: Load</a></h2>
+<p>それが私たちが受け取った正確なメッセージです。さて、ここが人々が引っかかる部分です。<code>play()</code>はあなたがつまづくようなエラーをスローしません。それは<strong>プロミス</strong>を返します — 「<em>後で答えが来る</em>」という意味のオブジェクトです。もしそれを無視すると、拒否は捨て去られ、クリーンなコンソールと何も見るものがない沈黙だけが残ります。</p>
+<p>したがって、<strong>常に<code>play()</code>に<code>.catch</code>を付けてください。</strong> そうすれば通知されます。</p>
+<h2 id="ブロック1-ロード"><a class="heading-anchor" href="#ブロック1-ロード">ブロック1: ロード</a></h2>
 <pre><code>const step = new Audio('../../audio/step.wav');
 const music = new Audio('../../audio/music-loop.mp3');
 music.loop = true;
@@ -95,12 +95,12 @@ music.volume = 0.4;
 step.addEventListener('canplaythrough', () =&gt; loaded('step.wav loaded.'), { once: true });
 step.addEventListener('error', () =&gt; loaded('step.wav did NOT load.'));
 </code></pre>
-<p><code>new Audio(path)</code> makes a sound you can control. Making it does not play it and does not even finish fetching it.</p>
-<p><code>canplaythrough</code> means "enough of this has arrived to play it to the end without stopping". <code>error</code> means the file did not arrive at all — a wrong path, usually.</p>
-<p><code>{ once: true }</code> says "tell me the first time only". Without it this message fires again every time the sound is rewound, and stamps over whatever else the page was saying. That really happened to us while building this.</p>
-<p><code>music.loop = true</code> makes it start again when it ends. <code>volume</code> runs from 0 to 1, and 0.4 is quiet enough to hear the game over it.</p>
-<p><strong>Two file types, on purpose.</strong> The short effects are <code>.wav</code> and the music is <code>.mp3</code>. Both of those play in every browser. Ogg Vorbis makes smaller files, but Safari's support for it is patchy — so some students would get silence with nothing on screen to explain it. A file type that fails loudly is better than one that fails quietly. WAV is only sensible here because these effects are tiny: the footstep lasts 0.049 seconds and weighs 4 kB.</p>
-<h2 id="block-2-play"><a class="heading-anchor" href="#block-2-play">Block 2: Play</a></h2>
+<p><code>new Audio(path)</code>はコントロール可能なサウンドを作成します。これを作成しても再生されず、取得も完了しません。</p>
+<p><code>canplaythrough</code>は「中断せずに最後まで再生できるだけのデータが到着した」という意味です。<code>error</code>はファイルが全く到着しなかったことを意味します — 通常はパスが間違っています。</p>
+<p><code>{ once: true }</code>は「最初の1回だけ教えて」という意味です。これがないと、サウンドが巻き戻されるたびにこのメッセージが再び発生し、ページが言っていた他のすべてを上書きしてしまいます。これはこれを構築しているときに実際に起こりました。</p>
+<p><code>music.loop = true</code>は、終了時に再び開始させます。<code>volume</code>は0から1までで、0.4はゲームの上で聞こえるのに十分な静かさです。</p>
+<p><strong>意図的に2種類のファイルを使用。</strong> 短い効果音は<code>.wav</code>、音楽は<code>.mp3</code>です。これらはどちらもすべてのブラウザで再生されます。Ogg Vorbisはファイルサイズを小さくしますが、Safariでのサポートは不安定です — そのため、一部の生徒は何も表示されずにサイレンスになってしまいます。静かに失敗するファイルタイプよりも、騒々しく失敗するファイルタイプの方が良いです。ここではWAVが理にかなっています。なぜなら、これらの効果音は非常に小さく、足音は0.049秒で4kBだからです。</p>
+<h2 id="ブロック2-再生"><a class="heading-anchor" href="#ブロック2-再生">ブロック2: 再生</a></h2>
 <pre><code>let walked = 0;
 
 function footstep() {
@@ -109,13 +109,13 @@ function footstep() {
   step.play().catch((err) =&gt; say('Footstep refused — ' + err.name));
 }
 </code></pre>
-<p>And inside <code>update</code>, after the square has moved:</p>
+<p>そして、正方形が移動した後、<code>update</code>の中に:</p>
 <pre><code>walked += Math.hypot(dx, dy) * SPEED * dt;
 if (walked &gt; 26) { walked = 0; footstep(); }
 </code></pre>
-<p>A footstep every 26 pixels, not every frame. Tie the sound to the distance travelled, not to time, and it speeds up and slows down with you for free.</p>
-<p><strong><code>step.currentTime = 0</code> is the whole trick.</strong> An <code>Audio</code> that is already playing ignores <code>play()</code>. Ask it twice quickly and the second ask does nothing — you hear one footstep instead of two. Winding it back to the start first makes it restart. We proved this on the music: calling <code>play()</code> on a track already 15 seconds in left it at 15 seconds and carried on.</p>
-<h2 id="block-3-turn-it-off"><a class="heading-anchor" href="#block-3-turn-it-off">Block 3: Turn it off</a></h2>
+<p>毎フレームではなく、26ピクセルごとに足音。音を時間ではなく移動距離に結びつけることで、無料で速度に合わせて速くなったり遅くなったりします。</p>
+<p><strong><code>step.currentTime = 0</code>がすべてのトリックです。</strong> 既に再生中の<code>Audio</code>は<code>play()</code>を無視します。素早く2回要求すると、2回目の要求は何もしません — 2つの足音ではなく1つの足音しか聞こえません。最初に最初に戻すと再開されます。これは音楽で証明しました。すでに15秒再生されているトラックで<code>play()</code>を呼び出すと、15秒のままで再生が続きました。</p>
+<h2 id="ブロック3-オフにする"><a class="heading-anchor" href="#ブロック3-オフにする">ブロック3: オフにする</a></h2>
 <pre><code>let soundOn = false;
 
 soundBtn.addEventListener('click', () =&gt; {
@@ -125,42 +125,42 @@ soundBtn.addEventListener('click', () =&gt; {
   else say('Sound on. Walk around.');
 });
 </code></pre>
-<p><code>soundOn</code> starts as <code>false</code>. Every sound in the game asks it first.</p>
-<p>Notice this also solves the refusal problem without any extra code. The person has to click the button to turn sound on — and that click <em>is</em> the interaction the browser was waiting for. The first sound you hear is always one you asked for.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p><strong>Sound off by default, with an obvious way to turn it on.</strong> A classroom of laptops all making noise at once is miserable for everyone in the room, and somebody may be listening to something else on purpose. A game that starts silent and can be switched on loses nothing. A game that starts loud gets closed.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p><code>soundOn</code>は<code>false</code>で始まります。ゲーム内のすべての音は最初にこれをチェックします。</p>
+<p>これは、追加のコードなしで拒否の問題も解決することに注意してください。ユーザーは音をオンにするためにボタンをクリックする必要があり、そのクリックこそがブラウザが待っていたインタラクションなのです。最初に聞こえる音は常にあなたが要求した音です。</p>
+<h2 id="このようにした理由"><a class="heading-anchor" href="#このようにした理由">このようにした理由</a></h2>
+<p><strong>デフォルトで音をオフにし、オンにする明確な方法を提供する。</strong> ラップトップが一斉に騒音を立てる教室は、部屋にいるすべての人にとって悲惨であり、誰かが意図的に別のものを聞いているかもしれません。静かに始まり、オンにできるゲームは何も失いません。大音量で始まるゲームは閉じられます。</p>
+<h2 id="代わりにできたこと"><a class="heading-anchor" href="#代わりにできたこと">代わりにできたこと</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>これの代わりに</th>
+<th>コスト</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Sound on by default</td>
-<td>Every laptop in the room shouts at once the moment the page opens, and the first thing a person learns is where the mute button is</td>
+<td>デフォルトで音をオンにする</td>
+<td>ページが開いた瞬間に部屋中のすべてのラップトップが一斉に音を立て、最初に覚えることはミュートボタンの場所になるでしょう</td>
 </tr>
 <tr>
-<td>Playing the sound every frame while walking</td>
-<td>Sixty footsteps a second is a buzz, not a footstep. The step has to be spaced out by something, and distance is the honest choice</td>
+<td>歩いている間、毎フレーム音を再生する</td>
+<td>1秒間に60回の足音は足音ではなくブザー音です。足音は何らかの間隔で鳴らす必要があり、距離が正直な選択です</td>
 </tr>
 <tr>
-<td>One <code>Audio</code> per effect, never rewound</td>
-<td>Fine until two footsteps land close together, then you silently lose one. Rewinding costs one line</td>
+<td>効果音ごとに1つのAudio、巻き戻さない</td>
+<td>2つの足音が近くに落ちるまでは問題ないが、その場合1つが静かに失われる。巻き戻しは1行のコスト</td>
 </tr>
 <tr>
-<td>Web Audio API instead of <code>Audio</code></td>
-<td>Real control — mixing, effects, sounds overlapping perfectly. Also many times more code, and everything you can hear in this step needs none of it</td>
+<td><code>Audio</code>の代わりにWeb Audio API</td>
+<td>真のコントロール — ミキシング、エフェクト、完璧なサウンドの重複。ただしコードも何倍も増え、このステップで聞こえるものにはどれも必要ありません</td>
 </tr>
 <tr>
-<td>Ogg Vorbis files, which are smaller</td>
-<td>Smaller downloads, and silence on some Safari machines with nothing on screen explaining why. A quiet failure is the worst kind</td>
+<td>Ogg Vorbisファイル（より小さい）</td>
+<td>ダウンロードは小さくなるが、一部のSafariマシンでは画面に何も表示されずにサイレンスになる。静かな失敗は最悪の類</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="プロンプト"><a class="heading-anchor" href="#プロンプト">プロンプト</a></h2>
 <pre><code>I have a canvas game in plain JavaScript. main.js has update(dt) which moves
 the player, and draw() which paints. Add sound in three separate blocks with a
 comment above each: LOAD (an Audio for audio/step.wav and one for
@@ -169,35 +169,35 @@ pixels walked, restarting the sound if it is already playing), TURN IT OFF (a
 boolean that starts false, and a button that toggles it and pauses the music).
 Every play() must have a .catch. Plain JavaScript, no build step, no npm.
 </code></pre>
-<p><strong>Check the output for:</strong> did every <code>play()</code> get a <code>.catch</code>? Assistants leave them off constantly, and the result is sound that fails with no message anywhere. Did it rewind with <code>currentTime = 0</code> before playing the footstep again, or will the second quick step be swallowed? And does the sound flag really start at <code>false</code>, or did it quietly start your game with the noise on?</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>出力の確認点:</strong> すべての<code>play()</code>に<code>.catch</code>が付いているか？アシスタントは常にそれを省略し、結果としてどこにもメッセージなしで音が失敗します。足音を再び再生する前に<code>currentTime = 0</code>で巻き戻されたか、それとも2番目の素早いステップが飲み込まれるか？そして、サウンドフラグは本当に<code>false</code>で始まるか、それとも静かにノイズ付きでゲームが開始されたか？</p>
+<h2 id="動作を見る"><a class="heading-anchor" href="#動作を見る">動作を見る</a></h2>
 <p><img alt="A game page with a green square, a Sound button reading &quot;on&quot;, a Play music button, and two lines of text saying step.wav loaded and Music playing" src="../static/img/game/a17.png"></p>
-<p>Open the page with Live Server and:</p>
+<p>Live Serverでページを開き、次を実行します。</p>
 <ol>
-<li>Do nothing at all. The second line already says <code>Refused before any click — NotAllowedError</code>. That is the browser's rule, working.</li>
-<li>Open the console and type <code>firstPlayError</code>. You get the full sentence, including the word <code>NotAllowedError</code>.</li>
-<li>Press an arrow key and walk about. Nothing. Sound is off, and the square is a dull green to show it.</li>
-<li>Click <strong>Sound: off</strong>. It becomes <strong>Sound: on</strong> and the square brightens.</li>
-<li>Walk again. Footsteps, one every few steps. We counted nine footsteps in 1.2 seconds of walking, and the sound reached the end of its 0.049 seconds every time.</li>
-<li>Click <strong>Play music</strong>. The line says <code>Music playing.</code> In the console, <code>music.currentTime</code> climbs past 0 and keeps going.</li>
-<li>Click <strong>Sound: on</strong> to turn it back off. The music stops in the same instant, and walking is silent again — we walked for over a second and not one footstep started.</li>
-<li>Click <strong>Play music</strong> while sound is off. Nothing plays, and the page tells you why: <code>Turn the sound on first.</code></li>
+<li>何も操作しない。2行目には既に<code>Refused before any click — NotAllowedError</code>と表示されています。これはブラウザのルールであり、動作しています。</li>
+<li>コンソールを開き、<code>firstPlayError</code>と入力します。<code>NotAllowedError</code>という単語を含む完全な文章が表示されます。</li>
+<li>矢印キーを押して歩き回る。何も起こらない。サウンドはオフで、正方形はそれを表す鈍い緑色です。</li>
+<li><strong>Sound: off</strong>をクリックします。<strong>Sound: on</strong>になり、正方形が明るくなります。</li>
+<li>再び歩く。数歩ごとに足音がします。1.2秒の歩行で9つの足音を数え、サウンドは毎回0.049秒の終わりまで再生されました。</li>
+<li><strong>Play music</strong>をクリックします。行には<code>Music playing.</code>と表示されます。コンソールでは、<code>music.currentTime</code>が0を超えて上昇し続けます。</li>
+<li><strong>Sound: on</strong>をクリックして再びオフにします。音楽は同じ瞬間に停止し、歩行は再び静かになります — 1秒以上歩きましたが、足音は一つも始まりませんでした。</li>
+<li>サウンドがオフの状態で<strong>Play music</strong>をクリックします。何も再生されず、ページはその理由を伝えます: <code>Turn the sound on first.</code> (<code>まずサウンドをオンにしてください。</code>)</li>
 </ol>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Take your game from <a href="a15.html">A15</a> and paste in the three blocks. Only one line goes inside code you already had: the two lines at the end of <code>update</code> that count how far you walked. Everything else is new and sits on its own.</p>
+<h2 id="ゲームに組み込む"><a class="heading-anchor" href="#ゲームに組み込む">ゲームに組み込む</a></h2>
+<p><a href="a15.html">A15</a>からゲームを取り出し、3つのブロックを貼り付けます。既存のコード内に含まれるのは1行だけです。それは<code>update</code>の最後に歩行距離を数える2行です。その他はすべて新しく、独立しています。</p>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>A browser refuses to play sound until the person has clicked or pressed a key — this is a rule, not a bug</li>
-<li><code>play()</code> answers with a promise, so without a <code>.catch</code> a refusal is thrown away and you get silence with no explanation</li>
-<li>Loading a file and playing it are two different jobs, and each one fails in its own way</li>
-<li>A sound that is already playing ignores <code>play()</code>; wind it back to 0 first</li>
-<li>Start with the sound off and make turning it on obvious — the room you are sitting in has other people in it</li>
+<li>ユーザーがクリックまたはキーを押すまで、ブラウザは音を再生しません — これはルールであり、バグではありません</li>
+<li><code>play()</code>はプロミスを返すため、<code>.catch</code>がないと拒否が捨て去られ、説明なしにサイレンスになります</li>
+<li>ファイルのロードと再生は2つの異なる作業であり、それぞれ独自の方法で失敗します</li>
+<li>すでに再生中のサウンドは<code>play()</code>を無視します。まず0に戻してください</li>
+<li>サウンドはオフから始め、オンにする方法を明確にする — あなたがいる部屋には他の人がいます</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Right now the footstep is the same sound every time, which after a minute stops sounding like walking and starts sounding like a machine. Load two or three sounds into an array — there are more files in the <code>audio/</code> folder — and pick one at random each step. Then try the same idea with the volume: a small random change, up or down, on every step. <em>Grown-up programmers call this variation, and it is most of what makes game sound feel alive.</em></p>
+<h2 id="あなたの番です"><a class="heading-anchor" href="#あなたの番です">あなたの番です</a></h2>
+<p>現時点では足音は毎回同じサウンドであり、1分後には歩行音ではなく機械音のように聞こえ始めます。2〜3個のサウンドを配列にロードし（<code>audio/</code>フォルダーにはさらに多くのファイルがあります）、各ステップでランダムに1つ選択してください。次に、同じアイデアを音量で試してください。各ステップで小さなランダムな変更（上げたり下げたり）を加えます。<em>大人になったプログラマーはこれをバリエーションと呼び、ゲームサウンドを生き生きと感じさせるほとんどの要素です。</em></p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">AIレッスンに戻る</a>
         <div class="lesson-pager">

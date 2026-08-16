@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Save the Game - KakkoiSchool</title>
+  <title>Salvar o Jogo - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a12.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a11-save-the-game"><a class="heading-anchor" href="#a11-save-the-game">A11: Save the Game</a></h1>
-<p class="lesson-intro">Right now your game forgets everything the moment you close the tab. By the end of this step it remembers where your square was and what you are called — and it survives a save file written by an older version of your own game.</p>
-<p><strong>Needs:</strong> <a href="a10.html">A10</a>. <strong>Gives you:</strong> a square that comes back where you left it, with your name above it.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a11-salvar-o-jogo"><a class="heading-anchor" href="#a11-salvar-o-jogo">A11: Salvar o Jogo</a></h1>
+<p class="lesson-intro">Neste momento, seu jogo esquece tudo no instante em que você fecha a aba. Ao final desta etapa, ele se lembrará onde seu quadrado estava e qual é o seu nome — e sobreviverá a um arquivo de salvamento escrito por uma versão mais antiga do seu próprio jogo.</p>
+<p><strong>Pré-requisitos:</strong> <a href="a10.html">A10</a>. <strong>O que você ganha:</strong> um quadrado que volta para onde você o deixou, com seu nome acima dele.</p>
+<h2 id="o-jogo-completo-e-a-pe-a-de-hoje"><a class="heading-anchor" href="#o-jogo-completo-e-a-pe-a-de-hoje">O jogo completo e a peça de hoje</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -69,19 +69,19 @@ flowchart LR
     class S now
 
 </div>
-<p>Today you build the box on the side: <strong>Remember your game</strong>. It feeds the middle. When the page starts, it hands "Decide" a position to start from.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"Save the game" sounds like one thing. It is three:</p>
+<p>Hoje você constrói a caixa lateral: <strong>Lembra-se do seu jogo</strong>. Ela alimenta o meio. Quando a página inicia, ela entrega ao "Decidir" uma posição para começar.</p>
+<h2 id="dividindo-em-blocos"><a class="heading-anchor" href="#dividindo-em-blocos">Dividindo em blocos</a></h2>
+<p>"Salvar o jogo" soa como uma coisa só. São três:</p>
 <ol>
-<li><strong>Write</strong> — put the position and the name somewhere that outlives the page</li>
-<li><strong>Read</strong> — get them back when the page starts again</li>
-<li><strong>Cope</strong> — deal with what you read back being old, or broken, or missing</li>
+<li><strong>Gravar</strong> — colocar a posição e o nome em algum lugar que sobreviva à página</li>
+<li><strong>Ler</strong> — recuperá-los quando a página iniciar novamente</li>
+<li><strong>Lidar</strong> — gerenciar o que você lê de volta, caso esteja antigo, quebrado ou faltando</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because these three fail in completely different ways, and they fail at different times. Writing fails now, while you watch. Reading fails when the page starts. Coping fails on somebody else's computer, one day, when they open a game they last played a long time ago.</p>
-<p>If it were one lump and it went wrong, you could not tell which part was wrong. Is nothing being written? Is it written but never read? Is it read but thrown away? Three blocks, three separate questions.</p>
-<p>Block 3 is the one almost everybody skips. It is the whole point of this step.</p>
-<h2 id="block-1-write"><a class="heading-anchor" href="#block-1-write">Block 1: Write</a></h2>
-<p>The browser gives every website a small drawer it can keep text in. It is called <strong>localStorage</strong>, and what you put in it stays there after the tab closes. It only holds text, so we turn our object into text first.</p>
+<p><strong>Por que se preocupar em dividir?</strong> Porque essas três falham de maneiras completamente diferentes e em momentos diferentes. A gravação falha agora, enquanto você assiste. A leitura falha quando a página inicia. O gerenciamento falha no computador de outra pessoa, um dia, quando ela abre um jogo que jogou há muito tempo.</p>
+<p>Se fosse um bloco único e algo desse errado, você não saberia qual parte estava errada. Nada está sendo gravado? Está gravado, mas nunca lido? É lido, mas descartado? Três blocos, três perguntas separadas.</p>
+<p>O Bloco 3 é o que quase todo mundo pula. É o objetivo principal desta etapa.</p>
+<h2 id="bloco-1-gravar"><a class="heading-anchor" href="#bloco-1-gravar">Bloco 1: Gravar</a></h2>
+<p>O navegador oferece a cada site uma pequena "gaveta" onde ele pode guardar texto. Chama-se <strong>localStorage</strong>, e o que você coloca lá permanece mesmo depois que a aba é fechada. Ele só armazena texto, então primeiro transformamos nosso objeto em texto.</p>
 <pre><code>const KEY = 'kakkoi-save';   // one name in the drawer, one save
 const VERSION = 2;           // stamped on everything we write
 
@@ -91,25 +91,25 @@ function save() {
 }
 setInterval(save, 500);
 </code></pre>
-<p><code>JSON.stringify</code> turns an object into text. <strong>JSON</strong> is just a way of writing an object down as characters, so it can be stored or sent somewhere.</p>
-<p><code>setInterval(save, 500)</code> runs <code>save</code> <strong>twice a second</strong>. Not every frame.</p>
+<p><code>JSON.stringify</code> transforma um objeto em texto. <strong>JSON</strong> é apenas uma maneira de escrever um objeto em caracteres, para que possa ser armazenado ou enviado para algum lugar.</p>
+<p><code>setInterval(save, 500)</code> executa <code>save</code> <strong>duas vezes por segundo</strong>. Não a cada frame.</p>
 <blockquote>
-<p><strong>Why not every frame?</strong> Your square moves 60 times a second. Nobody closes a tab 60 times a second. Saving every frame means 60 times the work for exactly the same result: a game that comes back where you left it. Twice a second, you can lose at most half a second of walking — and half a second of walking is nothing.</p>
+<p><strong>Por que não a cada frame?</strong> Seu quadrado se move 60 vezes por segundo. Ninguém fecha uma aba 60 vezes por segundo. Salvar a cada frame significa 60 vezes o trabalho para exatamente o mesmo resultado: um jogo que volta para onde você o deixou. Duas vezes por segundo, você pode perder no máximo meio segundo de caminhada — e meio segundo de caminhada não é nada.</p>
 </blockquote>
-<p>Notice the <code>version</code> number sitting in the saved object. Nothing uses it yet. Block 3 does.</p>
-<h2 id="block-2-read"><a class="heading-anchor" href="#block-2-read">Block 2: Read</a></h2>
+<p>Observe o número <code>version</code> presente no objeto salvo. Nada o usa ainda. O Bloco 3 o faz.</p>
+<h2 id="bloco-2-ler"><a class="heading-anchor" href="#bloco-2-ler">Bloco 2: Ler</a></h2>
 <pre><code>function read() {
   const text = localStorage.getItem(KEY);
   if (text === null) return null;
   return JSON.parse(text);
 }
 </code></pre>
-<p><code>getItem</code> gives back the text you stored, or <code>null</code> if nothing was ever stored under that name. <code>JSON.parse</code> is the opposite of <code>JSON.stringify</code>: text back into an object.</p>
-<p>This block does one job and nothing else. It does not decide what to do about what it found.</p>
-<h2 id="block-3-cope"><a class="heading-anchor" href="#block-3-cope">Block 3: Cope</a></h2>
-<p>Here is the fact that makes this block necessary:</p>
-<p><strong>A save outlives the code that wrote it.</strong> You will change your game. The save sitting in somebody's browser was written by the <em>old</em> version of your game. It might have no name in it, because you added names later. It might be half-written, because the computer was closed in the middle of writing. It is not under your control any more.</p>
-<p>So every bad case ends the same way: start fresh instead of crashing.</p>
+<p><code>getItem</code> retorna o texto que você armazenou, ou <code>null</code> se nada foi armazenado sob esse nome. <code>JSON.parse</code> é o oposto de <code>JSON.stringify</code>: texto de volta para um objeto.</p>
+<p>Este bloco faz um trabalho e nada mais. Ele não decide o que fazer com o que encontrou.</p>
+<h2 id="bloco-3-lidar"><a class="heading-anchor" href="#bloco-3-lidar">Bloco 3: Lidar</a></h2>
+<p>Aqui está o fato que torna este bloco necessário:</p>
+<p><strong>Um salvamento sobrevive ao código que o escreveu.</strong> Você mudará seu jogo. O salvamento que está no navegador de alguém foi escrito pela versão <em>antiga</em> do seu jogo. Ele pode não ter um nome, porque você adicionou nomes mais tarde. Pode estar semi-escrito, porque o computador foi desligado no meio da gravação. Não está mais sob seu controle.</p>
+<p>Assim, cada caso problemático termina da mesma forma: comece do zero em vez de travar.</p>
 <pre><code>function fresh() {
   return { x: 100, y: 100, name: '' };
 }
@@ -135,80 +135,73 @@ function load() {
 
 const player = load();
 </code></pre>
-<p><code>try</code> means "attempt this". <code>catch</code> means "and if it explodes, do this instead of stopping the whole page". <code>JSON.parse</code> throws — explodes — the moment the text is not proper JSON, and without the <code>catch</code> your whole game would stop before it ever drew a frame.</p>
-<p>Four things can be wrong, and each gets one line: unreadable text, nothing saved at all, a save from an older version, a save with no position in it.</p>
-<p>This is the part that feels boring while you write it. It is the part that stops a real person losing a game.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The version number is the forcing constraint. Without it, an old save is <em>silently</em> wrong: it parses fine, it has numbers in it, and your new code quietly builds a broken player out of it — and you will chase that bug for hours because everything looks normal. With one number stamped on every save, "this is from an older game" becomes a thing your code can simply see and answer. When you change what you save in a later step, you raise <code>VERSION</code> by one, and every old save politely steps aside.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p><code>try</code> significa "tentar isso". <code>catch</code> significa "e se explodir, faça isso em vez de parar a página inteira". <code>JSON.parse</code> lança — explode — no momento em que o texto não é JSON adequado, e sem o <code>catch</code> seu jogo inteiro pararia antes mesmo de desenhar um frame.</p>
+<p>Quatro coisas podem estar erradas, e cada uma recebe uma linha: texto ilegível, nada salvo, um salvamento de uma versão antiga, um salvamento sem posição.</p>
+<p>Esta é a parte que parece chata enquanto você a escreve. É a parte que impede uma pessoa real de perder um jogo.</p>
+<h2 id="por-que-fizemos-desta-forma"><a class="heading-anchor" href="#por-que-fizemos-desta-forma">Por que fizemos desta forma</a></h2>
+<p>O número da versão é a restrição. Sem ele, um salvamento antigo está <em>silenciosamente</em> errado: ele é analisado corretamente, tem números, e seu novo código constrói um jogador quebrado a partir dele — e você perseguirá esse bug por horas porque tudo parece normal. Com um número estampado em cada salvamento, "isso é de um jogo mais antigo" se torna algo que seu código pode simplesmente ver e responder. Quando você muda o que salva em uma etapa posterior, você aumenta a <code>VERSION</code> em um, e cada salvamento antigo educadamente se afasta.</p>
+<h2 id="o-que-poder-amos-ter-feito-diferente"><a class="heading-anchor" href="#o-que-poder-amos-ter-feito-diferente">O que poderíamos ter feito diferente</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>Em vez disso</th>
+<th>Qual seria o custo</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Saving on every frame</td>
-<td>60 writes a second instead of 2, for a result nobody can tell apart. Storage is not free and the browser does real work each time</td>
+<td>Salvar a cada frame</td>
+<td>60 gravações por segundo em vez de 2, para um resultado que ninguém consegue diferenciar. O armazenamento não é gratuito e o navegador realiza trabalho real a cada vez</td>
 </tr>
 <tr>
-<td>Saving only when the page closes</td>
-<td>The browser is allowed to kill a tab without warning — crash, low battery, phone swiping the app away. Sometimes your goodbye code never runs, and the whole session is gone</td>
+<td>Salvar apenas quando a página fecha</td>
+<td>O navegador pode encerrar uma aba sem aviso — travamento, bateria fraca, o telefone deslizando o aplicativo. Às vezes, seu código de despedida nunca é executado, e toda a sessão é perdida</td>
 </tr>
 <tr>
-<td>No version number</td>
-<td>Old saves parse fine and produce a wrong player. The bug looks like a movement bug, not a save bug, and you look in the wrong place</td>
+<td>Sem número de versão</td>
+<td>Salvamentos antigos são analisados corretamente e produzem um jogador errado. O bug parece um bug de movimento, não um bug de salvamento, e você procura no lugar errado</td>
 </tr>
 <tr>
-<td>Storing x and y under separate keys</td>
-<td>Two writes instead of one. If the computer stops between them you get a save that is half old and half new — the square jumps to a place it has never been</td>
+<td>Armazenar x e y em chaves separadas</td>
+<td>Duas gravações em vez de uma. Se o computador parar entre elas, você obtém um salvamento que é metade antigo e metade novo — o quadrado pula para um lugar onde nunca esteve</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
-<pre><code>I have a canvas game in plain JavaScript. The player is an object with x, y and
-name. Add saving to localStorage under one key, as one JSON object, written
-twice a second with setInterval. On startup, load it. Put a version number in
-the saved object and handle three bad cases separately: nothing saved yet,
-text that is not valid JSON, and a save whose version is not the current one.
-In every bad case start from default values and never throw. Keep write, read
-and cope as three separate functions.
-</code></pre>
-<p><strong>Check the output for:</strong> did it actually wrap <code>JSON.parse</code> in <code>try</code>/<code>catch</code>, or did it only check for <code>null</code>? Those are different failures and only one of them is caught by a null check. Does the version check compare with <code>!==</code>, or did it only handle <em>older</em> versions and forget a save from a version that does not exist yet? And did it save on every frame in the game loop instead of on a timer — assistants do that often, because it is one line shorter.</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<h2 id="o-prompt"><a class="heading-anchor" href="#o-prompt">O prompt</a></h2>
+<p>Tenho um jogo em canvas em JavaScript puro. O jogador é um objeto com x, y e nome. Adicione salvamento ao localStorage sob uma chave, como um objeto JSON, gravado duas vezes por segundo com setInterval. Na inicialização, carregue-o. Coloque um número de versão no objeto salvo e lide com três casos problemáticos separadamente: nada salvo ainda, texto que não é JSON válido e um salvamento cuja versão não é a atual. Em cada caso problemático, comece com valores padrão e nunca lance erros. Mantenha gravar, ler e lidar como três funções separadas.</p>
+<p><strong>Verifique a saída para:</strong> ele realmente envolveu <code>JSON.parse</code> em <code>try</code>/<code>catch</code>, ou apenas verificou <code>null</code>? São falhas diferentes e apenas uma delas é capturada por uma verificação de nulo. A verificação de versão compara com <code>!==</code>, ou lidou apenas com versões <em>antigas</em> e esqueceu um salvamento de uma versão que ainda não existe? E salvou a cada frame no loop do jogo em vez de em um temporizador — assistentes fazem isso frequentemente, porque é uma linha mais curta.</p>
+<h2 id="veja-funcionar"><a class="heading-anchor" href="#veja-funcionar">Veja funcionar</a></h2>
 <p><img alt="A green square on a dark canvas with the name Mika above it, and a name box below the canvas" src="../static/img/game/a11.png"></p>
-<p>Open the page with Live Server and:</p>
+<p>Abra a página com Live Server e:</p>
 <ol>
-<li>Type a name into the box. It appears above the square.</li>
-<li><strong>Click on the canvas first</strong>, then hold an arrow key. (While the name box has the keyboard, the arrows go into the box, not into the game. That is on purpose.)</li>
-<li>Reload the page. The square is at the same place and the name is still in the box. We drove ours to <code>{x: 253.98, y: 177}</code>, reloaded, and it came back at <code>{x: 253.98, y: 177}</code> with the name <code>Mika</code>.</li>
-<li>Open the browser console and run <code>localStorage.setItem('kakkoi-save', '{{{')</code>, then reload. The page still works. The square starts fresh at <code>{x: 100, y: 100}</code> and the console says <em>save is not readable, starting fresh: Expected property name or '}' in JSON at position 1</em>.</li>
-<li>Now run <code>localStorage.setItem('kakkoi-save', JSON.stringify({ version: 1, name: 'Old Mika', x: 300, y: 40 }))</code> and reload. Again the square starts fresh, and the console says <em>save is version 1 and we speak 2</em>. That is Block 3 doing its job — the position <code>300, 40</code> in that save was thrown away on purpose.</li>
-<li>Move again after either of those. It still moves. Nothing was broken by the broken save.</li>
+<li>Digite um nome na caixa. Ele aparecerá acima do quadrado.</li>
+<li><strong>Primeiro clique no canvas</strong>, depois segure uma tecla de seta. (Enquanto a caixa de nome tem o teclado, as setas vão para a caixa, não para o jogo. Isso é intencional.)</li>
+<li>Recarregue a página. O quadrado estará no mesmo lugar e o nome ainda estará na caixa. Dirigimos o nosso para <code>{x: 253.98, y: 177}</code>, recarregamos, e ele voltou para <code>{x: 253.98, y: 177}</code> com o nome <code>Mika</code>.</li>
+<li>Abra o console do navegador e execute <code>localStorage.setItem('kakkoi-save', '{{{')</code>, depois recarregue. A página ainda funciona. O quadrado começa do zero em <code>{x: 100, y: 100}</code> e o console diz <em>salvamento não é legível, começando do zero: Nome de propriedade ou '}' esperado em JSON na posição 1</em>.</li>
+<li>Agora execute <code>localStorage.setItem('kakkoi-save', JSON.stringify({ version: 1, name: 'Old Mika', x: 300, y: 40 }))</code> e recarregue. Novamente o quadrado começa do zero, e o console diz <em>salvamento é versão 1 e nós usamos a versão 2</em>. Isso é o Bloco 3 fazendo seu trabalho — a posição <code>300, 40</code> nesse salvamento foi descartada de propósito.</li>
+<li>Mova-se novamente após qualquer uma dessas ações. Ele ainda se move. Nada foi quebrado pelo salvamento corrompido.</li>
 </ol>
-<p>Steps 4 and 5 are the real test. A save file you never abuse is a save file you have not tested.</p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Take the game from <a href="a10.html">A10</a>. Add the three functions, replace <code>const player = { x: 100, y: 100 }</code> with <code>const player = load()</code>, and add one <code>&lt;input id="name"&gt;</code> under the canvas. Add one line to <code>draw</code> so the name is painted above the square, and one guard in the key handler so typing your name does not steer:</p>
+<p>As etapas 4 e 5 são o verdadeiro teste. Um arquivo de salvamento que você nunca abusa é um arquivo de salvamento que você não testou.</p>
+<h2 id="coloque-no-jogo"><a class="heading-anchor" href="#coloque-no-jogo">Coloque no jogo</a></h2>
+<p>Pegue o jogo de <a href="a10.html">A10</a>. Adicione as três funções, substitua <code>const player = { x: 100, y: 100 }</code> por <code>const player = load()</code>, e adicione um <code>&lt;input id="name"&gt;</code> abaixo do canvas. Adicione uma linha a <code>draw</code> para que o nome seja pintado acima do quadrado, e uma proteção no manipulador de teclas para que digitar seu nome não direcione o movimento:</p>
 <pre><code>addEventListener('keydown', (e) =&gt; { if (e.target !== nameBox) held.add(e.key); });
 </code></pre>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>Saving is three jobs, not one: write it down, read it back, cope with what you read</li>
-<li>Save on a timer, not every frame — the extra 58 writes a second buy you nothing</li>
-<li>Put a version number in every save, because a save outlives the code that wrote it</li>
-<li>Every bad save ends the same way: start fresh, never crash</li>
-<li><code>try</code> and <code>catch</code> mean "attempt this, and if it explodes do that instead" — <code>JSON.parse</code> explodes on rubbish</li>
+<li>Salvar é três tarefas, não uma: escrevê-lo, lê-lo de volta, lidar com o que você leu</li>
+<li>Salve com um temporizador, não a cada frame — as 58 gravações extras por segundo não lhe trazem nada</li>
+<li>Coloque um número de versão em cada salvamento, porque um salvamento sobrevive ao código que o escreveu</li>
+<li>Todo salvamento corrompido termina da mesma forma: comece do zero, nunca trave</li>
+<li>`try` e `catch` significam "tente isso, e se explodir, faça aquilo em vez disso" — `JSON.parse` explode com lixo</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Add a <strong>Forget me</strong> button that clears the save and puts the square back at the start, without reloading the page. Two things to think about: <code>localStorage.removeItem</code> empties the drawer, but the timer will write a new save half a second later, so you also have to move the player back yourself. And should the name go too, or should it stay? Decide, and be able to say why.</p>
-<p>Then a harder question, which we got wrong first and had to fix. When we built this properly, we found that <strong>not everything in the drawer belongs to the character.</strong> Where you are standing does. Your name does. But "has this person read the safety notice?" and "does this person already know the controls?" are facts about the <em>person sitting at the computer</em>, not about the character they happen to be playing — and clearing them meant a child who started a new animal was shown the safety notice again, and re-taught the controls they already knew.</p>
-<p>So those live in their own drawer, and starting over does not touch them.</p>
-<p>Look at what you are saving and sort it into two piles: <strong>this character</strong>, and <strong>this person</strong>. Then make your button clear only the first. <em>Grown-up programmers would say the two kinds of data have different lifetimes, so now you know that phrase too.</em></p>
+<h2 id="sua-vez"><a class="heading-anchor" href="#sua-vez">Sua vez</a></h2>
+<p>Adicione um botão <strong>Esqueça-me</strong> que apaga o salvamento e coloca o quadrado de volta ao início, sem recarregar a página. Duas coisas para pensar: <code>localStorage.removeItem</code> esvazia a "gaveta", mas o temporizador escreverá um novo salvamento meio segundo depois, então você também precisa mover o jogador de volta manualmente. E o nome também deve ir, ou deve ficar? Decida, e seja capaz de dizer por quê.</p>
+<p>Então, uma pergunta mais difícil, que erramos no início e tivemos que corrigir. Quando construímos isso corretamente, descobrimos que <strong>nem tudo na "gaveta" pertence ao personagem.</strong> Onde você está sim. Seu nome sim. Mas "esta pessoa leu o aviso de segurança?" e "esta pessoa já conhece os controles?" são fatos sobre a <em>pessoa sentada no computador</em>, não sobre o personagem que ela está jogando — e limpá-los significava que uma criança que começasse um novo animal recebia o aviso de segurança novamente e era ensinada os controles que já conhecia.</p>
+<p>Então, esses vivem em sua própria "gaveta", e começar de novo não os afeta.</p>
+<p>Olhe para o que você está salvando e separe em duas pilhas: <strong>este personagem</strong> e <strong>esta pessoa</strong>. Então, faça com que seu botão limpe apenas o primeiro. <em>Programadores experientes diriam que os dois tipos de dados têm diferentes tempos de vida, então agora você conhece essa frase também.</em></p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">

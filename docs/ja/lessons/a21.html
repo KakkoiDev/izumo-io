@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Someone to Fight - KakkoiSchool</title>
+  <title>戦う相手 - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a22.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a21-someone-to-fight"><a class="heading-anchor" href="#a21-someone-to-fight">A21: Someone to Fight</a></h1>
-<p class="lesson-intro">Your game needs two players. Some evenings there is only one. So you build an opponent — and the surprising part is that the fight code does not change at all.</p>
-<p><strong>Needs:</strong> <a href="a20.html">A20</a>. <strong>Gives you:</strong> a computer opponent you can play any time, including one that learns your habits.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a21-戦う相手"><a class="heading-anchor" href="#a21-戦う相手">A21: 戦う相手</a></h1>
+<p class="lesson-intro">あなたのゲームには2人のプレイヤーが必要です。ある晩には1人しかいないこともあります。そこで、あなたは対戦相手を構築します — そして驚くべきことに、対戦コードは全く変更されません。</p>
+<p><strong>必要:</strong> <a href="a20.html">A20</a>。 <strong>得られるもの:</strong> 自分の癖を学習するものを含め、いつでもプレイできるコンピューターの対戦相手。</p>
+<h2 id="ゲーム全体と今日の要素"><a class="heading-anchor" href="#ゲーム全体と今日の要素">ゲーム全体と今日の要素</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -69,17 +69,17 @@ flowchart LR
     class F,O now
 
 </div>
-<p>The demo keeps both fighters on one page, so you can watch both of them decide. The real game sends a human opponent's move over the wire, using the connection from <a href="a19.html">A19</a>. The computer opponent never goes near the network at all — it is sitting right there in your own code.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"A computer opponent" is two things, and only one of them is the interesting one:</p>
+<p>デモでは両方のファイターを1つのページに表示し、両方がどのように判断するかを見ることができます。実際のゲームでは、<a href="a19.html">A19</a>からの接続を使用して、人間の対戦相手の動きをネットワーク経由で送信します。コンピューターの対戦相手はネットワークに一切近づきません — それはあなたのコードの中に直接存在します。</p>
+<h2 id="ブロックに分割する"><a class="heading-anchor" href="#ブロックに分割する">ブロックに分割する</a></h2>
+<p>「コンピューターの対戦相手」には2つの側面があり、そのうちの1つだけが興味深いものです。</p>
 <ol>
-<li><strong>Give it a way to choose</strong> — something that answers the question "what is your move?"</li>
-<li><strong>Make the fight code not care who it is fighting</strong> — it asks the question and takes the answer</li>
+<li><strong>選択する方法を与える</strong> — 「あなたの手番は何ですか？」という質問に答える何か。</li>
+<li><strong>対戦コードが誰と戦っているかを気にしないようにする</strong> — コードは質問をし、答えを受け取るだけです。</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because if you write the computer's brain <em>inside</em> the fight, you now have two fights: one for humans and one for the computer. They will drift apart. One will get a bug fix the other does not, and the day a player says "the computer cheats", you will not know whether it does, because there are two sets of rules to read.</p>
-<p>Kept apart, there is one fight and several fighters. And you can look at the computer's thinking on its own, without a fight running.</p>
-<h2 id="block-1-a-way-to-choose"><a class="heading-anchor" href="#block-1-a-way-to-choose">Block 1: A way to choose</a></h2>
-<p>Everybody in a fight answers the same question. Write it as a function called <code>chooseMove</code>. Here are three fighters, all shaped the same:</p>
+<p><strong>なぜ分割するのか？</strong> コンピューターの脳を対戦コードの<em>内部</em>に書くと、人間の対戦とコンピューターの対戦という2つの対戦が存在することになります。これらは互いに乖離していくでしょう。一方はバグ修正を受け、もう一方は受けないといったことが起こり、プレイヤーが「コンピューターがズルをしている」と言った日に、2つの異なるルールセットを読まなければならないため、本当にそうなのかどうか分からなくなります。</p>
+<p>分離しておけば、1つの対戦と複数のファイターが存在します。そして、対戦を実行することなく、コンピューターの思考を単独で調べることができます。</p>
+<h2 id="ブロック-1-選択する方法"><a class="heading-anchor" href="#ブロック-1-選択する方法">ブロック 1: 選択する方法</a></h2>
+<p>対戦する誰もが同じ質問に答えます。それを <code>chooseMove</code> という関数として記述します。以下に、同じ形をした3つのファイターを示します。</p>
 <pre><code>// You: your answer is whichever button you last pressed.
 const human = { name: 'you', next: null, chooseMove: () =&gt; human.next };
 
@@ -89,7 +89,7 @@ const dice = {
   chooseMove: () =&gt; MOVES[Math.floor(Math.random() * MOVES.length)],
 };
 </code></pre>
-<p>A dice opponent is fair but boring. It never notices anything. So here is one that watches you:</p>
+<p>サイコロの対戦相手は公平ですが、退屈です。何も気づきません。そこで、あなたを観察する対戦相手を紹介します。</p>
 <pre><code>const watcher = {
   name: 'watcher',
   seen: [],
@@ -108,10 +108,10 @@ const dice = {
   },
 };
 </code></pre>
-<p>Read it slowly. <code>seen</code> is your last five moves. <code>push</code> adds one to the end and <code>shift</code> drops the oldest off the front, so the list never grows past five — the watcher forgets what you did long ago. Then it counts which move appears most, and picks whichever move beats that one.</p>
-<p>The line that matters most is <code>Math.random() &lt; 0.34</code>. About one round in three, the watcher throws its plan away and rolls a dice. <strong>Without that, the watcher is a machine you can drive.</strong> You would work out its rule after a few rounds and beat it every single time, because <em>it</em> would then be the one with no surprises. A floor of randomness keeps it from becoming predictable itself.</p>
-<p>That is the whole idea from <a href="a20.html">A20</a> arriving from the other side: in a game with no best move, being readable is losing.</p>
-<h2 id="block-2-the-fight-code-does-not-care"><a class="heading-anchor" href="#block-2-the-fight-code-does-not-care">Block 2: The fight code does not care</a></h2>
+<p>ゆっくり読んでください。<code>seen</code> はあなたの直近5つの手番です。<code>push</code> は末尾に1つ追加し、<code>shift</code> は先頭から最も古いものを削除するので、リストは5つより大きく成長することはありません — ウォッチャーはあなたが昔何をしたかを忘れます。そして、どの手番が最も多く出現するかを数え、その手番に勝つものを選択します。</p>
+<p>最も重要な行は <code>Math.random() &lt; 0.34</code> です。約3ラウンドに1回、ウォッチャーは計画を捨ててサイコロを振ります。<strong>これがないと、ウォッチャーはあなたが操縦できる機械になります。</strong> 数ラウンド後にはそのルールを解明し、毎回勝つことができるでしょう。なぜなら、<em>そのウォッチャー</em>がサプライズなしになるからです。ランダム性の下限は、それ自体が予測可能になるのを防ぎます。</p>
+<p>それは<a href="a20.html">A20</a>から別の側面で到達する全体的なアイデアです。最善の手のないゲームでは、読まれることは負けを意味します。</p>
+<h2 id="ブロック-2-対戦コードは気にしない"><a class="heading-anchor" href="#ブロック-2-対戦コードは気にしない">ブロック 2: 対戦コードは気にしない</a></h2>
 <pre><code>function playRound(a, b) {
   const mine = a.chooseMove();
   const theirs = b.chooseMove();
@@ -121,47 +121,47 @@ const dice = {
   show(mine, theirs, result, b);
 }
 </code></pre>
-<p>Read that function again and look for the place where it checks who it is fighting. There isn't one. It asks two fighters for a move and compares the answers. <code>human</code>, <code>dice</code> and <code>watcher</code> are completely different inside, and <code>playRound</code> cannot tell them apart — because it never asks. It only needs one thing to be true: <em>you can call <code>chooseMove</code> on it.</em></p>
-<p>And here is the reward. This is <code>compare</code>, from <a href="a20.html">A20</a>:</p>
+<p>その関数をもう一度読んで、誰と戦っているかを確認する場所を探してください。そのような場所はありません。それは2人のファイターに手番を尋ね、その答えを比較します。<code>human</code>、<code>dice</code>、<code>watcher</code> は内部で完全に異なりますが、<code>playRound</code> はそれらを区別できません — なぜなら、決して尋ねないからです。<code>playRound</code> が必要とする真実はただ一つ、<em>そのオブジェクトに対して <code>chooseMove</code> を呼び出せること</em>だけです。</p>
+<p>そして、ここに報酬があります。これが<a href="a20.html">A20</a>からの <code>compare</code> です。</p>
 <pre><code>function compare(mine, theirs) {
   if (mine === theirs) return { winner: 'nobody', why: mine + ' does not beat ' + theirs };
   if (BEATS[mine] === theirs) return { winner: 'you', why: mine + ' beats ' + theirs };
   return { winner: 'them', why: theirs + ' beats ' + mine };
 }
 </code></pre>
-<p>Not one character of it changed to add a computer player. Compare it with the version in <a href="a20.html">A20</a>, line by line. That is what the split in <a href="a20.html">A20</a> bought you, and you are collecting it now without doing any work.</p>
-<p><strong>When several different things all answer the same question, and the code using them does not need to know which is which, grown-up programmers call that polymorphism. It is a long word for a simple habit: agree on the question, and let each thing answer it its own way.</strong></p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The forcing constraint is that a fight in your game can be against a person on another computer, whose moves arrive over the network, or against code running in this tab. Those two are as different as they could possibly be — one involves the internet, the other does not.</p>
-<p>If <code>playRound</code> had to know which kind it was facing, every part of the fight — timers, score, animations, <a href="a22.html">A22</a>'s hiding — would need two versions. Instead, all of them are handed something with a <code>chooseMove</code> and never find out more than that. One fight, three fighters today, and room for a fourth you have not thought of.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p>コンピュータープレイヤーを追加するために、その中の1文字も変更されていません。<a href="a20.html">A20</a>のバージョンと1行ずつ比較してみてください。それが<a href="a20.html">A20</a>での分割があなたにもたらしたもの、そして今、あなたは何の作業もせずにそれを受け取っています。</p>
+<p><strong>複数の異なるものがすべて同じ質問に答え、それらを使用するコードがどれがどれであるかを知る必要がない場合、経験豊富なプログラマーはそれを「ポリモーフィズム」（多態性）と呼びます。それは単純な習慣を表す長い言葉です。質問に同意し、それぞれのものが独自のやり方でそれに答えさせる、ということです。</strong></p>
+<h2 id="このようにした理由"><a class="heading-anchor" href="#このようにした理由">このようにした理由</a></h2>
+<p>強制的な制約は、ゲーム内の対戦が、ネットワーク経由で手番が届く別のコンピューター上の人物との対戦、またはこのタブで実行されているコードとの対戦である可能性がある、ということです。これら2つは、一方がインターネットに関わり、もう一方が関わらないという点で、可能な限り異なっています。</p>
+<p>もし <code>playRound</code> がどの種類の相手と対峙しているかを知らなければならないとしたら、タイマー、スコア、アニメーション、<a href="a22.html">A22</a>の隠蔽など、対戦のあらゆる部分が2つのバージョンを必要とするでしょう。その代わりに、それらすべては <code>chooseMove</code> を持つ何かを受け取り、それ以上のことは決して知りません。今日、1つの対戦に3人のファイターがいますが、まだ思いついていない4人目の余地もあります。</p>
+<h2 id="代わりにできたこと"><a class="heading-anchor" href="#代わりにできたこと">代わりにできたこと</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>これの代わりに</th>
+<th>費用（デメリット）</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>if (opponentIsComputer) { ... } else { ... }</code> inside the fight</td>
-<td>That <code>if</code> spreads. It appears again in the timer, then the score, then the screen. Every new kind of opponent means hunting all of them down</td>
+<td>対戦コード内に <code>if (opponentIsComputer) { ... } else { ... }</code> を使う</td>
+<td>この <code>if</code> は広範囲に及びます。タイマー、スコア、画面にも再度現れます。新しい種類の対戦相手が現れるたびに、それらすべてを修正する必要があることを意味します。</td>
 </tr>
 <tr>
-<td>A purely random computer opponent</td>
-<td>Four lines instead of twenty, and perfectly fair. But nobody plays a dice twice — there is nothing to learn and nothing to beat</td>
+<td>純粋にランダムなコンピューター対戦相手</td>
+<td>20行の代わりに4行で済み、完全に公平です。しかし、誰もサイコロを2回はプレイしません — 学ぶことも、打ち負かすことも何もないからです。</td>
 </tr>
 <tr>
-<td>An opponent that always counters your last move exactly</td>
-<td>Feels clever for three rounds. Then you notice it, feed it a move on purpose, and win every round after that. Predictable is worse than random</td>
+<td>常にあなたの直前の手番に正確に反撃する対戦相手</td>
+<td>3ラウンドは賢く感じられます。しかし、すぐにそれに気づき、意図的に手番を与えて、その後は毎ラウンド勝ちます。予測可能であることはランダムよりも悪いのです。</td>
 </tr>
 <tr>
-<td>Remembering every move you have ever played</td>
-<td>The watcher would harden into your all-time average and stop reacting to what you are doing now. Five is short enough to follow a change of habit</td>
+<td>あなたがこれまでプレイしたすべての手番を記憶する</td>
+<td>ウォッチャーはあなたの過去の平均に固執し、あなたが今していることに反応しなくなります。5回は習慣の変化を追跡するのに十分な短さです。</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="プロンプト"><a class="heading-anchor" href="#プロンプト">プロンプト</a></h2>
 <pre><code>I have a fight in plain JavaScript. Fighters are objects with a chooseMove()
 function; playRound(a, b) asks both and calls a pure compare(). I have a
 random opponent and one that counts my last five moves. Add a third opponent
@@ -169,32 +169,32 @@ that plays the move which would have beaten its own last losing move. Do not
 change playRound or compare, and do not add any if-statement about what kind
 of opponent it is. Show me only the new object.
 </code></pre>
-<p><strong>Check the output for:</strong> did <code>playRound</code> come back "improved" with an extra argument or a check for the new opponent? That is the one thing you asked it not to do, and it is the thing assistants do most. Also check the new opponent still has some randomness — otherwise a human beats it forever after four rounds, and it will feel broken rather than easy.</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>出力の確認点:</strong> <code>playRound</code> が、追加の引数や新しい対戦相手のチェックで「改善」されて戻ってきていないか？それはあなたがしないようにと求めた唯一のことであり、アシスタントが最もやりがちなことです。また、新しい対戦相手がまだいくらかのランダム性を持っているか確認してください — そうでないと、人間は4ラウンド後には永遠にそれに勝つことができ、それは簡単であるというよりも壊れているように感じられるでしょう。</p>
+<h2 id="動作を見る"><a class="heading-anchor" href="#動作を見る">動作を見る</a></h2>
 <p><img alt="The demo with the &quot;opponent remembers you&quot; box ticked, showing &quot;You lose. You played rock. The watcher played paper. paper beats rock.&quot; and a score of won 1, lost 20, drew 3" src="../static/img/game/a21.png"></p>
-<p>Open the page with Live Server and:</p>
+<p>Live Serverでページを開き、以下を実行してください。</p>
 <ol>
-<li>Leave the box <strong>unticked</strong> and press <strong>rock</strong> twenty-four times. Wins, losses and draws all pile up in roughly equal thirds. When we did this we got 8 wins, 7 losses, 9 draws — and the dice's own moves came out rock 9, paper 7, scissors 8, which is about as even as twenty-four throws get.</li>
-<li>Tick the box, so the watcher is playing, and press <strong>rock</strong> twenty-four times again. It turns brutal. We got <strong>1 win and 20 losses</strong> — the watcher noticed we only ever play rock, and answered with paper 20 times out of 24. The other four are the randomness it keeps on purpose, so it never becomes as predictable as you were.</li>
-<li>Now mix your moves up. The score gets close again. The watcher can only punish a habit; it has nothing to grip when there is no habit.</li>
-<li>Open the browser console and type <code>watcher.seen</code>. You get your last five moves — the whole of its memory, and it is a list of five strings. Ours read <code>["rock", "rock", "rock", "rock", "rock"]</code>, which is exactly as much as it needed to know.</li>
+<li>ボックスのチェックを<strong>外したまま</strong>、<strong>グー</strong>を24回押します。勝ち、負け、引き分けがほぼ均等に積み重なります。私たちが行ったとき、8勝、7敗、9引き分けという結果でした。そして、サイコロ自身の出した手はグーが9回、パーが7回、チョキが8回で、24回投げる中ではかなり均等な結果となりました。</li>
+<li>ボックスにチェックを入れ、ウォッチャーがプレイするようにして、もう一度<strong>グー</strong>を24回押します。結果は厳しいものになります。私たちは<strong>1勝20敗</strong>という結果を得ました — ウォッチャーは私たちが常にグーしか出さないことに気づき、24回中20回パーで応じました。残りの4回は、意図的に保持しているランダム性であり、あなたがしたように予測可能になることはありません。</li>
+<li>今度は手番を混ぜてみましょう。スコアは再び拮抗します。ウォッチャーは習慣を罰することしかできません。習慣がなければ、つかむものがありません。</li>
+<li>ブラウザのコンソールを開き、<code>watcher.seen</code> と入力します。直近5つの手番、つまりウォッチャーの記憶のすべてが表示されます。これは5つの文字列のリストです。私たちの場合、<code>["rock", "rock", "rock", "rock", "rock"]</code> と表示され、これはウォッチャーが必要とする情報量と完全に一致しています。</li>
 </ol>
-<p>We also proved point 2 of the split in the console. We invented a new fighter that had never existed, <code>{ name: 'stone statue', chooseMove: () =&gt; 'paper' }</code>, and passed it straight into <code>playRound</code>. It played a full round and the screen said "You played paper. The dice played paper." <code>playRound</code> was never told what a stone statue is.</p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>On the fight screen from <a href="a19.html">A19</a>, when nobody accepts your challenge, start the round against <code>watcher</code> instead. Everything downstream — the timer, the score, the screen — already works, because it never asked who it was fighting.</p>
+<p>コンソールで分割のポイント2も証明しました。存在しない新しいファイター <code>{ name: 'stone statue', chooseMove: () =&gt; 'paper' }</code> を作り、それを直接 <code>playRound</code> に渡しました。それは完全な1ラウンドをプレイし、画面には「あなたはパーを出しました。サイコロはパーを出しました。」と表示されました。<code>playRound</code> は石像が何であるかを一度も知らされませんでした。</p>
+<h2 id="ゲームに組み込む"><a class="heading-anchor" href="#ゲームに組み込む">ゲームに組み込む</a></h2>
+<p><a href="a19.html">A19</a>の対戦画面で、誰もあなたの挑戦を受け入れない場合、代わりに <code>watcher</code> とのラウンドを開始してください。タイマー、スコア、画面など、下流のすべては既に機能します。なぜなら、それが誰と戦っているかを一度も尋ねていないからです。</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="重要なポイント"><a class="heading-anchor" href="#重要なポイント">重要なポイント</a></h2>
 <ul>
-<li>Agree on the question — "what is your move?" — and let each fighter answer it in its own way</li>
-<li>Code that asks a question does not need to know what kind of thing is answering. That is polymorphism</li>
-<li>The proof that a split was worth making is a function you did not have to change: <code>compare</code> is identical to A20's</li>
-<li>An opponent with a rule and no randomness is a puzzle you solve once and then beat forever</li>
-<li>A short memory — the last five moves — reacts to what you are doing now, instead of your all-time average</li>
+<li>「あなたの手番は何ですか？」という質問に同意し、各ファイターが独自の方法でそれに答えさせること</li>
+<li>質問をするコードは、何が答えているのかを知る必要がない。これがポリモーフィズムです</li>
+<li>分割する価値があったことの証明は、変更する必要がなかった関数です: `compare` はA20のものと同一です</li>
+<li>ルールがあり、ランダム性がない対戦相手は、一度解けば永遠に勝てるパズルです</li>
+<li>短い記憶（直近5つの手番）は、これまでの平均ではなく、あなたが今していることに反応します</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Give the watcher a difficulty setting. At "easy" it rolls a dice eight times in ten; at "hard", one time in ten. Play ten rounds on each. Then work out which setting is actually hardest to beat — and check whether "hard" is the answer, or whether being nearly perfectly predictable makes it easier than you expected.</p>
+<h2 id="あなたの番"><a class="heading-anchor" href="#あなたの番">あなたの番</a></h2>
+<p>ウォッチャーに難易度設定を与えてください。「簡単」では10回中8回サイコロを振り、「難しい」では10回中1回振ります。それぞれの設定で10ラウンドプレイしてください。そして、どの設定が実際に最も倒しにくいかを突き止め — 「難しい」が答えなのか、それともほぼ完璧に予測可能であることが予想よりも簡単にするのかを確認してください。</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">AIレッスンに戻る</a>
         <div class="lesson-pager">

@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>No Peeking - KakkoiSchool</title>
+  <title>Sem Espiar - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,15 +47,15 @@
           <a href="a23.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a22-no-peeking"><a class="heading-anchor" href="#a22-no-peeking">A22: No Peeking</a></h1>
-<p class="lesson-intro">Two players, no referee. So how do you stop someone waiting to see your move before choosing theirs? You both write it down, fold the note, and only then unfold.</p>
+      <h1 id="a22-sem-espiar"><a class="heading-anchor" href="#a22-sem-espiar">A22: Sem Espiar</a></h1>
+<p class="lesson-intro">Dois jogadores, sem árbitro. Então, como impedir que alguém espere para ver seu movimento antes de escolher o dele? Ambos escrevem, dobram a nota e só então desdobram.</p>
 <blockquote>
-<p><strong>This step is optional, and the game we built does not do it.</strong></p>
-<p>Our game sends your move straight across. That means whoever's move arrives first has, in a sense, shown their hand — and somebody who opened the code and edited it could answer it. We decided that was fine: it is a game for a few friends, and cheating it takes more effort than winning it.</p>
-<p>This step is here because <strong>the problem is real and the solution is beautiful</strong>, and because you will meet it again the moment you build anything where people have a reason to lie. Skip it and nothing later breaks. Come back to it when you are curious.</p>
+<p><strong>Este passo é opcional e o jogo que construímos não o implementa.</strong></p>
+<p>Nosso jogo envia seu movimento diretamente. Isso significa que quem envia o movimento primeiro, de certa forma, revelou sua jogada — e alguém que abrisse o código e o editasse poderia responder a isso. Decidimos que estava tudo bem: é um jogo para alguns amigos, e trapacear exige mais esforço do que vencê-lo.</p>
+<p>Este passo está aqui porque <strong>o problema é real e a solução é bonita</strong>, e porque você o encontrará novamente no momento em que construir algo onde as pessoas tenham um motivo para mentir. Pule-o e nada se quebrará depois. Volte a ele quando estiver curioso.</p>
 </blockquote>
-<p><strong>Needs:</strong> <a href="a20.html">A20</a>. <strong>Gives you:</strong> a round nobody can win by peeking, and an idea used by real voting systems and lotteries.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+<p><strong>Requer:</strong> <a href="a20.html">A20</a>. <strong>Oferece:</strong> uma rodada que ninguém pode vencer espiando, e uma ideia usada por sistemas de votação e loterias reais.</p>
+<h2 id="o-jogo-completo-e-a-pe-a-de-hoje"><a class="heading-anchor" href="#o-jogo-completo-e-a-pe-a-de-hoje">O jogo completo e a peça de hoje</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -74,31 +74,31 @@ flowchart LR
     class F,O now
 
 </div>
-<p>The real game sends these messages over the wire, using the connection from <a href="a19.html">A19</a>. Here both players are on one page so you can see the whole thing at once — including the cheating.</p>
-<h2 id="the-problem-at-a-table-first"><a class="heading-anchor" href="#the-problem-at-a-table-first">The problem, at a table first</a></h2>
-<p>You and a friend play rock, paper, scissors across a table. If your friend can see your hand before they move, they win every round. So you both put a fist out and open on three.</p>
-<p>Now put your friend on another computer. Your move has to travel to them as a message. Whoever sends first has shown their hand, and the other one can simply pick the move that beats it. Nobody can prove it happened. <strong>There is no server in this game to hold both moves and open them together</strong> — that is the whole point of the design, and it is why this problem is yours to solve.</p>
-<p>The folded-note trick works: write your move down, fold it, put it on the table, and only unfold when both notes are down. What you need is a way to fold a note made of text.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
+<p>O jogo real envia essas mensagens pela rede, usando a conexão de <a href="a19.html">A19</a>. Aqui, ambos os jogadores estão em uma única página para que você possa ver tudo de uma vez — incluindo a trapaça.</p>
+<h2 id="o-problema-primeiro-em-uma-mesa"><a class="heading-anchor" href="#o-problema-primeiro-em-uma-mesa">O problema, primeiro em uma mesa</a></h2>
+<p>Você e um amigo jogam pedra, papel, tesoura em uma mesa. Se seu amigo puder ver sua mão antes de jogar, ele ganha todas as rodadas. Então, vocês dois estendem um punho e abrem na contagem de três.</p>
+<p>Agora coloque seu amigo em outro computador. Seu movimento precisa viajar até ele como uma mensagem. Quem envia primeiro mostra a mão, e o outro pode simplesmente escolher o movimento que o vence. Ninguém pode provar que isso aconteceu. <strong>Não há um servidor neste jogo para guardar ambos os movimentos e abri-los juntos</strong> — esse é o objetivo de todo o design, e é por isso que este problema é seu para resolver.</p>
+<p>O truque da nota dobrada funciona: anote seu movimento, dobre-o, coloque-o na mesa e só desdobre quando ambas as notas estiverem lá. O que você precisa é de uma maneira de dobrar uma nota feita de texto.</p>
+<h2 id="dividindo-em-blocos"><a class="heading-anchor" href="#dividindo-em-blocos">Dividindo em blocos</a></h2>
 <ol>
-<li><strong>Hide</strong> — turn your move into something that proves nothing and reveals nothing</li>
-<li><strong>Show both at once</strong> — nobody unfolds until both folded notes are on the table</li>
-<li><strong>Check</strong> — make sure the move someone showed is really the one they folded</li>
+<li><strong>Esconder</strong> — transformar seu movimento em algo que não prova nada e não revela nada</li>
+<li><strong>Mostrar ambos de uma vez</strong> — ninguém desdobra até que ambas as notas dobradas estejam na mesa</li>
+<li><strong>Verificar</strong> — certificar-se de que o movimento que alguém mostrou é realmente aquele que dobrou</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because these three fail in completely different ways, and if they were one lump you could not tell which one failed. Hiding badly means the other player can read your move. Showing too early means they never had to guess. Not checking means they can fold one move and show another. The demo has a button for that last one, so you can watch the check do its job.</p>
-<p>This part is confusing for everyone the first time. Read it twice. It is the most beautiful idea in the whole track.</p>
-<h2 id="block-1-hide"><a class="heading-anchor" href="#block-1-hide">Block 1: Hide</a></h2>
-<p>A <strong>fingerprint</strong> of some text is a fixed string of characters worked out from it. The same text always gives the same fingerprint, and there is no way to work backwards from the fingerprint to the text. The browser has this built in:</p>
+<p><strong>Por que se preocupar em dividir?</strong> Porque esses três falham de maneiras completamente diferentes, e se fossem um bloco único, você não conseguiria dizer qual falhou. Esconder mal significa que o outro jogador pode ler seu movimento. Mostrar muito cedo significa que eles nunca tiveram que adivinhar. Não verificar significa que eles podem dobrar um movimento e mostrar outro. A demonstração tem um botão para essa última opção, para que você possa ver a verificação fazer seu trabalho.</p>
+<p>Esta parte é confusa para todos na primeira vez. Leia-a duas vezes. É a ideia mais bonita de todo o curso.</p>
+<h2 id="bloco-1-esconder"><a class="heading-anchor" href="#bloco-1-esconder">Bloco 1: Esconder</a></h2>
+<p>Uma <strong>impressão digital</strong> de um texto é uma string fixa de caracteres derivada dele. O mesmo texto sempre gera a mesma impressão digital, e não há como retroceder da impressão digital para o texto. O navegador já tem isso embutido:</p>
 <pre><code>async function fingerprint(text) {
   const bytes = new TextEncoder().encode(text);
   const digest = await crypto.subtle.digest('SHA-256', bytes);
   return [...new Uint8Array(digest)].map((b) =&gt; b.toString(16).padStart(2, '0')).join('');
 }
 </code></pre>
-<p><code>SHA-256</code> is the name of the recipe. It gives back 32 numbers; the last line turns each into two characters, so you always end up with the same 64 characters no matter how long the text was.</p>
-<p><code>async</code> and <code>await</code> are there because this takes a moment and the browser refuses to freeze the page while it happens. Anything that calls <code>fingerprint</code> has to <code>await</code> it too.</p>
-<p>Now the important part. <strong>Three moves is not many.</strong> If you sent the fingerprint of just <code>'rock'</code>, a cheat could fingerprint <code>'rock'</code>, <code>'paper'</code> and <code>'scissors'</code> themselves — three tries, ten seconds — and see which one matches yours. The fold would be transparent.</p>
-<p>So mix in a secret nobody can guess:</p>
+<p><code>SHA-256</code> é o nome da receita. Ele retorna 32 números; a última linha transforma cada um em dois caracteres, então você sempre acaba com os mesmos 64 caracteres, não importa o quão longo seja o texto.</p>
+<p><code>async</code> e <code>await</code> estão lá porque isso leva um momento e o navegador se recusa a congelar a página enquanto acontece. Qualquer coisa que chame <code>fingerprint</code> também precisa <code>await</code>á-lo.</p>
+<p>Agora a parte importante. <strong>Três movimentos não são muitos.</strong> Se você enviasse a impressão digital apenas de <code>'rock'</code>, um trapaceiro poderia gerar as impressões digitais de <code>'rock'</code>, <code>'paper'</code> e <code>'scissors'</code> por conta própria — três tentativas, dez segundos — e ver qual delas corresponde à sua. A dobra seria transparente.</p>
+<p>Então, misture um segredo que ninguém pode adivinhar:</p>
 <pre><code>function randomSecret() {
   const bytes = crypto.getRandomValues(new Uint8Array(8));
   return [...bytes].map((b) =&gt; b.toString(16).padStart(2, '0')).join('');
@@ -109,12 +109,12 @@ async function fold(move) {
   return { move, secret, folded: await fingerprint(move + ':' + secret) };
 }
 </code></pre>
-<p><code>crypto.getRandomValues</code> fills the list with proper unguessable randomness. Now there are not three things to try — there are more than a million million million. Trying them all is not a plan.</p>
-<p>You send <code>folded</code>. You keep <code>move</code> and <code>secret</code> to yourself, for now.</p>
+<p><code>crypto.getRandomValues</code> preenche a lista com aleatoriedade genuína e imprevisível. Agora não há apenas três coisas para tentar — há mais de um milhão de milhões de milhões. Tentar todas elas não é um plano.</p>
+<p>Você envia <code>folded</code>. Você mantém <code>move</code> e <code>secret</code> para si, por enquanto.</p>
 <blockquote>
-<p><strong>This needs a secure context.</strong> <code>crypto.subtle</code> is only handed to pages the browser considers safe: an <code>https</code> address, or <code>http://localhost</code>. Live Server gives you <code>localhost</code>, so it works — that is one of the reasons <a href="a09.html">A09</a> had you install it. Do not assume opening the file some other way will behave the same; serve it and you never have to wonder.</p>
+<p><strong>Isso precisa de um contexto seguro.</strong> <code>crypto.subtle</code> é entregue apenas a páginas que o navegador considera seguras: um endereço <code>https</code> ou <code>http://localhost</code>. O Live Server oferece <code>localhost</code>, então funciona — essa é uma das razões pelas quais <a href="a09.html">A09</a> o fez instalá-lo. Não presuma que abrir o arquivo de outra forma se comportará da mesma maneira; sirva-o e você nunca terá que se perguntar.</p>
 </blockquote>
-<h2 id="block-2-show-both-at-once"><a class="heading-anchor" href="#block-2-show-both-at-once">Block 2: Show both at once</a></h2>
+<h2 id="bloco-2-mostrar-ambos-de-uma-vez"><a class="heading-anchor" href="#bloco-2-mostrar-ambos-de-uma-vez">Bloco 2: Mostrar ambos de uma vez</a></h2>
 <pre><code>let you = null;
 let them = null;
 
@@ -124,47 +124,47 @@ async function reveal() {
   ...
 }
 </code></pre>
-<p>The rule is one sentence: <strong>nobody sends their move until both fingerprints have arrived.</strong> In the demo that is one click, because both players are on this page. In the real game each side sends its fingerprint, waits for the other one, and only then sends the move and the secret.</p>
-<p>By that moment it is too late to change your mind. Your fingerprint is already in their hands, and any other move you now claim will not match it.</p>
-<h2 id="block-3-check"><a class="heading-anchor" href="#block-3-check">Block 3: Check</a></h2>
+<p>A regra é uma frase: <strong>ninguém envia seu movimento até que ambas as impressões digitais tenham chegado.</strong> Na demonstração, isso é um clique, porque ambos os jogadores estão nesta página. No jogo real, cada lado envia sua impressão digital, espera pela do outro e só então envia o movimento e o segredo.</p>
+<p>Nesse momento, é tarde demais para mudar de ideia. Sua impressão digital já está nas mãos deles, e qualquer outro movimento que você alegar agora não corresponderá a ela.</p>
+<h2 id="bloco-3-verificar"><a class="heading-anchor" href="#bloco-3-verificar">Bloco 3: Verificar</a></h2>
 <pre><code>async function check(shown, folded) {
   return (await fingerprint(shown.move + ':' + shown.secret)) === folded;
 }
 </code></pre>
-<p>That is the whole thing. Take the move and secret they showed you, fingerprint them again exactly the way they should have, and compare with the fingerprint they sent before. Same, honest. Different, they swapped their move after seeing yours.</p>
-<p>Notice this is a pure block, like <code>compare</code> in <a href="a20.html">A20</a>: values in, true or false out, nothing touched. Both players run it and both get the same answer, which is exactly what you need when there is nobody to appeal to.</p>
-<p>This is the block you cannot see working. When everybody is honest, <code>check</code> returns <code>true</code> every time and nothing happens — which is exactly what a piece of security code looks like when it is doing its job. To watch it earn its place you have to lie to it on purpose, which is what "Your turn" at the bottom of this step asks you to do.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The forcing constraint: <strong>there is no server.</strong> In most games a company's computer holds both moves and opens them at the same time, and you trust the company. Your game has no company and no referee. The only thing two computers share is messages, and either one could lie about anything.</p>
-<p>So instead of trusting, you make lying not work. A fingerprint you cannot reverse means sending it early gives nothing away; a fingerprint you cannot fake means changing your move afterwards is caught, every time, by arithmetic. <em>Grown-up programmers call this commit–reveal, and it is used far outside games — in auctions and in voting.</em></p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p>Isso é tudo. Pegue o movimento e o segredo que eles te mostraram, gere novamente a impressão digital deles exatamente como deveria ter sido, e compare com a impressão digital que eles enviaram antes. Igual, honesto. Diferente, eles trocaram o movimento depois de ver o seu.</p>
+<p>Note que este é um bloco puro, como <code>compare</code> em <a href="a20.html">A20</a>: valores de entrada, verdadeiro ou falso de saída, nada alterado. Ambos os jogadores o executam e ambos obtêm a mesma resposta, que é exatamente o que você precisa quando não há ninguém a quem recorrer.</p>
+<p>Este é o bloco que você não pode ver funcionando. Quando todos são honestos, <code>check</code> retorna <code>true</code> todas as vezes e nada acontece — que é exatamente como um pedaço de código de segurança se parece quando está fazendo seu trabalho. Para vê-lo merecer seu lugar, você precisa mentir para ele de propósito, que é o que "Sua vez" na parte inferior desta etapa pede para você fazer.</p>
+<h2 id="por-que-fizemos-assim"><a class="heading-anchor" href="#por-que-fizemos-assim">Por que fizemos assim</a></h2>
+<p>A restrição forçada: <strong>não há servidor.</strong> Na maioria dos jogos, o computador de uma empresa guarda ambos os movimentos e os abre ao mesmo tempo, e você confia na empresa. Seu jogo não tem empresa nem árbitro. A única coisa que dois computadores compartilham são mensagens, e qualquer um poderia mentir sobre qualquer coisa.</p>
+<p>Então, em vez de confiar, você faz com que a mentira não funcione. Uma impressão digital que você não pode reverter significa que enviá-la cedo não revela nada; uma impressão digital que você não pode falsificar significa que mudar seu movimento depois é pego, toda vez, pela aritmética. <em>Programadores experientes chamam isso de commit–reveal, e é usado muito além dos jogos — em leilões e em votação.</em></p>
+<h2 id="o-que-poder-amos-ter-feito-em-vez-disso"><a class="heading-anchor" href="#o-que-poder-amos-ter-feito-em-vez-disso">O que poderíamos ter feito em vez disso</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>Em vez disso</th>
+<th>Qual seria o custo</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Whoever sends first, sends first</td>
-<td>Free, and completely broken. The second player wins every round by reading the first move and answering it</td>
+<td>Quem envia primeiro, envia primeiro</td>
+<td>Grátis, e completamente quebrado. O segundo jogador vence todas as rodadas lendo o primeiro movimento e respondendo a ele</td>
 </tr>
 <tr>
-<td>One player's computer decides and tells the other</td>
-<td>Now one player is the referee in their own match. You cannot even tell whether they cheated</td>
+<td>O computador de um jogador decide e informa o outro</td>
+<td>Agora um jogador é o árbitro de sua própria partida. Você nem consegue dizer se ele trapaceou</td>
 </tr>
 <tr>
-<td>Fingerprint the move with no secret</td>
-<td>Only three possible moves. Anyone can fingerprint all three and read yours in seconds</td>
+<td>Gerar impressão digital do movimento sem segredo</td>
+<td>Apenas três movimentos possíveis. Qualquer um pode gerar a impressão digital dos três e ler o seu em segundos</td>
 </tr>
 <tr>
-<td>A tiny server holding both moves</td>
-<td>It works, and it is what most games do. But it costs money, it needs looking after, and the game stops when it does. Yours keeps running with nothing in the middle</td>
+<td>Um pequeno servidor segurando ambos os movimentos</td>
+<td>Funciona, e é o que a maioria dos jogos faz. Mas custa dinheiro, precisa de manutenção, e o jogo para quando ele para. O seu continua funcionando sem nada no meio</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="a-solicita-o"><a class="heading-anchor" href="#a-solicita-o">A solicitação</a></h2>
 <pre><code>In plain JavaScript with no libraries, I have a fight where each side picks
 rock, paper or scissors. Add commit-reveal with crypto.subtle SHA-256: a fold()
 that hashes the move with a random secret, a reveal step that only runs once
@@ -173,38 +173,38 @@ Then add a button that reveals a move that was never folded, so I can see the
 check fail. Keep check() free of DOM code. Warn me about anything that needs
 a secure context.
 </code></pre>
-<p><strong>Check the output for:</strong> does the "cheat" button always reveal a move that is genuinely different from the folded one? Ours did not at first — it revealed the move that beats yours, which is sometimes the move the opponent had already folded, so the check passed and nothing was caught about one press in three. Also check that <code>check</code> refingerprints the move <em>and</em> the secret in the same order they were joined; get the order wrong and every honest round is reported as cheating.</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>Verifique a saída para:</strong> o botão "trapacear" sempre revela um movimento genuinamente diferente do que foi dobrado? O nosso não fazia isso no início — ele revelava o movimento que vencia o seu, que às vezes era o movimento que o oponente já havia dobrado, então a verificação passava e nada era pego em uma em cada três vezes. Verifique também se <code>check</code> gera novamente a impressão digital do movimento <em>e</em> do segredo na mesma ordem em que foram unidos; se a ordem estiver errada, toda rodada honesta será relatada como trapaça.</p>
+<h2 id="veja-funcionar"><a class="heading-anchor" href="#veja-funcionar">Veja funcionar</a></h2>
 <p><img alt="The demo showing two folded fingerprints as long strings of characters, then both moves revealed and the line &quot;Both fingerprints match what was folded, so the round counts.&quot;" src="../static/img/game/a22.png"></p>
-<p>Open the page with Live Server and:</p>
+<p>Abra a página com o Live Server e:</p>
 <ol>
-<li>Press <strong>scissors</strong>. Two long fingerprints appear. Neither of them tells you anything about either move — that is the point.</li>
-<li>Press <strong>Unfold both</strong>. Both moves appear and the round counts. We read the checking result back and got <code>{ youHonest: true, theyHonest: true }</code>, with the verdict "A draw." and both fingerprints matching.</li>
-<li>Open the console and type <code>lastCheck</code>. You get both moves, both secrets, and <code>youHonest: true, theyHonest: true</code> — the proof that the check ran and passed, rather than being skipped.</li>
-<li>Press the same move twice and look at the two fingerprints. They are different every time, because the secret is new every time. A cheat cannot even tell whether you played the same move twice.</li>
+<li>Pressione <strong>tesoura</strong>. Duas longas impressões digitais aparecem. Nenhuma delas diz algo sobre qualquer movimento — esse é o ponto.</li>
+<li>Pressione <strong>Desdobrar ambos</strong>. Ambos os movimentos aparecem e a rodada conta. Lemos o resultado da verificação e obtivemos <code>{ youHonest: true, theyHonest: true }</code>, com o veredito "Um empate." e ambas as impressões digitais correspondendo.</li>
+<li>Abra o console e digite <code>lastCheck</code>. Você obtém ambos os movimentos, ambos os segredos, e <code>youHonest: true, theyHonest: true</code> — a prova de que a verificação foi executada e passou, em vez de ter sido ignorada.</li>
+<li>Pressione o mesmo movimento duas vezes e observe as duas impressões digitais. Elas são diferentes a cada vez, porque o segredo é novo a cada vez. Um trapaceiro nem consegue dizer se você jogou o mesmo movimento duas vezes.</li>
 </ol>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p><strong>Only if you want it.</strong> Our game does not do this, so this is a change you are choosing to make rather than one the course needs.</p>
-<p>In the fight from <a href="a20.html">A20</a>, send <code>folded</code> instead of the move. Wait for theirs. Then send <code>{ move, secret }</code>, and run <code>check</code> on what comes back before you let <code>compare</code> decide anything. If the check says false, no winner — the round is thrown away and nobody scores.</p>
-<p>Be warned that it costs more than it looks. You now have two messages per round instead of one, and a new way for a round to get stuck: somebody folds and then never unfolds. That is why the "Your turn" below asks for a clock. <strong>Weighing that against a cheat nobody is likely to attempt is exactly the kind of judgement this whole course is about</strong> — and deciding not to build something, for a reason you can say out loud, is a real answer.</p>
+<h2 id="coloque-no-jogo"><a class="heading-anchor" href="#coloque-no-jogo">Coloque no jogo</a></h2>
+<p><strong>Somente se você quiser.</strong> Nosso jogo não faz isso, então esta é uma mudança que você está escolhendo fazer, em vez de uma que o curso exige.</p>
+<p>Na luta de <a href="a20.html">A20</a>, envie <code>folded</code> em vez do movimento. Espere pelo deles. Em seguida, envie <code>{ move, secret }</code> e execute <code>check</code> no que retorna antes de deixar <code>compare</code> decidir qualquer coisa. Se a verificação retornar falso, não há vencedor — a rodada é descartada e ninguém pontua.</p>
+<p>Esteja avisado de que custa mais do que parece. Você agora tem duas mensagens por rodada em vez de uma, e uma nova maneira para uma rodada ficar travada: alguém dobra e nunca desdobra. É por isso que o "Sua vez" abaixo pede um relógio. <strong>Ponderar isso contra uma trapaça que ninguém provavelmente tentará é exatamente o tipo de julgamento sobre o qual todo este curso se trata</strong> — e decidir não construir algo, por uma razão que você pode expressar em voz alta, é uma resposta real.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>Fold your move before anyone shows theirs: send a fingerprint first, the move second</li>
-<li>A fingerprint always comes out the same for the same text, and cannot be read backwards</li>
-<li>With only three possible moves, a fingerprint with no secret mixed in can be guessed in three tries</li>
-<li>You do not need a referee to stop cheating — you need a check that catches it, and arithmetic does not take sides</li>
-<li><code>crypto.subtle</code> needs a secure context, which is what <code>http://localhost</code> from Live Server gives you</li>
+<li>Dobre seu movimento antes que alguém mostre o dele: envie uma impressão digital primeiro, o movimento em segundo lugar</li>
+<li>Uma impressão digital sempre resulta no mesmo para o mesmo texto, e não pode ser lida inversamente</li>
+<li>Com apenas três movimentos possíveis, uma impressão digital sem um segredo misturado pode ser adivinhada em três tentativas</li>
+<li>Você não precisa de um árbitro para impedir a trapaça — você precisa de uma verificação que a detecte, e a aritmética não toma partido</li>
+<li>`crypto.subtle` precisa de um contexto seguro, que é o que `http://localhost` do Live Server fornece a você</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p><strong>Lie to it on purpose.</strong> Play a round, then in the console change the move that gets shown so it is not the one that was folded, and check it again:</p>
+<h2 id="sua-vez"><a class="heading-anchor" href="#sua-vez">Sua vez</a></h2>
+<p><strong>Minta para ele de propósito.</strong> Jogue uma rodada, então no console mude o movimento que é mostrado para que não seja o que foi dobrado, e verifique novamente:</p>
 <pre><code>const faked = { move: 'rock', secret: lastCheck.theirShown.secret };
 await check(faked, lastCheck.theirShown === lastCheck.yourShown ? null : them.folded);
 </code></pre>
-<p>You should get <code>false</code>. That is the whole block earning its place, and until you have seen it return <code>false</code> you have only seen it agree with you.</p>
-<p>Then, if you want a harder one: add a clock. If someone does not show their move within ten seconds of both fingerprints being down, throw the round away. Work out why that is needed at all — what does a player gain by folding a move and then never showing it?</p>
+<p>Você deve obter <code>false</code>. Isso é todo o bloco ganhando seu lugar, e até que você o tenha visto retornar <code>false</code>, você só o viu concordar com você.</p>
+<p>Então, se você quiser um desafio maior: adicione um relógio. Se alguém não mostrar seu movimento dentro de dez segundos após ambas as impressões digitais estarem prontas, descarte a rodada. Descubra por que isso é necessário — o que um jogador ganha dobrando um movimento e nunca o mostrando?</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">

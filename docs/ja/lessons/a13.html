@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Talking, Safely - KakkoiSchool</title>
+  <title>安全な会話 - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a14.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a13-talking-safely"><a class="heading-anchor" href="#a13-talking-safely">A13: Talking, Safely</a></h1>
-<p class="lesson-intro">Now that other people are on your screen, you want to say something to them. You will build a way to talk that cannot be used to be cruel, and a check that throws away anything strange that arrives.</p>
-<p><strong>Needs:</strong> <a href="a12.html">A12</a>. <strong>Gives you:</strong> six phrases you can tap, appearing above your square on everybody's screen.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a13-安全な会話"><a class="heading-anchor" href="#a13-安全な会話">A13: 安全な会話</a></h1>
+<p class="lesson-intro">他の人が画面に表示されるようになったので、何か話しかけたくなりますよね。意地悪な使い方ができない会話方法と、到着した奇妙なものをすべて捨てるチェック機能を作成します。</p>
+<p><strong>必要なもの:</strong> <a href="a12.html">A12</a>。<strong>得られるもの:</strong> タップできる6つのフレーズで、全員の画面であなたのマスの上に表示されます。</p>
+<h2 id="ゲーム全体と今日の部分"><a class="heading-anchor" href="#ゲーム全体と今日の部分">ゲーム全体と今日の部分</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -69,30 +69,30 @@ flowchart LR
     class O now
 
 </div>
-<p>Same box as <a href="a12.html">A12</a>, second half. Other people already send you their position; now they send you words too.</p>
-<h2 id="there-is-no-text-box-on-purpose"><a class="heading-anchor" href="#there-is-no-text-box-on-purpose">There is no text box, on purpose</a></h2>
-<p>Your game has six buttons. It has nowhere to type. That is a decision, and here is the reasoning behind it, because you should be able to argue with it.</p>
-<p>In a game with a company behind it, somebody is watching. If a player is cruel, they can be reported, warned, or banned, and a person reads the report. Your game has no server, so it has no records of what was said, nobody in charge, and nobody to report anyone to. Nothing can be checked afterwards, because there is no afterwards — the words went straight from one browser to another and no copy exists anywhere.</p>
-<p>So the choice is: build a way to be cruel and have no way to deal with it, or do not build it. We chose not to build it. <em>You cannot moderate what you cannot see, so do not create what you cannot moderate.</em></p>
-<p>Six phrases is enough to play together. "Follow me" and "Let's fight!" do the actual work of a game.</p>
-<h3 id="what-other-people-can-see"><a class="heading-anchor" href="#what-other-people-can-see">What other people can see</a></h3>
-<p>This matters and it is short. From your game, other players can see:</p>
+<p><a href="a12.html">A12</a>と同じボックスの後半です。他のプレイヤーはすでにあなたの位置を送信してきていますが、今度は言葉も送信してきます。</p>
+<h2 id="意図的にテキストボックスはありません"><a class="heading-anchor" href="#意図的にテキストボックスはありません">意図的にテキストボックスはありません</a></h2>
+<p>あなたのゲームには6つのボタンがあります。入力する場所はありません。これは意図的な決定であり、それについて議論できるように、その理由を説明します。</p>
+<p>企業が運営するゲームでは、誰かが見張っています。もしプレイヤーが意地悪な行為をした場合、報告され、警告され、または追放される可能性があり、報告書は人が読みます。あなたのゲームにはサーバーがないため、話された内容の記録がなく、責任者もおらず、報告する相手もいません。後で何も確認できません。なぜなら「後で」が存在しないからです。言葉はブラウザからブラウザへ直接送られ、どこにもコピーが残りません。</p>
+<p>したがって、選択肢は、意地悪なことをする手段を作り、それに対処する方法がないままにするか、あるいは作らないかです。私たちは作らないことを選びました。<em>見ることができないものを管理することはできないため、管理できないものを作ってはいけません。</em></p>
+<p>6つのフレーズで一緒に遊ぶには十分です。「ついてきて」や「戦おう！」は、ゲームの実際の役割を果たします。</p>
+<h3 id="他の人が見ることができるもの"><a class="heading-anchor" href="#他の人が見ることができるもの">他の人が見ることができるもの</a></h3>
+<p>これは重要であり、簡潔です。あなたのゲームから、他のプレイヤーが見ることができるのは次のとおりです。</p>
 <ul>
-<li>The name your square shows, which you chose, and which does not have to be your real name</li>
-<li>Where your square is on the canvas</li>
-<li>Which of the six phrases you tapped</li>
+<li>あなたが選んだ、あなたのマスに表示される名前（本名である必要はありません）</li>
+<li>キャンバス上のあなたのマスの位置</li>
+<li>あなたがタップした6つのフレーズのうちどれか</li>
 </ul>
-<p>They cannot see your real name, where you live, your school, your face, or anything at all on your computer. Your game never asks for any of it, so it has none of it to give away.</p>
-<p>Two more things, said plainly. <strong>Nobody is in charge here.</strong> There is no report button, because there is nobody to report to. And if somebody is unkind to you — even with six polite phrases, people find ways — close the tab. You lose nothing. Then tell an adult you trust. That is not a small or embarrassing thing to do; it is exactly the right move, and it works.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"Talking" is three things:</p>
+<p>他のプレイヤーは、あなたの本名、居住地、学校、顔、あるいはあなたのコンピューター上の何一つ見ることはできません。あなたのゲームはそれらを一切求めないため、渡すものも何もありません。</p>
+<p>さらに2つのことをはっきりとお伝えします。<strong>ここに責任者はいません。</strong> 報告ボタンはありません。なぜなら、報告する相手がいないからです。そして、もし誰かがあなたに意地悪なことをした場合（丁寧な6つのフレーズであっても、人は方法を見つけます）、タブを閉じてください。何も失うものはありません。そして、信頼できる大人に話してください。これは些細なことでも、恥ずかしいことでもありません。まさに正しい行動であり、効果的です。</p>
+<h2 id="ブロックに分割する"><a class="heading-anchor" href="#ブロックに分割する">ブロックに分割する</a></h2>
+<p>「会話」は3つのことです。</p>
 <ol>
-<li><strong>Pick</strong> — choose one of the phrases that exist</li>
-<li><strong>Send</strong> — send which one you picked</li>
-<li><strong>Show</strong> — put an arriving phrase above the sender's square, after checking it</li>
+<li><strong>選択</strong> — 存在するフレーズの1つを選ぶ</li>
+<li><strong>送信</strong> — 選んだものを送信する</li>
+<li><strong>表示</strong> — 到着したフレーズを、チェック後に送信者のマスの上に表示する</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Nothing happens when you tap means pick. Your own phrase shows but theirs does not means send. And <strong>show</strong> is the one that matters most: it is the only block that deals with data from somebody else's computer, so it is the only block that has to distrust what it is given. Keeping it separate is what lets you test it by sending deliberate rubbish and watching it get thrown away.</p>
-<h2 id="block-1-pick"><a class="heading-anchor" href="#block-1-pick">Block 1: Pick</a></h2>
+<p>「なぜわざわざ分割するのか？」一つの塊でうまくいかなかった場合、どの部分が間違っているのか分からなくなるからです。タップしても何も起こらない場合、それは「選択」の問題を意味します。自分のフレーズは表示されるのに相手のフレーズは表示されない場合、それは「送信」の問題を意味します。そして<strong>表示</strong>が最も重要です。これは他人のコンピューターからのデータを扱う唯一のブロックであり、与えられたものを信用しないといけない唯一のブロックだからです。これを分離しておくことで、意図的にごみを送ってそれが破棄されるのを見ることでテストできます。</p>
+<h2 id="ブロック1-選択"><a class="heading-anchor" href="#ブロック1-選択">ブロック1: 選択</a></h2>
 <pre><code>const PHRASES = [&quot;Hi!&quot;, &quot;Nice one!&quot;, &quot;Let's fight!&quot;, &quot;Follow me&quot;, &quot;Good game&quot;, &quot;Bye&quot;];
 
 for (let i = 0; i &lt; PHRASES.length; i++) {
@@ -102,19 +102,19 @@ for (let i = 0; i &lt; PHRASES.length; i++) {
   document.querySelector('#phrases').append(button);
 }
 </code></pre>
-<p>One list, six buttons made from it. Change the list and the buttons change with it.</p>
-<p>Each button remembers <code>i</code> — its <strong>index</strong>, which means its position in the list. <code>"Hi!"</code> is index 0, <code>"Nice one!"</code> is index 1, and so on. Counting from 0 rather than 1 is a habit that will look odd for a while and then stop.</p>
-<h2 id="block-2-send"><a class="heading-anchor" href="#block-2-send">Block 2: Send</a></h2>
+<p>1つのリストから6つのボタンが作られます。リストを変更すると、ボタンもそれに合わせて変更されます。</p>
+<p>各ボタンは<code>i</code>（<strong>インデックス</strong>、つまりリスト内の位置）を記憶しています。「"Hi!"」はインデックス0、「"Nice one!"」はインデックス1といった具合です。1からではなく0から数えるのは、しばらくの間は奇妙に見えるかもしれませんが、やがて慣れる習慣です。</p>
+<h2 id="ブロック2-送信"><a class="heading-anchor" href="#ブロック2-送信">ブロック2: 送信</a></h2>
 <pre><code>function say(i) {
   sendSay(i);
   player.said = PHRASES[i];
   player.until = performance.now() + SHOW_FOR;
 }
 </code></pre>
-<p><strong>You send the number, never the words.</strong> Sending <code>2</code> is enough, because the other player's game has the same list, and looks up <code>PHRASES[2]</code> themselves.</p>
-<p>That is not to save space. Six short phrases are tiny. It is because a number cannot contain a sentence. If words travelled, a modified game could send any words at all. A number can only ever mean one of the six things on the list — and if it does not, Block 3 throws it away.</p>
-<p><code>until</code> is the time this phrase should stop being drawn. <code>SHOW_FOR</code> is 3000 milliseconds, three seconds — long enough to read, short enough that the screen does not fill with old chatter.</p>
-<h2 id="block-3-show"><a class="heading-anchor" href="#block-3-show">Block 3: Show</a></h2>
+<p><strong>言葉ではなく、番号を送信します。</strong> <code>2</code>を送信するだけで十分です。なぜなら、他のプレイヤーのゲームも同じリストを持っていて、自分で<code>PHRASES[2]</code>を検索するからです。</p>
+<p>これはスペースを節約するためではありません。6つの短いフレーズはごくわずかです。番号は文章を含むことができないからです。もし言葉が送られるとしたら、改造されたゲームはどんな言葉でも送ることができてしまいます。番号はリスト上の6つの事柄のいずれか一つしか意味できず、もしそうでなければ、ブロック3がそれを破棄します。</p>
+<p><code>until</code>は、このフレーズの描画を停止する時間です。<code>SHOW_FOR</code>は3000ミリ秒、つまり3秒です。読むには十分な長さで、古いチャットで画面がいっぱいにならない程度の短さです。</p>
+<h2 id="ブロック3-表示"><a class="heading-anchor" href="#ブロック3-表示">ブロック3: 表示</a></h2>
 <pre><code>onSay((i, id) =&gt; {
   if (!Number.isInteger(i) || i &lt; 0 || i &gt;= PHRASES.length) {
     window.dropped = (window.dropped || 0) + 1;   // so you can check it worked
@@ -123,46 +123,46 @@ for (let i = 0; i &lt; PHRASES.length; i++) {
   others[id] = { ...others[id], said: PHRASES[i], until: performance.now() + SHOW_FOR };
 });
 </code></pre>
-<p>Read the check out loud: <em>if what arrived is not a whole number, or is below zero, or is past the end of the list, stop — do nothing at all.</em></p>
-<p><code>Number.isInteger</code> asks "is this a whole number?" It says no to <code>"Hi!"</code>, no to <code>1.5</code>, no to nothing at all. The two comparisons then ask "does this number point at a phrase we really have?"</p>
-<p><strong>Never believe what another computer sends you.</strong> Your code is running on your machine, but the message came from somebody else's, and you have no idea what their copy of the game does. Perhaps they changed it. Perhaps their connection scrambled something. Perhaps they are being clever on purpose. Without the check, <code>PHRASES[99]</code> is <code>undefined</code> and your game draws the word "undefined" above their square; other bad values do worse. With the check, nothing happens at all — which is precisely what should happen.</p>
-<p>Then draw it, next to the square it belongs to:</p>
+<p>このチェックを声に出して読んでください: <em>到着したものが整数でない、または0未満である、またはリストの末尾を超えている場合、停止 — 何もするな。</em></p>
+<p><code>Number.isInteger</code>は「これは整数ですか？」と尋ねます。「"Hi!"」にはNo、「<code>1.5</code>」にはNo、何も入力されなければNoと答えます。その後の2つの比較は、「この番号は私たちが実際に持っているフレーズを指していますか？」と尋ねます。</p>
+<p><strong>他のコンピューターが送ってくるものを決して信用してはいけません。</strong> あなたのコードはあなたのマシンで実行されていますが、メッセージは他の誰かのマシンから来たものであり、彼らのゲームのコピーが何をするかあなたは知りません。彼らが変更したのかもしれません。彼らの接続が何かをスクランブルしたのかもしれません。彼らが意図的に賢いことをしているのかもしれません。チェックがなければ、<code>PHRASES[99]</code>は<code>undefined</code>となり、あなたのゲームは彼らのマスの上に「undefined」という単語を描画します。他の不正な値はさらに悪いことを引き起こします。チェックがあれば、何も起こりません。まさにそれが起こるべきことです。</p>
+<p>次に、それが属するマスの隣に描画します。</p>
 <pre><code>if (who.until &gt; performance.now()) {
   ctx.fillStyle = '#fff';
   ctx.fillText(who.said, who.x, who.y - 20);
 }
 </code></pre>
-<p>No list of messages, no scrolling history. The phrase floats above the square, then goes.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The forcing constraint is the same one that made <a href="a12.html">A12</a> peer-to-peer: no server. No server means no logs, no moderators, no bans and no way to undo anything. Every other safety idea — filtering rude words, reporting, muting — needs somebody watching, and nobody is watching. Only one approach survives that: make the unkind thing impossible to express in the first place. Six phrases is not a limitation we regret. It is the only design that is honest about what this game can protect you from.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p>メッセージのリストも、スクロールする履歴もありません。フレーズはマスの上に浮かび、そして消えます。</p>
+<h2 id="なぜこの方法にしたのか"><a class="heading-anchor" href="#なぜこの方法にしたのか">なぜこの方法にしたのか</a></h2>
+<p>強制的な制約は、<a href="a12.html">A12</a>をP2Pにしたのと同じものです: サーバーがないこと。サーバーがないということは、ログがなく、モデレーターもおらず、BANもできず、何も元に戻す方法がないということです。下品な言葉のフィルタリング、報告、ミュートなど、他のすべての安全対策は誰かの監視を必要としますが、誰も監視していません。唯一生き残るアプローチは、そもそも不親切なことを表現できないようにすることです。6つのフレーズという制限は、私たちが後悔するものではありません。このゲームがあなたを何から守れるかについて正直な唯一のデザインです。</p>
+<h2 id="代わりにできたこと"><a class="heading-anchor" href="#代わりにできたこと">代わりにできたこと</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>この代わりに</th>
+<th>その代償</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>A text box with a rude-word filter</td>
-<td>Filters are easy to get around and they block innocent words. Worse, a filter looks like protection, so people relax — and there is still nobody to report anything to</td>
+<td>下品な言葉フィルター付きのテキストボックス</td>
+<td>フィルターは簡単に回避でき、無害な言葉もブロックしてしまいます。さらに悪いことに、フィルターは保護されているように見えるため、人々は安心しますが、やはり報告する相手はいません。</td>
 </tr>
 <tr>
-<td>A text box with a report button</td>
-<td>The button would do nothing. There is no server to receive the report and no person to read it. A button that lies is worse than no button</td>
+<td>報告ボタン付きのテキストボックス</td>
+<td>そのボタンは何もしません。報告を受け取るサーバーも、それを読む人もいません。嘘のボタンは、ボタンがないよりも悪いものです。</td>
 </tr>
 <tr>
-<td>Sending the words instead of the number</td>
-<td>A changed copy of the game could then send anything at all onto your screen, and no check on your side could tell the difference</td>
+<td>番号の代わりに言葉を送信する</td>
+<td>変更されたゲームのコピーは、あなたの画面にどんなものでも送信できてしまい、あなたの側でそれを区別するチェック機能はありません。</td>
 </tr>
 <tr>
-<td>Trusting the number without checking it</td>
-<td>Works perfectly right up to the first strange message, then draws "undefined" above someone's head or breaks the drawing loop for everyone</td>
+<td>チェックせずに番号を信用する</td>
+<td>最初の奇妙なメッセージが来るまでは完璧に動作しますが、その後誰かの頭の上に「undefined」と表示されるか、全員の描画ループが壊れてしまいます。</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="プロンプト"><a class="heading-anchor" href="#プロンプト">プロンプト</a></h2>
 <pre><code>My canvas game already has multiplayer with trystero: a room, a 'move'
 action, and an `others` object of peer positions. Add preset-phrase chat
 in three blocks with a comment above each: PICK (make one button per
@@ -171,32 +171,32 @@ the array INDEX, not the text), SHOW (on receive, reject the value unless
 it is a whole number inside the array, then display the phrase above that
 peer's square for 3 seconds). No text input anywhere. Plain JavaScript.
 </code></pre>
-<p><strong>Check the output for:</strong> did it add a text input anyway? Assistants add one very often, because almost every chat they have ever seen has one — if it appears, say no and ask again. Does it send the index or the string? And does the check use <code>Number.isInteger</code>, or only <code>i &lt; PHRASES.length</code>, which happily accepts <code>-1</code> and <code>2.5</code>?</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p>出力で確認すること: とにかくテキスト入力が追加されていませんか？アシスタントは、これまで見たほとんどすべてのチャットにテキスト入力があったため、非常によく追加します。もし現れたら、「いいえ、もう一度お願いします」と伝えてください。インデックスを送信していますか、それとも文字列を送信していますか？そして、チェックは<code>Number.isInteger</code>を使用していますか、それとも<code>-1</code>や<code>2.5</code>を喜んで受け入れる<code>i &lt; PHRASES.length</code>だけを使用していますか？</p>
+<h2 id="動作を確認する"><a class="heading-anchor" href="#動作を確認する">動作を確認する</a></h2>
 <p><img alt="Two squares on a dark canvas, each with a phrase floating above it, and six phrase buttons underneath" src="../static/img/game/a13.png"></p>
-<p>Open the page in two tabs and wait for the other square to appear:</p>
+<p>ページを2つのタブで開き、もう一方のマスが表示されるのを待ちます。</p>
 <ol>
-<li>Tap <strong>Let's fight!</strong> in the first tab. The phrase appears above your green square, and above the blue square in the other tab. After three seconds it fades from both.</li>
-<li>Tap phrases in both tabs. Each phrase appears above the square that sent it, not somewhere in a corner.</li>
-<li>Now break it on purpose. In the first tab's console, send rubbish by hand: <code>sendSay(99)</code>, <code>sendSay("Hi!")</code>, <code>sendSay(1.5)</code>, <code>sendSay(-1)</code>. One is past the end of the list, one is words instead of a number, one is not a whole number, one is below the start.</li>
-<li>Look at the second tab. Nothing was drawn. Nothing changed — the other player's entry still says exactly what it said before. Type <code>dropped</code> in its console and you get <code>4</code>: all four arrived and all four were thrown away. Then move your square and tap a phrase. Everything still works, because refusing a message is not the same as crashing.</li>
+<li>最初のタブで<strong>「戦おう！」</strong>をタップします。フレーズはあなたの緑のマスの上に、そしてもう一方のタブの青いマスの上に表示されます。3秒後に両方から消えます。</li>
+<li>両方のタブでフレーズをタップします。各フレーズは、それが送られたマスの上に表示され、隅のどこかには表示されません。</li>
+<li>今度は意図的に壊してみましょう。最初のタブのコンソールで、手動でごみを送信します: <code>sendSay(99)</code>、<code>sendSay("Hi!")</code>、<code>sendSay(1.5)</code>、<code>sendSay(-1)</code>。1つはリストの末尾を超えており、1つは数字の代わりに言葉であり、1つは整数ではなく、1つは開始位置より下です。</li>
+<li>2番目のタブを見てください。何も描画されませんでした。何も変わっていません — 他のプレイヤーのエントリは、以前とまったく同じままです。そのコンソールで<code>dropped</code>と入力すると<code>4</code>が返されます。4つすべてが到着し、4つすべてが破棄されました。その後、あなたのマスを動かしてフレーズをタップします。メッセージを拒否することはクラッシュとは異なるため、すべてがまだ機能します。</li>
 </ol>
-<p>Step 4 is the real test of this step. A check you have never seen refuse anything is a check you have not tested.</p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Add the three blocks to your game from <a href="a12.html">A12</a>, plus one empty <code>&lt;div id="phrases"&gt;</code> under the canvas. The <code>others</code> object is already there; each entry gains two extra fields, <code>said</code> and <code>until</code>. Nothing about movement changes.</p>
+<p>ステップ4は、このステップの真のテストです。何も拒否したことがないチェックは、テストされていないチェックです。</p>
+<h2 id="ゲームに組み込む"><a class="heading-anchor" href="#ゲームに組み込む">ゲームに組み込む</a></h2>
+<p><a href="a12.html">A12</a>からあなたのゲームに3つのブロックを追加し、キャンバスの下に空の<code>&lt;div id="phrases"&gt;</code>を1つ追加します。<code>others</code>オブジェクトはすでに存在しており、各エントリには<code>said</code>と<code>until</code>という2つの追加フィールドが加わります。動きに関しては何も変更されません。</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="主なポイント"><a class="heading-anchor" href="#主なポイント">主なポイント</a></h2>
 <ul>
-<li>With nobody watching, the only working safety is making the harmful thing impossible to say</li>
-<li>Send a number that points into a list you both have, never the words themselves</li>
-<li>Never believe what another computer sends you — check it before you use it, every time</li>
-<li>Other players see your chosen name, your square, and your phrase; nothing about you or your computer</li>
-<li>If somebody is unkind: leave, and tell an adult you trust. There is nobody here to report them to</li>
+<li>誰も監視していない状況では、唯一機能する安全対策は、有害なことを言えないようにすることです。</li>
+<li>言葉そのものではなく、両者が持つリスト内の項目を指す番号を送信します。</li>
+<li>他のコンピューターが送ってくるものを決して信用してはいけません — 使用する前に毎回チェックしてください。</li>
+<li>他のプレイヤーが見るのは、あなたが選んだ名前、あなたのマス、そしてあなたのフレーズだけです。あなた自身やあなたのコンピューターに関する情報は何もありません。</li>
+<li>もし誰かが不親切な場合: 立ち去り、信頼できる大人に話してください。ここに報告する相手はいません。</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Add a rule the given prompt does not produce: nobody may send more than one phrase per second. Someone tapping "Bye" forty times in a row is not saying anything, and it is the one unkind thing six polite phrases still allow. Remember the time of the last phrase you sent, and in <code>say</code>, return early if it was less than a second ago. Then decide the harder half: should you also ignore phrases that <em>arrive</em> too fast, or only limit your own? <em>Grown-up programmers call this rate limiting, so now you know that phrase too.</em></p>
+<h2 id="あなたの番です"><a class="heading-anchor" href="#あなたの番です">あなたの番です</a></h2>
+<p>与えられたプロンプトでは生成されないルールを追加してください: 1秒間に1つ以上のフレーズを送信してはならない。誰かが「バイバイ」と40回連続でタップしても、何も言っていることにはなりませんし、6つの丁寧なフレーズでも許されてしまう唯一の意地悪な行為です。最後に送信したフレーズの時間を覚えておき、<code>say</code>内で、それが1秒以内であった場合は早めに<code>return</code>してください。次に、より難しい後半を決定してください: <em>到着する</em>フレーズが速すぎる場合も無視すべきか、それとも自分のものだけを制限すべきか？<em>ベテランプログラマーはこれをレートリミットと呼びます。これであなたもそのフレーズを知ったことになりますね。</em></p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">AIレッスンに戻る</a>
         <div class="lesson-pager">

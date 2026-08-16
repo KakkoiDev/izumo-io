@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Save the Game - KakkoiSchool</title>
+  <title>ゲームをセーブする - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a12.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a11-save-the-game"><a class="heading-anchor" href="#a11-save-the-game">A11: Save the Game</a></h1>
-<p class="lesson-intro">Right now your game forgets everything the moment you close the tab. By the end of this step it remembers where your square was and what you are called — and it survives a save file written by an older version of your own game.</p>
-<p><strong>Needs:</strong> <a href="a10.html">A10</a>. <strong>Gives you:</strong> a square that comes back where you left it, with your name above it.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a11-ゲームをセーブする"><a class="heading-anchor" href="#a11-ゲームをセーブする">A11: ゲームをセーブする</a></h1>
+<p class="lesson-intro">今のところ、タブを閉じるとゲームはすべてを忘れてしまいます。このステップを終えるまでに、ゲームはあなたの四角がどこにあったか、そしてあなたの名前を覚えるようになります — そして、あなたのゲームの古いバージョンによって書かれたセーブファイルにも対応できるようになります。</p>
+<p><strong>必要なもの:</strong> <a href="a10.html">A10</a>。 <strong>得られるもの:</strong> 前回置いた場所に戻ってくる四角（その上にあなたの名前が表示される）。</p>
+<h2 id="ゲーム全体と今日の要素"><a class="heading-anchor" href="#ゲーム全体と今日の要素">ゲーム全体と今日の要素</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -69,19 +69,19 @@ flowchart LR
     class S now
 
 </div>
-<p>Today you build the box on the side: <strong>Remember your game</strong>. It feeds the middle. When the page starts, it hands "Decide" a position to start from.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"Save the game" sounds like one thing. It is three:</p>
+<p>今日は、側面に「<strong>ゲームを記憶する</strong>」という箱を作ります。これは中央に情報を供給します。ページが起動すると、「決定」に開始位置を渡します。</p>
+<h2 id="ブロックに分割する"><a class="heading-anchor" href="#ブロックに分割する">ブロックに分割する</a></h2>
+<p>「ゲームをセーブする」は一つのことのように聞こえますが、実際には三つの要素から成ります。</p>
 <ol>
-<li><strong>Write</strong> — put the position and the name somewhere that outlives the page</li>
-<li><strong>Read</strong> — get them back when the page starts again</li>
-<li><strong>Cope</strong> — deal with what you read back being old, or broken, or missing</li>
+<li><strong>書き込み</strong> — ページが閉じても残る場所に位置と名前を保存する</li>
+<li><strong>読み込み</strong> — ページが再び起動したときにそれらを取り戻す</li>
+<li><strong>対処</strong> — 読み戻したデータが古い、壊れている、または存在しない場合に対処する</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because these three fail in completely different ways, and they fail at different times. Writing fails now, while you watch. Reading fails when the page starts. Coping fails on somebody else's computer, one day, when they open a game they last played a long time ago.</p>
-<p>If it were one lump and it went wrong, you could not tell which part was wrong. Is nothing being written? Is it written but never read? Is it read but thrown away? Three blocks, three separate questions.</p>
-<p>Block 3 is the one almost everybody skips. It is the whole point of this step.</p>
-<h2 id="block-1-write"><a class="heading-anchor" href="#block-1-write">Block 1: Write</a></h2>
-<p>The browser gives every website a small drawer it can keep text in. It is called <strong>localStorage</strong>, and what you put in it stays there after the tab closes. It only holds text, so we turn our object into text first.</p>
+<p><strong>なぜ分割するのか？</strong> これら三つは完全に異なる方法で失敗し、異なるタイミングで失敗するからです。書き込みは今、あなたが見ているときに失敗します。読み込みはページが起動するときに失敗します。対処は、誰かのコンピューターで、いつか、彼らがずっと前にプレイしたゲームを開いたときに失敗します。</p>
+<p>もしそれが一つの塊で問題が発生した場合、どの部分が間違っているのかを特定できません。何も書き込まれていないのか？書き込まれたが一度も読み込まれていないのか？読み込まれたが捨てられたのか？三つのブロック、三つの異なる問題です。</p>
+<p>ブロック3は、ほとんどの人が飛ばす部分です。それがこのステップの全体的なポイントです。</p>
+<h2 id="ブロック1-書き込み"><a class="heading-anchor" href="#ブロック1-書き込み">ブロック1：書き込み</a></h2>
+<p>ブラウザは、すべてのウェブサイトにテキストを保存できる小さな引き出しを提供します。それは<strong>localStorage</strong>と呼ばれ、タブを閉じてもそこに保存したものは残ります。テキストしか保存できないため、まずオブジェクトをテキストに変換します。</p>
 <pre><code>const KEY = 'kakkoi-save';   // one name in the drawer, one save
 const VERSION = 2;           // stamped on everything we write
 
@@ -91,25 +91,25 @@ function save() {
 }
 setInterval(save, 500);
 </code></pre>
-<p><code>JSON.stringify</code> turns an object into text. <strong>JSON</strong> is just a way of writing an object down as characters, so it can be stored or sent somewhere.</p>
-<p><code>setInterval(save, 500)</code> runs <code>save</code> <strong>twice a second</strong>. Not every frame.</p>
+<p><code>JSON.stringify</code>はオブジェクトをテキストに変換します。<strong>JSON</strong>は、オブジェクトを文字として書き下す方法であり、どこかに保存したり送信したりできるようにするためのものです。</p>
+<p><code>setInterval(save, 500)</code>は<code>save</code>を<strong>1秒間に2回</strong>実行します。すべてのフレームではありません。</p>
 <blockquote>
-<p><strong>Why not every frame?</strong> Your square moves 60 times a second. Nobody closes a tab 60 times a second. Saving every frame means 60 times the work for exactly the same result: a game that comes back where you left it. Twice a second, you can lose at most half a second of walking — and half a second of walking is nothing.</p>
+<p><strong>なぜ毎フレームではないのか？</strong> あなたの四角は1秒間に60回動きます。1秒間に60回タブを閉じる人はいません。毎フレーム保存するということは、全く同じ結果（前回置いた場所に戻るゲーム）に対して60倍の作業を行うことになります。1秒間に2回であれば、最大で0.5秒の移動しか失われません — そして0.5秒の移動は取るに足らないことです。</p>
 </blockquote>
-<p>Notice the <code>version</code> number sitting in the saved object. Nothing uses it yet. Block 3 does.</p>
-<h2 id="block-2-read"><a class="heading-anchor" href="#block-2-read">Block 2: Read</a></h2>
+<p>保存されたオブジェクトに含まれる<code>version</code>番号に注目してください。まだ何も使っていませんが、ブロック3で使われます。</p>
+<h2 id="ブロック2-読み込み"><a class="heading-anchor" href="#ブロック2-読み込み">ブロック2：読み込み</a></h2>
 <pre><code>function read() {
   const text = localStorage.getItem(KEY);
   if (text === null) return null;
   return JSON.parse(text);
 }
 </code></pre>
-<p><code>getItem</code> gives back the text you stored, or <code>null</code> if nothing was ever stored under that name. <code>JSON.parse</code> is the opposite of <code>JSON.stringify</code>: text back into an object.</p>
-<p>This block does one job and nothing else. It does not decide what to do about what it found.</p>
-<h2 id="block-3-cope"><a class="heading-anchor" href="#block-3-cope">Block 3: Cope</a></h2>
-<p>Here is the fact that makes this block necessary:</p>
-<p><strong>A save outlives the code that wrote it.</strong> You will change your game. The save sitting in somebody's browser was written by the <em>old</em> version of your game. It might have no name in it, because you added names later. It might be half-written, because the computer was closed in the middle of writing. It is not under your control any more.</p>
-<p>So every bad case ends the same way: start fresh instead of crashing.</p>
+<p><code>getItem</code>は、保存したテキストを返します。その名前で何も保存されていなければ<code>null</code>を返します。<code>JSON.parse</code>は<code>JSON.stringify</code>の逆で、テキストをオブジェクトに戻します。</p>
+<p>このブロックは一つのことだけを行い、それ以外は何もしません。見つけたものについてどうすべきかを決定することはありません。</p>
+<h2 id="ブロック3-対処"><a class="heading-anchor" href="#ブロック3-対処">ブロック3：対処</a></h2>
+<p>このブロックが必要になる事実をここに示します。</p>
+<p><strong>セーブデータは、それを書いたコードよりも長生きします。</strong> あなたはゲームを変更するでしょう。誰かのブラウザに残っているセーブデータは、あなたのゲームの<em>古い</em>バージョンによって書かれたものです。名前を後で追加したため、名前が含まれていないかもしれません。書き込みの途中でコンピューターが閉じられたため、途中で書かれたものかもしれません。それはもはやあなたの管理下にはありません。</p>
+<p>したがって、すべての悪いケースは同じ方法で終わります。クラッシュする代わりに、最初からやり直すのです。</p>
 <pre><code>function fresh() {
   return { x: 100, y: 100, name: '' };
 }
@@ -135,39 +135,39 @@ function load() {
 
 const player = load();
 </code></pre>
-<p><code>try</code> means "attempt this". <code>catch</code> means "and if it explodes, do this instead of stopping the whole page". <code>JSON.parse</code> throws — explodes — the moment the text is not proper JSON, and without the <code>catch</code> your whole game would stop before it ever drew a frame.</p>
-<p>Four things can be wrong, and each gets one line: unreadable text, nothing saved at all, a save from an older version, a save with no position in it.</p>
-<p>This is the part that feels boring while you write it. It is the part that stops a real person losing a game.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The version number is the forcing constraint. Without it, an old save is <em>silently</em> wrong: it parses fine, it has numbers in it, and your new code quietly builds a broken player out of it — and you will chase that bug for hours because everything looks normal. With one number stamped on every save, "this is from an older game" becomes a thing your code can simply see and answer. When you change what you save in a later step, you raise <code>VERSION</code> by one, and every old save politely steps aside.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p><code>try</code>は「これを試みる」を意味します。<code>catch</code>は「そして、もしそれが爆発したら、ページ全体を停止させる代わりにこれを実行する」を意味します。<code>JSON.parse</code>は、テキストが適切なJSONでない瞬間にスロー（爆発）し、<code>catch</code>がなければ、あなたのゲーム全体は一度もフレームを描画する前に停止してしまいます。</p>
+<p>四つのことが間違っている可能性があり、それぞれが一行で処理されます。読めないテキスト、全く保存されていない場合、古いバージョンからのセーブデータ、位置情報が含まれていないセーブデータ。</p>
+<p>これは、書いているときは退屈に感じる部分です。しかし、実際の人がゲームを失うのを防ぐ部分なのです。</p>
+<h2 id="なぜこの方法をとったのか"><a class="heading-anchor" href="#なぜこの方法をとったのか">なぜこの方法をとったのか</a></h2>
+<p>バージョン番号は強制的な制約です。それがないと、古いセーブデータは<em>静かに</em>間違ったものとなります。正常にパースされ、数値が含まれているため、新しいコードはそこから静かに壊れたプレイヤーを構築してしまいます — そして、すべてが正常に見えるため、そのバグを何時間も追いかけることになるでしょう。すべてのセーブデータに番号が刻印されていれば、「これは古いゲームからのものだ」ということをコードが簡単に認識し、対処できるようになります。後のステップで保存する内容を変更するときは、<code>VERSION</code>を1つ増やし、すべての古いセーブデータは丁寧にお役御免となります。</p>
+<h2 id="代わりにできたこと"><a class="heading-anchor" href="#代わりにできたこと">代わりにできたこと</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>これの代わりに</th>
+<th>代償</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Saving on every frame</td>
-<td>60 writes a second instead of 2, for a result nobody can tell apart. Storage is not free and the browser does real work each time</td>
+<td>毎フレーム保存する</td>
+<td>誰も区別できない結果のために、1秒間に2回ではなく60回の書き込み。ストレージは無料ではなく、ブラウザはその都度実際の作業を行います。</td>
 </tr>
 <tr>
-<td>Saving only when the page closes</td>
-<td>The browser is allowed to kill a tab without warning — crash, low battery, phone swiping the app away. Sometimes your goodbye code never runs, and the whole session is gone</td>
+<td>ページを閉じる時だけ保存する</td>
+<td>ブラウザは警告なしにタブを強制終了する可能性があります — クラッシュ、低バッテリー、アプリをスワイプして閉じるなど。場合によっては、終了コードが実行されず、セッション全体が失われます。</td>
 </tr>
 <tr>
-<td>No version number</td>
-<td>Old saves parse fine and produce a wrong player. The bug looks like a movement bug, not a save bug, and you look in the wrong place</td>
+<td>バージョン番号がない</td>
+<td>古いセーブデータは正常にパースされ、誤ったプレイヤーを生成します。バグはセーブデータの問題ではなく移動の問題のように見え、誤った場所を探すことになります。</td>
 </tr>
 <tr>
-<td>Storing x and y under separate keys</td>
-<td>Two writes instead of one. If the computer stops between them you get a save that is half old and half new — the square jumps to a place it has never been</td>
+<td>xとyを別々のキーで保存する</td>
+<td>1回ではなく2回の書き込み。コンピューターがそれらの間に停止すると、半分が古く半分が新しいセーブデータとなり — 四角はこれまで一度もなかった場所にジャンプします。</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="プロンプト"><a class="heading-anchor" href="#プロンプト">プロンプト</a></h2>
 <pre><code>I have a canvas game in plain JavaScript. The player is an object with x, y and
 name. Add saving to localStorage under one key, as one JSON object, written
 twice a second with setInterval. On startup, load it. Put a version number in
@@ -176,39 +176,39 @@ text that is not valid JSON, and a save whose version is not the current one.
 In every bad case start from default values and never throw. Keep write, read
 and cope as three separate functions.
 </code></pre>
-<p><strong>Check the output for:</strong> did it actually wrap <code>JSON.parse</code> in <code>try</code>/<code>catch</code>, or did it only check for <code>null</code>? Those are different failures and only one of them is caught by a null check. Does the version check compare with <code>!==</code>, or did it only handle <em>older</em> versions and forget a save from a version that does not exist yet? And did it save on every frame in the game loop instead of on a timer — assistants do that often, because it is one line shorter.</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
-<p><img alt="A green square on a dark canvas with the name Mika above it, and a name box below the canvas" src="../static/img/game/a11.png"></p>
-<p>Open the page with Live Server and:</p>
+<p><strong>出力の確認点:</strong> 実際に<code>JSON.parse</code>を<code>try</code>/<code>catch</code>で囲んでいるか、それとも<code>null</code>のチェックだけか？これらは異なる失敗であり、<code>null</code>チェックで捕捉されるのはそのうちの一つだけです。バージョンチェックは<code>!==</code>で比較しているか、それとも<em>古い</em>バージョンだけを処理し、まだ存在しないバージョンからのセーブデータを忘れていないか？そして、タイマーではなくゲームループの毎フレームで保存しているか — アシスタントは一行短くなるため、そうすることがよくあります。</p>
+<h2 id="動作を確認する"><a class="heading-anchor" href="#動作を確認する">動作を確認する</a></h2>
+<p><img alt="暗いキャンバスの上にMikaという名前の緑色の四角があり、キャンバスの下に名前入力ボックスがある画像" src="../static/img/game/a11.png"></p>
+<p>Live Serverでページを開き、以下を実行します。</p>
 <ol>
-<li>Type a name into the box. It appears above the square.</li>
-<li><strong>Click on the canvas first</strong>, then hold an arrow key. (While the name box has the keyboard, the arrows go into the box, not into the game. That is on purpose.)</li>
-<li>Reload the page. The square is at the same place and the name is still in the box. We drove ours to <code>{x: 253.98, y: 177}</code>, reloaded, and it came back at <code>{x: 253.98, y: 177}</code> with the name <code>Mika</code>.</li>
-<li>Open the browser console and run <code>localStorage.setItem('kakkoi-save', '{{{')</code>, then reload. The page still works. The square starts fresh at <code>{x: 100, y: 100}</code> and the console says <em>save is not readable, starting fresh: Expected property name or '}' in JSON at position 1</em>.</li>
-<li>Now run <code>localStorage.setItem('kakkoi-save', JSON.stringify({ version: 1, name: 'Old Mika', x: 300, y: 40 }))</code> and reload. Again the square starts fresh, and the console says <em>save is version 1 and we speak 2</em>. That is Block 3 doing its job — the position <code>300, 40</code> in that save was thrown away on purpose.</li>
-<li>Move again after either of those. It still moves. Nothing was broken by the broken save.</li>
+<li>ボックスに名前を入力します。それが四角の上に表示されます。</li>
+<li><strong>まずキャンバスをクリックし</strong>、それから矢印キーを押し続けます。（名前ボックスがキーボードを占有している間は、矢印キーがゲームではなくボックスに入力されます。これは意図的なものです。）</li>
+<li>ページをリロードします。四角は同じ場所にあり、名前もボックスに残っています。私たちは四角を<code>{x: 253.98, y: 177}</code>に移動させ、リロードすると、<code>Mika</code>という名前で<code>{x: 253.98, y: 177}</code>に戻ってきました。</li>
+<li>ブラウザのコンソールを開き、<code>localStorage.setItem('kakkoi-save', '{{{')</code>を実行し、リロードします。ページは引き続き動作します。四角は<code>{x: 100, y: 100}</code>から新しく開始され、コンソールには<em>save is not readable, starting fresh: Expected property name or '}' in JSON at position 1</em>と表示されます。</li>
+<li>次に、<code>localStorage.setItem('kakkoi-save', JSON.stringify({ version: 1, name: 'Old Mika', x: 300, y: 40 }))</code>を実行してリロードします。再び四角は新しく開始され、コンソールには<em>save is version 1 and we speak 2</em>と表示されます。これはブロック3がその役割を果たしているのです — そのセーブデータ内の位置<code>300, 40</code>は意図的に破棄されました。</li>
+<li>いずれかの後で再度移動してみてください。まだ動きます。壊れたセーブデータによって何も壊れていません。</li>
 </ol>
-<p>Steps 4 and 5 are the real test. A save file you never abuse is a save file you have not tested.</p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Take the game from <a href="a10.html">A10</a>. Add the three functions, replace <code>const player = { x: 100, y: 100 }</code> with <code>const player = load()</code>, and add one <code>&lt;input id="name"&gt;</code> under the canvas. Add one line to <code>draw</code> so the name is painted above the square, and one guard in the key handler so typing your name does not steer:</p>
+<p>ステップ4と5が本当のテストです。乱用しないセーブファイルは、テストされていないセーブファイルです。</p>
+<h2 id="ゲームに組み込む"><a class="heading-anchor" href="#ゲームに組み込む">ゲームに組み込む</a></h2>
+<p><a href="a10.html">A10</a>からゲームを取り出します。三つの関数を追加し、<code>const player = { x: 100, y: 100 }</code>を<code>const player = load()</code>に置き換え、キャンバスの下に<code>&lt;input id="name"&gt;</code>を一つ追加します。<code>draw</code>に一行追加して名前が四角の上に描画されるようにし、キーハンドラにガードを追加して名前入力が操作に影響しないようにします。</p>
 <pre><code>addEventListener('keydown', (e) =&gt; { if (e.target !== nameBox) held.add(e.key); });
 </code></pre>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="重要なポイント"><a class="heading-anchor" href="#重要なポイント">重要なポイント</a></h2>
 <ul>
-<li>Saving is three jobs, not one: write it down, read it back, cope with what you read</li>
-<li>Save on a timer, not every frame — the extra 58 writes a second buy you nothing</li>
-<li>Put a version number in every save, because a save outlives the code that wrote it</li>
-<li>Every bad save ends the same way: start fresh, never crash</li>
-<li><code>try</code> and <code>catch</code> mean "attempt this, and if it explodes do that instead" — <code>JSON.parse</code> explodes on rubbish</li>
+<li>セーブは一つの仕事ではなく、三つの仕事です：書き込む、読み戻す、読み戻したデータに対処する</li>
+<li>毎フレームではなく、タイマーで保存する — 毎秒58回の余分な書き込みは何ももたらさない</li>
+<li>すべてのセーブデータにバージョン番号を入れる。なぜなら、セーブデータはそれを書いたコードよりも長生きするから</li>
+<li>すべての壊れたセーブデータは同じ方法で終わる：最初からやり直し、決してクラッシュさせない</li>
+<li><code>try</code>と<code>catch</code>は「これを試み、もしそれが爆発したら代わりにそれを行う」を意味する — <code>JSON.parse</code>は無効なデータで爆発する</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Add a <strong>Forget me</strong> button that clears the save and puts the square back at the start, without reloading the page. Two things to think about: <code>localStorage.removeItem</code> empties the drawer, but the timer will write a new save half a second later, so you also have to move the player back yourself. And should the name go too, or should it stay? Decide, and be able to say why.</p>
-<p>Then a harder question, which we got wrong first and had to fix. When we built this properly, we found that <strong>not everything in the drawer belongs to the character.</strong> Where you are standing does. Your name does. But "has this person read the safety notice?" and "does this person already know the controls?" are facts about the <em>person sitting at the computer</em>, not about the character they happen to be playing — and clearing them meant a child who started a new animal was shown the safety notice again, and re-taught the controls they already knew.</p>
-<p>So those live in their own drawer, and starting over does not touch them.</p>
-<p>Look at what you are saving and sort it into two piles: <strong>this character</strong>, and <strong>this person</strong>. Then make your button clear only the first. <em>Grown-up programmers would say the two kinds of data have different lifetimes, so now you know that phrase too.</em></p>
+<h2 id="あなたの番です"><a class="heading-anchor" href="#あなたの番です">あなたの番です</a></h2>
+<p>ページをリロードせずに、セーブデータをクリアし、四角を開始位置に戻す「<strong>私を忘れる</strong>」ボタンを追加してください。考慮すべき点が二つあります。<code>localStorage.removeItem</code>は引き出しを空にしますが、タイマーが0.5秒後に新しいセーブデータを書き込むため、プレイヤーも自分で戻す必要があります。そして、名前も消すべきか、それとも残すべきか？決定し、その理由を説明できるようにしてください。</p>
+<p>次に、私たちが最初に間違えて修正しなければならなかった、より難しい質問です。これを適切に構築したとき、<strong>引き出しの中のすべてがキャラクターに属するわけではない</strong>ことに気づきました。あなたが立っている場所は属します。あなたの名前は属します。しかし、「この人は安全に関する通知を読んだか？」や「この人はすでに操作方法を知っているか？」は、<em>コンピューターに座っている人</em>に関する事実であり、彼らがたまたまプレイしているキャラクターに関するものではありません — そして、これらをクリアするということは、新しい動物を始めた子供に安全に関する通知が再び表示され、すでに知っている操作方法が再度教えられることを意味しました。</p>
+<p>したがって、それらは独自の引き出しに保存され、最初からやり直しても影響を受けません。</p>
+<p>あなたが何を保存しているかを見て、<strong>このキャラクター</strong>と<strong>この人</strong>の二つの山に分類してください。そして、ボタンが最初の山だけをクリアするようにしてください。<em>熟練のプログラマーは、この二種類のデータはライフタイムが異なる、と言うでしょう。これであなたもそのフレーズを知ったわけです。</em></p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">AIレッスンに戻る</a>
         <div class="lesson-pager">
