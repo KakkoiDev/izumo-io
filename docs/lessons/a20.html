@@ -77,15 +77,15 @@ flowchart LR
 <li><strong>Compare</strong> — take the two moves and work out the winner</li>
 <li><strong>Show</strong> — put the answer on the screen in words</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because "compare" is the only part you can check without playing. Give it water and fire, and the answer must always be the same. If choosing, comparing and showing were one lump and the wrong name appeared on screen, you would have one question — <em>"why is it wrong?"</em> — and three suspects. Split, you can ask "compare" directly and get an answer in a second.</p>
+<p><strong>Why bother splitting it?</strong> Because "compare" is the only part you can check without playing. Give it rock and scissors, and the answer must always be the same. If choosing, comparing and showing were one lump and the wrong name appeared on screen, you would have one question — <em>"why is it wrong?"</em> — and three suspects. Split, you can ask "compare" directly and get an answer in a second.</p>
 <h2 id="block-1-choose"><a class="heading-anchor" href="#block-1-choose">Block 1: Choose</a></h2>
 <p>Three buttons, big enough for a thumb.</p>
-<pre><code>&lt;button data-move=&quot;fire&quot;&gt;🔥 fire&lt;/button&gt;
-&lt;button data-move=&quot;water&quot;&gt;💧 water&lt;/button&gt;
-&lt;button data-move=&quot;earth&quot;&gt;🪨 earth&lt;/button&gt;
+<pre><code>&lt;button data-move=&quot;scissors&quot;&gt;🔥 scissors&lt;/button&gt;
+&lt;button data-move=&quot;rock&quot;&gt;💧 rock&lt;/button&gt;
+&lt;button data-move=&quot;paper&quot;&gt;🪨 paper&lt;/button&gt;
 </code></pre>
 <p><code>data-move</code> is a label you invent and stick on the button. The browser ignores it. Your code reads it back with <code>button.dataset.move</code>, so one piece of code serves all three buttons instead of three almost-identical pieces.</p>
-<pre><code>const MOVES = ['fire', 'water', 'earth'];
+<pre><code>const MOVES = ['scissors', 'rock', 'paper'];
 
 function theirChoice() {
   return MOVES[Math.floor(Math.random() * MOVES.length)];
@@ -98,8 +98,8 @@ for (const button of document.querySelectorAll('#moves button')) {
 <p><code>Math.random()</code> gives a number from 0 up to just under 1. Multiply by 3 and round down, and you get 0, 1 or 2 — one of the three moves.</p>
 <p>Here the other side rolls a dice. In the real game their move arrives over the network. Nothing in the next block cares which of those it was.</p>
 <h2 id="block-2-compare"><a class="heading-anchor" href="#block-2-compare">Block 2: Compare</a></h2>
-<pre><code>// water beats fire, fire beats earth, earth beats water.
-const BEATS = { water: 'fire', fire: 'earth', earth: 'water' };
+<pre><code>// rock beats scissors, scissors beats paper, paper beats rock.
+const BEATS = { rock: 'scissors', scissors: 'paper', paper: 'rock' };
 
 function compare(mine, theirs) {
   if (mine === theirs) return { winner: 'nobody', why: mine + ' does not beat ' + theirs };
@@ -107,15 +107,15 @@ function compare(mine, theirs) {
   return { winner: 'them', why: theirs + ' beats ' + mine };
 }
 </code></pre>
-<p><code>BEATS</code> is the whole rule of the game written as three pairs. <code>BEATS.water</code> is <code>'fire'</code>, which reads as "water beats fire". Everything else falls out of it.</p>
+<p><code>BEATS</code> is the whole rule of the game written as three pairs. <code>BEATS.rock</code> is <code>'scissors'</code>, which reads as "rock beats scissors". Everything else falls out of it.</p>
 <p>Look at what this function does <em>not</em> do. It does not touch the screen. It does not ask the clock. It does not roll a dice. Put the same two moves in and you get the same answer out, today and in a year. <strong>Grown-up programmers call that a pure function, so now you know that phrase too.</strong></p>
 <p>Pure means testable. You can check it without a single button press:</p>
-<pre><code>console.assert(compare('water', 'fire').winner === 'you', 'water should beat fire');
-console.assert(compare('fire', 'water').winner === 'them', 'fire should lose to water');
-console.assert(compare('earth', 'earth').winner === 'nobody', 'same move is a draw');
+<pre><code>console.assert(compare('rock', 'scissors').winner === 'you', 'rock should beat scissors');
+console.assert(compare('scissors', 'rock').winner === 'them', 'scissors should lose to rock');
+console.assert(compare('paper', 'paper').winner === 'nobody', 'same move is a draw');
 </code></pre>
 <p><code>console.assert</code> says nothing when it is right and complains in the browser console when it is wrong. Silence is the pass.</p>
-<p>It also returns a <code>why</code>, not just a winner. A game that says "you lose" teaches nothing. A game that says "water beats fire" teaches the rule while you play.</p>
+<p>It also returns a <code>why</code>, not just a winner. A game that says "you lose" teaches nothing. A game that says "rock beats scissors" teaches the rule while you play.</p>
 <h2 id="block-3-show"><a class="heading-anchor" href="#block-3-show">Block 3: Show</a></h2>
 <pre><code>function show(mine, theirs, result) {
   const heading = { you: 'You win!', them: 'You lose.', nobody: 'A draw.' };
@@ -135,8 +135,9 @@ console.assert(compare('earth', 'earth').winner === 'nobody', 'same move is a dr
 </code></pre>
 <h2 id="why-three-moves-and-not-a-best-one"><a class="heading-anchor" href="#why-three-moves-and-not-a-best-one">Why three moves, and not a "best" one</a></h2>
 <p>Here is the part that is really about games, not about code.</p>
-<p>Imagine fire simply beat both of the others. What would you pick? Fire. What would everyone pick? Fire. Every round would be fire against fire, forever, and there would be nothing to decide. The game would be over before it started.</p>
-<p>Now look at the circle again. Water beats fire. Fire beats earth. Earth beats water. <strong>Every move beats one and loses to one.</strong> There is no move that is just better, so "what should I pick?" has no answer on its own. The only way to answer it is to think about what the <em>other person</em> is likely to pick. That is where the game actually lives.</p>
+<p><strong>You already know this.</strong> Nobody has ever asked which is the best move in rock, paper, scissors, because there obviously isn't one. What you may not have done is ask <em>why</em> the game works that way.</p>
+<p>Imagine rock simply beat both of the others. What would you pick? Rock. What would everyone pick? Rock. Every round would be rock against rock, forever, and there would be nothing to decide. The game would be over before it started.</p>
+<p>Now look at the circle again. Rock beats scissors. Scissors beats paper. Paper beats rock. <strong>Every move beats one and loses to one.</strong> There is no move that is just better, so "what should I pick?" has no answer on its own. The only way to answer it is to think about what the <em>other person</em> is likely to pick. That is where the game actually lives — and it is why a game everyone learns as a small child is still worth building.</p>
 <p>This is why so many games are built on a circle like this: heavy armour beats arrows, arrows beat cavalry, cavalry beats heavy armour. <em>Grown-up programmers and mathematicians call this a game with no dominant strategy — a "dominant strategy" being a choice that is best no matter what anyone else does. Yours has none, on purpose.</em></p>
 <h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
 <p>The forcing constraint is this: in the real game, <strong>both players work out the result on their own computers, and the two answers must match exactly.</strong> There is no server to referee. If your computer says you won and theirs says they won, the fight is broken and there is nobody to ask.</p>
@@ -178,15 +179,15 @@ that also does not touch the page. Tell me which lines you added where.
 </code></pre>
 <p><strong>Check the output for:</strong> did anything to do with the screen creep inside <code>compare</code>? Assistants love adding a line that updates the score display right where the winner is worked out, and that quietly makes the function untestable. Also check that a draw does not count towards the three — that is the case people forget.</p>
 <h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
-<p><img alt="Three big buttons — fire, water, earth — with the result &quot;You win!&quot; and the line &quot;You played water. They played fire. water beats fire.&quot;" src="../static/img/game/a20.png"></p>
+<p><img alt="Three big buttons — scissors, rock, paper — with the result &quot;You win!&quot; and the line &quot;You played rock. They played scissors. rock beats scissors.&quot;" src="../static/img/game/a20.png"></p>
 <p>Open the page with Live Server and:</p>
 <ol>
-<li>Press <strong>water</strong>. A result appears with a reason under it.</li>
+<li>Press <strong>rock</strong>. A result appears with a reason under it.</li>
 <li>Keep pressing the same button about ten times. The score changes in all three directions — wins, losses and draws — because the other side is rolling a dice each time.</li>
 <li>Open the browser console. It is silent. That silence is the three <code>console.assert</code> checks passing.</li>
-<li>In the console, type <code>compare('earth', 'water')</code>. You get <code>{ winner: 'you', why: 'earth beats water' }</code> without touching the page. That is the point of a pure block.</li>
+<li>In the console, type <code>compare('paper', 'rock')</code>. You get <code>{ winner: 'you', why: 'paper beats rock' }</code> without touching the page. That is the point of a pure block.</li>
 </ol>
-<p>We ran that last one while building this: <code>compare('fire', 'water')</code> came back <code>{ winner: 'them', why: 'water beats fire' }</code>, and no button was ever pressed.</p>
+<p>We ran that last one while building this: <code>compare('scissors', 'rock')</code> came back <code>{ winner: 'them', why: 'rock beats scissors' }</code>, and no button was ever pressed.</p>
 <h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
 <p>The fight screen from <a href="a19.html">A19</a> currently opens and does nothing. Put the three buttons on it, and call <code>compare</code> when the other player's move arrives. Keep <code>compare</code> in its own file — <code>src/battle/rules.js</code> — because <a href="a21.html">A21</a> and <a href="a22.html">A22</a> both use it without changing a line of it.</p>
 <div class="takeaways">

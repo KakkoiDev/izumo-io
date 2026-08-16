@@ -32,7 +32,7 @@ Um projeto real, do início ao fim: um jogo sem servidor, que você pode enviar 
 - [A17: Sound](lessons/a17.md) - A footstep every time you walk, music when you ask for it, and a button that makes it all stop.
 - [A18: Put It Online](lessons/a18.md) - Give your game a real address on the internet, and get a proper undo button while you are at it.
 - [A19: Challenge Someone](lessons/a19.md) - Walk up to another player, press one key, and a fight screen opens on both computers at the same moment.
-- [A20: Three Moves](lessons/a20.md) - Pick fire, water or earth, and see on the screen who won the round and why.
+- [A20: Three Moves](lessons/a20.md) - Pick scissors, rock or paper, and see on the screen who won the round and why.
 - [A21: Someone to Fight](lessons/a21.md) - A computer opponent, so there is always someone to fight even when nobody else is online.
 - [A22: No Peeking](lessons/a22.md) - Both players lock in their move before either one is shown, and a cheat who swaps their move gets caught on screen.
 - [A23: What We Didn't Build](lessons/a23.md) - The things this game deliberately does not have, what each one would have cost, and why leaving them out was the design.

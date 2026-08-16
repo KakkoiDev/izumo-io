@@ -171,15 +171,15 @@ of opponent it is. Show me only the new object.
 </code></pre>
 <p><strong>Check the output for:</strong> did <code>playRound</code> come back "improved" with an extra argument or a check for the new opponent? That is the one thing you asked it not to do, and it is the thing assistants do most. Also check the new opponent still has some randomness — otherwise a human beats it forever after four rounds, and it will feel broken rather than easy.</p>
 <h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
-<p><img alt="The demo with the &quot;opponent remembers you&quot; box ticked, showing &quot;You lose. You played fire. The watcher played water. water beats fire.&quot; and a score of won 2, lost 17, drew 5" src="../static/img/game/a21.png"></p>
+<p><img alt="The demo with the &quot;opponent remembers you&quot; box ticked, showing &quot;You lose. You played rock. The watcher played paper. paper beats rock.&quot; and a score of won 1, lost 20, drew 3" src="../static/img/game/a21.png"></p>
 <p>Open the page with Live Server and:</p>
 <ol>
-<li>Leave the box <strong>unticked</strong> and press <strong>fire</strong> twenty-four times. Wins, losses and draws all pile up in roughly equal thirds. When we did this we got 9 wins, 6 losses, 9 draws.</li>
-<li>Tick the box, so the watcher is playing, and press <strong>fire</strong> twenty-four times again. It turns brutal. We got <strong>2 wins and 17 losses</strong> — the watcher noticed we only ever play fire, and mostly played water.</li>
+<li>Leave the box <strong>unticked</strong> and press <strong>rock</strong> twenty-four times. Wins, losses and draws all pile up in roughly equal thirds. When we did this we got 8 wins, 7 losses, 9 draws — and the dice's own moves came out rock 9, paper 7, scissors 8, which is about as even as twenty-four throws get.</li>
+<li>Tick the box, so the watcher is playing, and press <strong>rock</strong> twenty-four times again. It turns brutal. We got <strong>1 win and 20 losses</strong> — the watcher noticed we only ever play rock, and answered with paper 20 times out of 24. The other four are the randomness it keeps on purpose, so it never becomes as predictable as you were.</li>
 <li>Now mix your moves up. The score gets close again. The watcher can only punish a habit; it has nothing to grip when there is no habit.</li>
-<li>Open the browser console and type <code>watcher.seen</code>. You get your last five moves — the whole of its memory, and it is a list of five strings.</li>
+<li>Open the browser console and type <code>watcher.seen</code>. You get your last five moves — the whole of its memory, and it is a list of five strings. Ours read <code>["rock", "rock", "rock", "rock", "rock"]</code>, which is exactly as much as it needed to know.</li>
 </ol>
-<p>We also proved point 2 of the split in the console. We invented a new fighter that had never existed, <code>{ name: 'stone statue', chooseMove: () =&gt; 'earth' }</code>, and passed it straight into <code>playRound</code>. It played a full round and the screen said "You played earth. The dice played earth." <code>playRound</code> was never told what a stone statue is.</p>
+<p>We also proved point 2 of the split in the console. We invented a new fighter that had never existed, <code>{ name: 'stone statue', chooseMove: () =&gt; 'paper' }</code>, and passed it straight into <code>playRound</code>. It played a full round and the screen said "You played paper. The dice played paper." <code>playRound</code> was never told what a stone statue is.</p>
 <h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
 <p>On the fight screen from <a href="a19.html">A19</a>, when nobody accepts your challenge, start the round against <code>watcher</code> instead. Everything downstream — the timer, the score, the screen — already works, because it never asked who it was fighting.</p>
 <div class="takeaways">
