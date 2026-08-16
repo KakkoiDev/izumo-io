@@ -304,6 +304,40 @@ and A22 replaces it."]
 [One small extension the prompt above does NOT produce.]
 ```
 
+### 4.1 The canonical diagram
+
+**One picture, fifteen lessons.** Copy it verbatim into every step and change only the `class`
+assignments: `done` for blocks already built, `now` for today's, nothing for the rest. Never redraw it,
+never reorder it — the value is entirely in it being the same picture every time.
+
+````markdown
+```mermaid
+flowchart TB
+    N["Notice<br/>keys, touches"] --> D["Decide<br/>where everything is"]
+    D --> R["Draw<br/>the screen"]
+    R --> N
+
+    S["Remember<br/>your game"] <--> D
+    O["Other people<br/>send + receive"] <--> D
+    F["The fight<br/>choose, compare, show"] <--> D
+    A["Sound"] --- R
+    W["The world<br/>walls, map, camera"] --- R
+
+    classDef done fill:#2f6f4f,stroke:#8fd6b4,color:#fff
+    classDef now  fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    class N,D,R done
+    class S now
+```
+````
+
+The loop in the middle — **notice, decide, draw, and round again** — is the spine, and it is the first
+thing a student builds (A10). Everything else in the track hangs off "decide" or off "draw". By A23 the
+whole picture is green, and the closing lesson can point at it and say: *you built each of these one at
+a time, and none of them was big.*
+
+Introduce it in A10 with one sentence and no ceremony: *"this is the whole game. Today we build the
+three boxes in the middle."*
+
 **The diagram is the same picture in all fifteen lessons**, filling in as the track goes. The student
 sees the cut before reading a line of code, and by the end has watched a big thing get built entirely
 out of small ones. That is the track's actual curriculum made visible.

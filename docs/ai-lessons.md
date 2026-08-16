@@ -21,8 +21,7 @@ The three things you need open: the assistant, the editor, and your page in the 
 
 > Laying out your tools on the bench before you start
 
-- [A09: Build a Game: Get Your Tools](lessons/a09.md) - Start of the game project. Point your assistant at a real build, get a GitHub account, and create an empty repo, so next lesson your game is live on the internet.
-- [A10: Build a Game: Put It on the Internet](lessons/a10.md) - Draw on a canvas, learn why a web page needs a server even on your own computer, and publish your page so anyone can open it.
+- [A09: Get Your Tools](lessons/a09.md) - Set up the three windows you will use for the whole game: the assistant that writes code, the editor that shows it, and your page in the browser.
 
 ## Part 3: Create the Player
 
@@ -30,6 +29,7 @@ A square you can move — and the way of cutting a feature into blocks that you 
 
 > Noticing, deciding, then doing — the same three steps you use to cross a road
 
+- [A10: Create the Player](lessons/a10.md) - A square you can drive with the keyboard or your finger — and the way of cutting a feature into blocks that you will use for the whole rest of the game.
 
 ## Part 4: Save the Game
 

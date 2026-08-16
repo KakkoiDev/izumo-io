@@ -22,7 +22,6 @@ As três coisas que você precisa abertas: o assistente, o editor e sua página 
 > Arrumar as ferramentas na bancada antes de começar
 
 - [A09: Construa um Jogo: Prepare Suas Ferramentas](lessons/a09.md) - Início do projeto do jogo. Aponte seu assistente para uma construção real, crie uma conta no GitHub e um repositório vazio, para que na próxima lição seu jogo esteja ativo na internet.
-- [A10: Construa um Jogo: Coloque-o na Internet](lessons/a10.md) - Desenhe em uma tela, aprenda por que uma página web precisa de um servidor mesmo em seu próprio computador e publique sua página para que qualquer pessoa possa abri-la.
 
 ## Parte 3: Criar o Jogador
 
@@ -30,6 +29,7 @@ Um quadrado que você move — e o jeito de cortar uma funcionalidade em blocos 
 
 > Perceber, decidir, agir — os mesmos três passos que você usa para atravessar a rua
 
+- [A10: Construa um Jogo: Coloque-o na Internet](lessons/a10.md) - Desenhe em uma tela, aprenda por que uma página web precisa de um servidor mesmo em seu próprio computador e publique sua página para que qualquer pessoa possa abri-la.
 
 ## Parte 4: Salvar o Jogo
 
