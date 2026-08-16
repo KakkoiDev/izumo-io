@@ -107,6 +107,9 @@ lesson shows students a real mistake, and they cannot be reconstructed later.
 | **`CNAME` file is inert** | For **workflow-based** Pages the custom domain lives in the Pages config, not in a `CNAME` file. `gh api -X PUT repos/OWNER/REPO/pages -f cname=online.kakkoi.dev`, wait for the cert, then `-F https_enforced=true` |
 | **Game repo default branch is `main`**, school repo is `master` | Do not assume either |
 | **`curl` in the sandbox could not resolve `online.kakkoi.dev`** while `dig` could | Verify with `curl --resolve online.kakkoi.dev:443:185.199.108.153` |
+| **Kenney assets are NOT a browser-only download** (this doc said they were, for days) | The zip URL carries a content hash, and every asset page prints the current one. `curl -sL https://kenney.nl/assets/tiny-dungeon \| grep -o "href='[^']*\.zip'"` then fetch it. The original 404 came from a *guessed* URL, and the wrong conclusion blocked three lessons |
+| **`drainEvents()` returns an empty queue** unless `Runtime.enable` / `Log.enable` / `Network.enable` are issued first, and again after every navigation | Three separate agents reported "the console is clean" while reading an empty pipe. **Always prove the checker works** with `js("console.warn('canary')")` before trusting a clean result. Also `Network.setCacheDisabled` or you test a stale copy of your own edit |
+| **Nostr relays come and go** | The demos pin four relay URLs rather than trusting trystero's defaults. One died between building A12 and re-checking it. Expect to swap one occasionally; the lesson tells students the same |
 
 ## Publishing a lesson
 

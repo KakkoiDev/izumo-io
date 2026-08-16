@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ja" data-page="a14.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Your Monster - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../ai-lessons.html">AIレッスン</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">AIレッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="a13.html">前へ</a>
+          <a href="a15.html">次へ</a>
+        </div>
+      </nav>
+      <h1 id="a14-your-monster"><a class="heading-anchor" href="#a14-your-monster">A14: Your Monster</a></h1>
+<p class="lesson-intro">Your player has been a coloured square since <a href="a10.html">A10</a>. By the end of this step it is a monster, and when you walk it the legs move. When you stop, they stop.</p>
+<p><strong>Needs:</strong> <a href="a10.html">A10</a>. <strong>Gives you:</strong> a drawn character, cut out of one picture file, that animates while it walks.</p>
+<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+<div class="mermaid">
+flowchart LR
+    subgraph loop["Round and round, 60 times a second"]
+        direction LR
+        N["Notice<br/>keys, touches"] --> D["Decide<br/>where everything is"] --> R["Draw<br/>the screen"]
+    end
+    R -. "and again" .-> N
+
+    S["Remember<br/>your game"] --> D
+    O["Other people"] --> D
+    F["The fight"] --> D
+    W["The world<br/>walls, map"] --> R
+    A["Sound"] --> R
+
+    classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    class R now
+
+</div>
+<p>Only <strong>Draw</strong> changes. "Notice" and "Decide" are untouched — the monster moves for exactly the same reason the square did.</p>
+<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
+<p>"A monster whose legs move" sounds like one thing. It is two:</p>
+<ol>
+<li><strong>Cut</strong> — take one small picture out of one big picture file</li>
+<li><strong>Change</strong> — pick a different small picture as time passes</li>
+</ol>
+<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Nothing on screen at all is a cutting problem — wrong file, wrong rectangle. A monster that appears but never animates is a changing problem — the timer, or the list of pictures. Those are two different bugs, and from the outside both of them just look like "the monster is broken".</p>
+<h2 id="the-picture-file"><a class="heading-anchor" href="#the-picture-file">The picture file</a></h2>
+<p>Everything the monster needs is in <strong>one file</strong>: <code>vendor/kenney/pixel-platformer-characters.png</code>. It is 216 pixels wide and 72 tall, and inside it are 27 small pictures in a grid — 9 across, 3 down, each one 24 by 24 pixels.</p>
+<p>The first two pictures are the same green monster twice. In picture 0 its legs are together. In picture 1 they are apart. That is all a walk needs.</p>
+<p><strong>One honest warning.</strong> This character is drawn in a 24-pixel style, and the walls and floors you will use in <a href="a16.html">A16</a> are drawn in a 16-pixel style by a different artist. Side by side they do not quite match — the monster's pixels are slightly bigger than the world's pixels. We chose that on purpose, because no pack we could find had both a matching world <em>and</em> a character that walks. Small real projects end up mixing packs like this all the time. If it bothers you later, the fix is to pick one style and redraw the other, and that is a real afternoon of work, not a line of code.</p>
+<h2 id="block-1-cut"><a class="heading-anchor" href="#block-1-cut">Block 1: Cut</a></h2>
+<pre><code>const sheet = new Image();
+sheet.src = '../../vendor/kenney/pixel-platformer-characters.png';
+
+const CELL = 24;          // one picture in the sheet, in pixels
+const COLS = 9;           // pictures across the sheet
+const ZOOM = 3;           // draw it three times as big
+const SIZE = CELL * ZOOM; // 72 pixels on screen
+
+function drawPicture(n, x, y) {
+  const sx = (n % COLS) * CELL;
+  const sy = Math.floor(n / COLS) * CELL;
+  ctx.drawImage(sheet, sx, sy, CELL, CELL, x, y, SIZE, SIZE);
+}
+</code></pre>
+<p><code>drawImage</code> with nine things after it looks frightening. It is really two rectangles and a question.</p>
+<ul>
+<li>The first is the file.</li>
+<li>The next four — <code>sx, sy, CELL, CELL</code> — are <strong>which little square to copy out of the big picture</strong>: how far from its left, how far from its top, how wide, how tall.</li>
+<li>The last four — <code>x, y, SIZE, SIZE</code> — are <strong>where to paste it on the canvas, and how big to make it there</strong>.</li>
+</ul>
+<p>Copy from <em>there</em>, paste to <em>here</em>. That is the whole nine.</p>
+<p>Finding <code>sx</code> and <code>sy</code> is division. Picture 0 is at the start. Picture 9 is one row down, because there are 9 across. So <code>n % COLS</code> is how far along the row you are, and <code>Math.floor(n / COLS)</code> is which row. Multiply each by 24 and you have the corner of the picture.</p>
+<p>Two more lines matter:</p>
+<pre><code>ctx.imageSmoothingEnabled = false;
+</code></pre>
+<p>24 pixels is tiny on a modern screen, so we draw at 3 times the size. When a browser makes a picture bigger it normally <em>blurs</em> it, to make photographs look smooth. On pixel art that turns crisp squares into mush. Turning smoothing off tells the browser to make each pixel into a solid 3-by-3 block instead. Try it both ways once — the difference is the whole look of the game.</p>
+<h2 id="block-2-change"><a class="heading-anchor" href="#block-2-change">Block 2: Change</a></h2>
+<pre><code>const STAND = 0;
+const WALK = [0, 1];
+const STEP = 0.14;        // seconds each picture stays up
+
+let walked = 0;           // seconds spent walking
+let frame = STAND;        // which picture to draw right now
+
+function animate(dt, moving) {
+  if (!moving) {
+    walked = 0;
+    frame = STAND;
+    return;
+  }
+  walked += dt;
+  frame = WALK[Math.floor(walked / STEP) % WALK.length];
+}
+</code></pre>
+<p>A <strong>frame</strong> is one picture of an animation. <code>WALK</code> is the list of frames the walk is made of, in order.</p>
+<p>Read the important line backwards. <code>walked</code> counts up in seconds while you hold a direction. Divide by <code>STEP</code> and you get "how many pictures have gone by since you started walking" — after 0.28 seconds, two. <code>Math.floor</code> throws away the part after the dot. <code>% WALK.length</code> wraps that number back to the start of the list, so 0, 1, 2, 3, 4 becomes 0, 1, 0, 1, 0.</p>
+<p>So the picture you see is worked out <strong>from the clock</strong>. You do not tell the animation to advance; you ask it what it looks like right now. <em>Frames are data with time as the index.</em> Nothing anywhere counts frames by hand, which means nothing can drift out of step.</p>
+<p>And when you are not moving, <code>walked</code> goes back to zero and the frame is <code>STAND</code>. Legs stop. That one <code>if</code> is the difference between a monster and a monster having a fit.</p>
+<p>Then <code>update</code> ends with one line:</p>
+<pre><code>animate(dt, dx !== 0 || dy !== 0);
+</code></pre>
+<p>"Moving" simply means a direction was pressed. <code>update</code> already knows that, so nothing new has to be noticed.</p>
+<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
+<p>The forcing constraint is that <a href="a12.html">A12</a> puts other people on your screen. Another player's monster is drawn from the same sheet, but it walks at different moments to yours. Because <code>drawPicture</code> takes a picture number and a place, and <code>animate</code> keeps its counting in plain numbers, a second monster needs a second <code>walked</code> and nothing else. Nothing about cutting or changing knows the word "player".</p>
+<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<table>
+<thead>
+<tr>
+<th>Instead of this</th>
+<th>What it would cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One image file per frame</td>
+<td>The browser asks the server for every single file, one at a time, and they arrive whenever they arrive. Your monster can animate with holes in it while it waits. Twenty characters would be a hundred files</td>
+</tr>
+<tr>
+<td>Advancing the frame once per loop, with no clock</td>
+<td>Your monster's legs would move at whatever speed the screen refreshes. On a 144-times-a-second screen they blur; on a slow one they crawl. Same bug as forgetting <code>dt</code> in A10</td>
+</tr>
+<tr>
+<td>HTML <code>&lt;img&gt;</code> elements moved around with CSS</td>
+<td>It works for one monster. Then you add fifty and ask the browser to lay out a whole page sixty times a second, which is not what page layout is for</td>
+</tr>
+<tr>
+<td>Drawing at the real 24 pixels, with no zoom</td>
+<td>Your monster would be smaller than this letter <em>o</em> on most screens. Zooming without turning smoothing off is worse: a blurry small monster</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<pre><code>I have a plain JavaScript canvas game. main.js has a Set of held keys, an
+update(dt) that changes player.x and player.y, and a draw() that paints a
+rectangle for the player. Replace the rectangle with a sprite from a single
+sprite sheet at ../../vendor/kenney/pixel-platformer-characters.png, which is
+216x72 with 24x24 cells, 9 per row, no gaps. Cell 0 is the character with legs
+together and cell 1 with legs apart. Draw it at 3x with smoothing off. Add a
+two-frame walk animation that advances on a timer measured in seconds and
+holds a single standing frame when no direction is held. Keep the cutting code
+and the animation code in separate functions.
+</code></pre>
+<p><strong>Check the output for:</strong> does the frame advance from <code>dt</code>, or does it advance once per call with no clock? Assistants very often write <code>frame++</code> inside the loop, which looks perfect on their screen and runs at the wrong speed on yours. Does it reset to the standing frame when you let go, or keep the legs moving forever? And did it turn <code>imageSmoothingEnabled</code> off — this is the single most forgotten line in pixel-art code, and the result is not an error message, just a soft blurry mess you might blame on the artist.</p>
+<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><img alt="A small green monster on a dark canvas, drawn from a sprite sheet, with its legs spread mid-step" src="../static/img/game/a14.png"></p>
+<p>Open the page with Live Server and:</p>
+<ol>
+<li>The monster appears straight away. If you get nothing, the file path is wrong — check the browser's network list before you touch any code.</li>
+<li>Hold the right arrow. We read the frame number back fourteen times while it walked and got <code>0,0,0,1,1,0,0,0,1,1,0,0,0,1</code>. It really is swapping pictures, roughly seven times a second.</li>
+<li>Let go. We read it six more times and got <code>0,0,0,0,0,0</code>. The legs are still, and they stay still.</li>
+<li>While it walked, its position went from <code>x: 200</code> to <code>x: 312</code>. Moving and animating are two separate things happening at once, and each one can be checked on its own.</li>
+<li>Look closely at the edges of the monster. The pixels are hard squares, not soft edges. That is smoothing being off.</li>
+</ol>
+<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
+<p>Take the game from <a href="a10.html">A10</a>. Add the <code>sheet</code> image, <code>drawPicture</code> and <code>animate</code>. Add one line to the end of <code>update</code>:</p>
+<pre><code>animate(dt, dx !== 0 || dy !== 0);
+</code></pre>
+<p>Then in <code>draw</code>, replace this:</p>
+<pre><code>ctx.fillStyle = '#7ee081';
+ctx.fillRect(player.x, player.y, SIZE, SIZE);
+</code></pre>
+<p>with this:</p>
+<pre><code>drawPicture(frame, Math.round(player.x), Math.round(player.y));
+</code></pre>
+<p><code>Math.round</code> is there because <code>player.x</code> is usually something like <code>216.656</code>. Drawing pixel art at half a pixel makes its edges shimmer as it moves.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>One image file can hold hundreds of pictures; you cut out the one you want with a rectangle</li>
+<li><code>drawImage</code>'s nine numbers are just "copy from this square" and "paste to this square"</li>
+<li>An animation is a list of pictures, and the clock decides which one you are on</li>
+<li>Stopping the animation when the player stops is what makes it look alive instead of broken</li>
+<li>Turn smoothing off and round your positions, or pixel art goes soft and shimmery</li>
+</ul>
+</div>
+
+<p>One file, one request from the server, twenty-seven pictures. That is why sheets like this exist. <em>Grown-up programmers call this a sprite atlas — an atlas is a book of maps, and this is a book of pictures. Now you know that word too.</em></p>
+<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
+<p>Your monster walks to the left looking exactly the same as when it walks to the right. Make it face the way it is going.</p>
+<p>You need to remember the last sideways direction, and then flip the picture when you draw it. Look up <code>ctx.scale(-1, 1)</code> and <code>ctx.save()</code> / <code>ctx.restore()</code>. Flipping is one of those things that feels impossible until you have done it once, and then takes four lines forever after.</p>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">AIレッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="a13.html">前へ</a>
+          <a href="a15.html">次へ</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en" data-page="a16.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>The Map - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Lessons</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">Back to AI Lessons</a>
+        <div class="lesson-pager">
+          <a href="a15.html">Previous</a>
+          <a href="a18.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="a16-the-map"><a class="heading-anchor" href="#a16-the-map">A16: The Map</a></h1>
+<p class="lesson-intro">Until now your whole world has been one screen. By the end of this step the world is more than twice as wide and twice as tall as the screen, and it slides past you as you walk.</p>
+<p><strong>Needs:</strong> <a href="a15.html">A15</a>. <strong>Gives you:</strong> a world stored as numbers, drawn as tiles, with a camera that follows you.</p>
+<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+<div class="mermaid">
+flowchart LR
+    subgraph loop["Round and round, 60 times a second"]
+        direction LR
+        N["Notice<br/>keys, touches"] --> D["Decide<br/>where everything is"] --> R["Draw<br/>the screen"]
+    end
+    R -. "and again" .-> N
+
+    S["Remember<br/>your game"] --> D
+    O["Other people"] --> D
+    F["The fight"] --> D
+    W["The world<br/>walls, map"] --> R
+    A["Sound"] --> R
+
+    classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    class W,R now
+
+</div>
+<p><strong>The world</strong> grows up. In <a href="a15.html">A15</a> it was three rocks. Now it is a whole map, and because the map is bigger than the canvas, "Draw" has to learn where to look.</p>
+<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
+<p>"A world bigger than the screen that scrolls" sounds like one thing. It is three:</p>
+<ol>
+<li><strong>Store</strong> — the world is a list of numbers</li>
+<li><strong>Draw</strong> — put the tiles you can see on the screen</li>
+<li><strong>Follow</strong> — move a camera so the player stays in the middle</li>
+</ol>
+<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. A blank screen is a storing problem. Tiles in the wrong places is a drawing problem. Tiles drawn perfectly but the view never moving — or moving the wrong way, which happens to everyone — is a following problem. Three blocks, three places to look.</p>
+<h2 id="block-1-store"><a class="heading-anchor" href="#block-1-store">Block 1: Store</a></h2>
+<pre><code>const MAP_W = 24;
+const MAP_H = 16;
+const map = [
+  40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,
+  40,48,48,48,48,49,48,48,48,48,40,48,48,48,48,48,48,48,49,48,48,48,48,40,
+  40,48,49,48,48,40,48,48,48,48,40,48,48,40,40,40,40,48,48,48,48,48,49,40,
+  ...
+];
+</code></pre>
+<p>That is the world. One number per square. <code>48</code> is a sandy floor, <code>49</code> is the same floor with a few specks on it, <code>40</code> is a stone wall — those are picture numbers in the sheet, exactly the way <a href="a14.html">A14</a> cut pictures out of one file.</p>
+<p>Look at what is <em>not</em> here. There is no code. There is no <code>if</code>. Changing the world means changing numbers, and you can see the shape of the rooms in the numbers if you squint — the <code>40</code>s draw the walls.</p>
+<p>This is the same idea as <a href="a15.html">A15</a>, grown up. There, a wall was four numbers in a list, and the point was that you could add rocks without adding code. Here that promise gets collected: 384 squares of world, and not one line of drawing code knows anything about any of them.</p>
+<p><em>Grown-up programmers call this data-driven design. The world is data. The code is a machine that reads it.</em></p>
+<p><strong>One number, one square</strong> also means the map is a <strong>grid</strong>, and a grid stored in a flat list has one piece of arithmetic you must know:</p>
+<pre><code>map[row * MAP_W + col]
+</code></pre>
+<p>To get to row 3, skip 3 whole rows — that is <code>3 * 24</code> numbers — then count along <code>col</code>. This line confuses everyone once. Draw it on paper with a 3-by-3 grid and it will never confuse you again.</p>
+<blockquote>
+<p>In the real game this array is not typed into the file. It is loaded from a separate map file, which means someone can make new levels without touching the program at all. Loading a file needs <code>fetch</code>, which is a whole idea of its own, so here the numbers sit in <code>main.js</code> where you can see them.</p>
+</blockquote>
+<h2 id="block-2-draw"><a class="heading-anchor" href="#block-2-draw">Block 2: Draw</a></h2>
+<pre><code>function drawMap() {
+  const firstCol = Math.floor(camera.x / T);
+  const lastCol = Math.floor((camera.x + canvas.width) / T);
+  const firstRow = Math.floor(camera.y / T);
+  const lastRow = Math.floor((camera.y + canvas.height) / T);
+
+  for (let row = firstRow; row &lt;= lastRow; row++) {
+    for (let col = firstCol; col &lt;= lastCol; col++) {
+      const n = map[row * MAP_W + col];
+      ctx.drawImage(sheet,
+        (n % SHEET_COLS) * CELL, Math.floor(n / SHEET_COLS) * CELL, CELL, CELL,
+        col * T - camera.x, row * T - camera.y, T, T);
+    }
+  }
+}
+</code></pre>
+<p><code>T</code> is how big one tile is on screen: 16 pixels of picture, drawn at 3 times the size, so 48.</p>
+<p>The four lines at the top work out which tiles are worth drawing. The canvas is 480 wide, so at most eleven columns can be visible at once, out of 24. On this small map that saves you about two thirds of the work. On a real map of 200 by 200 squares, drawing everything would mean 40,000 tiles every frame, sixty times a second, and almost all of them off the screen where nobody can see them. Your game would crawl, and it would be doing nothing useful while it crawled.</p>
+<p><em>Grown-up programmers call this culling — throwing away work you can prove nobody will see.</em></p>
+<h2 id="block-3-follow"><a class="heading-anchor" href="#block-3-follow">Block 3: Follow</a></h2>
+<pre><code>const camera = { x: 0, y: 0 };
+
+function follow() {
+  camera.x = player.x + SIZE / 2 - canvas.width / 2;
+  camera.y = player.y + SIZE / 2 - canvas.height / 2;
+  camera.x = Math.max(0, Math.min(MAP_W * T - canvas.width, camera.x));
+  camera.y = Math.max(0, Math.min(MAP_H * T - canvas.height, camera.y));
+}
+</code></pre>
+<p>Here is the part people expect to be hard, and it is not.</p>
+<p><strong>A camera is a subtraction.</strong> That is genuinely all of it. <code>camera</code> is a pair of numbers saying how far the world has slid. Every single thing you draw takes those numbers away from its own position — you saw it in Block 2 as <code>col * T - camera.x</code>, and the player is drawn at <code>player.x - camera.x</code>. There is no camera object in the canvas, nothing is really moving except numbers. If everything on screen shifts left by 200, that looks exactly like you walking 200 to the right.</p>
+<p>The first two lines put the player in the middle: take the player's centre, then step back by half a screen.</p>
+<p>The last two lines are the interesting ones. They stop the camera at the edges of the map. Without them, when you walk into the top-left corner the camera would keep going and you would see empty black space past the end of the world. With them, the camera stops and <strong>the player stops being in the middle</strong> — which is exactly what every game you have ever played does. You just never noticed, because it feels right.</p>
+<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
+<p>The forcing constraint is that the map has to survive being loaded from a file. Everything here is written so that <code>map</code>, <code>MAP_W</code> and <code>MAP_H</code> could arrive from somewhere else and nothing would change: <code>drawMap</code> never names a square, <code>follow</code> works out the world's size by multiplying instead of being told, and no picture number appears anywhere except in the data. That is why this step costs almost nothing later — and it is also why <a href="a15.html">A15</a> insisted on walls being data before you had any reason to care.</p>
+<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<table>
+<thead>
+<tr>
+<th>Instead of this</th>
+<th>What it would cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>One huge picture of the whole world</td>
+<td>Simple, and it works until the world is bigger than a phone's memory. A map of tiles this size would be a single image of many megabytes, and you could not change one square without redrawing the whole thing</td>
+</tr>
+<tr>
+<td>Moving every object in the world when the player walks</td>
+<td>You have to remember to move everything, every frame, and the moment you forget one thing it drifts. Subtracting a camera at drawing time touches nothing</td>
+</tr>
+<tr>
+<td>A list of <code>{ x, y, tile }</code> objects instead of a flat grid</td>
+<td>More flexible, and much slower to answer "what is at row 7, column 3?" — you would have to search the whole list. A grid answers with one multiplication</td>
+</tr>
+<tr>
+<td>Drawing the whole map every frame</td>
+<td>Two lines shorter today, and unusable as soon as the map is big. Better to learn the four lines now, on a map small enough that you can still check the answer by eye</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<pre><code>I have a plain JavaScript canvas game, 480x320, with a player { x, y } moved in
+update(dt). Add a tile map: a flat array of tile numbers with MAP_W and MAP_H,
+drawn from the 16x16 sprite sheet at ../../vendor/kenney/tiny-dungeon.png
+(12 cells per row, no gaps), at 3x with smoothing off. Add a camera object that
+keeps the player centred, clamped so it never shows past the edges of the map.
+Draw only the tiles inside the camera's view, not the whole map. Keep storing,
+drawing and camera-following as three separate pieces.
+</code></pre>
+<p><strong>Check the output for:</strong> does it draw the whole map every frame, or only the visible part? Almost every assistant writes the simple double loop over all rows and columns first, because it is shorter and looks fine on a tiny map. Is the camera clamped at the edges, or can you walk to the corner and see black nothing outside the world? And check the sign of the subtraction by walking right — if the world slides the <em>wrong</em> way, someone added the camera instead of subtracting it, which is the single most common mistake in this whole step.</p>
+<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><img alt="A sandy dungeon floor with stone walls, scrolled so tiles run off every edge of the canvas, with the green player square in the middle" src="../static/img/game/a16.png"></p>
+<p>Open the page with Live Server and:</p>
+<ol>
+<li>The map appears, and tiles are cut off by the edges of the canvas. The world does not fit, which is the point.</li>
+<li>Hold the right arrow for one second. We read the numbers back: the player went from <code>x: 120</code> to <code>x: 323.32</code>, and the camera went from <code>x: 0</code> to <code>x: 99.32</code>. The camera moved, so the world really is sliding, not the square.</li>
+<li>Keep holding right until you cannot go further. The player stops at <code>x: 1120</code>, the very edge of the world, and the camera stops at <code>x: 672</code>. The map is 1152 pixels wide and the canvas is 480, and 1152 − 480 = 672 exactly. The camera stopped at the last position that still shows only world.</li>
+<li>While you were at the right-hand edge, the player was <strong>not</strong> in the middle any more — it walked across to the edge of the screen. That is the clamp doing its job.</li>
+<li>Walk to the top of the map. <code>camera.y</code> stays at <code>0</code> and refuses to go negative, no matter how far up you press.</li>
+</ol>
+<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
+<p>Take the game from <a href="a15.html">A15</a>. Add <code>map</code>, <code>MAP_W</code>, <code>MAP_H</code>, the <code>sheet</code> image, <code>drawMap</code>, <code>camera</code> and <code>follow</code>. Call <code>follow()</code> at the end of <code>update</code>. Then, in <code>draw</code>, put <code>drawMap()</code> where the "paint the whole canvas one colour" lines used to be — the map covers every pixel, so there is nothing left to clear.</p>
+<p>Everything else you draw needs the same two subtractions:</p>
+<pre><code>ctx.fillRect(player.x - camera.x, player.y - camera.y, SIZE, SIZE);
+</code></pre>
+<p>Change the clamping in <code>update</code> from the canvas size to the map size, or your player will not be able to leave the first screen.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>A world made of numbers can be changed without changing any code — that is data-driven design</li>
+<li>A grid in a flat list is <code>map[row * width + col]</code>, and that line is worth drawing on paper once</li>
+<li>A camera is a subtraction. Nothing moves; everything is drawn shifted</li>
+<li>Only draw what fits on the screen, or a big map wastes almost all of its work</li>
+<li>Stop the camera at the edges, and let the player leave the centre — that is what real games do</li>
+</ul>
+</div>
+
+<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
+<p>In this demo you can walk straight through the stone walls. All the pieces to fix it already exist: <a href="a15.html">A15</a> checks a place before moving into it, and the map already says which squares are walls.</p>
+<p>Write a function that takes an <code>x</code> and a <code>y</code> in world pixels, works out which square that is (<code>Math.floor(x / T)</code>), and answers whether the number there is <code>40</code>. Then use it in <code>moveX</code> and <code>moveY</code> instead of the <code>walls</code> list. Watch out for one thing: your player is 32 pixels wide, so it covers more than one square at a time — you have to check all four of its corners, not just one.</p>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">Back to AI Lessons</a>
+        <div class="lesson-pager">
+          <a href="a15.html">Previous</a>
+          <a href="a18.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

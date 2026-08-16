@@ -26,7 +26,9 @@ Um projeto real, do início ao fim: um jogo sem servidor, que você pode enviar 
 - [A11: Save the Game](lessons/a11.md) - Close the tab, open it again, and your square is exactly where you left it, still called by your name.
 - [A12: Other People](lessons/a12.md) - A second square on your screen, driven by another person on another computer, with no server in the middle.
 - [A13: Talking, Safely](lessons/a13.md) - Tap a phrase and it appears above your square on everyone else's screen — with a list of what can be said, and a check that drops anything else.
+- [A14: Your Monster](lessons/a14.md) - The square becomes a monster, and its legs move when it walks.
 - [A15: Walls](lessons/a15.md) - Walk into a rock and stop — and slide along it instead of sticking.
+- [A16: The Map](lessons/a16.md) - A world far bigger than the screen, that slides past you as you walk.
 - [A18: Put It Online](lessons/a18.md) - Give your game a real address on the internet, and get a proper undo button while you are at it.
 - [A20: Three Moves](lessons/a20.md) - Pick fire, water or earth, and see on the screen who won the round and why.
 - [A21: Someone to Fight](lessons/a21.md) - A computer opponent, so there is always someone to fight even when nobody else is online.
