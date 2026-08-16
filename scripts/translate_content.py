@@ -18,6 +18,7 @@ runnable locally if you export GEMINI_API_KEY.
 from __future__ import annotations
 
 import os
+import hashlib
 import re
 import sys
 import time
@@ -148,19 +149,58 @@ def _is_source_md(path: Path) -> bool:
     return '.' not in path.stem
 
 
+def source_digest(text: str) -> str:
+    """Fingerprint of an English source file, used to spot stale translations."""
+    return hashlib.sha1(text.encode('utf-8')).hexdigest()[:12]
+
+
+def _stamp(text: str, digest: str) -> str:
+    """Record which English source a translation was made from, in its frontmatter."""
+    meta, body = _parse_fm(text)
+    if not meta:
+        return text
+    stripped = re.sub(r'^source_sha:.*\n?', '', _FM_RE.match(text).group(1), flags=re.M)
+    return f'---\n{stripped.rstrip()}\nsource_sha: "{digest}"\n---\n{body}'
+
+
+def is_stale(sibling: Path, digest: str) -> bool:
+    """True when the translation was made from a different version of the source.
+
+    A translation with NO source_sha is treated as current and simply stamped:
+    every translation predates this check, and re-translating the whole site to
+    adopt it would be a large bill for no gain.
+    """
+    meta, _ = _parse_fm(sibling.read_text(encoding='utf-8'))
+    recorded = (meta.get('source_sha') or '').strip()
+    return bool(recorded) and recorded != digest
+
+
+def _backfill_stamp(sibling: Path, digest: str) -> None:
+    text = sibling.read_text(encoding='utf-8')
+    meta, _ = _parse_fm(text)
+    if meta and not (meta.get('source_sha') or '').strip():
+        sibling.write_text(_stamp(text, digest), encoding='utf-8')
+
+
 def translate_missing_md() -> tuple[list[Path], list[Path]]:
     created: list[Path] = []
     failed: list[Path] = []
     sources = sorted(p for p in CONTENT.rglob('*.md') if _is_source_md(p))
     for src in sources:
+        src_text = src.read_text(encoding='utf-8')
+        digest = source_digest(src_text)
         for code, name in TARGETS:
             sibling = src.with_name(f'{src.stem}.{code}.md')
             if sibling.exists() and not is_empty_translation(sibling):
-                continue
-            print(f'translate {src.relative_to(ROOT)} -> {sibling.name}', flush=True)
+                if not is_stale(sibling, digest):
+                    _backfill_stamp(sibling, digest)
+                    continue
+                print(f'RETRANSLATE (source changed) {sibling.name}', flush=True)
+            else:
+                print(f'translate {src.relative_to(ROOT)} -> {sibling.name}', flush=True)
             try:
-                translated = translate_md(src.read_text(encoding='utf-8'), name)
-                sibling.write_text(translated, encoding='utf-8')
+                translated = translate_md(src_text, name)
+                sibling.write_text(_stamp(translated, digest), encoding='utf-8')
                 created.append(sibling)
                 # Gentle rate-limiting between successful calls.
                 time.sleep(0.5)

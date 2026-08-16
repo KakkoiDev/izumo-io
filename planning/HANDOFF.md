@@ -120,7 +120,14 @@ git add -A && git commit && git push origin master
 #    pages will keep serving English.
 ```
 
-The workflow now **fails loudly** if any lesson is missing a `.ja.md`/`.pt.md` sibling, naming the files.
+The workflow **fails loudly** if any lesson is missing a `.ja.md`/`.pt.md` sibling, naming the files.
+
+**Editing an already-translated lesson.** Translations carry a `source_sha` in their frontmatter — a
+fingerprint of the English file they were made from. Change the English and the next run sees the
+mismatch and **re-translates that file**. Before this existed, editing a lesson left JA and PT
+silently describing the old version, which is exactly what happened to A09 and A10.
+A translation with *no* `source_sha` is treated as current and simply stamped, so adding the check did
+not re-translate the whole site.
 
 ## Decisions a newcomer will be tempted to re-open
 
