@@ -23,3 +23,5 @@
 
 - [A09: ツールを準備する](lessons/a09.md) - ゲーム全体で使う3つのウィンドウを設定します。コードを書くアシスタント、それを見せるエディタ、ブラウザで表示するあなたのページです。
 - [A10: プレイヤーを作成する](lessons/a10.md) - キーボードや指で操作できる四角形 — そしてゲームの残りの部分全体で使うことになる機能をブロックに分割する方法
+- [A18: Put It Online](lessons/a18.md) - Give your game a real address on the internet, and get a proper undo button while you are at it.
+- [A23: What We Didn't Build](lessons/a23.md) - The things this game deliberately does not have, what each one would have cost, and why leaving them out was the design.

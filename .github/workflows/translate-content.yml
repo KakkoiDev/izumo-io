@@ -96,19 +96,27 @@ jobs:
         if: always()
         run: |
           python3 - <<'EOF'
-          import glob, os, sys
-          missing = []
+          import glob, os, re, sys
+          missing, drafts = [], []
           for f in glob.glob('content/**/*.md', recursive=True):
               if '.ja.' in f or '.pt.' in f:
+                  continue
+              head = open(f, encoding='utf-8').read(2000)
+              # `translate: false` marks a lesson as an English-only draft on purpose.
+              if re.search(r'^translate:\s*false\s*$', head, re.M):
+                  drafts.append(f)
                   continue
               for lang in ('ja', 'pt'):
                   sibling = f[:-3] + f'.{lang}.md'
                   if not os.path.exists(sibling):
                       missing.append(sibling)
+          if drafts:
+              print(f"::notice::{len(drafts)} English-only draft(s), not translated yet: "
+                    + ", ".join(sorted(drafts)))
           if missing:
               print(f"::error::{len(missing)} translation(s) missing - the pipeline did not deliver:")
               for m in sorted(missing):
                   print(f"::error file={m}::missing translation: {m}")
               sys.exit(1)
-          print("All lessons have JA + PT.")
+          print("All non-draft lessons have JA + PT.")
           EOF

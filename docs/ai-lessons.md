@@ -23,3 +23,5 @@ One real project, start to finish: a game with no server, that you can send to a
 
 - [A09: Get Your Tools](lessons/a09.md) - Set up the three windows you will use for the whole game: the assistant that writes code, the editor that shows it, and your page in the browser.
 - [A10: Create the Player](lessons/a10.md) - A square you can drive with the keyboard or your finger — and the way of cutting a feature into blocks that you will use for the whole rest of the game.
+- [A18: Put It Online](lessons/a18.md) - Give your game a real address on the internet, and get a proper undo button while you are at it.
+- [A23: What We Didn't Build](lessons/a23.md) - The things this game deliberately does not have, what each one would have cost, and why leaving them out was the design.

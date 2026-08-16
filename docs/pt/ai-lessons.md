@@ -23,3 +23,5 @@ Um projeto real, do início ao fim: um jogo sem servidor, que você pode enviar 
 
 - [A09: Pegue Suas Ferramentas](lessons/a09.md) - Configure as três janelas que você usará para todo o jogo: o assistente que escreve código, o editor que o exibe e sua página no navegador.
 - [A10: Criar o Jogador](lessons/a10.md) - Um quadrado que você pode controlar com o teclado ou o dedo — e a forma de dividir uma funcionalidade em blocos que você usará no resto do jogo.
+- [A18: Put It Online](lessons/a18.md) - Give your game a real address on the internet, and get a proper undo button while you are at it.
+- [A23: What We Didn't Build](lessons/a23.md) - The things this game deliberately does not have, what each one would have cost, and why leaving them out was the design.

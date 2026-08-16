@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en" data-page="a18.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Put It Online - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Lessons</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">Back to AI Lessons</a>
+        <div class="lesson-pager">
+          <a href="a10.html">Previous</a>
+          <a href="a23.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="a18-put-it-online"><a class="heading-anchor" href="#a18-put-it-online">A18: Put It Online</a></h1>
+<p class="lesson-intro">Right now your game only exists on your computer. By the end of this step it has an address anyone in the world can open, and you have something far better than copying folders when you want to undo.</p>
+<p><strong>Needs:</strong> <a href="a09.html">A09</a>, and a game you would not mind someone seeing. <strong>Gives you:</strong> a link you can send to anyone.</p>
+<blockquote>
+<p>This step is bigger than the others. It is three separate things, and you may want to stop after each one. That is fine — there is no rush, and nothing later depends on finishing it all at once.</p>
+</blockquote>
+<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+<div class="mermaid">
+flowchart LR
+    subgraph loop["Round and round, 60 times a second"]
+        direction LR
+        N["Notice<br/>keys, touches"] --> D["Decide<br/>where everything is"] --> R["Draw<br/>the screen"]
+    end
+    R -. "and again" .-> N
+
+    S["Remember<br/>your game"] --> D
+    O["Other people"] --> D
+    F["The fight"] --> D
+    W["The world<br/>walls, map"] --> R
+    A["Sound"] --> R
+
+</div>
+<p>None of the boxes change here. This step is about the <em>folder</em> your game lives in, not the game.</p>
+<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
+<ol>
+<li><strong>Save your history</strong> — keep every version of your work, so you can go back</li>
+<li><strong>Make an account</strong> — somewhere on the internet to put it</li>
+<li><strong>Switch on the hosting</strong> — turn your folder into a website</li>
+</ol>
+<p>Why three? Because each one can fail on its own, and they fail in completely different ways. If your link does not work at the end, you need to know whether your files never left your computer, or arrived but were not published. Checking one end at a time is the whole trick, and it is the same trick as always.</p>
+<h2 id="block-1-save-your-history"><a class="heading-anchor" href="#block-1-save-your-history">Block 1: Save your history</a></h2>
+<p>Since <a href="a09.html">A09</a> you have been copying your folder before big changes. That works, and it is horrible. You end up with <code>kakkoi-online-2</code>, <code>kakkoi-online-final</code>, <code>kakkoi-online-final-2</code>, and no idea what is in any of them.</p>
+<p><strong>Git</strong> is a program that does this properly. It keeps every version of your folder, with a note on each one saying what changed.</p>
+<p>Install it if you do not have it — type <code>git --version</code> in a terminal to check. Then, inside your project folder:</p>
+<pre><code>git init
+git add .
+git commit -m &quot;My game so far&quot;
+</code></pre>
+<ul>
+<li><code>init</code> says "start keeping history for this folder"</li>
+<li><code>add .</code> says "I mean all these files"</li>
+<li><code>commit</code> saves a version, with your note</li>
+</ul>
+<p>That is a <strong>save point</strong>. Make one whenever something works. From now on, before you let the assistant loose on a big change, you make a commit instead of copying the folder. If it goes wrong, <code>git restore .</code> puts everything back to your last save point.</p>
+<p>You have wanted this since A09. That is why it is here and not there: you have felt the problem, so the answer means something.</p>
+<h2 id="block-2-make-an-account"><a class="heading-anchor" href="#block-2-make-an-account">Block 2: Make an account</a></h2>
+<p>Go to <a href="https://github.com" target="_blank" rel="noopener">github.com</a> and sign up. It is free.</p>
+<blockquote>
+<p><strong>You must be at least 13 to have a GitHub account.</strong> That is their rule, not ours. If you are younger, ask a parent — they can make the account and you can use it together. Nothing before this step needed an account, so you have lost nothing by waiting.</p>
+</blockquote>
+<p>Make a new repository — a <strong>repository</strong> is just a folder that lives on GitHub. Name it <code>kakkoi-online</code>. Make it <strong>public</strong>.</p>
+<blockquote>
+<p>Public means anyone can read your code. That is normal and it is how most learning happens. But it also means: <strong>do not put anything private in this folder.</strong> No passwords, no addresses, no phone numbers, nothing you would not put on a poster.</p>
+</blockquote>
+<p>GitHub then shows you the commands to connect your folder to it. They look like this:</p>
+<pre><code>git remote add origin https://github.com/YOUR-NAME/kakkoi-online.git
+git branch -M main
+git push -u origin main
+</code></pre>
+<p><code>push</code> means "send my saved history to GitHub". Refresh the page — your files are there.</p>
+<h2 id="block-3-switch-on-the-hosting"><a class="heading-anchor" href="#block-3-switch-on-the-hosting">Block 3: Switch on the hosting</a></h2>
+<p>Your code is on GitHub, but it is not a website yet. It is just files someone can read.</p>
+<p>On your repository page: <strong>Settings → Pages</strong>. Under <em>Build and deployment</em>, set <strong>Source</strong> to <strong>Deploy from a branch</strong>, branch <strong>main</strong>, folder <strong>/ (root)</strong>. Save.</p>
+<p>Wait a minute or two, then open:</p>
+<pre><code>https://YOUR-NAME.github.io/kakkoi-online/
+</code></pre>
+<p><strong>That is your game, on the internet, at your own address, for free.</strong> Send the link to someone.</p>
+<p>From now on, <code>git push</code> publishes. Change something, commit, push, and the live page updates by itself.</p>
+<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
+<p>Everything here is free and nothing needs a card. You could rent a computer on the internet and run your own server, and one day you might — but a game made of plain files does not need one. GitHub already has your files, so serving them as a website costs it almost nothing, which is why it gives it away.</p>
+<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<table>
+<thead>
+<tr>
+<th>Instead of this</th>
+<th>What it would cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Doing this in <a href="a09.html">A09</a>, before anything worked</td>
+<td>An account rule and three new ideas before you had made a single square move. Nothing needed an address until now — even the multiplayer works fine between two computers with no website at all</td>
+</tr>
+<tr>
+<td>Sending someone a zip of your folder</td>
+<td>They can open it, but they get whatever you sent and nothing after. A link is always the newest version</td>
+</tr>
+<tr>
+<td>Renting a server</td>
+<td>About the price of a game every month, forever, plus keeping it running. It buys you things this project deliberately does not use</td>
+</tr>
+<tr>
+<td>Keeping backups by copying folders</td>
+<td>It genuinely works. It just does not scale past a few copies, and it cannot tell you <em>what</em> changed between two of them</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<pre><code>My project folder is a git repository connected to GitHub, published with
+GitHub Pages. I want to understand what I just did. Explain, in plain
+language: what git commit actually saves, what git push sends, and what
+GitHub Pages does with the files. Then tell me what happens if I edit a
+file and forget to commit before I push.
+</code></pre>
+<p><strong>Check the output for:</strong> does the last answer say plainly that <strong>nothing happens</strong> — an uncommitted change is not sent, so the website will not change? That is the single most common confusion, and an assistant that waffles about it has not helped you.</p>
+<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p>Open your live link on a <strong>different device</strong> — a phone on mobile data is the best test, because it proves nothing on your own computer or network is involved.</p>
+<ol>
+<li>The page loads.</li>
+<li>Close your editor and stop Live Server. The link still works.</li>
+<li>Change one thing, <code>git add .</code>, <code>git commit -m "..."</code>, <code>git push</code>. Wait a minute and refresh the live link. Your change is there.</li>
+</ol>
+<h2 id="what-went-wrong-when-we-did-this"><a class="heading-anchor" href="#what-went-wrong-when-we-did-this">What went wrong when we did this</a></h2>
+<p>Both of these are real, from publishing the version you can play at <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a>.</p>
+<p><strong>A file that looked like configuration.</strong> We had a file in the repository whose whole job was to set the site's address. It did nothing at all — that file only works for a different way of publishing than the one we were using. The address was empty the whole time, and the file sat there looking correct. <em>Lesson: when something should be live and is not, check each end separately. Are the files there? Is the host expecting this name? Do not stare at the middle.</em></p>
+<p><strong>A publishing robot that never ran.</strong> We later set up automatic publishing, and it was watching for changes on a branch called <code>master</code> while our code was on <code>main</code>. No error. No warning. Nothing happened, quietly. <em>Lesson: a robot that never runs looks exactly like a robot that works. Go and look at the run.</em></p>
+<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
+<p>This is your game — same folder, now with a history and an address. Nothing to move.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>A commit is a save point with a note, and it replaces copying folders</li>
+<li>Push sends your saved history to GitHub; anything you did not commit stays behind</li>
+<li>GitHub Pages turns a folder of plain files into a website, for free</li>
+<li>Public means public — nothing private goes in the folder</li>
+<li>When a link does not work, check each end on its own instead of guessing at the middle</li>
+</ul>
+</div>
+
+<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
+<p>Break it on purpose, then fix it. Edit your page so it says something obviously different, push <strong>without committing first</strong>, and watch the live page not change. Then commit and push properly. Doing this deliberately once means you will recognise it instantly the day it happens by accident.</p>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">Back to AI Lessons</a>
+        <div class="lesson-pager">
+          <a href="a10.html">Previous</a>
+          <a href="a23.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

@@ -182,12 +182,27 @@ def _backfill_stamp(sibling: Path, digest: str) -> None:
         sibling.write_text(_stamp(text, digest), encoding='utf-8')
 
 
+def is_en_only(text: str) -> bool:
+    """`translate: false` in the frontmatter means 'still being edited, do not translate yet'.
+
+    Drafts change constantly, and translating a paragraph that is about to be rewritten costs a
+    model call and produces a JA/PT page that is wrong the moment the English moves. Remove the
+    flag (or set it true) when the lesson has settled.
+    """
+    meta, _ = _parse_fm(text)
+    return meta.get('translate') is False
+
+
 def translate_missing_md() -> tuple[list[Path], list[Path]]:
     created: list[Path] = []
     failed: list[Path] = []
+    skipped: list[Path] = []
     sources = sorted(p for p in CONTENT.rglob('*.md') if _is_source_md(p))
     for src in sources:
         src_text = src.read_text(encoding='utf-8')
+        if is_en_only(src_text):
+            skipped.append(src)
+            continue
         digest = source_digest(src_text)
         for code, name in TARGETS:
             sibling = src.with_name(f'{src.stem}.{code}.md')
@@ -207,6 +222,9 @@ def translate_missing_md() -> tuple[list[Path], list[Path]]:
             except Exception as e:
                 print(f'  FAILED: {e}', file=sys.stderr, flush=True)
                 failed.append(sibling)
+    if skipped:
+        print(f'skipped {len(skipped)} English-only draft(s): '
+              + ', '.join(sorted(p.name for p in skipped)), flush=True)
     return created, failed
 
 
