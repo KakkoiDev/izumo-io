@@ -20,7 +20,7 @@ deleted package can't break every student's deployed game.
 
 | Thing | Licence | Link | Role |
 |---|---|---|---|
-| **trystero** | MIT | https://github.com/dmotz/trystero | WebRTC peer connections + Nostr signaling. The entire multiplayer layer |
+| **trystero** `0.21.5` | MIT | https://github.com/dmotz/trystero | WebRTC peer connections + Nostr signaling. The entire multiplayer layer. **Vendored 2026-08-16** as six ES modules in `vendor/trystero/` (from `esm.sh/trystero@0.21.5/es2022/*` plus `esm.sh/node/crypto.mjs` and its chunk), import specifiers rewritten to relative `.js` paths — no bundler exists any more. Exact URLs in `vendor/README.md` |
 | **Basecoat** | MIT | https://basecoatui.com | UI components. Using the standalone `basecoat.cdn.min.css` — **no Tailwind, no build step** |
 | **Bun** | MIT | https://bun.com | Dev server (TS on the fly) + production bundler. Install: `curl -fsSL https://bun.com/install \| bash` |
 | **TypeScript** (`tsc --noEmit`) | Apache-2.0 | https://www.typescriptlang.org | Type checking in CI. Bun strips types without checking them |

@@ -129,6 +129,11 @@ silently describing the old version, which is exactly what happened to A09 and A
 A translation with *no* `source_sha` is treated as current and simply stamped, so adding the check did
 not re-translate the whole site.
 
+**English-only drafts.** `translate: false` in a lesson's frontmatter makes the translate script skip
+it and the verify step report it as a draft rather than fail. Use it while a lesson is still being
+edited — the /ja/ and /pt/ pages fall back to English. Remove the flag when the lesson has settled and
+the next run translates it.
+
 ## Decisions a newcomer will be tempted to re-open
 
 All settled, with reasons in the decision log. Do not silently reverse them:
