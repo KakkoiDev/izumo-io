@@ -75,8 +75,9 @@ flowchart LR
 <li><strong>Save your history</strong> — keep every version of your work, so you can go back</li>
 <li><strong>Make an account</strong> — somewhere on the internet to put it</li>
 <li><strong>Switch on the hosting</strong> — turn your folder into a website</li>
+<li><strong>Make it installable</strong> — so it lands on a phone like a real app</li>
 </ol>
-<p>Why three? Because each one can fail on its own, and they fail in completely different ways. If your link does not work at the end, you need to know whether your files never left your computer, or arrived but were not published. Checking one end at a time is the whole trick, and it is the same trick as always.</p>
+<p>Why four? Because each one can fail on its own, and they fail in completely different ways. If your link does not work at the end, you need to know whether your files never left your computer, or arrived but were not published. Checking one end at a time is the whole trick, and it is the same trick as always.</p>
 <h2 id="block-1-save-your-history"><a class="heading-anchor" href="#block-1-save-your-history">Block 1: Save your history</a></h2>
 <p>Since <a href="a09.html">A09</a> you have been copying your folder before big changes. That works, and it is horrible. You end up with <code>kakkoi-online-2</code>, <code>kakkoi-online-final</code>, <code>kakkoi-online-final-2</code>, and no idea what is in any of them.</p>
 <p><strong>Git</strong> is a program that does this properly. It keeps every version of your folder, with a note on each one saying what changed.</p>
@@ -115,6 +116,37 @@ git push -u origin main
 </code></pre>
 <p><strong>That is your game, on the internet, at your own address, for free.</strong> Send the link to someone.</p>
 <p>From now on, <code>git push</code> publishes. Change something, commit, push, and the live page updates by itself.</p>
+<h2 id="block-4-make-it-installable"><a class="heading-anchor" href="#block-4-make-it-installable">Block 4: Make it installable</a></h2>
+<p>Your game is a web page. With two small files it becomes something a person can install — an icon on their home screen, opening with no browser bar around it. It is the same game; the phone just stops treating it like a page it happened to visit.</p>
+<p><strong>A manifest</strong> is a small file describing your game to the phone. Call it <code>manifest.webmanifest</code>:</p>
+<pre><code>{
+  &quot;name&quot;: &quot;Kakkoi Online&quot;,
+  &quot;short_name&quot;: &quot;Kakkoi&quot;,
+  &quot;start_url&quot;: &quot;./&quot;,
+  &quot;display&quot;: &quot;standalone&quot;,
+  &quot;theme_color&quot;: &quot;#0c0c12&quot;,
+  &quot;background_color&quot;: &quot;#0c0c12&quot;,
+  &quot;icons&quot;: [
+    { &quot;src&quot;: &quot;./icons/icon-192.png&quot;, &quot;sizes&quot;: &quot;192x192&quot;, &quot;type&quot;: &quot;image/png&quot; },
+    { &quot;src&quot;: &quot;./icons/icon-512.png&quot;, &quot;sizes&quot;: &quot;512x512&quot;, &quot;type&quot;: &quot;image/png&quot; }
+  ]
+}
+</code></pre>
+<p>Link it from <code>index.html</code>:</p>
+<pre><code>&lt;link rel=&quot;manifest&quot; href=&quot;./manifest.webmanifest&quot;&gt;
+</code></pre>
+<p><code>display: standalone</code> is the line that removes the browser bar. The icons are just PNGs — ours are one of the animals from the game, blown up big, so the icon and the game are obviously the same thing.</p>
+<p><strong>A service worker</strong> is a small program the browser keeps beside your page. Every time the page asks for a file, the worker sees the request first — so it can answer from a copy it saved earlier, instead of the network. That is what lets the game open when there is no internet at all.</p>
+<p>It has one job here, and three rules that go with it:</p>
+<ol>
+<li><strong>Save the list of files the game needs</strong>, the first time somebody visits.</li>
+<li><strong>Answer from that copy</strong> for exactly those files.</li>
+<li><strong>Give the saved copy a version number, and delete the old versions.</strong></li>
+</ol>
+<blockquote>
+<p><strong>Rule 3 is not tidiness — it is the trap.</strong> A worker that keeps answering from an old copy means you can fix a bug, publish the fix, and nobody ever gets it: the stale copy is what answers, forever. When you change any file in the list, change the version name too. This caught us while building it, and the symptom is horrible to diagnose: new page, old styling, a layout that looks broken in a way you cannot reproduce.</p>
+</blockquote>
+<p>What still needs the internet is other players — they are on other computers, so no amount of saving files locally will conjure them up. Offline you get the world, your own character, and the computer opponent. Our game says so on screen rather than looking broken.</p>
 <h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
 <p>Everything here is free and nothing needs a card. You could rent a computer on the internet and run your own server, and one day you might — but a game made of plain files does not need one. GitHub already has your files, so serving them as a website costs it almost nothing, which is why it gives it away.</p>
 <h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
@@ -158,6 +190,8 @@ file and forget to commit before I push.
 <li>The page loads.</li>
 <li>Close your editor and stop Live Server. The link still works.</li>
 <li>Change one thing, <code>git add .</code>, <code>git commit -m "..."</code>, <code>git push</code>. Wait a minute and refresh the live link. Your change is there.</li>
+<li>On the phone, use the browser's menu to add it to your home screen. It gets your icon and opens with no browser bar.</li>
+<li><strong>Turn the phone's internet off completely</strong>, then open it from the home screen. The world, your character and the computer opponent are all still there.</li>
 </ol>
 <h2 id="what-went-wrong-when-we-did-this"><a class="heading-anchor" href="#what-went-wrong-when-we-did-this">What went wrong when we did this</a></h2>
 <p>Both of these are real, from publishing our own copy of this project at <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a>.</p>
@@ -173,6 +207,8 @@ file and forget to commit before I push.
 <li>GitHub Pages turns a folder of plain files into a website, for free</li>
 <li>Public means public — nothing private goes in the folder</li>
 <li>When a link does not work, check each end on its own instead of guessing at the middle</li>
+<li>A manifest and a service worker turn a web page into something installable that opens with no internet</li>
+<li>Version the saved copy, or you will publish fixes nobody ever receives</li>
 </ul>
 </div>
 

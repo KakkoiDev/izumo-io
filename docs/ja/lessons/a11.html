@@ -206,6 +206,9 @@ and cope as three separate functions.
 
 <h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
 <p>Add a <strong>Forget me</strong> button that clears the save and puts the square back at the start, without reloading the page. Two things to think about: <code>localStorage.removeItem</code> empties the drawer, but the timer will write a new save half a second later, so you also have to move the player back yourself. And should the name go too, or should it stay? Decide, and be able to say why.</p>
+<p>Then a harder question, which we got wrong first and had to fix. When we built this properly, we found that <strong>not everything in the drawer belongs to the character.</strong> Where you are standing does. Your name does. But "has this person read the safety notice?" and "does this person already know the controls?" are facts about the <em>person sitting at the computer</em>, not about the character they happen to be playing — and clearing them meant a child who started a new animal was shown the safety notice again, and re-taught the controls they already knew.</p>
+<p>So those live in their own drawer, and starting over does not touch them.</p>
+<p>Look at what you are saving and sort it into two piles: <strong>this character</strong>, and <strong>this person</strong>. Then make your button clear only the first. <em>Grown-up programmers would say the two kinds of data have different lifetimes, so now you know that phrase too.</em></p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">AIレッスンに戻る</a>
         <div class="lesson-pager">

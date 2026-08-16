@@ -193,7 +193,7 @@ change update(). Plain JavaScript, no build step, no npm.
 <ol>
 <li>A window that opens announces itself to any other window of the same game.</li>
 <li>An older window that hears this saves where it actually is right now, hands that over, <strong>leaves the room</strong>, and shows a quiet message with a button to take the game back.</li>
-<li>The new window starts from the handed-over position.</li>
+<li>The new window waits a moment for that handover — we allow four hundred milliseconds — and starts from the position it receives. If nothing answers, there was no other window, and it just reads the save as usual.</li>
 </ol>
 <p>Two details in there are easy to get wrong, and both cost us time:</p>
 <p><strong>The old window has to genuinely leave</strong>, not just stop drawing. If it only pauses, it is still connected, so everyone else still sees two of you and the bug looks unfixed.</p>
