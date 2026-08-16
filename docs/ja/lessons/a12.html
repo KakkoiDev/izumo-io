@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ja" data-page="a12.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Other People - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../ai-lessons.html">AIレッスン</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../ai-lessons.html">AIレッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="a11.html">前へ</a>
+          <a href="a13.html">次へ</a>
+        </div>
+      </nav>
+      <h1 id="a12-other-people"><a class="heading-anchor" href="#a12-other-people">A12: Other People</a></h1>
+<p class="lesson-intro">Somebody else opens your game on their computer. Their square appears on your screen and moves when they move. This is the step the whole track has been walking towards.</p>
+<p><strong>Needs:</strong> <a href="a11.html">A11</a>. <strong>Gives you:</strong> every other player's square, moving live on your canvas.</p>
+<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+<div class="mermaid">
+flowchart LR
+    subgraph loop["Round and round, 60 times a second"]
+        direction LR
+        N["Notice<br/>keys, touches"] --> D["Decide<br/>where everything is"] --> R["Draw<br/>the screen"]
+    end
+    R -. "and again" .-> N
+
+    S["Remember<br/>your game"] --> D
+    O["Other people"] --> D
+    F["The fight"] --> D
+    W["The world<br/>walls, map"] --> R
+    A["Sound"] --> R
+
+    classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    class O now
+
+</div>
+<p>Today you build the "other people" box. Notice where its arrow points: into <strong>decide</strong>, exactly like your keyboard. To the rest of your game, another player is just another set of numbers that changed.</p>
+<h2 id="there-is-no-server-and-that-is-a-half-truth"><a class="heading-anchor" href="#there-is-no-server-and-that-is-a-half-truth">There is no server, and that is a half-truth</a></h2>
+<p>A <strong>server</strong> is a computer that is always on, that everybody's game talks to. Most online games have one. It holds the world, and if it stops, the game stops.</p>
+<p>Your game does not have one. Your browser talks straight to the other person's browser. The pictures on your screen never pass through anybody's computer in the middle.</p>
+<p>Here is the honest part. Two browsers cannot find each other out of nothing. They need somewhere to leave a note saying <em>"I am here, this is how to reach me"</em>. So your game uses a <strong>noticeboard</strong> — a public message service, run by other people, that anyone can post small notes to. Both browsers post a note, read each other's, and then connect directly. After that the noticeboard is not involved.</p>
+<p>So "serverless" is only half true. There is no server holding your game. There <em>is</em> a noticeboard used for the introduction. When people say a game is serverless, this is almost always what they mean, and now you know to ask.</p>
+<p><strong>One more true thing, and it is not your fault when it happens.</strong> On some home networks, and on a lot of school networks, two computers are not allowed to reach each other directly. The introduction works, the connection never forms, and no second square appears. If that is your network, nothing in this step is broken and you have not made a mistake. Everything from <a href="a14.html">A14</a> onwards works without this step, so carry on and come back with a different network.</p>
+<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
+<p>"Other people appear" is three things:</p>
+<ol>
+<li><strong>Connect</strong> — join a room, and be told when somebody arrives or leaves</li>
+<li><strong>Send</strong> — tell everyone where your square is, ten times a second</li>
+<li><strong>Draw</strong> — paint everyone else's squares</li>
+</ol>
+<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Nobody in the room means connect. Somebody in the room but no square moving means send. Numbers arriving but nothing on screen means draw. Three blocks, three separate questions — and you can answer each one from the console without touching the other two.</p>
+<p>Almost nobody gets this working the first time. That is normal here, more than anywhere else in the track.</p>
+<h2 id="block-1-connect"><a class="heading-anchor" href="#block-1-connect">Block 1: Connect</a></h2>
+<p>The connecting is done by a library called <strong>trystero</strong>. A <strong>library</strong> is code somebody else wrote that you use instead of writing your own. This one handles the noticeboard and the direct connection.</p>
+<pre><code>import { joinRoom, selfId } from '../../vendor/trystero/nostr.js';
+
+const room = joinRoom({ appId: 'kakkoi-online' }, 'demo');
+const [sendMove, onMove] = room.makeAction('move');
+
+const others = {};
+
+room.onPeerJoin((id) =&gt; sendMove({ x: player.x, y: player.y }, id));
+room.onPeerLeave((id) =&gt; { delete others[id]; });
+
+onMove((where, id) =&gt; { others[id] = { x: where.x, y: where.y } });
+</code></pre>
+<p><code>'demo'</code> is the room name. Everybody using the same room name meets each other.</p>
+<p><code>selfId</code> is a random name for your tab, made fresh every time the page loads. <strong>The other players never learn who you are.</strong> They get twenty random letters.</p>
+<p><code>others</code> is the only thing this block keeps: a list of where everybody else is, one entry per player. <code>onPeerLeave</code> deletes them, so when somebody closes their tab their square goes away instead of standing there forever.</p>
+<p>The line inside <code>onPeerJoin</code> sends your position to the new arrival straight away, so they see you immediately instead of waiting.</p>
+<h2 id="block-2-send"><a class="heading-anchor" href="#block-2-send">Block 2: Send</a></h2>
+<pre><code>setInterval(() =&gt; sendMove({ x: player.x, y: player.y }), 100);
+</code></pre>
+<p><code>setInterval(f, 100)</code> runs <code>f</code> every 100 milliseconds — <strong>ten times a second</strong>, about as often as you can tap a finger.</p>
+<p>Your square moves 60 times a second. You could send 60 times a second too. Do not. Every message goes to every player, so in a room of six people that is 360 messages a second leaving your computer instead of 60, to draw squares that would look the same. Ten times a second is enough to look alive.</p>
+<p>This is the same idea as saving twice a second in <a href="a11.html">A11</a>: do the expensive thing as rarely as you can get away with.</p>
+<h2 id="block-3-draw"><a class="heading-anchor" href="#block-3-draw">Block 3: Draw</a></h2>
+<pre><code>function draw() {
+  ctx.fillStyle = '#1b1b22';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.font = '12px system-ui, sans-serif';
+  for (const id in others) {
+    ctx.fillStyle = '#6bb8ff';
+    ctx.fillRect(others[id].x, others[id].y, SIZE, SIZE);
+    ctx.fillText(id.slice(0, 4), others[id].x, others[id].y - 4);
+  }
+
+  ctx.fillStyle = '#7ee081';
+  ctx.fillRect(player.x, player.y, SIZE, SIZE);
+}
+</code></pre>
+<p>Other players are blue, you are green, and four letters of each player's id go above their square so you can tell two of them apart.</p>
+<p>Look at what this block does <em>not</em> do. It does not ask anybody where they are. It reads the <code>others</code> list, exactly the way it reads <code>player</code>. That is why <a href="a10.html">A10</a> split notice from decide from draw: your drawing code never cared where the numbers came from, so another person's square costs three extra lines.</p>
+<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
+<p>The whole shape follows from one decision: no server, because a server costs money every month and somebody has to keep it running. A 12-year-old should be able to publish this game, send the link to a friend, and have it still work in a year without paying anyone. That rules out a server holding the game — so the browsers talk to each other, and a free public noticeboard does the introductions.</p>
+<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<table>
+<thead>
+<tr>
+<th>Instead of this</th>
+<th>What it would cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A real server holding the world</td>
+<td>It always works, even on strict school networks, and it can stop cheating. But it costs money every month, it must be kept running, and when it goes down every player's game goes down</td>
+</tr>
+<tr>
+<td>Sending your position every frame</td>
+<td>Six times the messages for a picture nobody can tell apart. On a phone that is battery you spent for nothing</td>
+</tr>
+<tr>
+<td>Sending "I pressed right" instead of "I am at x, y"</td>
+<td>Fewer messages. But every computer would have to work out where everybody ended up, and one dropped message means two players see different worlds forever</td>
+</tr>
+<tr>
+<td>Writing the connection code yourself</td>
+<td>You would learn a lot. It is also several hundred lines of hard code that fails in ways that are very hard to see, which is exactly what a library is for</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<pre><code>I have a canvas game in plain JavaScript. main.js keeps the player in
+{x, y}, moves it in update(dt), and paints it in draw(). I have trystero
+vendored at ../../vendor/trystero/nostr.js. Add multiplayer in three
+separate blocks with a comment above each: CONNECT (joinRoom, an action
+called 'move', a peers object, remove a peer when they leave), SEND (a
+setInterval at 10 per second), DRAW (paint the other squares). Do not
+change update(). Plain JavaScript, no build step, no npm.
+</code></pre>
+<p><strong>Check the output for:</strong> did it put the sending inside <code>requestAnimationFrame</code> instead of a timer? That is the most common answer and it sends six times more than you asked for. Did it handle <code>onPeerLeave</code>, or do squares stay on screen forever after someone leaves? And does it import from the vendored file, or did it quietly add <code>import ... from 'https://...'</code>, which is a build step in disguise?</p>
+<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><img alt="Two squares on a dark canvas, one green labelled &quot;you&quot; and one blue with a short id above it" src="../static/img/game/a12.png"></p>
+<p>Open the page twice, in two browser tabs, and wait a few seconds:</p>
+<ol>
+<li>A blue square appears in each tab, with four letters above it. That is the other tab.</li>
+<li>Drive the green square in one tab with the arrow keys. The blue square in the other tab moves the same way.</li>
+<li>Open the console in the second tab and type <code>others</code>. You get an object like <code>{4mcIop8Hqh5xsEKzbqPZ: {x: 360.128, y: 235.872}}</code> — and those two numbers are the same numbers as <code>player</code> in the first tab. That is the proof. The picture could be a coincidence; matching numbers to three decimal places cannot be.</li>
+<li>Close the first tab. Within a few seconds the blue square in the second tab disappears and <code>others</code> becomes <code>{}</code>.</li>
+</ol>
+<p>If step 1 never happens, read the note about networks above before you change any code.</p>
+<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
+<p>Take your game from <a href="a11.html">A11</a> and add the three blocks. Nothing already there changes. <code>update</code> and the loop stay exactly as they were — you are adding a second source of numbers, not rewriting the first one.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>"Serverless" usually means no server holds the game, but something still introduces the players</li>
+<li>Other players are just numbers that change, the same as your keyboard — that is why A10's split pays off here</li>
+<li>Send rarely and on a timer, not every frame; the picture is the same and the cost is far lower</li>
+<li>Remove a player when they leave, or their square haunts your screen forever</li>
+<li>Some networks will not let two computers talk directly, and that is not a bug in your code</li>
+</ul>
+</div>
+
+<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
+<p>Right now a player who freezes — laptop lid closed, connection dropped — leaves a square standing still on your screen until the room notices they are gone. Store the time each message arrived, and fade or hide any square you have not heard from for three seconds. <em>Grown-up programmers call a message like that a heartbeat, so now you know that word too.</em></p>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../ai-lessons.html">AIレッスンに戻る</a>
+        <div class="lesson-pager">
+          <a href="a11.html">前へ</a>
+          <a href="a13.html">次へ</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+
