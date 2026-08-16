@@ -94,6 +94,7 @@ Seven files, ~700 kB total, all CC0, all confirmed to load **and actually play**
 
 | Vendored as | Length | Original file | Pack |
 |---|---|---|---|
+| `audio/step-soft.wav` | 0.273 s | `Audio/footstep05.ogg` | Kenney — RPG Audio |
 | `audio/step.wav` | 0.049 s | `Movement/Footsteps/sfx_movement_footsteps1a.wav` | 512 Sound Effects (8-bit style) |
 | `audio/strike.wav` | 0.111 s | `Weapons/Melee/sfx_wpn_sword1.wav` | same |
 | `audio/block.wav` | 0.046 s | `General Sounds/Impacts/sfx_sounds_impact3.wav` | same |
@@ -106,8 +107,19 @@ Seven files, ~700 kB total, all CC0, all confirmed to load **and actually play**
 |---|---|---|---|---|
 | **512 Sound Effects (8-bit style)** | SubspaceAudio / Juhani Junkala | CC0 | https://opengameart.org/content/512-sound-effects-8-bit-style (`License(s): CC0`) | `https://opengameart.org/sites/default/files/The%20Essential%20Retro%20Video%20Game%20Sound%20Effects%20Collection%20%5B512%20sounds%5D.zip` (20.6 MB, 512 WAVs, 44.1 kHz/16-bit/mono) |
 | **Happy Adventure (Loop)** | TinyWorlds | CC0 | https://opengameart.org/content/happy-adventure-loop (`License(s): CC0`) | `https://opengameart.org/sites/default/files/happy_adveture.mp3` |
+| **Kenney — RPG Audio** | Kenney Vleugels | CC0 | https://kenney.nl/assets/rpg-audio (page **License** row reads "Creative Commons CC0"; the zip's own `License.txt` says "License (Creative Commons Zero, CC0)") | `https://kenney.nl/media/pages/assets/rpg-audio/8e99002d76-1677590336/kenney_rpg-audio.zip` (1.0 MB, 52 OGGs) |
 
 The 512-sounds pack's own `INFO.txt` also states CC0; it is committed as `audio/sfx-512-LICENSE.txt`.
+Kenney's `License.txt` is committed as `audio/kenney-rpg-audio-LICENSE.txt`.
+
+**Footstep replaced 2026-08-16 (owner feedback).** The 8-bit `step.wav` was too harsh and too frequent
+for a sound that fires the whole time you walk. `audio/step-soft.wav` is Kenney's `footstep05.ogg` — a
+recorded, muted dirt step — decoded to 16-bit mono 22.05 kHz WAV with macOS's own
+`afconvert -f WAVE -d LEI16@22050 -c 1`, and otherwise unedited. 16 kB. That contradicts the "no OGG
+converter on this machine" note below: there is no `ffmpeg`/`sox`/`oggenc`, but `/usr/bin/afconvert`
+ships with macOS and **does** decode Ogg Vorbis, so Kenney's OGG-only packs are usable after all as
+long as what ships is the converted WAV. `audio/step.wav` stays in the repo unchanged because
+`demos/17-sound/` loads it by name and demos are not to be modified; the game no longer uses it.
 
 ### Not used, but confirmed downloadable
 
@@ -116,15 +128,15 @@ off the asset page:
 
 | Pack | Licence | Page | Zip |
 |---|---|---|---|
-| **Kenney — RPG Audio** | CC0 | https://kenney.nl/assets/rpg-audio | `https://kenney.nl/media/pages/assets/rpg-audio/8e99002d76-1677590336/kenney_rpg-audio.zip` |
 | **Kenney — UI Audio** | CC0 | https://kenney.nl/assets/ui-audio | `https://kenney.nl/media/pages/assets/ui-audio/490d233f68-1677590494/kenney_ui-audio.zip` |
 | **Kenney — Music Jingles** | CC0 | https://kenney.nl/assets/music-jingles | `https://kenney.nl/media/pages/assets/music-jingles/f37e530b9e-1677590399/kenney_music-jingles.zip` |
 | **Juhani Junkala — 5 Chiptunes (Action)** | CC0 | https://opengameart.org/content/5-chiptunes-action | `https://opengameart.org/sites/default/files/5%20Action%20Chiptunes%20By%20Juhani%20Junkala.zip` (50 MB, **WAV only**) |
 | **Juhani Junkala — 4 Chiptunes (Adventure)** | CC0 | https://opengameart.org/content/4-chiptunes-adventure | `https://opengameart.org/sites/default/files/Juhani%20Junkala%20%5BChiptune%20Adventures%5D%20OGG.zip` (8 MB, OGG) |
 
-They were skipped on **format**, not licence: all three Kenney packs ship `.ogg` only, and OGG Vorbis
-is the one common audio format with patchy Safari support. There is no `ffmpeg`, `sox` or `oggenc` on
-the build machine, so an OGG cannot be converted locally — whatever a source ships is what we get.
+They were skipped on **format**, not licence: the Kenney packs ship `.ogg` only, and OGG Vorbis is the
+one common audio format with patchy Safari support. There is no `ffmpeg`, `sox` or `oggenc` on the
+build machine — but `/usr/bin/afconvert` does decode Ogg Vorbis (see the footstep note above), so
+"cannot be converted locally" was wrong. What ships is still WAV/MP3; the conversion happens here.
 Choosing WAV (tiny, because these effects are all under 0.3 s) plus one MP3 gives universal playback
 with no second copy of every file. The 5-Chiptunes pack is WAV-only and 50 MB, so it cannot be the
 music loop either.

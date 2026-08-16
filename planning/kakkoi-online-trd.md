@@ -50,8 +50,7 @@ kakkoi-online/
 │  └─ i18n.js                  en / ja / pt strings
 ├─ data/
 │  ├─ tuning.json              all balance numbers
-│  ├─ type-chart.json          element multipliers
-│  ├─ monsters.json            the ~6 monsters: atlas rect, name, element
+│  ├─ monsters.json            the 6 animals: atlas cell, name (no element — row 53)
 │  ├─ npcs.json                placement, waypoints, element, difficulty, bark keys
 │  └─ maps/town.json           tilemap
 ├─ vendor/                     trystero, basecoat.css, kenney atlases (Tiny Dungeon + Tiny Creatures)
@@ -141,14 +140,19 @@ interface SaveFile {
 
 ## 3. Battle rules (pure, `battle/rules.js`)
 
-> **SUPERSEDED FOR v1 (decision-log row 52).** Everything in this section describes a system no lesson
-> teaches. **The shipped game's moves are fire / water / earth**, compared with the same triangle, and
-> a duel is first to 3 round wins. No HP, no charges, no damage formula. A student following A20–A22
-> builds exactly that, and the live game must be the game the course builds.
+> **SUPERSEDED FOR v1 (decision-log rows 52 and 53).** Everything in this section describes a system no
+> lesson teaches. **The shipped game's moves are rock / paper / scissors** — rock beats scissors,
+> scissors beats paper, paper beats rock — and a duel is first to 3 round wins. No elements, no HP, no
+> charges, no damage formula. A student following A20–A22 builds exactly that, and the live game must
+> be the game the course builds.
 >
-> Keep reading for the v2 design: the action triangle, the Yomi reasoning, charges, the damage formula
-> and the nonce-XOR randomness beacon are all good work and none of it is thrown away. The element
-> triangle and the determinism requirement below apply to v1 unchanged.
+> **There is no element concept anywhere in v1.** `data/type-chart.json` and `elementMultiplier()` are
+> dead, and `element` is gone from `data/monsters.json`. A creature is an animal you like the look of;
+> it has no effect on a fight. Anything below about elements is v2 design, not shipped behaviour.
+>
+> Keep reading for that v2 design: the action triangle, the Yomi reasoning, charges, the damage formula
+> and the nonce-XOR randomness beacon are all good work and none of it is thrown away. The determinism
+> requirement below applies to v1 unchanged.
 
 
 **Type cycle:** water beats fire, fire beats earth, earth beats water. Attacking with advantage ×2,

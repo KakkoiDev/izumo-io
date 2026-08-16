@@ -421,9 +421,9 @@ than planned. The parts below are for grouping and pacing here in the doc.
 | **A15** | Walls | Walk into a rock and stop | **describe** where the solid things are · **check** before moving · **stop** | A10 |
 | **A16** | The map | A world bigger than the screen, that scrolls as you walk | **store** the map as data, not code · **draw** the tiles · **follow** the player with a camera | A15 |
 | **A17** | Sound | A footstep when you walk, music when you press play | **load** the files · **play** on an event · **let the player turn it off** | A10 |
-| **A18** | Put it online | A link you can send to anyone, that opens your game | **save your history** with git · **make an account** · **switch on the free hosting** | A14 |
+| **A18** | Put it online | A link you can send to anyone — and an icon on your phone's home screen | **save your history** with git · **make an account** · **switch on the free hosting** · **make it installable** | A14 |
 | **A19** | Challenge someone | Walk up to another player, press a button, and a fight screen opens for both of you | **ask** · **agree** · **change what screen you are on** | A12 |
-| **A20** | Three moves | Pick fire, water or earth; see who won and why | **choose** · **compare** the two choices · **show** the result | A19 |
+| **A20** | Three moves | Pick rock, paper or scissors; see who won and why | **choose** · **compare** the two choices · **show** the result | A19 |
 | **A21** | Someone to fight | A computer opponent, when nobody else is online | **give it a way to choose** · **make the fight code not care who it is fighting** | A20 |
 | **A22** | No peeking | Neither player can wait to see the other's move first | **hide** your move · **both show at once** · **check** nobody swapped theirs | A20 |
 | **A23** | What we didn't build | — | — | all |
@@ -431,6 +431,12 @@ than planned. The parts below are for grouping and pacing here in the doc.
 Fifteen steps, every one of them ending in something you can look at.
 
 ### Notes on the ordering
+
+**A18 has four blocks, the maximum.** Git, an account, hosting, and making it installable. It is the
+biggest step in the track and the lesson says so up front. Installability (a manifest, an icon and a
+service worker) belongs here rather than as its own step because A18's subject is already *getting the
+game to other people* — a link and a home-screen icon are the same idea at two levels of commitment.
+Decision-log row 55.
 
 **Publishing is A18, not A09.** Two reasons, both discovered in discussion and both reversals of what
 this document said before:
