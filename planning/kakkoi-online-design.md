@@ -897,6 +897,7 @@ propagate the consequences.
 | 49 | Version control in parts 1–4 | **None. Told once, plainly: copy the project folder and date it before a big agent change** | Cyril's call. Crude and right at this level; git then arrives in A18 as the answer to a problem already felt |
 | 50 | Verifying demos | **A subagent drives every demo in `ego-browser`: console must be clean, then screenshot** | "play it" was aspirational and got skipped. A demo that throws still screenshots nicely, so the console check is the real gate (lessons §10) |
 | 51 | Mobile | ~~Appendix X3~~ **Pointer Events in A10; phones supported from the second step** | a 12-year-old is likelier to own a phone than a laptop. One API covers mouse, touch and pen, so it costs one code path rather than two |
+| 52 | Fight mechanics | ~~Strike/Block/Charge + charges + HP + damage formula~~ **The moves ARE fire / water / earth. First to 3 round wins takes the duel.** | reversal #11, 2026-08-16. The richer system is better game design and **no lesson teaches it** — a student following A20–A22 would never build it. The track promises "you will ship this and be able to explain every part", so the live game must be the game the course builds. Also matches the original ask ("fire/water/earth rock-paper-scissors", "as small as possible", "the game existing is the success"). The Yomi analysis, charges and damage formula stay recorded in the TRD as the v2 design |
 
 ---
 

@@ -141,6 +141,16 @@ interface SaveFile {
 
 ## 3. Battle rules (pure, `battle/rules.js`)
 
+> **SUPERSEDED FOR v1 (decision-log row 52).** Everything in this section describes a system no lesson
+> teaches. **The shipped game's moves are fire / water / earth**, compared with the same triangle, and
+> a duel is first to 3 round wins. No HP, no charges, no damage formula. A student following A20–A22
+> builds exactly that, and the live game must be the game the course builds.
+>
+> Keep reading for the v2 design: the action triangle, the Yomi reasoning, charges, the damage formula
+> and the nonce-XOR randomness beacon are all good work and none of it is thrown away. The element
+> triangle and the determinism requirement below apply to v1 unchanged.
+
+
 **Type cycle:** water beats fire, fire beats earth, earth beats water. Attacking with advantage ×2,
 into resistance ×0.5, otherwise ×1.
 
