@@ -15,53 +15,11 @@ Instale um assistente, aprenda a perguntar bem e nunca confie cegamente
 - [A07: Criando e Rodando Scripts com IA](lessons/a07.md) - Um script transforma uma tarefa repetida em um comando. Faça a IA escrever scripts e chame a IA de dentro de um script. Leia antes de rodar.
 - [A08: Projeto Final: Seu Kit de Ferramentas de IA](lessons/a08.md) - Junte tudo. Monte um kit pessoal de ferramentas de IA e prove a habilidade que mais importa: pegar a IA quando ela está errada.
 
-## Parte 2: Preparar
+## Parte 2: Vamos Fazer um Jogo Online Multijogador
 
-As três coisas que você precisa abertas: o assistente, o editor e sua página no navegador
+Um projeto real, do início ao fim: um jogo sem servidor, que você pode enviar para um amigo
 
-> Arrumar as ferramentas na bancada antes de começar
+> Você tem as ferramentas. Agora construa o móvel e deixe as pessoas sentarem nele
 
 - [A09: Pegue Suas Ferramentas](lessons/a09.md) - Configure as três janelas que você usará para todo o jogo: o assistente que escreve código, o editor que o exibe e sua página no navegador.
-
-## Parte 3: Criar o Jogador
-
-Um quadrado que você move — e o jeito de cortar uma funcionalidade em blocos que você vai usar em tudo
-
-> Perceber, decidir, agir — os mesmos três passos que você usa para atravessar a rua
-
 - [A10: Criar o Jogador](lessons/a10.md) - Um quadrado que você pode controlar com o teclado ou o dedo — e a forma de dividir uma funcionalidade em blocos que você usará no resto do jogo.
-
-## Parte 4: Salvar o Jogo
-
-Feche a aba, volte, e tudo está onde você deixou
-
-> Anotar algo num caderno para não ter que guardar na cabeça
-
-
-## Parte 5: Outras Pessoas
-
-Dois computadores falando direto um com o outro, sem nada no meio — e como manter isso seguro
-
-> Dois latões e um barbante, em vez de mandar carta pelo correio
-
-
-## Parte 6: Fazer Virar um Jogo de Verdade
-
-Um monstro em vez de um quadrado, paredes, um mundo maior que a tela, som — e um link para enviar a qualquer um
-
-> A casa está de pé; agora ganha pintura, portas e um endereço
-
-
-## Parte 7: A Luta
-
-Fogo, água, terra — e como resolver uma disputa de forma justa quando ninguém está no comando
-
-> Os dois escrevem a jogada e viram para baixo antes de qualquer um revelar
-
-
-## Parte 8: Olhar para Trás
-
-O que escolhemos não construir, e o que essa escolha nos deu
-
-> Todo bom construtor sabe dizer o que deixou de fora, e por quê
-

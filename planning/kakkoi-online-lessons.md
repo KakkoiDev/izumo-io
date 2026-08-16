@@ -392,18 +392,21 @@ prose. The rule now is §3.1: **one step = one feature you can see, cut into 2�
 
 A **part** is a chapter and takes as long as it takes. A **step** is one sitting.
 
-Part numbers are the `phase:` values in `content/ai-phases.yaml`. **Part 1 is the existing A01–A08**
-(learning to use an assistant), so this track's seven parts are numbered **2–8**.
+**Parts are a planning device, not a website heading.** The site has two phases only —
+part 1 "Talking to the Machine" (A01–A08) and **part 2 "Let's Make an Online Multiplayer Video
+Game" (A09–A23)** — so every step in this track carries `phase: 2`. We tried one site heading per
+part; six of the seven were empty, and a page of empty headings makes a track look abandoned rather
+than planned. The parts below are for grouping and pacing here in the doc.
 
 | Part | Name | Steps | The question it answers |
 |---|---|---|---|
-| 2 | Set up | A09 | What do I need before I can start? |
-| 3 | Create the player | A10 | How does something move on a screen? |
-| 4 | Save the game | A11 | How does a computer remember me? |
-| 5 | Other people | A12–A13 | How do two computers talk with nothing in between? |
-| 6 | Make it a real game | A14–A18 | How do I make it look, sound and feel like a game — and put it online? |
-| 7 | The fight | A19–A22 | How do you settle a contest when nobody is in charge? |
-| 8 | Look back | A23 | What did we choose not to build, and what did that buy us? |
+| 1 | Set up | A09 | What do I need before I can start? |
+| 2 | Create the player | A10 | How does something move on a screen? |
+| 3 | Save the game | A11 | How does a computer remember me? |
+| 4 | Other people | A12–A13 | How do two computers talk with nothing in between? |
+| 5 | Make it a real game | A14–A18 | How do I make it look, sound and feel like a game — and put it online? |
+| 6 | The fight | A19–A22 | How do you settle a contest when nobody is in charge? |
+| 7 | Look back | A23 | What did we choose not to build, and what did that buy us? |
 
 ### The steps
 
@@ -440,11 +443,11 @@ this document said before:
   track (git, an account, and Pages) and may well take several sittings. That is fine and the lesson
   says so.
 
-**A14 needs A10, not A13.** The steps in part 6 are deliberately near-independent of part 5, so a
+**A14 needs A10, not A13.** The steps in part 5 are deliberately near-independent of part 4, so a
 student who cannot get peer-to-peer working on their network is not blocked from the entire rest of
 the course. They can do the monster, walls, the map and sound, publish, and come back to A12.
 
-**The NPC (A21) sits inside the fight (part 7), not in the cosmetics part.** A computer opponent is only
+**The NPC (A21) sits inside the fight (part 6), not in the cosmetics part.** A computer opponent is only
 interesting once there is something to fight about, and it is the lesson where the fight code stops
 caring whether it is facing a human — which is the payoff of A19's cut and cannot be shown earlier.
 
