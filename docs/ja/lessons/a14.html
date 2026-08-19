@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Your Monster - KakkoiSchool</title>
+  <title>あなたのモンスター - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a15.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a14-your-monster"><a class="heading-anchor" href="#a14-your-monster">A14: Your Monster</a></h1>
-<p class="lesson-intro">Your player has been a coloured square since <a href="a10.html">A10</a>. By the end of this step it is a monster, and when you walk it the legs move. When you stop, they stop.</p>
-<p><strong>Needs:</strong> <a href="a10.html">A10</a>. <strong>Gives you:</strong> a drawn character, cut out of one picture file, that animates while it walks.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a14-あなたのモンスター"><a class="heading-anchor" href="#a14-あなたのモンスター">A14: あなたのモンスター</a></h1>
+<p class="lesson-intro"><a href="a10.html">A10</a>から、あなたのプレイヤーはずっと色のついた四角形でした。このステップが終わると、それはモンスターになります。歩かせると足が動き、止まると足も止まります。</p>
+<p><strong>必要なもの:</strong> <a href="a10.html">A10</a>。<strong>得られるもの:</strong> 1枚の画像ファイルから切り出したキャラクター。歩いている間はアニメーションします。</p>
+<h2 id="ゲーム全体と今日の部分"><a class="heading-anchor" href="#ゲーム全体と今日の部分">ゲーム全体と今日の部分</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -66,22 +66,24 @@ flowchart LR
     A["Sound"] --> R
 
     classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    classDef done fill:#2f6f4f,stroke:#8fd6b4,color:#fff
+    class N,D,S,O done
     class R now
 
 </div>
-<p>Only <strong>Draw</strong> changes. "Notice" and "Decide" are untouched — the monster moves for exactly the same reason the square did.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"A monster whose legs move" sounds like one thing. It is two:</p>
+<p>変わるのは<strong>描画</strong>だけです。「感知」と「決定」はそのままです。モンスターが動く理由は、四角形が動いていた理由とまったく同じです。</p>
+<h2 id="ブロックに分割する"><a class="heading-anchor" href="#ブロックに分割する">ブロックに分割する</a></h2>
+<p>「足が動くモンスター」は1つのことのように聞こえますが、中身は2つです。</p>
 <ol>
-<li><strong>Cut</strong> — take one small picture out of one big picture file</li>
-<li><strong>Change</strong> — pick a different small picture as time passes</li>
+<li><strong>切り出す</strong> — 大きな画像ファイルから小さな絵を1枚取り出す</li>
+<li><strong>切り替える</strong> — 時間がたつにつれて別の小さな絵を選ぶ</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Nothing on screen at all is a cutting problem — wrong file, wrong rectangle. A monster that appears but never animates is a changing problem — the timer, or the list of pictures. Those are two different bugs, and from the outside both of them just look like "the monster is broken".</p>
-<h2 id="the-picture-file"><a class="heading-anchor" href="#the-picture-file">The picture file</a></h2>
-<p>Everything the monster needs is in <strong>one file</strong>: <code>vendor/kenney/pixel-platformer-characters.png</code>. It is 216 pixels wide and 72 tall, and inside it are 27 small pictures in a grid — 9 across, 3 down, each one 24 by 24 pixels.</p>
-<p>The first two pictures are the same green monster twice. In picture 0 its legs are together. In picture 1 they are apart. That is all a walk needs.</p>
-<p><strong>One honest warning.</strong> This character is drawn in a 24-pixel style, and the walls and floors you will use in <a href="a16.html">A16</a> are drawn in a 16-pixel style by a different artist. Side by side they do not quite match — the monster's pixels are slightly bigger than the world's pixels. We chose that on purpose, because no pack we could find had both a matching world <em>and</em> a character that walks. Small real projects end up mixing packs like this all the time. If it bothers you later, the fix is to pick one style and redraw the other, and that is a real afternoon of work, not a line of code.</p>
-<h2 id="block-1-cut"><a class="heading-anchor" href="#block-1-cut">Block 1: Cut</a></h2>
+<p><strong>なぜわざわざ分けるのでしょう。</strong> もし1つのかたまりにしてしまうと、うまく動かないときにどこが悪いのか分からなくなるからです。画面に何も出ないなら、それは切り出しの問題です。ファイル名か、切り取る四角形がまちがっています。モンスターは出るのに足が動かないなら、それは切り替えの問題です。タイマーか、絵のリストがまちがっています。この2つはまったく別のバグですが、外から見るとどちらも「モンスターが壊れている」としか見えません。</p>
+<h2 id="画像ファイル"><a class="heading-anchor" href="#画像ファイル">画像ファイル</a></h2>
+<p>モンスターに必要なものは、すべて<strong>1つのファイル</strong>に入っています。<code>vendor/kenney/pixel-platformer-characters.png</code> です。幅216ピクセル、高さ72ピクセルで、その中に小さな絵が27枚、横9枚・縦3枚に並んでいます。1枚は24×24ピクセルです。</p>
+<p>最初の2枚は、同じ緑のモンスターです。0番の絵では足がそろっていて、1番の絵では足が開いています。歩くアニメーションに必要なのは、これだけです。</p>
+<p><strong>1つだけ正直に言っておきます。</strong> このキャラクターは24ピクセルの絵で描かれていますが、<a href="a16.html">A16</a>で使う壁や床は、別の作者が16ピクセルの絵で描いたものです。並べてみると、ぴったりとは合いません。モンスターのドットのほうが、世界のドットより少し大きいのです。これは分かっていて選びました。合う世界と、歩けるキャラクターの両方がそろった素材集が見つからなかったからです。小さな実際のプロジェクトでも、こうやって素材集を混ぜることはよくあります。あとで気になったら、直す方法は、どちらかのスタイルにそろえてもう片方を描き直すことです。それは1行のコードではなく、まる半日の作業です。</p>
+<h2 id="ブロック1-切り出す"><a class="heading-anchor" href="#ブロック1-切り出す">ブロック1: 切り出す</a></h2>
 <pre><code>const sheet = new Image();
 sheet.src = '../../vendor/kenney/pixel-platformer-characters.png';
 
@@ -96,19 +98,19 @@ function drawPicture(n, x, y) {
   ctx.drawImage(sheet, sx, sy, CELL, CELL, x, y, SIZE, SIZE);
 }
 </code></pre>
-<p><code>drawImage</code> with nine things after it looks frightening. It is really two rectangles and a question.</p>
+<p>うしろに9個も数字が並ぶ<code>drawImage</code>は、こわそうに見えます。でも中身は、四角形2つと質問1つだけです。</p>
 <ul>
-<li>The first is the file.</li>
-<li>The next four — <code>sx, sy, CELL, CELL</code> — are <strong>which little square to copy out of the big picture</strong>: how far from its left, how far from its top, how wide, how tall.</li>
-<li>The last four — <code>x, y, SIZE, SIZE</code> — are <strong>where to paste it on the canvas, and how big to make it there</strong>.</li>
+<li>1つめはファイルです。</li>
+<li>次の4つ（<code>sx, sy, CELL, CELL</code>）は、<strong>大きな画像のどの小さな四角形をコピーするか</strong>です。左から何ピクセル、上から何ピクセル、幅はいくつ、高さはいくつ。</li>
+<li>最後の4つ（<code>x, y, SIZE, SIZE</code>）は、<strong>キャンバスのどこに貼るか、そしてどれくらいの大きさにするか</strong>です。</li>
 </ul>
-<p>Copy from <em>there</em>, paste to <em>here</em>. That is the whole nine.</p>
-<p>Finding <code>sx</code> and <code>sy</code> is division. Picture 0 is at the start. Picture 9 is one row down, because there are 9 across. So <code>n % COLS</code> is how far along the row you are, and <code>Math.floor(n / COLS)</code> is which row. Multiply each by 24 and you have the corner of the picture.</p>
-<p>Two more lines matter:</p>
+<p><em>あそこ</em>からコピーして、<em>ここ</em>に貼る。9個の数字は、それだけのことです。</p>
+<p><code>sx</code>と<code>sy</code>を求めるのは、わり算です。0番の絵は左上のはじめにあります。9番の絵は1段下です。横に9枚並んでいるからです。だから<code>n % COLS</code>は「その段の何番目か」、<code>Math.floor(n / COLS)</code>は「何段目か」になります。それぞれに24をかければ、その絵の左上の角が分かります。</p>
+<p>もう2行、大事なところがあります。</p>
 <pre><code>ctx.imageSmoothingEnabled = false;
 </code></pre>
-<p>24 pixels is tiny on a modern screen, so we draw at 3 times the size. When a browser makes a picture bigger it normally <em>blurs</em> it, to make photographs look smooth. On pixel art that turns crisp squares into mush. Turning smoothing off tells the browser to make each pixel into a solid 3-by-3 block instead. Try it both ways once — the difference is the whole look of the game.</p>
-<h2 id="block-2-change"><a class="heading-anchor" href="#block-2-change">Block 2: Change</a></h2>
+<p>24ピクセルは今の画面ではとても小さいので、3倍の大きさで描いています。ブラウザは絵を大きくするとき、ふつうは<em>ぼかし</em>ます。写真をなめらかに見せるためです。でもドット絵にそれをすると、かっちりした四角がぐにゃぐにゃになります。ぼかしをオフにすると、ブラウザは1ドットを3×3のはっきりした四角に広げてくれます。一度、両方ためしてみてください。この違いが、ゲームの見た目そのものです。</p>
+<h2 id="ブロック2-切り替える"><a class="heading-anchor" href="#ブロック2-切り替える">ブロック2: 切り替える</a></h2>
 <pre><code>const STAND = 0;
 const WALK = [0, 1];
 const STEP = 0.14;        // seconds each picture stays up
@@ -126,44 +128,44 @@ function animate(dt, moving) {
   frame = WALK[Math.floor(walked / STEP) % WALK.length];
 }
 </code></pre>
-<p>A <strong>frame</strong> is one picture of an animation. <code>WALK</code> is the list of frames the walk is made of, in order.</p>
-<p>Read the important line backwards. <code>walked</code> counts up in seconds while you hold a direction. Divide by <code>STEP</code> and you get "how many pictures have gone by since you started walking" — after 0.28 seconds, two. <code>Math.floor</code> throws away the part after the dot. <code>% WALK.length</code> wraps that number back to the start of the list, so 0, 1, 2, 3, 4 becomes 0, 1, 0, 1, 0.</p>
-<p>So the picture you see is worked out <strong>from the clock</strong>. You do not tell the animation to advance; you ask it what it looks like right now. <em>Frames are data with time as the index.</em> Nothing anywhere counts frames by hand, which means nothing can drift out of step.</p>
-<p>And when you are not moving, <code>walked</code> goes back to zero and the frame is <code>STAND</code>. Legs stop. That one <code>if</code> is the difference between a monster and a monster having a fit.</p>
-<p>Then <code>update</code> ends with one line:</p>
+<p><strong>フレーム</strong>とは、アニメーションの絵1枚のことです。<code>WALK</code>は、歩くアニメーションを作っているフレームを、順番に並べたリストです。</p>
+<p>大事な1行は、うしろから読んでみましょう。<code>walked</code>は、方向キーを押しているあいだ、秒数を足していきます。それを<code>STEP</code>でわると、「歩き始めてから何枚の絵が過ぎたか」が出ます。0.28秒たったら2枚です。<code>Math.floor</code>は、小数点より下を捨てます。<code>% WALK.length</code>は、その数をリストの先頭に戻します。だから0, 1, 2, 3, 4は0, 1, 0, 1, 0になります。</p>
+<p>つまり、目に見える絵は<strong>時計から</strong>計算されています。アニメーションに「次に進め」と命令するのではなく、「今はどんな見た目？」とたずねるのです。<em>フレームはデータで、その番号は時間で決まります。</em> どこにも、手でフレームを数えているところはありません。だから、ずれることもありません。</p>
+<p>そして動いていないときは、<code>walked</code>は0に戻り、フレームは<code>STAND</code>になります。足が止まります。この<code>if</code>が1つあるかないかが、モンスターと、けいれんしているモンスターの違いです。</p>
+<p>あとは<code>update</code>の最後に、この1行を足すだけです。</p>
 <pre><code>animate(dt, dx !== 0 || dy !== 0);
 </code></pre>
-<p>"Moving" simply means a direction was pressed. <code>update</code> already knows that, so nothing new has to be noticed.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The forcing constraint is that <a href="a12.html">A12</a> puts other people on your screen. Another player's monster is drawn from the same sheet, but it walks at different moments to yours. Because <code>drawPicture</code> takes a picture number and a place, and <code>animate</code> keeps its counting in plain numbers, a second monster needs a second <code>walked</code> and nothing else. Nothing about cutting or changing knows the word "player".</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p>「動いている」とは、方向が押されているという意味です。<code>update</code>はもうそれを知っているので、新しく感知するものは何もありません。</p>
+<h2 id="なぜこの方法にしたのか"><a class="heading-anchor" href="#なぜこの方法にしたのか">なぜこの方法にしたのか</a></h2>
+<p>決め手になった制約は、<a href="a12.html">A12</a>で他の人が画面に出てくることです。他のプレイヤーのモンスターも同じシートから描かれますが、歩くタイミングはあなたとちがいます。<code>drawPicture</code>は絵の番号と場所だけを受け取り、<code>animate</code>は数えるのをただの数字でやっているので、2体めのモンスターに必要なのは2つめの<code>walked</code>だけです。切り出しにも切り替えにも、「プレイヤー」という言葉は出てきません。</p>
+<h2 id="代わりにできたこと"><a class="heading-anchor" href="#代わりにできたこと">代わりにできたこと</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>この代わりに</th>
+<th>その代償</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>One image file per frame</td>
-<td>The browser asks the server for every single file, one at a time, and they arrive whenever they arrive. Your monster can animate with holes in it while it waits. Twenty characters would be a hundred files</td>
+<td>1コマごとに画像ファイルを1つ</td>
+<td>ブラウザはファイルを1つずつサーバーに取りに行き、届く順番はばらばらです。待っているあいだ、モンスターは穴あきのままアニメーションします。キャラクター20体なら、ファイル100個です</td>
 </tr>
 <tr>
-<td>Advancing the frame once per loop, with no clock</td>
-<td>Your monster's legs would move at whatever speed the screen refreshes. On a 144-times-a-second screen they blur; on a slow one they crawl. Same bug as forgetting <code>dt</code> in A10</td>
+<td>時計を使わず、ループ1回ごとにコマを進める</td>
+<td>モンスターの足は、画面の書きかえ速さのままで動きます。1秒に144回書きかえる画面ではぶれて見え、遅い画面ではのろのろになります。A10で<code>dt</code>を忘れたときと同じバグです</td>
 </tr>
 <tr>
-<td>HTML <code>&lt;img&gt;</code> elements moved around with CSS</td>
-<td>It works for one monster. Then you add fifty and ask the browser to lay out a whole page sixty times a second, which is not what page layout is for</td>
+<td>HTMLの<code>&lt;img&gt;</code>をCSSで動かす</td>
+<td>モンスター1体ならうまくいきます。でも50体にすると、1秒に60回ページ全体のレイアウトをやり直せとブラウザに頼むことになります。ページのレイアウトは、そういう用途のものではありません</td>
 </tr>
 <tr>
-<td>Drawing at the real 24 pixels, with no zoom</td>
-<td>Your monster would be smaller than this letter <em>o</em> on most screens. Zooming without turning smoothing off is worse: a blurry small monster</td>
+<td>拡大せず、そのままの24ピクセルで描く</td>
+<td>モンスターは、たいていの画面でこの文字の<em>o</em>より小さくなります。ぼかしをオフにしないまま拡大するのは、もっと悪いです。小さくてぼやけたモンスターになります</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="プロンプト"><a class="heading-anchor" href="#プロンプト">プロンプト</a></h2>
 <pre><code>I have a plain JavaScript canvas game. main.js has a Set of held keys, an
 update(dt) that changes player.x and player.y, and a draw() that paints a
 rectangle for the player. Replace the rectangle with a sprite from a single
@@ -174,44 +176,44 @@ two-frame walk animation that advances on a timer measured in seconds and
 holds a single standing frame when no direction is held. Keep the cutting code
 and the animation code in separate functions.
 </code></pre>
-<p><strong>Check the output for:</strong> does the frame advance from <code>dt</code>, or does it advance once per call with no clock? Assistants very often write <code>frame++</code> inside the loop, which looks perfect on their screen and runs at the wrong speed on yours. Does it reset to the standing frame when you let go, or keep the legs moving forever? And did it turn <code>imageSmoothingEnabled</code> off — this is the single most forgotten line in pixel-art code, and the result is not an error message, just a soft blurry mess you might blame on the artist.</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>出力を確認すること:</strong> コマは<code>dt</code>から進んでいますか。それとも時計を使わず、呼ばれるたびに1つ進んでいますか。アシスタントはとてもよく、ループの中に<code>frame++</code>と書きます。自分の画面では完ぺきに見えて、あなたの画面ではまちがった速さで動くコードです。キーをはなしたら立ちフレームに戻りますか。それとも足は動きっぱなしですか。そして<code>imageSmoothingEnabled</code>をオフにしましたか。ドット絵のコードでいちばん忘れられる1行です。忘れてもエラーは出ません。ただ、なんとなくぼやけた画面になるだけで、絵を描いた人のせいだと思ってしまうかもしれません。</p>
+<h2 id="動作を確認する"><a class="heading-anchor" href="#動作を確認する">動作を確認する</a></h2>
 <p><img alt="A small green monster on a dark canvas, drawn from a sprite sheet, with its legs spread mid-step" src="../static/img/game/a14.png"></p>
-<p>Open the page with Live Server and:</p>
+<p>Live Serverでページを開いて、次をやってみましょう。</p>
 <ol>
-<li>The monster appears straight away. If you get nothing, the file path is wrong — check the browser's network list before you touch any code.</li>
-<li>Hold the right arrow. We read the frame number back fourteen times while it walked and got <code>0,0,0,1,1,0,0,0,1,1,0,0,0,1</code>. It really is swapping pictures, roughly seven times a second.</li>
-<li>Let go. We read it six more times and got <code>0,0,0,0,0,0</code>. The legs are still, and they stay still.</li>
-<li>While it walked, its position went from <code>x: 200</code> to <code>x: 312</code>. Moving and animating are two separate things happening at once, and each one can be checked on its own.</li>
-<li>Look closely at the edges of the monster. The pixels are hard squares, not soft edges. That is smoothing being off.</li>
+<li>モンスターがすぐに出てきます。何も出ないときは、ファイルのパスがまちがっています。コードをさわる前に、ブラウザのネットワーク一覧を見てください。</li>
+<li>右矢印を押しっぱなしにします。歩いているあいだにフレーム番号を14回読み取ったら、<code>0,0,0,1,1,0,0,0,1,1,0,0,0,1</code>でした。本当に絵が入れかわっていて、だいたい1秒に7回です。</li>
+<li>キーをはなします。もう6回読み取ったら<code>0,0,0,0,0,0</code>でした。足は止まっていて、そのまま止まったままです。</li>
+<li>歩いているあいだ、位置は<code>x: 200</code>から<code>x: 312</code>に変わりました。動くこととアニメーションすることは、同時に起きている別々のことで、それぞれ別に確認できます。</li>
+<li>モンスターのふちをよく見てください。ドットが、ぼやけずにかっちりした四角になっています。それが、ぼかしがオフになっているしるしです。</li>
 </ol>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Take the game from <a href="a10.html">A10</a>. Add the <code>sheet</code> image, <code>drawPicture</code> and <code>animate</code>. Add one line to the end of <code>update</code>:</p>
+<h2 id="ゲームに組み込む"><a class="heading-anchor" href="#ゲームに組み込む">ゲームに組み込む</a></h2>
+<p><a href="a10.html">A10</a>のゲームを用意します。<code>sheet</code>の画像、<code>drawPicture</code>、<code>animate</code>を足します。そして<code>update</code>の最後に1行足します。</p>
 <pre><code>animate(dt, dx !== 0 || dy !== 0);
 </code></pre>
-<p>Then in <code>draw</code>, replace this:</p>
+<p>次に<code>draw</code>の中の、この部分を</p>
 <pre><code>ctx.fillStyle = '#7ee081';
 ctx.fillRect(player.x, player.y, SIZE, SIZE);
 </code></pre>
-<p>with this:</p>
+<p>こう置きかえます。</p>
 <pre><code>drawPicture(frame, Math.round(player.x), Math.round(player.y));
 </code></pre>
-<p><code>Math.round</code> is there because <code>player.x</code> is usually something like <code>216.656</code>. Drawing pixel art at half a pixel makes its edges shimmer as it moves.</p>
+<p><code>Math.round</code>があるのは、<code>player.x</code>がふつう<code>216.656</code>のような数になるからです。ドット絵を0.5ピクセルの位置に描くと、動くときにふちがちらちらします。</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="主なポイント"><a class="heading-anchor" href="#主なポイント">主なポイント</a></h2>
 <ul>
-<li>One image file can hold hundreds of pictures; you cut out the one you want with a rectangle</li>
-<li><code>drawImage</code>'s nine numbers are just "copy from this square" and "paste to this square"</li>
-<li>An animation is a list of pictures, and the clock decides which one you are on</li>
-<li>Stopping the animation when the player stops is what makes it look alive instead of broken</li>
-<li>Turn smoothing off and round your positions, or pixel art goes soft and shimmery</li>
+<li>1つの画像ファイルに何百枚もの絵を入れられます。ほしい1枚は、四角形で切り出します</li>
+<li><code>drawImage</code>の9つの数字は、「この四角からコピー」と「この四角に貼る」だけのことです</li>
+<li>アニメーションは絵のリストで、今どの絵かを決めるのは時計です</li>
+<li>プレイヤーが止まったらアニメーションも止める。それが、生きているように見せるか、壊れて見えるかの分かれ目です</li>
+<li>ぼかしをオフにして、位置を整数に丸めましょう。そうしないとドット絵はぼやけて、ちらちらします</li>
 </ul>
 </div>
 
-<p>One file, one request from the server, twenty-seven pictures. That is why sheets like this exist. <em>Grown-up programmers call this a sprite atlas — an atlas is a book of maps, and this is a book of pictures. Now you know that word too.</em></p>
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Your monster walks to the left looking exactly the same as when it walks to the right. Make it face the way it is going.</p>
-<p>You need to remember the last sideways direction, and then flip the picture when you draw it. Look up <code>ctx.scale(-1, 1)</code> and <code>ctx.save()</code> / <code>ctx.restore()</code>. Flipping is one of those things that feels impossible until you have done it once, and then takes four lines forever after.</p>
+<p>ファイル1つ、サーバーへのお願い1回、絵は27枚。だからこういうシートが使われています。<em>大人のプログラマーはこれをスプライトアトラスと呼びます。アトラスは地図をまとめた本のこと。これは絵をまとめた本です。これであなたも、この言葉を知りました。</em></p>
+<h2 id="あなたの番"><a class="heading-anchor" href="#あなたの番">あなたの番</a></h2>
+<p>あなたのモンスターは、左に歩くときも右に歩くときとまったく同じ見た目です。進む向きを向くようにしてみましょう。</p>
+<p>最後に横に動いた向きを覚えておいて、描くときに絵を左右反転させます。<code>ctx.scale(-1, 1)</code>と<code>ctx.save()</code> / <code>ctx.restore()</code>を調べてみてください。反転は、一度やるまでは無理そうに感じて、一度やったらそのあとはずっと4行で書けるようになるものの1つです。</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">AIレッスンに戻る</a>
         <div class="lesson-pager">

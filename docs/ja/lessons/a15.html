@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Walls - KakkoiSchool</title>
+  <title>壁 - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a16.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a15-walls"><a class="heading-anchor" href="#a15-walls">A15: Walls</a></h1>
-<p class="lesson-intro">Until now your square walks through everything. By the end of this step there are rocks on the screen, you cannot walk through them, and when you push against one you slide along it instead of getting stuck.</p>
-<p><strong>Needs:</strong> <a href="a10.html">A10</a>. <strong>Gives you:</strong> solid things, described as data, that stop the player.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a15-壁"><a class="heading-anchor" href="#a15-壁">A15: 壁</a></h1>
+<p class="lesson-intro">今までのあなたの四角形は、何でもすり抜けていました。このステップが終わると、画面に岩があり、そこは通り抜けられなくなります。そして岩に体を押しつけると、引っかかるのではなく、岩に沿ってすべります。</p>
+<p><strong>必要なもの:</strong> <a href="a10.html">A10</a>。<strong>得られるもの:</strong> データとして書かれた、プレイヤーを止める固いもの。</p>
+<h2 id="ゲーム全体と今日の部分"><a class="heading-anchor" href="#ゲーム全体と今日の部分">ゲーム全体と今日の部分</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -66,43 +66,45 @@ flowchart LR
     A["Sound"] --> R
 
     classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    classDef done fill:#2f6f4f,stroke:#8fd6b4,color:#fff
+    class N,D,R,S,O done
     class W now
 
 </div>
-<p>Today you build <strong>The world</strong>. It feeds "Draw" — the rocks have to appear — and it also puts a limit on "Decide": from now on, where the square is allowed to go is not just "anywhere on the canvas".</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"You cannot walk through rocks" sounds like one thing. It is three:</p>
+<p>今日つくるのは<strong>世界</strong>です。世界は「描画」に材料をわたします。岩が画面に出てこないといけないからです。それに「決定」にも制限をかけます。これからは、四角形が行ける場所は「キャンバスのどこでも」ではなくなります。</p>
+<h2 id="ブロックに分割する"><a class="heading-anchor" href="#ブロックに分割する">ブロックに分割する</a></h2>
+<p>「岩は通り抜けられない」は1つのことのように聞こえますが、中身は3つです。</p>
 <ol>
-<li><strong>Describe</strong> — say where the solid things are</li>
-<li><strong>Check</strong> — ask whether a place you are thinking of standing is inside one</li>
-<li><strong>Stop</strong> — go as far as the edge and no further</li>
+<li><strong>書き表す</strong> — 固いものがどこにあるかを言う</li>
+<li><strong>調べる</strong> — 立とうとしている場所が、その中に入っていないかたずねる</li>
+<li><strong>止める</strong> — ふちまでは行き、その先へは行かない</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Is the rock in the place you think it is? Is the overlap test giving the wrong answer? Or is the test right and you are just moving anyway? Those are three different bugs with three different fixes, and from the outside they all look identical: the square goes through the rock.</p>
-<p>Block 1 is also the one that pays off later, in a way you cannot see yet.</p>
-<h2 id="block-1-describe"><a class="heading-anchor" href="#block-1-describe">Block 1: Describe</a></h2>
+<p><strong>なぜわざわざ分けるのでしょう。</strong> もし1つのかたまりにしてしまうと、うまく動かないときにどこが悪いのか分からなくなるからです。岩は、あなたが思っている場所にありますか。重なりの判定が、まちがった答えを返していませんか。それとも判定は正しくて、それでも動いてしまっているだけですか。これは3つの別々のバグで、直し方も3つ別々です。でも外から見ると、どれもまったく同じに見えます。四角形が岩をすり抜けるのです。</p>
+<p>それに、ブロック1はあとで効いてきます。今はまだ見えない形で。</p>
+<h2 id="ブロック1-書き表す"><a class="heading-anchor" href="#ブロック1-書き表す">ブロック1: 書き表す</a></h2>
 <pre><code>const walls = [
   { x: 160, y: 40,  w: 40,  h: 200 },
   { x: 160, y: 240, w: 220, h: 40 },
   { x: 300, y: 60,  w: 120, h: 40 },
 ];
 </code></pre>
-<p>That is the whole block. Look at what it is <em>not</em>: there is no code here. A wall is four numbers — how far from the left, how far from the top, how wide, how tall — sitting in a list.</p>
-<p>This matters more than it looks. Because a wall is <strong>data</strong>, you can make more walls without writing more code. In <a href="a16.html">A16</a> a whole map gets loaded into that array from a file, and not one line of the rest of this file changes. If instead you had written <code>if (player.x &gt; 160 &amp;&amp; player.x &lt; 200) ...</code> for each rock, every new rock would mean new code, and a map would be impossible.</p>
-<p><em>Grown-up programmers say "keep it data, not code". This is what they mean.</em></p>
-<h2 id="block-2-check"><a class="heading-anchor" href="#block-2-check">Block 2: Check</a></h2>
-<p>Two rectangles overlap when they overlap <strong>left-to-right</strong> <em>and</em> <strong>top-to-bottom</strong>. If either one of those is false, they miss each other completely.</p>
-<p>Think about two windows on a table. If one is entirely to the left of the other, they cannot touch, no matter how their tops and bottoms line up. If one is entirely above the other, same thing. They only touch if they are in each other's way on <em>both</em> directions at once.</p>
+<p>これでブロックはおしまいです。ここに<em>ない</em>ものを見てください。コードが1行もありません。壁とは4つの数字（左から何ピクセル、上から何ピクセル、幅、高さ）がリストに並んでいるだけのものです。</p>
+<p>これは見た目より大事です。壁が<strong>データ</strong>だから、コードを増やさずに壁を増やせるのです。<a href="a16.html">A16</a>では、地図まるごとがファイルからこの配列に読み込まれますが、このファイルの残りの部分は1行も変わりません。もしそのかわりに、岩1つごとに<code>if (player.x &gt; 160 &amp;&amp; player.x &lt; 200) ...</code>と書いていたら、岩を1つ増やすたびにコードを書くことになり、地図なんて作れなくなります。</p>
+<p><em>大人のプログラマーは「コードではなくデータにしておけ」と言います。その意味がこれです。</em></p>
+<h2 id="ブロック2-調べる"><a class="heading-anchor" href="#ブロック2-調べる">ブロック2: 調べる</a></h2>
+<p>2つの四角形が重なるのは、<strong>左右で</strong>重なっていて、<em>しかも</em>、<strong>上下でも</strong>重なっているときです。どちらか片方でも重なっていなければ、2つはまったく当たりません。</p>
+<p>テーブルの上の2枚の窓わくを思いうかべてください。片方がもう片方の完全に左側にあるなら、上下がどう並んでいても、ぶつかることはありません。片方が完全に上にあるなら、これも同じです。ぶつかるのは、<em>両方の</em>向きで同時にじゃまし合っているときだけです。</p>
 <pre><code>function overlaps(a, b) {
   return a.x &lt; b.x + b.w &amp;&amp; a.x + a.w &gt; b.x &amp;&amp;
          a.y &lt; b.y + b.h &amp;&amp; a.y + a.h &gt; b.y;
 }
 </code></pre>
-<p>Read it slowly. <code>a.x &lt; b.x + b.w</code> means "a starts before b ends". <code>a.x + a.w &gt; b.x</code> means "a ends after b starts". Both true means they overlap left-to-right. The next line is the same sentence for up and down.</p>
-<p>This block answers a question and changes nothing. It does not move the player. It does not know what a player is. You hand it two rectangles and it says yes or no.</p>
-<p><em>Grown-up programmers call this AABB collision — axis-aligned bounding box. It means "boxes that are not tilted", and it is the fastest useful collision test there is. Now you know the word.</em></p>
-<h2 id="block-3-stop"><a class="heading-anchor" href="#block-3-stop">Block 3: Stop</a></h2>
-<p>Here is the part that decides whether your game feels good or feels broken.</p>
-<p><strong>Move one direction at a time</strong>, and for each one, ask <em>before</em> you go.</p>
+<p>ゆっくり読んでみましょう。<code>a.x &lt; b.x + b.w</code>は「aはbが終わる前に始まる」という意味です。<code>a.x + a.w &gt; b.x</code>は「aはbが始まったあとに終わる」という意味です。両方が正しければ、左右で重なっています。次の行は、同じことを上下について言っているだけです。</p>
+<p>このブロックは、質問に答えるだけで、何も変えません。プレイヤーを動かしません。プレイヤーが何なのかも知りません。四角形を2つわたすと、「はい」か「いいえ」を返します。</p>
+<p><em>大人のプログラマーはこれをAABB衝突判定と呼びます。「軸に沿った境界ボックス」の略で、「かたむいていない四角形」という意味です。実用的な当たり判定の中で、いちばん速い方法です。これであなたも、この言葉を知りました。</em></p>
+<h2 id="ブロック3-止める"><a class="heading-anchor" href="#ブロック3-止める">ブロック3: 止める</a></h2>
+<p>ここが、あなたのゲームが気持ちよく感じられるか、壊れているように感じられるかを決める部分です。</p>
+<p><strong>1つの向きずつ動かして</strong>、それぞれについて、行く<em>前に</em>たずねます。</p>
 <pre><code>function moveX(amount) {
   let x = player.x + amount;
   for (const wall of walls) {
@@ -112,45 +114,45 @@ flowchart LR
   player.x = Math.max(0, Math.min(canvas.width - SIZE, x));
 }
 </code></pre>
-<p><code>x</code> is where you are <em>thinking of</em> standing. You have not gone there yet. If that spot is inside a wall, you do not stay put — you go exactly as far as the wall's edge. Moving right, the furthest you can be is the wall's left side minus your own width. Moving left, it is the wall's right side.</p>
-<p><code>moveY</code> is the same function with <code>x</code> and <code>y</code> swapped, and <code>wall.h</code> instead of <code>wall.w</code>.</p>
-<p>Then in <code>update</code>, two separate steps:</p>
+<p><code>x</code>は、立とうと<em>思っている</em>場所です。まだそこには行っていません。その場所が壁の中に入っていたら、その場にとどまるのではなく、壁のふちのちょうどそこまで進みます。右に動いているなら、行ける限界は壁の左側から自分の幅を引いた場所です。左に動いているなら、壁の右側です。</p>
+<p><code>moveY</code>は、<code>x</code>と<code>y</code>を入れかえて、<code>wall.w</code>のかわりに<code>wall.h</code>を使うだけの、同じ関数です。</p>
+<p>そして<code>update</code>の中では、2つの別々の手順にします。</p>
 <pre><code>if (dx !== 0) moveX(dx * SPEED * dt);
 if (dy !== 0) moveY(dy * SPEED * dt);
 </code></pre>
-<p><strong>Why separate?</strong> Push right into a rock while also pushing down. The sideways step is refused — the rock is there. The downward step is asked as its own question, and there is nothing below you, so it happens. You slide down the face of the rock.</p>
-<p>Now imagine doing it in one step instead: you ask "can I be at this new x <em>and</em> this new y?", the answer is no, and you refuse both. You would be glued to the rock, unable to move at all until you let go of the direction pointing into it. Every player would think your game was broken.</p>
-<p>Sliding is not a clever extra. It falls out of asking the two questions separately. That is the whole reason the block is written this way.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The forcing constraint is <a href="a16.html">A16</a>, which loads a map. Everything here had to survive a wall list that this file has never seen — thirty rocks instead of three, arriving from a file. That is why <code>walls</code> is a plain array of plain objects, why <code>overlaps</code> takes any two rectangles rather than "the player and a wall", and why <code>moveX</code> loops over the list instead of naming any particular rock. None of that costs anything today, and it means the map arrives for free.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p><strong>なぜ分けるのでしょう。</strong> 岩に向かって右を押しながら、下も押してみてください。横の動きは断られます。そこに岩があるからです。下の動きは、それとは別の質問としてたずねられます。下には何もないので、そちらは通ります。あなたは岩の面をすべり下りていきます。</p>
+<p>これを1つの手順でやったらどうなるか、想像してみてください。「この新しいxで、<em>しかも</em>この新しいyに、いてもいい？」とたずねて、答えは「いいえ」なので、両方とも断ります。あなたは岩にはりついて、岩に向かっている向きのキーをはなすまで、まったく動けなくなります。プレイヤーはみんな、このゲームは壊れていると思うでしょう。</p>
+<p>すべるのは、気のきいたおまけではありません。質問を2つに分けてたずねたら、自然にそうなるのです。ブロックをこう書いている理由は、それだけです。</p>
+<h2 id="なぜこの方法にしたのか"><a class="heading-anchor" href="#なぜこの方法にしたのか">なぜこの方法にしたのか</a></h2>
+<p>決め手になった制約は、地図を読み込む<a href="a16.html">A16</a>です。ここにあるものは全部、このファイルが見たこともない壁のリストに耐えられないといけませんでした。岩は3つではなく30個、しかもファイルからやってきます。だから<code>walls</code>は、ふつうのオブジェクトが入ったふつうの配列なのです。だから<code>overlaps</code>は「プレイヤーと壁」ではなく、どんな四角形2つでも受け取るのです。そして<code>moveX</code>は、特定の岩の名前を書かずにリストをぐるっと回すのです。それは今日は何の手間にもなりません。そして、そのおかげで地図がただで手に入ります。</p>
+<h2 id="代わりにできたこと"><a class="heading-anchor" href="#代わりにできたこと">代わりにできたこと</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>この代わりに</th>
+<th>その代償</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>An <code>if</code> for each rock, written by hand</td>
-<td>Fine for three rocks. Impossible for a map, and every rock you add is a chance to make a typo in code instead of in data</td>
+<td>岩1つごとに<code>if</code>を手で書く</td>
+<td>岩3つならこれで十分です。でも地図には無理です。それに岩を増やすたびに、データではなくコードに打ちまちがいを作るチャンスが生まれます</td>
 </tr>
 <tr>
-<td>Moving first, then pushing back out of the wall</td>
-<td>It works most of the time, then fails badly: move fast enough and you land deep inside a rock, and "push back out" cannot tell which side you came from. You get shoved out the far side</td>
+<td>まず動かして、それから壁の外に押し戻す</td>
+<td>ほとんどの場合はうまくいって、そしてひどく失敗します。速く動くと岩の奥深くに入ってしまい、「外に押し戻す」ではどちら側から来たのか分かりません。反対側に押し出されてしまいます</td>
 </tr>
 <tr>
-<td>Checking x and y together in one step</td>
-<td>Two lines shorter, and the square sticks to every wall it touches. Players will call this a bug, and they will be right</td>
+<td>xとyを1つの手順でまとめて調べる</td>
+<td>2行短くなり、四角形はさわった壁すべてにはりつきます。プレイヤーはこれをバグと呼ぶでしょう。そしてそれは正しいのです</td>
 </tr>
 <tr>
-<td>Circles instead of rectangles</td>
-<td>Distance between centres is a shorter test. But rocks, floors and doors are rectangles, and a circle pretending to be a rectangle leaves gaps at the corners</td>
+<td>四角形のかわりに円を使う</td>
+<td>中心と中心の距離を使えば、判定はもっと短く書けます。でも岩や床やドアは四角形です。円が四角形のふりをすると、角のところにすき間ができます</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="プロンプト"><a class="heading-anchor" href="#プロンプト">プロンプト</a></h2>
 <pre><code>I have a canvas game in plain JavaScript with a player object { x, y } of size
 SIZE, moved in update(dt) by dx and dy. Add solid walls: an array of
 { x, y, w, h } objects, a general rectangle-overlap function, and movement that
@@ -159,41 +161,41 @@ axis in separate steps so the player slides along a wall instead of sticking,
 and snap the player exactly to the wall's edge rather than just refusing the
 move. Draw the walls. Do not write a special case for any individual wall.
 </code></pre>
-<p><strong>Check the output for:</strong> did it check the two axes separately, or did it test the new x and y together? Test it — hold a direction into a wall plus a perpendicular direction, and see whether you slide or stick. Did it snap to the wall's edge, or just cancel the move so you stop a few pixels short with a visible gap? And did the overlap function end up knowing about the player, instead of taking any two rectangles? If it does, the map in A16 will not fit through it.</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>出力を確認すること:</strong> 2つの向きを別々に調べていますか。それとも新しいxとyをまとめて調べていますか。ためしてみてください。壁に向かう向きと、それと直角の向きを同時に押して、すべるか、はりつくかを見ます。壁のふちにぴったり止まりましたか。それとも動きを取り消しただけで、数ピクセル手前にすき間ができていませんか。そして重なりを調べる関数が、どんな四角形2つでも受け取るのではなく、プレイヤーのことを知る作りになっていませんか。もしそうなっていたら、A16の地図はそこを通れません。</p>
+<h2 id="動作を確認する"><a class="heading-anchor" href="#動作を確認する">動作を確認する</a></h2>
 <p><img alt="A green square pressed flat against the left face of a tall brown rock, with two more rocks on the canvas" src="../static/img/game/a15.png"></p>
-<p>Open the page with Live Server and:</p>
+<p>Live Serverでページを開いて、次をやってみましょう。</p>
 <ol>
-<li>Hold the right arrow. The square starts at <code>x: 60</code>, crosses the gap, and stops. We read its position back: <code>x: 128</code>. The rock's left edge is at <code>160</code>, the square is <code>32</code> wide, and <code>160 - 32 = 128</code>. It stopped exactly on the edge, with no gap and no overlap.</li>
-<li>Keep holding right, as long as you like. It stays at <code>128</code>. It never gets through.</li>
-<li>Now hold right <strong>and</strong> down together, still pushing into the rock. We read back <code>x: 128, y: 225</code> — the sideways number did not move at all, and the up-down number changed by 165. That is sliding, and it is the point of this step.</li>
-<li>Hold right and <strong>up</strong> instead. Same thing the other way: <code>x: 128</code>, and <code>y</code> went back from <code>225</code> to <code>115</code>.</li>
-<li>Walk down onto the long floor rock and check it stops there too. The maths does not care which rock it is.</li>
+<li>右矢印を押しっぱなしにします。四角形は<code>x: 60</code>から出発し、すき間をわたって、止まります。位置を読み取ってみると<code>x: 128</code>でした。岩の左のふちは<code>160</code>、四角形の幅は<code>32</code>、そして<code>160 - 32 = 128</code>です。すき間も重なりもなく、ふちのちょうどそこで止まりました。</li>
+<li>好きなだけ右を押しつづけてください。<code>128</code>のままです。決して通り抜けません。</li>
+<li>では、岩に向かって押したまま、右<strong>と</strong>下を同時に押します。読み取ると<code>x: 128, y: 225</code>でした。横の数はまったく動かず、上下の数は165だけ変わりました。それがすべるということで、このステップの目的です。</li>
+<li>こんどは右と<strong>上</strong>を押します。逆向きに同じことが起きます。<code>x: 128</code>のままで、<code>y</code>は<code>225</code>から<code>115</code>に戻りました。</li>
+<li>下に歩いて長い床の岩に乗り、そこでも止まることを確認してください。計算は、どの岩かを気にしません。</li>
 </ol>
-<p>If the square goes straight through, check Block 1 first — is the rock where you think it is? Draw it and look, before you suspect the overlap test.</p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Take the game from <a href="a10.html">A10</a>. Add the <code>walls</code> array, <code>overlaps</code>, <code>moveX</code> and <code>moveY</code>. Then replace these two lines in <code>update</code>:</p>
+<p>四角形がまっすぐすり抜けてしまうときは、まずブロック1を見てください。岩は、あなたが思っている場所にありますか。重なりの判定を疑う前に、岩を描いて目で見てください。</p>
+<h2 id="ゲームに組み込む"><a class="heading-anchor" href="#ゲームに組み込む">ゲームに組み込む</a></h2>
+<p><a href="a10.html">A10</a>のゲームを用意します。<code>walls</code>の配列、<code>overlaps</code>、<code>moveX</code>、<code>moveY</code>を足します。そして<code>update</code>の中のこの2行を</p>
 <pre><code>player.x += dx * SPEED * dt;
 player.y += dy * SPEED * dt;
 </code></pre>
-<p>with these two:</p>
+<p>この2行に置きかえます。</p>
 <pre><code>if (dx !== 0) moveX(dx * SPEED * dt);
 if (dy !== 0) moveY(dy * SPEED * dt);
 </code></pre>
-<p>The "stay on screen" clamping from A10 moves inside <code>moveX</code> and <code>moveY</code>, because that is now the only place the position changes. Add one loop to <code>draw</code> so the rocks are visible — you cannot debug a wall you cannot see.</p>
+<p>A10の「画面の中にとどめる」処理は、<code>moveX</code>と<code>moveY</code>の中に移します。位置が変わるのは、もうそこだけだからです。<code>draw</code>にループを1つ足して、岩が見えるようにしましょう。見えない壁は直せません。</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="主なポイント"><a class="heading-anchor" href="#主なポイント">主なポイント</a></h2>
 <ul>
-<li>A wall is data — four numbers in a list — not code. That is what makes a whole map possible later</li>
-<li>Two rectangles overlap only if they overlap left-to-right AND top-to-bottom</li>
-<li>Ask "can I stand there?" before you move, not after</li>
-<li>Resolve one direction at a time, and sliding along walls comes free</li>
-<li>Stop exactly at the edge, not a few pixels short, so there is no mysterious gap</li>
+<li>壁はコードではなくデータです。リストに並んだ4つの数字。だからあとで地図まるごとが作れます</li>
+<li>2つの四角形が重なるのは、左右で重なっていて、かつ上下でも重なっているときだけです</li>
+<li>動いたあとではなく、動く前に「そこに立てる？」とたずねましょう</li>
+<li>1つの向きずつ処理すれば、壁に沿ってすべる動きはただで手に入ります</li>
+<li>数ピクセル手前ではなく、ふちのちょうどそこで止めましょう。そうすれば謎のすき間ができません</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Make one rock a <strong>door</strong>: give it an extra field, <code>open: false</code>, and let the player pass through it when it is open. You need one new line in the checking loop and one colour change in <code>draw</code>. Then work out how to open it — pressing a key while standing next to it is the easy version. This is the first time your world has something in it that is not simply solid, and it is all in Block 1's data.</p>
+<h2 id="あなたの番"><a class="heading-anchor" href="#あなたの番">あなたの番</a></h2>
+<p>岩の1つを<strong>ドア</strong>にしてみましょう。<code>open: false</code>という項目を足して、開いているときはプレイヤーが通れるようにします。調べるループに1行足して、<code>draw</code>で色を1つ変えるだけです。次に、どうやって開けるかを考えてみてください。となりに立ってキーを押す、というのがかんたんな方法です。あなたの世界に、ただ固いだけではないものが入るのは、これが初めてです。そしてそれは全部、ブロック1のデータの中にあります。</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">AIレッスンに戻る</a>
         <div class="lesson-pager">

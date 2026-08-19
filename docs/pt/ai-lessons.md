@@ -27,12 +27,12 @@ Um projeto real, do início ao fim: um jogo sem servidor, que você pode enviar 
 - [A12: Outras Pessoas](lessons/a12.md) - Um segundo quadrado na sua tela, controlado por outra pessoa em outro computador, sem um servidor no meio.
 - [A13: Conversando, com Segurança](lessons/a13.md) - Toque em uma frase e ela aparecerá acima do seu quadrado na tela de todos os outros — com uma lista do que pode ser dito e uma verificação que descarta qualquer outra coisa.
 - [A14: Seu Monstro](lessons/a14.md) - O quadrado se torna um monstro, e suas pernas se movem quando ele anda.
-- [A15: Walls](lessons/a15.md) - Walk into a rock and stop — and slide along it instead of sticking.
+- [A15: Paredes](lessons/a15.md) - Ande contra uma rocha e pare — e deslize por ela em vez de ficar preso.
 - [A16: O Mapa](lessons/a16.md) - Um mundo muito maior que a tela, que desliza por você enquanto caminha.
-- [A17: Sound](lessons/a17.md) - A footstep every time you walk, music when you ask for it, and a button that makes it all stop.
-- [A18: Put It Online](lessons/a18.md) - Give your game a real address on the internet, and get a proper undo button while you are at it.
-- [A19: Challenge Someone](lessons/a19.md) - Walk up to another player, press one key, and a fight screen opens on both computers at the same moment.
-- [A20: Three Moves](lessons/a20.md) - Pick scissors, rock or paper, and see on the screen who won the round and why.
-- [A21: Someone to Fight](lessons/a21.md) - A computer opponent, so there is always someone to fight even when nobody else is online.
+- [A17: Som](lessons/a17.md) - Um passo cada vez que você anda, música quando você pede, e um botão que faz tudo parar.
+- [A18: Coloque na Internet](lessons/a18.md) - Dê ao seu jogo um endereço de verdade na internet e, de passagem, ganhe um botão de desfazer que presta.
+- [A19: Desafie Alguém](lessons/a19.md) - Chegue perto de outro jogador, aperte uma tecla, e uma tela de luta abre nos dois computadores no mesmo instante.
+- [A20: Três Jogadas](lessons/a20.md) - Escolha tesoura, pedra ou papel e veja na tela quem ganhou a rodada e por quê.
+- [A21: Alguém para Enfrentar](lessons/a21.md) - Um oponente do computador, para que sempre haja alguém para enfrentar, mesmo quando ninguém mais está online.
 - [A22: Sem Espiar](lessons/a22.md) - Opcional: como dois jogadores travam seus movimentos antes que um seja revelado, para que nenhum possa vencer esperando para ver o do outro.
-- [A23: What We Didn't Build](lessons/a23.md) - The things this game deliberately does not have, what each one would have cost, and why leaving them out was the design.
+- [A23: O Que Não Construímos](lessons/a23.md) - As coisas que este jogo deliberadamente não tem, quanto cada uma teria custado, e por que deixá-las de fora era o projeto.

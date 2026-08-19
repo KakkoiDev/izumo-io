@@ -66,6 +66,8 @@ flowchart LR
     A["Sound"] --> R
 
     classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    classDef done fill:#2f6f4f,stroke:#8fd6b4,color:#fff
+    class N,D,R,S,W,A done
     class F,O now
 
 </div>
@@ -187,7 +189,7 @@ of opponent it is. Show me only the new object.
 <ul>
 <li>「あなたの手番は何ですか？」という質問に同意し、各ファイターが独自の方法でそれに答えさせること</li>
 <li>質問をするコードは、何が答えているのかを知る必要がない。これがポリモーフィズムです</li>
-<li>分割する価値があったことの証明は、変更する必要がなかった関数です: `compare` はA20のものと同一です</li>
+<li>分割する価値があったことの証明は、変更する必要がなかった関数です: <code>compare</code> はA20のものと同一です</li>
 <li>ルールがあり、ランダム性がない対戦相手は、一度解けば永遠に勝てるパズルです</li>
 <li>短い記憶（直近5つの手番）は、これまでの平均ではなく、あなたが今していることに反応します</li>
 </ul>

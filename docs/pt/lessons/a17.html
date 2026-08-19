@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Sound - KakkoiSchool</title>
+  <title>Som - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a18.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a17-sound"><a class="heading-anchor" href="#a17-sound">A17: Sound</a></h1>
-<p class="lesson-intro">Walk, and you hear a footstep. Press a button, and music plays. And because a room full of laptops all making noise at once is horrible, sound starts switched off.</p>
-<p><strong>Needs:</strong> <a href="a10.html">A10</a>. <strong>Gives you:</strong> a footstep when you move, music when you ask for it, and one button that silences everything.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a17-som"><a class="heading-anchor" href="#a17-som">A17: Som</a></h1>
+<p class="lesson-intro">Ande, e você ouve um passo. Aperte um botão, e a música toca. E como uma sala cheia de notebooks fazendo barulho ao mesmo tempo é horrível, o som começa desligado.</p>
+<p><strong>Precisa de:</strong> <a href="a10.html">A10</a>. <strong>Oferece:</strong> um passo quando você se move, música quando você pede, e um botão que silencia tudo.</p>
+<h2 id="o-jogo-completo-e-a-parte-de-hoje"><a class="heading-anchor" href="#o-jogo-completo-e-a-parte-de-hoje">O jogo completo, e a parte de hoje</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -66,27 +66,29 @@ flowchart LR
     A["Sound"] --> R
 
     classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    classDef done fill:#2f6f4f,stroke:#8fd6b4,color:#fff
+    class N,D,R,S,O,W done
     class A now
 
 </div>
-<p>Today you build the "sound" box. It sits next to drawing, because it does the same job: it turns numbers that already changed into something a person can notice.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"The game makes sounds" is three things:</p>
+<p>Hoje você constrói a caixa "som". Ela fica ao lado do desenho, porque faz o mesmo trabalho: transforma números que já mudaram em algo que uma pessoa pode perceber.</p>
+<h2 id="dividindo-em-blocos"><a class="heading-anchor" href="#dividindo-em-blocos">Dividindo em blocos</a></h2>
+<p>"O jogo faz sons" são três coisas:</p>
 <ol>
-<li><strong>Load</strong> — get the files ready before you need them</li>
-<li><strong>Play</strong> — start a sound when something happens</li>
-<li><strong>Turn it off</strong> — one control that silences everything</li>
+<li><strong>Carregar</strong> — deixar os arquivos prontos antes de precisar deles</li>
+<li><strong>Tocar</strong> — começar um som quando algo acontece</li>
+<li><strong>Desligar</strong> — um controle que silencia tudo</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Silence has at least three different causes here, and they need three different repairs. The file never arrived. The file arrived but the browser refused to play it. Or it played perfectly and the sound is switched off. Three blocks, three separate questions.</p>
-<h2 id="the-rule-that-surprises-everyone"><a class="heading-anchor" href="#the-rule-that-surprises-everyone">The rule that surprises everyone</a></h2>
-<p><strong>A browser will not play sound until the person has done something on the page.</strong> A click. A key press. A tap. Until then, every attempt to play is refused.</p>
-<p>This is not a bug and it is not your code. It is a rule that exists so a page cannot ambush you with noise the moment you open it. Think of every website you have ever opened at night with the volume up.</p>
-<p>Our demo asks to play music on load, on purpose, so you can see the refusal:</p>
+<p><strong>Por que dividir?</strong> Porque se fosse tudo um bloco só e desse errado, você não saberia qual parte está errada. O silêncio tem pelo menos três causas diferentes aqui, e elas pedem três consertos diferentes. O arquivo nunca chegou. O arquivo chegou, mas o navegador se recusou a tocá-lo. Ou ele tocou perfeitamente e o som está desligado. Três blocos, três perguntas separadas.</p>
+<h2 id="a-regra-que-surpreende-todo-mundo"><a class="heading-anchor" href="#a-regra-que-surpreende-todo-mundo">A regra que surpreende todo mundo</a></h2>
+<p><strong>Um navegador não toca som até a pessoa ter feito algo na página.</strong> Um clique. Uma tecla. Um toque. Antes disso, toda tentativa de tocar é recusada.</p>
+<p>Isso não é um bug e não é o seu código. É uma regra que existe para que uma página não possa te atacar de surpresa com barulho no instante em que você a abre. Pense em todos os sites que você já abriu de noite com o volume alto.</p>
+<p>Nossa demonstração pede para tocar música ao carregar, de propósito, para você poder ver a recusa:</p>
 <pre><code>NotAllowedError: play() failed because the user didn't interact with the document first.
 </code></pre>
-<p>That is the exact message we got. Now here is the part that catches people. <code>play()</code> does not throw an error you trip over. It hands back a <strong>promise</strong> — an object that means <em>"an answer is coming later"</em>. If you ignore it, the refusal is thrown away, and all you get is silence with a clean console and nothing to look at.</p>
-<p>So: <strong>always put a <code>.catch</code> on <code>play()</code></strong>. Then you get told.</p>
-<h2 id="block-1-load"><a class="heading-anchor" href="#block-1-load">Block 1: Load</a></h2>
+<p>Essa é exatamente a mensagem que recebemos. E agora vem a parte que pega as pessoas. <code>play()</code> não lança um erro no qual você tropeça. Ele devolve uma <strong>promise</strong> — um objeto que quer dizer <em>"uma resposta vem depois"</em>. Se você a ignorar, a recusa é jogada fora, e tudo o que você recebe é silêncio, com o console limpo e nada para olhar.</p>
+<p>Então: <strong>sempre coloque um <code>.catch</code> no <code>play()</code></strong>. Aí você fica sabendo.</p>
+<h2 id="bloco-1-carregar"><a class="heading-anchor" href="#bloco-1-carregar">Bloco 1: Carregar</a></h2>
 <pre><code>const step = new Audio('../../audio/step.wav');
 const music = new Audio('../../audio/music-loop.mp3');
 music.loop = true;
@@ -95,12 +97,12 @@ music.volume = 0.4;
 step.addEventListener('canplaythrough', () =&gt; loaded('step.wav loaded.'), { once: true });
 step.addEventListener('error', () =&gt; loaded('step.wav did NOT load.'));
 </code></pre>
-<p><code>new Audio(path)</code> makes a sound you can control. Making it does not play it and does not even finish fetching it.</p>
-<p><code>canplaythrough</code> means "enough of this has arrived to play it to the end without stopping". <code>error</code> means the file did not arrive at all — a wrong path, usually.</p>
-<p><code>{ once: true }</code> says "tell me the first time only". Without it this message fires again every time the sound is rewound, and stamps over whatever else the page was saying. That really happened to us while building this.</p>
-<p><code>music.loop = true</code> makes it start again when it ends. <code>volume</code> runs from 0 to 1, and 0.4 is quiet enough to hear the game over it.</p>
-<p><strong>Two file types, on purpose.</strong> The short effects are <code>.wav</code> and the music is <code>.mp3</code>. Both of those play in every browser. Ogg Vorbis makes smaller files, but Safari's support for it is patchy — so some students would get silence with nothing on screen to explain it. A file type that fails loudly is better than one that fails quietly. WAV is only sensible here because these effects are tiny: the footstep lasts 0.049 seconds and weighs 4 kB.</p>
-<h2 id="block-2-play"><a class="heading-anchor" href="#block-2-play">Block 2: Play</a></h2>
+<p><code>new Audio(caminho)</code> cria um som que você pode controlar. Criá-lo não o toca e nem termina de baixá-lo.</p>
+<p><code>canplaythrough</code> quer dizer "já chegou o bastante para tocar até o fim sem parar". <code>error</code> quer dizer que o arquivo não chegou de jeito nenhum — em geral, um caminho errado.</p>
+<p><code>{ once: true }</code> diz "me avise só na primeira vez". Sem isso, essa mensagem aparece de novo cada vez que o som é rebobinado, e passa por cima do que a página estava dizendo. Isso aconteceu de verdade com a gente enquanto construíamos isto.</p>
+<p><code>music.loop = true</code> faz o som começar de novo quando termina. <code>volume</code> vai de 0 a 1, e 0.4 é baixo o bastante para você ouvir o jogo por cima dele.</p>
+<p><strong>Dois tipos de arquivo, de propósito.</strong> Os efeitos curtos são <code>.wav</code> e a música é <code>.mp3</code>. Os dois tocam em todos os navegadores. O Ogg Vorbis gera arquivos menores, mas o suporte do Safari a ele é irregular — então alguns estudantes teriam silêncio, sem nada na tela explicando o motivo. Um tipo de arquivo que falha em voz alta é melhor do que um que falha calado. O WAV só faz sentido aqui porque esses efeitos são minúsculos: o passo dura 0,049 segundo e pesa 4 kB.</p>
+<h2 id="bloco-2-tocar"><a class="heading-anchor" href="#bloco-2-tocar">Bloco 2: Tocar</a></h2>
 <pre><code>let walked = 0;
 
 function footstep() {
@@ -109,13 +111,13 @@ function footstep() {
   step.play().catch((err) =&gt; say('Footstep refused — ' + err.name));
 }
 </code></pre>
-<p>And inside <code>update</code>, after the square has moved:</p>
+<p>E dentro do <code>update</code>, depois de o quadrado ter se movido:</p>
 <pre><code>walked += Math.hypot(dx, dy) * SPEED * dt;
 if (walked &gt; 26) { walked = 0; footstep(); }
 </code></pre>
-<p>A footstep every 26 pixels, not every frame. Tie the sound to the distance travelled, not to time, and it speeds up and slows down with you for free.</p>
-<p><strong><code>step.currentTime = 0</code> is the whole trick.</strong> An <code>Audio</code> that is already playing ignores <code>play()</code>. Ask it twice quickly and the second ask does nothing — you hear one footstep instead of two. Winding it back to the start first makes it restart. We proved this on the music: calling <code>play()</code> on a track already 15 seconds in left it at 15 seconds and carried on.</p>
-<h2 id="block-3-turn-it-off"><a class="heading-anchor" href="#block-3-turn-it-off">Block 3: Turn it off</a></h2>
+<p>Um passo a cada 26 pixels, não a cada frame. Amarre o som à distância percorrida, e não ao tempo, e ele acelera e desacelera junto com você de graça.</p>
+<p><strong><code>step.currentTime = 0</code> é todo o truque.</strong> Um <code>Audio</code> que já está tocando ignora o <code>play()</code>. Peça duas vezes rápido e o segundo pedido não faz nada — você ouve um passo em vez de dois. Rebobinar até o começo antes faz o som reiniciar. Provamos isso na música: chamar <code>play()</code> numa faixa que já estava nos 15 segundos deixou ela nos 15 segundos e seguiu em frente.</p>
+<h2 id="bloco-3-desligar"><a class="heading-anchor" href="#bloco-3-desligar">Bloco 3: Desligar</a></h2>
 <pre><code>let soundOn = false;
 
 soundBtn.addEventListener('click', () =&gt; {
@@ -125,42 +127,42 @@ soundBtn.addEventListener('click', () =&gt; {
   else say('Sound on. Walk around.');
 });
 </code></pre>
-<p><code>soundOn</code> starts as <code>false</code>. Every sound in the game asks it first.</p>
-<p>Notice this also solves the refusal problem without any extra code. The person has to click the button to turn sound on — and that click <em>is</em> the interaction the browser was waiting for. The first sound you hear is always one you asked for.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p><strong>Sound off by default, with an obvious way to turn it on.</strong> A classroom of laptops all making noise at once is miserable for everyone in the room, and somebody may be listening to something else on purpose. A game that starts silent and can be switched on loses nothing. A game that starts loud gets closed.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p><code>soundOn</code> começa como <code>false</code>. Todo som do jogo pergunta a ele primeiro.</p>
+<p>Note que isso também resolve o problema da recusa, sem nenhuma linha a mais. A pessoa precisa clicar no botão para ligar o som — e esse clique <em>é</em> a interação que o navegador estava esperando. O primeiro som que você ouve é sempre um que você pediu.</p>
+<h2 id="por-que-fizemos-isso-desta-forma"><a class="heading-anchor" href="#por-que-fizemos-isso-desta-forma">Por que fizemos isso desta forma</a></h2>
+<p><strong>Som desligado por padrão, com um jeito óbvio de ligar.</strong> Uma sala de aula de notebooks todos fazendo barulho ao mesmo tempo é péssima para todo mundo ali dentro, e pode ser que alguém esteja ouvindo outra coisa de propósito. Um jogo que começa em silêncio e pode ser ligado não perde nada. Um jogo que começa alto é fechado.</p>
+<h2 id="o-que-poder-amos-ter-feito-em-vez-disso"><a class="heading-anchor" href="#o-que-poder-amos-ter-feito-em-vez-disso">O que poderíamos ter feito em vez disso</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>Em vez disso</th>
+<th>O que custaria</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Sound on by default</td>
-<td>Every laptop in the room shouts at once the moment the page opens, and the first thing a person learns is where the mute button is</td>
+<td>Som ligado por padrão</td>
+<td>Todo notebook da sala grita ao mesmo tempo no instante em que a página abre, e a primeira coisa que a pessoa aprende é onde fica o botão de silenciar</td>
 </tr>
 <tr>
-<td>Playing the sound every frame while walking</td>
-<td>Sixty footsteps a second is a buzz, not a footstep. The step has to be spaced out by something, and distance is the honest choice</td>
+<td>Tocar o som a cada frame enquanto anda</td>
+<td>Sessenta passos por segundo é um zumbido, não um passo. O passo precisa ser espaçado por alguma coisa, e a distância é a escolha honesta</td>
 </tr>
 <tr>
-<td>One <code>Audio</code> per effect, never rewound</td>
-<td>Fine until two footsteps land close together, then you silently lose one. Rewinding costs one line</td>
+<td>Um <code>Audio</code> por efeito, nunca rebobinado</td>
+<td>Serve até dois passos caírem muito perto um do outro, e aí você perde um, calado. Rebobinar custa uma linha</td>
 </tr>
 <tr>
-<td>Web Audio API instead of <code>Audio</code></td>
-<td>Real control — mixing, effects, sounds overlapping perfectly. Also many times more code, and everything you can hear in this step needs none of it</td>
+<td>A Web Audio API em vez de <code>Audio</code></td>
+<td>Controle de verdade — mixagem, efeitos, sons se sobrepondo perfeitamente. Também muitas vezes mais código, e nada do que você ouve nesta etapa precisa disso</td>
 </tr>
 <tr>
-<td>Ogg Vorbis files, which are smaller</td>
-<td>Smaller downloads, and silence on some Safari machines with nothing on screen explaining why. A quiet failure is the worst kind</td>
+<td>Arquivos Ogg Vorbis, que são menores</td>
+<td>Downloads menores, e silêncio em algumas máquinas com Safari, sem nada na tela explicando por quê. Uma falha calada é o pior tipo</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="o-prompt"><a class="heading-anchor" href="#o-prompt">O prompt</a></h2>
 <pre><code>I have a canvas game in plain JavaScript. main.js has update(dt) which moves
 the player, and draw() which paints. Add sound in three separate blocks with a
 comment above each: LOAD (an Audio for audio/step.wav and one for
@@ -169,35 +171,35 @@ pixels walked, restarting the sound if it is already playing), TURN IT OFF (a
 boolean that starts false, and a button that toggles it and pauses the music).
 Every play() must have a .catch. Plain JavaScript, no build step, no npm.
 </code></pre>
-<p><strong>Check the output for:</strong> did every <code>play()</code> get a <code>.catch</code>? Assistants leave them off constantly, and the result is sound that fails with no message anywhere. Did it rewind with <code>currentTime = 0</code> before playing the footstep again, or will the second quick step be swallowed? And does the sound flag really start at <code>false</code>, or did it quietly start your game with the noise on?</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>Verifique na resposta:</strong> todo <code>play()</code> recebeu um <code>.catch</code>? Os assistentes esquecem disso o tempo todo, e o resultado é um som que falha sem mensagem em lugar nenhum. Ele rebobinou com <code>currentTime = 0</code> antes de tocar o passo de novo, ou o segundo passo rápido vai ser engolido? E a variável do som realmente começa em <code>false</code>, ou ele começou seu jogo com o barulho ligado, sem avisar?</p>
+<h2 id="veja-funcionar"><a class="heading-anchor" href="#veja-funcionar">Veja funcionar</a></h2>
 <p><img alt="A game page with a green square, a Sound button reading &quot;on&quot;, a Play music button, and two lines of text saying step.wav loaded and Music playing" src="../static/img/game/a17.png"></p>
-<p>Open the page with Live Server and:</p>
+<p>Abra a página com o Live Server e:</p>
 <ol>
-<li>Do nothing at all. The second line already says <code>Refused before any click — NotAllowedError</code>. That is the browser's rule, working.</li>
-<li>Open the console and type <code>firstPlayError</code>. You get the full sentence, including the word <code>NotAllowedError</code>.</li>
-<li>Press an arrow key and walk about. Nothing. Sound is off, and the square is a dull green to show it.</li>
-<li>Click <strong>Sound: off</strong>. It becomes <strong>Sound: on</strong> and the square brightens.</li>
-<li>Walk again. Footsteps, one every few steps. We counted nine footsteps in 1.2 seconds of walking, and the sound reached the end of its 0.049 seconds every time.</li>
-<li>Click <strong>Play music</strong>. The line says <code>Music playing.</code> In the console, <code>music.currentTime</code> climbs past 0 and keeps going.</li>
-<li>Click <strong>Sound: on</strong> to turn it back off. The music stops in the same instant, and walking is silent again — we walked for over a second and not one footstep started.</li>
-<li>Click <strong>Play music</strong> while sound is off. Nothing plays, and the page tells you why: <code>Turn the sound on first.</code></li>
+<li>Não faça nada. A segunda linha já diz <code>Refused before any click — NotAllowedError</code>. É a regra do navegador, funcionando.</li>
+<li>Abra o console e digite <code>firstPlayError</code>. Você recebe a frase completa, incluindo a palavra <code>NotAllowedError</code>.</li>
+<li>Aperte uma tecla de seta e ande por aí. Nada. O som está desligado, e o quadrado está de um verde apagado para mostrar isso.</li>
+<li>Clique em <strong>Sound: off</strong>. Ele vira <strong>Sound: on</strong> e o quadrado fica mais claro.</li>
+<li>Ande de novo. Passos, um a cada poucos passos. Contamos nove passos em 1,2 segundo andando, e o som chegou ao fim dos seus 0,049 segundo todas as vezes.</li>
+<li>Clique em <strong>Play music</strong>. A linha diz <code>Music playing.</code> No console, <code>music.currentTime</code> passa de 0 e continua subindo.</li>
+<li>Clique em <strong>Sound: on</strong> para desligar de novo. A música para no mesmo instante, e andar volta a ser silencioso — andamos por mais de um segundo e nenhum passo começou.</li>
+<li>Clique em <strong>Play music</strong> com o som desligado. Nada toca, e a página diz por quê: <code>Turn the sound on first.</code></li>
 </ol>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Take your game from <a href="a15.html">A15</a> and paste in the three blocks. Only one line goes inside code you already had: the two lines at the end of <code>update</code> that count how far you walked. Everything else is new and sits on its own.</p>
+<h2 id="coloque-no-jogo"><a class="heading-anchor" href="#coloque-no-jogo">Coloque no jogo</a></h2>
+<p>Pegue o seu jogo de <a href="a15.html">A15</a> e cole os três blocos. Só uma coisa entra dentro de código que você já tinha: as duas linhas no fim do <code>update</code> que contam quanto você andou. Todo o resto é novo e fica por conta própria.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>A browser refuses to play sound until the person has clicked or pressed a key — this is a rule, not a bug</li>
-<li><code>play()</code> answers with a promise, so without a <code>.catch</code> a refusal is thrown away and you get silence with no explanation</li>
-<li>Loading a file and playing it are two different jobs, and each one fails in its own way</li>
-<li>A sound that is already playing ignores <code>play()</code>; wind it back to 0 first</li>
-<li>Start with the sound off and make turning it on obvious — the room you are sitting in has other people in it</li>
+<li>Um navegador se recusa a tocar som até a pessoa ter clicado ou apertado uma tecla — isso é uma regra, não um bug</li>
+<li><code>play()</code> responde com uma promise, então sem um <code>.catch</code> a recusa é jogada fora e você fica com silêncio sem explicação</li>
+<li>Carregar um arquivo e tocá-lo são dois trabalhos diferentes, e cada um falha do seu próprio jeito</li>
+<li>Um som que já está tocando ignora o <code>play()</code>; rebobine para 0 primeiro</li>
+<li>Comece com o som desligado e deixe óbvio como ligar — a sala onde você está tem outras pessoas dentro</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Right now the footstep is the same sound every time, which after a minute stops sounding like walking and starts sounding like a machine. Load two or three sounds into an array — there are more files in the <code>audio/</code> folder — and pick one at random each step. Then try the same idea with the volume: a small random change, up or down, on every step. <em>Grown-up programmers call this variation, and it is most of what makes game sound feel alive.</em></p>
+<h2 id="sua-vez"><a class="heading-anchor" href="#sua-vez">Sua vez</a></h2>
+<p>Agora o passo é sempre o mesmo som, o que depois de um minuto para de soar como andar e começa a soar como uma máquina. Carregue dois ou três sons em um array — há mais arquivos na pasta <code>audio/</code> — e sorteie um em cada passo. Depois tente a mesma ideia com o volume: uma pequena mudança aleatória, para cima ou para baixo, em cada passo. <em>Programadores adultos chamam isso de variação, e é a maior parte do que faz o som de um jogo parecer vivo.</em></p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">

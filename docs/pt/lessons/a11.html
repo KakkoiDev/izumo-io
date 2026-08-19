@@ -66,6 +66,8 @@ flowchart LR
     A["Sound"] --> R
 
     classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    classDef done fill:#2f6f4f,stroke:#8fd6b4,color:#fff
+    class N,D,R done
     class S now
 
 </div>
@@ -168,7 +170,14 @@ const player = load();
 </tbody>
 </table>
 <h2 id="o-prompt"><a class="heading-anchor" href="#o-prompt">O prompt</a></h2>
-<p>Tenho um jogo em canvas em JavaScript puro. O jogador é um objeto com x, y e nome. Adicione salvamento ao localStorage sob uma chave, como um objeto JSON, gravado duas vezes por segundo com setInterval. Na inicialização, carregue-o. Coloque um número de versão no objeto salvo e lide com três casos problemáticos separadamente: nada salvo ainda, texto que não é JSON válido e um salvamento cuja versão não é a atual. Em cada caso problemático, comece com valores padrão e nunca lance erros. Mantenha gravar, ler e lidar como três funções separadas.</p>
+<pre><code>I have a canvas game in plain JavaScript. The player is an object with x, y and
+name. Add saving to localStorage under one key, as one JSON object, written
+twice a second with setInterval. On startup, load it. Put a version number in
+the saved object and handle three bad cases separately: nothing saved yet,
+text that is not valid JSON, and a save whose version is not the current one.
+In every bad case start from default values and never throw. Keep write, read
+and cope as three separate functions.
+</code></pre>
 <p><strong>Verifique a saída para:</strong> ele realmente envolveu <code>JSON.parse</code> em <code>try</code>/<code>catch</code>, ou apenas verificou <code>null</code>? São falhas diferentes e apenas uma delas é capturada por uma verificação de nulo. A verificação de versão compara com <code>!==</code>, ou lidou apenas com versões <em>antigas</em> e esqueceu um salvamento de uma versão que ainda não existe? E salvou a cada frame no loop do jogo em vez de em um temporizador — assistentes fazem isso frequentemente, porque é uma linha mais curta.</p>
 <h2 id="veja-funcionar"><a class="heading-anchor" href="#veja-funcionar">Veja funcionar</a></h2>
 <p><img alt="A green square on a dark canvas with the name Mika above it, and a name box below the canvas" src="../static/img/game/a11.png"></p>
@@ -193,7 +202,7 @@ const player = load();
 <li>Salve com um temporizador, não a cada frame — as 58 gravações extras por segundo não lhe trazem nada</li>
 <li>Coloque um número de versão em cada salvamento, porque um salvamento sobrevive ao código que o escreveu</li>
 <li>Todo salvamento corrompido termina da mesma forma: comece do zero, nunca trave</li>
-<li>`try` e `catch` significam "tente isso, e se explodir, faça aquilo em vez disso" — `JSON.parse` explode com lixo</li>
+<li><code>try</code> e <code>catch</code> significam "tente isso, e se explodir, faça aquilo em vez disso" — <code>JSON.parse</code> explode com lixo</li>
 </ul>
 </div>
 

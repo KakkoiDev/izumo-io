@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Three Moves - KakkoiSchool</title>
+  <title>3つの手 - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a21.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a20-three-moves"><a class="heading-anchor" href="#a20-three-moves">A20: Three Moves</a></h1>
-<p class="lesson-intro">You have a fight screen. Now you need something to fight with. Three buttons, one winner, and a sentence saying why.</p>
-<p><strong>Needs:</strong> <a href="a19.html">A19</a>. <strong>Gives you:</strong> a round you can play — pick a move, see the result and the reason for it.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a20-3つの手"><a class="heading-anchor" href="#a20-3つの手">A20: 3つの手</a></h1>
+<p class="lesson-intro">対戦画面はできました。次に必要なのは、戦うための中身です。ボタン3つ、勝者1人、そして理由を書いた1文です。</p>
+<p><strong>必要なもの:</strong> <a href="a19.html">A19</a>。<strong>得られるもの:</strong> 遊べるラウンド。手を選ぶと、結果とその理由が見られます。</p>
+<h2 id="ゲーム全体と今日の部分"><a class="heading-anchor" href="#ゲーム全体と今日の部分">ゲーム全体と今日の部分</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -66,25 +66,27 @@ flowchart LR
     A["Sound"] --> R
 
     classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    classDef done fill:#2f6f4f,stroke:#8fd6b4,color:#fff
+    class N,D,R,S,O,W,A done
     class F now
 
 </div>
-<p>The demo for this step keeps both players on one page, so you can watch the whole round at once. The real game sends these moves over the wire, using the connection you built in <a href="a19.html">A19</a>.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"Pick a move and see who won" is three things:</p>
+<p>このステップのデモでは、2人のプレイヤーを1つのページの中に置いています。ラウンド全体を一度に見られるようにするためです。本物のゲームでは、この手は<a href="a19.html">A19</a>で作った接続を通って、線の向こうに送られます。</p>
+<h2 id="ブロックに分割する"><a class="heading-anchor" href="#ブロックに分割する">ブロックに分割する</a></h2>
+<p>「手を選んで、だれが勝ったかを見る」は3つのことです。</p>
 <ol>
-<li><strong>Choose</strong> — you press a button; the other side picks too</li>
-<li><strong>Compare</strong> — take the two moves and work out the winner</li>
-<li><strong>Show</strong> — put the answer on the screen in words</li>
+<li><strong>選ぶ</strong> — あなたがボタンを押し、相手も手を選ぶ</li>
+<li><strong>くらべる</strong> — 2つの手を受け取って、勝者を計算する</li>
+<li><strong>見せる</strong> — その答えを、言葉にして画面に出す</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because "compare" is the only part you can check without playing. Give it rock and scissors, and the answer must always be the same. If choosing, comparing and showing were one lump and the wrong name appeared on screen, you would have one question — <em>"why is it wrong?"</em> — and three suspects. Split, you can ask "compare" directly and get an answer in a second.</p>
-<h2 id="block-1-choose"><a class="heading-anchor" href="#block-1-choose">Block 1: Choose</a></h2>
-<p>Three buttons, big enough for a thumb.</p>
+<p><strong>なぜわざわざ分けるのでしょう。</strong> 「くらべる」だけが、遊ばずに確かめられる部分だからです。いしとはさみをわたせば、答えはいつでも同じでないといけません。もし選ぶ・くらべる・見せるが1つのかたまりで、画面にまちがった名前が出たら、質問は1つ（<em>「なぜまちがっているの？」</em>）なのに、うたがう相手が3人になります。分けておけば、「くらべる」に直接たずねて、1秒で答えがもらえます。</p>
+<h2 id="ブロック1-選ぶ"><a class="heading-anchor" href="#ブロック1-選ぶ">ブロック1: 選ぶ</a></h2>
+<p>親指で押せるくらい大きなボタンを3つ。</p>
 <pre><code>&lt;button data-move=&quot;scissors&quot;&gt;🔥 scissors&lt;/button&gt;
 &lt;button data-move=&quot;rock&quot;&gt;💧 rock&lt;/button&gt;
 &lt;button data-move=&quot;paper&quot;&gt;🪨 paper&lt;/button&gt;
 </code></pre>
-<p><code>data-move</code> is a label you invent and stick on the button. The browser ignores it. Your code reads it back with <code>button.dataset.move</code>, so one piece of code serves all three buttons instead of three almost-identical pieces.</p>
+<p><code>data-move</code>は、あなたが自分で考えてボタンに貼りつけた札です。ブラウザはこれを無視します。あなたのコードは<code>button.dataset.move</code>でそれを読み返すので、そっくりなコードを3つ書くのではなく、1つのコードで3つのボタンをまとめて面倒みられます。</p>
 <pre><code>const MOVES = ['scissors', 'rock', 'paper'];
 
 function theirChoice() {
@@ -95,9 +97,9 @@ for (const button of document.querySelectorAll('#moves button')) {
   button.addEventListener('click', () =&gt; playRound(button.dataset.move));
 }
 </code></pre>
-<p><code>Math.random()</code> gives a number from 0 up to just under 1. Multiply by 3 and round down, and you get 0, 1 or 2 — one of the three moves.</p>
-<p>Here the other side rolls a dice. In the real game their move arrives over the network. Nothing in the next block cares which of those it was.</p>
-<h2 id="block-2-compare"><a class="heading-anchor" href="#block-2-compare">Block 2: Compare</a></h2>
+<p><code>Math.random()</code>は、0以上1より少し下までの数を返します。3をかけて小数を切りすてると、0か1か2になります。3つの手のどれかです。</p>
+<p>ここでは、相手はさいころをふっています。本物のゲームでは、相手の手はネットワークを通って届きます。次のブロックは、そのどちらだったかを気にしません。</p>
+<h2 id="ブロック2-くらべる"><a class="heading-anchor" href="#ブロック2-くらべる">ブロック2: くらべる</a></h2>
 <pre><code>// rock beats scissors, scissors beats paper, paper beats rock.
 const BEATS = { rock: 'scissors', scissors: 'paper', paper: 'rock' };
 
@@ -107,16 +109,16 @@ function compare(mine, theirs) {
   return { winner: 'them', why: theirs + ' beats ' + mine };
 }
 </code></pre>
-<p><code>BEATS</code> is the whole rule of the game written as three pairs. <code>BEATS.rock</code> is <code>'scissors'</code>, which reads as "rock beats scissors". Everything else falls out of it.</p>
-<p>Look at what this function does <em>not</em> do. It does not touch the screen. It does not ask the clock. It does not roll a dice. Put the same two moves in and you get the same answer out, today and in a year. <strong>Grown-up programmers call that a pure function, so now you know that phrase too.</strong></p>
-<p>Pure means testable. You can check it without a single button press:</p>
+<p><code>BEATS</code>は、このゲームのルール全部を3つの組で書いたものです。<code>BEATS.rock</code>は<code>'scissors'</code>で、「いしははさみに勝つ」と読めます。あとのことは、全部そこから出てきます。</p>
+<p>この関数が<em>していない</em>ことを見てください。画面にはふれません。時計にもたずねません。さいころもふりません。同じ2つの手を入れれば、同じ答えが出てきます。今日も、1年後も。<strong>大人のプログラマーはこれを純粋関数と呼びます。これであなたも、この言葉を知りました。</strong></p>
+<p>純粋であることは、テストできるということです。ボタンを1回も押さずに確かめられます。</p>
 <pre><code>console.assert(compare('rock', 'scissors').winner === 'you', 'rock should beat scissors');
 console.assert(compare('scissors', 'rock').winner === 'them', 'scissors should lose to rock');
 console.assert(compare('paper', 'paper').winner === 'nobody', 'same move is a draw');
 </code></pre>
-<p><code>console.assert</code> says nothing when it is right and complains in the browser console when it is wrong. Silence is the pass.</p>
-<p>It also returns a <code>why</code>, not just a winner. A game that says "you lose" teaches nothing. A game that says "rock beats scissors" teaches the rule while you play.</p>
-<h2 id="block-3-show"><a class="heading-anchor" href="#block-3-show">Block 3: Show</a></h2>
+<p><code>console.assert</code>は、正しいときは何も言わず、まちがっているときだけブラウザのコンソールで文句を言います。静かなことが合格です。</p>
+<p>それに、勝者だけでなく<code>why</code>（理由）も返しています。「あなたの負け」と言うだけのゲームは、何も教えてくれません。「いしははさみに勝つ」と言うゲームは、遊びながらルールを教えてくれます。</p>
+<h2 id="ブロック3-見せる"><a class="heading-anchor" href="#ブロック3-見せる">ブロック3: 見せる</a></h2>
 <pre><code>function show(mine, theirs, result) {
   const heading = { you: 'You win!', them: 'You lose.', nobody: 'A draw.' };
   document.querySelector('#who').textContent = heading[result.winner];
@@ -124,8 +126,8 @@ console.assert(compare('paper', 'paper').winner === 'nobody', 'same move is a dr
     'You played ' + mine + '. They played ' + theirs + '. ' + result.why + '.';
 }
 </code></pre>
-<p>This block does no thinking. It is handed an answer and puts it where a person can read it. That is the whole job.</p>
-<p>Then one small function joins the three together:</p>
+<p>このブロックは、考えることを何もしません。答えをわたされて、それを人が読める場所に置くだけです。それが仕事のすべてです。</p>
+<p>そして、小さな関数1つが、3つをつなぎます。</p>
 <pre><code>function playRound(mine) {
   const theirs = theirChoice();
   const result = compare(mine, theirs);
@@ -133,43 +135,43 @@ console.assert(compare('paper', 'paper').winner === 'nobody', 'same move is a dr
   show(mine, theirs, result);
 }
 </code></pre>
-<h2 id="why-three-moves-and-not-a-best-one"><a class="heading-anchor" href="#why-three-moves-and-not-a-best-one">Why three moves, and not a "best" one</a></h2>
-<p>Here is the part that is really about games, not about code.</p>
-<p><strong>You already know this.</strong> Nobody has ever asked which is the best move in rock, paper, scissors, because there obviously isn't one. What you may not have done is ask <em>why</em> the game works that way.</p>
-<p>Imagine rock simply beat both of the others. What would you pick? Rock. What would everyone pick? Rock. Every round would be rock against rock, forever, and there would be nothing to decide. The game would be over before it started.</p>
-<p>Now look at the circle again. Rock beats scissors. Scissors beats paper. Paper beats rock. <strong>Every move beats one and loses to one.</strong> There is no move that is just better, so "what should I pick?" has no answer on its own. The only way to answer it is to think about what the <em>other person</em> is likely to pick. That is where the game actually lives — and it is why a game everyone learns as a small child is still worth building.</p>
-<p>This is why so many games are built on a circle like this: heavy armour beats arrows, arrows beat cavalry, cavalry beats heavy armour. <em>Grown-up programmers and mathematicians call this a game with no dominant strategy — a "dominant strategy" being a choice that is best no matter what anyone else does. Yours has none, on purpose.</em></p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The forcing constraint is this: in the real game, <strong>both players work out the result on their own computers, and the two answers must match exactly.</strong> There is no server to referee. If your computer says you won and theirs says they won, the fight is broken and there is nobody to ask.</p>
-<p>Two computers agree easily on the answer to a pure function — same two moves in, same answer out. They would not agree so easily if "compare" also looked at the clock, or the screen size, or a dice. So it looks at nothing but its two arguments. That single rule is what makes the rest of the fight possible.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<h2 id="なぜ3つの手で-いちばん強い手-がないのか"><a class="heading-anchor" href="#なぜ3つの手で-いちばん強い手-がないのか">なぜ3つの手で、「いちばん強い手」がないのか</a></h2>
+<p>ここは、コードの話ではなく、本当にゲームの話です。</p>
+<p><strong>あなたはもうこれを知っています。</strong> じゃんけんでいちばん強い手はどれかと聞く人はいません。そんなものがないのは、見ればわかるからです。でも、<em>なぜ</em>このゲームがそうなっているのかは、考えたことがないかもしれません。</p>
+<p>もし、いしが他の2つの両方に勝つとしたら、どうでしょう。あなたは何を出しますか。いしです。みんなは何を出しますか。いしです。どのラウンドもいし対いしで、それが永遠につづき、決めることは何もなくなります。ゲームは始まる前に終わっています。</p>
+<p>もう一度、輪を見てください。いしははさみに勝つ。はさみはかみに勝つ。かみはいしに勝つ。<strong>どの手も、1つに勝ち、1つに負けます。</strong> ただ強いだけの手はないので、「何を出せばいい？」という問いには、それ自体では答えがありません。答える方法は1つだけ、<em>相手</em>が何を出しそうかを考えることです。ゲームが本当に生きているのはそこです。そして、小さいころにだれもが覚えるゲームを、今つくる価値があるのもそのためです。</p>
+<p>多くのゲームがこういう輪の上に作られているのは、これが理由です。重い鎧は矢に勝ち、矢は騎兵に勝ち、騎兵は重い鎧に勝つ。<em>大人のプログラマーや数学者は、これを「支配戦略のないゲーム」と呼びます。「支配戦略」とは、ほかのだれが何をしても、いちばんよい選択のことです。あなたのゲームには、わざとそれがありません。</em></p>
+<h2 id="なぜこの方法にしたのか"><a class="heading-anchor" href="#なぜこの方法にしたのか">なぜこの方法にしたのか</a></h2>
+<p>決め手になった制約はこれです。本物のゲームでは、<strong>2人のプレイヤーがそれぞれ自分のパソコンで結果を計算し、その2つの答えはぴったり一致しないといけません。</strong> 審判をするサーバーはありません。あなたのパソコンはあなたの勝ちと言い、相手のパソコンは相手の勝ちと言ったら、その対戦は壊れています。しかも、たずねる相手がいません。</p>
+<p>2台のパソコンは、純粋関数の答えについてなら、かんたんに一致します。同じ2つの手を入れれば、同じ答えが出るからです。もし「くらべる」が時計や画面の大きさやさいころも見ていたら、そんなにかんたんには一致しません。だからこの関数は、2つの引数以外の何も見ません。そのたった1つのルールが、対戦の残りの部分を成り立たせています。</p>
+<h2 id="代わりにできたこと"><a class="heading-anchor" href="#代わりにできたこと">代わりにできたこと</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>この代わりに</th>
+<th>その代償</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Deciding the winner inside the button's click code</td>
-<td>Every check means a real click. You could not test the rule at all without playing, and the same rule would end up copied for the computer opponent in <a href="a21.html">A21</a></td>
+<td>ボタンのクリックのコードの中で勝者を決める</td>
+<td>確かめるたびに、本当にクリックしないといけません。遊ばずにルールをテストすることがまったくできなくなり、しかも<a href="a21.html">A21</a>のコンピューター対戦相手のために、同じルールがコピーされることになります</td>
 </tr>
 <tr>
-<td>A long chain of <code>if</code> statements, one per pair</td>
-<td>Nine cases instead of three, and each one a chance to type the wrong word. <code>BEATS</code> states the rule once</td>
+<td>組み合わせごとに<code>if</code>を長くつなげる</td>
+<td>3つではなく9つの場合分けになり、そのそれぞれが、単語を打ちまちがえるチャンスです。<code>BEATS</code>はルールを1回だけ書きます</td>
 </tr>
 <tr>
-<td>Returning just a winner, no reason</td>
-<td>Half the length. But the player learns nothing, and when it is wrong you cannot see <em>what</em> it thought beat what</td>
+<td>理由なしで、勝者だけを返す</td>
+<td>長さは半分になります。でもプレイヤーは何も学べませんし、まちがっているときに、コードが<em>何が何に勝つ</em>と思っていたのかが見えません</td>
 </tr>
 <tr>
-<td>Letting one computer decide and tell the other</td>
-<td>Simpler, until the other player edits the message. With no server, "whoever speaks first is right" is not a rule you can defend</td>
+<td>片方のパソコンが決めて、もう片方に伝える</td>
+<td>そのほうがかんたんです。相手がメッセージを書きかえるまでは。サーバーがないところでは、「先に言ったほうが正しい」は守れるルールではありません</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="プロンプト"><a class="heading-anchor" href="#プロンプト">プロンプト</a></h2>
 <pre><code>I have a rock-paper-scissors style fight in plain JavaScript, in three parts:
 click handlers that pick a move, a pure compare(mine, theirs) that returns
 { winner, why }, and a show() that writes to the page. Add a best-of-five
@@ -177,32 +179,32 @@ match: keep playing rounds until someone wins three. Keep compare pure — no
 DOM, no randomness inside it — and put the match score in its own function
 that also does not touch the page. Tell me which lines you added where.
 </code></pre>
-<p><strong>Check the output for:</strong> did anything to do with the screen creep inside <code>compare</code>? Assistants love adding a line that updates the score display right where the winner is worked out, and that quietly makes the function untestable. Also check that a draw does not count towards the three — that is the case people forget.</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>出力を確認すること:</strong> 画面に関わるものが<code>compare</code>の中にしのびこんでいませんか。アシスタントは、勝者を計算しているちょうどその場所に、点数の表示を新しくする行を足すのが大好きです。そしてそれは、こっそりこの関数をテストできないものに変えてしまいます。それに、引き分けが3勝のうちに数えられていないかも確かめてください。それは、みんなが忘れる場合です。</p>
+<h2 id="動作を確認する"><a class="heading-anchor" href="#動作を確認する">動作を確認する</a></h2>
 <p><img alt="Three big buttons — scissors, rock, paper — with the result &quot;You win!&quot; and the line &quot;You played rock. They played scissors. rock beats scissors.&quot;" src="../static/img/game/a20.png"></p>
-<p>Open the page with Live Server and:</p>
+<p>Live Serverでページを開いて、次をやってみましょう。</p>
 <ol>
-<li>Press <strong>rock</strong>. A result appears with a reason under it.</li>
-<li>Keep pressing the same button about ten times. The score changes in all three directions — wins, losses and draws — because the other side is rolling a dice each time.</li>
-<li>Open the browser console. It is silent. That silence is the three <code>console.assert</code> checks passing.</li>
-<li>In the console, type <code>compare('paper', 'rock')</code>. You get <code>{ winner: 'you', why: 'paper beats rock' }</code> without touching the page. That is the point of a pure block.</li>
+<li><strong>rock</strong>を押します。結果が出て、その下に理由が出ます。</li>
+<li>同じボタンを10回くらい押しつづけます。点数は勝ち・負け・引き分けの3方向すべてに動きます。相手が毎回さいころをふっているからです。</li>
+<li>ブラウザのコンソールを開きます。何も出ていません。その静けさが、3つの<code>console.assert</code>が通っているしるしです。</li>
+<li>コンソールで<code>compare('paper', 'rock')</code>と打ちます。ページにふれずに<code>{ winner: 'you', why: 'paper beats rock' }</code>が返ってきます。それが、純粋なブロックのねらいです。</li>
 </ol>
-<p>We ran that last one while building this: <code>compare('scissors', 'rock')</code> came back <code>{ winner: 'them', why: 'rock beats scissors' }</code>, and no button was ever pressed.</p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>The fight screen from <a href="a19.html">A19</a> currently opens and does nothing. Put the three buttons on it, and call <code>compare</code> when the other player's move arrives. Keep <code>compare</code> in its own file — <code>src/battle/rules.js</code> — because <a href="a21.html">A21</a> and <a href="a22.html">A22</a> both use it without changing a line of it.</p>
+<p>私たちも作っているときに最後のをやりました。<code>compare('scissors', 'rock')</code>は<code>{ winner: 'them', why: 'rock beats scissors' }</code>を返し、ボタンは一度も押していません。</p>
+<h2 id="ゲームに組み込む"><a class="heading-anchor" href="#ゲームに組み込む">ゲームに組み込む</a></h2>
+<p><a href="a19.html">A19</a>の対戦画面は、今は開くだけで何もしません。そこに3つのボタンを置いて、相手プレイヤーの手が届いたら<code>compare</code>を呼びます。<code>compare</code>は自分だけのファイル（<code>src/battle/rules.js</code>）に置いてください。<a href="a21.html">A21</a>と<a href="a22.html">A22</a>は、どちらもその中身を1行も変えずに使います。</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="主なポイント"><a class="heading-anchor" href="#主なポイント">主なポイント</a></h2>
 <ul>
-<li>A pure function takes values in and gives an answer out, touching nothing else — and it is the only part of a game you can check without playing</li>
-<li>Write the rule down once, as data (<code>BEATS</code>), instead of spreading it across nine <code>if</code> statements</li>
-<li>Tell the player <em>why</em> they won, not only that they won — the game teaches its own rules that way</li>
-<li>Three moves in a circle means no move is best, so you have to think about the other person. That is what makes it a game</li>
-<li>Both computers must reach the same result on their own, which is exactly why the deciding part is allowed no dice and no clock</li>
+<li>純粋関数は、値を受け取って答えを返すだけで、ほかの何にもふれません。そしてそれは、遊ばずに確かめられるゲームの唯一の部分です</li>
+<li>ルールは9つの<code>if</code>にばらまくのではなく、データ（<code>BEATS</code>）として1回だけ書きましょう</li>
+<li>勝ったことだけでなく、<em>なぜ</em>勝ったのかをプレイヤーに伝えましょう。そうすれば、ゲームが自分のルールを自分で教えてくれます</li>
+<li>3つの手が輪になっていると、いちばん強い手がなくなるので、相手のことを考えないといけません。それが、これをゲームにしているものです</li>
+<li>2台のパソコンは、それぞれ自分で同じ結果にたどり着かないといけません。だからこそ、勝敗を決める部分には、さいころも時計も許されないのです</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Add a fourth move that beats two of the others and loses to one. Play ten rounds. Then work out, on paper, what your best move now is — and notice that you now always have one. Take it out again.</p>
+<h2 id="あなたの番"><a class="heading-anchor" href="#あなたの番">あなたの番</a></h2>
+<p>4つめの手を足してみましょう。ほかの2つに勝ち、1つに負ける手です。10ラウンド遊びます。そのあと、紙の上で、今のいちばんよい手は何かを考えてください。そして、いつでもそれがあることに気づいてください。そうしたら、その手をまた取りのぞきましょう。</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">AIレッスンに戻る</a>
         <div class="lesson-pager">

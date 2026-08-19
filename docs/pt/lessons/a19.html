@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Challenge Someone - KakkoiSchool</title>
+  <title>Desafie Alguém - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a20.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a19-challenge-someone"><a class="heading-anchor" href="#a19-challenge-someone">A19: Challenge Someone</a></h1>
-<p class="lesson-intro">You stand next to another player and press F. On their screen, a question appears. They press Y, and both of you are looking at a fight screen. Nothing happens inside it yet — opening it together is today's whole job.</p>
-<p><strong>Needs:</strong> <a href="a12.html">A12</a>. <strong>Gives you:</strong> a challenge one player can send, another can accept or refuse, and a screen that changes for both of them at once.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a19-desafie-algu-m"><a class="heading-anchor" href="#a19-desafie-algu-m">A19: Desafie Alguém</a></h1>
+<p class="lesson-intro">Você fica ao lado de outro jogador e aperta F. Na tela dele aparece uma pergunta. Ele aperta Y, e os dois estão olhando para uma tela de luta. Nada acontece dentro dela ainda — abri-la juntos é todo o trabalho de hoje.</p>
+<p><strong>Precisa de:</strong> <a href="a12.html">A12</a>. <strong>Oferece:</strong> um desafio que um jogador pode enviar, que outro pode aceitar ou recusar, e uma tela que muda para os dois ao mesmo tempo.</p>
+<h2 id="o-jogo-completo-e-a-parte-de-hoje"><a class="heading-anchor" href="#o-jogo-completo-e-a-parte-de-hoje">O jogo completo, e a parte de hoje</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -66,12 +66,14 @@ flowchart LR
     A["Sound"] --> R
 
     classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    classDef done fill:#2f6f4f,stroke:#8fd6b4,color:#fff
+    class N,D,R,S,W,A done
     class O,F now
 
 </div>
-<p>Today you build the door between "other people" and "the fight". The fight itself is <a href="a20.html">A20</a>.</p>
-<h2 id="the-one-idea-in-this-step"><a class="heading-anchor" href="#the-one-idea-in-this-step">The one idea in this step</a></h2>
-<p>Your game is in exactly <strong>one</strong> state at a time. Not two. Never two.</p>
+<p>Hoje você constrói a porta entre "outras pessoas" e "a luta". A luta em si é <a href="a20.html">A20</a>.</p>
+<h2 id="a-nica-ideia-desta-etapa"><a class="heading-anchor" href="#a-nica-ideia-desta-etapa">A única ideia desta etapa</a></h2>
+<p>O seu jogo está em exatamente <strong>um</strong> estado por vez. Não dois. Nunca dois.</p>
 <div class="mermaid">
 stateDiagram-v2
     [*] --> walking
@@ -83,23 +85,23 @@ stateDiagram-v2
     asked --> walking: you press N, or they leave
 
 </div>
-<p>Four states, and every arrow is one thing that can happen. Read it out loud: <em>from walking, pressing F takes you to waiting.</em> That is the whole feature.</p>
-<p><strong>A bug is very often just being in two states at once.</strong> You are walking <em>and</em> waiting for an answer. You are being asked <em>and</em> already fighting. When you write it as one variable that holds one word, that cannot happen, because a variable holds one thing.</p>
-<p>In the code it is exactly this:</p>
+<p>Quatro estados, e cada flecha é uma coisa que pode acontecer. Leia em voz alta: <em>de walking (andando), apertar F te leva para waiting (esperando resposta).</em> Essa é a funcionalidade inteira.</p>
+<p><strong>Um bug é, muitas vezes, só estar em dois estados ao mesmo tempo.</strong> Você está andando <em>e</em> esperando uma resposta. Você está sendo desafiado <em>e</em> já lutando. Quando você escreve isso como uma variável que guarda uma palavra, isso não pode acontecer, porque uma variável guarda uma coisa.</p>
+<p>No código é exatamente isto:</p>
 <pre><code>let state = 'walking';   // walking | waiting | asked | fighting
 let them = null;         // who this conversation is with
 
 function go(next, id) { state = next; them = id; }
 </code></pre>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"Challenge somebody" is three things:</p>
+<h2 id="dividindo-em-blocos"><a class="heading-anchor" href="#dividindo-em-blocos">Dividindo em blocos</a></h2>
+<p>"Desafiar alguém" são três coisas:</p>
 <ol>
-<li><strong>Ask</strong> — send a challenge to the nearest player</li>
-<li><strong>Agree</strong> — answer one, and decide what every awkward case means</li>
-<li><strong>Change screen</strong> — draw a different picture depending on the state</li>
+<li><strong>Perguntar</strong> — enviar um desafio ao jogador mais próximo</li>
+<li><strong>Combinar</strong> — responder a um desafio e decidir o que cada caso estranho significa</li>
+<li><strong>Trocar de tela</strong> — desenhar uma imagem diferente conforme o estado</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Nothing happening on their screen means ask. Something happening but the two of you disagreeing about what state you are in means agree. Both states right but the picture wrong means change screen. Three blocks, three separate questions — and the state variable is the thing you read to answer them.</p>
-<h2 id="block-1-ask"><a class="heading-anchor" href="#block-1-ask">Block 1: Ask</a></h2>
+<p><strong>Por que dividir?</strong> Porque se fosse tudo um bloco só e desse errado, você não saberia qual parte está errada. Nada acontecer na tela do outro é perguntar. Algo acontecer, mas vocês dois discordarem sobre em que estado estão, é combinar. Os dois estados certos mas a imagem errada é trocar de tela. Três blocos, três perguntas separadas — e a variável de estado é o que você lê para respondê-las.</p>
+<h2 id="bloco-1-perguntar"><a class="heading-anchor" href="#bloco-1-perguntar">Bloco 1: Perguntar</a></h2>
 <pre><code>addEventListener('keydown', (e) =&gt; {
   held.add(e.key);
   const k = e.key.toLowerCase();
@@ -111,12 +113,12 @@ function go(next, id) { state = next; them = id; }
   if (k === 'n' &amp;&amp; state === 'asked') { sendReply({ yes: false }, them); go('walking', null); }
 });
 </code></pre>
-<p>Look at every line: <strong>each key names the state it works in.</strong> F only does something while walking. Y and N only do something while being asked. A key pressed in the wrong state does nothing at all, and that is not an accident you have to remember — it is written down.</p>
-<p><code>sendAsk</code> and <code>sendReply</code> come from the same room as <a href="a12.html">A12</a>'s <code>sendMove</code>:</p>
+<p>Olhe cada linha: <strong>cada tecla diz em que estado ela funciona.</strong> F só faz algo enquanto você anda. Y e N só fazem algo enquanto você está sendo desafiado. Uma tecla apertada no estado errado não faz nada, e isso não é um acidente que você precisa lembrar — está escrito.</p>
+<p><code>sendAsk</code> e <code>sendReply</code> vêm da mesma sala que o <code>sendMove</code> de <a href="a12.html">A12</a>:</p>
 <pre><code>const [sendAsk, onAsk] = room.makeAction('ask');
 const [sendReply, onReply] = room.makeAction('reply');
 </code></pre>
-<p>Passing a second argument, <code>sendAsk({}, id)</code>, sends it to <strong>that one player</strong> instead of everybody. Everything else about the room is unchanged from A12.</p>
+<p>Passar um segundo argumento, <code>sendAsk({}, id)</code>, envia para <strong>aquele jogador só</strong>, em vez de para todos. Todo o resto sobre a sala continua igual a A12.</p>
 <pre><code>function nearest() {
   let best = null, bestDistance = REACH;
   for (const id in others) {
@@ -126,9 +128,9 @@ const [sendReply, onReply] = room.makeAction('reply');
   return best;
 }
 </code></pre>
-<p><code>REACH</code> is 90 pixels — under three squares' width. You have to walk over to somebody to challenge them, which is the point.</p>
-<h2 id="block-2-agree"><a class="heading-anchor" href="#block-2-agree">Block 2: Agree</a></h2>
-<p>Here is the whole block. Every awkward case is one line, and every line is a decision somebody made on purpose.</p>
+<p><code>REACH</code> é 90 pixels — menos que a largura de três quadrados. Você tem que ir andando até a pessoa para desafiá-la, e isso é de propósito.</p>
+<h2 id="bloco-2-combinar"><a class="heading-anchor" href="#bloco-2-combinar">Bloco 2: Combinar</a></h2>
+<p>Aqui está o bloco inteiro. Cada caso estranho é uma linha, e cada linha é uma decisão que alguém tomou de propósito.</p>
 <pre><code>onAsk((_, id) =&gt; {
   if (state === 'waiting' &amp;&amp; id === them) return go('fighting', id); // asked at once
   if (state !== 'walking') return sendReply({ yes: false }, id);     // busy: no
@@ -140,20 +142,20 @@ onReply((answer, id) =&gt; {
   if (answer.yes) go('fighting', id); else go('walking', null);
 });
 </code></pre>
-<p><strong>You both press F at the same moment.</strong> Each of you sent a challenge, and each challenge arrives at somebody who is already waiting for an answer. We treat that as agreement: you both said yes to the same fight, so both of you go straight to fighting. It is one line, and it is fair to both players. The alternative — deciding one of you asked "first" — needs a rule about whose clock to believe, and clocks on two computers do not agree.</p>
-<p><strong>Somebody challenges you while you are busy.</strong> Any state that is not walking means you are mid-conversation or already fighting. Send back a no, immediately and automatically. They get a clear answer instead of waiting for nothing.</p>
-<p><strong>A reply arrives that you were not waiting for.</strong> Ignore it. This is the <code>state !== 'waiting' || id !== them</code> line, and it costs nothing to have. Late messages happen.</p>
-<p><strong>The other player closes their tab while you wait.</strong> That one is handled in the room code, in a single line:</p>
+<p><strong>Vocês dois apertam F no mesmo instante.</strong> Cada um enviou um desafio, e cada desafio chega a alguém que já está esperando uma resposta. Tratamos isso como um acordo: os dois disseram sim para a mesma luta, então os dois vão direto para a luta. É uma linha, e é justo com os dois jogadores. A alternativa — decidir qual de vocês perguntou "primeiro" — precisa de uma regra sobre em qual relógio confiar, e relógios de dois computadores não concordam entre si.</p>
+<p><strong>Alguém te desafia enquanto você está ocupado.</strong> Qualquer estado que não seja andando quer dizer que você está no meio de uma conversa ou já lutando. Devolva um não, na hora e automaticamente. A pessoa recebe uma resposta clara em vez de esperar por nada.</p>
+<p><strong>Chega uma resposta que você não estava esperando.</strong> Ignore. É a linha <code>state !== 'waiting' || id !== them</code>, e ela não custa nada. Mensagens atrasadas acontecem.</p>
+<p><strong>O outro jogador fecha a aba enquanto você espera.</strong> Esse caso é resolvido no código da sala, em uma única linha:</p>
 <pre><code>room.onPeerLeave((id) =&gt; { delete others[id]; if (id === them) go('walking', null); });
 </code></pre>
-<p>If the person who disappeared was the person you were talking to, stop talking and walk again. We tested this by closing the challenger's tab, and the other player sat in "being asked" for about seven seconds — the time the connection takes to notice a silence — and then went back to walking on their own. Not instant, but never stuck.</p>
-<h2 id="block-3-change-screen"><a class="heading-anchor" href="#block-3-change-screen">Block 3: Change screen</a></h2>
+<p>Se a pessoa que desapareceu era a pessoa com quem você estava falando, pare de falar e volte a andar. Testamos isso fechando a aba de quem desafiou, e o outro jogador ficou em "sendo desafiado" por cerca de sete segundos — o tempo que a conexão leva para notar o silêncio — e depois voltou a andar por conta própria. Não é instantâneo, mas nunca fica travado.</p>
+<h2 id="bloco-3-trocar-de-tela"><a class="heading-anchor" href="#bloco-3-trocar-de-tela">Bloco 3: Trocar de tela</a></h2>
 <pre><code>function update(dt) {
   if (state !== 'walking') return;
   ...
 }
 </code></pre>
-<p>One line at the top of the movement code, and your square stops moving whenever you are not walking. You cannot wander off mid-question. That is the state machine doing work for you.</p>
+<p>Uma linha no topo do código de movimento, e o seu quadrado para de andar sempre que você não está no estado de andar. Você não consegue sair andando no meio de uma pergunta. Essa é a máquina de estados trabalhando por você.</p>
 <pre><code>function draw() {
   ctx.fillStyle = state === 'fighting' ? '#3a1420' : '#1b1b22';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -168,37 +170,37 @@ onReply((answer, id) =&gt; {
   ... the squares, exactly as in A12 ...
 }
 </code></pre>
-<p>The <code>return</code> in the middle matters: when you are fighting, drawing stops there and the walking world is never painted. One state, one picture. In <a href="a20.html">A20</a> the three lines after that <code>return</code> become the whole fight.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>One variable holding one word, because two players have to agree about something that is happening in two places at once. If "am I fighting?" and "am I waiting?" were separate true-or-false values, there would be four combinations, two of them nonsense, and no way to stop your code reaching them. With one word there is nothing to keep in step: reading <code>state</code> on both computers is the whole check, and it is the check we ran.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p>O <code>return</code> do meio importa: quando você está lutando, o desenho para ali e o mundo de andar nunca é pintado. Um estado, uma imagem. Em <a href="a20.html">A20</a> as três linhas depois daquele <code>return</code> se tornam a luta inteira.</p>
+<h2 id="por-que-fizemos-isso-desta-forma"><a class="heading-anchor" href="#por-que-fizemos-isso-desta-forma">Por que fizemos isso desta forma</a></h2>
+<p>Uma variável guardando uma palavra, porque dois jogadores precisam concordar sobre algo que está acontecendo em dois lugares ao mesmo tempo. Se "estou lutando?" e "estou esperando?" fossem valores separados de verdadeiro ou falso, haveria quatro combinações, duas delas sem sentido, e nenhuma forma de impedir o seu código de chegar a elas. Com uma palavra só não há nada para manter em sincronia: ler <code>state</code> nos dois computadores é toda a verificação, e foi a verificação que fizemos.</p>
+<h2 id="o-que-poder-amos-ter-feito-em-vez-disso"><a class="heading-anchor" href="#o-que-poder-amos-ter-feito-em-vez-disso">O que poderíamos ter feito em vez disso</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>Em vez disso</th>
+<th>O que custaria</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Separate flags: <code>isWaiting</code>, <code>isFighting</code>, <code>isAsked</code></td>
-<td>Eight combinations, most of them impossible, and every new feature has to remember to clear all of them. This is where "two states at once" bugs come from</td>
+<td>Marcadores separados: <code>isWaiting</code>, <code>isFighting</code>, <code>isAsked</code></td>
+<td>Oito combinações, a maioria impossível, e toda funcionalidade nova tem que lembrar de limpar todas elas. É daqui que vêm os bugs de "dois estados ao mesmo tempo"</td>
 </tr>
 <tr>
-<td>Start the fight immediately, with no question</td>
-<td>Half the code. Also anyone can drag you into a fight while you are doing something else, which is the kind of thing that ends a game with friends</td>
+<td>Começar a luta na hora, sem pergunta</td>
+<td>Metade do código. E também qualquer pessoa pode te arrastar para uma luta enquanto você está fazendo outra coisa, que é o tipo de coisa que acaba com um jogo entre amigos</td>
 </tr>
 <tr>
-<td>Deciding who asked "first" by comparing times</td>
-<td>Two computers do not agree about the time, and the gap is often smaller than the disagreement. You would have written a rule that gives a different answer depending on which computer you ask</td>
+<td>Decidir quem perguntou "primeiro" comparando horários</td>
+<td>Dois computadores não concordam sobre a hora, e a diferença entre eles costuma ser maior do que o intervalo entre os dois pedidos. Você teria escrito uma regra que dá uma resposta diferente conforme o computador a que você pergunta</td>
 </tr>
 <tr>
-<td>Waiting for the other player to answer forever</td>
-<td>Feels fine until somebody closes their laptop, and then you are stuck on a screen with no way out and no explanation</td>
+<td>Esperar a resposta do outro jogador para sempre</td>
+<td>Parece tudo bem até alguém fechar o notebook, e então você fica preso numa tela sem saída e sem explicação</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="o-prompt"><a class="heading-anchor" href="#o-prompt">O prompt</a></h2>
 <pre><code>I have a plain-JavaScript canvas game with trystero multiplayer: a room, a
 'move' action, an others object of peer positions, and update(dt)/draw().
 Add challenging in three blocks with a comment above each: ASK (press F to
@@ -209,34 +211,34 @@ talking to. Handle: both players challenging at once, a refusal, and the other
 player leaving. Do not change the movement code except to stop it when state
 is not 'walking'. No build step, no npm.
 </code></pre>
-<p><strong>Check the output for:</strong> did it use one <code>state</code> variable, or did it quietly give you <code>isWaiting</code> and <code>isFighting</code> as separate flags? Does anything clear <code>them</code> when the conversation ends, or does a stale name hang around and show up in the next challenge? And is there a line for <code>onPeerLeave</code> — the case nobody remembers until a friend closes a laptop mid-question?</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>Verifique na resposta:</strong> ele usou uma variável <code>state</code>, ou te deu <code>isWaiting</code> e <code>isFighting</code> como marcadores separados, sem avisar? Alguma coisa limpa o <code>them</code> quando a conversa termina, ou um nome velho fica pendurado ali e aparece no próximo desafio? E existe uma linha para <code>onPeerLeave</code> — o caso de que ninguém se lembra até um amigo fechar o notebook no meio da pergunta?</p>
+<h2 id="veja-funcionar"><a class="heading-anchor" href="#veja-funcionar">Veja funcionar</a></h2>
 <p><img alt="Two squares close together on a dark canvas, with an orange line at the top reading &quot;boVn challenges you. Y = yes, N = no&quot;" src="../static/img/game/a19.png"></p>
-<p>Open the page in two tabs, side by side, and wait for each to show the other's square:</p>
+<p>Abra a página em duas abas, lado a lado, e espere cada uma mostrar o quadrado da outra:</p>
 <ol>
-<li>In tab A, type <code>getState()</code> in the console. You get <code>{state: 'walking', them: '', me: 'boVn', ...}</code>. Do the same in tab B.</li>
-<li>Walk tab A's square up next to tab B's square, then press F. Tab A now says <em>Waiting for … to answer</em>, and tab B shows the orange question at the top.</li>
-<li>Read the state in both consoles. We got <code>{state: 'waiting', them: 'QgQL'}</code> in A and <code>{state: 'asked', them: 'boVn'}</code> in B — each one naming the other.</li>
-<li>Press Y in tab B. Both screens turn dark red and say <strong>FIGHT!</strong>. <code>getState()</code> says <code>fighting</code> in both, each with the other's name.</li>
-<li>Reload both, do it again, and press N instead. Both go straight back to <code>walking</code> with <code>them</code> empty.</li>
-<li>Do it once more, and this time close tab A while tab B still has the question on screen. About seven seconds later tab B returns to walking by itself. You may see a red <code>RTCErrorEvent … User-Initiated Abort, reason=Close called</code> in the console — that is the connection reporting that the other side closed it, and the game handled it correctly. An error in the console is not the same as a broken game.</li>
+<li>Na aba A, digite <code>getState()</code> no console. Você recebe <code>{state: 'walking', them: '', me: 'boVn', ...}</code>. Faça o mesmo na aba B.</li>
+<li>Ande com o quadrado da aba A até ficar ao lado do quadrado da aba B e aperte F. A aba A agora diz <em>Waiting for … to answer</em>, e a aba B mostra a pergunta laranja no topo.</li>
+<li>Leia o estado nos dois consoles. Recebemos <code>{state: 'waiting', them: 'QgQL'}</code> em A e <code>{state: 'asked', them: 'boVn'}</code> em B — cada um nomeando o outro.</li>
+<li>Aperte Y na aba B. As duas telas ficam vermelho-escuras e dizem <strong>FIGHT!</strong>. <code>getState()</code> diz <code>fighting</code> nas duas, cada uma com o nome do outro.</li>
+<li>Recarregue as duas, faça de novo, e aperte N. As duas voltam direto para <code>walking</code> com o <code>them</code> vazio.</li>
+<li>Faça mais uma vez, e agora feche a aba A enquanto a aba B ainda tem a pergunta na tela. Cerca de sete segundos depois, a aba B volta a andar por conta própria. Você pode ver um <code>RTCErrorEvent … User-Initiated Abort, reason=Close called</code> vermelho no console — é a conexão avisando que o outro lado a fechou, e o jogo lidou com isso corretamente. Um erro no console não é a mesma coisa que um jogo quebrado.</li>
 </ol>
-<p>Try pressing F while a question is on your screen. Nothing happens — F only works while walking.</p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Take your game from <a href="a18.html">A18</a> and add the three blocks. The only edit to code you already had is the single <code>if (state !== 'walking') return;</code> at the top of <code>update</code>. Your movement, your walls and your other players are untouched — you are adding a switch above them, not rewriting them.</p>
+<p>Tente apertar F enquanto uma pergunta está na sua tela. Nada acontece — F só funciona enquanto você anda.</p>
+<h2 id="coloque-no-jogo"><a class="heading-anchor" href="#coloque-no-jogo">Coloque no jogo</a></h2>
+<p>Pegue o seu jogo de <a href="a18.html">A18</a> e adicione os três blocos. A única mudança em código que você já tinha é o <code>if (state !== 'walking') return;</code> no topo do <code>update</code>. O seu movimento, as suas paredes e os seus outros jogadores ficam intactos — você está colocando um interruptor acima deles, não reescrevendo-os.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>One variable holding one word out of a short list is a <strong>state machine</strong>, and now you know that phrase too</li>
-<li>Many bugs are just being in two states at once; one variable makes that impossible</li>
-<li>Every key press should say which state it works in, so nothing surprising happens in the wrong one</li>
-<li>The awkward cases — both at once, a refusal, somebody leaving — are the feature, not extras</li>
-<li>Never leave a player waiting forever on something that may never arrive</li>
+<li>Uma variável guardando uma palavra de uma lista curta é uma <strong>máquina de estados</strong>, e agora você conhece essa expressão também</li>
+<li>Muitos bugs são só estar em dois estados ao mesmo tempo; uma variável só torna isso impossível</li>
+<li>Cada tecla apertada deveria dizer em que estado ela funciona, para nada surpreendente acontecer no estado errado</li>
+<li>Os casos estranhos — os dois ao mesmo tempo, uma recusa, alguém saindo — são a funcionalidade, não extras</li>
+<li>Nunca deixe um jogador esperando para sempre por algo que pode nunca chegar</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Right now a challenge waits until it is answered. Add a time limit: if nobody answers within ten seconds, the challenger goes back to walking and the person who was asked has the question disappear. Draw the seconds counting down so both players can see it. Watch out for one thing — when the answer arrives just as the clock runs out, both sides must still end up in the same state.</p>
+<h2 id="sua-vez"><a class="heading-anchor" href="#sua-vez">Sua vez</a></h2>
+<p>Agora um desafio espera até ser respondido. Adicione um limite de tempo: se ninguém responder em dez segundos, quem desafiou volta a andar e a pergunta desaparece da tela de quem foi desafiado. Desenhe os segundos na contagem regressiva para os dois jogadores poderem ver. Cuidado com uma coisa — quando a resposta chega exatamente na hora em que o tempo acaba, os dois lados ainda precisam terminar no mesmo estado.</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">

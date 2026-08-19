@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Walls - KakkoiSchool</title>
+  <title>Paredes - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a16.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a15-walls"><a class="heading-anchor" href="#a15-walls">A15: Walls</a></h1>
-<p class="lesson-intro">Until now your square walks through everything. By the end of this step there are rocks on the screen, you cannot walk through them, and when you push against one you slide along it instead of getting stuck.</p>
-<p><strong>Needs:</strong> <a href="a10.html">A10</a>. <strong>Gives you:</strong> solid things, described as data, that stop the player.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a15-paredes"><a class="heading-anchor" href="#a15-paredes">A15: Paredes</a></h1>
+<p class="lesson-intro">Até agora seu quadrado atravessa tudo. No fim desta etapa há rochas na tela, você não consegue atravessá-las, e quando você empurra contra uma delas você desliza pela lateral em vez de ficar preso.</p>
+<p><strong>Precisa de:</strong> <a href="a10.html">A10</a>. <strong>Oferece:</strong> coisas sólidas, descritas como dados, que param o jogador.</p>
+<h2 id="o-jogo-completo-e-a-parte-de-hoje"><a class="heading-anchor" href="#o-jogo-completo-e-a-parte-de-hoje">O jogo completo, e a parte de hoje</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -66,43 +66,45 @@ flowchart LR
     A["Sound"] --> R
 
     classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    classDef done fill:#2f6f4f,stroke:#8fd6b4,color:#fff
+    class N,D,R,S,O done
     class W now
 
 </div>
-<p>Today you build <strong>The world</strong>. It feeds "Draw" — the rocks have to appear — and it also puts a limit on "Decide": from now on, where the square is allowed to go is not just "anywhere on the canvas".</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"You cannot walk through rocks" sounds like one thing. It is three:</p>
+<p>Hoje você constrói <strong>O mundo</strong>. Ele alimenta o "Desenhar" — as rochas precisam aparecer — e também coloca um limite no "Decidir": de agora em diante, o lugar onde o quadrado pode ir não é mais "qualquer ponto do canvas".</p>
+<h2 id="dividindo-em-blocos"><a class="heading-anchor" href="#dividindo-em-blocos">Dividindo em blocos</a></h2>
+<p>"Você não atravessa rochas" parece uma coisa só. São três:</p>
 <ol>
-<li><strong>Describe</strong> — say where the solid things are</li>
-<li><strong>Check</strong> — ask whether a place you are thinking of standing is inside one</li>
-<li><strong>Stop</strong> — go as far as the edge and no further</li>
+<li><strong>Descrever</strong> — dizer onde estão as coisas sólidas</li>
+<li><strong>Verificar</strong> — perguntar se o lugar onde você pensa em ficar está dentro de uma delas</li>
+<li><strong>Parar</strong> — ir até a borda e nem um passo além</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Is the rock in the place you think it is? Is the overlap test giving the wrong answer? Or is the test right and you are just moving anyway? Those are three different bugs with three different fixes, and from the outside they all look identical: the square goes through the rock.</p>
-<p>Block 1 is also the one that pays off later, in a way you cannot see yet.</p>
-<h2 id="block-1-describe"><a class="heading-anchor" href="#block-1-describe">Block 1: Describe</a></h2>
+<p><strong>Por que dividir?</strong> Porque se fosse tudo um bloco só e desse errado, você não saberia qual parte está errada. A rocha está no lugar onde você acha que está? O teste de sobreposição está dando a resposta errada? Ou o teste está certo e você simplesmente se move de qualquer jeito? São três erros diferentes com três correções diferentes, e de fora todos parecem idênticos: o quadrado atravessa a rocha.</p>
+<p>O bloco 1 também é o que compensa mais tarde, de um jeito que você ainda não consegue ver.</p>
+<h2 id="bloco-1-descrever"><a class="heading-anchor" href="#bloco-1-descrever">Bloco 1: Descrever</a></h2>
 <pre><code>const walls = [
   { x: 160, y: 40,  w: 40,  h: 200 },
   { x: 160, y: 240, w: 220, h: 40 },
   { x: 300, y: 60,  w: 120, h: 40 },
 ];
 </code></pre>
-<p>That is the whole block. Look at what it is <em>not</em>: there is no code here. A wall is four numbers — how far from the left, how far from the top, how wide, how tall — sitting in a list.</p>
-<p>This matters more than it looks. Because a wall is <strong>data</strong>, you can make more walls without writing more code. In <a href="a16.html">A16</a> a whole map gets loaded into that array from a file, and not one line of the rest of this file changes. If instead you had written <code>if (player.x &gt; 160 &amp;&amp; player.x &lt; 200) ...</code> for each rock, every new rock would mean new code, and a map would be impossible.</p>
-<p><em>Grown-up programmers say "keep it data, not code". This is what they mean.</em></p>
-<h2 id="block-2-check"><a class="heading-anchor" href="#block-2-check">Block 2: Check</a></h2>
-<p>Two rectangles overlap when they overlap <strong>left-to-right</strong> <em>and</em> <strong>top-to-bottom</strong>. If either one of those is false, they miss each other completely.</p>
-<p>Think about two windows on a table. If one is entirely to the left of the other, they cannot touch, no matter how their tops and bottoms line up. If one is entirely above the other, same thing. They only touch if they are in each other's way on <em>both</em> directions at once.</p>
+<p>Esse é o bloco inteiro. Olhe o que ele <em>não</em> tem: não há código nenhum aqui. Uma parede são quatro números — a que distância da esquerda, a que distância do topo, que largura, que altura — dentro de uma lista.</p>
+<p>Isso importa mais do que parece. Como uma parede é <strong>dado</strong>, você pode criar mais paredes sem escrever mais código. Em <a href="a16.html">A16</a> um mapa inteiro é carregado de um arquivo para dentro desse array, e nenhuma linha do resto deste arquivo muda. Se em vez disso você tivesse escrito <code>if (player.x &gt; 160 &amp;&amp; player.x &lt; 200) ...</code> para cada rocha, cada rocha nova significaria código novo, e um mapa seria impossível.</p>
+<p><em>Programadores adultos dizem "mantenha como dado, não como código". É isso que eles querem dizer.</em></p>
+<h2 id="bloco-2-verificar"><a class="heading-anchor" href="#bloco-2-verificar">Bloco 2: Verificar</a></h2>
+<p>Dois retângulos se sobrepõem quando se sobrepõem <strong>da esquerda para a direita</strong> <em>e</em> <strong>de cima para baixo</strong>. Se qualquer um dos dois for falso, eles passam completamente longe um do outro.</p>
+<p>Pense em duas janelas sobre uma mesa. Se uma está inteiramente à esquerda da outra, elas não podem se tocar, não importa como o topo e a base estejam alinhados. Se uma está inteiramente acima da outra, a mesma coisa. Elas só se tocam se estiverem no caminho uma da outra nas <em>duas</em> direções ao mesmo tempo.</p>
 <pre><code>function overlaps(a, b) {
   return a.x &lt; b.x + b.w &amp;&amp; a.x + a.w &gt; b.x &amp;&amp;
          a.y &lt; b.y + b.h &amp;&amp; a.y + a.h &gt; b.y;
 }
 </code></pre>
-<p>Read it slowly. <code>a.x &lt; b.x + b.w</code> means "a starts before b ends". <code>a.x + a.w &gt; b.x</code> means "a ends after b starts". Both true means they overlap left-to-right. The next line is the same sentence for up and down.</p>
-<p>This block answers a question and changes nothing. It does not move the player. It does not know what a player is. You hand it two rectangles and it says yes or no.</p>
-<p><em>Grown-up programmers call this AABB collision — axis-aligned bounding box. It means "boxes that are not tilted", and it is the fastest useful collision test there is. Now you know the word.</em></p>
-<h2 id="block-3-stop"><a class="heading-anchor" href="#block-3-stop">Block 3: Stop</a></h2>
-<p>Here is the part that decides whether your game feels good or feels broken.</p>
-<p><strong>Move one direction at a time</strong>, and for each one, ask <em>before</em> you go.</p>
+<p>Leia devagar. <code>a.x &lt; b.x + b.w</code> quer dizer "a começa antes de b terminar". <code>a.x + a.w &gt; b.x</code> quer dizer "a termina depois de b começar". Os dois verdadeiros significa que eles se sobrepõem da esquerda para a direita. A linha seguinte é a mesma frase, agora para cima e para baixo.</p>
+<p>Este bloco responde a uma pergunta e não muda nada. Ele não move o jogador. Ele não sabe o que é um jogador. Você entrega dois retângulos e ele diz sim ou não.</p>
+<p><em>Programadores adultos chamam isso de colisão AABB — "axis-aligned bounding box", ou caixa alinhada aos eixos. Quer dizer "caixas que não estão inclinadas", e é o teste de colisão útil mais rápido que existe. Agora você conhece a palavra.</em></p>
+<h2 id="bloco-3-parar"><a class="heading-anchor" href="#bloco-3-parar">Bloco 3: Parar</a></h2>
+<p>Aqui está a parte que decide se o seu jogo parece bom ou parece quebrado.</p>
+<p><strong>Mova uma direção por vez</strong> e, para cada uma, pergunte <em>antes</em> de ir.</p>
 <pre><code>function moveX(amount) {
   let x = player.x + amount;
   for (const wall of walls) {
@@ -112,45 +114,45 @@ flowchart LR
   player.x = Math.max(0, Math.min(canvas.width - SIZE, x));
 }
 </code></pre>
-<p><code>x</code> is where you are <em>thinking of</em> standing. You have not gone there yet. If that spot is inside a wall, you do not stay put — you go exactly as far as the wall's edge. Moving right, the furthest you can be is the wall's left side minus your own width. Moving left, it is the wall's right side.</p>
-<p><code>moveY</code> is the same function with <code>x</code> and <code>y</code> swapped, and <code>wall.h</code> instead of <code>wall.w</code>.</p>
-<p>Then in <code>update</code>, two separate steps:</p>
+<p><code>x</code> é onde você está <em>pensando</em> em ficar. Você ainda não foi para lá. Se aquele ponto está dentro de uma parede, você não fica parado onde estava — você vai exatamente até a borda da parede. Indo para a direita, o mais longe que você pode estar é o lado esquerdo da parede menos a sua própria largura. Indo para a esquerda, é o lado direito da parede.</p>
+<p><code>moveY</code> é a mesma função com <code>x</code> e <code>y</code> trocados, e <code>wall.h</code> em vez de <code>wall.w</code>.</p>
+<p>Então, no <code>update</code>, dois passos separados:</p>
 <pre><code>if (dx !== 0) moveX(dx * SPEED * dt);
 if (dy !== 0) moveY(dy * SPEED * dt);
 </code></pre>
-<p><strong>Why separate?</strong> Push right into a rock while also pushing down. The sideways step is refused — the rock is there. The downward step is asked as its own question, and there is nothing below you, so it happens. You slide down the face of the rock.</p>
-<p>Now imagine doing it in one step instead: you ask "can I be at this new x <em>and</em> this new y?", the answer is no, and you refuse both. You would be glued to the rock, unable to move at all until you let go of the direction pointing into it. Every player would think your game was broken.</p>
-<p>Sliding is not a clever extra. It falls out of asking the two questions separately. That is the whole reason the block is written this way.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The forcing constraint is <a href="a16.html">A16</a>, which loads a map. Everything here had to survive a wall list that this file has never seen — thirty rocks instead of three, arriving from a file. That is why <code>walls</code> is a plain array of plain objects, why <code>overlaps</code> takes any two rectangles rather than "the player and a wall", and why <code>moveX</code> loops over the list instead of naming any particular rock. None of that costs anything today, and it means the map arrives for free.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p><strong>Por que separados?</strong> Empurre para a direita contra uma rocha e, ao mesmo tempo, empurre para baixo. O passo lateral é recusado — a rocha está ali. O passo para baixo é perguntado como uma pergunta própria, e não há nada abaixo de você, então ele acontece. Você desliza pela face da rocha.</p>
+<p>Agora imagine fazer isso em um passo só: você pergunta "posso estar neste novo x <em>e</em> neste novo y?", a resposta é não, e você recusa os dois. Você ficaria colado na rocha, sem conseguir se mover, até soltar a direção que aponta para dentro dela. Todo jogador acharia que o seu jogo está quebrado.</p>
+<p>Deslizar não é um extra inteligente. Ele aparece sozinho quando você faz as duas perguntas separadamente. Essa é a única razão pela qual o bloco é escrito assim.</p>
+<h2 id="por-que-fizemos-isso-desta-forma"><a class="heading-anchor" href="#por-que-fizemos-isso-desta-forma">Por que fizemos isso desta forma</a></h2>
+<p>A restrição que obriga isso é <a href="a16.html">A16</a>, que carrega um mapa. Tudo aqui tinha que sobreviver a uma lista de paredes que este arquivo nunca viu — trinta rochas em vez de três, chegando de um arquivo. É por isso que <code>walls</code> é um array comum de objetos comuns, por isso que <code>overlaps</code> recebe quaisquer dois retângulos em vez de "o jogador e uma parede", e por isso que <code>moveX</code> percorre a lista em vez de citar uma rocha específica. Nada disso custa nada hoje, e faz com que o mapa chegue de graça.</p>
+<h2 id="o-que-poder-amos-ter-feito-em-vez-disso"><a class="heading-anchor" href="#o-que-poder-amos-ter-feito-em-vez-disso">O que poderíamos ter feito em vez disso</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>Em vez disso</th>
+<th>O que custaria</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>An <code>if</code> for each rock, written by hand</td>
-<td>Fine for three rocks. Impossible for a map, and every rock you add is a chance to make a typo in code instead of in data</td>
+<td>Um <code>if</code> para cada rocha, escrito à mão</td>
+<td>Serve para três rochas. É impossível para um mapa, e cada rocha que você adiciona é uma chance de errar de digitação no código em vez de nos dados</td>
 </tr>
 <tr>
-<td>Moving first, then pushing back out of the wall</td>
-<td>It works most of the time, then fails badly: move fast enough and you land deep inside a rock, and "push back out" cannot tell which side you came from. You get shoved out the far side</td>
+<td>Mover primeiro e depois empurrar para fora da parede</td>
+<td>Funciona na maior parte do tempo e depois falha feio: mova rápido o bastante e você aterrissa bem dentro da rocha, e "empurrar para fora" não sabe de que lado você veio. Você é jogado para o lado oposto</td>
 </tr>
 <tr>
-<td>Checking x and y together in one step</td>
-<td>Two lines shorter, and the square sticks to every wall it touches. Players will call this a bug, and they will be right</td>
+<td>Verificar x e y juntos, em um passo só</td>
+<td>Duas linhas mais curto, e o quadrado gruda em toda parede que toca. Os jogadores vão chamar isso de bug, e vão estar certos</td>
 </tr>
 <tr>
-<td>Circles instead of rectangles</td>
-<td>Distance between centres is a shorter test. But rocks, floors and doors are rectangles, and a circle pretending to be a rectangle leaves gaps at the corners</td>
+<td>Círculos em vez de retângulos</td>
+<td>A distância entre os centros é um teste mais curto. Mas rochas, chãos e portas são retângulos, e um círculo se fingindo de retângulo deixa vãos nos cantos</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="o-prompt"><a class="heading-anchor" href="#o-prompt">O prompt</a></h2>
 <pre><code>I have a canvas game in plain JavaScript with a player object { x, y } of size
 SIZE, moved in update(dt) by dx and dy. Add solid walls: an array of
 { x, y, w, h } objects, a general rectangle-overlap function, and movement that
@@ -159,41 +161,41 @@ axis in separate steps so the player slides along a wall instead of sticking,
 and snap the player exactly to the wall's edge rather than just refusing the
 move. Draw the walls. Do not write a special case for any individual wall.
 </code></pre>
-<p><strong>Check the output for:</strong> did it check the two axes separately, or did it test the new x and y together? Test it — hold a direction into a wall plus a perpendicular direction, and see whether you slide or stick. Did it snap to the wall's edge, or just cancel the move so you stop a few pixels short with a visible gap? And did the overlap function end up knowing about the player, instead of taking any two rectangles? If it does, the map in A16 will not fit through it.</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>Verifique na resposta:</strong> ele verificou os dois eixos separadamente, ou testou o novo x e o novo y juntos? Teste — segure uma direção contra a parede mais uma direção perpendicular e veja se você desliza ou gruda. Ele encaixou o jogador exatamente na borda da parede, ou só cancelou o movimento, deixando você parar alguns pixels antes, com um vão visível? E a função de sobreposição acabou conhecendo o jogador, em vez de receber quaisquer dois retângulos? Se sim, o mapa de A16 não vai passar por ela.</p>
+<h2 id="veja-funcionar"><a class="heading-anchor" href="#veja-funcionar">Veja funcionar</a></h2>
 <p><img alt="A green square pressed flat against the left face of a tall brown rock, with two more rocks on the canvas" src="../static/img/game/a15.png"></p>
-<p>Open the page with Live Server and:</p>
+<p>Abra a página com o Live Server e:</p>
 <ol>
-<li>Hold the right arrow. The square starts at <code>x: 60</code>, crosses the gap, and stops. We read its position back: <code>x: 128</code>. The rock's left edge is at <code>160</code>, the square is <code>32</code> wide, and <code>160 - 32 = 128</code>. It stopped exactly on the edge, with no gap and no overlap.</li>
-<li>Keep holding right, as long as you like. It stays at <code>128</code>. It never gets through.</li>
-<li>Now hold right <strong>and</strong> down together, still pushing into the rock. We read back <code>x: 128, y: 225</code> — the sideways number did not move at all, and the up-down number changed by 165. That is sliding, and it is the point of this step.</li>
-<li>Hold right and <strong>up</strong> instead. Same thing the other way: <code>x: 128</code>, and <code>y</code> went back from <code>225</code> to <code>115</code>.</li>
-<li>Walk down onto the long floor rock and check it stops there too. The maths does not care which rock it is.</li>
+<li>Segure a seta para a direita. O quadrado começa em <code>x: 60</code>, atravessa o vão e para. Lemos a posição de volta: <code>x: 128</code>. A borda esquerda da rocha está em <code>160</code>, o quadrado tem <code>32</code> de largura, e <code>160 - 32 = 128</code>. Ele parou exatamente na borda, sem vão e sem sobreposição.</li>
+<li>Continue segurando a direita o quanto quiser. Ele fica em <code>128</code>. Nunca passa.</li>
+<li>Agora segure direita <strong>e</strong> baixo juntas, ainda empurrando contra a rocha. Lemos de volta <code>x: 128, y: 225</code> — o número lateral não mudou nada, e o número de cima para baixo mudou 165. Isso é deslizar, e é o ponto desta etapa.</li>
+<li>Segure direita e <strong>cima</strong> em vez disso. A mesma coisa ao contrário: <code>x: 128</code>, e <code>y</code> voltou de <code>225</code> para <code>115</code>.</li>
+<li>Ande para baixo até a rocha comprida do chão e confira se ele para ali também. A conta não se importa com qual rocha é.</li>
 </ol>
-<p>If the square goes straight through, check Block 1 first — is the rock where you think it is? Draw it and look, before you suspect the overlap test.</p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Take the game from <a href="a10.html">A10</a>. Add the <code>walls</code> array, <code>overlaps</code>, <code>moveX</code> and <code>moveY</code>. Then replace these two lines in <code>update</code>:</p>
+<p>Se o quadrado atravessar direto, olhe o bloco 1 primeiro — a rocha está onde você acha que está? Desenhe e olhe, antes de desconfiar do teste de sobreposição.</p>
+<h2 id="coloque-no-jogo"><a class="heading-anchor" href="#coloque-no-jogo">Coloque no jogo</a></h2>
+<p>Pegue o jogo de <a href="a10.html">A10</a>. Adicione o array <code>walls</code>, <code>overlaps</code>, <code>moveX</code> e <code>moveY</code>. Depois troque estas duas linhas no <code>update</code>:</p>
 <pre><code>player.x += dx * SPEED * dt;
 player.y += dy * SPEED * dt;
 </code></pre>
-<p>with these two:</p>
+<p>por estas duas:</p>
 <pre><code>if (dx !== 0) moveX(dx * SPEED * dt);
 if (dy !== 0) moveY(dy * SPEED * dt);
 </code></pre>
-<p>The "stay on screen" clamping from A10 moves inside <code>moveX</code> and <code>moveY</code>, because that is now the only place the position changes. Add one loop to <code>draw</code> so the rocks are visible — you cannot debug a wall you cannot see.</p>
+<p>O limite de "continuar na tela" de A10 passa para dentro de <code>moveX</code> e <code>moveY</code>, porque agora esse é o único lugar onde a posição muda. Adicione um laço ao <code>draw</code> para que as rochas apareçam — não se conserta uma parede que não se vê.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>A wall is data — four numbers in a list — not code. That is what makes a whole map possible later</li>
-<li>Two rectangles overlap only if they overlap left-to-right AND top-to-bottom</li>
-<li>Ask "can I stand there?" before you move, not after</li>
-<li>Resolve one direction at a time, and sliding along walls comes free</li>
-<li>Stop exactly at the edge, not a few pixels short, so there is no mysterious gap</li>
+<li>Uma parede é dado — quatro números em uma lista — não código. É isso que torna um mapa inteiro possível mais tarde</li>
+<li>Dois retângulos só se sobrepõem se se sobrepõem da esquerda para a direita E de cima para baixo</li>
+<li>Pergunte "posso ficar ali?" antes de se mover, não depois</li>
+<li>Resolva uma direção por vez, e deslizar pelas paredes vem de graça</li>
+<li>Pare exatamente na borda, não alguns pixels antes, para não sobrar um vão misterioso</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Make one rock a <strong>door</strong>: give it an extra field, <code>open: false</code>, and let the player pass through it when it is open. You need one new line in the checking loop and one colour change in <code>draw</code>. Then work out how to open it — pressing a key while standing next to it is the easy version. This is the first time your world has something in it that is not simply solid, and it is all in Block 1's data.</p>
+<h2 id="sua-vez"><a class="heading-anchor" href="#sua-vez">Sua vez</a></h2>
+<p>Transforme uma das rochas em uma <strong>porta</strong>: dê a ela um campo extra, <code>open: false</code>, e deixe o jogador passar por ela quando estiver aberta. Você precisa de uma linha nova no laço de verificação e de uma mudança de cor no <code>draw</code>. Depois descubra como abri-la — apertar uma tecla enquanto está ao lado dela é a versão fácil. É a primeira vez que o seu mundo tem algo que não é simplesmente sólido, e está tudo nos dados do bloco 1.</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">

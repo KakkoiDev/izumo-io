@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>What We Didn't Build - KakkoiSchool</title>
+  <title>O Que Não Construímos - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           
         </div>
       </nav>
-      <h1 id="a23-what-we-didn-t-build"><a class="heading-anchor" href="#a23-what-we-didn-t-build">A23: What We Didn't Build</a></h1>
-<p class="lesson-intro">You have a game. It has no accounts, no scores that anyone can check, nobody in charge, and no way to stop a determined cheat. Every one of those was a choice, and this step is where we say what each one bought you.</p>
-<p><strong>Needs:</strong> having built the thing. <strong>Gives you:</strong> the ability to explain your own design to someone who asks why it is not bigger.</p>
-<h2 id="the-whole-game-finished"><a class="heading-anchor" href="#the-whole-game-finished">The whole game, finished</a></h2>
+      <h1 id="a23-o-que-n-o-constru-mos"><a class="heading-anchor" href="#a23-o-que-n-o-constru-mos">A23: O Que Não Construímos</a></h1>
+<p class="lesson-intro">Você tem um jogo. Ele não tem contas, não tem pontuações que alguém possa conferir, não tem ninguém no comando e não tem como impedir um trapaceiro determinado. Cada uma dessas coisas foi uma escolha, e nesta etapa dizemos o que cada uma delas comprou para você.</p>
+<p><strong>Precisa de:</strong> ter construído a coisa. <strong>Oferece:</strong> a capacidade de explicar o seu próprio projeto para quem perguntar por que ele não é maior.</p>
+<h2 id="o-jogo-completo-terminado"><a class="heading-anchor" href="#o-jogo-completo-terminado">O jogo completo, terminado</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -69,126 +69,126 @@ flowchart LR
     class N,D,R,S,O,F,W,A done
 
 </div>
-<p>Every box is green. Look back at <a href="a09.html">A09</a>, where none of them were. You did not build a big thing. You built eight small things, one at a time, and each one fitted on a screen.</p>
-<p>That is the only real lesson in this whole course. Everything else was an excuse to practise it.</p>
-<h2 id="the-one-thing-you-do-not-have-somebody-in-charge"><a class="heading-anchor" href="#the-one-thing-you-do-not-have-somebody-in-charge">The one thing you do not have: somebody in charge</a></h2>
-<p>Almost everything missing from this game comes from a single decision: <strong>there is no server.</strong> No computer sits in the middle, deciding what is true.</p>
-<p>That one absence explains all of the following.</p>
+<p>Todas as caixas estão verdes. Olhe para trás, para <a href="a09.html">A09</a>, onde nenhuma estava. Você não construiu uma coisa grande. Você construiu oito coisas pequenas, uma por vez, e cada uma delas caberia em uma tela.</p>
+<p>Essa é a única lição de verdade deste curso inteiro. Todo o resto foi uma desculpa para praticá-la.</p>
+<h2 id="a-nica-coisa-que-voc-n-o-tem-algu-m-no-comando"><a class="heading-anchor" href="#a-nica-coisa-que-voc-n-o-tem-algu-m-no-comando">A única coisa que você não tem: alguém no comando</a></h2>
+<p>Quase tudo o que falta neste jogo vem de uma única decisão: <strong>não há servidor.</strong> Nenhum computador fica no meio, decidindo o que é verdade.</p>
+<p>Essa única ausência explica tudo o que vem abaixo.</p>
 <table>
 <thead>
 <tr>
-<th>What we do not have</th>
-<th>Why not</th>
-<th>What it would have cost</th>
+<th>O que não temos</th>
+<th>Por que não</th>
+<th>O que teria custado</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Accounts and passwords</strong></td>
-<td>Nothing checks who you are. You type a name and that is your name. Someone else can type the same name</td>
-<td>A server that stores passwords — and storing other people's passwords safely is a serious job, not a lesson</td>
+<td><strong>Contas e senhas</strong></td>
+<td>Nada confere quem você é. Você digita um nome e é esse o seu nome. Outra pessoa pode digitar o mesmo nome</td>
+<td>Um servidor que guarda senhas — e guardar senhas de outras pessoas com segurança é um trabalho sério, não uma lição</td>
 </tr>
 <tr>
-<td><strong>Scores anyone can trust</strong></td>
-<td>Your wins are counted on your own computer. You could set them to a million</td>
-<td>Somewhere to keep the real number that players cannot reach, which means a server, which means paying for it forever</td>
+<td><strong>Pontuações em que alguém possa confiar</strong></td>
+<td>As suas vitórias são contadas no seu próprio computador. Você poderia colocá-las em um milhão</td>
+<td>Algum lugar para guardar o número verdadeiro, fora do alcance dos jogadores, o que significa um servidor, o que significa pagar por ele para sempre</td>
 </tr>
 <tr>
-<td><strong>Stopping cheats</strong></td>
-<td>Nothing stops them. Whoever's move arrives first has shown their hand, and nothing stops someone editing their own position either. <a href="a22.html">A22</a> is an optional step showing how you would fix the first of those, and what it costs</td>
-<td>A referee that recalculates everything both players claim. That is most of what a game server actually does</td>
+<td><strong>Impedir trapaças</strong></td>
+<td>Nada as impede. Quem tem a jogada chegando primeiro já mostrou a mão, e nada impede alguém de editar a própria posição também. <a href="a22.html">A22</a> é uma etapa opcional que mostra como você consertaria a primeira dessas coisas, e quanto isso custa</td>
+<td>Um juiz que recalcula tudo o que os dois jogadores afirmam. É isso que a maior parte de um servidor de jogo faz de verdade</td>
 </tr>
 <tr>
-<td><strong>Reporting someone</strong></td>
-<td>There is nobody to report them to. This is exactly why the chat is a fixed list of phrases (<a href="a13.html">A13</a>) — the problem is designed out, because it could not be policed</td>
-<td>Moderators. Real people, reading reports, every day</td>
+<td><strong>Denunciar alguém</strong></td>
+<td>Não há ninguém para receber a denúncia. É exatamente por isso que o bate-papo é uma lista fixa de frases (<a href="a13.html">A13</a>) — o problema é eliminado no projeto, porque não havia como fiscalizá-lo</td>
+<td>Moderadores. Pessoas de verdade, lendo denúncias, todos os dias</td>
 </tr>
 <tr>
-<td><strong>The world carrying on without you</strong></td>
-<td>Close the tab and your square is gone. Nothing continues</td>
-<td>A computer that is always awake, holding the world</td>
+<td><strong>O mundo continuando sem você</strong></td>
+<td>Feche a aba e o seu quadrado desaparece. Nada continua</td>
+<td>Um computador sempre acordado, segurando o mundo</td>
 </tr>
 <tr>
-<td><strong>Finding people to play with</strong></td>
-<td>You play with whoever is there right now. There is no matchmaking</td>
-<td>A server that keeps a list of who is waiting</td>
+<td><strong>Encontrar gente para jogar</strong></td>
+<td>Você joga com quem estiver ali naquele momento. Não há matchmaking</td>
+<td>Um servidor que mantém uma lista de quem está esperando</td>
 </tr>
 <tr>
-<td><strong>Hundreds of players at once</strong></td>
-<td>Everyone is connected to everyone. Add one person and <em>everybody</em> needs another connection. It falls apart quite quickly</td>
-<td>Splitting the world into pieces, and a server to decide who is in which piece</td>
+<td><strong>Centenas de jogadores ao mesmo tempo</strong></td>
+<td>Todo mundo está conectado a todo mundo. Adicione uma pessoa e <em>todos</em> precisam de mais uma conexão. Desmonta bem rápido</td>
+<td>Dividir o mundo em pedaços, e um servidor para decidir quem está em qual pedaço</td>
 </tr>
 </tbody>
 </table>
-<h2 id="so-was-no-server-the-wrong-choice"><a class="heading-anchor" href="#so-was-no-server-the-wrong-choice">So was no server the wrong choice?</a></h2>
-<p>No — and being able to say why is the point.</p>
-<p>A server would have bought all of the above. It would also have cost money every month for as long as the game exists, needed someone to keep it running, and — this is the part that matters here — <strong>it would have hidden almost everything you learned.</strong> The interesting parts would have happened somewhere you could not see, in code you did not write.</p>
-<p>Instead the whole thing is in a folder you can read.</p>
-<p>And look at what the absence <em>gave</em> you. Your game costs nothing to run and will keep working for years with nobody maintaining it. Two players connect directly, so it is fast. There is nothing to break at three in the morning. Nothing about it can leak anybody's data, because it never had any.</p>
-<p><strong>That is a real engineering trade, and you made it.</strong> Not "we could not do the hard version" — the hard version is <em>different</em>, not better, and it is worse for this.</p>
-<h2 id="the-thing-to-take-with-you"><a class="heading-anchor" href="#the-thing-to-take-with-you">The thing to take with you</a></h2>
-<p>Every project you ever build will have a list like the table above. Grown-up programmers call it <strong>scope</strong>, so now you know that word too.</p>
-<p>The mistake is not leaving things out. The mistake is leaving them out by accident, and not being able to say why. A list of what you deliberately did not build, with a reason for each, is one of the signs of somebody who knows what they are doing.</p>
-<p>You now have one, for a real thing, that real people have played.</p>
-<h2 id="if-you-want-to-keep-going"><a class="heading-anchor" href="#if-you-want-to-keep-going">If you want to keep going</a></h2>
-<p>Each of these is a real project, and each one is bigger than it looks:</p>
+<h2 id="ent-o-n-o-ter-servidor-foi-a-escolha-errada"><a class="heading-anchor" href="#ent-o-n-o-ter-servidor-foi-a-escolha-errada">Então não ter servidor foi a escolha errada?</a></h2>
+<p>Não — e conseguir dizer por quê é o ponto.</p>
+<p>Um servidor teria comprado tudo o que está acima. Também teria custado dinheiro todo mês pelo tempo que o jogo existir, exigido alguém para mantê-lo rodando e — esta é a parte que importa aqui — <strong>teria escondido quase tudo o que você aprendeu.</strong> As partes interessantes teriam acontecido em algum lugar que você não pode ver, em código que você não escreveu.</p>
+<p>Em vez disso, tudo está em uma pasta que você consegue ler.</p>
+<p>E veja o que a ausência lhe <em>deu</em>. O seu jogo não custa nada para rodar e vai continuar funcionando por anos sem ninguém cuidando dele. Dois jogadores se conectam diretamente, então é rápido. Não há nada para quebrar às três da manhã. Nada nele pode vazar os dados de ninguém, porque ele nunca teve nenhum.</p>
+<p><strong>Essa é uma troca de engenharia de verdade, e você a fez.</strong> Não é "não conseguimos fazer a versão difícil" — a versão difícil é <em>diferente</em>, não melhor, e para este caso ela é pior.</p>
+<h2 id="o-que-levar-com-voc"><a class="heading-anchor" href="#o-que-levar-com-voc">O que levar com você</a></h2>
+<p>Todo projeto que você construir vai ter uma lista como a tabela acima. Programadores adultos a chamam de <strong>escopo</strong>, então agora você conhece essa palavra também.</p>
+<p>O erro não é deixar coisas de fora. O erro é deixá-las de fora por acidente e não conseguir dizer por quê. Uma lista do que você deliberadamente não construiu, com um motivo para cada item, é um dos sinais de alguém que sabe o que está fazendo.</p>
+<p>Você agora tem uma, para uma coisa de verdade, que pessoas de verdade jogaram.</p>
+<h2 id="se-voc-quiser-continuar"><a class="heading-anchor" href="#se-voc-quiser-continuar">Se você quiser continuar</a></h2>
+<p>Cada um destes é um projeto de verdade, e cada um é maior do que parece:</p>
 <ul>
-<li><strong>Make it fair.</strong> Add a referee — a small server that checks both players' claims about a fight. You will immediately meet the reason every online game has one.</li>
-<li><strong>Make it survive.</strong> Keep the world when everyone leaves.</li>
-<li><strong>Make it prove who you are.</strong> There is a way to prove you are the same person as yesterday without any password at all, using a pair of keys. It is one of the most beautiful ideas in computing.</li>
-<li><strong>Make it bigger.</strong> Try to get twenty people in. Watch it fail, then work out where.</li>
-<li><strong>Rebuild it with a game engine.</strong> Now that you have written the loop, the input, the walls and the camera yourself, do it again with a tool that provides all of them. Count what disappears — and, more interestingly, count what you can no longer explain.</li>
+<li><strong>Torne-o justo.</strong> Adicione um juiz — um servidor pequeno que confere o que os dois jogadores afirmam sobre uma luta. Você vai encontrar na hora o motivo pelo qual todo jogo online tem um.</li>
+<li><strong>Faça-o sobreviver.</strong> Mantenha o mundo quando todos saírem.</li>
+<li><strong>Faça-o provar quem você é.</strong> Existe uma forma de provar que você é a mesma pessoa de ontem sem senha nenhuma, usando um par de chaves. É uma das ideias mais bonitas da computação.</li>
+<li><strong>Faça-o maior.</strong> Tente colocar vinte pessoas dentro. Veja quebrar e depois descubra onde.</li>
+<li><strong>Reconstrua-o com uma engine de jogo.</strong> Agora que você escreveu o laço, a entrada, as paredes e a câmera com as suas próprias mãos, faça de novo com uma ferramenta que já fornece tudo isso. Conte o que desaparece — e, mais interessante, conte o que você já não consegue mais explicar.</li>
 </ul>
-<h2 id="what-we-could-have-done-instead-the-whole-course"><a class="heading-anchor" href="#what-we-could-have-done-instead-the-whole-course">What we could have done instead — the whole course</a></h2>
+<h2 id="o-que-poder-amos-ter-feito-em-vez-disso-o-curso-inteiro"><a class="heading-anchor" href="#o-que-poder-amos-ter-feito-em-vez-disso-o-curso-inteiro">O que poderíamos ter feito em vez disso — o curso inteiro</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>Em vez disso</th>
+<th>O que custaria</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>A game engine from the start</td>
-<td>You would have finished sooner and understood less. You could not have written <a href="a10.html">A10</a>, <a href="a15.html">A15</a> or <a href="a16.html">A16</a> at all, because the engine would have done them</td>
+<td>Uma engine de jogo desde o começo</td>
+<td>Você teria terminado mais cedo e entendido menos. Você não teria conseguido escrever <a href="a10.html">A10</a>, <a href="a15.html">A15</a> nem <a href="a16.html">A16</a> de jeito nenhum, porque a engine teria feito por você</td>
 </tr>
 <tr>
-<td>A server from the start</td>
-<td>A working game, and no <a href="a12.html">A12</a>, no <a href="a22.html">A22</a>, and no reason to think about any of this</td>
+<td>Um servidor desde o começo</td>
+<td>Um jogo funcionando, e nenhum <a href="a12.html">A12</a>, nenhum <a href="a22.html">A22</a>, e nenhum motivo para pensar em nada disso</td>
 </tr>
 <tr>
-<td>One big lesson instead of fifteen small ones</td>
-<td>Nothing to look at until the end, and no way to tell which part was broken when it did not work</td>
+<td>Uma lição grande em vez de quinze pequenas</td>
+<td>Nada para olhar até o fim, e nenhuma forma de saber qual parte estava quebrada quando não funcionava</td>
 </tr>
 <tr>
-<td>Building the game as one growing pile of code</td>
-<td>The first student whose code broke would have been stuck forever. Small separate demos meant a bad evening cost you an evening</td>
+<td>Construir o jogo como uma pilha de código que só cresce</td>
+<td>O primeiro estudante cujo código quebrasse ficaria travado para sempre. Demonstrações pequenas e separadas fizeram com que uma noite ruim custasse uma noite</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="o-prompt"><a class="heading-anchor" href="#o-prompt">O prompt</a></h2>
 <pre><code>I built a small multiplayer browser game with no server. Players connect
 directly to each other, positions and moves are sent peer to peer, and every
 player's own browser stores their own data. Ask me five questions that would
 find the weakest points in this design. Do not suggest fixes yet — just the
 questions.
 </code></pre>
-<p><strong>Check the output for:</strong> did it ask about trust — who checks that a player is telling the truth? If it went straight to performance or graphics, push it: the interesting weaknesses in a design with nobody in charge are always about trust.</p>
-<p>Then answer the five questions yourself, before reading anything else. You built it. You know.</p>
+<p><strong>Verifique na resposta:</strong> ele perguntou sobre confiança — quem confere se um jogador está falando a verdade? Se ele foi direto para desempenho ou gráficos, insista: em um projeto sem ninguém no comando, as fraquezas interessantes são sempre sobre confiança.</p>
+<p>Depois responda as cinco perguntas você mesmo, antes de ler qualquer outra coisa. Você construiu isso. Você sabe.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>You built one big thing out of eight small ones, and that is the transferable skill</li>
-<li>Almost everything this game lacks comes from one decision: there is no server</li>
-<li>No server costs you trust and permanence; it buys you no cost, no maintenance, and nothing hidden</li>
-<li>"We chose not to" is a completely different sentence from "we could not"</li>
-<li>Being able to list what you left out, with reasons, is a sign you know what you are doing</li>
+<li>Você construiu uma coisa grande a partir de oito pequenas, e essa é a habilidade que você leva para qualquer lugar</li>
+<li>Quase tudo o que falta neste jogo vem de uma decisão: não há servidor</li>
+<li>Não ter servidor custa confiança e permanência; em troca dá custo zero, manutenção zero e nada escondido</li>
+<li>"Escolhemos não fazer" é uma frase completamente diferente de "não conseguimos fazer"</li>
+<li>Conseguir listar o que você deixou de fora, com motivos, é um sinal de que você sabe o que está fazendo</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Write your own version of the table near the top of this step, for your own game, in your own words. Include anything you personally decided not to add. Put it in a file called <code>DESIGN.md</code> next to your code, and commit it.</p>
-<p>When someone asks why your game does not have accounts, you will have the answer written down — and it will be yours, not ours.</p>
+<h2 id="sua-vez"><a class="heading-anchor" href="#sua-vez">Sua vez</a></h2>
+<p>Escreva a sua própria versão da tabela do começo desta etapa, para o seu jogo, com as suas palavras. Inclua qualquer coisa que você pessoalmente decidiu não adicionar. Coloque isso em um arquivo chamado <code>DESIGN.md</code> ao lado do seu código, e faça o commit.</p>
+<p>Quando alguém perguntar por que o seu jogo não tem contas, você vai ter a resposta escrita — e ela vai ser sua, não nossa.</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">

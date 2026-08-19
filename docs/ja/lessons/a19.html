@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Challenge Someone - KakkoiSchool</title>
+  <title>だれかに勝負を申しこむ - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a20.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a19-challenge-someone"><a class="heading-anchor" href="#a19-challenge-someone">A19: Challenge Someone</a></h1>
-<p class="lesson-intro">You stand next to another player and press F. On their screen, a question appears. They press Y, and both of you are looking at a fight screen. Nothing happens inside it yet — opening it together is today's whole job.</p>
-<p><strong>Needs:</strong> <a href="a12.html">A12</a>. <strong>Gives you:</strong> a challenge one player can send, another can accept or refuse, and a screen that changes for both of them at once.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a19-だれかに勝負を申しこむ"><a class="heading-anchor" href="#a19-だれかに勝負を申しこむ">A19: だれかに勝負を申しこむ</a></h1>
+<p class="lesson-intro">あなたは他のプレイヤーのとなりに立って、Fを押します。相手の画面には、質問が出ます。相手がYを押すと、2人とも対戦画面を見ています。その中ではまだ何も起きません。2人でいっしょに開くことが、今日の仕事のすべてです。</p>
+<p><strong>必要なもの:</strong> <a href="a12.html">A12</a>。<strong>得られるもの:</strong> 片方のプレイヤーが送れる申しこみ、もう片方が受けるか断れるしくみ、そして2人同時に切りかわる画面。</p>
+<h2 id="ゲーム全体と今日の部分"><a class="heading-anchor" href="#ゲーム全体と今日の部分">ゲーム全体と今日の部分</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -66,12 +66,14 @@ flowchart LR
     A["Sound"] --> R
 
     classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    classDef done fill:#2f6f4f,stroke:#8fd6b4,color:#fff
+    class N,D,R,S,W,A done
     class O,F now
 
 </div>
-<p>Today you build the door between "other people" and "the fight". The fight itself is <a href="a20.html">A20</a>.</p>
-<h2 id="the-one-idea-in-this-step"><a class="heading-anchor" href="#the-one-idea-in-this-step">The one idea in this step</a></h2>
-<p>Your game is in exactly <strong>one</strong> state at a time. Not two. Never two.</p>
+<p>今日つくるのは、「他のプレイヤー」と「対戦」のあいだのドアです。対戦そのものは<a href="a20.html">A20</a>です。</p>
+<h2 id="このステップのたった1つの考え方"><a class="heading-anchor" href="#このステップのたった1つの考え方">このステップのたった1つの考え方</a></h2>
+<p>あなたのゲームは、いつでも<strong>1つ</strong>の状態にしかいません。2つではありません。決して2つにはなりません。</p>
 <div class="mermaid">
 stateDiagram-v2
     [*] --> walking
@@ -83,23 +85,23 @@ stateDiagram-v2
     asked --> walking: you press N, or they leave
 
 </div>
-<p>Four states, and every arrow is one thing that can happen. Read it out loud: <em>from walking, pressing F takes you to waiting.</em> That is the whole feature.</p>
-<p><strong>A bug is very often just being in two states at once.</strong> You are walking <em>and</em> waiting for an answer. You are being asked <em>and</em> already fighting. When you write it as one variable that holds one word, that cannot happen, because a variable holds one thing.</p>
-<p>In the code it is exactly this:</p>
+<p>状態は4つ。矢印はどれも、起きうることの1つです。声に出して読んでみましょう。<em>walking（歩いている）から、Fを押すとwaiting（返事待ち）になる。</em> これがこの機能のすべてです。</p>
+<p><strong>バグはとてもよく、2つの状態に同時にいることが原因です。</strong> 歩いていて、<em>しかも</em>返事を待っている。申しこまれていて、<em>しかも</em>もう戦っている。1つの言葉を持つ1つの変数として書けば、それは起こりえません。変数は1つのものしか持てないからです。</p>
+<p>コードでは、ちょうどこうなります。</p>
 <pre><code>let state = 'walking';   // walking | waiting | asked | fighting
 let them = null;         // who this conversation is with
 
 function go(next, id) { state = next; them = id; }
 </code></pre>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"Challenge somebody" is three things:</p>
+<h2 id="ブロックに分割する"><a class="heading-anchor" href="#ブロックに分割する">ブロックに分割する</a></h2>
+<p>「だれかに勝負を申しこむ」は3つのことです。</p>
 <ol>
-<li><strong>Ask</strong> — send a challenge to the nearest player</li>
-<li><strong>Agree</strong> — answer one, and decide what every awkward case means</li>
-<li><strong>Change screen</strong> — draw a different picture depending on the state</li>
+<li><strong>たずねる</strong> — いちばん近いプレイヤーに申しこみを送る</li>
+<li><strong>合意する</strong> — 申しこみに答え、気まずい場合それぞれが何を意味するかを決める</li>
+<li><strong>画面を切りかえる</strong> — 状態におうじてちがう絵を描く</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Nothing happening on their screen means ask. Something happening but the two of you disagreeing about what state you are in means agree. Both states right but the picture wrong means change screen. Three blocks, three separate questions — and the state variable is the thing you read to answer them.</p>
-<h2 id="block-1-ask"><a class="heading-anchor" href="#block-1-ask">Block 1: Ask</a></h2>
+<p><strong>なぜわざわざ分けるのでしょう。</strong> もし1つのかたまりにしてしまうと、うまく動かないときにどこが悪いのか分からなくなるからです。相手の画面で何も起きないなら「たずねる」の問題です。何かは起きるのに、2人が今どの状態なのかで食いちがっているなら「合意する」の問題です。状態は両方正しいのに絵がおかしいなら「画面を切りかえる」の問題です。3つのブロック、3つの別々の質問。そして、その答えを読み取るために見るのが、状態の変数です。</p>
+<h2 id="ブロック1-たずねる"><a class="heading-anchor" href="#ブロック1-たずねる">ブロック1: たずねる</a></h2>
 <pre><code>addEventListener('keydown', (e) =&gt; {
   held.add(e.key);
   const k = e.key.toLowerCase();
@@ -111,12 +113,12 @@ function go(next, id) { state = next; them = id; }
   if (k === 'n' &amp;&amp; state === 'asked') { sendReply({ yes: false }, them); go('walking', null); }
 });
 </code></pre>
-<p>Look at every line: <strong>each key names the state it works in.</strong> F only does something while walking. Y and N only do something while being asked. A key pressed in the wrong state does nothing at all, and that is not an accident you have to remember — it is written down.</p>
-<p><code>sendAsk</code> and <code>sendReply</code> come from the same room as <a href="a12.html">A12</a>'s <code>sendMove</code>:</p>
+<p>どの行も見てください。<strong>キーはどれも、自分が働く状態の名前を言っています。</strong> Fは歩いているあいだだけ効きます。YとNは申しこまれているあいだだけ効きます。まちがった状態で押されたキーは、何もしません。しかもそれは、あなたが覚えておかないといけないうっかりではなく、コードに書いてあることです。</p>
+<p><code>sendAsk</code>と<code>sendReply</code>は、<a href="a12.html">A12</a>の<code>sendMove</code>と同じ部屋から来ています。</p>
 <pre><code>const [sendAsk, onAsk] = room.makeAction('ask');
 const [sendReply, onReply] = room.makeAction('reply');
 </code></pre>
-<p>Passing a second argument, <code>sendAsk({}, id)</code>, sends it to <strong>that one player</strong> instead of everybody. Everything else about the room is unchanged from A12.</p>
+<p>2つめの引数をわたして<code>sendAsk({}, id)</code>とすると、全員ではなく<strong>その1人</strong>に送られます。部屋についてのそれ以外のことは、A12から何も変わっていません。</p>
 <pre><code>function nearest() {
   let best = null, bestDistance = REACH;
   for (const id in others) {
@@ -126,9 +128,9 @@ const [sendReply, onReply] = room.makeAction('reply');
   return best;
 }
 </code></pre>
-<p><code>REACH</code> is 90 pixels — under three squares' width. You have to walk over to somebody to challenge them, which is the point.</p>
-<h2 id="block-2-agree"><a class="heading-anchor" href="#block-2-agree">Block 2: Agree</a></h2>
-<p>Here is the whole block. Every awkward case is one line, and every line is a decision somebody made on purpose.</p>
+<p><code>REACH</code>は90ピクセル、四角形3つ分より少し短いくらいです。申しこむには相手のところまで歩いていかないといけません。それがねらいです。</p>
+<h2 id="ブロック2-合意する"><a class="heading-anchor" href="#ブロック2-合意する">ブロック2: 合意する</a></h2>
+<p>これがブロックの全部です。気まずい場合はどれも1行で、その1行はどれも、だれかが考えて決めたことです。</p>
 <pre><code>onAsk((_, id) =&gt; {
   if (state === 'waiting' &amp;&amp; id === them) return go('fighting', id); // asked at once
   if (state !== 'walking') return sendReply({ yes: false }, id);     // busy: no
@@ -140,20 +142,20 @@ onReply((answer, id) =&gt; {
   if (answer.yes) go('fighting', id); else go('walking', null);
 });
 </code></pre>
-<p><strong>You both press F at the same moment.</strong> Each of you sent a challenge, and each challenge arrives at somebody who is already waiting for an answer. We treat that as agreement: you both said yes to the same fight, so both of you go straight to fighting. It is one line, and it is fair to both players. The alternative — deciding one of you asked "first" — needs a rule about whose clock to believe, and clocks on two computers do not agree.</p>
-<p><strong>Somebody challenges you while you are busy.</strong> Any state that is not walking means you are mid-conversation or already fighting. Send back a no, immediately and automatically. They get a clear answer instead of waiting for nothing.</p>
-<p><strong>A reply arrives that you were not waiting for.</strong> Ignore it. This is the <code>state !== 'waiting' || id !== them</code> line, and it costs nothing to have. Late messages happen.</p>
-<p><strong>The other player closes their tab while you wait.</strong> That one is handled in the room code, in a single line:</p>
+<p><strong>2人が同時にFを押した。</strong> それぞれが申しこみを送り、その申しこみは、もう返事を待っている相手に届きます。これは合意とみなします。2人とも同じ対戦にYesと言ったのだから、2人ともまっすぐ対戦に進みます。1行で書けて、両方のプレイヤーに公平です。もう1つのやり方（どちらが「先に」たずねたかを決める方法）だと、どちらの時計を信じるかというルールが必要になります。そして2台のパソコンの時計は、ぴったり合いません。</p>
+<p><strong>あなたが忙しいときに、だれかが申しこんできた。</strong> 歩いている以外の状態は、話しかけの途中か、もう戦っている最中です。すぐに、自動で「いいえ」を返します。相手はむだに待たされず、はっきりした答えをもらえます。</p>
+<p><strong>待っていない返事が届いた。</strong> 無視します。これが<code>state !== 'waiting' || id !== them</code>の行で、持っていて損はありません。遅れて届くメッセージは起こるものです。</p>
+<p><strong>あなたが待っているあいだに、相手がタブを閉じた。</strong> これは部屋のコードの側で、1行で片づけます。</p>
 <pre><code>room.onPeerLeave((id) =&gt; { delete others[id]; if (id === them) go('walking', null); });
 </code></pre>
-<p>If the person who disappeared was the person you were talking to, stop talking and walk again. We tested this by closing the challenger's tab, and the other player sat in "being asked" for about seven seconds — the time the connection takes to notice a silence — and then went back to walking on their own. Not instant, but never stuck.</p>
-<h2 id="block-3-change-screen"><a class="heading-anchor" href="#block-3-change-screen">Block 3: Change screen</a></h2>
+<p>いなくなった人が、あなたが話していた相手だったなら、話すのをやめてまた歩きます。これは申しこんだ側のタブを閉じてためしました。もう片方のプレイヤーは7秒くらい「申しこまれている」ままでいて（接続が静けさに気づくまでの時間です）、そのあと自分で歩く状態に戻りました。すぐではありませんが、固まったままにはなりません。</p>
+<h2 id="ブロック3-画面を切りかえる"><a class="heading-anchor" href="#ブロック3-画面を切りかえる">ブロック3: 画面を切りかえる</a></h2>
 <pre><code>function update(dt) {
   if (state !== 'walking') return;
   ...
 }
 </code></pre>
-<p>One line at the top of the movement code, and your square stops moving whenever you are not walking. You cannot wander off mid-question. That is the state machine doing work for you.</p>
+<p>移動のコードの先頭に1行。これで、歩いている状態でないときは、あなたの四角形は動かなくなります。質問の途中でふらふら歩いていくことはできません。それは、状態のしくみがあなたの代わりに働いてくれているということです。</p>
 <pre><code>function draw() {
   ctx.fillStyle = state === 'fighting' ? '#3a1420' : '#1b1b22';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -168,37 +170,37 @@ onReply((answer, id) =&gt; {
   ... the squares, exactly as in A12 ...
 }
 </code></pre>
-<p>The <code>return</code> in the middle matters: when you are fighting, drawing stops there and the walking world is never painted. One state, one picture. In <a href="a20.html">A20</a> the three lines after that <code>return</code> become the whole fight.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>One variable holding one word, because two players have to agree about something that is happening in two places at once. If "am I fighting?" and "am I waiting?" were separate true-or-false values, there would be four combinations, two of them nonsense, and no way to stop your code reaching them. With one word there is nothing to keep in step: reading <code>state</code> on both computers is the whole check, and it is the check we ran.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p>とちゅうの<code>return</code>が大事です。戦っているときは、描画はそこで止まり、歩く世界は一度も描かれません。1つの状態に、1つの絵。<a href="a20.html">A20</a>では、その<code>return</code>のあとの3行が、対戦そのものになります。</p>
+<h2 id="なぜこの方法にしたのか"><a class="heading-anchor" href="#なぜこの方法にしたのか">なぜこの方法にしたのか</a></h2>
+<p>1つの変数が1つの言葉を持つ形にしたのは、2つの場所で同時に起きていることについて、2人のプレイヤーが同じ考えを持たないといけないからです。もし「戦っている？」と「待っている？」が別々の「はい／いいえ」だったら、組み合わせは4つになり、そのうち2つは意味をなさず、しかもコードがそこにたどり着くのを止める方法がありません。言葉が1つなら、そろえておくものが何もありません。両方のパソコンで<code>state</code>を読むことが、そのまま確認になります。実際に私たちがやった確認も、それです。</p>
+<h2 id="代わりにできたこと"><a class="heading-anchor" href="#代わりにできたこと">代わりにできたこと</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>この代わりに</th>
+<th>その代償</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Separate flags: <code>isWaiting</code>, <code>isFighting</code>, <code>isAsked</code></td>
-<td>Eight combinations, most of them impossible, and every new feature has to remember to clear all of them. This is where "two states at once" bugs come from</td>
+<td><code>isWaiting</code>、<code>isFighting</code>、<code>isAsked</code>という別々の目印にする</td>
+<td>組み合わせが8つになり、そのほとんどはありえない状態です。しかも新しい機能を作るたびに、その全部を消すのを忘れないようにしないといけません。「2つの状態に同時にいる」バグは、ここから生まれます</td>
 </tr>
 <tr>
-<td>Start the fight immediately, with no question</td>
-<td>Half the code. Also anyone can drag you into a fight while you are doing something else, which is the kind of thing that ends a game with friends</td>
+<td>質問なしで、すぐ対戦を始める</td>
+<td>コードは半分になります。そのかわり、あなたが何か別のことをしている最中でも、だれでもあなたを対戦に引きずりこめます。友達とのゲームが終わるのは、そういうことがきっかけです</td>
 </tr>
 <tr>
-<td>Deciding who asked "first" by comparing times</td>
-<td>Two computers do not agree about the time, and the gap is often smaller than the disagreement. You would have written a rule that gives a different answer depending on which computer you ask</td>
+<td>時刻をくらべて、どちらが「先に」たずねたかを決める</td>
+<td>2台のパソコンは時刻について同じ答えを持ちませんし、そのずれは2人の押した差より大きいことがよくあります。どのパソコンにたずねるかで答えが変わるルールを、書いてしまうことになります</td>
 </tr>
 <tr>
-<td>Waiting for the other player to answer forever</td>
-<td>Feels fine until somebody closes their laptop, and then you are stuck on a screen with no way out and no explanation</td>
+<td>相手の返事を、いつまでも待ちつづける</td>
+<td>だれかがノートパソコンを閉じるまでは問題ありません。そのあとあなたは、出る方法も説明もない画面に取りのこされます</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="プロンプト"><a class="heading-anchor" href="#プロンプト">プロンプト</a></h2>
 <pre><code>I have a plain-JavaScript canvas game with trystero multiplayer: a room, a
 'move' action, an others object of peer positions, and update(dt)/draw().
 Add challenging in three blocks with a comment above each: ASK (press F to
@@ -209,34 +211,34 @@ talking to. Handle: both players challenging at once, a refusal, and the other
 player leaving. Do not change the movement code except to stop it when state
 is not 'walking'. No build step, no npm.
 </code></pre>
-<p><strong>Check the output for:</strong> did it use one <code>state</code> variable, or did it quietly give you <code>isWaiting</code> and <code>isFighting</code> as separate flags? Does anything clear <code>them</code> when the conversation ends, or does a stale name hang around and show up in the next challenge? And is there a line for <code>onPeerLeave</code> — the case nobody remembers until a friend closes a laptop mid-question?</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>出力を確認すること:</strong> <code>state</code>という変数1つを使っていますか。それともいつのまにか<code>isWaiting</code>と<code>isFighting</code>という別々の目印になっていませんか。話が終わったときに<code>them</code>を空にしているところはありますか。それとも古い名前が残っていて、次の申しこみのときに出てきてしまいませんか。そして<code>onPeerLeave</code>の行はありますか。友達が質問の途中でノートパソコンを閉じるまで、だれも思い出さない場合です。</p>
+<h2 id="動作を確認する"><a class="heading-anchor" href="#動作を確認する">動作を確認する</a></h2>
 <p><img alt="Two squares close together on a dark canvas, with an orange line at the top reading &quot;boVn challenges you. Y = yes, N = no&quot;" src="../static/img/game/a19.png"></p>
-<p>Open the page in two tabs, side by side, and wait for each to show the other's square:</p>
+<p>ページを2つのタブで並べて開き、それぞれにもう片方の四角形が出るのを待ちます。</p>
 <ol>
-<li>In tab A, type <code>getState()</code> in the console. You get <code>{state: 'walking', them: '', me: 'boVn', ...}</code>. Do the same in tab B.</li>
-<li>Walk tab A's square up next to tab B's square, then press F. Tab A now says <em>Waiting for … to answer</em>, and tab B shows the orange question at the top.</li>
-<li>Read the state in both consoles. We got <code>{state: 'waiting', them: 'QgQL'}</code> in A and <code>{state: 'asked', them: 'boVn'}</code> in B — each one naming the other.</li>
-<li>Press Y in tab B. Both screens turn dark red and say <strong>FIGHT!</strong>. <code>getState()</code> says <code>fighting</code> in both, each with the other's name.</li>
-<li>Reload both, do it again, and press N instead. Both go straight back to <code>walking</code> with <code>them</code> empty.</li>
-<li>Do it once more, and this time close tab A while tab B still has the question on screen. About seven seconds later tab B returns to walking by itself. You may see a red <code>RTCErrorEvent … User-Initiated Abort, reason=Close called</code> in the console — that is the connection reporting that the other side closed it, and the game handled it correctly. An error in the console is not the same as a broken game.</li>
+<li>タブAのコンソールで<code>getState()</code>と打ちます。<code>{state: 'walking', them: '', me: 'boVn', ...}</code>と返ってきます。タブBでも同じことをします。</li>
+<li>タブAの四角形をタブBの四角形のとなりまで歩かせて、Fを押します。タブAには<em>Waiting for … to answer</em>と出て、タブBの上にはオレンジ色の質問が出ます。</li>
+<li>両方のコンソールで状態を読みます。私たちの場合、Aは<code>{state: 'waiting', them: 'QgQL'}</code>、Bは<code>{state: 'asked', them: 'boVn'}</code>でした。おたがいの名前を言っています。</li>
+<li>タブBでYを押します。両方の画面が暗い赤になり、<strong>FIGHT!</strong>と出ます。<code>getState()</code>はどちらも<code>fighting</code>で、それぞれ相手の名前が入っています。</li>
+<li>両方を再読み込みしてもう一度やり、こんどはNを押します。両方ともまっすぐ<code>walking</code>に戻り、<code>them</code>は空になります。</li>
+<li>もう一度やって、こんどはタブBに質問が出ているあいだにタブAを閉じます。7秒くらいたつと、タブBは自分で歩く状態に戻ります。コンソールに赤い<code>RTCErrorEvent … User-Initiated Abort, reason=Close called</code>が出るかもしれません。それは、相手側が接続を閉じたことを報告しているだけで、ゲームは正しく処理しています。コンソールにエラーが出ることと、ゲームが壊れていることは、同じではありません。</li>
 </ol>
-<p>Try pressing F while a question is on your screen. Nothing happens — F only works while walking.</p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Take your game from <a href="a18.html">A18</a> and add the three blocks. The only edit to code you already had is the single <code>if (state !== 'walking') return;</code> at the top of <code>update</code>. Your movement, your walls and your other players are untouched — you are adding a switch above them, not rewriting them.</p>
+<p>自分の画面に質問が出ているあいだにFを押してみてください。何も起きません。Fは歩いているあいだだけ効きます。</p>
+<h2 id="ゲームに組み込む"><a class="heading-anchor" href="#ゲームに組み込む">ゲームに組み込む</a></h2>
+<p><a href="a18.html">A18</a>のゲームを用意して、3つのブロックを足します。もとからあったコードへの変更は、<code>update</code>の先頭に入れる<code>if (state !== 'walking') return;</code>の1行だけです。移動も、壁も、他のプレイヤーもそのままです。あなたは、それらの上にスイッチを1つ足しているだけで、書き直してはいません。</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="主なポイント"><a class="heading-anchor" href="#主なポイント">主なポイント</a></h2>
 <ul>
-<li>One variable holding one word out of a short list is a <strong>state machine</strong>, and now you know that phrase too</li>
-<li>Many bugs are just being in two states at once; one variable makes that impossible</li>
-<li>Every key press should say which state it works in, so nothing surprising happens in the wrong one</li>
-<li>The awkward cases — both at once, a refusal, somebody leaving — are the feature, not extras</li>
-<li>Never leave a player waiting forever on something that may never arrive</li>
+<li>短いリストの中の1つの言葉を持つ変数1つ。それが<strong>状態機械</strong>です。これであなたも、この言葉を知りました</li>
+<li>多くのバグは、ただ2つの状態に同時にいるだけです。変数を1つにすれば、それは起こりえません</li>
+<li>キーを押す処理はどれも、自分がどの状態で働くかを言うべきです。そうすれば、まちがった状態で意外なことは起きません</li>
+<li>気まずい場合（同時に申しこむ、断られる、だれかがいなくなる）は、おまけではなく機能そのものです</li>
+<li>いつ来るか分からないものを、プレイヤーにいつまでも待たせてはいけません</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Right now a challenge waits until it is answered. Add a time limit: if nobody answers within ten seconds, the challenger goes back to walking and the person who was asked has the question disappear. Draw the seconds counting down so both players can see it. Watch out for one thing — when the answer arrives just as the clock runs out, both sides must still end up in the same state.</p>
+<h2 id="あなたの番"><a class="heading-anchor" href="#あなたの番">あなたの番</a></h2>
+<p>今は、申しこみは答えが来るまで待ちつづけます。制限時間を足してみましょう。10秒たってもだれも答えなかったら、申しこんだ側は歩く状態に戻り、たずねられていた側の質問は消えます。残りの秒数を描いて、2人とも見えるようにします。1つ気をつけることがあります。時間切れとちょうど同じ瞬間に答えが届いたときも、両方が同じ状態にたどり着かないといけません。</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">AIレッスンに戻る</a>
         <div class="lesson-pager">

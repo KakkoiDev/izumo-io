@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Put It Online - KakkoiSchool</title>
+  <title>Coloque na Internet - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,13 +47,13 @@
           <a href="a19.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a18-put-it-online"><a class="heading-anchor" href="#a18-put-it-online">A18: Put It Online</a></h1>
-<p class="lesson-intro">Right now your game only exists on your computer. By the end of this step it has an address anyone in the world can open, and you have something far better than copying folders when you want to undo.</p>
-<p><strong>Needs:</strong> <a href="a09.html">A09</a>, and a game you would not mind someone seeing. <strong>Gives you:</strong> a link you can send to anyone.</p>
+      <h1 id="a18-coloque-na-internet"><a class="heading-anchor" href="#a18-coloque-na-internet">A18: Coloque na Internet</a></h1>
+<p class="lesson-intro">Neste momento o seu jogo só existe no seu computador. No fim desta etapa ele tem um endereço que qualquer pessoa do mundo pode abrir, e você tem algo muito melhor do que copiar pastas quando quiser desfazer.</p>
+<p><strong>Precisa de:</strong> <a href="a09.html">A09</a>, e um jogo que você não se incomode que alguém veja. <strong>Oferece:</strong> um link que você pode mandar para qualquer pessoa.</p>
 <blockquote>
-<p>This step is bigger than the others. It is three separate things, and you may want to stop after each one. That is fine — there is no rush, and nothing later depends on finishing it all at once.</p>
+<p>Esta etapa é maior que as outras. São três coisas separadas, e você pode querer parar depois de cada uma. Tudo bem — não há pressa, e nada mais adiante depende de terminar tudo de uma vez.</p>
 </blockquote>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+<h2 id="o-jogo-completo-e-a-parte-de-hoje"><a class="heading-anchor" href="#o-jogo-completo-e-a-parte-de-hoje">O jogo completo, e a parte de hoje</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -68,57 +68,60 @@ flowchart LR
     W["The world<br/>walls, map"] --> R
     A["Sound"] --> R
 
+    classDef done fill:#2f6f4f,stroke:#8fd6b4,color:#fff
+    class N,D,R,S,O,W,A done
+
 </div>
-<p>None of the boxes change here. This step is about the <em>folder</em> your game lives in, not the game.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
+<p>Nenhuma das caixas muda aqui. Esta etapa é sobre a <em>pasta</em> onde o seu jogo mora, não sobre o jogo.</p>
+<h2 id="dividindo-em-blocos"><a class="heading-anchor" href="#dividindo-em-blocos">Dividindo em blocos</a></h2>
 <ol>
-<li><strong>Save your history</strong> — keep every version of your work, so you can go back</li>
-<li><strong>Make an account</strong> — somewhere on the internet to put it</li>
-<li><strong>Switch on the hosting</strong> — turn your folder into a website</li>
-<li><strong>Make it installable</strong> — so it lands on a phone like a real app</li>
+<li><strong>Guardar o seu histórico</strong> — manter toda versão do seu trabalho, para poder voltar</li>
+<li><strong>Criar uma conta</strong> — algum lugar na internet para colocá-lo</li>
+<li><strong>Ligar a hospedagem</strong> — transformar a sua pasta em um site</li>
+<li><strong>Deixá-lo instalável</strong> — para ele entrar no celular como um aplicativo de verdade</li>
 </ol>
-<p>Why four? Because each one can fail on its own, and they fail in completely different ways. If your link does not work at the end, you need to know whether your files never left your computer, or arrived but were not published. Checking one end at a time is the whole trick, and it is the same trick as always.</p>
-<h2 id="block-1-save-your-history"><a class="heading-anchor" href="#block-1-save-your-history">Block 1: Save your history</a></h2>
-<p>Since <a href="a09.html">A09</a> you have been copying your folder before big changes. That works, and it is horrible. You end up with <code>kakkoi-online-2</code>, <code>kakkoi-online-final</code>, <code>kakkoi-online-final-2</code>, and no idea what is in any of them.</p>
-<p><strong>Git</strong> is a program that does this properly. It keeps every version of your folder, with a note on each one saying what changed.</p>
-<p>Install it if you do not have it — type <code>git --version</code> in a terminal to check. Then, inside your project folder:</p>
+<p>Por que quatro? Porque cada um pode falhar por conta própria, e eles falham de formas completamente diferentes. Se no fim o seu link não funcionar, você precisa saber se os seus arquivos nunca saíram do seu computador, ou se chegaram mas não foram publicados. Conferir uma ponta por vez é todo o truque, e é o mesmo truque de sempre.</p>
+<h2 id="bloco-1-guardar-o-seu-hist-rico"><a class="heading-anchor" href="#bloco-1-guardar-o-seu-hist-rico">Bloco 1: Guardar o seu histórico</a></h2>
+<p>Desde <a href="a09.html">A09</a> você vem copiando a sua pasta antes de mudanças grandes. Isso funciona, e é horrível. Você acaba com <code>kakkoi-online-2</code>, <code>kakkoi-online-final</code>, <code>kakkoi-online-final-2</code>, e nenhuma ideia do que tem dentro de cada uma.</p>
+<p>O <strong>Git</strong> é um programa que faz isso do jeito certo. Ele guarda toda versão da sua pasta, com uma anotação em cada uma dizendo o que mudou.</p>
+<p>Instale-o se você ainda não tiver — digite <code>git --version</code> em um terminal para conferir. Depois, dentro da pasta do seu projeto:</p>
 <pre><code>git init
 git add .
 git commit -m &quot;My game so far&quot;
 </code></pre>
 <ul>
-<li><code>init</code> says "start keeping history for this folder"</li>
-<li><code>add .</code> says "I mean all these files"</li>
-<li><code>commit</code> saves a version, with your note</li>
+<li><code>init</code> diz "comece a guardar o histórico desta pasta"</li>
+<li><code>add .</code> diz "estou falando de todos estes arquivos"</li>
+<li><code>commit</code> salva uma versão, com a sua anotação</li>
 </ul>
-<p>That is a <strong>save point</strong>. Make one whenever something works. From now on, before you let the assistant loose on a big change, you make a commit instead of copying the folder. If it goes wrong, <code>git restore .</code> puts everything back to your last save point.</p>
-<p>You have wanted this since A09. That is why it is here and not there: you have felt the problem, so the answer means something.</p>
-<h2 id="block-2-make-an-account"><a class="heading-anchor" href="#block-2-make-an-account">Block 2: Make an account</a></h2>
-<p>Go to <a href="https://github.com" target="_blank" rel="noopener">github.com</a> and sign up. It is free.</p>
+<p>Esse é um <strong>ponto de salvamento</strong>. Faça um sempre que algo funcionar. De agora em diante, antes de soltar o assistente numa mudança grande, você faz um commit em vez de copiar a pasta. Se der errado, <code>git restore .</code> devolve tudo ao seu último ponto de salvamento.</p>
+<p>Você queria isso desde A09. É por isso que está aqui e não lá: você sentiu o problema, então a resposta significa algo.</p>
+<h2 id="bloco-2-criar-uma-conta"><a class="heading-anchor" href="#bloco-2-criar-uma-conta">Bloco 2: Criar uma conta</a></h2>
+<p>Vá em <a href="https://github.com" target="_blank" rel="noopener">github.com</a> e cadastre-se. É de graça.</p>
 <blockquote>
-<p><strong>You must be at least 13 to have a GitHub account.</strong> That is their rule, not ours. If you are younger, ask a parent — they can make the account and you can use it together. Nothing before this step needed an account, so you have lost nothing by waiting.</p>
+<p><strong>Você precisa ter no mínimo 13 anos para ter uma conta no GitHub.</strong> Essa é a regra deles, não a nossa. Se você for mais novo, peça a um responsável — ele pode criar a conta e vocês podem usá-la juntos. Nada antes desta etapa precisava de uma conta, então você não perdeu nada esperando.</p>
 </blockquote>
-<p>Make a new repository — a <strong>repository</strong> is just a folder that lives on GitHub. Name it <code>kakkoi-online</code>. Make it <strong>public</strong>.</p>
+<p>Crie um novo repositório — um <strong>repositório</strong> é só uma pasta que mora no GitHub. Dê a ele o nome <code>kakkoi-online</code>. Deixe-o <strong>público</strong>.</p>
 <blockquote>
-<p>Public means anyone can read your code. That is normal and it is how most learning happens. But it also means: <strong>do not put anything private in this folder.</strong> No passwords, no addresses, no phone numbers, nothing you would not put on a poster.</p>
+<p>Público quer dizer que qualquer pessoa pode ler o seu código. Isso é normal e é assim que a maior parte do aprendizado acontece. Mas também quer dizer: <strong>não coloque nada particular nesta pasta.</strong> Nenhuma senha, nenhum endereço, nenhum telefone, nada que você não colocaria em um cartaz.</p>
 </blockquote>
-<p>GitHub then shows you the commands to connect your folder to it. They look like this:</p>
+<p>O GitHub então mostra os comandos para conectar a sua pasta a ele. Eles se parecem com isto:</p>
 <pre><code>git remote add origin https://github.com/YOUR-NAME/kakkoi-online.git
 git branch -M main
 git push -u origin main
 </code></pre>
-<p><code>push</code> means "send my saved history to GitHub". Refresh the page — your files are there.</p>
-<h2 id="block-3-switch-on-the-hosting"><a class="heading-anchor" href="#block-3-switch-on-the-hosting">Block 3: Switch on the hosting</a></h2>
-<p>Your code is on GitHub, but it is not a website yet. It is just files someone can read.</p>
-<p>On your repository page: <strong>Settings → Pages</strong>. Under <em>Build and deployment</em>, set <strong>Source</strong> to <strong>Deploy from a branch</strong>, branch <strong>main</strong>, folder <strong>/ (root)</strong>. Save.</p>
-<p>Wait a minute or two, then open:</p>
+<p><code>push</code> quer dizer "mande o meu histórico salvo para o GitHub". Atualize a página — os seus arquivos estão lá.</p>
+<h2 id="bloco-3-ligar-a-hospedagem"><a class="heading-anchor" href="#bloco-3-ligar-a-hospedagem">Bloco 3: Ligar a hospedagem</a></h2>
+<p>O seu código está no GitHub, mas ainda não é um site. São só arquivos que alguém pode ler.</p>
+<p>Na página do seu repositório: <strong>Settings → Pages</strong>. Em <em>Build and deployment</em>, coloque <strong>Source</strong> como <strong>Deploy from a branch</strong>, branch <strong>main</strong>, pasta <strong>/ (root)</strong>. Salve.</p>
+<p>Espere um ou dois minutos e abra:</p>
 <pre><code>https://YOUR-NAME.github.io/kakkoi-online/
 </code></pre>
-<p><strong>That is your game, on the internet, at your own address, for free.</strong> Send the link to someone.</p>
-<p>From now on, <code>git push</code> publishes. Change something, commit, push, and the live page updates by itself.</p>
-<h2 id="block-4-make-it-installable"><a class="heading-anchor" href="#block-4-make-it-installable">Block 4: Make it installable</a></h2>
-<p>Your game is a web page. With two small files it becomes something a person can install — an icon on their home screen, opening with no browser bar around it. It is the same game; the phone just stops treating it like a page it happened to visit.</p>
-<p><strong>A manifest</strong> is a small file describing your game to the phone. Call it <code>manifest.webmanifest</code>:</p>
+<p><strong>Esse é o seu jogo, na internet, no seu próprio endereço, de graça.</strong> Mande o link para alguém.</p>
+<p>De agora em diante, <code>git push</code> publica. Mude algo, faça o commit, faça o push, e a página no ar se atualiza sozinha.</p>
+<h2 id="bloco-4-deix-lo-instal-vel"><a class="heading-anchor" href="#bloco-4-deix-lo-instal-vel">Bloco 4: Deixá-lo instalável</a></h2>
+<p>O seu jogo é uma página web. Com dois arquivos pequenos ele se torna algo que uma pessoa pode instalar — um ícone na tela inicial, abrindo sem nenhuma barra de navegador em volta. É o mesmo jogo; o celular só para de tratá-lo como uma página que ele visitou por acaso.</p>
+<p><strong>Um manifest</strong> é um arquivinho que descreve o seu jogo para o celular. Chame-o de <code>manifest.webmanifest</code>:</p>
 <pre><code>{
   &quot;name&quot;: &quot;Kakkoi Online&quot;,
   &quot;short_name&quot;: &quot;Kakkoi&quot;,
@@ -132,88 +135,88 @@ git push -u origin main
   ]
 }
 </code></pre>
-<p>Link it from <code>index.html</code>:</p>
+<p>Aponte para ele no <code>index.html</code>:</p>
 <pre><code>&lt;link rel=&quot;manifest&quot; href=&quot;./manifest.webmanifest&quot;&gt;
 </code></pre>
-<p><code>display: standalone</code> is the line that removes the browser bar. The icons are just PNGs — ours are one of the animals from the game, blown up big, so the icon and the game are obviously the same thing.</p>
-<p><strong>A service worker</strong> is a small program the browser keeps beside your page. Every time the page asks for a file, the worker sees the request first — so it can answer from a copy it saved earlier, instead of the network. That is what lets the game open when there is no internet at all.</p>
-<p>It has one job here, and three rules that go with it:</p>
+<p><code>display: standalone</code> é a linha que remove a barra do navegador. Os ícones são só PNGs — os nossos são um dos animais do jogo, ampliado, para que o ícone e o jogo sejam obviamente a mesma coisa.</p>
+<p><strong>Um service worker</strong> é um programinha que o navegador mantém ao lado da sua página. Cada vez que a página pede um arquivo, o worker vê o pedido primeiro — então ele pode responder com uma cópia que guardou antes, em vez de ir à rede. É isso que permite o jogo abrir quando não há internet nenhuma.</p>
+<p>Ele tem um trabalho aqui, e três regras que vêm com ele:</p>
 <ol>
-<li><strong>Save the list of files the game needs</strong>, the first time somebody visits.</li>
-<li><strong>Answer from that copy</strong> for exactly those files.</li>
-<li><strong>Give the saved copy a version number, and delete the old versions.</strong></li>
+<li><strong>Guardar a lista de arquivos de que o jogo precisa</strong>, na primeira vez que alguém visita.</li>
+<li><strong>Responder com aquela cópia</strong> exatamente para aqueles arquivos.</li>
+<li><strong>Dar um número de versão à cópia guardada, e apagar as versões antigas.</strong></li>
 </ol>
 <blockquote>
-<p><strong>Rule 3 is not tidiness — it is the trap.</strong> A worker that keeps answering from an old copy means you can fix a bug, publish the fix, and nobody ever gets it: the stale copy is what answers, forever. When you change any file in the list, change the version name too. This caught us while building it, and the symptom is horrible to diagnose: new page, old styling, a layout that looks broken in a way you cannot reproduce.</p>
+<p><strong>A regra 3 não é organização — é a armadilha.</strong> Um worker que continua respondendo com uma cópia velha significa que você pode consertar um bug, publicar o conserto, e ninguém nunca recebê-lo: a cópia velha é quem responde, para sempre. Quando você mudar qualquer arquivo da lista, mude também o nome da versão. Isso nos pegou enquanto construíamos, e o sintoma é horrível de diagnosticar: página nova, estilo velho, um layout que parece quebrado de um jeito que você não consegue reproduzir.</p>
 </blockquote>
-<p>What still needs the internet is other players — they are on other computers, so no amount of saving files locally will conjure them up. Offline you get the world, your own character, and the computer opponent. Our game says so on screen rather than looking broken.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>Everything here is free and nothing needs a card. You could rent a computer on the internet and run your own server, and one day you might — but a game made of plain files does not need one. GitHub already has your files, so serving them as a website costs it almost nothing, which is why it gives it away.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p>O que ainda precisa de internet são os outros jogadores — eles estão em outros computadores, então nenhuma quantidade de arquivos guardados localmente vai fazê-los aparecer. Offline você tem o mundo, o seu próprio personagem e o oponente do computador. O nosso jogo diz isso na tela em vez de parecer quebrado.</p>
+<h2 id="por-que-fizemos-isso-desta-forma"><a class="heading-anchor" href="#por-que-fizemos-isso-desta-forma">Por que fizemos isso desta forma</a></h2>
+<p>Tudo aqui é de graça e nada precisa de cartão. Você poderia alugar um computador na internet e rodar o seu próprio servidor, e um dia talvez você faça isso — mas um jogo feito de arquivos comuns não precisa de um. O GitHub já tem os seus arquivos, então servi-los como um site custa quase nada para ele, e é por isso que ele dá isso de graça.</p>
+<h2 id="o-que-poder-amos-ter-feito-em-vez-disso"><a class="heading-anchor" href="#o-que-poder-amos-ter-feito-em-vez-disso">O que poderíamos ter feito em vez disso</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>Em vez disso</th>
+<th>O que custaria</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Doing this in <a href="a09.html">A09</a>, before anything worked</td>
-<td>An account rule and three new ideas before you had made a single square move. Nothing needed an address until now — even the multiplayer works fine between two computers with no website at all</td>
+<td>Fazer isso em <a href="a09.html">A09</a>, antes de qualquer coisa funcionar</td>
+<td>Uma regra de idade e três ideias novas antes de você ter feito um único quadrado se mover. Nada precisou de endereço até agora — até o multijogador funciona bem entre dois computadores sem site nenhum</td>
 </tr>
 <tr>
-<td>Sending someone a zip of your folder</td>
-<td>They can open it, but they get whatever you sent and nothing after. A link is always the newest version</td>
+<td>Mandar para alguém um zip da sua pasta</td>
+<td>A pessoa consegue abrir, mas recebe o que você mandou e nada depois disso. Um link é sempre a versão mais nova</td>
 </tr>
 <tr>
-<td>Renting a server</td>
-<td>About the price of a game every month, forever, plus keeping it running. It buys you things this project deliberately does not use</td>
+<td>Alugar um servidor</td>
+<td>Mais ou menos o preço de um jogo por mês, para sempre, mais o trabalho de mantê-lo rodando. E compra coisas que este projeto deliberadamente não usa</td>
 </tr>
 <tr>
-<td>Keeping backups by copying folders</td>
-<td>It genuinely works. It just does not scale past a few copies, and it cannot tell you <em>what</em> changed between two of them</td>
+<td>Continuar com backups copiando pastas</td>
+<td>Funciona de verdade. Só não escala além de umas poucas cópias, e não consegue te dizer <em>o que</em> mudou entre duas delas</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="o-prompt"><a class="heading-anchor" href="#o-prompt">O prompt</a></h2>
 <pre><code>My project folder is a git repository connected to GitHub, published with
 GitHub Pages. I want to understand what I just did. Explain, in plain
 language: what git commit actually saves, what git push sends, and what
 GitHub Pages does with the files. Then tell me what happens if I edit a
 file and forget to commit before I push.
 </code></pre>
-<p><strong>Check the output for:</strong> does the last answer say plainly that <strong>nothing happens</strong> — an uncommitted change is not sent, so the website will not change? That is the single most common confusion, and an assistant that waffles about it has not helped you.</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
-<p>Open your live link on a <strong>different device</strong> — a phone on mobile data is the best test, because it proves nothing on your own computer or network is involved.</p>
+<p><strong>Verifique na resposta:</strong> a última parte diz claramente que <strong>nada acontece</strong> — uma mudança sem commit não é enviada, então o site não vai mudar? Essa é a confusão mais comum de todas, e um assistente que enrola nisso não te ajudou.</p>
+<h2 id="veja-funcionar"><a class="heading-anchor" href="#veja-funcionar">Veja funcionar</a></h2>
+<p>Abra o seu link no ar em um <strong>aparelho diferente</strong> — um celular no dado móvel é o melhor teste, porque prova que nada no seu computador ou na sua rede está envolvido.</p>
 <ol>
-<li>The page loads.</li>
-<li>Close your editor and stop Live Server. The link still works.</li>
-<li>Change one thing, <code>git add .</code>, <code>git commit -m "..."</code>, <code>git push</code>. Wait a minute and refresh the live link. Your change is there.</li>
-<li>On the phone, use the browser's menu to add it to your home screen. It gets your icon and opens with no browser bar.</li>
-<li><strong>Turn the phone's internet off completely</strong>, then open it from the home screen. The world, your character and the computer opponent are all still there.</li>
+<li>A página carrega.</li>
+<li>Feche o seu editor e pare o Live Server. O link continua funcionando.</li>
+<li>Mude uma coisa, <code>git add .</code>, <code>git commit -m "..."</code>, <code>git push</code>. Espere um minuto e atualize o link no ar. A sua mudança está lá.</li>
+<li>No celular, use o menu do navegador para adicioná-lo à tela inicial. Ele recebe o seu ícone e abre sem barra de navegador.</li>
+<li><strong>Desligue a internet do celular por completo</strong> e abra-o pela tela inicial. O mundo, o seu personagem e o oponente do computador continuam todos lá.</li>
 </ol>
-<h2 id="what-went-wrong-when-we-did-this"><a class="heading-anchor" href="#what-went-wrong-when-we-did-this">What went wrong when we did this</a></h2>
-<p>Both of these are real, from publishing our own copy of this project at <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a>.</p>
-<p><strong>A file that looked like configuration.</strong> We had a file in the repository whose whole job was to set the site's address. It did nothing at all — that file only works for a different way of publishing than the one we were using. The address was empty the whole time, and the file sat there looking correct. <em>Lesson: when something should be live and is not, check each end separately. Are the files there? Is the host expecting this name? Do not stare at the middle.</em></p>
-<p><strong>A publishing robot that never ran.</strong> We later set up automatic publishing, and it was watching for changes on a branch called <code>master</code> while our code was on <code>main</code>. No error. No warning. Nothing happened, quietly. <em>Lesson: a robot that never runs looks exactly like a robot that works. Go and look at the run.</em></p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>This is your game — same folder, now with a history and an address. Nothing to move.</p>
+<h2 id="o-que-deu-errado-quando-fizemos-isso"><a class="heading-anchor" href="#o-que-deu-errado-quando-fizemos-isso">O que deu errado quando fizemos isso</a></h2>
+<p>Os dois casos são reais, de quando publicamos a nossa própria cópia deste projeto em <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a>.</p>
+<p><strong>Um arquivo que parecia configuração.</strong> Tínhamos um arquivo no repositório cuja única função era definir o endereço do site. Ele não fazia absolutamente nada — aquele arquivo só funciona para uma forma de publicar diferente da que estávamos usando. O endereço ficou vazio todo o tempo, e o arquivo estava ali parecendo correto. <em>Lição: quando algo deveria estar no ar e não está, confira cada ponta separadamente. Os arquivos estão lá? O serviço está esperando este nome? Não fique olhando o meio.</em></p>
+<p><strong>Um robô de publicação que nunca rodou.</strong> Depois montamos a publicação automática, e ela ficava vigiando mudanças em um branch chamado <code>master</code> enquanto o nosso código estava no <code>main</code>. Nenhum erro. Nenhum aviso. Nada aconteceu, silenciosamente. <em>Lição: um robô que nunca roda parece exatamente igual a um robô que funciona. Vá lá e olhe a execução.</em></p>
+<h2 id="coloque-no-jogo"><a class="heading-anchor" href="#coloque-no-jogo">Coloque no jogo</a></h2>
+<p>Este é o seu jogo — a mesma pasta, agora com um histórico e um endereço. Não há nada para mover.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>A commit is a save point with a note, and it replaces copying folders</li>
-<li>Push sends your saved history to GitHub; anything you did not commit stays behind</li>
-<li>GitHub Pages turns a folder of plain files into a website, for free</li>
-<li>Public means public — nothing private goes in the folder</li>
-<li>When a link does not work, check each end on its own instead of guessing at the middle</li>
-<li>A manifest and a service worker turn a web page into something installable that opens with no internet</li>
-<li>Version the saved copy, or you will publish fixes nobody ever receives</li>
+<li>Um commit é um ponto de salvamento com uma anotação, e substitui copiar pastas</li>
+<li>O push manda o seu histórico salvo para o GitHub; o que você não deu commit fica para trás</li>
+<li>O GitHub Pages transforma uma pasta de arquivos comuns em um site, de graça</li>
+<li>Público quer dizer público — nada particular entra na pasta</li>
+<li>Quando um link não funciona, confira cada ponta por si em vez de adivinhar o que há no meio</li>
+<li>Um manifest e um service worker transformam uma página web em algo instalável que abre sem internet</li>
+<li>Versione a cópia guardada, ou você vai publicar consertos que ninguém nunca recebe</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Break it on purpose, then fix it. Edit your page so it says something obviously different, push <strong>without committing first</strong>, and watch the live page not change. Then commit and push properly. Doing this deliberately once means you will recognise it instantly the day it happens by accident.</p>
+<h2 id="sua-vez"><a class="heading-anchor" href="#sua-vez">Sua vez</a></h2>
+<p>Quebre de propósito e depois conserte. Edite a sua página para dizer algo claramente diferente, faça o push <strong>sem dar commit primeiro</strong>, e veja a página no ar não mudar. Depois faça o commit e o push do jeito certo. Fazer isso de propósito uma vez significa que você vai reconhecer na hora o dia em que acontecer por acidente.</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">

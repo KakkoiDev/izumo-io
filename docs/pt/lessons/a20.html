@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Three Moves - KakkoiSchool</title>
+  <title>Três Jogadas - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           <a href="a21.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="a20-three-moves"><a class="heading-anchor" href="#a20-three-moves">A20: Three Moves</a></h1>
-<p class="lesson-intro">You have a fight screen. Now you need something to fight with. Three buttons, one winner, and a sentence saying why.</p>
-<p><strong>Needs:</strong> <a href="a19.html">A19</a>. <strong>Gives you:</strong> a round you can play — pick a move, see the result and the reason for it.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+      <h1 id="a20-tr-s-jogadas"><a class="heading-anchor" href="#a20-tr-s-jogadas">A20: Três Jogadas</a></h1>
+<p class="lesson-intro">Você tem uma tela de luta. Agora você precisa de algo com que lutar. Três botões, um vencedor e uma frase dizendo por quê.</p>
+<p><strong>Precisa de:</strong> <a href="a19.html">A19</a>. <strong>Oferece:</strong> uma rodada que você pode jogar — escolha uma jogada, veja o resultado e a razão dele.</p>
+<h2 id="o-jogo-completo-e-a-parte-de-hoje"><a class="heading-anchor" href="#o-jogo-completo-e-a-parte-de-hoje">O jogo completo, e a parte de hoje</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -66,25 +66,27 @@ flowchart LR
     A["Sound"] --> R
 
     classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    classDef done fill:#2f6f4f,stroke:#8fd6b4,color:#fff
+    class N,D,R,S,O,W,A done
     class F now
 
 </div>
-<p>The demo for this step keeps both players on one page, so you can watch the whole round at once. The real game sends these moves over the wire, using the connection you built in <a href="a19.html">A19</a>.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
-<p>"Pick a move and see who won" is three things:</p>
+<p>A demonstração desta etapa mantém os dois jogadores em uma página só, para você poder ver a rodada inteira de uma vez. O jogo de verdade manda essas jogadas pela rede, usando a conexão que você construiu em <a href="a19.html">A19</a>.</p>
+<h2 id="dividindo-em-blocos"><a class="heading-anchor" href="#dividindo-em-blocos">Dividindo em blocos</a></h2>
+<p>"Escolher uma jogada e ver quem ganhou" são três coisas:</p>
 <ol>
-<li><strong>Choose</strong> — you press a button; the other side picks too</li>
-<li><strong>Compare</strong> — take the two moves and work out the winner</li>
-<li><strong>Show</strong> — put the answer on the screen in words</li>
+<li><strong>Escolher</strong> — você aperta um botão; o outro lado também escolhe</li>
+<li><strong>Comparar</strong> — pegar as duas jogadas e calcular o vencedor</li>
+<li><strong>Mostrar</strong> — colocar a resposta na tela em palavras</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because "compare" is the only part you can check without playing. Give it rock and scissors, and the answer must always be the same. If choosing, comparing and showing were one lump and the wrong name appeared on screen, you would have one question — <em>"why is it wrong?"</em> — and three suspects. Split, you can ask "compare" directly and get an answer in a second.</p>
-<h2 id="block-1-choose"><a class="heading-anchor" href="#block-1-choose">Block 1: Choose</a></h2>
-<p>Three buttons, big enough for a thumb.</p>
+<p><strong>Por que dividir?</strong> Porque "comparar" é a única parte que você consegue conferir sem jogar. Dê a ela pedra e tesoura, e a resposta tem que ser sempre a mesma. Se escolher, comparar e mostrar fossem um bloco só e o nome errado aparecesse na tela, você teria uma pergunta — <em>"por que está errado?"</em> — e três suspeitos. Separados, você pergunta direto ao "comparar" e tem a resposta em um segundo.</p>
+<h2 id="bloco-1-escolher"><a class="heading-anchor" href="#bloco-1-escolher">Bloco 1: Escolher</a></h2>
+<p>Três botões, grandes o bastante para um dedão.</p>
 <pre><code>&lt;button data-move=&quot;scissors&quot;&gt;🔥 scissors&lt;/button&gt;
 &lt;button data-move=&quot;rock&quot;&gt;💧 rock&lt;/button&gt;
 &lt;button data-move=&quot;paper&quot;&gt;🪨 paper&lt;/button&gt;
 </code></pre>
-<p><code>data-move</code> is a label you invent and stick on the button. The browser ignores it. Your code reads it back with <code>button.dataset.move</code>, so one piece of code serves all three buttons instead of three almost-identical pieces.</p>
+<p><code>data-move</code> é uma etiqueta que você inventa e cola no botão. O navegador a ignora. O seu código a lê de volta com <code>button.dataset.move</code>, então um pedaço de código serve os três botões, em vez de três pedaços quase idênticos.</p>
 <pre><code>const MOVES = ['scissors', 'rock', 'paper'];
 
 function theirChoice() {
@@ -95,9 +97,9 @@ for (const button of document.querySelectorAll('#moves button')) {
   button.addEventListener('click', () =&gt; playRound(button.dataset.move));
 }
 </code></pre>
-<p><code>Math.random()</code> gives a number from 0 up to just under 1. Multiply by 3 and round down, and you get 0, 1 or 2 — one of the three moves.</p>
-<p>Here the other side rolls a dice. In the real game their move arrives over the network. Nothing in the next block cares which of those it was.</p>
-<h2 id="block-2-compare"><a class="heading-anchor" href="#block-2-compare">Block 2: Compare</a></h2>
+<p><code>Math.random()</code> dá um número de 0 até um pouquinho abaixo de 1. Multiplique por 3 e arredonde para baixo, e você tem 0, 1 ou 2 — uma das três jogadas.</p>
+<p>Aqui o outro lado joga um dado. No jogo de verdade, a jogada dele chega pela rede. Nada no bloco seguinte se importa com qual dos dois casos foi.</p>
+<h2 id="bloco-2-comparar"><a class="heading-anchor" href="#bloco-2-comparar">Bloco 2: Comparar</a></h2>
 <pre><code>// rock beats scissors, scissors beats paper, paper beats rock.
 const BEATS = { rock: 'scissors', scissors: 'paper', paper: 'rock' };
 
@@ -107,16 +109,16 @@ function compare(mine, theirs) {
   return { winner: 'them', why: theirs + ' beats ' + mine };
 }
 </code></pre>
-<p><code>BEATS</code> is the whole rule of the game written as three pairs. <code>BEATS.rock</code> is <code>'scissors'</code>, which reads as "rock beats scissors". Everything else falls out of it.</p>
-<p>Look at what this function does <em>not</em> do. It does not touch the screen. It does not ask the clock. It does not roll a dice. Put the same two moves in and you get the same answer out, today and in a year. <strong>Grown-up programmers call that a pure function, so now you know that phrase too.</strong></p>
-<p>Pure means testable. You can check it without a single button press:</p>
+<p><code>BEATS</code> é a regra inteira do jogo escrita como três pares. <code>BEATS.rock</code> é <code>'scissors'</code>, que se lê como "pedra ganha de tesoura". Todo o resto sai daí.</p>
+<p>Olhe o que esta função <em>não</em> faz. Ela não toca na tela. Não pergunta a hora. Não joga dado. Coloque as mesmas duas jogadas e você recebe a mesma resposta, hoje e dentro de um ano. <strong>Programadores adultos chamam isso de função pura, então agora você conhece essa expressão também.</strong></p>
+<p>Pura quer dizer testável. Você pode conferi-la sem apertar um único botão:</p>
 <pre><code>console.assert(compare('rock', 'scissors').winner === 'you', 'rock should beat scissors');
 console.assert(compare('scissors', 'rock').winner === 'them', 'scissors should lose to rock');
 console.assert(compare('paper', 'paper').winner === 'nobody', 'same move is a draw');
 </code></pre>
-<p><code>console.assert</code> says nothing when it is right and complains in the browser console when it is wrong. Silence is the pass.</p>
-<p>It also returns a <code>why</code>, not just a winner. A game that says "you lose" teaches nothing. A game that says "rock beats scissors" teaches the rule while you play.</p>
-<h2 id="block-3-show"><a class="heading-anchor" href="#block-3-show">Block 3: Show</a></h2>
+<p><code>console.assert</code> não diz nada quando está certo e reclama no console do navegador quando está errado. O silêncio é a aprovação.</p>
+<p>Ela também devolve um <code>why</code>, não só um vencedor. Um jogo que diz "você perdeu" não ensina nada. Um jogo que diz "pedra ganha de tesoura" ensina a regra enquanto você joga.</p>
+<h2 id="bloco-3-mostrar"><a class="heading-anchor" href="#bloco-3-mostrar">Bloco 3: Mostrar</a></h2>
 <pre><code>function show(mine, theirs, result) {
   const heading = { you: 'You win!', them: 'You lose.', nobody: 'A draw.' };
   document.querySelector('#who').textContent = heading[result.winner];
@@ -124,8 +126,8 @@ console.assert(compare('paper', 'paper').winner === 'nobody', 'same move is a dr
     'You played ' + mine + '. They played ' + theirs + '. ' + result.why + '.';
 }
 </code></pre>
-<p>This block does no thinking. It is handed an answer and puts it where a person can read it. That is the whole job.</p>
-<p>Then one small function joins the three together:</p>
+<p>Este bloco não pensa nada. Ele recebe uma resposta e a coloca onde uma pessoa possa ler. Esse é todo o trabalho.</p>
+<p>Depois uma função pequena junta os três:</p>
 <pre><code>function playRound(mine) {
   const theirs = theirChoice();
   const result = compare(mine, theirs);
@@ -133,43 +135,43 @@ console.assert(compare('paper', 'paper').winner === 'nobody', 'same move is a dr
   show(mine, theirs, result);
 }
 </code></pre>
-<h2 id="why-three-moves-and-not-a-best-one"><a class="heading-anchor" href="#why-three-moves-and-not-a-best-one">Why three moves, and not a "best" one</a></h2>
-<p>Here is the part that is really about games, not about code.</p>
-<p><strong>You already know this.</strong> Nobody has ever asked which is the best move in rock, paper, scissors, because there obviously isn't one. What you may not have done is ask <em>why</em> the game works that way.</p>
-<p>Imagine rock simply beat both of the others. What would you pick? Rock. What would everyone pick? Rock. Every round would be rock against rock, forever, and there would be nothing to decide. The game would be over before it started.</p>
-<p>Now look at the circle again. Rock beats scissors. Scissors beats paper. Paper beats rock. <strong>Every move beats one and loses to one.</strong> There is no move that is just better, so "what should I pick?" has no answer on its own. The only way to answer it is to think about what the <em>other person</em> is likely to pick. That is where the game actually lives — and it is why a game everyone learns as a small child is still worth building.</p>
-<p>This is why so many games are built on a circle like this: heavy armour beats arrows, arrows beat cavalry, cavalry beats heavy armour. <em>Grown-up programmers and mathematicians call this a game with no dominant strategy — a "dominant strategy" being a choice that is best no matter what anyone else does. Yours has none, on purpose.</em></p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The forcing constraint is this: in the real game, <strong>both players work out the result on their own computers, and the two answers must match exactly.</strong> There is no server to referee. If your computer says you won and theirs says they won, the fight is broken and there is nobody to ask.</p>
-<p>Two computers agree easily on the answer to a pure function — same two moves in, same answer out. They would not agree so easily if "compare" also looked at the clock, or the screen size, or a dice. So it looks at nothing but its two arguments. That single rule is what makes the rest of the fight possible.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<h2 id="por-que-tr-s-jogadas-e-n-o-uma-melhor"><a class="heading-anchor" href="#por-que-tr-s-jogadas-e-n-o-uma-melhor">Por que três jogadas, e não uma "melhor"</a></h2>
+<p>Aqui está a parte que é realmente sobre jogos, não sobre código.</p>
+<p><strong>Você já sabe disso.</strong> Ninguém nunca perguntou qual é a melhor jogada em pedra, papel e tesoura, porque obviamente não existe uma. O que você talvez nunca tenha feito é perguntar <em>por que</em> o jogo funciona assim.</p>
+<p>Imagine que pedra simplesmente ganhasse das outras duas. O que você escolheria? Pedra. O que todos escolheriam? Pedra. Toda rodada seria pedra contra pedra, para sempre, e não haveria nada para decidir. O jogo estaria acabado antes de começar.</p>
+<p>Agora olhe o círculo de novo. Pedra ganha de tesoura. Tesoura ganha de papel. Papel ganha de pedra. <strong>Cada jogada ganha de uma e perde para uma.</strong> Não existe jogada que seja simplesmente melhor, então "o que eu devo escolher?" não tem resposta por si só. O único jeito de responder é pensar no que a <em>outra pessoa</em> provavelmente vai escolher. É ali que o jogo realmente mora — e é por isso que um jogo que todos aprendem quando são pequenos ainda vale a pena ser construído.</p>
+<p>É por isso que tantos jogos são construídos sobre um círculo como este: armadura pesada ganha de flechas, flechas ganham da cavalaria, cavalaria ganha da armadura pesada. <em>Programadores adultos e matemáticos chamam isso de um jogo sem estratégia dominante — uma "estratégia dominante" sendo uma escolha que é a melhor não importa o que os outros façam. O seu não tem nenhuma, de propósito.</em></p>
+<h2 id="por-que-fizemos-isso-desta-forma"><a class="heading-anchor" href="#por-que-fizemos-isso-desta-forma">Por que fizemos isso desta forma</a></h2>
+<p>A restrição que obriga isso é esta: no jogo de verdade, <strong>os dois jogadores calculam o resultado nos seus próprios computadores, e as duas respostas precisam bater exatamente.</strong> Não há servidor para apitar. Se o seu computador diz que você ganhou e o dele diz que ele ganhou, a luta está quebrada e não há ninguém para perguntar.</p>
+<p>Dois computadores concordam facilmente sobre a resposta de uma função pura — as mesmas duas jogadas entram, a mesma resposta sai. Eles não concordariam tão facilmente se o "comparar" também olhasse a hora, o tamanho da tela ou um dado. Então ele não olha nada além dos seus dois argumentos. Essa única regra é o que torna o resto da luta possível.</p>
+<h2 id="o-que-poder-amos-ter-feito-em-vez-disso"><a class="heading-anchor" href="#o-que-poder-amos-ter-feito-em-vez-disso">O que poderíamos ter feito em vez disso</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>Em vez disso</th>
+<th>O que custaria</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Deciding the winner inside the button's click code</td>
-<td>Every check means a real click. You could not test the rule at all without playing, and the same rule would end up copied for the computer opponent in <a href="a21.html">A21</a></td>
+<td>Decidir o vencedor dentro do código do clique do botão</td>
+<td>Cada conferência exige um clique de verdade. Você não conseguiria testar a regra de jeito nenhum sem jogar, e a mesma regra acabaria copiada para o oponente do computador em <a href="a21.html">A21</a></td>
 </tr>
 <tr>
-<td>A long chain of <code>if</code> statements, one per pair</td>
-<td>Nine cases instead of three, and each one a chance to type the wrong word. <code>BEATS</code> states the rule once</td>
+<td>Uma corrente longa de <code>if</code>, um por par</td>
+<td>Nove casos em vez de três, e cada um é uma chance de digitar a palavra errada. <code>BEATS</code> diz a regra uma vez</td>
 </tr>
 <tr>
-<td>Returning just a winner, no reason</td>
-<td>Half the length. But the player learns nothing, and when it is wrong you cannot see <em>what</em> it thought beat what</td>
+<td>Devolver só um vencedor, sem razão</td>
+<td>Metade do tamanho. Mas o jogador não aprende nada, e quando está errado você não consegue ver <em>o que</em> o código achou que ganhava de quê</td>
 </tr>
 <tr>
-<td>Letting one computer decide and tell the other</td>
-<td>Simpler, until the other player edits the message. With no server, "whoever speaks first is right" is not a rule you can defend</td>
+<td>Deixar um computador decidir e avisar o outro</td>
+<td>Mais simples, até o outro jogador editar a mensagem. Sem servidor, "quem falar primeiro está certo" não é uma regra que você consiga defender</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="o-prompt"><a class="heading-anchor" href="#o-prompt">O prompt</a></h2>
 <pre><code>I have a rock-paper-scissors style fight in plain JavaScript, in three parts:
 click handlers that pick a move, a pure compare(mine, theirs) that returns
 { winner, why }, and a show() that writes to the page. Add a best-of-five
@@ -177,32 +179,32 @@ match: keep playing rounds until someone wins three. Keep compare pure — no
 DOM, no randomness inside it — and put the match score in its own function
 that also does not touch the page. Tell me which lines you added where.
 </code></pre>
-<p><strong>Check the output for:</strong> did anything to do with the screen creep inside <code>compare</code>? Assistants love adding a line that updates the score display right where the winner is worked out, and that quietly makes the function untestable. Also check that a draw does not count towards the three — that is the case people forget.</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>Verifique na resposta:</strong> alguma coisa ligada à tela se enfiou dentro do <code>compare</code>? Os assistentes adoram adicionar uma linha que atualiza o placar exatamente onde o vencedor é calculado, e isso torna a função impossível de testar, sem avisar. Confira também se um empate não conta para as três vitórias — esse é o caso de que as pessoas se esquecem.</p>
+<h2 id="veja-funcionar"><a class="heading-anchor" href="#veja-funcionar">Veja funcionar</a></h2>
 <p><img alt="Three big buttons — scissors, rock, paper — with the result &quot;You win!&quot; and the line &quot;You played rock. They played scissors. rock beats scissors.&quot;" src="../static/img/game/a20.png"></p>
-<p>Open the page with Live Server and:</p>
+<p>Abra a página com o Live Server e:</p>
 <ol>
-<li>Press <strong>rock</strong>. A result appears with a reason under it.</li>
-<li>Keep pressing the same button about ten times. The score changes in all three directions — wins, losses and draws — because the other side is rolling a dice each time.</li>
-<li>Open the browser console. It is silent. That silence is the three <code>console.assert</code> checks passing.</li>
-<li>In the console, type <code>compare('paper', 'rock')</code>. You get <code>{ winner: 'you', why: 'paper beats rock' }</code> without touching the page. That is the point of a pure block.</li>
+<li>Aperte <strong>rock</strong>. Um resultado aparece, com uma razão embaixo.</li>
+<li>Continue apertando o mesmo botão umas dez vezes. O placar muda nas três direções — vitórias, derrotas e empates — porque o outro lado está jogando um dado cada vez.</li>
+<li>Abra o console do navegador. Ele está em silêncio. Esse silêncio são as três verificações <code>console.assert</code> passando.</li>
+<li>No console, digite <code>compare('paper', 'rock')</code>. Você recebe <code>{ winner: 'you', why: 'paper beats rock' }</code> sem tocar na página. Esse é o ponto de um bloco puro.</li>
 </ol>
-<p>We ran that last one while building this: <code>compare('scissors', 'rock')</code> came back <code>{ winner: 'them', why: 'rock beats scissors' }</code>, and no button was ever pressed.</p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>The fight screen from <a href="a19.html">A19</a> currently opens and does nothing. Put the three buttons on it, and call <code>compare</code> when the other player's move arrives. Keep <code>compare</code> in its own file — <code>src/battle/rules.js</code> — because <a href="a21.html">A21</a> and <a href="a22.html">A22</a> both use it without changing a line of it.</p>
+<p>Rodamos essa última enquanto construíamos: <code>compare('scissors', 'rock')</code> voltou <code>{ winner: 'them', why: 'rock beats scissors' }</code>, e nenhum botão foi apertado.</p>
+<h2 id="coloque-no-jogo"><a class="heading-anchor" href="#coloque-no-jogo">Coloque no jogo</a></h2>
+<p>A tela de luta de <a href="a19.html">A19</a> hoje abre e não faz nada. Coloque os três botões nela e chame o <code>compare</code> quando a jogada do outro jogador chegar. Mantenha o <code>compare</code> no seu próprio arquivo — <code>src/battle/rules.js</code> — porque <a href="a21.html">A21</a> e <a href="a22.html">A22</a> usam os dois sem mudar uma linha dele.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>A pure function takes values in and gives an answer out, touching nothing else — and it is the only part of a game you can check without playing</li>
-<li>Write the rule down once, as data (<code>BEATS</code>), instead of spreading it across nine <code>if</code> statements</li>
-<li>Tell the player <em>why</em> they won, not only that they won — the game teaches its own rules that way</li>
-<li>Three moves in a circle means no move is best, so you have to think about the other person. That is what makes it a game</li>
-<li>Both computers must reach the same result on their own, which is exactly why the deciding part is allowed no dice and no clock</li>
+<li>Uma função pura recebe valores e devolve uma resposta, sem tocar em mais nada — e é a única parte de um jogo que você consegue conferir sem jogar</li>
+<li>Escreva a regra uma vez só, como dado (<code>BEATS</code>), em vez de espalhá-la por nove <code>if</code></li>
+<li>Diga ao jogador <em>por que</em> ele ganhou, e não só que ganhou — é assim que o jogo ensina as próprias regras</li>
+<li>Três jogadas em círculo significa que nenhuma jogada é a melhor, então você tem que pensar na outra pessoa. É isso que faz disso um jogo</li>
+<li>Os dois computadores precisam chegar ao mesmo resultado por conta própria, e é exatamente por isso que a parte que decide não pode ter dado nem relógio</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Add a fourth move that beats two of the others and loses to one. Play ten rounds. Then work out, on paper, what your best move now is — and notice that you now always have one. Take it out again.</p>
+<h2 id="sua-vez"><a class="heading-anchor" href="#sua-vez">Sua vez</a></h2>
+<p>Adicione uma quarta jogada que ganhe de duas das outras e perca para uma. Jogue dez rodadas. Depois descubra, no papel, qual é a sua melhor jogada agora — e note que agora você sempre tem uma. Depois tire a jogada de novo.</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">

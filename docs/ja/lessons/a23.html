@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>What We Didn't Build - KakkoiSchool</title>
+  <title>作らなかったもの - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           
         </div>
       </nav>
-      <h1 id="a23-what-we-didn-t-build"><a class="heading-anchor" href="#a23-what-we-didn-t-build">A23: What We Didn't Build</a></h1>
-<p class="lesson-intro">You have a game. It has no accounts, no scores that anyone can check, nobody in charge, and no way to stop a determined cheat. Every one of those was a choice, and this step is where we say what each one bought you.</p>
-<p><strong>Needs:</strong> having built the thing. <strong>Gives you:</strong> the ability to explain your own design to someone who asks why it is not bigger.</p>
-<h2 id="the-whole-game-finished"><a class="heading-anchor" href="#the-whole-game-finished">The whole game, finished</a></h2>
+      <h1 id="a23-作らなかったもの"><a class="heading-anchor" href="#a23-作らなかったもの">A23: 作らなかったもの</a></h1>
+<p class="lesson-intro">ゲームができました。アカウントはなく、だれかが確かめられる点数もなく、責任者もおらず、本気のずるを止める方法もありません。そのどれもが選択でした。このステップでは、そのそれぞれが、あなたに何をもたらしたのかを話します。</p>
+<p><strong>必要なもの:</strong> それを作りおえていること。<strong>得られるもの:</strong> 「なんでもっと大きくしないの？」と聞いてきた人に、自分の設計を説明できる力。</p>
+<h2 id="ゲーム全体-完成"><a class="heading-anchor" href="#ゲーム全体-完成">ゲーム全体、完成</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -69,126 +69,126 @@ flowchart LR
     class N,D,R,S,O,F,W,A done
 
 </div>
-<p>Every box is green. Look back at <a href="a09.html">A09</a>, where none of them were. You did not build a big thing. You built eight small things, one at a time, and each one fitted on a screen.</p>
-<p>That is the only real lesson in this whole course. Everything else was an excuse to practise it.</p>
-<h2 id="the-one-thing-you-do-not-have-somebody-in-charge"><a class="heading-anchor" href="#the-one-thing-you-do-not-have-somebody-in-charge">The one thing you do not have: somebody in charge</a></h2>
-<p>Almost everything missing from this game comes from a single decision: <strong>there is no server.</strong> No computer sits in the middle, deciding what is true.</p>
-<p>That one absence explains all of the following.</p>
+<p>ボックスが全部緑になりました。<a href="a09.html">A09</a>をふり返ってみてください。あのときは1つも緑ではありませんでした。あなたは大きなものを作ったのではありません。小さなものを8つ、1つずつ作りました。そのどれもが、画面1つに収まる大きさでした。</p>
+<p>このコース全体で、本当の学びはそれだけです。あとのことは全部、それを練習するための口実でした。</p>
+<h2 id="唯一持っていないもの-責任者"><a class="heading-anchor" href="#唯一持っていないもの-責任者">唯一持っていないもの: 責任者</a></h2>
+<p>このゲームに足りないものは、ほとんどすべてが1つの決定から来ています。<strong>サーバーがないこと。</strong> 真ん中に座って、何が本当かを決めるコンピューターがないのです。</p>
+<p>そのたった1つの「ない」が、以下のすべてを説明します。</p>
 <table>
 <thead>
 <tr>
-<th>What we do not have</th>
-<th>Why not</th>
-<th>What it would have cost</th>
+<th>持っていないもの</th>
+<th>なぜないのか</th>
+<th>それにかかったはずのもの</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Accounts and passwords</strong></td>
-<td>Nothing checks who you are. You type a name and that is your name. Someone else can type the same name</td>
-<td>A server that stores passwords — and storing other people's passwords safely is a serious job, not a lesson</td>
+<td><strong>アカウントとパスワード</strong></td>
+<td>あなたがだれなのかを確かめるものはありません。名前を打てば、それがあなたの名前です。他の人が同じ名前を打つこともできます</td>
+<td>パスワードを保管するサーバー。しかも他人のパスワードを安全に保管することは、レッスンではなく、本気の仕事です</td>
 </tr>
 <tr>
-<td><strong>Scores anyone can trust</strong></td>
-<td>Your wins are counted on your own computer. You could set them to a million</td>
-<td>Somewhere to keep the real number that players cannot reach, which means a server, which means paying for it forever</td>
+<td><strong>だれもが信じられる点数</strong></td>
+<td>あなたの勝ち数は、あなた自身のパソコンで数えられています。100万に書きかえることもできます</td>
+<td>プレイヤーが手を出せない場所に、本当の数字を置くこと。つまりサーバーが必要で、つまりずっとお金を払いつづけることになります</td>
 </tr>
 <tr>
-<td><strong>Stopping cheats</strong></td>
-<td>Nothing stops them. Whoever's move arrives first has shown their hand, and nothing stops someone editing their own position either. <a href="a22.html">A22</a> is an optional step showing how you would fix the first of those, and what it costs</td>
-<td>A referee that recalculates everything both players claim. That is most of what a game server actually does</td>
+<td><strong>ずるを止めるしくみ</strong></td>
+<td>何も止めません。先に手が届いたほうは自分の手をさらしていますし、自分の位置を書きかえる人を止めるものもありません。<a href="a22.html">A22</a>は任意のステップで、その1つめをどう直すか、そしてそれにいくらかかるかを見せています</td>
+<td>2人のプレイヤーの言うことをすべて計算し直す審判。ゲームサーバーが実際にやっていることの、ほとんどはそれです</td>
 </tr>
 <tr>
-<td><strong>Reporting someone</strong></td>
-<td>There is nobody to report them to. This is exactly why the chat is a fixed list of phrases (<a href="a13.html">A13</a>) — the problem is designed out, because it could not be policed</td>
-<td>Moderators. Real people, reading reports, every day</td>
+<td><strong>だれかを報告するしくみ</strong></td>
+<td>報告する相手がいません。だからこそ、チャットは決まったフレーズのリストなのです（<a href="a13.html">A13</a>）。取りしまることができないので、問題そのものを設計で消しました</td>
+<td>モデレーター。本物の人が、毎日、報告を読むのです</td>
 </tr>
 <tr>
-<td><strong>The world carrying on without you</strong></td>
-<td>Close the tab and your square is gone. Nothing continues</td>
-<td>A computer that is always awake, holding the world</td>
+<td><strong>あなたがいなくても続く世界</strong></td>
+<td>タブを閉じれば、あなたのマスは消えます。何も続きません</td>
+<td>いつも起きていて、世界をあずかっているコンピューター</td>
 </tr>
 <tr>
-<td><strong>Finding people to play with</strong></td>
-<td>You play with whoever is there right now. There is no matchmaking</td>
-<td>A server that keeps a list of who is waiting</td>
+<td><strong>遊ぶ相手を探すしくみ</strong></td>
+<td>今そこにいる人と遊びます。マッチメイキングはありません</td>
+<td>だれが待っているかのリストを持っているサーバー</td>
 </tr>
 <tr>
-<td><strong>Hundreds of players at once</strong></td>
-<td>Everyone is connected to everyone. Add one person and <em>everybody</em> needs another connection. It falls apart quite quickly</td>
-<td>Splitting the world into pieces, and a server to decide who is in which piece</td>
+<td><strong>同時に何百人ものプレイヤー</strong></td>
+<td>全員が全員につながっています。1人増えると、<em>全員</em>にもう1本ずつ接続が必要になります。けっこう早くこわれます</td>
+<td>世界をいくつかに分けること。そして、だれがどこにいるかを決めるサーバー</td>
 </tr>
 </tbody>
 </table>
-<h2 id="so-was-no-server-the-wrong-choice"><a class="heading-anchor" href="#so-was-no-server-the-wrong-choice">So was no server the wrong choice?</a></h2>
-<p>No — and being able to say why is the point.</p>
-<p>A server would have bought all of the above. It would also have cost money every month for as long as the game exists, needed someone to keep it running, and — this is the part that matters here — <strong>it would have hidden almost everything you learned.</strong> The interesting parts would have happened somewhere you could not see, in code you did not write.</p>
-<p>Instead the whole thing is in a folder you can read.</p>
-<p>And look at what the absence <em>gave</em> you. Your game costs nothing to run and will keep working for years with nobody maintaining it. Two players connect directly, so it is fast. There is nothing to break at three in the morning. Nothing about it can leak anybody's data, because it never had any.</p>
-<p><strong>That is a real engineering trade, and you made it.</strong> Not "we could not do the hard version" — the hard version is <em>different</em>, not better, and it is worse for this.</p>
-<h2 id="the-thing-to-take-with-you"><a class="heading-anchor" href="#the-thing-to-take-with-you">The thing to take with you</a></h2>
-<p>Every project you ever build will have a list like the table above. Grown-up programmers call it <strong>scope</strong>, so now you know that word too.</p>
-<p>The mistake is not leaving things out. The mistake is leaving them out by accident, and not being able to say why. A list of what you deliberately did not build, with a reason for each, is one of the signs of somebody who knows what they are doing.</p>
-<p>You now have one, for a real thing, that real people have played.</p>
-<h2 id="if-you-want-to-keep-going"><a class="heading-anchor" href="#if-you-want-to-keep-going">If you want to keep going</a></h2>
-<p>Each of these is a real project, and each one is bigger than it looks:</p>
+<h2 id="では-サーバーなしはまちがった選択だったのでしょうか"><a class="heading-anchor" href="#では-サーバーなしはまちがった選択だったのでしょうか">では、サーバーなしはまちがった選択だったのでしょうか</a></h2>
+<p>いいえ。そして、その理由を言えることが大事なのです。</p>
+<p>サーバーがあれば、上のもの全部が手に入ったでしょう。そのかわり、ゲームが存在するかぎり毎月お金がかかり、動かしつづける人が必要になり、そして、ここがいちばん大事なのですが、<strong>あなたが学んだことのほとんどが、かくれてしまったでしょう。</strong> おもしろい部分は、あなたには見えない場所で、あなたが書いていないコードの中で起きていたはずです。</p>
+<p>そのかわり、今は全部が、あなたが読めるフォルダの中にあります。</p>
+<p>そして、「ない」ことが<em>くれた</em>ものを見てください。あなたのゲームは動かすのにお金がかからず、だれも手入れしなくても何年も動きつづけます。2人のプレイヤーは直接つながるので、速いです。朝の3時にこわれるものがありません。そして、だれのデータも漏らすことができません。もともと1つも持っていないからです。</p>
+<p><strong>それは本物のエンジニアリングの取引で、あなたはそれを自分でやりました。</strong> 「むずかしいほうができなかった」のではありません。むずかしいほうは<em>ちがう</em>だけで、より良いわけではなく、この目的にはむしろ向いていないのです。</p>
+<h2 id="持っていってほしいこと"><a class="heading-anchor" href="#持っていってほしいこと">持っていってほしいこと</a></h2>
+<p>あなたがこれから作るどのプロジェクトにも、上の表のようなリストがあります。大人のプログラマーはそれを<strong>スコープ</strong>と呼びます。これであなたも、この言葉を知りました。</p>
+<p>まちがいは、何かを省くことではありません。まちがいは、うっかり省いて、その理由を言えないことです。わざと作らなかったもののリストと、そのそれぞれの理由。それは、自分が何をしているか分かっている人のしるしの1つです。</p>
+<p>あなたは今それを持っています。本物のものについて、本物の人が遊んだものについて。</p>
+<h2 id="もっと続けたいなら"><a class="heading-anchor" href="#もっと続けたいなら">もっと続けたいなら</a></h2>
+<p>どれも本物のプロジェクトで、どれも見た目より大きいものです。</p>
 <ul>
-<li><strong>Make it fair.</strong> Add a referee — a small server that checks both players' claims about a fight. You will immediately meet the reason every online game has one.</li>
-<li><strong>Make it survive.</strong> Keep the world when everyone leaves.</li>
-<li><strong>Make it prove who you are.</strong> There is a way to prove you are the same person as yesterday without any password at all, using a pair of keys. It is one of the most beautiful ideas in computing.</li>
-<li><strong>Make it bigger.</strong> Try to get twenty people in. Watch it fail, then work out where.</li>
-<li><strong>Rebuild it with a game engine.</strong> Now that you have written the loop, the input, the walls and the camera yourself, do it again with a tool that provides all of them. Count what disappears — and, more interestingly, count what you can no longer explain.</li>
+<li><strong>公平にする。</strong> 審判を足しましょう。対戦について2人のプレイヤーが言うことを確かめる、小さなサーバーです。オンラインゲームがみんな審判を持っている理由に、すぐ出会います。</li>
+<li><strong>生き残るようにする。</strong> 全員が出ていったあとも、世界を残しておきましょう。</li>
+<li><strong>自分がだれかを証明できるようにする。</strong> パスワードをまったく使わずに、自分が昨日と同じ人だと証明する方法があります。鍵のペアを使います。コンピューターの世界でいちばん美しい考え方の1つです。</li>
+<li><strong>もっと大きくする。</strong> 20人入れてみましょう。こわれるのを見て、それからどこでこわれたのかを調べます。</li>
+<li><strong>ゲームエンジンで作り直す。</strong> ループ、入力、壁、カメラを自分で書いたあとなら、それを全部用意してくれる道具で、もう一度作ってみましょう。何が消えるかを数えてください。そして、もっとおもしろいのは、何を自分では説明できなくなったかを数えることです。</li>
 </ul>
-<h2 id="what-we-could-have-done-instead-the-whole-course"><a class="heading-anchor" href="#what-we-could-have-done-instead-the-whole-course">What we could have done instead — the whole course</a></h2>
+<h2 id="代わりにできたこと-コース全体について"><a class="heading-anchor" href="#代わりにできたこと-コース全体について">代わりにできたこと（コース全体について）</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>この代わりに</th>
+<th>その代償</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>A game engine from the start</td>
-<td>You would have finished sooner and understood less. You could not have written <a href="a10.html">A10</a>, <a href="a15.html">A15</a> or <a href="a16.html">A16</a> at all, because the engine would have done them</td>
+<td>最初からゲームエンジンを使う</td>
+<td>もっと早く終わって、もっと分からないままだったでしょう。<a href="a10.html">A10</a>も<a href="a15.html">A15</a>も<a href="a16.html">A16</a>も、まったく書けませんでした。エンジンがやってしまうからです</td>
 </tr>
 <tr>
-<td>A server from the start</td>
-<td>A working game, and no <a href="a12.html">A12</a>, no <a href="a22.html">A22</a>, and no reason to think about any of this</td>
+<td>最初からサーバーを使う</td>
+<td>動くゲームは手に入り、<a href="a12.html">A12</a>も<a href="a22.html">A22</a>もなく、こういうことを考える理由も1つもありませんでした</td>
 </tr>
 <tr>
-<td>One big lesson instead of fifteen small ones</td>
-<td>Nothing to look at until the end, and no way to tell which part was broken when it did not work</td>
+<td>15の小さなレッスンではなく、1つの大きなレッスンにする</td>
+<td>最後まで見るものが何もなく、動かなかったときにどこがこわれているのか調べる方法もありません</td>
 </tr>
 <tr>
-<td>Building the game as one growing pile of code</td>
-<td>The first student whose code broke would have been stuck forever. Small separate demos meant a bad evening cost you an evening</td>
+<td>ゲームを1つのふくらんでいくコードの山として作る</td>
+<td>最初にコードがこわれた生徒は、そこでずっと止まってしまいました。小さな別々のデモにしたので、うまくいかない夜のコストは、その1晩だけで済みます</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="プロンプト"><a class="heading-anchor" href="#プロンプト">プロンプト</a></h2>
 <pre><code>I built a small multiplayer browser game with no server. Players connect
 directly to each other, positions and moves are sent peer to peer, and every
 player's own browser stores their own data. Ask me five questions that would
 find the weakest points in this design. Do not suggest fixes yet — just the
 questions.
 </code></pre>
-<p><strong>Check the output for:</strong> did it ask about trust — who checks that a player is telling the truth? If it went straight to performance or graphics, push it: the interesting weaknesses in a design with nobody in charge are always about trust.</p>
-<p>Then answer the five questions yourself, before reading anything else. You built it. You know.</p>
+<p><strong>出力を確認すること:</strong> 信頼について聞いてきましたか。プレイヤーが本当のことを言っているかを、だれが確かめているのか、という質問です。もし速さや見た目の話にまっすぐ行ったら、押し返してください。責任者がいない設計でおもしろい弱点は、いつでも信頼についてのものです。</p>
+<p>そのあと、他のものを読む前に、5つの質問に自分で答えてみてください。あなたが作ったのです。あなたは知っています。</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="主なポイント"><a class="heading-anchor" href="#主なポイント">主なポイント</a></h2>
 <ul>
-<li>You built one big thing out of eight small ones, and that is the transferable skill</li>
-<li>Almost everything this game lacks comes from one decision: there is no server</li>
-<li>No server costs you trust and permanence; it buys you no cost, no maintenance, and nothing hidden</li>
-<li>"We chose not to" is a completely different sentence from "we could not"</li>
-<li>Being able to list what you left out, with reasons, is a sign you know what you are doing</li>
+<li>あなたは8つの小さなものから、1つの大きなものを作りました。そしてそれが、どこにでも持っていける力です</li>
+<li>このゲームに足りないもののほとんどは、1つの決定から来ています。サーバーがないことです</li>
+<li>サーバーなしは、信頼と永続性を失うかわりに、お金がかからないこと、手入れがいらないこと、そして何もかくれていないことをくれます</li>
+<li>「そうしないことを選んだ」は、「できなかった」とはまったくちがう文です</li>
+<li>省いたものを理由つきで挙げられることは、自分が何をしているか分かっているしるしです</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Write your own version of the table near the top of this step, for your own game, in your own words. Include anything you personally decided not to add. Put it in a file called <code>DESIGN.md</code> next to your code, and commit it.</p>
-<p>When someone asks why your game does not have accounts, you will have the answer written down — and it will be yours, not ours.</p>
+<h2 id="あなたの番"><a class="heading-anchor" href="#あなたの番">あなたの番</a></h2>
+<p>このステップの上のほうにある表を、自分のゲームについて、自分の言葉で書いてみましょう。自分が足さないと決めたものも入れてください。それをコードのとなりの<code>DESIGN.md</code>というファイルに置いて、コミットします。</p>
+<p>だれかに「なんでこのゲームにアカウントがないの？」と聞かれたとき、あなたには書きとめた答えがあります。しかもそれは、私たちのものではなく、あなたのものです。</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">AIレッスンに戻る</a>
         <div class="lesson-pager">

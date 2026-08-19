@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Put It Online - KakkoiSchool</title>
+  <title>インターネットに公開する - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,13 +47,13 @@
           <a href="a19.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a18-put-it-online"><a class="heading-anchor" href="#a18-put-it-online">A18: Put It Online</a></h1>
-<p class="lesson-intro">Right now your game only exists on your computer. By the end of this step it has an address anyone in the world can open, and you have something far better than copying folders when you want to undo.</p>
-<p><strong>Needs:</strong> <a href="a09.html">A09</a>, and a game you would not mind someone seeing. <strong>Gives you:</strong> a link you can send to anyone.</p>
+      <h1 id="a18-インターネットに公開する"><a class="heading-anchor" href="#a18-インターネットに公開する">A18: インターネットに公開する</a></h1>
+<p class="lesson-intro">今のあなたのゲームは、自分のパソコンの中にしかありません。このステップが終わると、世界中のだれでも開ける住所を持ちます。それに、元に戻したいときのために、フォルダをコピーするよりずっといいものが手に入ります。</p>
+<p><strong>必要なもの:</strong> <a href="a09.html">A09</a>と、人に見られてもいいと思えるゲーム。<strong>得られるもの:</strong> だれにでも送れるリンク。</p>
 <blockquote>
-<p>This step is bigger than the others. It is three separate things, and you may want to stop after each one. That is fine — there is no rush, and nothing later depends on finishing it all at once.</p>
+<p>このステップは、ほかより大きめです。中身は3つの別々のことで、1つ終わるごとに休みたくなるかもしれません。それでだいじょうぶです。急ぐ必要はありませんし、あとのステップは、これを一気に終わらせることを前提にしていません。</p>
 </blockquote>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+<h2 id="ゲーム全体と今日の部分"><a class="heading-anchor" href="#ゲーム全体と今日の部分">ゲーム全体と今日の部分</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -68,57 +68,60 @@ flowchart LR
     W["The world<br/>walls, map"] --> R
     A["Sound"] --> R
 
+    classDef done fill:#2f6f4f,stroke:#8fd6b4,color:#fff
+    class N,D,R,S,O,W,A done
+
 </div>
-<p>None of the boxes change here. This step is about the <em>folder</em> your game lives in, not the game.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
+<p>今回はどのボックスも変わりません。このステップの話は、ゲームそのものではなく、ゲームが入っている<em>フォルダ</em>のことです。</p>
+<h2 id="ブロックに分割する"><a class="heading-anchor" href="#ブロックに分割する">ブロックに分割する</a></h2>
 <ol>
-<li><strong>Save your history</strong> — keep every version of your work, so you can go back</li>
-<li><strong>Make an account</strong> — somewhere on the internet to put it</li>
-<li><strong>Switch on the hosting</strong> — turn your folder into a website</li>
-<li><strong>Make it installable</strong> — so it lands on a phone like a real app</li>
+<li><strong>記録を残す</strong> — 自分の作業のすべてのバージョンを取っておいて、いつでも戻れるようにする</li>
+<li><strong>アカウントを作る</strong> — インターネット上に、置き場所を用意する</li>
+<li><strong>公開をオンにする</strong> — フォルダをウェブサイトに変える</li>
+<li><strong>インストールできるようにする</strong> — スマホに、本物のアプリのように置けるようにする</li>
 </ol>
-<p>Why four? Because each one can fail on its own, and they fail in completely different ways. If your link does not work at the end, you need to know whether your files never left your computer, or arrived but were not published. Checking one end at a time is the whole trick, and it is the same trick as always.</p>
-<h2 id="block-1-save-your-history"><a class="heading-anchor" href="#block-1-save-your-history">Block 1: Save your history</a></h2>
-<p>Since <a href="a09.html">A09</a> you have been copying your folder before big changes. That works, and it is horrible. You end up with <code>kakkoi-online-2</code>, <code>kakkoi-online-final</code>, <code>kakkoi-online-final-2</code>, and no idea what is in any of them.</p>
-<p><strong>Git</strong> is a program that does this properly. It keeps every version of your folder, with a note on each one saying what changed.</p>
-<p>Install it if you do not have it — type <code>git --version</code> in a terminal to check. Then, inside your project folder:</p>
+<p>なぜ4つでしょう。それぞれが単独で失敗しうるし、失敗し方がまったくちがうからです。最後にリンクが動かないとき、ファイルがそもそもパソコンから出ていないのか、届いてはいるけれど公開されていないのかを知る必要があります。片方の端から1つずつ確かめるのがコツで、それはいつもと同じコツです。</p>
+<h2 id="ブロック1-記録を残す"><a class="heading-anchor" href="#ブロック1-記録を残す">ブロック1: 記録を残す</a></h2>
+<p><a href="a09.html">A09</a>からずっと、あなたは大きな変更の前にフォルダをコピーしてきました。これは動きます。そして、ひどいやり方です。最後には<code>kakkoi-online-2</code>、<code>kakkoi-online-final</code>、<code>kakkoi-online-final-2</code>が並び、どれに何が入っているのか分からなくなります。</p>
+<p><strong>Git</strong>は、これをちゃんとやってくれるプログラムです。フォルダのすべてのバージョンを、何を変えたかというメモつきで取っておいてくれます。</p>
+<p>まだ入っていなければ入れてください。ターミナルで<code>git --version</code>と打つと確認できます。そのあと、プロジェクトのフォルダの中で次を実行します。</p>
 <pre><code>git init
 git add .
 git commit -m &quot;My game so far&quot;
 </code></pre>
 <ul>
-<li><code>init</code> says "start keeping history for this folder"</li>
-<li><code>add .</code> says "I mean all these files"</li>
-<li><code>commit</code> saves a version, with your note</li>
+<li><code>init</code>は「このフォルダの記録を取り始めて」という意味です</li>
+<li><code>add .</code>は「このファイルたち全部のことだよ」という意味です</li>
+<li><code>commit</code>は、あなたのメモつきでバージョンを保存します</li>
 </ul>
-<p>That is a <strong>save point</strong>. Make one whenever something works. From now on, before you let the assistant loose on a big change, you make a commit instead of copying the folder. If it goes wrong, <code>git restore .</code> puts everything back to your last save point.</p>
-<p>You have wanted this since A09. That is why it is here and not there: you have felt the problem, so the answer means something.</p>
-<h2 id="block-2-make-an-account"><a class="heading-anchor" href="#block-2-make-an-account">Block 2: Make an account</a></h2>
-<p>Go to <a href="https://github.com" target="_blank" rel="noopener">github.com</a> and sign up. It is free.</p>
+<p>これが<strong>セーブポイント</strong>です。何かがうまく動いたら、そのたびに作りましょう。これからは、大きな変更をアシスタントにまかせる前に、フォルダをコピーするのではなくコミットします。うまくいかなかったら、<code>git restore .</code>で最後のセーブポイントまで全部戻ります。</p>
+<p>あなたはA09からずっとこれをほしがっていました。だからこれはA09ではなく、ここにあります。あなたはもう問題を体で感じたので、この答えに意味があるのです。</p>
+<h2 id="ブロック2-アカウントを作る"><a class="heading-anchor" href="#ブロック2-アカウントを作る">ブロック2: アカウントを作る</a></h2>
+<p><a href="https://github.com" target="_blank" rel="noopener">github.com</a>に行って、登録します。無料です。</p>
 <blockquote>
-<p><strong>You must be at least 13 to have a GitHub account.</strong> That is their rule, not ours. If you are younger, ask a parent — they can make the account and you can use it together. Nothing before this step needed an account, so you have lost nothing by waiting.</p>
+<p><strong>GitHubのアカウントを持つには13歳以上でないといけません。</strong> これはGitHubのルールで、私たちのルールではありません。まだ13歳になっていない人は、おうちの人に相談してください。アカウントを作ってもらって、いっしょに使うことができます。このステップより前は、アカウントが必要な場面は1つもありませんでした。だから待っていて損したことは何もありません。</p>
 </blockquote>
-<p>Make a new repository — a <strong>repository</strong> is just a folder that lives on GitHub. Name it <code>kakkoi-online</code>. Make it <strong>public</strong>.</p>
+<p>新しいリポジトリを作ります。<strong>リポジトリ</strong>とは、GitHubの上にあるフォルダのことです。名前は<code>kakkoi-online</code>にしましょう。<strong>public（公開）</strong>にします。</p>
 <blockquote>
-<p>Public means anyone can read your code. That is normal and it is how most learning happens. But it also means: <strong>do not put anything private in this folder.</strong> No passwords, no addresses, no phone numbers, nothing you would not put on a poster.</p>
+<p>publicとは、だれでもあなたのコードを読めるということです。これはふつうのことで、学ぶ人のほとんどはこうしています。でも、こういう意味でもあります。<strong>このフォルダには、人に見せられないものを何も入れないこと。</strong> パスワードもだめ、住所もだめ、電話番号もだめ。ポスターに書けないものは、何も入れてはいけません。</p>
 </blockquote>
-<p>GitHub then shows you the commands to connect your folder to it. They look like this:</p>
+<p>そうするとGitHubが、あなたのフォルダをつなぐためのコマンドを見せてくれます。こんな見た目です。</p>
 <pre><code>git remote add origin https://github.com/YOUR-NAME/kakkoi-online.git
 git branch -M main
 git push -u origin main
 </code></pre>
-<p><code>push</code> means "send my saved history to GitHub". Refresh the page — your files are there.</p>
-<h2 id="block-3-switch-on-the-hosting"><a class="heading-anchor" href="#block-3-switch-on-the-hosting">Block 3: Switch on the hosting</a></h2>
-<p>Your code is on GitHub, but it is not a website yet. It is just files someone can read.</p>
-<p>On your repository page: <strong>Settings → Pages</strong>. Under <em>Build and deployment</em>, set <strong>Source</strong> to <strong>Deploy from a branch</strong>, branch <strong>main</strong>, folder <strong>/ (root)</strong>. Save.</p>
-<p>Wait a minute or two, then open:</p>
+<p><code>push</code>は「保存した記録をGitHubに送って」という意味です。ページを再読み込みすると、あなたのファイルがそこにあります。</p>
+<h2 id="ブロック3-公開をオンにする"><a class="heading-anchor" href="#ブロック3-公開をオンにする">ブロック3: 公開をオンにする</a></h2>
+<p>コードはGitHubにありますが、まだウェブサイトではありません。だれかが読めるファイルが置いてあるだけです。</p>
+<p>リポジトリのページで、<strong>Settings → Pages</strong> を開きます。<em>Build and deployment</em> の下で、<strong>Source</strong> を <strong>Deploy from a branch</strong> に、ブランチを <strong>main</strong>、フォルダを <strong>/ (root)</strong> にします。保存します。</p>
+<p>1〜2分待って、これを開きます。</p>
 <pre><code>https://YOUR-NAME.github.io/kakkoi-online/
 </code></pre>
-<p><strong>That is your game, on the internet, at your own address, for free.</strong> Send the link to someone.</p>
-<p>From now on, <code>git push</code> publishes. Change something, commit, push, and the live page updates by itself.</p>
-<h2 id="block-4-make-it-installable"><a class="heading-anchor" href="#block-4-make-it-installable">Block 4: Make it installable</a></h2>
-<p>Your game is a web page. With two small files it becomes something a person can install — an icon on their home screen, opening with no browser bar around it. It is the same game; the phone just stops treating it like a page it happened to visit.</p>
-<p><strong>A manifest</strong> is a small file describing your game to the phone. Call it <code>manifest.webmanifest</code>:</p>
+<p><strong>それがあなたのゲームです。インターネット上に、あなた自身の住所で、無料で。</strong> だれかにリンクを送ってみましょう。</p>
+<p>これからは、<code>git push</code>が公開になります。何かを変えて、コミットして、プッシュすれば、公開されているページが自分で新しくなります。</p>
+<h2 id="ブロック4-インストールできるようにする"><a class="heading-anchor" href="#ブロック4-インストールできるようにする">ブロック4: インストールできるようにする</a></h2>
+<p>あなたのゲームはウェブページです。小さなファイル2つで、それが「インストールできるもの」になります。ホーム画面にアイコンが出て、ブラウザのバーなしで開きます。ゲームは同じものです。スマホが、たまたま見に来たページとしてあつかうのをやめるだけです。</p>
+<p><strong>マニフェスト</strong>は、あなたのゲームをスマホに説明する小さなファイルです。<code>manifest.webmanifest</code>という名前にします。</p>
 <pre><code>{
   &quot;name&quot;: &quot;Kakkoi Online&quot;,
   &quot;short_name&quot;: &quot;Kakkoi&quot;,
@@ -132,88 +135,88 @@ git push -u origin main
   ]
 }
 </code></pre>
-<p>Link it from <code>index.html</code>:</p>
+<p>これを<code>index.html</code>から読み込みます。</p>
 <pre><code>&lt;link rel=&quot;manifest&quot; href=&quot;./manifest.webmanifest&quot;&gt;
 </code></pre>
-<p><code>display: standalone</code> is the line that removes the browser bar. The icons are just PNGs — ours are one of the animals from the game, blown up big, so the icon and the game are obviously the same thing.</p>
-<p><strong>A service worker</strong> is a small program the browser keeps beside your page. Every time the page asks for a file, the worker sees the request first — so it can answer from a copy it saved earlier, instead of the network. That is what lets the game open when there is no internet at all.</p>
-<p>It has one job here, and three rules that go with it:</p>
+<p>ブラウザのバーを消しているのは<code>display: standalone</code>の行です。アイコンはただのPNGです。私たちのはゲームに出てくる動物の1匹を大きくしたもので、アイコンとゲームが同じものだと一目で分かるようにしています。</p>
+<p><strong>サービスワーカー</strong>は、ブラウザがあなたのページのそばに置いておく小さなプログラムです。ページがファイルをほしがるたびに、ワーカーがその要求を先に見ます。だから、ネットワークではなく、前に保存しておいたコピーから返事ができます。インターネットがまったくないときでもゲームが開けるのは、これのおかげです。</p>
+<p>ここでのワーカーの仕事は1つ、そしてそれについてくるルールは3つです。</p>
 <ol>
-<li><strong>Save the list of files the game needs</strong>, the first time somebody visits.</li>
-<li><strong>Answer from that copy</strong> for exactly those files.</li>
-<li><strong>Give the saved copy a version number, and delete the old versions.</strong></li>
+<li><strong>ゲームに必要なファイルの一覧を保存する。</strong> だれかが初めて来たときに。</li>
+<li><strong>そのコピーから返事をする。</strong> ちょうどそれらのファイルについてだけ。</li>
+<li><strong>保存したコピーにバージョン番号をつけ、古いバージョンを消す。</strong></li>
 </ol>
 <blockquote>
-<p><strong>Rule 3 is not tidiness — it is the trap.</strong> A worker that keeps answering from an old copy means you can fix a bug, publish the fix, and nobody ever gets it: the stale copy is what answers, forever. When you change any file in the list, change the version name too. This caught us while building it, and the symptom is horrible to diagnose: new page, old styling, a layout that looks broken in a way you cannot reproduce.</p>
+<p><strong>ルール3は、きれいにしておくための話ではありません。わなです。</strong> ワーカーが古いコピーから返事をつづけると、バグを直して公開しても、だれ1人それを受け取れません。永遠に、古いコピーが返事をするからです。一覧の中のファイルを変えたときは、バージョンの名前も変えてください。これは作っているときに私たちが引っかかりました。しかも症状の原因を見つけるのがとてもやりにくいのです。ページは新しいのに見た目は古い、しかも自分では再現できない壊れ方をしている、という形で出てきます。</p>
 </blockquote>
-<p>What still needs the internet is other players — they are on other computers, so no amount of saving files locally will conjure them up. Offline you get the world, your own character, and the computer opponent. Our game says so on screen rather than looking broken.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>Everything here is free and nothing needs a card. You could rent a computer on the internet and run your own server, and one day you might — but a game made of plain files does not need one. GitHub already has your files, so serving them as a website costs it almost nothing, which is why it gives it away.</p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p>インターネットがどうしても必要なのは、他のプレイヤーです。彼らは別のパソコンにいるので、ファイルをどれだけローカルに保存しても、彼らを呼び出すことはできません。オフラインで遊べるのは、世界、自分のキャラクター、コンピューターの対戦相手です。私たちのゲームは、壊れているように見せるのではなく、そのことを画面に書いています。</p>
+<h2 id="なぜこの方法にしたのか"><a class="heading-anchor" href="#なぜこの方法にしたのか">なぜこの方法にしたのか</a></h2>
+<p>ここにあるものはすべて無料で、カードは何も必要ありません。インターネット上のコンピューターを借りて、自分のサーバーを動かすこともできますし、いつかそうする日が来るかもしれません。でも、ただのファイルでできたゲームには、それは必要ありません。GitHubはもうあなたのファイルを持っているので、それをウェブサイトとして配るのにほとんど費用がかかりません。だから無料で提供しているのです。</p>
+<h2 id="代わりにできたこと"><a class="heading-anchor" href="#代わりにできたこと">代わりにできたこと</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>この代わりに</th>
+<th>その代償</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Doing this in <a href="a09.html">A09</a>, before anything worked</td>
-<td>An account rule and three new ideas before you had made a single square move. Nothing needed an address until now — even the multiplayer works fine between two computers with no website at all</td>
+<td>まだ何も動いていない<a href="a09.html">A09</a>の時点でこれをやる</td>
+<td>四角形を1つも動かせていないうちに、年齢のルールと3つの新しい考え方が出てきます。今まで住所が必要な場面は1つもありませんでした。マルチプレイヤーだって、ウェブサイトなしでパソコン2台のあいだでちゃんと動きます</td>
 </tr>
 <tr>
-<td>Sending someone a zip of your folder</td>
-<td>They can open it, but they get whatever you sent and nothing after. A link is always the newest version</td>
+<td>フォルダをzipにして送る</td>
+<td>相手は開けますが、送ったものだけが手に入り、そのあとの変更は届きません。リンクなら、いつでもいちばん新しいものです</td>
 </tr>
 <tr>
-<td>Renting a server</td>
-<td>About the price of a game every month, forever, plus keeping it running. It buys you things this project deliberately does not use</td>
+<td>サーバーを借りる</td>
+<td>毎月ゲーム1本くらいのお金が、ずっとかかります。それに動かしつづける手間も。しかも、それで買えるのは、このプロジェクトがわざと使わないことにした機能です</td>
 </tr>
 <tr>
-<td>Keeping backups by copying folders</td>
-<td>It genuinely works. It just does not scale past a few copies, and it cannot tell you <em>what</em> changed between two of them</td>
+<td>フォルダをコピーしてバックアップを取りつづける</td>
+<td>本当に動きます。ただ、コピーが数個を超えるとやっていけなくなり、2つのあいだで<em>何が</em>変わったのかを教えてはくれません</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="プロンプト"><a class="heading-anchor" href="#プロンプト">プロンプト</a></h2>
 <pre><code>My project folder is a git repository connected to GitHub, published with
 GitHub Pages. I want to understand what I just did. Explain, in plain
 language: what git commit actually saves, what git push sends, and what
 GitHub Pages does with the files. Then tell me what happens if I edit a
 file and forget to commit before I push.
 </code></pre>
-<p><strong>Check the output for:</strong> does the last answer say plainly that <strong>nothing happens</strong> — an uncommitted change is not sent, so the website will not change? That is the single most common confusion, and an assistant that waffles about it has not helped you.</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
-<p>Open your live link on a <strong>different device</strong> — a phone on mobile data is the best test, because it proves nothing on your own computer or network is involved.</p>
+<p><strong>出力を確認すること:</strong> 最後の答えが、<strong>何も起きない</strong>とはっきり言っていますか。コミットしていない変更は送られないので、ウェブサイトは変わりません。これはいちばんよくある勘ちがいで、ここをあいまいにするアシスタントは、あなたの役に立っていません。</p>
+<h2 id="動作を確認する"><a class="heading-anchor" href="#動作を確認する">動作を確認する</a></h2>
+<p><strong>別の機械</strong>で、公開されたリンクを開いてみましょう。モバイル通信のスマホがいちばんいいテストです。自分のパソコンやネットワークがまったく関わっていないことが証明できます。</p>
 <ol>
-<li>The page loads.</li>
-<li>Close your editor and stop Live Server. The link still works.</li>
-<li>Change one thing, <code>git add .</code>, <code>git commit -m "..."</code>, <code>git push</code>. Wait a minute and refresh the live link. Your change is there.</li>
-<li>On the phone, use the browser's menu to add it to your home screen. It gets your icon and opens with no browser bar.</li>
-<li><strong>Turn the phone's internet off completely</strong>, then open it from the home screen. The world, your character and the computer opponent are all still there.</li>
+<li>ページが読み込まれます。</li>
+<li>エディタを閉じて、Live Serverを止めます。リンクはまだ動きます。</li>
+<li>何か1つ変えて、<code>git add .</code>、<code>git commit -m "..."</code>、<code>git push</code>。1分待って、公開されているリンクを再読み込みします。変更が反映されています。</li>
+<li>スマホで、ブラウザのメニューからホーム画面に追加します。あなたのアイコンがつき、ブラウザのバーなしで開きます。</li>
+<li><strong>スマホのインターネットを完全にオフにして</strong>、ホーム画面から開きます。世界も、自分のキャラクターも、コンピューターの対戦相手も、ちゃんとそこにあります。</li>
 </ol>
-<h2 id="what-went-wrong-when-we-did-this"><a class="heading-anchor" href="#what-went-wrong-when-we-did-this">What went wrong when we did this</a></h2>
-<p>Both of these are real, from publishing our own copy of this project at <a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a>.</p>
-<p><strong>A file that looked like configuration.</strong> We had a file in the repository whose whole job was to set the site's address. It did nothing at all — that file only works for a different way of publishing than the one we were using. The address was empty the whole time, and the file sat there looking correct. <em>Lesson: when something should be live and is not, check each end separately. Are the files there? Is the host expecting this name? Do not stare at the middle.</em></p>
-<p><strong>A publishing robot that never ran.</strong> We later set up automatic publishing, and it was watching for changes on a branch called <code>master</code> while our code was on <code>main</code>. No error. No warning. Nothing happened, quietly. <em>Lesson: a robot that never runs looks exactly like a robot that works. Go and look at the run.</em></p>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>This is your game — same folder, now with a history and an address. Nothing to move.</p>
+<h2 id="これを行ったときに何がうまくいかなかったか"><a class="heading-anchor" href="#これを行ったときに何がうまくいかなかったか">これを行ったときに何がうまくいかなかったか</a></h2>
+<p>どちらも、このプロジェクトの私たち自身のコピーを<a href="https://online.kakkoi.dev" target="_blank" rel="noopener">online.kakkoi.dev</a>に公開したときの実話です。</p>
+<p><strong>設定ファイルのように見えたファイル。</strong> サイトの住所を決めるためだけにあるファイルが、リポジトリの中にありました。それはまったく何もしていませんでした。あのファイルが効くのは、私たちが使っていたのとは別の公開方法のときだけなのです。住所はずっと空っぽで、ファイルはそこに正しそうな顔をして置かれていました。<em>教訓: 公開されているはずのものが公開されていないときは、両端を別々に確かめること。ファイルはそこにありますか。置き場所はこの名前を待っていますか。真ん中をじっと見つめてはいけません。</em></p>
+<p><strong>一度も動かなかった公開ロボット。</strong> そのあと自動で公開するしくみを作りましたが、それは<code>master</code>という名前のブランチの変更を見張っていて、私たちのコードは<code>main</code>にありました。エラーなし。警告なし。何も起きず、静かなままでした。<em>教訓: 一度も動いていないロボットは、ちゃんと働いているロボットとまったく同じに見えます。実行の記録を、自分で見に行きましょう。</em></p>
+<h2 id="ゲームに組み込む"><a class="heading-anchor" href="#ゲームに組み込む">ゲームに組み込む</a></h2>
+<p>これがあなたのゲームです。フォルダは同じで、そこに記録と住所がついただけです。移すものは何もありません。</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="主なポイント"><a class="heading-anchor" href="#主なポイント">主なポイント</a></h2>
 <ul>
-<li>A commit is a save point with a note, and it replaces copying folders</li>
-<li>Push sends your saved history to GitHub; anything you did not commit stays behind</li>
-<li>GitHub Pages turns a folder of plain files into a website, for free</li>
-<li>Public means public — nothing private goes in the folder</li>
-<li>When a link does not work, check each end on its own instead of guessing at the middle</li>
-<li>A manifest and a service worker turn a web page into something installable that opens with no internet</li>
-<li>Version the saved copy, or you will publish fixes nobody ever receives</li>
+<li>コミットはメモつきのセーブポイントで、フォルダのコピーの代わりになります</li>
+<li>プッシュは保存した記録をGitHubに送ります。コミットしていないものは、置いていかれます</li>
+<li>GitHub Pagesは、ただのファイルが入ったフォルダを、無料でウェブサイトに変えます</li>
+<li>publicは本当にpublicです。人に見せられないものは、フォルダに入れません</li>
+<li>リンクが動かないときは、真ん中をあてずっぽうで探るのではなく、両端を別々に確かめます</li>
+<li>マニフェストとサービスワーカーがあれば、ウェブページはインストールできるものになり、インターネットなしでも開きます</li>
+<li>保存したコピーにバージョンをつけましょう。そうしないと、だれにも届かない修正を公開しつづけることになります</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p>Break it on purpose, then fix it. Edit your page so it says something obviously different, push <strong>without committing first</strong>, and watch the live page not change. Then commit and push properly. Doing this deliberately once means you will recognise it instantly the day it happens by accident.</p>
+<h2 id="あなたの番"><a class="heading-anchor" href="#あなたの番">あなたの番</a></h2>
+<p>わざと壊して、それから直しましょう。ページを、見ればすぐ分かるくらいちがう内容に書きかえて、<strong>コミットせずに</strong>プッシュし、公開されているページが変わらないのを見てください。そのあと、きちんとコミットしてプッシュします。一度わざとやっておけば、うっかり同じことをした日に、すぐそれだと気づけます。</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">AIレッスンに戻る</a>
         <div class="lesson-pager">

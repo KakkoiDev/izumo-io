@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>No Peeking - KakkoiSchool</title>
+  <title>のぞき見なし - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,15 +47,15 @@
           <a href="a23.html">次へ</a>
         </div>
       </nav>
-      <h1 id="a22-no-peeking"><a class="heading-anchor" href="#a22-no-peeking">A22: No Peeking</a></h1>
-<p class="lesson-intro">Two players, no referee. So how do you stop someone waiting to see your move before choosing theirs? You both write it down, fold the note, and only then unfold.</p>
+      <h1 id="a22-のぞき見なし"><a class="heading-anchor" href="#a22-のぞき見なし">A22: のぞき見なし</a></h1>
+<p class="lesson-intro">プレイヤーは2人、審判はいません。では、あなたの手を見てから自分の手を決める人を、どうやって止めますか。2人とも紙に書いて、折ってから、そのあとで開くのです。</p>
 <blockquote>
-<p><strong>This step is optional, and the game we built does not do it.</strong></p>
-<p>Our game sends your move straight across. That means whoever's move arrives first has, in a sense, shown their hand — and somebody who opened the code and edited it could answer it. We decided that was fine: it is a game for a few friends, and cheating it takes more effort than winning it.</p>
-<p>This step is here because <strong>the problem is real and the solution is beautiful</strong>, and because you will meet it again the moment you build anything where people have a reason to lie. Skip it and nothing later breaks. Come back to it when you are curious.</p>
+<p><strong>このステップは任意です。そして、私たちが作ったゲームはこれをやっていません。</strong></p>
+<p>私たちのゲームは、あなたの手をそのまま相手に送ります。つまり、先に手が届いたほうは、ある意味で自分の手をさらしているということです。そしてコードを開いて書きかえた人なら、それに答えることができてしまいます。私たちはそれでよいと決めました。これは友達数人で遊ぶゲームですし、ずるをするほうが、勝つより手間がかかるからです。</p>
+<p>このステップがここにあるのは、<strong>問題が本物で、解き方が美しいから</strong>です。それに、人がうそをつく理由があるものを作るときには、必ずまたこの問題に出会います。飛ばしても、あとで何も壊れません。気になったときに、また戻ってきてください。</p>
 </blockquote>
-<p><strong>Needs:</strong> <a href="a20.html">A20</a>. <strong>Gives you:</strong> a round nobody can win by peeking, and an idea used by real voting systems and lotteries.</p>
-<h2 id="the-whole-game-and-today-s-piece"><a class="heading-anchor" href="#the-whole-game-and-today-s-piece">The whole game, and today's piece</a></h2>
+<p><strong>必要なもの:</strong> <a href="a20.html">A20</a>。<strong>得られるもの:</strong> のぞき見では勝てないラウンドと、本物の投票のしくみや宝くじで使われている考え方。</p>
+<h2 id="ゲーム全体と今日の部分"><a class="heading-anchor" href="#ゲーム全体と今日の部分">ゲーム全体と今日の部分</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -71,34 +71,36 @@ flowchart LR
     A["Sound"] --> R
 
     classDef now fill:#8a5a00,stroke:#ffc46b,color:#fff,stroke-width:3px
+    classDef done fill:#2f6f4f,stroke:#8fd6b4,color:#fff
+    class N,D,R,S,W,A done
     class F,O now
 
 </div>
-<p>The real game sends these messages over the wire, using the connection from <a href="a19.html">A19</a>. Here both players are on one page so you can see the whole thing at once — including the cheating.</p>
-<h2 id="the-problem-at-a-table-first"><a class="heading-anchor" href="#the-problem-at-a-table-first">The problem, at a table first</a></h2>
-<p>You and a friend play rock, paper, scissors across a table. If your friend can see your hand before they move, they win every round. So you both put a fist out and open on three.</p>
-<p>Now put your friend on another computer. Your move has to travel to them as a message. Whoever sends first has shown their hand, and the other one can simply pick the move that beats it. Nobody can prove it happened. <strong>There is no server in this game to hold both moves and open them together</strong> — that is the whole point of the design, and it is why this problem is yours to solve.</p>
-<p>The folded-note trick works: write your move down, fold it, put it on the table, and only unfold when both notes are down. What you need is a way to fold a note made of text.</p>
-<h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
+<p>本物のゲームでは、これらのメッセージは<a href="a19.html">A19</a>で作った接続を通って、線の向こうに送られます。ここでは2人のプレイヤーが1つのページの中にいるので、全体を一度に見られます。ずるをするところも含めて。</p>
+<h2 id="まずはテーブルの上での問題"><a class="heading-anchor" href="#まずはテーブルの上での問題">まずはテーブルの上での問題</a></h2>
+<p>あなたと友達が、テーブルをはさんでじゃんけんをします。もし友達が、自分が出す前にあなたの手を見られるとしたら、友達は毎回勝ちます。だから2人ともグーの形で出して、「3」で開くのです。</p>
+<p>では、その友達を別のパソコンに置いてみましょう。あなたの手は、メッセージとして相手まで運ばれないといけません。先に送ったほうは自分の手をさらしていて、もう片方は、それに勝つ手をただ選ぶだけでよくなります。そして、それが起きたことを証明できる人はいません。<strong>このゲームには、2つの手をあずかって同時に開いてくれるサーバーがありません。</strong> それがこの設計のねらいそのもので、だからこの問題は、あなたが解く問題なのです。</p>
+<p>折った紙のやり方は、うまくいきます。自分の手を書いて、折って、テーブルに置き、両方の紙が置かれてから開く。必要なのは、文字でできた紙を折る方法です。</p>
+<h2 id="ブロックに分割する"><a class="heading-anchor" href="#ブロックに分割する">ブロックに分割する</a></h2>
 <ol>
-<li><strong>Hide</strong> — turn your move into something that proves nothing and reveals nothing</li>
-<li><strong>Show both at once</strong> — nobody unfolds until both folded notes are on the table</li>
-<li><strong>Check</strong> — make sure the move someone showed is really the one they folded</li>
+<li><strong>かくす</strong> — 自分の手を、何も証明せず、何も明かさないものに変える</li>
+<li><strong>同時に見せる</strong> — 折った紙が両方テーブルに置かれるまで、だれも開かない</li>
+<li><strong>確かめる</strong> — だれかが見せた手が、本当にその人が折った手かどうかを確認する</li>
 </ol>
-<p><strong>Why bother splitting it?</strong> Because these three fail in completely different ways, and if they were one lump you could not tell which one failed. Hiding badly means the other player can read your move. Showing too early means they never had to guess. Not checking means they can fold one move and show another. The demo has a button for that last one, so you can watch the check do its job.</p>
-<p>This part is confusing for everyone the first time. Read it twice. It is the most beautiful idea in the whole track.</p>
-<h2 id="block-1-hide"><a class="heading-anchor" href="#block-1-hide">Block 1: Hide</a></h2>
-<p>A <strong>fingerprint</strong> of some text is a fixed string of characters worked out from it. The same text always gives the same fingerprint, and there is no way to work backwards from the fingerprint to the text. The browser has this built in:</p>
+<p><strong>なぜわざわざ分けるのでしょう。</strong> この3つは、まったくちがう形で失敗しますし、1つのかたまりだったら、どれが失敗したのか分からないからです。かくし方が下手なら、相手はあなたの手を読めます。早く見せてしまえば、相手は当てる必要がありません。確かめなければ、相手は1つの手を折って、別の手を見せられます。デモには最後の1つのためのボタンがあるので、確認が仕事をするところを見られます。</p>
+<p>ここは、だれでも最初はこんがらがります。2回読んでください。このコース全体で、いちばん美しい考え方です。</p>
+<h2 id="ブロック1-かくす"><a class="heading-anchor" href="#ブロック1-かくす">ブロック1: かくす</a></h2>
+<p>ある文字列の<strong>指紋</strong>とは、その文字列から計算された、決まった長さの文字の並びです。同じ文字列は、いつでも同じ指紋になります。そして指紋から元の文字列に、さかのぼる方法はありません。ブラウザには、これがはじめから入っています。</p>
 <pre><code>async function fingerprint(text) {
   const bytes = new TextEncoder().encode(text);
   const digest = await crypto.subtle.digest('SHA-256', bytes);
   return [...new Uint8Array(digest)].map((b) =&gt; b.toString(16).padStart(2, '0')).join('');
 }
 </code></pre>
-<p><code>SHA-256</code> is the name of the recipe. It gives back 32 numbers; the last line turns each into two characters, so you always end up with the same 64 characters no matter how long the text was.</p>
-<p><code>async</code> and <code>await</code> are there because this takes a moment and the browser refuses to freeze the page while it happens. Anything that calls <code>fingerprint</code> has to <code>await</code> it too.</p>
-<p>Now the important part. <strong>Three moves is not many.</strong> If you sent the fingerprint of just <code>'rock'</code>, a cheat could fingerprint <code>'rock'</code>, <code>'paper'</code> and <code>'scissors'</code> themselves — three tries, ten seconds — and see which one matches yours. The fold would be transparent.</p>
-<p>So mix in a secret nobody can guess:</p>
+<p><code>SHA-256</code>は、その計算のやり方の名前です。返ってくるのは32個の数字で、最後の行がそれぞれを2文字に変えます。だから、元の文字列がどれだけ長くても、いつでも同じ64文字になります。</p>
+<p><code>async</code>と<code>await</code>があるのは、これに少し時間がかかり、そのあいだブラウザがページを止めるのをいやがるからです。<code>fingerprint</code>を呼ぶものはすべて、<code>await</code>もつけないといけません。</p>
+<p>さて、ここが大事なところです。<strong>手は3つしかありません。</strong> もし<code>'rock'</code>だけの指紋を送ったら、ずるをする人は自分で<code>'rock'</code>と<code>'paper'</code>と<code>'scissors'</code>の指紋を計算して（3回、10秒です）、どれがあなたのと同じか見られてしまいます。折った紙は、すかすかの透明になります。</p>
+<p>だから、だれにも当てられない秘密を混ぜます。</p>
 <pre><code>function randomSecret() {
   const bytes = crypto.getRandomValues(new Uint8Array(8));
   return [...bytes].map((b) =&gt; b.toString(16).padStart(2, '0')).join('');
@@ -109,12 +111,12 @@ async function fold(move) {
   return { move, secret, folded: await fingerprint(move + ':' + secret) };
 }
 </code></pre>
-<p><code>crypto.getRandomValues</code> fills the list with proper unguessable randomness. Now there are not three things to try — there are more than a million million million. Trying them all is not a plan.</p>
-<p>You send <code>folded</code>. You keep <code>move</code> and <code>secret</code> to yourself, for now.</p>
+<p><code>crypto.getRandomValues</code>は、本当に当てられないでたらめな数でリストを埋めます。これでためすものは3つではなく、100万×100万×100万より多くなります。全部ためすのは、もう作戦になりません。</p>
+<p>送るのは<code>folded</code>です。<code>move</code>と<code>secret</code>は、今のところ自分だけが持っています。</p>
 <blockquote>
-<p><strong>This needs a secure context.</strong> <code>crypto.subtle</code> is only handed to pages the browser considers safe: an <code>https</code> address, or <code>http://localhost</code>. Live Server gives you <code>localhost</code>, so it works — that is one of the reasons <a href="a09.html">A09</a> had you install it. Do not assume opening the file some other way will behave the same; serve it and you never have to wonder.</p>
+<p><strong>これには安全なコンテキストが必要です。</strong> <code>crypto.subtle</code>は、ブラウザが安全だと考えるページにしか渡されません。<code>https</code>の住所か、<code>http://localhost</code>です。Live Serverは<code>localhost</code>をくれるので、これで動きます。それが<a href="a09.html">A09</a>でLive Serverを入れてもらった理由の1つです。別のやり方でファイルを開いても同じように動く、とは思わないでください。サーバーで配れば、悩むことがなくなります。</p>
 </blockquote>
-<h2 id="block-2-show-both-at-once"><a class="heading-anchor" href="#block-2-show-both-at-once">Block 2: Show both at once</a></h2>
+<h2 id="ブロック2-同時に見せる"><a class="heading-anchor" href="#ブロック2-同時に見せる">ブロック2: 同時に見せる</a></h2>
 <pre><code>let you = null;
 let them = null;
 
@@ -124,47 +126,47 @@ async function reveal() {
   ...
 }
 </code></pre>
-<p>The rule is one sentence: <strong>nobody sends their move until both fingerprints have arrived.</strong> In the demo that is one click, because both players are on this page. In the real game each side sends its fingerprint, waits for the other one, and only then sends the move and the secret.</p>
-<p>By that moment it is too late to change your mind. Your fingerprint is already in their hands, and any other move you now claim will not match it.</p>
-<h2 id="block-3-check"><a class="heading-anchor" href="#block-3-check">Block 3: Check</a></h2>
+<p>ルールは1文です。<strong>両方の指紋が届くまで、だれも自分の手を送らない。</strong> デモではクリック1回です。2人のプレイヤーがこのページの中にいるからです。本物のゲームでは、それぞれが自分の指紋を送り、相手の指紋を待って、それからやっと手と秘密を送ります。</p>
+<p>その時点では、もう気を変えるには遅すぎます。あなたの指紋はすでに相手の手元にあり、そのあとで別の手だと言っても、指紋と合いません。</p>
+<h2 id="ブロック3-確かめる"><a class="heading-anchor" href="#ブロック3-確かめる">ブロック3: 確かめる</a></h2>
 <pre><code>async function check(shown, folded) {
   return (await fingerprint(shown.move + ':' + shown.secret)) === folded;
 }
 </code></pre>
-<p>That is the whole thing. Take the move and secret they showed you, fingerprint them again exactly the way they should have, and compare with the fingerprint they sent before. Same, honest. Different, they swapped their move after seeing yours.</p>
-<p>Notice this is a pure block, like <code>compare</code> in <a href="a20.html">A20</a>: values in, true or false out, nothing touched. Both players run it and both get the same answer, which is exactly what you need when there is nobody to appeal to.</p>
-<p>This is the block you cannot see working. When everybody is honest, <code>check</code> returns <code>true</code> every time and nothing happens — which is exactly what a piece of security code looks like when it is doing its job. To watch it earn its place you have to lie to it on purpose, which is what "Your turn" at the bottom of this step asks you to do.</p>
-<h2 id="why-we-did-it-this-way"><a class="heading-anchor" href="#why-we-did-it-this-way">Why we did it this way</a></h2>
-<p>The forcing constraint: <strong>there is no server.</strong> In most games a company's computer holds both moves and opens them at the same time, and you trust the company. Your game has no company and no referee. The only thing two computers share is messages, and either one could lie about anything.</p>
-<p>So instead of trusting, you make lying not work. A fingerprint you cannot reverse means sending it early gives nothing away; a fingerprint you cannot fake means changing your move afterwards is caught, every time, by arithmetic. <em>Grown-up programmers call this commit–reveal, and it is used far outside games — in auctions and in voting.</em></p>
-<h2 id="what-we-could-have-done-instead"><a class="heading-anchor" href="#what-we-could-have-done-instead">What we could have done instead</a></h2>
+<p>これで全部です。相手が見せてきた手と秘密を受け取り、本来やるべきだったのとまったく同じやり方でもう一度指紋を計算し、前に送られてきた指紋とくらべます。同じなら正直。ちがえば、あなたの手を見てから自分の手を入れかえた、ということです。</p>
+<p>これは<a href="a20.html">A20</a>の<code>compare</code>と同じで、純粋なブロックです。値を入れて、trueかfalseが出てくるだけ。何にもふれません。2人のプレイヤーが両方これを実行して、両方が同じ答えを得ます。うったえる相手がいないときに、まさに必要なものです。</p>
+<p>これは、働いているところが見えないブロックです。みんなが正直なら、<code>check</code>はいつもtrueを返し、何も起きません。それは、安全のためのコードが仕事をしているときの、ちょうどそのままの見た目です。これが役に立っているところを見るには、わざとうそをつかないといけません。このステップのいちばん下の「あなたの番」がお願いしているのは、それです。</p>
+<h2 id="なぜこの方法にしたのか"><a class="heading-anchor" href="#なぜこの方法にしたのか">なぜこの方法にしたのか</a></h2>
+<p>決め手になった制約は、<strong>サーバーがない</strong>ことです。ほとんどのゲームでは、会社のコンピューターが両方の手をあずかって同時に開き、あなたはその会社を信じます。あなたのゲームには会社も審判もいません。2台のパソコンが分け合っているのはメッセージだけで、どちらも何についてでもうそをつけます。</p>
+<p>だから、信じるのではなく、うそが通らないようにします。さかのぼれない指紋なら、早く送っても何もばれません。にせものを作れない指紋なら、あとで手を変えても、計算によって毎回つかまります。<em>大人のプログラマーはこれをコミット・リビール方式と呼び、ゲームの外でも、オークションや投票で使われています。</em></p>
+<h2 id="代わりにできたこと"><a class="heading-anchor" href="#代わりにできたこと">代わりにできたこと</a></h2>
 <table>
 <thead>
 <tr>
-<th>Instead of this</th>
-<th>What it would cost</th>
+<th>この代わりに</th>
+<th>その代償</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Whoever sends first, sends first</td>
-<td>Free, and completely broken. The second player wins every round by reading the first move and answering it</td>
+<td>先に送ったほうが、そのまま先に送る</td>
+<td>手間ゼロで、完全に壊れています。2番目のプレイヤーは、1番目の手を読んでそれに答えるだけで、毎回勝ちます</td>
 </tr>
 <tr>
-<td>One player's computer decides and tells the other</td>
-<td>Now one player is the referee in their own match. You cannot even tell whether they cheated</td>
+<td>片方のプレイヤーのパソコンが決めて、もう片方に伝える</td>
+<td>自分の試合の審判を、片方のプレイヤーがやることになります。しかも、その人がずるをしたかどうかさえ分かりません</td>
 </tr>
 <tr>
-<td>Fingerprint the move with no secret</td>
-<td>Only three possible moves. Anyone can fingerprint all three and read yours in seconds</td>
+<td>秘密なしで、手の指紋だけを取る</td>
+<td>ありうる手は3つだけです。だれでも3つ全部の指紋を計算して、数秒であなたの手を読めます</td>
 </tr>
 <tr>
-<td>A tiny server holding both moves</td>
-<td>It works, and it is what most games do. But it costs money, it needs looking after, and the game stops when it does. Yours keeps running with nothing in the middle</td>
+<td>両方の手をあずかる、小さなサーバーを置く</td>
+<td>動きますし、ほとんどのゲームはそうしています。でもお金がかかり、世話が必要で、それが止まるとゲームも止まります。あなたのゲームは、真ん中に何もなくても動きつづけます</td>
 </tr>
 </tbody>
 </table>
-<h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<h2 id="プロンプト"><a class="heading-anchor" href="#プロンプト">プロンプト</a></h2>
 <pre><code>In plain JavaScript with no libraries, I have a fight where each side picks
 rock, paper or scissors. Add commit-reveal with crypto.subtle SHA-256: a fold()
 that hashes the move with a random secret, a reveal step that only runs once
@@ -173,38 +175,38 @@ Then add a button that reveals a move that was never folded, so I can see the
 check fail. Keep check() free of DOM code. Warn me about anything that needs
 a secure context.
 </code></pre>
-<p><strong>Check the output for:</strong> does the "cheat" button always reveal a move that is genuinely different from the folded one? Ours did not at first — it revealed the move that beats yours, which is sometimes the move the opponent had already folded, so the check passed and nothing was caught about one press in three. Also check that <code>check</code> refingerprints the move <em>and</em> the secret in the same order they were joined; get the order wrong and every honest round is reported as cheating.</p>
-<h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
+<p><strong>出力を確認すること:</strong> 「ずる」ボタンは、いつも本当に、折った手とちがう手を見せますか。私たちのは最初そうではありませんでした。あなたに勝つ手を見せるようにしていたのですが、それは相手がすでに折っていた手であることもあり、そうなると確認は通ってしまい、3回に1回くらい何もつかまりませんでした。それに<code>check</code>が、手<em>と</em>秘密を、つなげたときと同じ順番でもう一度指紋にしているかも確かめてください。順番をまちがえると、正直なラウンドが全部ずるとして報告されます。</p>
+<h2 id="動作を確認する"><a class="heading-anchor" href="#動作を確認する">動作を確認する</a></h2>
 <p><img alt="The demo showing two folded fingerprints as long strings of characters, then both moves revealed and the line &quot;Both fingerprints match what was folded, so the round counts.&quot;" src="../static/img/game/a22.png"></p>
-<p>Open the page with Live Server and:</p>
+<p>Live Serverでページを開いて、次をやってみましょう。</p>
 <ol>
-<li>Press <strong>scissors</strong>. Two long fingerprints appear. Neither of them tells you anything about either move — that is the point.</li>
-<li>Press <strong>Unfold both</strong>. Both moves appear and the round counts. We read the checking result back and got <code>{ youHonest: true, theyHonest: true }</code>, with the verdict "A draw." and both fingerprints matching.</li>
-<li>Open the console and type <code>lastCheck</code>. You get both moves, both secrets, and <code>youHonest: true, theyHonest: true</code> — the proof that the check ran and passed, rather than being skipped.</li>
-<li>Press the same move twice and look at the two fingerprints. They are different every time, because the secret is new every time. A cheat cannot even tell whether you played the same move twice.</li>
+<li><strong>scissors</strong>を押します。長い指紋が2つ出ます。どちらも、どちらの手についても何も教えてくれません。それがねらいです。</li>
+<li><strong>Unfold both</strong>を押します。両方の手が出て、そのラウンドが数えられます。確認の結果を読み取ると<code>{ youHonest: true, theyHonest: true }</code>で、判定は「A draw.」、指紋は両方一致していました。</li>
+<li>コンソールを開いて<code>lastCheck</code>と打ちます。両方の手、両方の秘密、そして<code>youHonest: true, theyHonest: true</code>が返ってきます。確認が飛ばされたのではなく、実行されて通ったという証拠です。</li>
+<li>同じ手を2回押して、2つの指紋をくらべてください。毎回ちがいます。秘密が毎回新しいからです。ずるをする人には、あなたが同じ手を2回出したのかどうかさえ分かりません。</li>
 </ol>
-<h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p><strong>Only if you want it.</strong> Our game does not do this, so this is a change you are choosing to make rather than one the course needs.</p>
-<p>In the fight from <a href="a20.html">A20</a>, send <code>folded</code> instead of the move. Wait for theirs. Then send <code>{ move, secret }</code>, and run <code>check</code> on what comes back before you let <code>compare</code> decide anything. If the check says false, no winner — the round is thrown away and nobody scores.</p>
-<p>Be warned that it costs more than it looks. You now have two messages per round instead of one, and a new way for a round to get stuck: somebody folds and then never unfolds. That is why the "Your turn" below asks for a clock. <strong>Weighing that against a cheat nobody is likely to attempt is exactly the kind of judgement this whole course is about</strong> — and deciding not to build something, for a reason you can say out loud, is a real answer.</p>
+<h2 id="ゲームに組み込む"><a class="heading-anchor" href="#ゲームに組み込む">ゲームに組み込む</a></h2>
+<p><strong>やりたい場合だけです。</strong> 私たちのゲームはこれをやっていないので、これはコースが必要としている変更ではなく、あなたが自分で選んでする変更です。</p>
+<p><a href="a20.html">A20</a>の対戦で、手のかわりに<code>folded</code>を送ります。相手のを待ちます。それから<code>{ move, secret }</code>を送り、返ってきたものに<code>check</code>をかけて、それから<code>compare</code>に何かを決めさせます。確認がfalseなら、勝者なしです。そのラウンドは捨てられ、だれの点数も入りません。</p>
+<p>見た目より手間がかかることは、覚えておいてください。1ラウンドあたりのメッセージが1つではなく2つになり、ラウンドが止まる新しい原因も生まれます。だれかが折ったまま、一度も開かない場合です。だから下の「あなたの番」では、時計をお願いしています。<strong>だれもやりそうにないずると、そのコストをてんびんにかけること。それこそが、このコース全体のテーマです。</strong> そして、口に出して言える理由があって何かを作らないと決めるのは、本物の答えです。</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="主なポイント"><a class="heading-anchor" href="#主なポイント">主なポイント</a></h2>
 <ul>
-<li>Fold your move before anyone shows theirs: send a fingerprint first, the move second</li>
-<li>A fingerprint always comes out the same for the same text, and cannot be read backwards</li>
-<li>With only three possible moves, a fingerprint with no secret mixed in can be guessed in three tries</li>
-<li>You do not need a referee to stop cheating — you need a check that catches it, and arithmetic does not take sides</li>
-<li><code>crypto.subtle</code> needs a secure context, which is what <code>http://localhost</code> from Live Server gives you</li>
+<li>だれかが手を見せる前に、自分の手を折っておきましょう。まず指紋を送り、手はそのあとです</li>
+<li>指紋は、同じ文字列からはいつでも同じものが出てきて、さかのぼって読むことはできません</li>
+<li>ありうる手が3つしかないと、秘密を混ぜていない指紋は、3回で当てられてしまいます</li>
+<li>ずるを止めるのに審判は必要ありません。必要なのは、それをつかまえる確認です。計算はどちらの味方もしません</li>
+<li><code>crypto.subtle</code>には安全なコンテキストが必要で、Live Serverの<code>http://localhost</code>がそれをくれます</li>
 </ul>
 </div>
 
-<h2 id="your-turn"><a class="heading-anchor" href="#your-turn">Your turn</a></h2>
-<p><strong>Lie to it on purpose.</strong> Play a round, then in the console change the move that gets shown so it is not the one that was folded, and check it again:</p>
+<h2 id="あなたの番"><a class="heading-anchor" href="#あなたの番">あなたの番</a></h2>
+<p><strong>わざとうそをついてみましょう。</strong> ラウンドを1回遊んだあと、コンソールで、見せる手を、折った手とはちがうものに変えて、もう一度確認します。</p>
 <pre><code>const faked = { move: 'rock', secret: lastCheck.theirShown.secret };
 await check(faked, lastCheck.theirShown === lastCheck.yourShown ? null : them.folded);
 </code></pre>
-<p>You should get <code>false</code>. That is the whole block earning its place, and until you have seen it return <code>false</code> you have only seen it agree with you.</p>
-<p>Then, if you want a harder one: add a clock. If someone does not show their move within ten seconds of both fingerprints being down, throw the round away. Work out why that is needed at all — what does a player gain by folding a move and then never showing it?</p>
+<p><code>false</code>が返ってくるはずです。それが、このブロックが役に立っていることそのものです。<code>false</code>が返るのを見るまでは、あなたはこのブロックが自分に同意するところしか見ていません。</p>
+<p>そのあと、もっとむずかしいものをやりたければ、時計を足しましょう。両方の指紋が置かれてから10秒以内に手を見せない人がいたら、そのラウンドを捨てます。なぜそれが必要なのかを考えてみてください。手を折って、そのまま見せないことで、プレイヤーは何を得るのでしょう。</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">AIレッスンに戻る</a>
         <div class="lesson-pager">
