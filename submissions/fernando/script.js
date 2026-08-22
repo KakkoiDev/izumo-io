@@ -9,7 +9,7 @@ function refreshChat() {
     if (!confirm("Clear current chat?")) return;
 
     mainDiv.innerHTML = "";
-    messageInputElement.value = "";
+    messageInputElement.innerText = "";
     messageInputElement.focus();
 }
 
@@ -52,13 +52,13 @@ async function fetchOllamaAnswer(messages) {
 }
 
 async function sendMessage() {
-    const userMessage = messageInputElement.value.trim();
+    const userMessage = messageInputElement.innerText.trim();
     if (!userMessage) {
         console.log('Empty message...')
         return
     }
 
-    messageInputElement.value = "Thinking...";
+    messageInputElement.innerText = "Thinking...";
     messageInputElement.disabled = true;
     sendButtonElement.disabled = true;
 
@@ -73,7 +73,7 @@ async function sendMessage() {
     mainDiv.appendChild(Object.assign(document.createElement("div"), {innerText: aiAnswer, className: "message ai-answer"}));
     mainDiv.scrollTop = mainDiv.scrollHeight;
 
-    messageInputElement.value = "";
+    messageInputElement.innerText = "";
     messageInputElement.disabled = false;
     sendButtonElement.disabled = false;
     messageInputElement.focus();
