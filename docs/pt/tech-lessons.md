@@ -87,7 +87,7 @@ UI baseada em componentes e JavaScript com tipagem segura
 - [T30: TypeScript](lessons/t30.md) - Segurança de tipo: anotações, interfaces, tipando componentes React.
 - [T31: Next.js: Roteamento e Renderização](lessons/t31.md) - Roteamento baseado em arquivos, server vs client components, layouts.
 - [T32: Next.js: Dados e API](lessons/t32.md) - Busca de dados em server components, rotas de API, montando uma página completa.
-- [T40: Case Study: Shipping kakkoi.dev](lessons/t40.md) - A real Next.js site in production: static export, two languages, GitHub Pages, a meta CSP, stale deploys.
+- [T40: Estudo de Caso: Publicando kakkoi.dev](lessons/t40.md) - Um site Next.js real em produção: exportação estática, dois idiomas, GitHub Pages, um CSP meta, deploys defasados.
 
 ## Fase 9: A Sede (Frameworks Backend)
 

@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Case Study: Shipping kakkoi.dev - KakkoiSchool</title>
+  <title>Estudo de Caso: Publicando kakkoi.dev - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           
         </div>
       </nav>
-      <h1 id="t40-case-study-shipping-kakkoi-dev"><a class="heading-anchor" href="#t40-case-study-shipping-kakkoi-dev">T40: Case Study - Shipping kakkoi.dev</a></h1>
-<p class="lesson-intro">T31 and T32 built a restaurant on paper. This lesson visits a real one on opening night. kakkoi.dev is the personal site of Cyril Antoni (KakkoiDev), who runs KakkoiSchool: a small Next.js site in English and Japanese, hosted for free on GitHub Pages. Its source is public at <a href="https://github.com/KakkoiDev/website" target="_blank" rel="noopener">github.com/KakkoiDev/website</a>, and every excerpt below is real code from that repo. The most useful part is not the code that worked first time. It is the things that broke between "it builds on my machine" and "it is live", and how each one was found.</p>
-<h2 id="the-site-at-a-glance"><a class="heading-anchor" href="#the-site-at-a-glance">The Site at a Glance</a></h2>
-<p>Two pages with the same structure: English at <code>/</code> and Japanese at <code>/ja/</code>. A header, a name over a spinning CSS cube, two lines about what Cyril does, contact links, a footer. No database, no login, no form. The files that matter:</p>
+      <h1 id="t40-estudo-de-caso-publicando-kakkoi-dev"><a class="heading-anchor" href="#t40-estudo-de-caso-publicando-kakkoi-dev">T40: Estudo de Caso - Publicando kakkoi.dev</a></h1>
+<p class="lesson-intro">T31 e T32 construíram um restaurante no papel. Esta lição visita um real na noite de abertura. kakkoi.dev é o site pessoal de Cyril Antoni (KakkoiDev), que dirige a KakkoiSchool: um pequeno site Next.js em inglês e japonês, hospedado gratuitamente no GitHub Pages. Sua fonte é pública em <a href="https://github.com/KakkoiDev/website" target="_blank" rel="noopener">github.com/KakkoiDev/website</a>, e cada trecho abaixo é código real desse repositório. A parte mais útil não é o código que funcionou na primeira vez. São as coisas que quebraram entre "funciona na minha máquina" e "está no ar", e como cada uma foi encontrada.</p>
+<h2 id="o-site-em-resumo"><a class="heading-anchor" href="#o-site-em-resumo">O Site em Resumo</a></h2>
+<p>Duas páginas com a mesma estrutura: inglês em <code>/</code> e japonês em <code>/ja/</code>. Um cabeçalho, um nome sobre um cubo CSS giratório, duas linhas sobre o que Cyril faz, links de contato, um rodapé. Sem banco de dados, sem login, sem formulário. Os arquivos que importam:</p>
 <pre><code>app/
   (en)/layout.tsx          root layout, &lt;html lang=&quot;en&quot;&gt;
   (en)/page.tsx            &quot;/&quot;
@@ -65,8 +65,8 @@ lib/metadata.ts            canonical, hreflang, Open Graph
 public/CNAME               the custom domain: kakkoi.dev
 .github/workflows/pages.yml  build and deploy
 </code></pre>
-<h2 id="why-a-static-export"><a class="heading-anchor" href="#why-a-static-export">Why a Static Export</a></h2>
-<p>By default <code>next build</code> prepares a Node.js server that renders pages on request. With <code>output: "export"</code>, Next.js runs every server component once, at build time, and writes plain HTML, CSS and JS into <code>out/</code>. Any static file host can serve that folder. Think of a bento shop: everything is cooked once in the morning, packed, and handed out all day with no chef on duty.</p>
+<h2 id="por-que-uma-exporta-o-est-tica"><a class="heading-anchor" href="#por-que-uma-exporta-o-est-tica">Por que uma Exportação Estática</a></h2>
+<p>Por padrão, <code>next build</code> prepara um servidor Node.js que renderiza páginas sob demanda. Com <code>output: "export"</code>, o Next.js executa cada componente de servidor uma vez, no tempo de build, e escreve HTML, CSS e JS puros em <code>out/</code>. Qualquer host de arquivo estático pode servir essa pasta. Pense em uma loja de bentô: tudo é cozinhado uma vez pela manhã, embalado e entregue durante todo o dia sem chef de plantão.</p>
 <pre><code>// next.config.mjs
 const nextConfig = {
   // Static export for GitHub Pages: `next build` writes the site to out/.
@@ -84,19 +84,19 @@ const nextConfig = {
   },
 };
 </code></pre>
-<p>Why it fits a personal site:</p>
+<p>Por que isso se encaixa em um site pessoal:</p>
 <ul>
-<li><strong>Nothing changes per visitor.</strong> Everyone gets the same page, so rendering it on every request is wasted work.</li>
-<li><strong>No server to patch.</strong> The site's October 2026 audit found that its old Next.js 14 had a published remote code execution flaw in the image optimizer. A folder of HTML files has no image optimizer and no API, so that whole class of problem disappears.</li>
-<li><strong>Free, fast hosting.</strong> GitHub Pages serves the folder from a CDN at no cost.</li>
+<li><strong>Nada muda por visitante.</strong> Todos recebem a mesma página, então renderizá-la a cada requisição é trabalho desperdiçado.</li>
+<li><strong>Nenhum servidor para corrigir.</strong> A auditoria de outubro de 2026 do site descobriu que seu antigo Next.js 14 tinha uma falha de execução remota de código publicada no otimizador de imagens. Uma pasta de arquivos HTML não tem otimizador de imagens e nenhuma API, então toda essa classe de problemas desaparece.</li>
+<li><strong>Hospedagem gratuita e rápida.</strong> O GitHub Pages serve a pasta de uma CDN sem custo.</li>
 </ul>
-<p>What you give up, and what kakkoi.dev did about each:</p>
+<p>O que você abre mão, e o que kakkoi.dev fez sobre cada um:</p>
 <ul>
-<li><strong>API routes (T32)</strong> - only <code>GET</code> handlers that can run once at build time survive. The site removed its contact form and the email API behind it. <code>sitemap.ts</code> and <code>robots.ts</code> declare <code>dynamic = "force-static"</code>, so they become plain files.</li>
-<li><strong><code>headers()</code> in the config</strong> - ignored. The CSP moved into a <code>&lt;meta&gt;</code> tag (see below).</li>
-<li><strong>Values computed "now"</strong> - frozen at build time. The site rebuilds every 1 January for the footer year.</li>
+<li><strong>Rotas de API (T32)</strong> - apenas manipuladores <code>GET</code> que podem ser executados uma vez no tempo de build sobrevivem. O site removeu seu formulário de contato e a API de e-mail por trás dele. <code>sitemap.ts</code> e <code>robots.ts</code> declaram <code>dynamic = "force-static"</code>, então eles se tornam arquivos simples.</li>
+<li><strong><code>headers()</code> na configuração</strong> - ignorados. O CSP moveu-se para uma tag <code>&lt;meta&gt;</code> (veja abaixo).</li>
+<li><strong>Valores calculados "agora"</strong> - congelados no tempo de build. O site é reconstruído todo 1º de janeiro para o ano do rodapé.</li>
 </ul>
-<p>That last one is the subtle one. <code>Home.tsx</code> prints the year with <code>new Date().getFullYear()</code>. On a server, that runs on every request. In a static export it runs once, and the HTML keeps that number until the next build. So the workflow also runs on a schedule:</p>
+<p>Esse último é o sutil. <code>Home.tsx</code> imprime o ano com <code>new Date().getFullYear()</code>. Em um servidor, isso é executado em cada requisição. Em uma exportação estática, é executado uma vez, e o HTML mantém esse número até o próximo build. Então o workflow também é executado em uma programação:</p>
 <pre><code># .github/workflows/pages.yml
 on:
   push:
@@ -106,12 +106,12 @@ on:
   schedule:
     - cron: &quot;5 0 1 1 *&quot;
 </code></pre>
-<p><code>5 0 1 1 *</code> is 00:05 UTC on 1 January. A static site is a photograph, not a live camera: anything that should change on its own needs a new photograph.</p>
-<h2 id="two-languages-done-properly"><a class="heading-anchor" href="#two-languages-done-properly">Two Languages Done Properly</a></h2>
-<p>Most bilingual sites translate the text and stop there. The rest is what browsers, screen readers and search engines read. kakkoi.dev does four things.</p>
-<h3 id="1-one-root-layout-per-language"><a class="heading-anchor" href="#1-one-root-layout-per-language">1. One root layout per language</a></h3>
-<p>The root layout renders the <code>&lt;html&gt;</code> element, and <code>&lt;html lang&gt;</code> tells the browser which language the page is in. Screen readers choose a voice from it, browsers choose fonts from it (the same Unicode character is drawn differently in Japanese and Chinese fonts), and translation tools decide whether to offer a translation. A single shared layout would ship <code>lang="en"</code> on the Japanese page.</p>
-<p>Next.js route groups fix this. A folder name in parentheses organizes files without appearing in the URL, and each group can have its own root layout:</p>
+<p><code>5 0 1 1 *</code> é 00:05 UTC em 1º de janeiro. Um site estático é uma fotografia, não uma câmera ao vivo: qualquer coisa que deva mudar por conta própria precisa de uma nova fotografia.</p>
+<h2 id="dois-idiomas-feitos-corretamente"><a class="heading-anchor" href="#dois-idiomas-feitos-corretamente">Dois Idiomas Feitos Corretamente</a></h2>
+<p>A maioria dos sites bilíngues traduz o texto e para por aí. O resto é o que navegadores, leitores de tela e mecanismos de busca leem. kakkoi.dev faz quatro coisas.</p>
+<h3 id="1-um-layout-raiz-por-idioma"><a class="heading-anchor" href="#1-um-layout-raiz-por-idioma">1. Um layout raiz por idioma</a></h3>
+<p>O layout raiz renderiza o elemento <code>&lt;html&gt;</code>, e <code>&lt;html lang&gt;</code> informa ao navegador em que idioma a página está. Leitores de tela escolhem uma voz a partir dele, navegadores escolhem fontes a partir dele (o mesmo caractere Unicode é desenhado de forma diferente em fontes japonesas e chinesas), e ferramentas de tradução decidem se oferecem uma tradução. Um único layout compartilhado enviaria <code>lang="en"</code> na página japonesa.</p>
+<p>Grupos de rotas do Next.js corrigem isso. Um nome de pasta entre parênteses organiza arquivos sem aparecer na URL, e cada grupo pode ter seu próprio layout raiz:</p>
 <pre><code>app/(en)/layout.tsx   -&gt;  &lt;html lang=&quot;en&quot;&gt;  for  /
 app/(ja)/layout.tsx   -&gt;  &lt;html lang=&quot;ja&quot;&gt;  for  /ja/
 </code></pre>
@@ -133,9 +133,9 @@ export default function RootLayout({
   );
 }
 </code></pre>
-<p>The price: with two root layouts, a URL that does not exist has no layout to render in, because nothing says which language it is. <code>app/global-not-found.tsx</code> (switched on by <code>experimental.globalNotFound</code> in the config above) renders its own <code>&lt;html&gt;</code> and speaks both languages. Mixed-language text inside a page gets its own <code>lang</code> too: the Japanese page shows the name in Latin letters under the Japanese one, in an element marked <code>lang={other}</code>.</p>
-<h3 id="2-every-string-in-a-dictionary"><a class="heading-anchor" href="#2-every-string-in-a-dictionary">2. Every string in a dictionary</a></h3>
-<p>No component contains a sentence. Everything visible lives in one typed file:</p>
+<p>O preço: com dois layouts raiz, uma URL que não existe não tem layout para renderizar, porque nada diz em que idioma ela está. <code>app/global-not-found.tsx</code> (ativado por <code>experimental.globalNotFound</code> na configuração acima) renderiza seu próprio <code>&lt;html&gt;</code> e fala ambos os idiomas. Texto em idiomas mistos dentro de uma página também recebe seu próprio <code>lang</code>: a página japonesa mostra o nome em letras latinas sob o japonês, em um elemento marcado <code>lang={other}</code>.</p>
+<h3 id="2-cada-string-em-um-dicion-rio"><a class="heading-anchor" href="#2-cada-string-em-um-dicion-rio">2. Cada string em um dicionário</a></h3>
+<p>Nenhum componente contém uma frase. Tudo o que é visível vive em um arquivo tipado:</p>
 <pre><code>// data/dictionary.ts
 type Dictionary = {
   meta: { title: string; description: string };
@@ -160,9 +160,9 @@ const en: Dictionary = {
 
 export const dictionary: Record&lt;Locale, Dictionary&gt; = { en, ja };
 </code></pre>
-<p>Both <code>en</code> and <code>ja</code> must satisfy the same <code>Dictionary</code> type, so a string added in English and forgotten in Japanese is a TypeScript error at build time, not a bug a visitor finds. <code>footer</code> is a function so each language can put the year where its grammar wants it. Even name order lives here: given name first in English contexts (Cyril Antoni), family name first in Japanese ones (アントニ キリル).</p>
-<h3 id="3-hreflang-and-canonical"><a class="heading-anchor" href="#3-hreflang-and-canonical">3. hreflang and canonical</a></h3>
-<p>A search engine sees two pages with the same content in different languages. Two kinds of tag explain how they relate: <code>canonical</code> says "this URL is the original of this page", and the <code>hreflang</code> alternates say "here is the same page in other languages". The site builds both from one function:</p>
+<p>Ambos <code>en</code> e <code>ja</code> devem satisfazer o mesmo tipo <code>Dictionary</code>, então uma string adicionada em inglês e esquecida em japonês é um erro do TypeScript no tempo de build, não um bug que um visitante encontra. <code>footer</code> é uma função para que cada idioma possa colocar o ano onde sua gramática desejar. Até a ordem do nome vive aqui: nome próprio primeiro em contextos em inglês (Cyril Antoni), sobrenome primeiro em contextos japoneses (アントニ キリル).</p>
+<h3 id="3-hreflang-e-canonical"><a class="heading-anchor" href="#3-hreflang-e-canonical">3. hreflang e canonical</a></h3>
+<p>Um mecanismo de busca vê duas páginas com o mesmo conteúdo em idiomas diferentes. Dois tipos de tag explicam como elas se relacionam: <code>canonical</code> diz "esta URL é a original desta página", e os alternados <code>hreflang</code> dizem "aqui está a mesma página em outros idiomas". O site constrói ambos a partir de uma função:</p>
 <pre><code>// lib/metadata.ts
 const SITE_URL = &quot;https://kakkoi.dev&quot;;
 const PATHS: Record&lt;Locale, string&gt; = { en: &quot;/&quot;, ja: &quot;/ja/&quot; };
@@ -181,15 +181,15 @@ export function localeMetadata(locale: Locale): Metadata {
   };
 }
 </code></pre>
-<p>What lands in the built <code>out/ja/index.html</code>:</p>
+<p>O que chega no <code>out/ja/index.html</code> construído:</p>
 <pre><code>&lt;link rel=&quot;canonical&quot; href=&quot;https://kakkoi.dev/ja/&quot;/&gt;
 &lt;link rel=&quot;alternate&quot; hrefLang=&quot;en&quot; href=&quot;https://kakkoi.dev/&quot;/&gt;
 &lt;link rel=&quot;alternate&quot; hrefLang=&quot;ja&quot; href=&quot;https://kakkoi.dev/ja/&quot;/&gt;
 &lt;link rel=&quot;alternate&quot; hrefLang=&quot;x-default&quot; href=&quot;https://kakkoi.dev/&quot;/&gt;
 </code></pre>
-<p><code>x-default</code> is the page for everyone else: a visitor whose language is neither gets English. The sitemap (<code>app/sitemap.ts</code>) repeats the same pairs, and the language switch link carries <code>lang</code> and <code>hrefLang</code>, so a screen reader pronounces "日本語" with a Japanese voice.</p>
-<h3 id="4-one-type-scale-for-both-languages"><a class="heading-anchor" href="#4-one-type-scale-for-both-languages">4. One type scale for both languages</a></h3>
-<p>The first version gave Japanese its own, tighter sizes, because <code>/ja</code> is mostly opened on a phone. After launch the owner chose one scale: every element the same size and spacing in both languages. The code makes "the same" the default and the differences explicit:</p>
+<p><code>x-default</code> é a página para todos os outros: um visitante cujo idioma não é nenhum dos dois recebe inglês. O sitemap (<code>app/sitemap.ts</code>) repete os mesmos pares, e o link de troca de idioma carrega <code>lang</code> e <code>hrefLang</code>, para que um leitor de tela pronuncie "日本語" com uma voz japonesa.</p>
+<h3 id="4-uma-escala-de-tipagem-para-ambos-os-idiomas"><a class="heading-anchor" href="#4-uma-escala-de-tipagem-para-ambos-os-idiomas">4. Uma escala de tipagem para ambos os idiomas</a></h3>
+<p>A primeira versão deu ao japonês seus próprios tamanhos, mais compactos, porque <code>/ja</code> é principalmente aberto em um telefone. Após o lançamento, o proprietário escolheu uma escala: cada elemento com o mesmo tamanho e espaçamento em ambos os idiomas. O código torna "o mesmo" o padrão e as diferenças explícitas:</p>
 <pre><code>// components/Home.tsx
 const shared = {
   header: &quot;h-16&quot;,
@@ -215,13 +215,13 @@ const styles = {
   },
 };
 </code></pre>
-<p>Everything spread from <code>shared</code> is identical. What is left per language is the font and what depends on it: condensed Bebas Neue needs more pixels than Noto Sans JP to read as the same size, and Bebas Neue has no Japanese glyphs at all. A reviewer can see every difference between the two pages in a dozen lines.</p>
-<h2 id="japanese-line-breaks-by-phrase"><a class="heading-anchor" href="#japanese-line-breaks-by-phrase">Japanese Line Breaks by Phrase</a></h2>
-<p>English breaks lines at spaces. Japanese has no spaces, so the browser may break between almost any two characters. With room for 17 characters, the sentence 人が問題をもっとうまく解決できるよう手助けします。 can wrap like this:</p>
+<p>Tudo o que se espalha de <code>shared</code> é idêntico. O que resta por idioma é a fonte e o que depende dela: o Bebas Neue condensado precisa de mais pixels do que o Noto Sans JP para ser lido com o mesmo tamanho, e o Bebas Neue não tem glifos japoneses. Um revisor pode ver todas as diferenças entre as duas páginas em uma dezena de linhas.</p>
+<h2 id="quebras-de-linha-japonesas-por-frase"><a class="heading-anchor" href="#quebras-de-linha-japonesas-por-frase">Quebras de Linha Japonesas por Frase</a></h2>
+<p>O inglês quebra linhas em espaços. O japonês não tem espaços, então o navegador pode quebrar entre quase quaisquer dois caracteres. Com espaço para 17 caracteres, a frase 人が問題をもっとうまく解決できるよう手助けします。 pode quebrar assim:</p>
 <pre><code>人が問題をもっとうまく解決できるよ
 う手助けします。
 </code></pre>
-<p>The う is torn from its phrase and starts the second line alone. A Japanese reader sees that the way you would see a word split in half with no hyphen. The fix is in the data:</p>
+<p>O う é separado de sua frase e começa a segunda linha sozinho. Um leitor japonês vê isso da mesma forma que você veria uma palavra dividida ao meio sem um hífen. A correção está nos dados:</p>
 <pre><code>// data/dictionary.ts
 // Japanese text is split into phrases. Each phrase renders as an inline-block,
 // so a line only breaks between phrases and never strands a lone character.
@@ -251,13 +251,13 @@ function Text({ phrases }: { phrases: Phrases }) {
   display: inline-block;
 }
 </code></pre>
-<p>An inline-block is laid out as one box, so the browser can only wrap between boxes. The same sentence now wraps as:</p>
+<p>Um inline-block é disposto como uma caixa, então o navegador só pode quebrar entre caixas. A mesma frase agora quebra assim:</p>
 <pre><code>人が問題をもっとうまく
 解決できるよう手助けします。
 </code></pre>
-<p>English strings stay plain strings and wrap normally. Two cautions: a phrase wider than the screen overflows instead of wrapping, so keep phrases short; and split where a native speaker would pause, usually after particles such as が and を. Browsers are starting to do this on their own (<code>word-break: auto-phrase</code> in Chromium), but support is not universal yet, and spans work everywhere.</p>
-<h2 id="deploying-to-github-pages-with-actions"><a class="heading-anchor" href="#deploying-to-github-pages-with-actions">Deploying to GitHub Pages with Actions</a></h2>
-<p>Pages can publish a branch as it is, or run a workflow that builds the site and uploads the result. kakkoi.dev uses the workflow (Settings &gt; Pages &gt; Source: GitHub Actions), so <code>out/</code> is never committed.</p>
+<p>Strings em inglês permanecem strings simples e quebram normalmente. Duas ressalvas: uma frase mais larga que a tela transborda em vez de quebrar, então mantenha as frases curtas; e quebre onde um falante nativo faria uma pausa, geralmente após partículas como が e を. Os navegadores estão começando a fazer isso por conta própria (<code>word-break: auto-phrase</code> no Chromium), mas o suporte ainda não é universal, e os <code>spans</code> funcionam em qualquer lugar.</p>
+<h2 id="publicando-no-github-pages-com-actions"><a class="heading-anchor" href="#publicando-no-github-pages-com-actions">Publicando no GitHub Pages com Actions</a></h2>
+<p>O Pages pode publicar um branch como está, ou executar um workflow que constrói o site e faz upload do resultado. kakkoi.dev usa o workflow (Settings &gt; Pages &gt; Source: GitHub Actions), então <code>out/</code> nunca é commitado.</p>
 <div class="mermaid">
 flowchart TB
     A["git push to main"] --> B["configure-pages"]
@@ -314,20 +314,20 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v5
 </code></pre>
-<p><code>id-token: write</code> lets <code>deploy-pages</code> prove who it is with a short-lived token instead of a stored secret. <code>yarn lint</code> runs before the build, so a lint error stops the deploy instead of shipping.</p>
-<h3 id="the-base-path-trap"><a class="heading-anchor" href="#the-base-path-trap">The base-path trap</a></h3>
-<p>A repository's Pages site lives at one of two kinds of address, and the same build cannot serve both:</p>
+<p><code>id-token: write</code> permite que <code>deploy-pages</code> prove quem ele é com um token de curta duração em vez de um segredo armazenado. <code>yarn lint</code> é executado antes do build, então um erro de lint impede o deploy em vez de enviá-lo.</p>
+<h3 id="a-armadilha-do-base-path"><a class="heading-anchor" href="#a-armadilha-do-base-path">A armadilha do base-path</a></h3>
+<p>Um site de Pages de um repositório reside em um de dois tipos de endereço, e o mesmo build não pode servir ambos:</p>
 <ul>
-<li><strong>Project site:</strong> <code>kakkoidev.github.io/website/</code> - the site is in a subfolder of the host.</li>
-<li><strong>Custom domain:</strong> <code>kakkoi.dev/</code> - the site is the whole host.</li>
+<li><strong>Site de projeto:</strong> <code>kakkoidev.github.io/website/</code> - o site está em uma subpasta do host.</li>
+<li><strong>Domínio personalizado:</strong> <code>kakkoi.dev/</code> - o site é o host inteiro.</li>
 </ul>
-<p>Next.js writes paths from the root of the host. A real line from the built <code>index.html</code>:</p>
+<p>O Next.js escreve caminhos a partir da raiz do host. Uma linha real do <code>index.html</code> construído:</p>
 <pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;/_next/static/chunks/3suzm1vgxclso.css&quot; data-precedence=&quot;next&quot;/&gt;
 </code></pre>
-<p>At <code>kakkoidev.github.io/website/</code>, that leading <code>/</code> means <code>kakkoidev.github.io/_next/...</code>, which is outside the project. The CSS returns 404, the page renders as unstyled text, and the language switch to <code>/ja/</code> lands on a page that does not exist.</p>
-<p>The fix is <code>basePath</code>. <code>actions/configure-pages</code> reports where Pages will serve the site as <code>base_path</code>: <code>/website</code> for the project site, empty once a custom domain is set. The workflow passes it to the build as <code>PAGES_BASE_PATH</code>, <code>next.config.mjs</code> reads it, and Next.js prefixes every path it writes (<code>/website/_next/static/...</code>). The same code now works at both addresses. Two follow-ups from the same change:</p>
+<p>Em <code>kakkoidev.github.io/website/</code>, essa barra inicial <code>/</code> significa <code>kakkoidev.github.io/_next/...</code>, que está fora do projeto. O CSS retorna 404, a página é renderizada como texto sem estilo, e a troca de idioma para <code>/ja/</code> chega a uma página que não existe.</p>
+<p>A correção é <code>basePath</code>. <code>actions/configure-pages</code> informa onde o Pages servirá o site como <code>base_path</code>: <code>/website</code> para o site do projeto, vazio uma vez que um domínio personalizado é configurado. O workflow o passa para o build como <code>PAGES_BASE_PATH</code>, <code>next.config.mjs</code> o lê, e o Next.js prefixa cada caminho que ele escreve (<code>/website/_next/static/...</code>). O mesmo código agora funciona em ambos os endereços. Duas consequências da mesma mudança:</p>
 <ul>
-<li><code>basePath</code> only reaches links that Next.js builds. A plain <code>&lt;a href="/ja/"&gt;</code> is written as is; <code>&lt;Link&gt;</code> from <code>next/link</code> gets the prefix:</li>
+<li><code>basePath</code> só alcança links que o Next.js constrói. Um <code>&lt;a href="/ja/"&gt;</code> simples é escrito como está; <code>&lt;Link&gt;</code> de <code>next/link</code> recebe o prefixo:</li>
 </ul>
 <pre><code>{/* Link, not &lt;a&gt;, so the href picks up the base path. */}
 &lt;Link href={t.nav.switchHref} lang={other} hrefLang={other} className={...}&gt;
@@ -335,16 +335,16 @@ jobs:
 &lt;/Link&gt;
 </code></pre>
 <ul>
-<li>Files in <code>public/</code> are copied untouched, so the <code>/jp</code> redirect (for people who type the country code instead of the language code) uses a relative URL that works at either address:</li>
+<li>Arquivos em <code>public/</code> são copiados intocados, então o redirecionamento <code>/jp</code> (para pessoas que digitam o código do país em vez do código do idioma) usa uma URL relativa que funciona em ambos os endereços:</li>
 </ul>
 <pre><code>&lt;!-- public/jp/index.html --&gt;
 &lt;meta name=&quot;robots&quot; content=&quot;noindex&quot;&gt;
 &lt;link rel=&quot;canonical&quot; href=&quot;https://kakkoi.dev/ja/&quot;&gt;
 &lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=../ja/&quot;&gt;
 </code></pre>
-<p>And the trap inside the trap: the base path is baked in at build time. When the custom domain is switched on, the live files still say <code>/website/</code> until the workflow runs again. The repo's README says so in one line: after changing the domain, rerun the workflow.</p>
-<h3 id="trailingslash-why-ja-needs-a-folder"><a class="heading-anchor" href="#trailingslash-why-ja-needs-a-folder">trailingSlash: why /ja needs a folder</a></h3>
-<p>Without <code>trailingSlash</code>, the export writes <code>ja.html</code> next to a <code>ja/</code> folder of payload files. Pages answers <code>/ja</code> with <code>/ja/</code> and then looks for <code>ja/index.html</code>, which is not there. With <code>trailingSlash: true</code>, every page is a folder with an <code>index.html</code> inside:</p>
+<p>E a armadilha dentro da armadilha: o base path é "assado" no tempo de build. Quando o domínio personalizado é ativado, os arquivos ativos ainda dizem <code>/website/</code> até que o workflow seja executado novamente. O README do repositório diz isso em uma linha: após alterar o domínio, execute o workflow novamente.</p>
+<h3 id="trailingslash-por-que-ja-precisa-de-uma-pasta"><a class="heading-anchor" href="#trailingslash-por-que-ja-precisa-de-uma-pasta">trailingSlash: por que /ja precisa de uma pasta</a></h3>
+<p>Sem <code>trailingSlash</code>, a exportação escreve <code>ja.html</code> ao lado de uma pasta <code>ja/</code> de arquivos de payload. O Pages responde a <code>/ja</code> com <code>/ja/</code> e então procura por <code>ja/index.html</code>, que não está lá. Com <code>trailingSlash: true</code>, cada página é uma pasta com um <code>index.html</code> dentro:</p>
 <pre><code>out/
   index.html
   ja/index.html
@@ -353,9 +353,9 @@ jobs:
   404.html
   CNAME, robots.txt, sitemap.xml
 </code></pre>
-<p>This mattered more than usual: the QR code on Cyril's printed business card opens <code>https://kakkoi.dev/ja</code>, with no slash. A printed URL cannot be fixed after the fact, so the server side has to accept it.</p>
-<h2 id="a-csp-without-server-headers"><a class="heading-anchor" href="#a-csp-without-server-headers">A CSP Without Server Headers</a></h2>
-<p>A Content-Security-Policy tells the browser which origins a page may load scripts, styles, images and fonts from. Anything injected from elsewhere is refused. It is normally an HTTP response header, and before the move to Pages the site sent it from <code>headers()</code> in <code>next.config.mjs</code>. Pages does not let you set response headers, so the policy now ships as a <code>&lt;meta http-equiv&gt;</code> tag, rendered in <code>&lt;head&gt;</code> by each root layout (shown above):</p>
+<p>Isso importava mais do que o normal: o código QR no cartão de visitas impresso de Cyril abre <code>https://kakkoi.dev/ja</code>, sem barra. Uma URL impressa não pode ser corrigida depois do fato, então o lado do servidor precisa aceitá-la.</p>
+<h2 id="um-csp-sem-cabe-alhos-de-servidor"><a class="heading-anchor" href="#um-csp-sem-cabe-alhos-de-servidor">Um CSP Sem Cabeçalhos de Servidor</a></h2>
+<p>Uma Content-Security-Policy (CSP) informa ao navegador quais origens uma página pode carregar scripts, estilos, imagens e fontes. Qualquer coisa injetada de outro lugar é recusada. Normalmente é um cabeçalho de resposta HTTP, e antes da mudança para o Pages o site o enviava de <code>headers()</code> em <code>next.config.mjs</code>. O Pages não permite definir cabeçalhos de resposta, então a política agora é enviada como uma tag <code>&lt;meta http-equiv&gt;</code>, renderizada em <code>&lt;head&gt;</code> por cada layout raiz (mostrado acima):</p>
 <pre><code>// lib/csp.ts
 const isDev = process.env.NODE_ENV !== &quot;production&quot;;
 
@@ -379,15 +379,15 @@ export const contentSecurityPolicy = [
   &quot;form-action 'self'&quot;,
 ].join(&quot;; &quot;);
 </code></pre>
-<p>Know the limits of the meta version:</p>
+<p>Conheça os limites da versão meta:</p>
 <ul>
-<li><strong>Some directives are ignored.</strong> <code>frame-ancestors</code> (which stops other sites from framing yours), <code>report-uri</code> and <code>sandbox</code> only work as headers.</li>
-<li><strong>It only covers what comes after it.</strong> A meta policy applies from the point the browser reads it. In kakkoi.dev's built HTML, Next.js places its own stylesheet and script tags above the CSP tag, so those are fetched before the policy exists. They come from the build, not from a visitor, so the risk is small, but it is one more reason a header is stronger when you can have one.</li>
-<li><strong><code>'unsafe-inline'</code> is the price of static.</strong> Next.js inlines small bootstrap scripts. The stricter alternative, a nonce, is a fresh random value per request, which needs a server.</li>
+<li><strong>Algumas diretivas são ignoradas.</strong> <code>frame-ancestors</code> (que impede que outros sites enquadrem o seu), <code>report-uri</code> e <code>sandbox</code> só funcionam como cabeçalhos.</li>
+<li><strong>Ele só cobre o que vem depois.</strong> Uma política meta se aplica a partir do ponto em que o navegador a lê. No HTML construído de kakkoi.dev, o Next.js coloca suas próprias tags de stylesheet e script acima da tag CSP, então elas são buscadas antes que a política exista. Elas vêm do build, não de um visitante, então o risco é pequeno, mas é mais uma razão pela qual um cabeçalho é mais forte quando você pode tê-lo.</li>
+<li><strong><code>'unsafe-inline'</code> é o preço do estático.</strong> O Next.js incorpora pequenos scripts de bootstrap. A alternativa mais rigorosa, um nonce, é um valor aleatório novo por requisição, o que requer um servidor.</li>
 </ul>
-<h3 id="why-upgrade-insecure-requests-broke-the-css"><a class="heading-anchor" href="#why-upgrade-insecure-requests-broke-the-css">Why upgrade-insecure-requests broke the CSS</a></h3>
-<p>The first Pages deploy included <code>upgrade-insecure-requests</code> in production. That directive tells the browser: rewrite every <code>http://</code> URL this page loads to <code>https://</code>. On a site that always has HTTPS, it is a harmless safety net.</p>
-<p>But after you point a custom domain at Pages, there is a window before Pages has issued the HTTPS certificate for it. During that window only <code>http://kakkoi.dev</code> works:</p>
+<h3 id="por-que-upgrade-insecure-requests-quebrou-o-css"><a class="heading-anchor" href="#por-que-upgrade-insecure-requests-quebrou-o-css">Por que upgrade-insecure-requests quebrou o CSS</a></h3>
+<p>O primeiro deploy do Pages incluiu <code>upgrade-insecure-requests</code> em produção. Essa diretiva diz ao navegador: reescreva cada URL <code>http://</code> que esta página carrega para <code>https://</code>. Em um site que sempre tem HTTPS, é uma rede de segurança inofensiva.</p>
+<p>Mas depois que você aponta um domínio personalizado para o Pages, há uma janela antes que o Pages tenha emitido o certificado HTTPS para ele. Durante essa janela, apenas <code>http://kakkoi.dev</code> funciona:</p>
 <div class="mermaid">
 sequenceDiagram
     participant B as Browser
@@ -400,9 +400,9 @@ sequenceDiagram
     Note over B: page has no styles
 
 </div>
-<p>The page loaded, and every stylesheet failed. The fix (pull request #6) was to delete the directive. It adds nothing once HTTPS works, because with Enforce HTTPS on, Pages itself redirects every <code>http://</code> request to <code>https://</code>. The comment in <code>lib/csp.ts</code> records why, so nobody adds it back as an "improvement". The general lesson: a security setting can depend on the state of the infrastructure. Open the first deploy over plain <code>http://</code> too, not only <code>https://</code>.</p>
-<h2 id="debugging-a-stale-deploy"><a class="heading-anchor" href="#debugging-a-stale-deploy">Debugging a Stale Deploy</a></h2>
-<p>"I pushed, the run is green, and the site still shows the old version." Do not guess. Work from your commit outward and prove each layer before moving to the next:</p>
+<p>A página carregou, e cada stylesheet falhou. A correção (pull request #6) foi deletar a diretiva. Ela não adiciona nada uma vez que o HTTPS funciona, porque com o Enforce HTTPS ativado, o próprio Pages redireciona toda requisição <code>http://</code> para <code>https://</code>. O comentário em <code>lib/csp.ts</code> registra o porquê, para que ninguém a adicione novamente como uma "melhoria". A lição geral: uma configuração de segurança pode depender do estado da infraestrutura. Abra o primeiro deploy também via <code>http://</code> simples, não apenas <code>https://</code>.</p>
+<h2 id="depurando-um-deploy-defasado"><a class="heading-anchor" href="#depurando-um-deploy-defasado">Depurando um Deploy Defasado</a></h2>
+<p>"Eu fiz push, a execução está verde, e o site ainda mostra a versão antiga." Não adivinhe. Trabalhe do seu commit para fora e prove cada camada antes de passar para a próxima:</p>
 <div class="mermaid">
 flowchart TB
     A["Change not visible"] --> B["(1) Run built my commit?"]
@@ -416,49 +416,49 @@ flowchart TB
     style E fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
 
 </div>
-<p><strong>1. Which commit was built?</strong> Compare the run's commit with yours:</p>
+<p><strong>1. Qual commit foi construído?</strong> Compare o commit da execução com o seu:</p>
 <pre><code>git rev-parse HEAD
 gh run list --workflow=pages.yml --limit 3 --json headSha,conclusion,createdAt
 </code></pre>
-<p><strong>2. What did the build see?</strong> The log prints each step's environment, so the base path is a fact, not a guess. An empty value is right for the custom domain. <code>/website</code> after the domain was set means the build predates the switch:</p>
+<p><strong>2. O que o build viu?</strong> O log imprime o ambiente de cada etapa, então o base path é um fato, não um palpite. Um valor vazio é correto para o domínio personalizado. <code>/website</code> depois que o domínio foi definido significa que o build é anterior à mudança:</p>
 <pre><code>gh run view &lt;run-id&gt; --log | grep &quot;PAGES_BASE_PATH&quot;
 </code></pre>
-<p><strong>3. What was uploaded?</strong> The deployed files are kept as the run's <code>github-pages</code> artifact. Download it and search it:</p>
+<p><strong>3. O que foi enviado?</strong> Os arquivos deployados são mantidos como o artefato <code>github-pages</code> da execução. Baixe-o e pesquise nele:</p>
 <pre><code>gh run download &lt;run-id&gt; --name github-pages --dir built
 tar -xf built/artifact.tar -C built
 grep -o 'href=&quot;[^&quot;]*_next/static[^&quot;]*\.css&quot;' built/index.html
 </code></pre>
-<p><strong>4. What does the CDN serve?</strong> <code>curl</code> skips your browser's cache entirely:</p>
+<p><strong>4. O que a CDN serve?</strong> <code>curl</code> ignora completamente o cache do seu navegador:</p>
 <pre><code>curl -sI https://kakkoi.dev/ | grep -iE &quot;^(cache-control|age|last-modified):&quot;
 curl -s &quot;https://kakkoi.dev/ja/?v=$(date +%s)&quot; | grep -c &quot;upgrade-insecure-requests&quot;
 </code></pre>
-<p>Pages lets the CDN and browsers keep a page for a few minutes (<code>cache-control: max-age=600</code> at the time of writing), and <code>age</code> shows how long the copy you got has been cached. A never-seen query string usually fetches a fresh copy. The second command is how you prove a fix is live: <code>0</code> means the deployed CSP no longer has the directive.</p>
-<p><strong>5. Only then, the browser.</strong> File names under <code>_next/static/</code> contain a hash of their content (<code>3suzm1vgxclso.css</code>), so every deploy ships new names and the old files are gone. An HTML page your browser cached before the deploy still points at the old names: you get an unstyled page for a few minutes that looks exactly like a broken build. A hard reload, or DevTools with "Disable cache" ticked, settles it.</p>
-<p>Remember the build-time values too: the base path and the footer year only change when a build runs. A green run from last week is not proof of anything you changed today.</p>
+<p>O Pages permite que a CDN e os navegadores mantenham uma página por alguns minutos (<code>cache-control: max-age=600</code> no momento da escrita), e <code>age</code> mostra há quanto tempo a cópia que você obteve foi armazenada em cache. Uma string de consulta nunca vista geralmente busca uma cópia nova. O segundo comando é como você prova que uma correção está ativa: <code>0</code> significa que o CSP deployado não tem mais a diretiva.</p>
+<p><strong>5. Só então, o navegador.</strong> Nomes de arquivo em <code>_next/static/</code> contêm um hash de seu conteúdo (<code>3suzm1vgxclso.css</code>), então cada deploy envia novos nomes e os arquivos antigos são removidos. Uma página HTML que seu navegador armazenou em cache antes do deploy ainda aponta para os nomes antigos: você obtém uma página sem estilo por alguns minutos que se parece exatamente com um build quebrado. Um hard reload, ou o DevTools com "Disable cache" marcado, resolve isso.</p>
+<p>Lembre-se também dos valores de tempo de build: o base path e o ano do rodapé só mudam quando um build é executado. Uma execução verde da semana passada não é prova de nada que você mudou hoje.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>A static export runs server components once at build time: ideal when nothing changes per visitor, no server to patch, but "now" is frozen until the next build</li>
-<li>One root layout per language (route groups) gives each page the right &lt;html lang&gt;; a typed dictionary makes a missing translation a build error</li>
-<li>canonical plus hreflang alternates (with x-default) tell search engines the pages are translations of each other</li>
-<li>Japanese can wrap between any two characters; phrase spans with display: inline-block make lines break only between phrases</li>
-<li>On GitHub Pages, feed configure-pages' base_path into basePath, use next/link for internal links, and turn on trailingSlash so /ja serves ja/index.html</li>
-<li>Without server headers, ship the CSP as a meta tag, know what it cannot cover, and leave out upgrade-insecure-requests, which breaks every asset before HTTPS exists</li>
-<li>Debug a stale deploy layer by layer: the commit, the build log, the artifact, curl, and only then the browser</li>
+<li>Uma exportação estática executa componentes de servidor uma vez no tempo de build: ideal quando nada muda por visitante, nenhum servidor para corrigir, mas "agora" é congelado até o próximo build</li>
+<li>Um layout raiz por idioma (grupos de rotas) dá a cada página o &lt;html lang&gt; correto; um dicionário tipado torna uma tradução ausente um erro de build</li>
+<li>canonical mais alternativas hreflang (com x-default) informam aos mecanismos de busca que as páginas são traduções umas das outras</li>
+<li>O japonês pode quebrar entre quaisquer dois caracteres; `spans` de frase com `display: inline-block` fazem as quebras de linha ocorrerem apenas entre frases</li>
+<li>No GitHub Pages, alimente o `base_path` do `configure-pages` no `basePath`, use `next/link` para links internos e ative `trailingSlash` para que `/ja` sirva `ja/index.html`</li>
+<li>Sem cabeçalhos de servidor, envie o CSP como uma meta tag, saiba o que ele não pode cobrir e omita `upgrade-insecure-requests`, que quebra todos os assets antes que o HTTPS exista</li>
+<li>Depure um deploy defasado camada por camada: o commit, o log de build, o artefato, `curl`, e só então o navegador</li>
 </ul>
 </div>
 
-<h2 id="exercise-ship-your-own-two-language-page"><a class="heading-anchor" href="#exercise-ship-your-own-two-language-page">Exercise: Ship Your Own Two-Language Page</a></h2>
-<p>Build a two-page site in English plus a second language of your choice (<code>xx</code> below), and deploy it to <code>&lt;your-user&gt;.github.io/&lt;repo&gt;/</code>.</p>
+<h2 id="exerc-cio-publique-sua-pr-pria-p-gina-bil-ngue"><a class="heading-anchor" href="#exerc-cio-publique-sua-pr-pria-p-gina-bil-ngue">Exercício: Publique Sua Própria Página Bilíngue</a></h2>
+<p>Construa um site de duas páginas em inglês mais um segundo idioma de sua escolha (<code>xx</code> abaixo), e faça deploy para <code>&lt;seu-usuário&gt;.github.io/&lt;repositório&gt;/</code>.</p>
 <ol>
-<li>Create the app with <code>npx create-next-app@latest</code>. In <code>next.config.mjs</code> set <code>output: "export"</code>, <code>trailingSlash: true</code> and <code>basePath: process.env.PAGES_BASE_PATH ?? ""</code>.</li>
-<li>Delete <code>app/layout.tsx</code>. Create <code>app/(en)/layout.tsx</code> and <code>app/(xx)/layout.tsx</code>, each returning its own <code>&lt;html lang&gt;</code>, and move the home page to <code>app/(en)/page.tsx</code> and <code>app/(xx)/xx/page.tsx</code>. Put every visible string in one typed dictionary.</li>
-<li>Give both layouts <code>alternates</code> metadata: a canonical URL and <code>languages</code> with <code>en</code>, <code>xx</code> and <code>x-default</code>.</li>
-<li>Copy the workflow above, set Settings &gt; Pages &gt; Source to GitHub Actions, and push.</li>
-<li>Break it on purpose: delete the two <code>env:</code> lines under <code>yarn build</code>, push, and open the site. In DevTools &gt; Network, find the CSS request that fails and write down the URL it tried. Find <code>PAGES_BASE_PATH</code> in the run log. Put the lines back and confirm the fix.</li>
-<li>Add a meta CSP like <code>lib/csp.ts</code>, then add an <code>&lt;img&gt;</code> from another website and read the violation in the console.</li>
+<li>Crie o aplicativo com <code>npx create-next-app@latest</code>. Em <code>next.config.mjs</code>, defina <code>output: "export"</code>, <code>trailingSlash: true</code> e <code>basePath: process.env.PAGES_BASE_PATH ?? ""</code>.</li>
+<li>Exclua <code>app/layout.tsx</code>. Crie <code>app/(en)/layout.tsx</code> e <code>app/(xx)/layout.tsx</code>, cada um retornando seu próprio <code>&lt;html lang&gt;</code>, e mova a página inicial para <code>app/(en)/page.tsx</code> e <code>app/(xx)/xx/page.tsx</code>. Coloque cada string visível em um dicionário tipado.</li>
+<li>Dê a ambos os layouts metadados <code>alternates</code>: uma URL canônica e <code>languages</code> com <code>en</code>, <code>xx</code> e <code>x-default</code>.</li>
+<li>Copie o workflow acima, defina Settings &gt; Pages &gt; Source para GitHub Actions e faça push.</li>
+<li>Quebre-o de propósito: exclua as duas linhas <code>env:</code> sob <code>yarn build</code>, faça push e abra o site. Em DevTools &gt; Network, encontre a requisição CSS que falha e anote a URL que ela tentou. Encontre <code>PAGES_BASE_PATH</code> no log da execução. Recoloque as linhas e confirme a correção.</li>
+<li>Adicione um CSP meta como <code>lib/csp.ts</code>, então adicione um <code>&lt;img&gt;</code> de outro site e leia a violação no console.</li>
 </ol>
-<p>You are done when both pages load with styles at the project URL, View Source shows the right <code>&lt;html lang&gt;</code> and three <code>&lt;link rel="alternate"&gt;</code> tags on each page, and you can say from the Actions log which base path your live build used.</p>
+<p>Você estará pronto quando ambas as páginas carregarem com estilos na URL do projeto, o View Source mostrar o <code>&lt;html lang&gt;</code> correto e três tags <code>&lt;link rel="alternate"&gt;</code> em cada página, e você puder dizer a partir do log do Actions qual base path seu build ativo usou.</p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
         <div class="lesson-pager">

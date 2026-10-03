@@ -87,7 +87,7 @@
 - [T30: TypeScript](lessons/t30.md) - 型安全性: 型注釈、インターフェース、Reactコンポーネントの型付け。
 - [T31: Next.js: ルーティングとレンダリング](lessons/t31.md) - ファイルベースルーティング、サーバーvsクライアントコンポーネント、レイアウト。
 - [T32: Next.js: データとAPI](lessons/t32.md) - サーバーコンポーネントでのデータ取得、APIルート、完全なページの構築。
-- [T40: Case Study: Shipping kakkoi.dev](lessons/t40.md) - A real Next.js site in production: static export, two languages, GitHub Pages, a meta CSP, stale deploys.
+- [T40: ケーススタディ: kakkoi.dev のリリース](lessons/t40.md) - 本番環境にある実際の Next.js サイト: 静的エクスポート、2つの言語、GitHub Pages、メタCSP、古いデプロイの問題。
 
 ## フェーズ9: 本部 (バックエンドフレームワーク)
 
