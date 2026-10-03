@@ -87,6 +87,7 @@ Component-based UI and type-safe JavaScript
 - [T30: TypeScript](lessons/t30.md) - Type safety: annotations, interfaces, typing React components.
 - [T31: Next.js: Routing & Rendering](lessons/t31.md) - File-based routing, server vs client components, layouts.
 - [T32: Next.js: Data & API](lessons/t32.md) - Data fetching in server components, API routes, building a full page.
+- [T40: Case Study: Shipping kakkoi.dev](lessons/t40.md) - A real Next.js site in production: static export, two languages, GitHub Pages, a meta CSP, stale deploys.
 
 ## Phase 9: The Headquarters (Backend Frameworks)
 
