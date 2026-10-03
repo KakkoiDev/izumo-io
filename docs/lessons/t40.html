@@ -91,33 +91,12 @@ const nextConfig = {
 <li><strong>Free, fast hosting.</strong> GitHub Pages serves the folder from a CDN at no cost.</li>
 </ul>
 <p>What you give up, and what kakkoi.dev did about each:</p>
-<table>
-<thead>
-<tr>
-<th>Server feature</th>
-<th>In a static export</th>
-<th>What the site did</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>API routes (T32)</td>
-<td>Only <code>GET</code> handlers that can run once at build time</td>
-<td>Removed the contact form and its email API. <code>sitemap.ts</code> and <code>robots.ts</code> declare <code>dynamic = "force-static"</code> so they become files</td>
-</tr>
-<tr>
-<td><code>headers()</code> in the config</td>
-<td>Ignored</td>
-<td>Moved the CSP into a <code>&lt;meta&gt;</code> tag (see below)</td>
-</tr>
-<tr>
-<td>Values computed "now"</td>
-<td>Frozen at build time</td>
-<td>Rebuilds every 1 January for the footer year</td>
-</tr>
-</tbody>
-</table>
-<p>That last row is the subtle one. <code>Home.tsx</code> prints the year with <code>new Date().getFullYear()</code>. On a server, that runs on every request. In a static export it runs once, and the HTML keeps that number until the next build. So the workflow also runs on a schedule:</p>
+<ul>
+<li><strong>API routes (T32)</strong> - only <code>GET</code> handlers that can run once at build time survive. The site removed its contact form and the email API behind it. <code>sitemap.ts</code> and <code>robots.ts</code> declare <code>dynamic = "force-static"</code>, so they become plain files.</li>
+<li><strong><code>headers()</code> in the config</strong> - ignored. The CSP moved into a <code>&lt;meta&gt;</code> tag (see below).</li>
+<li><strong>Values computed "now"</strong> - frozen at build time. The site rebuilds every 1 January for the footer year.</li>
+</ul>
+<p>That last one is the subtle one. <code>Home.tsx</code> prints the year with <code>new Date().getFullYear()</code>. On a server, that runs on every request. In a static export it runs once, and the HTML keeps that number until the next build. So the workflow also runs on a schedule:</p>
 <pre><code># .github/workflows/pages.yml
 on:
   push:
@@ -280,7 +259,7 @@ function Text({ phrases }: { phrases: Phrases }) {
 <h2 id="deploying-to-github-pages-with-actions"><a class="heading-anchor" href="#deploying-to-github-pages-with-actions">Deploying to GitHub Pages with Actions</a></h2>
 <p>Pages can publish a branch as it is, or run a workflow that builds the site and uploads the result. kakkoi.dev uses the workflow (Settings &gt; Pages &gt; Source: GitHub Actions), so <code>out/</code> is never committed.</p>
 <div class="mermaid">
-flowchart LR
+flowchart TB
     A["git push to main"] --> B["configure-pages"]
     B --> C["yarn lint"]
     C --> D["yarn build"]
@@ -338,27 +317,10 @@ jobs:
 <p><code>id-token: write</code> lets <code>deploy-pages</code> prove who it is with a short-lived token instead of a stored secret. <code>yarn lint</code> runs before the build, so a lint error stops the deploy instead of shipping.</p>
 <h3 id="the-base-path-trap"><a class="heading-anchor" href="#the-base-path-trap">The base-path trap</a></h3>
 <p>A repository's Pages site lives at one of two kinds of address, and the same build cannot serve both:</p>
-<table>
-<thead>
-<tr>
-<th>Address</th>
-<th>Home page</th>
-<th>Where <code>/_next/...</code> points</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Project site</td>
-<td><code>kakkoidev.github.io/website/</code></td>
-<td><code>kakkoidev.github.io/_next/...</code> (wrong)</td>
-</tr>
-<tr>
-<td>Custom domain</td>
-<td><code>kakkoi.dev/</code></td>
-<td><code>kakkoi.dev/_next/...</code> (right)</td>
-</tr>
-</tbody>
-</table>
+<ul>
+<li><strong>Project site:</strong> <code>kakkoidev.github.io/website/</code> - the site is in a subfolder of the host.</li>
+<li><strong>Custom domain:</strong> <code>kakkoi.dev/</code> - the site is the whole host.</li>
+</ul>
 <p>Next.js writes paths from the root of the host. A real line from the built <code>index.html</code>:</p>
 <pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;/_next/static/chunks/3suzm1vgxclso.css&quot; data-precedence=&quot;next&quot;/&gt;
 </code></pre>
@@ -431,11 +393,11 @@ sequenceDiagram
     participant B as Browser
     participant P as GitHub Pages
     B->>P: GET http://kakkoi.dev/
-    P-->>B: HTML with upgrade-insecure-requests
-    Note over B: /_next/...css is rewritten to https://kakkoi.dev/_next/...css
-    B->>P: GET https://kakkoi.dev/_next/...css
-    P--xB: TLS fails, no certificate for kakkoi.dev yet
-    Note over B: the page renders with no styles
+    P-->>B: HTML + upgrade-insecure-requests
+    Note over B: CSS URL becomes https://
+    B->>P: GET https://.../x.css
+    P--xB: TLS fails, no certificate yet
+    Note over B: page has no styles
 
 </div>
 <p>The page loaded, and every stylesheet failed. The fix (pull request #6) was to delete the directive. It adds nothing once HTTPS works, because with Enforce HTTPS on, Pages itself redirects every <code>http://</code> request to <code>https://</code>. The comment in <code>lib/csp.ts</code> records why, so nobody adds it back as an "improvement". The general lesson: a security setting can depend on the state of the infrastructure. Open the first deploy over plain <code>http://</code> too, not only <code>https://</code>.</p>
@@ -443,13 +405,13 @@ sequenceDiagram
 <p>"I pushed, the run is green, and the site still shows the old version." Do not guess. Work from your commit outward and prove each layer before moving to the next:</p>
 <div class="mermaid">
 flowchart TB
-    A["Change not visible"] --> B{"Did a run build my commit?"}
-    B -- no --> B1["Check the branch and the Actions tab"]
-    B -- yes --> C{"Is the change in the artifact?"}
-    C -- no --> C1["The build saw other inputs: env, base path"]
-    C -- yes --> D{"Does curl see it?"}
-    D -- no --> D1["CDN cache: wait, or add a query string"]
-    D -- yes --> E["Browser cache: hard reload"]
+    A["Change not visible"] --> B["(1) Run built my commit?"]
+    B -- yes --> C["(2, 3) Change in artifact?"]
+    C -- yes --> D["(4) curl sees it?"]
+    D -- yes --> E["(5) Browser: hard reload"]
+    B -- no --> B1["Branch, Actions tab"]
+    C -- no --> C1["Build inputs, base path"]
+    D -- no --> D1["CDN cache: wait"]
     style A fill:#e74c3c,stroke:#a93226,color:#1a1a1a
     style E fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
 
