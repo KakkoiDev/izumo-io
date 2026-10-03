@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="pt" data-page="t40.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Case Study: Shipping kakkoi.dev - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t39.html">Anterior</a>
+          
+        </div>
+      </nav>
+      <h1 id="t40-case-study-shipping-kakkoi-dev"><a class="heading-anchor" href="#t40-case-study-shipping-kakkoi-dev">T40: Case Study - Shipping kakkoi.dev</a></h1>
+<p class="lesson-intro">T31 and T32 built a restaurant on paper. This lesson visits a real one on opening night. kakkoi.dev is the personal site of Cyril Antoni (KakkoiDev), who runs KakkoiSchool: a small Next.js site in English and Japanese, hosted for free on GitHub Pages. Its source is public at <a href="https://github.com/KakkoiDev/website" target="_blank" rel="noopener">github.com/KakkoiDev/website</a>, and every excerpt below is real code from that repo. The most useful part is not the code that worked first time. It is the things that broke between "it builds on my machine" and "it is live", and how each one was found.</p>
+<h2 id="the-site-at-a-glance"><a class="heading-anchor" href="#the-site-at-a-glance">The Site at a Glance</a></h2>
+<p>Two pages with the same structure: English at <code>/</code> and Japanese at <code>/ja/</code>. A header, a name over a spinning CSS cube, two lines about what Cyril does, contact links, a footer. No database, no login, no form. The files that matter:</p>
+<pre><code>app/
+  (en)/layout.tsx          root layout, &lt;html lang=&quot;en&quot;&gt;
+  (en)/page.tsx            &quot;/&quot;
+  (ja)/layout.tsx          root layout, &lt;html lang=&quot;ja&quot;&gt;
+  (ja)/ja/page.tsx         &quot;/ja/&quot;
+  global-not-found.tsx     the 404, in both languages
+  sitemap.ts, robots.ts    written to files at build time
+components/Home.tsx        one server component renders both pages
+data/dictionary.ts         every visible string, in en and ja
+lib/csp.ts                 the Content-Security-Policy
+lib/metadata.ts            canonical, hreflang, Open Graph
+public/CNAME               the custom domain: kakkoi.dev
+.github/workflows/pages.yml  build and deploy
+</code></pre>
+<h2 id="why-a-static-export"><a class="heading-anchor" href="#why-a-static-export">Why a Static Export</a></h2>
+<p>By default <code>next build</code> prepares a Node.js server that renders pages on request. With <code>output: "export"</code>, Next.js runs every server component once, at build time, and writes plain HTML, CSS and JS into <code>out/</code>. Any static file host can serve that folder. Think of a bento shop: everything is cooked once in the morning, packed, and handed out all day with no chef on duty.</p>
+<pre><code>// next.config.mjs
+const nextConfig = {
+  // Static export for GitHub Pages: `next build` writes the site to out/.
+  // Pages cannot send custom headers, so the CSP lives in lib/csp.ts.
+  output: &quot;export&quot;,
+  // Emit ja/index.html rather than ja.html next to a ja/ folder of RSC
+  // payloads: Pages answers /ja with /ja/ and needs an index.html there.
+  trailingSlash: true,
+  // Where Pages serves the site: &quot;/website&quot; at kakkoidev.github.io/website/,
+  // &quot;&quot; once the custom domain is set. The workflow reads it from Pages.
+  basePath: process.env.PAGES_BASE_PATH ?? &quot;&quot;,
+  experimental: {
+    // app/global-not-found.tsx: the 404 for an app with one root layout per language
+    globalNotFound: true,
+  },
+};
+</code></pre>
+<p>Why it fits a personal site:</p>
+<ul>
+<li><strong>Nothing changes per visitor.</strong> Everyone gets the same page, so rendering it on every request is wasted work.</li>
+<li><strong>No server to patch.</strong> The site's October 2026 audit found that its old Next.js 14 had a published remote code execution flaw in the image optimizer. A folder of HTML files has no image optimizer and no API, so that whole class of problem disappears.</li>
+<li><strong>Free, fast hosting.</strong> GitHub Pages serves the folder from a CDN at no cost.</li>
+</ul>
+<p>What you give up, and what kakkoi.dev did about each:</p>
+<ul>
+<li><strong>API routes (T32)</strong> - only <code>GET</code> handlers that can run once at build time survive. The site removed its contact form and the email API behind it. <code>sitemap.ts</code> and <code>robots.ts</code> declare <code>dynamic = "force-static"</code>, so they become plain files.</li>
+<li><strong><code>headers()</code> in the config</strong> - ignored. The CSP moved into a <code>&lt;meta&gt;</code> tag (see below).</li>
+<li><strong>Values computed "now"</strong> - frozen at build time. The site rebuilds every 1 January for the footer year.</li>
+</ul>
+<p>That last one is the subtle one. <code>Home.tsx</code> prints the year with <code>new Date().getFullYear()</code>. On a server, that runs on every request. In a static export it runs once, and the HTML keeps that number until the next build. So the workflow also runs on a schedule:</p>
+<pre><code># .github/workflows/pages.yml
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  # The footer year is rendered at build time; rebuild when it changes.
+  schedule:
+    - cron: &quot;5 0 1 1 *&quot;
+</code></pre>
+<p><code>5 0 1 1 *</code> is 00:05 UTC on 1 January. A static site is a photograph, not a live camera: anything that should change on its own needs a new photograph.</p>
+<h2 id="two-languages-done-properly"><a class="heading-anchor" href="#two-languages-done-properly">Two Languages Done Properly</a></h2>
+<p>Most bilingual sites translate the text and stop there. The rest is what browsers, screen readers and search engines read. kakkoi.dev does four things.</p>
+<h3 id="1-one-root-layout-per-language"><a class="heading-anchor" href="#1-one-root-layout-per-language">1. One root layout per language</a></h3>
+<p>The root layout renders the <code>&lt;html&gt;</code> element, and <code>&lt;html lang&gt;</code> tells the browser which language the page is in. Screen readers choose a voice from it, browsers choose fonts from it (the same Unicode character is drawn differently in Japanese and Chinese fonts), and translation tools decide whether to offer a translation. A single shared layout would ship <code>lang="en"</code> on the Japanese page.</p>
+<p>Next.js route groups fix this. A folder name in parentheses organizes files without appearing in the URL, and each group can have its own root layout:</p>
+<pre><code>app/(en)/layout.tsx   -&gt;  &lt;html lang=&quot;en&quot;&gt;  for  /
+app/(ja)/layout.tsx   -&gt;  &lt;html lang=&quot;ja&quot;&gt;  for  /ja/
+</code></pre>
+<pre><code>// app/(ja)/layout.tsx
+export const metadata = localeMetadata(&quot;ja&quot;);
+
+export default function RootLayout({
+  children,
+}: Readonly&lt;{
+  children: React.ReactNode;
+}&gt;) {
+  return (
+    &lt;html lang=&quot;ja&quot; className={fontVariables}&gt;
+      &lt;head&gt;
+        &lt;meta httpEquiv=&quot;Content-Security-Policy&quot; content={contentSecurityPolicy} /&gt;
+      &lt;/head&gt;
+      &lt;body className=&quot;font-jp&quot;&gt;{children}&lt;/body&gt;
+    &lt;/html&gt;
+  );
+}
+</code></pre>
+<p>The price: with two root layouts, a URL that does not exist has no layout to render in, because nothing says which language it is. <code>app/global-not-found.tsx</code> (switched on by <code>experimental.globalNotFound</code> in the config above) renders its own <code>&lt;html&gt;</code> and speaks both languages. Mixed-language text inside a page gets its own <code>lang</code> too: the Japanese page shows the name in Latin letters under the Japanese one, in an element marked <code>lang={other}</code>.</p>
+<h3 id="2-every-string-in-a-dictionary"><a class="heading-anchor" href="#2-every-string-in-a-dictionary">2. Every string in a dictionary</a></h3>
+<p>No component contains a sentence. Everything visible lives in one typed file:</p>
+<pre><code>// data/dictionary.ts
+type Dictionary = {
+  meta: { title: string; description: string };
+  nav: { logo: string; switchLabel: string; switchHref: string };
+  hero: { name: string; altName: string; title: Phrases };
+  about: { heading: string; items: Phrases[] };
+  contact: { heading: string };
+  footer: (year: number) =&gt; string;
+};
+
+const en: Dictionary = {
+  // ...
+  nav: { logo: &quot;KakkoiDev&quot;, switchLabel: &quot;日本語&quot;, switchHref: &quot;/ja/&quot; },
+  hero: {
+    name: &quot;Cyril Antoni&quot;,
+    altName: &quot;キリル アントニ&quot;,
+    title: &quot;Software engineer · AI&quot;,
+  },
+  // ...
+  footer: (year) =&gt; `© ${year} Cyril Antoni`,
+};
+
+export const dictionary: Record&lt;Locale, Dictionary&gt; = { en, ja };
+</code></pre>
+<p>Both <code>en</code> and <code>ja</code> must satisfy the same <code>Dictionary</code> type, so a string added in English and forgotten in Japanese is a TypeScript error at build time, not a bug a visitor finds. <code>footer</code> is a function so each language can put the year where its grammar wants it. Even name order lives here: given name first in English contexts (Cyril Antoni), family name first in Japanese ones (アントニ キリル).</p>
+<h3 id="3-hreflang-and-canonical"><a class="heading-anchor" href="#3-hreflang-and-canonical">3. hreflang and canonical</a></h3>
+<p>A search engine sees two pages with the same content in different languages. Two kinds of tag explain how they relate: <code>canonical</code> says "this URL is the original of this page", and the <code>hreflang</code> alternates say "here is the same page in other languages". The site builds both from one function:</p>
+<pre><code>// lib/metadata.ts
+const SITE_URL = &quot;https://kakkoi.dev&quot;;
+const PATHS: Record&lt;Locale, string&gt; = { en: &quot;/&quot;, ja: &quot;/ja/&quot; };
+
+export function localeMetadata(locale: Locale): Metadata {
+  // ...
+  return {
+    metadataBase: new URL(SITE_URL),
+    title,
+    description,
+    alternates: {
+      canonical: PATHS[locale],
+      languages: { en: PATHS.en, ja: PATHS.ja, &quot;x-default&quot;: PATHS.en },
+    },
+    // ...Open Graph and Twitter cards
+  };
+}
+</code></pre>
+<p>What lands in the built <code>out/ja/index.html</code>:</p>
+<pre><code>&lt;link rel=&quot;canonical&quot; href=&quot;https://kakkoi.dev/ja/&quot;/&gt;
+&lt;link rel=&quot;alternate&quot; hrefLang=&quot;en&quot; href=&quot;https://kakkoi.dev/&quot;/&gt;
+&lt;link rel=&quot;alternate&quot; hrefLang=&quot;ja&quot; href=&quot;https://kakkoi.dev/ja/&quot;/&gt;
+&lt;link rel=&quot;alternate&quot; hrefLang=&quot;x-default&quot; href=&quot;https://kakkoi.dev/&quot;/&gt;
+</code></pre>
+<p><code>x-default</code> is the page for everyone else: a visitor whose language is neither gets English. The sitemap (<code>app/sitemap.ts</code>) repeats the same pairs, and the language switch link carries <code>lang</code> and <code>hrefLang</code>, so a screen reader pronounces "日本語" with a Japanese voice.</p>
+<h3 id="4-one-type-scale-for-both-languages"><a class="heading-anchor" href="#4-one-type-scale-for-both-languages">4. One type scale for both languages</a></h3>
+<p>The first version gave Japanese its own, tighter sizes, because <code>/ja</code> is mostly opened on a phone. After launch the owner chose one scale: every element the same size and spacing in both languages. The code makes "the same" the default and the differences explicit:</p>
+<pre><code>// components/Home.tsx
+const shared = {
+  header: &quot;h-16&quot;,
+  hero: &quot;pt-[128px] pb-[136px] gap-10&quot;,
+  title: &quot;text-[16px] font-medium&quot;,
+  section: &quot;py-9&quot;,
+  items: &quot;gap-[18px]&quot;,
+  // ...
+};
+
+const styles = {
+  en: {
+    ...shared,
+    name: &quot;font-display font-normal text-[clamp(56px,9vw,80px)] leading-[0.9] tracking-[0.01em]&quot;,
+    h2: &quot;mb-4 font-display font-normal text-[28px] tracking-[0.02em]&quot;,
+    item: &quot;text-[20px] font-semibold leading-[1.4]&quot;,
+  },
+  ja: {
+    ...shared,
+    name: &quot;font-jp font-bold text-[clamp(34px,5vw,44px)] leading-[1.25] tracking-[0.06em]&quot;,
+    h2: &quot;mb-4 font-jp font-bold text-[20px]&quot;,
+    item: &quot;text-[20px] font-bold leading-[1.6]&quot;,
+  },
+};
+</code></pre>
+<p>Everything spread from <code>shared</code> is identical. What is left per language is the font and what depends on it: condensed Bebas Neue needs more pixels than Noto Sans JP to read as the same size, and Bebas Neue has no Japanese glyphs at all. A reviewer can see every difference between the two pages in a dozen lines.</p>
+<h2 id="japanese-line-breaks-by-phrase"><a class="heading-anchor" href="#japanese-line-breaks-by-phrase">Japanese Line Breaks by Phrase</a></h2>
+<p>English breaks lines at spaces. Japanese has no spaces, so the browser may break between almost any two characters. With room for 17 characters, the sentence 人が問題をもっとうまく解決できるよう手助けします。 can wrap like this:</p>
+<pre><code>人が問題をもっとうまく解決できるよ
+う手助けします。
+</code></pre>
+<p>The う is torn from its phrase and starts the second line alone. A Japanese reader sees that the way you would see a word split in half with no hyphen. The fix is in the data:</p>
+<pre><code>// data/dictionary.ts
+// Japanese text is split into phrases. Each phrase renders as an inline-block,
+// so a line only breaks between phrases and never strands a lone character.
+export type Phrases = string | string[];
+
+  about: {
+    heading: &quot;できること&quot;,
+    items: [
+      [&quot;問題を解決します。&quot;],
+      [&quot;人が問題を&quot;, &quot;もっとうまく&quot;, &quot;解決できるよう&quot;, &quot;手助けします。&quot;],
+    ],
+  },
+</code></pre>
+<pre><code>// components/Home.tsx
+function Text({ phrases }: { phrases: Phrases }) {
+  if (typeof phrases === &quot;string&quot;) return phrases;
+  return phrases.map((phrase) =&gt; (
+    &lt;span key={phrase} className=&quot;ph&quot;&gt;
+      {phrase}
+    &lt;/span&gt;
+  ));
+}
+</code></pre>
+<pre><code>/* app/globals.css */
+/* A Japanese phrase that must not be split across lines. */
+.ph {
+  display: inline-block;
+}
+</code></pre>
+<p>An inline-block is laid out as one box, so the browser can only wrap between boxes. The same sentence now wraps as:</p>
+<pre><code>人が問題をもっとうまく
+解決できるよう手助けします。
+</code></pre>
+<p>English strings stay plain strings and wrap normally. Two cautions: a phrase wider than the screen overflows instead of wrapping, so keep phrases short; and split where a native speaker would pause, usually after particles such as が and を. Browsers are starting to do this on their own (<code>word-break: auto-phrase</code> in Chromium), but support is not universal yet, and spans work everywhere.</p>
+<h2 id="deploying-to-github-pages-with-actions"><a class="heading-anchor" href="#deploying-to-github-pages-with-actions">Deploying to GitHub Pages with Actions</a></h2>
+<p>Pages can publish a branch as it is, or run a workflow that builds the site and uploads the result. kakkoi.dev uses the workflow (Settings &gt; Pages &gt; Source: GitHub Actions), so <code>out/</code> is never committed.</p>
+<div class="mermaid">
+flowchart TB
+    A["git push to main"] --> B["configure-pages"]
+    B --> C["yarn lint"]
+    C --> D["yarn build"]
+    D --> E["upload-pages-artifact: out/"]
+    E --> F["deploy-pages"]
+    F --> G["kakkoi.dev"]
+    style A fill:#4a90d9,stroke:#2a5f8f,color:#1a1a1a
+    style B fill:#f9ca24,stroke:#c9a31e,color:#1a1a1a
+    style D fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+    style G fill:#9b59b6,stroke:#6c3483,color:#1a1a1a
+
+</div>
+<pre><code># .github/workflows/pages.yml (the &quot;on:&quot; block is shown above)
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; let an in-progress one finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: yarn
+      # Reports where Pages serves the site, so the build can prefix its paths.
+      - id: pages
+        uses: actions/configure-pages@v6
+      - run: yarn install --frozen-lockfile
+      - run: yarn lint
+      - run: yarn build
+        env:
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
+</code></pre>
+<p><code>id-token: write</code> lets <code>deploy-pages</code> prove who it is with a short-lived token instead of a stored secret. <code>yarn lint</code> runs before the build, so a lint error stops the deploy instead of shipping.</p>
+<h3 id="the-base-path-trap"><a class="heading-anchor" href="#the-base-path-trap">The base-path trap</a></h3>
+<p>A repository's Pages site lives at one of two kinds of address, and the same build cannot serve both:</p>
+<ul>
+<li><strong>Project site:</strong> <code>kakkoidev.github.io/website/</code> - the site is in a subfolder of the host.</li>
+<li><strong>Custom domain:</strong> <code>kakkoi.dev/</code> - the site is the whole host.</li>
+</ul>
+<p>Next.js writes paths from the root of the host. A real line from the built <code>index.html</code>:</p>
+<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;/_next/static/chunks/3suzm1vgxclso.css&quot; data-precedence=&quot;next&quot;/&gt;
+</code></pre>
+<p>At <code>kakkoidev.github.io/website/</code>, that leading <code>/</code> means <code>kakkoidev.github.io/_next/...</code>, which is outside the project. The CSS returns 404, the page renders as unstyled text, and the language switch to <code>/ja/</code> lands on a page that does not exist.</p>
+<p>The fix is <code>basePath</code>. <code>actions/configure-pages</code> reports where Pages will serve the site as <code>base_path</code>: <code>/website</code> for the project site, empty once a custom domain is set. The workflow passes it to the build as <code>PAGES_BASE_PATH</code>, <code>next.config.mjs</code> reads it, and Next.js prefixes every path it writes (<code>/website/_next/static/...</code>). The same code now works at both addresses. Two follow-ups from the same change:</p>
+<ul>
+<li><code>basePath</code> only reaches links that Next.js builds. A plain <code>&lt;a href="/ja/"&gt;</code> is written as is; <code>&lt;Link&gt;</code> from <code>next/link</code> gets the prefix:</li>
+</ul>
+<pre><code>{/* Link, not &lt;a&gt;, so the href picks up the base path. */}
+&lt;Link href={t.nav.switchHref} lang={other} hrefLang={other} className={...}&gt;
+  {t.nav.switchLabel}
+&lt;/Link&gt;
+</code></pre>
+<ul>
+<li>Files in <code>public/</code> are copied untouched, so the <code>/jp</code> redirect (for people who type the country code instead of the language code) uses a relative URL that works at either address:</li>
+</ul>
+<pre><code>&lt;!-- public/jp/index.html --&gt;
+&lt;meta name=&quot;robots&quot; content=&quot;noindex&quot;&gt;
+&lt;link rel=&quot;canonical&quot; href=&quot;https://kakkoi.dev/ja/&quot;&gt;
+&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=../ja/&quot;&gt;
+</code></pre>
+<p>And the trap inside the trap: the base path is baked in at build time. When the custom domain is switched on, the live files still say <code>/website/</code> until the workflow runs again. The repo's README says so in one line: after changing the domain, rerun the workflow.</p>
+<h3 id="trailingslash-why-ja-needs-a-folder"><a class="heading-anchor" href="#trailingslash-why-ja-needs-a-folder">trailingSlash: why /ja needs a folder</a></h3>
+<p>Without <code>trailingSlash</code>, the export writes <code>ja.html</code> next to a <code>ja/</code> folder of payload files. Pages answers <code>/ja</code> with <code>/ja/</code> and then looks for <code>ja/index.html</code>, which is not there. With <code>trailingSlash: true</code>, every page is a folder with an <code>index.html</code> inside:</p>
+<pre><code>out/
+  index.html
+  ja/index.html
+  ja/index.txt, ja/__next._tree.txt, ...   (payloads for client navigation)
+  jp/index.html                            (the redirect from public/)
+  404.html
+  CNAME, robots.txt, sitemap.xml
+</code></pre>
+<p>This mattered more than usual: the QR code on Cyril's printed business card opens <code>https://kakkoi.dev/ja</code>, with no slash. A printed URL cannot be fixed after the fact, so the server side has to accept it.</p>
+<h2 id="a-csp-without-server-headers"><a class="heading-anchor" href="#a-csp-without-server-headers">A CSP Without Server Headers</a></h2>
+<p>A Content-Security-Policy tells the browser which origins a page may load scripts, styles, images and fonts from. Anything injected from elsewhere is refused. It is normally an HTTP response header, and before the move to Pages the site sent it from <code>headers()</code> in <code>next.config.mjs</code>. Pages does not let you set response headers, so the policy now ships as a <code>&lt;meta http-equiv&gt;</code> tag, rendered in <code>&lt;head&gt;</code> by each root layout (shown above):</p>
+<pre><code>// lib/csp.ts
+const isDev = process.env.NODE_ENV !== &quot;production&quot;;
+
+// GitHub Pages cannot send custom response headers, so the policy ships as a
+// &lt;meta http-equiv&gt; tag in each root layout. A meta policy cannot carry
+// frame-ancestors; everything else applies as it would from a header. There is
+// no upgrade-insecure-requests: Pages' Enforce HTTPS already serves everything
+// over HTTPS, and before its certificate exists the directive breaks every
+// asset of a page opened over http.
+// Next.js inlines its bootstrap scripts, hence 'unsafe-inline'. Fonts are
+// self-hosted by next/font, so nothing loads from another origin.
+export const contentSecurityPolicy = [
+  &quot;default-src 'self'&quot;,
+  `script-src 'self' 'unsafe-inline'${isDev ? &quot; 'unsafe-eval'&quot; : &quot;&quot;}`,
+  &quot;style-src 'self' 'unsafe-inline'&quot;,
+  &quot;img-src 'self' data:&quot;,
+  &quot;font-src 'self'&quot;,
+  `connect-src 'self'${isDev ? &quot; ws:&quot; : &quot;&quot;}`,
+  &quot;object-src 'none'&quot;,
+  &quot;base-uri 'self'&quot;,
+  &quot;form-action 'self'&quot;,
+].join(&quot;; &quot;);
+</code></pre>
+<p>Know the limits of the meta version:</p>
+<ul>
+<li><strong>Some directives are ignored.</strong> <code>frame-ancestors</code> (which stops other sites from framing yours), <code>report-uri</code> and <code>sandbox</code> only work as headers.</li>
+<li><strong>It only covers what comes after it.</strong> A meta policy applies from the point the browser reads it. In kakkoi.dev's built HTML, Next.js places its own stylesheet and script tags above the CSP tag, so those are fetched before the policy exists. They come from the build, not from a visitor, so the risk is small, but it is one more reason a header is stronger when you can have one.</li>
+<li><strong><code>'unsafe-inline'</code> is the price of static.</strong> Next.js inlines small bootstrap scripts. The stricter alternative, a nonce, is a fresh random value per request, which needs a server.</li>
+</ul>
+<h3 id="why-upgrade-insecure-requests-broke-the-css"><a class="heading-anchor" href="#why-upgrade-insecure-requests-broke-the-css">Why upgrade-insecure-requests broke the CSS</a></h3>
+<p>The first Pages deploy included <code>upgrade-insecure-requests</code> in production. That directive tells the browser: rewrite every <code>http://</code> URL this page loads to <code>https://</code>. On a site that always has HTTPS, it is a harmless safety net.</p>
+<p>But after you point a custom domain at Pages, there is a window before Pages has issued the HTTPS certificate for it. During that window only <code>http://kakkoi.dev</code> works:</p>
+<div class="mermaid">
+sequenceDiagram
+    participant B as Browser
+    participant P as GitHub Pages
+    B->>P: GET http://kakkoi.dev/
+    P-->>B: HTML + upgrade-insecure-requests
+    Note over B: CSS URL becomes https://
+    B->>P: GET https://.../x.css
+    P--xB: TLS fails, no certificate yet
+    Note over B: page has no styles
+
+</div>
+<p>The page loaded, and every stylesheet failed. The fix (pull request #6) was to delete the directive. It adds nothing once HTTPS works, because with Enforce HTTPS on, Pages itself redirects every <code>http://</code> request to <code>https://</code>. The comment in <code>lib/csp.ts</code> records why, so nobody adds it back as an "improvement". The general lesson: a security setting can depend on the state of the infrastructure. Open the first deploy over plain <code>http://</code> too, not only <code>https://</code>.</p>
+<h2 id="debugging-a-stale-deploy"><a class="heading-anchor" href="#debugging-a-stale-deploy">Debugging a Stale Deploy</a></h2>
+<p>"I pushed, the run is green, and the site still shows the old version." Do not guess. Work from your commit outward and prove each layer before moving to the next:</p>
+<div class="mermaid">
+flowchart TB
+    A["Change not visible"] --> B["(1) Run built my commit?"]
+    B -- yes --> C["(2, 3) Change in artifact?"]
+    C -- yes --> D["(4) curl sees it?"]
+    D -- yes --> E["(5) Browser: hard reload"]
+    B -- no --> B1["Branch, Actions tab"]
+    C -- no --> C1["Build inputs, base path"]
+    D -- no --> D1["CDN cache: wait"]
+    style A fill:#e74c3c,stroke:#a93226,color:#1a1a1a
+    style E fill:#6ab04c,stroke:#3d7a28,color:#1a1a1a
+
+</div>
+<p><strong>1. Which commit was built?</strong> Compare the run's commit with yours:</p>
+<pre><code>git rev-parse HEAD
+gh run list --workflow=pages.yml --limit 3 --json headSha,conclusion,createdAt
+</code></pre>
+<p><strong>2. What did the build see?</strong> The log prints each step's environment, so the base path is a fact, not a guess. An empty value is right for the custom domain. <code>/website</code> after the domain was set means the build predates the switch:</p>
+<pre><code>gh run view &lt;run-id&gt; --log | grep &quot;PAGES_BASE_PATH&quot;
+</code></pre>
+<p><strong>3. What was uploaded?</strong> The deployed files are kept as the run's <code>github-pages</code> artifact. Download it and search it:</p>
+<pre><code>gh run download &lt;run-id&gt; --name github-pages --dir built
+tar -xf built/artifact.tar -C built
+grep -o 'href=&quot;[^&quot;]*_next/static[^&quot;]*\.css&quot;' built/index.html
+</code></pre>
+<p><strong>4. What does the CDN serve?</strong> <code>curl</code> skips your browser's cache entirely:</p>
+<pre><code>curl -sI https://kakkoi.dev/ | grep -iE &quot;^(cache-control|age|last-modified):&quot;
+curl -s &quot;https://kakkoi.dev/ja/?v=$(date +%s)&quot; | grep -c &quot;upgrade-insecure-requests&quot;
+</code></pre>
+<p>Pages lets the CDN and browsers keep a page for a few minutes (<code>cache-control: max-age=600</code> at the time of writing), and <code>age</code> shows how long the copy you got has been cached. A never-seen query string usually fetches a fresh copy. The second command is how you prove a fix is live: <code>0</code> means the deployed CSP no longer has the directive.</p>
+<p><strong>5. Only then, the browser.</strong> File names under <code>_next/static/</code> contain a hash of their content (<code>3suzm1vgxclso.css</code>), so every deploy ships new names and the old files are gone. An HTML page your browser cached before the deploy still points at the old names: you get an unstyled page for a few minutes that looks exactly like a broken build. A hard reload, or DevTools with "Disable cache" ticked, settles it.</p>
+<p>Remember the build-time values too: the base path and the footer year only change when a build runs. A green run from last week is not proof of anything you changed today.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>A static export runs server components once at build time: ideal when nothing changes per visitor, no server to patch, but "now" is frozen until the next build</li>
+<li>One root layout per language (route groups) gives each page the right &lt;html lang&gt;; a typed dictionary makes a missing translation a build error</li>
+<li>canonical plus hreflang alternates (with x-default) tell search engines the pages are translations of each other</li>
+<li>Japanese can wrap between any two characters; phrase spans with display: inline-block make lines break only between phrases</li>
+<li>On GitHub Pages, feed configure-pages' base_path into basePath, use next/link for internal links, and turn on trailingSlash so /ja serves ja/index.html</li>
+<li>Without server headers, ship the CSP as a meta tag, know what it cannot cover, and leave out upgrade-insecure-requests, which breaks every asset before HTTPS exists</li>
+<li>Debug a stale deploy layer by layer: the commit, the build log, the artifact, curl, and only then the browser</li>
+</ul>
+</div>
+
+<h2 id="exercise-ship-your-own-two-language-page"><a class="heading-anchor" href="#exercise-ship-your-own-two-language-page">Exercise: Ship Your Own Two-Language Page</a></h2>
+<p>Build a two-page site in English plus a second language of your choice (<code>xx</code> below), and deploy it to <code>&lt;your-user&gt;.github.io/&lt;repo&gt;/</code>.</p>
+<ol>
+<li>Create the app with <code>npx create-next-app@latest</code>. In <code>next.config.mjs</code> set <code>output: "export"</code>, <code>trailingSlash: true</code> and <code>basePath: process.env.PAGES_BASE_PATH ?? ""</code>.</li>
+<li>Delete <code>app/layout.tsx</code>. Create <code>app/(en)/layout.tsx</code> and <code>app/(xx)/layout.tsx</code>, each returning its own <code>&lt;html lang&gt;</code>, and move the home page to <code>app/(en)/page.tsx</code> and <code>app/(xx)/xx/page.tsx</code>. Put every visible string in one typed dictionary.</li>
+<li>Give both layouts <code>alternates</code> metadata: a canonical URL and <code>languages</code> with <code>en</code>, <code>xx</code> and <code>x-default</code>.</li>
+<li>Copy the workflow above, set Settings &gt; Pages &gt; Source to GitHub Actions, and push.</li>
+<li>Break it on purpose: delete the two <code>env:</code> lines under <code>yarn build</code>, push, and open the site. In DevTools &gt; Network, find the CSS request that fails and write down the URL it tried. Find <code>PAGES_BASE_PATH</code> in the run log. Put the lines back and confirm the fix.</li>
+<li>Add a meta CSP like <code>lib/csp.ts</code>, then add an <code>&lt;img&gt;</code> from another website and read the violation in the console.</li>
+</ol>
+<p>You are done when both pages load with styles at the project URL, View Source shows the right <code>&lt;html lang&gt;</code> and three <code>&lt;link rel="alternate"&gt;</code> tags on each page, and you can say from the Actions log which base path your live build used.</p>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t39.html">Anterior</a>
+          
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool</p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+
