@@ -77,7 +77,7 @@ flowchart LR
 <p>Your game does not have one. Your browser talks straight to the other person's browser. The pictures on your screen never pass through anybody's computer in the middle.</p>
 <p>Here is the honest part. Two browsers cannot find each other out of nothing. They need somewhere to leave a note saying <em>"I am here, this is how to reach me"</em>. So your game uses a <strong>noticeboard</strong> — a public message service, run by other people, that anyone can post small notes to. Both browsers post a note, read each other's, and then connect directly. After that the noticeboard is not involved.</p>
 <p>So "serverless" is only half true. There is no server holding your game. There <em>is</em> a noticeboard used for the introduction. When people say a game is serverless, this is almost always what they mean, and now you know to ask.</p>
-<p><strong>One more true thing, and it is not your fault when it happens.</strong> On some home networks, and on a lot of school networks, two computers are not allowed to reach each other directly. The introduction works, the connection never forms, and no second square appears. If that is your network, nothing in this step is broken and you have not made a mistake. Everything from <a href="a14.html">A14</a> onwards works without this step, so carry on and come back with a different network.</p>
+<p><strong>One more true thing.</strong> Some home, mobile, office and school networks do not allow two browsers to make a direct WebRTC connection. This lesson uses <strong>p2p-core</strong>, which can tell you whether its public relays are answering, so you can inspect the problem instead of guessing. If the relays answer but two different networks still cannot connect, the missing piece may be a TURN relay rather than a bug in your game. You can still test A12 in two tabs because p2p-core connects same-browser tabs directly, and everything from <a href="a14.html">A14</a> onwards works without remote multiplayer.</p>
 <h2 id="cutting-it-into-blocks"><a class="heading-anchor" href="#cutting-it-into-blocks">Cutting it into blocks</a></h2>
 <p>"Other people appear" is three things:</p>
 <ol>
@@ -88,32 +88,45 @@ flowchart LR
 <p><strong>Why bother splitting it?</strong> Because if it were one lump and it went wrong, you could not tell which part was wrong. Nobody in the room means connect. Somebody in the room but no square moving means send. Numbers arriving but nothing on screen means draw. Three blocks, three separate questions — and you can answer each one from the console without touching the other two.</p>
 <p>Almost nobody gets this working the first time. That is normal here, more than anywhere else in the track.</p>
 <h2 id="block-1-connect"><a class="heading-anchor" href="#block-1-connect">Block 1: Connect</a></h2>
-<p>The connecting is done by a library called <strong>trystero</strong>. A <strong>library</strong> is code somebody else wrote that you use instead of writing your own. This one handles the noticeboard and the direct connection.</p>
-<pre><code>import { joinRoom, selfId } from '../../vendor/trystero/nostr.js';
+<p>The connecting is done by <strong><a href="https://github.com/KakkoiDev/p2p-core" target="_blank" rel="noopener">p2p-core</a></strong>, the one multiplayer library used by this course. A <strong>library</strong> is code somebody else wrote that you use instead of writing your own. p2p-core handles the fiddly parts — finding peers, choosing the shared public noticeboards, opening WebRTC links, same-browser testing, and connection diagnostics — so you can spend this lesson on the three ideas that belong to your game.</p>
+<p>Use the exact pinned version below. Do <strong>not</strong> make a relay list, create <code>RTCPeerConnection</code> yourself, or swap in a different multiplayer package because an assistant happens to know it.</p>
+<pre><code>import { joinRoom, selfId } from 'https://cdn.jsdelivr.net/gh/KakkoiDev/p2p-core@v0.1.0/p2p-core.js';
 
-const RELAYS = ['wss://relay.snort.social', 'wss://nostr.sathoarder.com',
-                'wss://nos.lol', 'wss://nostr.vulpem.com'];
-
-const room = joinRoom({ appId: 'kakkoi-online', relayUrls: RELAYS }, 'demo');
-const [sendMove, onMove] = room.makeAction('move');
+const room = joinRoom({
+  app: 'kakkoi-online',
+  room: 'demo',
+  kinds: ['move'],
+});
 
 const others = {};
 
-room.onPeerJoin((id) =&gt; sendMove({ x: player.x, y: player.y }, id));
-room.onPeerLeave((id) =&gt; { delete others[id]; });
+room.onMessage('move', (where, id) =&gt; {
+  if (!Number.isFinite(where?.x) || !Number.isFinite(where?.y)) return;
+  others[id] = { x: where.x, y: where.y };
+});
 
-onMove((where, id) =&gt; { others[id] = { x: where.x, y: where.y } });
+room.onPeerJoin((id) =&gt; {
+  room.send('move', { x: player.x, y: player.y }, id);
+});
+
+room.onPeerLeave((id) =&gt; {
+  delete others[id];
+});
+
+window.room = room;
 </code></pre>
-<p><code>RELAYS</code> is the list of noticeboards. There are four because any one of them can be busy, can refuse your note, or can simply be switched off — and if that happens the other three still do the job.</p>
-<blockquote>
-<p><strong>You may see red errors about relays, and your game may work anyway.</strong> These noticeboards are run by strangers, for free, and they come and go. While writing this step we picked four that worked, and by the time we checked again one of them had stopped answering — so the console showed <code>WebSocket connection to ... failed</code> every few seconds while the game ran perfectly. If you see that, swap the dead one for another and carry on. <strong>An error in the console is not the same as a broken game</strong>, and telling the difference is a real skill. It also explains why there are four and not one.</p>
-</blockquote>
-<p><code>'demo'</code> is the room name. Everybody using the same room name meets each other.</p>
-<p><code>selfId</code> is a random name for your tab, made fresh every time the page loads. <strong>The other players never learn who you are.</strong> They get twenty random letters.</p>
-<p><code>others</code> is the only thing this block keeps: a list of where everybody else is, one entry per player. <code>onPeerLeave</code> deletes them, so when somebody closes their tab their square goes away instead of standing there forever.</p>
-<p>The line inside <code>onPeerJoin</code> sends your position to the new arrival straight away, so they see you immediately instead of waiting.</p>
+<p><code>app</code> says which game you are playing. <code>room</code> says which room inside that game. Everybody using the same pair meets each other. <code>kinds: ['move']</code> tells p2p-core up front which kind of message this page expects; registering message kinds early avoids a race where the first network message arrives before your handler exists.</p>
+<p><code>selfId</code> is a random name for this page, made fresh every time it loads. The other players get that random id, not your real identity.</p>
+<p><code>others</code> is the only game state this block keeps: one position for each other player. <code>onPeerLeave</code> deletes a player, so closing a tab removes their square instead of leaving a ghost behind.</p>
+<p>The line inside <code>onPeerJoin</code> sends your current position to the newcomer immediately. After that, the timer in Block 2 keeps everyone updated.</p>
+<h3 id="if-connecting-does-not-work"><a class="heading-anchor" href="#if-connecting-does-not-work">If connecting does not work</a></h3>
+<p>Do not ask the assistant to rewrite the networking. First type this in the console:</p>
+<pre><code>room.status()
+</code></pre>
+<p>Look at <code>transports.relays</code>. If <code>open</code> is <code>0</code>, the current network is blocking the public noticeboards. If one or more relays are open but another computer still never appears, the two networks may be blocking a direct WebRTC path; that is where TURN can be needed. p2p-core exposes this information so the next step is based on evidence, not a new pile of guessed networking code.</p>
+<p>The import comes straight from a <strong>versioned</strong> GitHub release through jsDelivr. There is still no bundler and no build step: the browser loads an ordinary ES module. Pinning <code>v0.1.0</code> means every student and every assistant is working from the same API.</p>
 <h2 id="block-2-send"><a class="heading-anchor" href="#block-2-send">Block 2: Send</a></h2>
-<pre><code>setInterval(() =&gt; sendMove({ x: player.x, y: player.y }), 100);
+<pre><code>setInterval(() =&gt; room.send('move', { x: player.x, y: player.y }), 100);
 </code></pre>
 <p><code>setInterval(f, 100)</code> runs <code>f</code> every 100 milliseconds — <strong>ten times a second</strong>, about as often as you can tap a finger.</p>
 <p>Your square moves 60 times a second. You could send 60 times a second too. Do not. Every message goes to every player, so in a room of six people that is 360 messages a second leaving your computer instead of 60, to draw squares that would look the same. Ten times a second is enough to look alive.</p>
@@ -160,21 +173,39 @@ onMove((where, id) =&gt; { others[id] = { x: where.x, y: where.y } });
 <td>Fewer messages. But every computer would have to work out where everybody ended up, and one dropped message means two players see different worlds forever</td>
 </tr>
 <tr>
-<td>Writing the connection code yourself</td>
-<td>You would learn a lot. It is also several hundred lines of hard code that fails in ways that are very hard to see, which is exactly what a library is for</td>
+<td>Raw WebRTC, raw Trystero, or another multiplayer package</td>
+<td>You would be solving discovery, relay selection and browser connection details again. p2p-core already owns that job for this course, so changing libraries adds failure modes without teaching today's idea</td>
 </tr>
 </tbody>
 </table>
 <h2 id="the-prompt"><a class="heading-anchor" href="#the-prompt">The prompt</a></h2>
+<p>Copy this prompt exactly. The library name, version, import URL and API are part of the task so the assistant does not invent its own networking stack.</p>
 <pre><code>I have a canvas game in plain JavaScript. main.js keeps the player in
-{x, y}, moves it in update(dt), and paints it in draw(). I have trystero
-vendored at ../../vendor/trystero/nostr.js. Add multiplayer in three
-separate blocks with a comment above each: CONNECT (joinRoom, an action
-called 'move', a peers object, remove a peer when they leave), SEND (a
-setInterval at 10 per second), DRAW (paint the other squares). Do not
-change update(). Plain JavaScript, no build step, no npm.
+{x, y}, moves it in update(dt), and paints it in draw().
+
+Use KakkoiDev/p2p-core v0.1.0 directly for multiplayer. Import EXACTLY:
+import { joinRoom, selfId } from 'https://cdn.jsdelivr.net/gh/KakkoiDev/p2p-core@v0.1.0/p2p-core.js';
+
+Do not use raw WebRTC, raw Trystero, PeerJS, Socket.IO, Firebase, or a
+hand-written relay list. Do not add npm, a build step, or a server.
+
+Create exactly one room:
+const room = joinRoom({
+  app: 'kakkoi-online',
+  room: 'demo',
+  kinds: ['move'],
+});
+
+Add multiplayer in three separate blocks with a comment above each:
+CONNECT (an others object, room.onMessage('move'), room.onPeerJoin,
+room.onPeerLeave, and expose window.room = room for room.status()),
+SEND (room.send('move', {x, y}) on a setInterval at 10 per second),
+DRAW (paint the other squares).
+
+Reject a move unless x and y are finite numbers. Do not change update().
+Plain JavaScript, no build step.
 </code></pre>
-<p><strong>Check the output for:</strong> did it put the sending inside <code>requestAnimationFrame</code> instead of a timer? That is the most common answer and it sends six times more than you asked for. Did it handle <code>onPeerLeave</code>, or do squares stay on screen forever after someone leaves? And does it import from the vendored file, or did it quietly add <code>import ... from 'https://...'</code>, which is a build step in disguise?</p>
+<p><strong>Check the output for five things:</strong> the import URL is exactly the pinned p2p-core URL above; there is only one <code>joinRoom</code>; there is no relay list or hand-written WebRTC code; sending happens in a 100 ms timer rather than <code>requestAnimationFrame</code>; and <code>onPeerLeave</code> removes the square. If the assistant changes the library or invents networking, stop there and point it back to the exact prompt instead of debugging its invention.</p>
 <h2 id="see-it-work"><a class="heading-anchor" href="#see-it-work">See it work</a></h2>
 <p><img alt="Two squares on a dark canvas, one green labelled &quot;you&quot; and one blue with a short id above it" src="../static/img/game/a12.png"></p>
 <p>Open the page twice, in two browser tabs, and wait a few seconds:</p>
@@ -185,7 +216,7 @@ change update(). Plain JavaScript, no build step, no npm.
 <li>Close the first tab. Within a few seconds the blue square in the second tab disappears and <code>others</code> becomes <code>{}</code>.</li>
 <li>Open a third tab. A second blue square appears — the picture above was taken with three players in the room.</li>
 </ol>
-<p>If step 1 never happens, read the note about networks above before you change any code.</p>
+<p>If step 1 never happens in two tabs, type <code>room.status()</code> before you change any code. With p2p-core, two tabs can meet through the browser itself, so this test does not depend on a public relay. When you later test two different computers, the same status object tells you whether relay discovery is available.</p>
 <h2 id="what-went-wrong-when-we-did-this"><a class="heading-anchor" href="#what-went-wrong-when-we-did-this">What went wrong when we did this</a></h2>
 <p>Read this <strong>after</strong> you have folded the three blocks into your game, because that is when it happens.</p>
 <p>Two tabs is how you test this step, and for the demo above it works perfectly. Then we added it to the real game — the one that saves your name and your position from <a href="a11.html">A11</a> — and opened two tabs.</p>
@@ -202,15 +233,15 @@ change update(). Plain JavaScript, no build step, no npm.
 <p><strong>The new window must use the handed-over position, not the saved one.</strong> A game saves every so often, not every frame. Use the saved copy and you jump back to wherever the last save happened to land, which feels like the game losing your place.</p>
 <p><em>Windows of the same site can talk to each other directly — grown-up programmers call it a <code>BroadcastChannel</code>, so now you know that name too. It only works between windows of the same site, which is exactly the problem here.</em></p>
 <h2 id="put-it-in-the-game"><a class="heading-anchor" href="#put-it-in-the-game">Put it in the game</a></h2>
-<p>Take your game from <a href="a11.html">A11</a> and add the three blocks. Nothing already there changes. <code>update</code> and the loop stay exactly as they were — you are adding a second source of numbers, not rewriting the first one.</p>
+<p>Take your game from <a href="a11.html">A11</a> and add the three blocks using p2p-core exactly as above. Nothing already there changes. <code>update</code> and the loop stay exactly as they were — you are adding a second source of numbers, not rewriting the first one.</p>
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>"Serverless" usually means no server holds the game, but something still introduces the players</li>
+<li>Use p2p-core as the course's networking boundary: your game sends messages; the library handles discovery and browser-to-browser connections</li>
 <li>Other players are just numbers that change, the same as your keyboard — that is why A10's split pays off here</li>
 <li>Send rarely and on a timer, not every frame; the picture is the same and the cost is far lower</li>
 <li>Remove a player when they leave, or their square haunts your screen forever</li>
-<li>Some networks will not let two computers talk directly, and that is not a bug in your code</li>
+<li>If remote connection fails, inspect <code>room.status()</code> before changing code; strict networks may need TURN even when your game is correct</li>
 <li>A save belongs to the browser, not the tab — so two tabs are two of you until you decide which one is playing</li>
 </ul>
 </div>
