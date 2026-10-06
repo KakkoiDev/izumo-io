@@ -69,12 +69,12 @@ jobs:
                     continue
                 print(f"Translating {file_path}...")
                 content = Path(file_path).read_text(encoding='utf-8')
-                prompt = f'''Translate the following markdown document to Japanese.
-Preserve all markdown formatting, code blocks, links, and structure exactly.
-Only translate the text content, not code, URLs, or markdown syntax.
-
-Document:
-{content}'''
+                prompt = (
+                    "Translate the following markdown document to Japanese.\n"
+                    "Preserve all markdown formatting, code blocks, links, and structure exactly.\n"
+                    "Only translate the text content, not code, URLs, or markdown syntax.\n\n"
+                    "Document:\n" + content
+                )
                 response = client.models.generate_content(
                     model='gemini-2.5-flash',
                     contents=prompt,
