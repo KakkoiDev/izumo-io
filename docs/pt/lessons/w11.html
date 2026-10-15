@@ -62,12 +62,12 @@
 <pre><code>git config --global user.name &quot;Your Name&quot;
 git config --global user.email &quot;you@example.com&quot;
 </code></pre>
-<p>Then, in each new project folder (you did this in <a href="w04.html">W04</a>):</p>
+<p>A project made from the starter is already a repository (<a href="w04.html">W04</a>): <code>kit/new_project.py</code> ran these three commands for you. A folder you start yourself needs them once:</p>
 <pre><code>git init -b main
 git add -A
 git commit -m &quot;The starter&quot;
 </code></pre>
-<p><code>-b main</code> names the main line of history <code>main</code>, the name GitHub uses. The first commit is yours: the starting point every later snapshot builds on.</p>
+<p><code>-b main</code> names the main line of history <code>main</code>, the name GitHub uses. The first commit is the starting point every later snapshot builds on.</p>
 <p><strong>What stays out:</strong> the starter's <code>.gitignore</code> lists <code>data.sqlite3</code>, <code>.venv/</code> and <code>__pycache__/</code>. Your data, the installed packages and Python's caches are never recorded. Secrets never go in either (<a href="t43.html">T43</a>).</p>
 <h2 id="who-commits-what"><a class="heading-anchor" href="#who-commits-what">Who Commits What</a></h2>
 <table>
@@ -148,7 +148,7 @@ git merge try-dark-mode
 <div class="takeaways">
 <h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
 <ul>
-<li>Set git up once: your name and email, then git init -b main and a first commit in each project</li>
+<li>Set git up once: your name and email. A project from the starter already has its repository and first commit</li>
 <li>The harness commits each verified request; you commit your own edits; Pi never commits during a request</li>
 <li>git log, git status, git diff and git show answer almost every question about what changed</li>
 <li>git revert undoes a commit with a new commit; uncommitted work cannot be brought back</li>
