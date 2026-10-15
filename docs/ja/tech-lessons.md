@@ -72,6 +72,7 @@
 - [T44: Putting a Server Online](lessons/t44.md) - Your kitchen needs a building: your own machine with Tailscale Funnel, a small VPS with Caddy, or a platform. Costs, trade-offs, what changes in production.
 - [T45: A Python Server with FastAPI](lessons/t45.md) - The same kitchen in Python: uv, routes that return HTML and JSON, typed parameters, tests with TestClient.
 - [T46: HTML over the Wire with htmx](lessons/t46.md) - The kitchen sends finished plates: the server returns HTML pieces, htmx swaps them into the page. A FastAPI list with add and delete.
+- [T47: Your Own Domain Name](lessons/t47.md) - A street address for your site: buy a name on Namecheap, point it at GitHub Pages or Fly.io, wait for DNS, and keep it safe.
 
 ## フェーズ7: ロボットシェフ (AI)
 
