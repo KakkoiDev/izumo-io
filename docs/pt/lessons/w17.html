@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pt" data-page="w17.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Logins and Accounts - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../workbench-lessons.html">A Bancada</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../workbench-lessons.html">Voltar para A Bancada</a>
+        <div class="lesson-pager">
+          <a href="w16.html">Anterior</a>
+          <a href="w18.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="w17-logins-and-accounts"><a class="heading-anchor" href="#w17-logins-and-accounts">W17: Logins and Accounts</a></h1>
+<p class="lesson-intro">An office building has two checks. At the front door, a guard looks at your badge: <em>who are you?</em> Upstairs, each door has its own lock: <em>may you enter this room?</em> Your app needs both once more than one person uses it: <strong>authentication</strong> (who you are) and <strong>authorization</strong> (what you may do). Logins are the part of an app to build most carefully.</p>
+<h2 id="first-your-app-is-open-right-now"><a class="heading-anchor" href="#first-your-app-is-open-right-now">First: Your App Is Open Right Now</a></h2>
+<p>The starter has no login. On your own computer that is fine. But the moment you share it with <code>tailscale funnel</code> (<a href="w16.html">W16</a>), <strong>anyone with the address can read, add and delete notes.</strong> Before sharing a real app publicly, decide who should get in.</p>
+<h2 id="do-you-need-accounts"><a class="heading-anchor" href="#do-you-need-accounts">Do You Need Accounts?</a></h2>
+<p>Often, no. Ask:</p>
+<ul>
+<li><strong>Only you, on your own devices?</strong> Use <code>tailscale serve</code> instead of Funnel (<a href="w13.html">W13</a>). Only devices signed in to your Tailscale network can open it. That is already a strong login, and you wrote no code. (The workbench uses exactly this for your phone.)</li>
+<li><strong>No shared data at all?</strong> An app with no server (<a href="w14.html">W14</a>) keeps each person's data on their own device. No accounts needed.</li>
+<li><strong>Several people, each with their own data, or different permissions?</strong> Then you need accounts. Read on.</li>
+</ul>
+<h2 id="how-a-login-works"><a class="heading-anchor" href="#how-a-login-works">How a Login Works</a></h2>
+<p><a href="t25.html">T25: Authentication</a> shows the pieces, in JavaScript. The ideas are the same in Python:</p>
+<div class="mermaid">
+sequenceDiagram
+    participant B as Browser
+    participant S as Server
+    B->>S: POST /login (email + password)
+    S->>S: compare with the stored hash
+    S->>B: Set-Cookie: session=random id
+    B->>S: GET /notes (Cookie: session=...)
+    S->>S: look up the session: this is Ana
+    S->>B: Ana's notes only
+
+</div>
+<ol>
+<li><strong>Never store passwords.</strong> Store a <strong>hash</strong>: a one-way scramble. At login, scramble what was typed the same way and compare. If your database leaks, the passwords do not. Use a slow, salted hash made for passwords (Python's standard library has <code>hashlib.scrypt</code>), never a fast one like plain SHA-256.</li>
+<li><strong>A session</strong> is a long random id the server remembers ("this id is Ana, until Friday"). The browser keeps it in a cookie and sends it with every request. The cookie should be <code>HttpOnly</code> (page scripts cannot read it), <code>Secure</code> (HTTPS only) and <code>SameSite=Lax</code>.</li>
+<li><strong>HTTPS always.</strong> A password sent over plain <code>http://</code> can be read on the way. All three hosting ways in W16 give you HTTPS.</li>
+</ol>
+<h2 id="authorization-each-door-has-a-lock"><a class="heading-anchor" href="#authorization-each-door-has-a-lock">Authorization: Each Door Has a Lock</a></h2>
+<p>Knowing it is Ana is not enough. Every route that reads or changes data must check that <strong>this</strong> note belongs to <strong>Ana</strong>. The classic bug: <code>DELETE /notes/7</code> deletes note 7, whoever asks. The fix is in the data, not the page: in <code>app/db.py</code>, each query also says <code>where owner = ?</code>. Hiding a button is not security; the route must refuse.</p>
+<p>Some apps also need <strong>roles</strong>: an admin may delete anyone's post, a member only their own. A role is a column on the user, checked by the route.</p>
+<h2 id="csrf-the-forged-form"><a class="heading-anchor" href="#csrf-the-forged-form">CSRF: the Forged Form</a></h2>
+<p>Here is an attack few beginners know. Ana is logged in to your app. She visits a bad website, which secretly sends a form to <em>your</em> app's <code>/notes/7</code> delete route. Her browser attaches her session cookie, and your app obeys. That is <strong>CSRF</strong> (cross-site request forgery).</p>
+<p>The defences: the <code>SameSite=Lax</code> cookie above blocks most of it, and a <strong>CSRF token</strong> (a secret value in each form, checked by the server) blocks the rest. With htmx, the token travels in a header on every request.</p>
+<h2 id="simpler-than-passwords"><a class="heading-anchor" href="#simpler-than-passwords">Simpler Than Passwords</a></h2>
+<p>Passwords are a burden: people forget them and reuse them. Two modern options avoid them:</p>
+<ul>
+<li><strong>An email link:</strong> type your email, click the one-time link you receive.</li>
+<li><strong>Passkeys:</strong> the phone or computer proves who you are with a fingerprint or face, and no secret ever crosses the network.</li>
+</ul>
+<p>Pi Workbench will do this step for you soon: a sign-in block for the stack (passkeys or an email link, sessions, roles, and CSRF protection for htmx forms), written once, tested, and reused by every project.</p>
+<h2 id="building-it-today-carefully"><a class="heading-anchor" href="#building-it-today-carefully">Building It Today, Carefully</a></h2>
+<p>Login code is where a small mistake becomes a real harm to real people. If you build one now, keep it small and check everything:</p>
+<p><em>"Add accounts: sign up and log in with email and password. Hash passwords with hashlib.scrypt and a random salt. Sessions in a sessions table with a random id in an HttpOnly, Secure, SameSite=Lax cookie. Each note has an owner, and every query filters by it. Add tests that one user cannot see or delete another user's notes."</em></p>
+<p>Then read the tests first. The test "Ben cannot delete Ana's note" is the one that matters most. Ask a friend who knows security to read the code before real people sign up. And never put a real password into the chat or a test: use made-up ones.</p>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<ol>
+<li>Read <a href="t25.html">T25</a>.</li>
+<li>For your app, answer: who should get in? Which of the three cases above is it?</li>
+<li>Share your app with <code>tailscale serve</code> and check that a device outside your Tailscale network cannot open it.</li>
+<li>Explain CSRF to a friend in three sentences, using the forged form story.</li>
+</ol>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Authentication asks who you are; authorization asks what you may do. Every data route needs both</li>
+<li>A shared app with no login lets anyone change everything: decide who gets in before you share</li>
+<li>Only you? tailscale serve is already a login. No shared data? No accounts needed</li>
+<li>Store slow, salted password hashes, never passwords; sessions in HttpOnly, Secure, SameSite cookies; HTTPS always</li>
+<li>Check ownership in every query, and protect forms against CSRF</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../workbench-lessons.html">Voltar para A Bancada</a>
+        <div class="lesson-pager">
+          <a href="w16.html">Anterior</a>
+          <a href="w18.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

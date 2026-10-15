@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en" data-page="w15.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Native Phone Apps without a Store - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Lessons</a>
+      <a href="../workbench-lessons.html">The Workbench</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../workbench-lessons.html">Back to The Workbench</a>
+        <div class="lesson-pager">
+          <a href="w14.html">Previous</a>
+          <a href="w16.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="w15-native-phone-apps-without-a-store"><a class="heading-anchor" href="#w15-native-phone-apps-without-a-store">W15: Native Phone Apps without a Store</a></h1>
+<p class="lesson-intro">A PWA is like a poster in a shop window: anyone walking past can take a photo, no permission needed. A native app is like a product on the shelves: it can do more, but the shop decides what goes on the shelf, and sometimes you need a stamp before you can even hand it to a friend. This lesson makes that product from your same app, and hands it over without the big shops, as far as Android and Apple allow.</p>
+<h2 id="first-do-you-need-it"><a class="heading-anchor" href="#first-do-you-need-it">First: Do You Need It?</a></h2>
+<p>The stack's answer for phones is the PWA (<a href="w13.html">W13</a>). <strong>Use the PWA when it is enough.</strong> It usually is.</p>
+<p>Go native only when an app needs something a PWA cannot do well, like deeper access to the camera, files or biometrics, or a place in an app store.</p>
+<h2 id="capacitor-a-native-shell-around-your-app"><a class="heading-anchor" href="#capacitor-a-native-shell-around-your-app">Capacitor: a Native Shell Around Your App</a></h2>
+<p>The stack's one native way is <strong>Capacitor</strong> (the successor of Cordova). It wraps your web app in a small native app for Android and iPhone:</p>
+<ul>
+<li>A <strong>no-server app</strong> (<a href="w14.html">W14</a>) goes inside the shell as files, and works fully offline.</li>
+<li>A <strong>server app</strong> stays on your computer; the shell opens it over your private Tailscale network, like the workbench does.</li>
+</ul>
+<p>Your htmx pages do not change. Building it today means installing Capacitor's tools (they need Node.js), plus <strong>Android Studio</strong> for Android or <strong>Xcode</strong> on a Mac for iPhone, and following <a href="https://capacitorjs.com/docs" target="_blank" rel="noopener">capacitorjs.com</a>. Expect several gigabytes and a few hours the first time.</p>
+<p>Pi Workbench will do this step for you soon: it will check what is installed, download the tools only after your yes, build and sign the Android app, offer it by QR code, and open Xcode on the right screen for an iPhone.</p>
+<h2 id="android-the-apk"><a class="heading-anchor" href="#android-the-apk">Android: the APK</a></h2>
+<p>An Android app is one file, an <strong>APK</strong>. To install one that is not from a store:</p>
+<ol>
+<li>Open a link to the APK on the phone (over your Tailscale network, or a GitHub release, below) and download it.</li>
+<li>Android asks whether this browser may <strong>install unknown apps</strong>. Allow it, once.</li>
+<li>Install, and open.</li>
+</ol>
+<h3 id="github-releases-a-link-for-your-friends"><a class="heading-anchor" href="#github-releases-a-link-for-your-friends">GitHub Releases: a Link for Your Friends</a></h3>
+<p>A <strong>release</strong> is a named version of your repository on GitHub (<a href="w12.html">W12</a>), with files attached. One command creates it:</p>
+<pre><code>gh release create v1.0 app.apk
+</code></pre>
+<p>Your friends get a fixed link and a history of versions. <strong>A release of a public repository is public: anyone can download it.</strong> A private repository's releases need a GitHub login, which a phone's browser rarely has.</p>
+<h3 id="google-s-developer-verification"><a class="heading-anchor" href="#google-s-developer-verification">Google's Developer Verification</a></h3>
+<p>Google now asks developers to verify their identity, <strong>including for APKs installed outside the Play Store</strong>. It started on 30 September 2026 in Brazil, Indonesia, Singapore and Thailand, and widens to more countries from 2027. On phones where it applies, an app from an unverified developer will not install the normal way. A path to install without verification remains, with more steps and a waiting period, meant for people who know what they are doing. If you share APKs widely, read Google's <a href="https://developer.android.com/developer-verification" target="_blank" rel="noopener">Android developer verification</a> page.</p>
+<h2 id="iphone-what-apple-allows"><a class="heading-anchor" href="#iphone-what-apple-allows">iPhone: What Apple Allows</a></h2>
+<p>Apple's rules, stated plainly:</p>
+<ul>
+<li><strong>Every app outside the App Store must be signed by an Apple developer identity.</strong> You need a Mac with Xcode to build and sign it.</li>
+<li><strong>With a free Apple ID</strong>, the signature lasts <strong>7 days</strong>, on up to <strong>3 devices</strong> (and only a few such apps per device). After 7 days the app stops opening until you sign it again from the Mac. <strong>Developer Mode</strong> must be turned on in the phone's settings (iOS 16 and later).</li>
+<li><strong>With the paid Apple Developer Program</strong> (a yearly fee), the signature lasts a year, covers more devices, and you can invite testers through <strong>TestFlight</strong>.</li>
+<li><strong>Everything else goes through App Store review.</strong></li>
+<li><strong>In the EU</strong>, alternative app marketplaces are another route, with their own rules.</li>
+</ul>
+<p>You sign in to your Apple ID inside Xcode yourself, never in a chat. For most iPhone apps, the honest advice is the PWA: it installs from Safari, needs no signing, and never expires.</p>
+<p><strong>Checked 2026-10-15; these rules change.</strong> Check Apple's and Google's own pages before you plan around them.</p>
+<h2 id="choosing"><a class="heading-anchor" href="#choosing">Choosing</a></h2>
+<table>
+<thead>
+<tr>
+<th>You want</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>An app on your own phones, and friends' phones</td>
+<td>A PWA</td>
+</tr>
+<tr>
+<td>An Android app with native features, shared by link</td>
+<td>Capacitor, an APK, a GitHub release</td>
+</tr>
+<tr>
+<td>A native iPhone app for yourself</td>
+<td>Capacitor and Xcode, re-signed weekly (free)</td>
+</tr>
+<tr>
+<td>A native iPhone app for others</td>
+<td>The paid program and TestFlight, or the App Store</td>
+</tr>
+</tbody>
+</table>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<ol>
+<li>List what your app needs on a phone. For each item, find out whether a PWA can do it.</li>
+<li>Read Apple's membership comparison and Google's verification page. Note one rule from each that surprised you.</li>
+<li>Decide: PWA or native, for your app? Write one sentence why.</li>
+</ol>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Use the PWA when it is enough; go native only for something a PWA cannot do</li>
+<li>Capacitor is the stack's one native way: a native shell around the same app</li>
+<li>Android: an APK, "install unknown apps" once, and GitHub releases for a link (public means anyone can download)</li>
+<li>Google's developer verification covers sideloaded APKs, starting 30 September 2026 in four countries; a longer unverified path remains</li>
+<li>iPhone: signed by an Apple developer identity; free Apple ID means 7 days and up to 3 devices; the paid program gives a year and TestFlight</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../workbench-lessons.html">Back to The Workbench</a>
+        <div class="lesson-pager">
+          <a href="w14.html">Previous</a>
+          <a href="w16.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

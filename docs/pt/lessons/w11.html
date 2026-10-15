@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="pt" data-page="w11.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Git, the Time Machine the Harness Drives - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../workbench-lessons.html">A Bancada</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../workbench-lessons.html">Voltar para A Bancada</a>
+        <div class="lesson-pager">
+          <a href="w10.html">Anterior</a>
+          <a href="w12.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="w11-git-the-time-machine-the-harness-drives"><a class="heading-anchor" href="#w11-git-the-time-machine-the-harness-drives">W11: Git, the Time Machine the Harness Drives</a></h1>
+<p class="lesson-intro">A careful photographer keeps an album: after each good shot, a print goes in with a caption and a date. Years later they can find any moment, compare two, or start again from an old one. <strong>Git</strong> is that album for your project. In most projects, people paste the photos in themselves. In Pi Workbench, the harness does it for you, after each verified request. Your job is to set the album up once, and to know how to flip through it and go back.</p>
+<h2 id="git-in-two-minutes"><a class="heading-anchor" href="#git-in-two-minutes">Git in Two Minutes</a></h2>
+<p><a href="t19.html">T19: Git Basics</a> teaches git properly: the three areas, commits, branches, undo. Read it, it is ten minutes. The short version:</p>
+<ul>
+<li>A <strong>repository</strong> is a folder whose history git records (in a hidden <code>.git</code> folder).</li>
+<li>A <strong>commit</strong> is one snapshot: which files changed, how, when, by whom, and a message.</li>
+<li>The <strong>history</strong> is the chain of commits, newest on top.</li>
+</ul>
+<h2 id="set-it-up-once"><a class="heading-anchor" href="#set-it-up-once">Set It Up Once</a></h2>
+<p>Tell git who you are, once per computer. Use the email you will use on GitHub (<a href="t42.html">T42</a> shows how to keep it private):</p>
+<pre><code>git config --global user.name &quot;Your Name&quot;
+git config --global user.email &quot;you@example.com&quot;
+</code></pre>
+<p>Then, in each new project folder (you did this in <a href="w04.html">W04</a>):</p>
+<pre><code>git init -b main
+git add -A
+git commit -m &quot;The starter&quot;
+</code></pre>
+<p><code>-b main</code> names the main line of history <code>main</code>, the name GitHub uses. The first commit is yours: the starting point every later snapshot builds on.</p>
+<p><strong>What stays out:</strong> the starter's <code>.gitignore</code> lists <code>data.sqlite3</code>, <code>.venv/</code> and <code>__pycache__/</code>. Your data, the installed packages and Python's caches are never recorded. Secrets never go in either (<a href="t43.html">T43</a>).</p>
+<h2 id="who-commits-what"><a class="heading-anchor" href="#who-commits-what">Who Commits What</a></h2>
+<table>
+<thead>
+<tr>
+<th>Who</th>
+<th>When</th>
+<th>What</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The harness</td>
+<td>A request is verified</td>
+<td>Only the files that request changed, its task and <code>ROADMAP.md</code></td>
+</tr>
+<tr>
+<td>You</td>
+<td>When you choose</td>
+<td>Your own edits, from a terminal</td>
+</tr>
+<tr>
+<td>Pi</td>
+<td>Never during a request</td>
+<td>Gate sends <code>git commit</code> back (rule G-013)</td>
+</tr>
+</tbody>
+</table>
+<p>So when you edit a file yourself, in the Work view or your editor, the harness leaves your edit alone. Commit it yourself when you are happy:</p>
+<pre><code>git add messages/ja.json
+git commit -m &quot;Better Japanese for the empty list&quot;
+</code></pre>
+<h2 id="flip-through-the-album"><a class="heading-anchor" href="#flip-through-the-album">Flip Through the Album</a></h2>
+<p>Four commands answer almost every question. Run them in a terminal in the project folder:</p>
+<pre><code>git log --oneline     # every snapshot, newest first, one line each
+git status            # what changed since the last snapshot
+git diff              # exactly which lines changed, not yet committed
+git show HEAD         # the newest snapshot: its message and every changed line
+</code></pre>
+<p><code>HEAD</code> means "the newest commit". You can use any commit's short id from <code>git log</code> instead, like <code>git show 3f2a91c</code>.</p>
+<p>In a diff, lines starting with <code>-</code> were removed and lines starting with <code>+</code> were added. Reading Pi's diffs is the best way to learn: you see exactly what a request did, in a few lines.</p>
+<div class="mermaid">
+gitGraph
+    commit id: "The starter"
+    commit id: "My Notes (task 002)"
+    commit id: "Dates (task 003)"
+    commit id: "Revert dates"
+
+</div>
+<h2 id="go-back"><a class="heading-anchor" href="#go-back">Go Back</a></h2>
+<p>Every verified request is one commit, so undoing a request is one command:</p>
+<pre><code>git revert --no-edit HEAD
+</code></pre>
+<p>It adds a new commit that undoes the newest one. History is kept, so you can undo the undo. To undo an older request, give its id instead of <code>HEAD</code>. <a href="w03.html">W03</a> showed the same, and the <strong>Undo This Request</strong> button that is coming.</p>
+<p>To throw away your own changes that you have <strong>not</strong> committed yet, in one file:</p>
+<pre><code>git restore app/templates/pages/index.html
+</code></pre>
+<p>Careful: that edit is gone for good. Git can only bring back what was committed.</p>
+<h2 id="try-ideas-on-a-branch"><a class="heading-anchor" href="#try-ideas-on-a-branch">Try Ideas on a Branch</a></h2>
+<p>A <strong>branch</strong> is a parallel line of history. Use one to try something you might throw away:</p>
+<pre><code>git switch -c try-dark-mode    # a new branch, and move onto it
+</code></pre>
+<p>Now send Pi your requests as usual. The harness commits onto this branch. If you like the result, go back and bring it in:</p>
+<pre><code>git switch main
+git merge try-dark-mode
+</code></pre>
+<p>If you do not like it, go back to <code>main</code> and delete the branch with <code>git branch -D try-dark-mode</code>. <code>main</code> never saw the experiment.</p>
+<p>Always check which branch you are on before asking Pi for work: <code>git status</code> says it on its first line.</p>
+<h2 id="why-this-matters-so-much"><a class="heading-anchor" href="#why-this-matters-so-much">Why This Matters So Much</a></h2>
+<p>An AI changes code fast. Fast changes without history are frightening: one bad request could break something that worked yesterday, and you would not know what changed. With a snapshot per verified request, nothing is ever really lost, and every change has a reason (its task) and a proof (its tests). That is what makes it safe to let Pi work quickly.</p>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<ol>
+<li>Read <a href="t19.html">T19</a>. Then run <code>git log --oneline</code> in your notes project and match each commit to a task file.</li>
+<li>Run <code>git show</code> on Pi's latest commit and read the diff. Explain one <code>+</code> line in plain words.</li>
+<li>Make a branch, ask Pi for a small change on it, then switch back to <code>main</code> and see that the change is not there.</li>
+<li>Edit a word in <code>messages/en.json</code> yourself and commit it with your own message.</li>
+</ol>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Set git up once: your name and email, then git init -b main and a first commit in each project</li>
+<li>The harness commits each verified request; you commit your own edits; Pi never commits during a request</li>
+<li>git log, git status, git diff and git show answer almost every question about what changed</li>
+<li>git revert undoes a commit with a new commit; uncommitted work cannot be brought back</li>
+<li>Branches let you try an idea and throw it away without touching main</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../workbench-lessons.html">Voltar para A Bancada</a>
+        <div class="lesson-pager">
+          <a href="w10.html">Anterior</a>
+          <a href="w12.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

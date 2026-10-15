@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="pt" data-page="w01.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>What the Workbench Is (and the Three AI Risks) - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../workbench-lessons.html">A Bancada</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../workbench-lessons.html">Voltar para A Bancada</a>
+        <div class="lesson-pager">
+          
+          <a href="w02.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="w01-what-the-workbench-is-and-the-three-ai-risks"><a class="heading-anchor" href="#w01-what-the-workbench-is-and-the-three-ai-risks">W01: What the Workbench Is (and the Three AI Risks)</a></h1>
+<p class="lesson-intro">Imagine hiring a fast, tireless apprentice for your workshop. They never sleep and they know a lot. They also make things up when they are unsure, and they say "done!" a little too often. So you put a foreman beside them. The foreman checks every tool before it touches the wood, writes down every job in a notebook, and only stamps a job "finished" after testing it. <strong>Pi Workbench</strong> is that workshop. Pi is the apprentice. The harness around Pi is the foreman.</p>
+<h2 id="what-you-get"><a class="heading-anchor" href="#what-you-get">What You Get</a></h2>
+<p>Pi Workbench (the project is called <strong>pi-local-harness</strong>) runs on your own computer. You start it by typing one command in a terminal:</p>
+<pre><code>plh
+</code></pre>
+<p>That starts three things:</p>
+<ul>
+<li><strong>Pi</strong>, the AI agent, in the terminal ("terminal Pi"). You can talk to it right there.</li>
+<li><strong>Gate</strong>, the checker. Every command Pi wants to run goes through Gate first.</li>
+<li><strong>The web workbench</strong>, normally at <a href="http://127.0.0.1:3000" target="_blank" rel="noopener">http://127.0.0.1:3000</a>. This is where you will spend most of your time: your projects, one chat per project, and your files.</li>
+</ul>
+<p>Quitting Pi (Ctrl-C twice, or typing <code>/quit</code>) stops everything. Today the model is a local one, running on your machine through Ollama. Nothing about your project leaves your computer.</p>
+<p>Setting it up the first time takes a few steps (Python, <code>uv</code>, Ollama and a model, then <code>python3 harness/install.py</code> from the project). They are in the <a href="https://github.com/KakkoiDev/pi-local-harness" target="_blank" rel="noopener">pi-local-harness README</a>. If your computer is too slow for a local model, Pi Workbench will soon let you choose a cloud model instead, and tell you exactly what leaves your machine.</p>
+<h2 id="a-project-a-chat-a-plan"><a class="heading-anchor" href="#a-project-a-chat-a-plan">A Project, a Chat, a Plan</a></h2>
+<p>In the workbench, <strong>New Project…</strong> makes a folder with two plan files: <code>ROADMAP.md</code> (the list of jobs) and a <code>tasks/</code> folder (one file per job). <strong>Add Existing Folder…</strong> uses a folder you already have. Each project has exactly one chat with Pi.</p>
+<p>You write what you want in plain words. Pi writes code and tests and runs them. The harness keeps the paperwork (<a href="w03.html">W03</a>).</p>
+<div class="mermaid">
+flowchart LR
+    You[You ask in words] --> Pi[Pi proposes an action]
+    Pi --> Gate{Gate checks it}
+    Gate -->|allowed| Run[The action runs]
+    Gate -->|sent back, with a reason| Pi
+    Run --> Check[Tests prove it works]
+    Check --> Commit[The harness saves a snapshot]
+
+</div>
+<p><strong>The model proposes. Gate checks. Pi executes.</strong> That sentence is the whole design.</p>
+<h2 id="one-stack-done-very-well"><a class="heading-anchor" href="#one-stack-done-very-well">One Stack, Done Very Well</a></h2>
+<p>Most AI tools try to build anything in any language. Pi Workbench is <strong>opinionated</strong>: it builds apps one way, and knows that way completely. The stack is:</p>
+<ul>
+<li><strong>Python</strong> with <strong>FastAPI</strong> for the server, and <strong>Jinja</strong> templates for the HTML pages.</li>
+<li><strong>htmx 4</strong> to make pages interactive without much JavaScript.</li>
+<li><strong>Basecoat</strong> and <strong>Tailwind</strong> for good looks by default.</li>
+<li><strong>SQLite</strong> to save data in one file.</li>
+<li><strong>Typed code</strong>, checked by <strong>pyright</strong>, so the computer catches mistakes.</li>
+<li><strong>English and Japanese</strong> from the start.</li>
+</ul>
+<p>Why so strict? A small local model does well when the path is known and badly when it must choose. Every choice the stack makes is one the model does not have to make.</p>
+<h2 id="the-three-risks-keep-them-forever"><a class="heading-anchor" href="#the-three-risks-keep-them-forever">The Three Risks (Keep Them Forever)</a></h2>
+<p>The workbench checks a lot. It does not make the AI trustworthy. The same three rules from <a href="a01.html">A01</a> apply here, every day:</p>
+<ul>
+<li><strong>It is not your friend.</strong> It is trained to please you, and it does not care about you. Use it, never trust it. The evidence is in <a href="r20.html">R20: Never Trust an AI</a>.</li>
+<li><strong>Verify the output.</strong> Confident and correct are different things. When Pi says "fixed", look at the proof: did a test fail before and pass after? Open the app and try it yourself.</li>
+<li><strong>Never feed it secrets.</strong> No passwords, bank details or private data in the chat, in your files, or in Pi's memory. A local model keeps your words on your machine, but your files can still end up on GitHub later (<a href="w12.html">W12</a>).</li>
+</ul>
+<p>What the harness adds is a second pair of eyes that is not a model. Gate refuses dangerous commands, like deleting your home folder. A change is <strong>verified</strong> only when the harness saw a test fail without it and pass with it. Otherwise the answer is marked <strong>Not verified</strong>, whatever Pi says: your cue to look closer.</p>
+<p>AI is a force multiplier, not a replacement (<a href="r15.html">R15</a>). You stay the person who decides what gets built and whether it is right.</p>
+<h2 id="what-it-is-not"><a class="heading-anchor" href="#what-it-is-not">What It Is Not</a></h2>
+<ul>
+<li><strong>Not a sandbox.</strong> Gate is an accident guard. Pi works in your project folder, but a script could reach further.</li>
+<li><strong>Not for every project.</strong> A project on another stack gets the general harness only, with less help.</li>
+</ul>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<ol>
+<li>Read <a href="r20.html">R20</a> and write your own three AI rules, one sentence each.</li>
+<li>Install Pi Workbench following its README. Type <code>plh</code> and find the Web address in the first lines.</li>
+<li>Open the workbench in your browser and make a <strong>New Project…</strong> called <code>hello</code>. Open <code>ROADMAP.md</code> and look at it.</li>
+<li>In terminal Pi, type <code>/guide</code> and read "What is this?".</li>
+</ol>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Pi Workbench runs on your computer: type plh to start Pi, Gate and the web workbench</li>
+<li>The model proposes, Gate checks, Pi executes. Each project has one chat, a ROADMAP.md and a tasks/ folder</li>
+<li>One stack, done very well: FastAPI and Jinja, htmx 4, Basecoat and Tailwind, SQLite, typed Python, English and Japanese</li>
+<li>The three rules still hold: not your friend, verify the output, never feed it secrets</li>
+<li>Verified means a test failed without the change and passed with it. Not verified is your cue to look closer</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../workbench-lessons.html">Voltar para A Bancada</a>
+        <div class="lesson-pager">
+          
+          <a href="w02.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" data-page="w04.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Your First App from the Starter - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Lessons</a>
+      <a href="../workbench-lessons.html">The Workbench</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../workbench-lessons.html">Back to The Workbench</a>
+        <div class="lesson-pager">
+          <a href="w03.html">Previous</a>
+          <a href="w05.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="w04-your-first-app-from-the-starter"><a class="heading-anchor" href="#w04-your-first-app-from-the-starter">W04: Your First App from the Starter</a></h1>
+<p class="lesson-intro">New cooks do not invent a kitchen. They walk into one that already works: the stove is lit, the knives are in the drawer, the fridge is labelled. Their first job is to cook one dish in it and learn where everything lives. The <strong>starter</strong> is that kitchen. It is a small notes app that already runs, already has tests that pass, and already follows every rule of the stack. You and Pi change it, piece by piece, into your app.</p>
+<h2 id="make-your-copy"><a class="heading-anchor" href="#make-your-copy">Make Your Copy</a></h2>
+<p>The starter lives in the Pi Workbench project, in <code>kit/starter/</code>. A small script copies it into a new folder and adds the pinned libraries (htmx and Basecoat) beside it. In a terminal, from the folder where you downloaded pi-local-harness:</p>
+<pre><code>python3 kit/new_project.py ~/Projects/notes
+</code></pre>
+<p>The folder must be new or empty. Then go into it and install what it needs, once:</p>
+<pre><code>cd ~/Projects/notes
+uv sync
+</code></pre>
+<p><code>uv</code> reads <code>pyproject.toml</code>, the list of what the project needs, and installs it into a private <code>.venv</code> folder (<a href="t45.html">T45</a> explains uv).</p>
+<h2 id="run-it"><a class="heading-anchor" href="#run-it">Run It</a></h2>
+<p>Two commands: one builds the styles, one starts the server.</p>
+<pre><code>TAILWINDCSS_VERSION=v4.3.3 uv run tailwindcss -i styles/input.css -o static/app.css --minify
+uv run uvicorn app.main:app --reload
+</code></pre>
+<p>Open <a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a>. Add a note. Delete it. Click 日本語 and the page switches to Japanese. Stop the server with Ctrl+C.</p>
+<p>Now run the checks:</p>
+<pre><code>uv run pytest
+uv run pyright
+</code></pre>
+<p><code>pytest</code> runs the tests. <code>pyright</code> checks the types (<a href="w09.html">W09</a>). Both should pass before you change anything. That is your baseline.</p>
+<h2 id="give-it-to-pi"><a class="heading-anchor" href="#give-it-to-pi">Give It to Pi</a></h2>
+<p>In the workbench, choose <strong>Add Existing Folder…</strong> and pick <code>~/Projects/notes</code>. Open it. In the Plan section you will see "No roadmap or tasks in this folder" and a <strong>Create Roadmap</strong> button. Click it: it adds <code>ROADMAP.md</code> and <code>tasks/001-first-task.md</code>, nothing else. The harness needs those two to keep its paperwork.</p>
+<p>Then make the folder a git repository, so the harness can commit verified work (<a href="w11.html">W11</a> explains this):</p>
+<pre><code>git init
+git add -A
+git commit -m &quot;The starter&quot;
+</code></pre>
+<p>Pi Workbench will do this step for you soon: <strong>New Project…</strong> will offer a "Web app" kind that makes all of this in one click, and a <strong>Preview</strong> beside the chat will run the app and the styles for you, so you can watch each change appear.</p>
+<h2 id="a-walk-through-the-folders"><a class="heading-anchor" href="#a-walk-through-the-folders">A Walk Through the Folders</a></h2>
+<pre><code>notes/
+  app/
+    main.py          the routes: which address shows what
+    db.py            the data: open the database, one function per question
+    i18n.py          the two languages: t(&quot;key&quot;)
+    logic/
+      notes.py       the rules, as pure functions
+    templates/
+      base.html      the frame every page shares
+      pages/         whole pages
+      fragments/     pieces htmx swaps into a page
+  migrations/
+    001-notes.sql    the database's shape, one numbered step at a time
+  messages/
+    en.json          every visible word, in English
+    ja.json          the same keys, in Japanese
+  static/            files sent as they are: htmx, the built CSS, the icon, the PWA files
+  styles/input.css   the Tailwind and Basecoat entry point
+  tests/             test_app.py, test_logic.py, test_i18n.py
+  pyproject.toml     what the project needs
+</code></pre>
+<p>The big idea is that <strong>each kind of thing has one home</strong>:</p>
+<ul>
+<li>A new address? <code>app/main.py</code>.</li>
+<li>A rule, like "a title cannot be empty"? <code>app/logic/</code>.</li>
+<li>A new kind of data? A new file in <code>migrations/</code> and functions in <code>app/db.py</code>.</li>
+<li>A new word on the page? <code>messages/en.json</code> and <code>messages/ja.json</code>.</li>
+</ul>
+<p>This is why the app stays maintainable. You, Pi, or another person can open it in a year and know where to look.</p>
+<h2 id="follow-one-note"><a class="heading-anchor" href="#follow-one-note">Follow One Note</a></h2>
+<p>Here is what happens when you type "buy milk" and click <strong>Add Note</strong>:</p>
+<div class="mermaid">
+sequenceDiagram
+    participant B as Browser + htmx
+    participant M as app/main.py
+    participant L as app/logic/notes.py
+    participant D as app/db.py
+    B->>M: POST /notes (title=buy milk)
+    M->>L: check_title("buy milk")
+    L->>M: ("buy milk", no problems)
+    M->>D: add_note(...)
+    D->>M: the new Note
+    M->>B: the form again + the new note (a fragment)
+
+</div>
+<p>The route in <code>main.py</code> is short on purpose. It asks the logic whether the title is fine, asks the database to save it, and renders a fragment. Each piece does one thing. The next lessons open each piece in turn.</p>
+<h2 id="your-first-request"><a class="heading-anchor" href="#your-first-request">Your First Request</a></h2>
+<p>Back in the workbench chat, try a small, safe change:</p>
+<p><em>"Change the app's name from Notes to My Notes, in English and Japanese (マイメモ)."</em></p>
+<p>Watch the "Pi sees:" line, wait for the answer, then open the task file (<a href="w03.html">W03</a>). Restart the server and reload the page to see it. If it says "Not verified", read why. Here the likely reason is that the tests pass without the change too: nothing tests the name yet. The fix is a follow-up request: <em>"Add a test that checks the page title says My Notes."</em></p>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<ol>
+<li>Make your copy of the starter, run it, and run <code>uv run pytest</code> and <code>uv run pyright</code>.</li>
+<li>Add the folder to the workbench, click <strong>Create Roadmap</strong>, and make the first commit.</li>
+<li>Open each file in <code>app/</code> once. For each, write one sentence: what is it for?</li>
+<li>Send the "My Notes" request, then read its task file and its commit with <code>git log --oneline</code>.</li>
+</ol>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Pi never starts from nothing: kit/new_project.py copies the starter, a working notes app with tests</li>
+<li>uv sync installs; Tailwind builds the CSS; uv run uvicorn app.main:app --reload runs it on port 8000</li>
+<li>uv run pytest and uv run pyright must pass before you change anything</li>
+<li>In the workbench: Add Existing Folder…, Create Roadmap, then git init and a first commit</li>
+<li>Each kind of thing has one home: routes in main.py, rules in logic/, data in db.py and migrations/, words in messages/</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../workbench-lessons.html">Back to The Workbench</a>
+        <div class="lesson-pager">
+          <a href="w03.html">Previous</a>
+          <a href="w05.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

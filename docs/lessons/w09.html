@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en" data-page="w09.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Rules as Small Typed, Tested Functions - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Lessons</a>
+      <a href="../workbench-lessons.html">The Workbench</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../workbench-lessons.html">Back to The Workbench</a>
+        <div class="lesson-pager">
+          <a href="w08.html">Previous</a>
+          <a href="w10.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="w09-rules-as-small-typed-tested-functions"><a class="heading-anchor" href="#w09-rules-as-small-typed-tested-functions">W09: Rules as Small Typed, Tested Functions</a></h1>
+<p class="lesson-intro">A good recipe card says: <em>200 g flour, 2 eggs, mix, bake 20 minutes at 180 °C.</em> It does not say "use whatever is in the fridge" or "bake until it feels right". Give the same card to anyone, with the same ingredients, and they get the same cake. Your app's <strong>rules</strong> should be written like that: a function takes some data in and gives an answer out, the same every time. Those functions live in <code>app/logic/</code>. Types are the labels on the ingredients, and a checker called <strong>pyright</strong> reads every label for you.</p>
+<h2 id="core-and-shell"><a class="heading-anchor" href="#core-and-shell">Core and Shell</a></h2>
+<p>The stack splits every app into two parts:</p>
+<ul>
+<li><strong>The core</strong> (<code>app/logic/</code>): the rules, as <strong>pure functions</strong>. Data in, data out. No database, no files, no network, no clock, no randomness.</li>
+<li><strong>The shell</strong> (<code>app/main.py</code>, <code>app/db.py</code>): the thin part that talks to the outside world. It reads the request and the database, calls the core, and renders the answer.</li>
+</ul>
+<p>The starter's only rule is in <code>app/logic/notes.py</code>:</p>
+<pre><code>MAX_TITLE = 120
+
+
+@dataclass(frozen=True)
+class Problem:
+    field: str
+    key: str
+
+
+def check_title(title: str) -&gt; tuple[str, list[Problem]]:
+    &quot;&quot;&quot;The title as it will be saved, and what is wrong with it (nothing when it is fine).&quot;&quot;&quot;
+    clean = &quot; &quot;.join(title.split())
+    if not clean:
+        return clean, [Problem(&quot;title&quot;, &quot;error.title_empty&quot;)]
+    if len(clean) &gt; MAX_TITLE:
+        return clean, [Problem(&quot;title&quot;, &quot;error.title_long&quot;)]
+    return clean, []
+</code></pre>
+<p>It tidies the spaces, then checks: empty? too long? It does not know about web pages, the database or Japanese. It returns a message <strong>key</strong>, and the page translates it (<a href="w10.html">W10</a>). The route in <code>main.py</code> just calls it and acts on the answer.</p>
+<h2 id="why-pure-functions"><a class="heading-anchor" href="#why-pure-functions">Why Pure Functions?</a></h2>
+<ul>
+<li><strong>Easy to test completely.</strong> No database to set up, no server to start. Give an input, check the output.</li>
+<li><strong>Easy to trust.</strong> Same input, same output, every time. Nothing hidden changes the result.</li>
+<li><strong>What small models write best.</strong> A short function with a clear job is the easiest thing for Pi to get right, and the easiest thing for you to read.</li>
+</ul>
+<p>When a rule needs today's date, the shell reads the clock and passes the date in as a parameter. The function stays pure, and the test can pass any date it likes.</p>
+<h2 id="tests-for-rules"><a class="heading-anchor" href="#tests-for-rules">Tests for Rules</a></h2>
+<p>The test for <code>check_title</code> is three lines, in <code>tests/test_logic.py</code>:</p>
+<pre><code>def test_a_title_is_trimmed_and_must_say_something() -&gt; None:
+    assert check_title(&quot;  buy   milk &quot;) == (&quot;buy milk&quot;, [])
+    assert check_title(&quot;   &quot;) == (&quot;&quot;, [Problem(&quot;title&quot;, &quot;error.title_empty&quot;)])
+    assert check_title(&quot;x&quot; * (MAX_TITLE + 1))[1] == [Problem(&quot;title&quot;, &quot;error.title_long&quot;)]
+</code></pre>
+<p>Each <code>assert</code> is one example. Good examples cover the normal case, the empty case and the edge (exactly at the limit, one past it). Run them with <code>uv run pytest</code>. This is where the harness's Red and Green come from (<a href="w03.html">W03</a>).</p>
+<h2 id="types-labels-on-everything"><a class="heading-anchor" href="#types-labels-on-everything">Types: Labels on Everything</a></h2>
+<p>A <strong>type</strong> says what kind of value something is: <code>str</code> (text), <code>int</code> (whole number), <code>bool</code> (yes or no), <code>list[Problem]</code> (a list of problems). In the stack, every function's parameters and its result have types. That is a rule, not a suggestion.</p>
+<p>Python itself does not check types when the code runs. <strong>pyright</strong> does, before anything runs. The starter turns on its strictest mode, in <code>pyproject.toml</code>:</p>
+<pre><code>[tool.pyright]
+typeCheckingMode = &quot;strict&quot;
+</code></pre>
+<p>Run it:</p>
+<pre><code>uv run pyright
+</code></pre>
+<p>Here is the kind of mistake it catches. Someone writes:</p>
+<pre><code>clean, problems = check_title(title)
+if problems &gt; 0:
+    ...
+</code></pre>
+<p><code>problems</code> is a list, not a number, and pyright says so straight away (in its own words, something like "Operator '&gt;' not supported"). Without types, this bug waits until a real person submits the form. <a href="t30.html">T30: TypeScript</a> shows the same idea in JavaScript; <a href="r08.html">R08: Code Quality</a> explains why "easy to change" is the level that matters most, and types are a big part of it.</p>
+<h2 id="data-has-a-shape"><a class="heading-anchor" href="#data-has-a-shape">Data Has a Shape</a></h2>
+<p>Notice <code>Problem</code> and the <code>Note</code> from <a href="w08.html">W08</a>. They are <strong>dataclasses</strong>: small records with named, typed fields. The stack avoids passing loose dictionaries between files, because a dictionary can hold anything and pyright cannot help. With a dataclass, a typo like <code>note.titel</code> is caught before the app runs.</p>
+<p><code>frozen=True</code> means the record cannot be changed after it is made. Fewer surprises.</p>
+<h2 id="what-the-harness-does-today-and-soon"><a class="heading-anchor" href="#what-the-harness-does-today-and-soon">What the Harness Does Today, and Soon</a></h2>
+<p>Today: tests count for Red and Green, and you or Pi run <code>uv run pyright</code> by hand. Ask for it in your request: <em>"... and make sure uv run pyright passes."</em></p>
+<p>Pi Workbench will do this step for you soon: pyright after every edit, with its errors sent straight back to Pi; a check that sends back any <code>app/logic/</code> file that imports the database, files, the network, the clock or randomness; and a catalogue of ready, tested blocks (paginate, group by, date ranges, money formatting…) that Pi composes instead of writing logic from scratch.</p>
+<h2 id="asking-pi-for-a-rule"><a class="heading-anchor" href="#asking-pi-for-a-rule">Asking Pi for a Rule</a></h2>
+<p>Describe the rule with examples. Examples become tests:</p>
+<p><em>"A note title cannot contain only numbers. '2026' is refused with the message 'Use some words.'; '2026 plans' is fine. Put the rule in app/logic/notes.py with tests."</em></p>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<ol>
+<li>Read <code>app/logic/notes.py</code> and <code>tests/test_logic.py</code>. Work out, on paper, what <code>check_title("a" * 120)</code> returns: exactly at the limit.</li>
+<li>Ask Pi for the "only numbers" rule above. Check the rule is in <code>app/logic/</code>, and the test has your examples.</li>
+<li>Run <code>uv run pyright</code>. Then, in a copy, write <code>if problems &gt; 0:</code> somewhere and run it again. Read the error.</li>
+<li>Read <a href="r08.html">R08</a> and write down which of its three levels types help with.</li>
+</ol>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Rules live in app/logic/ as pure functions: data in, data out, no database, files, network, clock or randomness</li>
+<li>The shell (main.py, db.py) reads the world, calls the core and renders</li>
+<li>Pure functions are easy to test completely with a few examples: normal, empty, edge</li>
+<li>Every parameter and result has a type; pyright in strict mode finds type mistakes before anything runs</li>
+<li>Data crosses files as typed dataclasses, not loose dictionaries</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../workbench-lessons.html">Back to The Workbench</a>
+        <div class="lesson-pager">
+          <a href="w08.html">Previous</a>
+          <a href="w10.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

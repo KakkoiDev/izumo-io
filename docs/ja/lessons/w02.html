@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ja" data-page="w02.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Asking Well: Requests, Context, Pi's Memory - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../ai-lessons.html">AIレッスン</a>
+      <a href="../workbench-lessons.html">ワークベンチ</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../workbench-lessons.html">ワークベンチに戻る</a>
+        <div class="lesson-pager">
+          <a href="w01.html">前へ</a>
+          <a href="w03.html">次へ</a>
+        </div>
+      </nav>
+      <h1 id="w02-asking-well-requests-context-pi-s-memory"><a class="heading-anchor" href="#w02-asking-well-requests-context-pi-s-memory">W02: Asking Well: Requests, Context, Pi's Memory</a></h1>
+<p class="lesson-intro">A carpenter who gets a note saying "make a table" will make <em>a</em> table. Maybe round, maybe too tall, maybe in the wrong wood. A good work order says what it is for, how big, and how you will check it: "a table for four, 75 cm high, it must not wobble". Your requests to Pi are work orders. This lesson makes them sharp, shows what Pi can see when it reads them, and gives Pi a notebook of standing instructions.</p>
+<h2 id="one-request-one-job"><a class="heading-anchor" href="#one-request-one-job">One Request, One Job</a></h2>
+<p>Each message you send in a project's chat becomes <strong>one request</strong>. The harness gives each request its own task file and, when it is verified, its own snapshot (<a href="w03.html">W03</a>). So keep one job per request:</p>
+<ul>
+<li>Weak: <em>"Make the notes app better and add dates and fix the delete thing."</em></li>
+<li>Strong: <em>"Show each note's date under its title, like 15 Oct 2026."</em></li>
+</ul>
+<p>Small requests are easier for Pi to finish, easier for the harness to verify, and easier for you to undo.</p>
+<h2 id="the-four-levers-for-an-app"><a class="heading-anchor" href="#the-four-levers-for-an-app">The Four Levers, for an App</a></h2>
+<p><a href="a03.html">A03</a> taught four levers: task, audience, format, constraints. For an app, they become:</p>
+<ul>
+<li><strong>What it should do</strong>, in the person's words: <em>"When I add a note with an empty title, show a message instead of saving it."</em></li>
+<li><strong>How you will know it works</strong>: <em>"Typing only spaces should show 'Write something first.'"</em> This sentence is almost a test already, and Pi will turn it into one.</li>
+<li><strong>Where</strong>: the page, the button, the file if you know it.</li>
+<li><strong>What not to change</strong>: <em>"Keep the current layout."</em></li>
+</ul>
+<p>If you are unsure what you want, ask for options first: <em>"Give me three ways to show the date, and do not change any code yet."</em></p>
+<h2 id="what-pi-sees"><a class="heading-anchor" href="#what-pi-sees">What Pi Sees</a></h2>
+<p>Pi only knows what is in front of it (<a href="a04.html">A04</a>). With each request, the harness picks a small set of files for Pi: the plan (<code>ROADMAP.md</code> and the open tasks), the file you have open, files you mention by name, and a few related ones. It keeps this small on purpose, about 4,000 tokens, so Pi stays focused.</p>
+<p>You can see the list before you send. Under the chat box, the line <strong>"Pi sees:"</strong> names each file. After an answer, <strong>"Also read:"</strong> lists the files Pi opened by itself.</p>
+<p>So the best trick is simple: <strong>name the file.</strong></p>
+<ul>
+<li><em>"In <code>app/templates/fragments/note_item.html</code>, put the date under the title."</em></li>
+</ul>
+<p>When Pi gets something wrong because it "did not know", look at the "Pi sees:" line first. The missing fact was probably not there.</p>
+<h2 id="comments-asking-about-one-passage"><a class="heading-anchor" href="#comments-asking-about-one-passage">Comments: Asking About One Passage</a></h2>
+<p>You do not have to ask everything in the chat. In the <strong>Work</strong> view, select some text in a file and choose <strong>Comment</strong> (⇧⌘M). Write your question and choose <strong>Ask Pi</strong>. The answer appears in that comment's thread, attached to the file, and it does not use up the project chat. <strong>Ask Pi about this whole file</strong>, at the bottom of Review, does the same for the entire page.</p>
+<p>This is great for "what does this line do?" and "explain this file to a beginner".</p>
+<h2 id="pi-s-memory-agents-md"><a class="heading-anchor" href="#pi-s-memory-agents-md">Pi's Memory: AGENTS.md</a></h2>
+<p><a href="a05.html">A05</a> introduced <code>AGENTS.md</code>: a plain text file of standing instructions the assistant reads every time. Pi Workbench keeps a shared one at <code>~/pi-local-harness-data/AGENTS.md</code>. The harness reloads it before every request, so a change applies to your next message.</p>
+<p>Good things to put there:</p>
+<pre><code># About me
+I am new to programming. Explain each change in two plain sentences.
+When you change a page, tell me which address to open to see it.
+Answer in Japanese, but keep code and file names in English.
+</code></pre>
+<p>Pi also adds short lessons to it after a confirmed mistake, so the same mistake is less likely next time. Read it now and then, and delete anything wrong. Keep it short: every line costs Pi attention on every request.</p>
+<p>Never put secrets there. It is sent to the model with every request.</p>
+<h2 id="keep-the-conversation-clean"><a class="heading-anchor" href="#keep-the-conversation-clean">Keep the Conversation Clean</a></h2>
+<p>Each project has one chat, and Pi remembers it. That is useful, but a long chat full of abandoned ideas confuses a small model. When you change topic completely, say so: <em>"New topic: forget the date idea."</em> And when a request goes badly, a fresh, better request often beats five corrections.</p>
+<p>Pi Workbench will soon show the right KakkoiSchool lesson under Pi's answer the first time you meet an idea, like "New to git? Lesson T19, 10 minutes". Until then, this course links them for you.</p>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<ol>
+<li>Take one thing you want from an app. Write the lazy one-line version.</li>
+<li>Rewrite it with the four levers: what, how you will know, where, what not to change.</li>
+<li>In your <code>hello</code> project, open <code>ROADMAP.md</code>, type a request in the chat, and read the "Pi sees:" line before sending. Is the right file there?</li>
+<li>Open <code>~/pi-local-harness-data/AGENTS.md</code> in a text editor and add two lines about how you like answers.</li>
+</ol>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Each message is one request with its own task and snapshot: one job per request</li>
+<li>Say what it should do, how you will know it works, where, and what not to change</li>
+<li>Pi sees only a small set of files: check the "Pi sees:" line, and name the file when you can</li>
+<li>Comments ask Pi about one passage without using up the chat</li>
+<li>AGENTS.md holds standing instructions, reloaded before every request. Keep it short, and never put secrets in it</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../workbench-lessons.html">ワークベンチに戻る</a>
+        <div class="lesson-pager">
+          <a href="w01.html">前へ</a>
+          <a href="w03.html">次へ</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+
