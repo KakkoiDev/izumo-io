@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="pt" data-page="t43.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Your First Repository - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t42.html">Anterior</a>
+          <a href="t44.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="t43-your-first-repository"><a class="heading-anchor" href="#t43-your-first-repository">T43: Your First Repository</a></h1>
+<p class="lesson-intro">You have an account (<a href="t41.html">T41</a>) and a computer that GitHub trusts (<a href="t42.html">T42</a>). Now you take a folder of your own work and put it online. Think of it like moving into a new house with glass walls. Before the furniture goes in, you decide what stays in the locked drawer. Once something is on display, people walking past have already seen it.</p>
+<h2 id="the-plan"><a class="heading-anchor" href="#the-plan">The Plan</a></h2>
+<div class="mermaid">
+flowchart LR
+    F[A folder<br/>on your computer] --> I[git init]
+    I --> GI[.gitignore<br/>FIRST]
+    GI --> C[first commit]
+    C --> R[gh repo create<br/>--push]
+    R --> GH[Your project<br/>on GitHub]
+
+</div>
+<h2 id="1-turn-the-folder-into-a-repository"><a class="heading-anchor" href="#1-turn-the-folder-into-a-repository">1. Turn the Folder into a Repository</a></h2>
+<p>Open a terminal in your project folder. If you do not have one yet, make one:</p>
+<pre><code>mkdir my-project
+cd my-project
+git init -b main
+</code></pre>
+<p><code>git init</code> creates a hidden <code>.git</code> folder where the history will live. <code>-b main</code> names the first branch <code>main</code>, which is what GitHub expects. Nothing is saved yet.</p>
+<h2 id="2-write-the-gitignore-before-anything-else"><a class="heading-anchor" href="#2-write-the-gitignore-before-anything-else">2. Write the .gitignore Before Anything Else</a></h2>
+<p>A <code>.gitignore</code> file lists things git must never save. Write it <strong>before</strong> your first commit. Once a file is committed, removing it later does not remove it from history.</p>
+<p>What goes in it:</p>
+<ul>
+<li><strong>Secrets.</strong> Passwords, API keys, tokens. They usually live in a file called <code>.env</code>.</li>
+<li><strong>Databases.</strong> Your local <code>app.db</code> holds test users and maybe real data. It does not belong in the code.</li>
+<li><strong>Things you can rebuild.</strong> <code>node_modules/</code> for JavaScript and <code>.venv/</code> for Python are thousands of files you can download again with one command.</li>
+<li><strong>Junk.</strong> Logs, editor settings, the <code>.DS_Store</code> files macOS scatters everywhere.</li>
+</ul>
+<p>Create a file called <code>.gitignore</code> in the project folder:</p>
+<pre><code># Secrets
+.env
+.env.*
+!.env.example
+
+# Databases
+*.db
+*.sqlite
+
+# Rebuildable
+node_modules/
+.venv/
+__pycache__/
+dist/
+
+# Junk
+*.log
+.DS_Store
+</code></pre>
+<p><code>!.env.example</code> means "except this one". An example file with fake values helps the next person, and it is safe to share.</p>
+<h2 id="3-the-first-commit"><a class="heading-anchor" href="#3-the-first-commit">3. The First Commit</a></h2>
+<pre><code>git status             # check: is anything there that should not be?
+git add .
+git status             # check again: read the list of green files
+git commit -m &quot;First commit&quot;
+</code></pre>
+<p>Read the <code>git status</code> list every time. It is your last chance to spot a <code>.env</code> or a database before it goes into history.</p>
+<h2 id="4-create-the-repository-on-github-and-push"><a class="heading-anchor" href="#4-create-the-repository-on-github-and-push">4. Create the Repository on GitHub and Push</a></h2>
+<p>One command creates the repository on GitHub, connects it as <code>origin</code>, and pushes your commit:</p>
+<pre><code>gh repo create my-project --public --source=. --push
+</code></pre>
+<ul>
+<li><code>my-project</code> is the name on GitHub.</li>
+<li><code>--public</code> makes it visible to everyone. Use <code>--private</code> instead if only you should see it.</li>
+<li><code>--source=.</code> means "use the repository in this folder".</li>
+<li><code>--push</code> sends your commits up straight away.</li>
+</ul>
+<p>Open it in your browser:</p>
+<pre><code>gh repo view --web
+</code></pre>
+<p>From now on the daily loop is the one from <a href="t20.html">T20</a>: edit, <code>git add</code>, <code>git commit</code>, <code>git push</code>.</p>
+<h2 id="what-public-really-means"><a class="heading-anchor" href="#what-public-really-means">What Public Really Means</a></h2>
+<p>A public repository can be read by anyone in the world. Not just people: bots scan every new public commit on GitHub, often within seconds, looking for passwords and keys to abuse. Search engines index it. Other people can copy it. You cannot take a copy back once it is made.</p>
+<p>So treat every commit to a public repository as if it were printed in a newspaper. Making the repository private later does not undo what was already seen.</p>
+<h2 id="keeping-secrets-out"><a class="heading-anchor" href="#keeping-secrets-out">Keeping Secrets Out</a></h2>
+<p>The rule: <strong>secrets never go in code</strong>. Your code reads them from the environment instead.</p>
+<p>Put them in a <code>.env</code> file, which is already in <code>.gitignore</code>:</p>
+<pre><code># .env  (never committed)
+OPENAI_API_KEY=sk-...your-real-key...
+DATABASE_URL=sqlite:///app.db
+</code></pre>
+<p>Commit a <code>.env.example</code> with the same names and fake values, so others know what to fill in:</p>
+<pre><code># .env.example  (committed)
+OPENAI_API_KEY=put-your-key-here
+DATABASE_URL=sqlite:///app.db
+</code></pre>
+<p>Your code reads the value by name. In Node.js 20.6 or newer, <code>node --env-file=.env server.js</code> loads the file, and the code uses <code>process.env.OPENAI_API_KEY</code>. In Python, <code>os.environ["OPENAI_API_KEY"]</code> reads it (<a href="t45.html">T45</a> shows how).</p>
+<h2 id="if-you-committed-a-secret"><a class="heading-anchor" href="#if-you-committed-a-secret">If You Committed a Secret</a></h2>
+<p>It happens to professionals too. Act fast, in this order:</p>
+<ol>
+<li><strong>Revoke or rotate the key first.</strong> Go to the service that issued it (OpenAI, Stripe, your database host) and delete that key, then make a new one. This is the only step that actually protects you. Assume the old key is already stolen.</li>
+<li><strong>Put the new key in <code>.env</code></strong>, and make sure <code>.env</code> is in <code>.gitignore</code>.</li>
+<li><strong>Remove the secret from the code</strong> and commit.</li>
+</ol>
+<p>Why not just delete the commit? Rewriting history removes it from <em>your</em> repository, but copies already exist: bots, forks, other people's clones, GitHub's own caches. History rewriting is a clean-up step, never the fix. The fix is a key that no longer works.</p>
+<p>GitHub helps here: <strong>push protection</strong> blocks many well-known key formats when you push to a public repository, and shows you a warning. If you see it, do not bypass it. Remove the key.</p>
+<h2 id="a-readme-that-helps"><a class="heading-anchor" href="#a-readme-that-helps">A README That Helps</a></h2>
+<p>A <code>README.md</code> at the top of the repository is the first thing GitHub shows. It answers three questions:</p>
+<pre><code># My Project
+
+A small to-do list app with a Python server and SQLite.
+
+## Run it
+
+    uv sync
+    cp .env.example .env    # then fill in the values
+    uv run uvicorn main:app --reload
+
+Open http://127.0.0.1:8000
+</code></pre>
+<p>What is it, how do I run it, and what do I need first. A stranger, or you in six months, should get it running from the README alone.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Write .gitignore before the first commit: secrets, .env, databases, node_modules, .venv</li>
+<li>Read git status before every commit. It is your last chance to catch a secret</li>
+<li>gh repo create my-project --public --source=. --push creates, connects and pushes in one step. Use --private to keep it hidden</li>
+<li>Public means anyone and any bot can read and copy it, forever</li>
+<li>If you commit a secret, revoke the key first. Rewriting history is not enough because copies already exist</li>
+<li>A README says what the project is and how to run it</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t42.html">Anterior</a>
+          <a href="t44.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

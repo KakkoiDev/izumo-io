@@ -54,6 +54,9 @@
 
 - [T19: Gitの基礎](lessons/t19.md) - タイムマシン: 3つの領域、コミット、ブランチ、恐れずに取り消す。
 - [T20: GitHubとコラボレーション](lessons/t20.md) - 共有工房: リモート、push/pull、GitHub Flow、プルリクエスト。
+- [T41: Your GitHub Account](lessons/t41.md) - The key to the shared workshop: sign up, pick a username, turn on two-factor, public vs private.
+- [T42: Connect Your Computer to GitHub](lessons/t42.md) - The key for the door: the GitHub CLI, your name and email in git, SSH keys, fixing 'Permission denied'.
+- [T43: Your First Repository](lessons/t43.md) - From a folder on your computer to GitHub: .gitignore first, one command to publish, secrets kept out, a README.
 
 ## フェーズ6: 厨房 (バックエンド)
 
@@ -66,6 +69,9 @@
 - [T23: JSONデータベース](lessons/t23.md) - レシピブック: ファイルの読み書き, JSONでCRUD。
 - [T24: SQLite](lessons/t24.md) - ファイリングキャビネット: SQL, テーブル, CRUD, スキーマ, 外部キー。
 - [T25: 認証](lessons/t25.md) - ID確認: セッション, クッキー, パスワードハッシュ, ログイン/ログアウト。
+- [T44: Putting a Server Online](lessons/t44.md) - Your kitchen needs a building: your own machine with Tailscale Funnel, a small VPS with Caddy, or a platform. Costs, trade-offs, what changes in production.
+- [T45: A Python Server with FastAPI](lessons/t45.md) - The same kitchen in Python: uv, routes that return HTML and JSON, typed parameters, tests with TestClient.
+- [T46: HTML over the Wire with htmx](lessons/t46.md) - The kitchen sends finished plates: the server returns HTML pieces, htmx swaps them into the page. A FastAPI list with add and delete.
 
 ## フェーズ7: ロボットシェフ (AI)
 
