@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en" data-page="t47.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Your Own Domain Name - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Lessons</a>
+      <a href="../workbench-lessons.html">The Workbench</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t46.html">Previous</a>
+          
+        </div>
+      </nav>
+      <h1 id="t47-your-own-domain-name"><a class="heading-anchor" href="#t47-your-own-domain-name">T47: Your Own Domain Name</a></h1>
+<p class="lesson-intro">Your site already has an address, like <code>your-name.github.io</code>. It works, but it is like living at "Building 4, Unit 2187". A domain name is a street address you choose, like <code>aiko-bakes.com</code>, and it stays yours even if you move house. <strong>DNS</strong> is the city's address book: when someone types your name, DNS looks up which computer lives there. This lesson buys a name and writes your line in that book.</p>
+<p><strong>Checked 2026-10-15; prices and screens change.</strong></p>
+<h2 id="registrar-vs-host"><a class="heading-anchor" href="#registrar-vs-host">Registrar vs Host</a></h2>
+<ul>
+<li>The <strong>registrar</strong> rents you the name. We use <strong>Namecheap</strong> (<a href="https://www.namecheap.com" target="_blank" rel="noopener">namecheap.com</a>).</li>
+<li>The <strong>host</strong> runs your site: GitHub Pages for files (<a href="a18.html">A18</a>), or a server from <a href="t44.html">T44</a>, such as Fly.io.</li>
+</ul>
+<p>Your site never moves to Namecheap; only its address line does. <a href="t40.html">T40</a> shows kakkoi.dev, a GitHub Pages site on its own domain.</p>
+<p>You rent a name <strong>one year at a time</strong>, and there are two prices: the <strong>first-year price</strong> (often a discount) and the <strong>renewal price</strong> for every year after. A <code>.com</code> can cost a few dollars the first year and around 15 dollars a year later. Judge by the renewal.</p>
+<h2 id="choosing-a-name"><a class="heading-anchor" href="#choosing-a-name">Choosing a Name</a></h2>
+<ul>
+<li><strong>Short and easy to say aloud.</strong> If you must spell it on the phone, it is too long.</li>
+<li><strong>No hyphens or numbers.</strong> People forget them.</li>
+<li><strong><code>.com</code> if you can</strong>: people type it by habit. <code>.dev</code> and <code>.app</code> suit tech projects.</li>
+<li><strong>Check it is free</strong> by searching on Namecheap. Skip names offered for sale by their owner: they are expensive.</li>
+</ul>
+<h2 id="registering-on-namecheap"><a class="heading-anchor" href="#registering-on-namecheap">Registering on Namecheap</a></h2>
+<ol>
+<li>On the home page, type the name into the domain search and click <strong>Search</strong>.</li>
+<li>Next to an available name, click <strong>Add to Cart</strong>, then open the cart and click <strong>Checkout</strong>.</li>
+<li>Before you click <strong>Confirm Order</strong>, read the cart:<ul>
+<li>One year is enough to start. Note the <strong>renewal price</strong>.</li>
+<li><strong>Auto-renewal</strong>: switch it <strong>on</strong>.</li>
+<li><strong>Domain Privacy</strong>: keep it <strong>on</strong>. Every domain has a public owner record (<strong>WHOIS</strong>); privacy hides your name, address and phone. Namecheap includes it free.</li>
+<li>Skip the extras (hosting, email, PremiumDNS).</li>
+</ul>
+</li>
+<li><strong>Create your account</strong>: a strong password from a password manager, and an email you will still read in five years.</li>
+<li>Enter real contact details (false ones can get the name suspended; privacy hides them), choose how to pay, and click <strong>Pay Now</strong>.</li>
+</ol>
+<p>Then turn on <strong>two-factor authentication</strong>, as for GitHub in <a href="t41.html">T41</a>: <strong>Profile &gt;&gt; Security &gt;&gt; Access &gt;&gt; Two-Factor Authentication</strong>, <strong>Enable</strong>, link your authenticator app, and store the backup codes away from your phone.</p>
+<h2 id="pointing-it-at-your-site"><a class="heading-anchor" href="#pointing-it-at-your-site">Pointing It at Your Site</a></h2>
+<p>DNS lives in <strong>Domain List</strong> (left sidebar), <strong>Manage</strong> next to your domain, the <strong>Advanced DNS</strong> tab. Under <strong>Host records</strong>, <strong>Add New Record</strong> adds a line. <strong>@</strong> means the bare name; <strong>www</strong> means <code>www.aiko-bakes.com</code>.</p>
+<p><strong>First, delete old records</strong> on <code>@</code> and <code>www</code>, such as a parking page or a redirect.</p>
+<h3 id="github-pages"><a class="heading-anchor" href="#github-pages">GitHub Pages</a></h3>
+<ol>
+<li>In your repository: <strong>Settings → Pages</strong>. Under <strong>Custom domain</strong>, type <code>aiko-bakes.com</code> and click <strong>Save</strong>. Do this <em>before</em> DNS, so nobody else can claim your name on GitHub.</li>
+<li>In Namecheap's Advanced DNS, add these records, then click <strong>Save All Changes</strong>:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Host</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A Record</td>
+<td>@</td>
+<td>185.199.108.153</td>
+</tr>
+<tr>
+<td>A Record</td>
+<td>@</td>
+<td>185.199.109.153</td>
+</tr>
+<tr>
+<td>A Record</td>
+<td>@</td>
+<td>185.199.110.153</td>
+</tr>
+<tr>
+<td>A Record</td>
+<td>@</td>
+<td>185.199.111.153</td>
+</tr>
+<tr>
+<td>CNAME Record</td>
+<td>www</td>
+<td>your-username.github.io</td>
+</tr>
+</tbody>
+</table>
+<p>The CNAME never includes the repository name. GitHub's custom domain page also lists four optional AAAA records (IPv6).</p>
+<p>Last, when the check passes, tick <strong>Enforce HTTPS</strong> on the same screen. It can take up to a day to appear.</p>
+<h3 id="fly-io"><a class="heading-anchor" href="#fly-io">Fly.io</a></h3>
+<p>For an always-on server app (<a href="w16.html">W16</a>):</p>
+<pre><code>fly certs add aiko-bakes.com
+fly certs add www.aiko-bakes.com
+</code></pre>
+<p>Fly prints the records: <strong>A</strong> and <strong>AAAA</strong> for the bare name, a <strong>CNAME</strong> to your app's <code>.fly.dev</code> name for <code>www</code>. Copy them exactly. <code>fly certs setup aiko-bakes.com</code> shows them again; <code>fly certs check aiko-bakes.com</code> says when HTTPS is ready.</p>
+<h3 id="tailscale-funnel"><a class="heading-anchor" href="#tailscale-funnel">Tailscale Funnel</a></h3>
+<p>Funnel can only use <code>.ts.net</code> names. <strong>You cannot put your own domain on a Funnel</strong>; use Pages or Fly.io.</p>
+<h2 id="waiting-and-checking"><a class="heading-anchor" href="#waiting-and-checking">Waiting and Checking</a></h2>
+<p>Namecheap says new records usually work within 30 minutes; GitHub allows up to 24 hours. Check from a terminal:</p>
+<pre><code>dig aiko-bakes.com +noall +answer -t A
+dig www.aiko-bakes.com +noall +answer
+</code></pre>
+<p>You should see your host's values. On Windows, use an online checker such as <a href="https://dns.google" target="_blank" rel="noopener">dns.google</a>.</p>
+<h2 id="common-mistakes"><a class="heading-anchor" href="#common-mistakes">Common Mistakes</a></h2>
+<ul>
+<li><strong>An old parking record left in place</strong>: the site sometimes shows an advert page instead.</li>
+<li><strong>An A record and a CNAME both on <code>@</code></strong>: a CNAME blocks every other record on its host. A records on <code>@</code>, CNAME only on <code>www</code>.</li>
+<li><strong>Forgetting renewal</strong>: the site vanishes and someone else can buy the name. Keep auto-renewal on with a valid card.</li>
+</ul>
+<h2 id="keep-it-safe"><a class="heading-anchor" href="#keep-it-safe">Keep It Safe</a></h2>
+<ul>
+<li><strong>Never share the Namecheap account.</strong> Whoever controls it controls where your name points.</li>
+<li><strong>Keep the account email current.</strong> Renewal warnings go there.</li>
+<li><strong>Lock the domain.</strong> Under <strong>Manage</strong>, <strong>Sharing &amp; Transfer</strong>, section <strong>Transfer Out</strong>: if <strong>Domain Lock</strong> offers <strong>Lock</strong>, click it. A locked name cannot be moved to another registrar.</li>
+</ul>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>A domain is a name you rent every year from a registrar; DNS is the address book that points it at your host</li>
+<li>Judge the price by the renewal, not the first year. Keep auto-renewal and free Domain Privacy on, and turn on two-factor</li>
+<li>GitHub Pages: set the custom domain first, then four A records on @ and a CNAME on www, then Enforce HTTPS</li>
+<li>Fly.io: fly certs add prints the records. A Tailscale Funnel (.ts.net) address cannot use your own domain</li>
+<li>Delete old parking records, never mix A and CNAME on @, check with dig, and keep the domain locked</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t46.html">Previous</a>
+          
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+
