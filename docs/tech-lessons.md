@@ -54,6 +54,9 @@ Track every change, collaborate without stepping on each other
 
 - [T19: Git Basics](lessons/t19.md) - The time machine: three areas, commits, branches, undo without fear.
 - [T20: GitHub & Collaboration](lessons/t20.md) - The shared workshop: remotes, push/pull, GitHub Flow, pull requests.
+- [T41: Your GitHub Account](lessons/t41.md) - The key to the shared workshop: sign up, pick a username, turn on two-factor, public vs private.
+- [T42: Connect Your Computer to GitHub](lessons/t42.md) - The key for the door: the GitHub CLI, your name and email in git, SSH keys, fixing 'Permission denied'.
+- [T43: Your First Repository](lessons/t43.md) - From a folder on your computer to GitHub: .gitignore first, one command to publish, secrets kept out, a README.
 
 ## Phase 6: The Kitchen (Backend)
 
@@ -66,6 +69,9 @@ Servers, APIs, and databases
 - [T23: JSON Database](lessons/t23.md) - The recipe book: read/write files, CRUD with JSON.
 - [T24: SQLite](lessons/t24.md) - The filing cabinet: SQL, tables, CRUD, schema, foreign keys.
 - [T25: Authentication](lessons/t25.md) - The ID check: sessions, cookies, password hashing, login/logout.
+- [T44: Putting a Server Online](lessons/t44.md) - Your kitchen needs a building: your own machine with Tailscale Funnel, a small VPS with Caddy, or a platform. Costs, trade-offs, what changes in production.
+- [T45: A Python Server with FastAPI](lessons/t45.md) - The same kitchen in Python: uv, routes that return HTML and JSON, typed parameters, tests with TestClient.
+- [T46: HTML over the Wire with htmx](lessons/t46.md) - The kitchen sends finished plates: the server returns HTML pieces, htmx swaps them into the page. A FastAPI list with add and delete.
 
 ## Phase 7: The Robot Chef (AI)
 

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en" data-page="t46.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>HTML over the Wire with htmx - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Lessons</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t45.html">Previous</a>
+          
+        </div>
+      </nav>
+      <h1 id="t46-html-over-the-wire-with-htmx"><a class="heading-anchor" href="#t46-html-over-the-wire-with-htmx">T46: HTML over the Wire with htmx</a></h1>
+<p class="lesson-intro">In <a href="t15.html">T15</a> the browser fetched JSON and your JavaScript built the HTML. That is like a restaurant that sends raw ingredients to your table with a recipe card: you do the cooking yourself. <strong>htmx</strong> works the other way. The kitchen sends a finished plate, a piece of ready-made HTML, and the waiter puts it in the right spot on the table. You write almost no JavaScript. You add a few attributes to your HTML, and the server does the rest.</p>
+<h2 id="the-idea"><a class="heading-anchor" href="#the-idea">The Idea</a></h2>
+<p>Normally only links and forms talk to the server, and they reload the whole page. htmx lets <strong>any element</strong> send a request, and puts the HTML that comes back into <strong>any part</strong> of the page, without a reload.</p>
+<div class="mermaid">
+sequenceDiagram
+    participant B as Browser + htmx
+    participant S as Server
+    B->>S: POST /items (form data)
+    S->>B: <li>Eggs ...</li>
+    B->>B: put it at the end of the list
+
+</div>
+<p>Four questions, four attributes:</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Attribute</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What request, to where?</td>
+<td><code>hx-get</code>, <code>hx-post</code>, <code>hx-delete</code></td>
+<td><code>hx-post="/items"</code></td>
+</tr>
+<tr>
+<td>Where does the answer go?</td>
+<td><code>hx-target</code></td>
+<td><code>hx-target="#items"</code></td>
+</tr>
+<tr>
+<td>How does it go in?</td>
+<td><code>hx-swap</code></td>
+<td><code>hx-swap="beforeend"</code></td>
+</tr>
+<tr>
+<td>Ask first?</td>
+<td><code>hx-confirm</code></td>
+<td><code>hx-confirm="Sure?"</code></td>
+</tr>
+</tbody>
+</table>
+<p>Common <code>hx-swap</code> values: <code>innerHTML</code> (replace what is inside the target, the default), <code>outerHTML</code> (replace the whole target), <code>beforeend</code> (add at the end, inside), <code>delete</code> (remove the target).</p>
+<p><code>hx-target</code> takes a CSS selector like <code>#items</code>, or <code>this</code> (the element itself), or <code>closest li</code> (the nearest <code>&lt;li&gt;</code> around the element).</p>
+<p>This lesson uses <strong>htmx 4</strong>, released in 2026. Many tutorials online are for htmx 2, and some details differ.</p>
+<h2 id="the-example-a-shopping-list"><a class="heading-anchor" href="#the-example-a-shopping-list">The Example: a Shopping List</a></h2>
+<p>A list, a form to add items, and a delete button on each item. It builds on the FastAPI project from <a href="t45.html">T45</a>, using <strong>Jinja</strong> templates: HTML files with <code>{{ holes }}</code> that Python fills in.</p>
+<pre><code>shopping/
+  main.py
+  templates/
+    index.html     the full page
+    _item.html     one &lt;li&gt;
+    _form.html     the add form
+    _added.html    the answer after a successful add
+</code></pre>
+<p>Files starting with <code>_</code> are <strong>fragments</strong>: pieces of a page, not whole pages. The full page includes them, and the server also sends them back alone.</p>
+<h3 id="the-full-page"><a class="heading-anchor" href="#the-full-page">The full page</a></h3>
+<pre><code>&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;Shopping list&lt;/title&gt;
+  &lt;script src=&quot;https://cdn.jsdelivr.net/npm/htmx.org@4.0.0/dist/htmx.min.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Shopping list&lt;/h1&gt;
+  &lt;ul id=&quot;items&quot;&gt;
+    {% for item in items %}
+      {% include &quot;_item.html&quot; %}
+    {% endfor %}
+  &lt;/ul&gt;
+  {% include &quot;_form.html&quot; %}
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>The version is pinned to <code>@4.0.0</code> on purpose. Without it, the CDN could give you htmx 2.</p>
+<h3 id="one-item-with-a-delete-button"><a class="heading-anchor" href="#one-item-with-a-delete-button">One item, with a delete button</a></h3>
+<pre><code>&lt;li&gt;
+  {{ item.text }}
+  &lt;button hx-delete=&quot;/items/{{ item.id }}&quot;
+          hx-confirm=&quot;Delete {{ item.text }}?&quot;
+          hx-target=&quot;closest li&quot;
+          hx-swap=&quot;delete&quot;&gt;Delete&lt;/button&gt;
+&lt;/li&gt;
+</code></pre>
+<p>Click: the browser asks "Delete Buy rice?". If you say yes, htmx sends <code>DELETE /items/1</code>. When the server answers, <code>hx-swap="delete"</code> removes the <code>&lt;li&gt;</code>.</p>
+<h3 id="the-form"><a class="heading-anchor" href="#the-form">The form</a></h3>
+<pre><code>&lt;form hx-post=&quot;/items&quot; hx-target=&quot;this&quot; hx-swap=&quot;outerHTML&quot;&gt;
+  &lt;input name=&quot;text&quot; placeholder=&quot;Add an item&quot;&gt;
+  &lt;button&gt;Add&lt;/button&gt;
+  {% if error %}&lt;p class=&quot;error&quot;&gt;{{ error }}&lt;/p&gt;{% endif %}
+&lt;/form&gt;
+</code></pre>
+<p>On submit, htmx sends the form fields with <code>POST /items</code>, then replaces the whole form (<code>outerHTML</code> of <code>this</code>) with whatever comes back. That gives us a fresh, empty form after each add, or the same form with an error message.</p>
+<h3 id="updating-a-second-place-hx-partial"><a class="heading-anchor" href="#updating-a-second-place-hx-partial">Updating a second place: hx-partial</a></h3>
+<p>After a successful add, two places must change: the form must be emptied, and the new item must appear in the list. The answer's main content goes to the form. For the list, wrap the new item in <code>&lt;hx-partial&gt;</code>, which carries its own target and swap:</p>
+<pre><code>{% include &quot;_form.html&quot; %}
+&lt;hx-partial hx-target=&quot;#items&quot; hx-swap=&quot;beforeend&quot;&gt;
+  {% include &quot;_item.html&quot; %}
+&lt;/hx-partial&gt;
+</code></pre>
+<p>htmx swaps the main content first, then each partial into its own target.</p>
+<h3 id="the-server"><a class="heading-anchor" href="#the-server">The server</a></h3>
+<pre><code>from fastapi import FastAPI, Form, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+
+app = FastAPI()
+templates = Jinja2Templates(directory=&quot;templates&quot;)
+
+items = [{&quot;id&quot;: 1, &quot;text&quot;: &quot;Buy rice&quot;}, {&quot;id&quot;: 2, &quot;text&quot;: &quot;Call grandma&quot;}]
+next_id = 3
+
+
+@app.get(&quot;/&quot;, response_class=HTMLResponse)
+def home(request: Request):
+    return templates.TemplateResponse(request, &quot;index.html&quot;, {&quot;items&quot;: items})
+
+
+@app.post(&quot;/items&quot;, response_class=HTMLResponse)
+def add_item(request: Request, text: str = Form(&quot;&quot;)):
+    global next_id
+    text = text.strip()
+    if not text:
+        return templates.TemplateResponse(
+            request, &quot;_form.html&quot;, {&quot;error&quot;: &quot;Write something first.&quot;}, status_code=422
+        )
+    item = {&quot;id&quot;: next_id, &quot;text&quot;: text}
+    next_id += 1
+    items.append(item)
+    return templates.TemplateResponse(request, &quot;_added.html&quot;, {&quot;item&quot;: item})
+
+
+@app.delete(&quot;/items/{item_id}&quot;, response_class=HTMLResponse)
+def delete_item(item_id: int):
+    items[:] = [i for i in items if i[&quot;id&quot;] != item_id]
+    return &quot;&quot;
+</code></pre>
+<p>Run it with <code>uv run uvicorn main:app --reload</code> and open <a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a>. The list lives in memory, so it resets when the server restarts. Swap in SQLite from <a href="t45.html">T45</a> to keep it.</p>
+<h2 id="errors-come-back-as-html"><a class="heading-anchor" href="#errors-come-back-as-html">Errors Come Back as HTML</a></h2>
+<p>Look at the empty-text case. The server answers with status <strong>422</strong> (the request was understood, but the data is not acceptable) and the form with an error message inside.</p>
+<p>In htmx 4, <strong>error responses are swapped too</strong>. Only <code>204 No Content</code> and <code>304 Not Modified</code> are skipped. So the 422 answer replaces the form, and the user sees "Write something first." right under the input. The status code stays honest for tests and logs, and the page still shows the message. (htmx 2 ignored error responses by default, so older tutorials work around this.)</p>
+<p>The flip side: if your server crashes and returns an error page, that page lands in the target too. Keep error answers small and meant for where they will go.</p>
+<h2 id="when-htmx-is-the-wrong-tool"><a class="heading-anchor" href="#when-htmx-is-the-wrong-tool">When htmx Is the Wrong Tool</a></h2>
+<p>htmx shines when the server owns the data and the page mostly shows it: lists, forms, dashboards, admin pages, search with results. Every change is a trip to the server, and that is fine when a trip takes a few dozen milliseconds.</p>
+<p>It is the wrong tool when the work happens in the browser, many times a second, without the server:</p>
+<ul>
+<li><strong>Games.</strong> A game loop redraws the screen about 60 times a second (<a href="a10.html">A10</a>). That is JavaScript's job.</li>
+<li><strong>Heavy editors.</strong> A drawing app, a spreadsheet, a rich text editor with live formatting. These keep a lot of state in the browser and need instant feedback on every key press.</li>
+<li><strong>Offline apps.</strong> If there is no server to answer, htmx has nothing to swap in.</li>
+</ul>
+<p>You can mix: htmx for the forms and lists, a bit of JavaScript for the one widget that needs it.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>With htmx the server sends HTML fragments, and the page swaps them in. Much less JavaScript</li>
+<li>hx-get, hx-post, hx-delete say what to send. hx-target says where the answer goes. hx-swap says how</li>
+<li>hx-confirm asks the user before sending. hx-swap="delete" removes the target</li>
+<li>&lt;hx-partial hx-target hx-swap&gt; in a response updates a second place on the page</li>
+<li>In htmx 4, error responses like 422 are swapped too, so a form can come back with its error message</li>
+<li>Pin htmx to version 4 in the script URL. Do not use htmx for games, heavy editors or offline apps</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Back to Tech Lessons</a>
+        <div class="lesson-pager">
+          <a href="t45.html">Previous</a>
+          
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

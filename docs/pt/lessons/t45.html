@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="pt" data-page="t45.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>A Python Server with FastAPI - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t44.html">Anterior</a>
+          <a href="t46.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="t45-a-python-server-with-fastapi"><a class="heading-anchor" href="#t45-a-python-server-with-fastapi">T45: A Python Server with FastAPI</a></h1>
+<p class="lesson-intro">In <a href="t21.html">T21</a> to <a href="t23.html">T23</a> you built a server in Node.js. This lesson builds the same kind of kitchen in Python, with <strong>FastAPI</strong>. Think of FastAPI as a head chef who reads every order before it reaches the stove. If a customer orders "abc" pizzas, the chef sends the order back with a polite note, and the cooks never see it. That checking comes from the <strong>types</strong> you write, and it catches many mistakes for free.</p>
+<h2 id="install-uv"><a class="heading-anchor" href="#install-uv">Install uv</a></h2>
+<p><strong>uv</strong> is a tool that installs Python, creates a private folder of packages for each project, and runs your code. One tool instead of several.</p>
+<pre><code># macOS and Linux
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Windows (PowerShell)
+powershell -ExecutionPolicy ByPass -c &quot;irm https://astral.sh/uv/install.ps1 | iex&quot;
+</code></pre>
+<p>Close and reopen your terminal, then check with <code>uv --version</code>. Other install methods are at <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener">docs.astral.sh/uv</a>.</p>
+<h2 id="start-a-project"><a class="heading-anchor" href="#start-a-project">Start a Project</a></h2>
+<pre><code>uv init --no-package hello-api
+cd hello-api
+uv add fastapi uvicorn jinja2 python-multipart
+</code></pre>
+<ul>
+<li><code>uv init</code> creates the project: a <code>pyproject.toml</code> (the list of what the project needs, like <code>package.json</code> in Node.js), a <code>main.py</code>, and a <code>.gitignore</code>. <code>--no-package</code> keeps it a simple app with <code>main.py</code> at the top.</li>
+<li><code>uv add</code> installs packages into a private <code>.venv</code> folder and writes them into <code>pyproject.toml</code>.</li>
+<li><strong>fastapi</strong> is the framework, <strong>uvicorn</strong> is the server program that runs it, <strong>jinja2</strong> fills HTML templates (<a href="t46.html">T46</a>), and <strong>python-multipart</strong> lets FastAPI read HTML forms.</li>
+</ul>
+<h2 id="a-first-route-returning-html"><a class="heading-anchor" href="#a-first-route-returning-html">A First Route Returning HTML</a></h2>
+<p>Replace everything in <code>main.py</code> with:</p>
+<pre><code>from fastapi import FastAPI, Form, HTTPException
+from fastapi.responses import HTMLResponse
+
+app = FastAPI()
+
+
+@app.get(&quot;/&quot;, response_class=HTMLResponse)
+def home() -&gt; str:
+    return &quot;&lt;h1&gt;Hello from Python&lt;/h1&gt;&lt;p&gt;The kitchen is open.&lt;/p&gt;&quot;
+</code></pre>
+<p><code>@app.get("/")</code> means "when a browser asks for <code>/</code> with GET, run this function". The function returns a string, and <code>response_class=HTMLResponse</code> tells FastAPI to send it as a web page.</p>
+<p>Run it:</p>
+<pre><code>uv run uvicorn main:app --reload
+</code></pre>
+<p><code>main:app</code> means "the <code>app</code> object in <code>main.py</code>". <code>--reload</code> restarts the server every time you save. Open <a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a>. Stop it with Ctrl+C.</p>
+<h2 id="a-json-route"><a class="heading-anchor" href="#a-json-route">A JSON Route</a></h2>
+<p>Add a small list of books and a route that returns it. FastAPI turns Python lists and dictionaries into JSON by itself:</p>
+<pre><code>books = [
+    {&quot;id&quot;: 1, &quot;title&quot;: &quot;The Hobbit&quot;, &quot;pages&quot;: 310},
+    {&quot;id&quot;: 2, &quot;title&quot;: &quot;Dune&quot;, &quot;pages&quot;: 412},
+]
+
+
+@app.get(&quot;/api/books&quot;)
+def list_books() -&gt; list[dict]:
+    return books
+</code></pre>
+<p>Open <code>/api/books</code>. Then open <code>/docs</code>: FastAPI builds an interactive page listing every route, where you can try each one. You did not write any of it.</p>
+<h2 id="types-why-they-help"><a class="heading-anchor" href="#types-why-they-help">Types: Why They Help</a></h2>
+<p>In Python you can write a <strong>type hint</strong> after a name: <code>book_id: int</code> means "this should be a whole number", <code>title: str</code> means "this should be text", <code>-&gt; dict</code> means "this function returns a dictionary".</p>
+<p>Plain Python does not enforce them. They are notes. But they still help:</p>
+<ul>
+<li>Your editor reads them and warns you when you mix things up, like adding text to a number, before you even run the code.</li>
+<li>They tell the next reader what a function expects without reading its body.</li>
+</ul>
+<p>FastAPI goes further: <strong>it uses the types to check every request</strong>. If the type says <code>int</code> and the request sends <code>abc</code>, FastAPI answers with a <code>422</code> error explaining what was wrong, and your function never runs.</p>
+<h2 id="path-parameters"><a class="heading-anchor" href="#path-parameters">Path Parameters</a></h2>
+<p>A part of the address in curly braces becomes a function argument:</p>
+<pre><code>@app.get(&quot;/api/books/{book_id}&quot;)
+def get_book(book_id: int) -&gt; dict:
+    for book in books:
+        if book[&quot;id&quot;] == book_id:
+            return book
+    raise HTTPException(status_code=404, detail=&quot;Book not found&quot;)
+</code></pre>
+<ul>
+<li><code>/api/books/1</code> returns The Hobbit. <code>book_id</code> arrives as the number <code>1</code>, not the text <code>"1"</code>.</li>
+<li><code>/api/books/99</code> returns <code>404 Not Found</code>, from the <code>raise</code>.</li>
+<li><code>/api/books/abc</code> returns <code>422</code> with a message saying it should be a valid integer. You wrote no code for that.</li>
+</ul>
+<h2 id="form-parameters"><a class="heading-anchor" href="#form-parameters">Form Parameters</a></h2>
+<p><code>Form()</code> reads a field sent by an HTML form. The type still applies:</p>
+<pre><code>@app.post(&quot;/api/books&quot;, status_code=201)
+def add_book(title: str = Form(), pages: int = Form()) -&gt; dict:
+    book = {&quot;id&quot;: len(books) + 1, &quot;title&quot;: title, &quot;pages&quot;: pages}
+    books.append(book)
+    return book
+</code></pre>
+<p>A form like this one sends to it:</p>
+<pre><code>&lt;form method=&quot;post&quot; action=&quot;/api/books&quot;&gt;
+  &lt;input name=&quot;title&quot;&gt;
+  &lt;input name=&quot;pages&quot; type=&quot;number&quot;&gt;
+  &lt;button&gt;Add&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<p>The <code>name</code> of each input matches an argument name. If <code>pages</code> is missing or is not a number, FastAPI answers <code>422</code>.</p>
+<div class="mermaid">
+flowchart LR
+    R[Request] --> V{FastAPI checks<br/>the types}
+    V -->|wrong| E[422 error<br/>with details]
+    V -->|right| F[Your function]
+    F --> J[HTML or JSON]
+
+</div>
+<h2 id="saving-data-with-sqlite"><a class="heading-anchor" href="#saving-data-with-sqlite">Saving Data with SQLite</a></h2>
+<p>The list above is lost when the server restarts. Python comes with SQLite built in, through the <code>sqlite3</code> module. No install needed. The SQL is exactly what you learned in <a href="t24.html">T24</a>:</p>
+<pre><code>import sqlite3
+
+db = sqlite3.connect(&quot;app.db&quot;)
+db.execute(&quot;CREATE TABLE IF NOT EXISTS books (id INTEGER PRIMARY KEY, title TEXT, pages INTEGER)&quot;)
+db.execute(&quot;INSERT INTO books (title, pages) VALUES (?, ?)&quot;, (&quot;Dune&quot;, 412))
+db.commit()
+rows = db.execute(&quot;SELECT id, title, pages FROM books&quot;).fetchall()
+</code></pre>
+<p>Always use <code>?</code> placeholders, never build SQL by joining strings, so user input cannot change your query.</p>
+<h2 id="testing-with-testclient"><a class="heading-anchor" href="#testing-with-testclient">Testing with TestClient</a></h2>
+<p>A test is a small program that uses your app and checks the answers. FastAPI's <strong>TestClient</strong> sends requests to your app without starting a real server. Install the test tools as development-only packages:</p>
+<pre><code>uv add --dev pytest httpx2
+</code></pre>
+<p>Create <code>test_main.py</code> next to <code>main.py</code>:</p>
+<pre><code>from fastapi.testclient import TestClient
+
+from main import app
+
+client = TestClient(app)
+
+
+def test_home_says_hello():
+    response = client.get(&quot;/&quot;)
+    assert response.status_code == 200
+    assert &quot;Hello from Python&quot; in response.text
+
+
+def test_missing_book_is_404():
+    response = client.get(&quot;/api/books/999&quot;)
+    assert response.status_code == 404
+
+
+def test_book_id_must_be_a_number():
+    response = client.get(&quot;/api/books/abc&quot;)
+    assert response.status_code == 422
+
+
+def test_add_book():
+    response = client.post(&quot;/api/books&quot;, data={&quot;title&quot;: &quot;Emma&quot;, &quot;pages&quot;: &quot;474&quot;})
+    assert response.status_code == 201
+    assert response.json()[&quot;pages&quot;] == 474
+</code></pre>
+<p>Run them:</p>
+<pre><code>uv run pytest
+</code></pre>
+<p>Each function whose name starts with <code>test_</code> is one test. <code>assert</code> means "this must be true, or the test fails". Notice the last test sends <code>"474"</code> as text, like a real form does, and gets back the number <code>474</code>: the type did that.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>uv installs Python and packages per project: uv init, uv add, uv run</li>
+<li>A route is a function with a decorator like @app.get("/path"). Return a string for HTML, a dict or list for JSON</li>
+<li>Type hints help your editor and readers. FastAPI also uses them to check every request and answers 422 when the input is wrong</li>
+<li>Path parameters come from {braces} in the address. Form parameters come from Form() and need python-multipart</li>
+<li>Python's built-in sqlite3 module speaks the same SQL as T24. Always use ? placeholders</li>
+<li>TestClient plus pytest tests your app without starting a server: uv run pytest</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t44.html">Anterior</a>
+          <a href="t46.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

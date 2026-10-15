@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="pt" data-page="t41.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Your GitHub Account - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t40.html">Anterior</a>
+          <a href="t42.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="t41-your-github-account"><a class="heading-anchor" href="#t41-your-github-account">T41: Your GitHub Account</a></h1>
+<p class="lesson-intro">Git and GitHub are not the same thing. Git is a notebook you keep on your own desk: it records every change you make, and it works without the internet. GitHub is a library across town where you can keep a copy of that notebook, share it, and work on it with other people. This lesson gets you a library card. It takes about fifteen minutes, and you only do it once.</p>
+<h2 id="git-vs-github-in-one-line"><a class="heading-anchor" href="#git-vs-github-in-one-line">Git vs GitHub in One Line</a></h2>
+<p><strong>Git</strong> is a program on your computer (<a href="t19.html">T19</a>). <strong>GitHub</strong> is a website owned by a company that stores git projects online (<a href="t20.html">T20</a>). You can use git without GitHub. You cannot really use GitHub without git.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Git</th>
+<th>GitHub</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Where it runs</td>
+<td>Your computer</td>
+<td>A website (github.com)</td>
+</tr>
+<tr>
+<td>Needs internet</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>What it does</td>
+<td>Records history</td>
+<td>Stores and shares that history</td>
+</tr>
+<tr>
+<td>Cost</td>
+<td>Free</td>
+<td>Free plan is enough for learning</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sign-up-step-by-step"><a class="heading-anchor" href="#sign-up-step-by-step">Sign Up, Step by Step</a></h2>
+<ol>
+<li>Go to <a href="https://github.com" target="_blank" rel="noopener">github.com</a> and click <strong>Sign up</strong>.</li>
+<li>Type your <strong>email</strong>. Use one you will still have in five years, not a school address that will disappear.</li>
+<li>Choose a <strong>password</strong>. Use a password manager if you have one. Do not reuse a password from another site.</li>
+<li>Choose a <strong>username</strong>. Read the next section before you pick.</li>
+<li>GitHub may ask you to solve a small puzzle to prove you are human. Then it sends a code to your email. Type that code into the page.</li>
+<li>If it asks about plans, stay on the <strong>Free</strong> plan. It gives you unlimited public and private repositories, which is everything you need here.</li>
+</ol>
+<h2 id="choosing-a-username"><a class="heading-anchor" href="#choosing-a-username">Choosing a Username</a></h2>
+<p>Your username is not just a login. It appears in every link to your work:</p>
+<pre><code>https://github.com/your-username
+https://github.com/your-username/my-first-site
+https://your-username.github.io
+</code></pre>
+<p>It is the name on your shop sign, and a future employer will read it:</p>
+<ul>
+<li><strong>Short and easy to say.</strong> <code>aiko-tanaka</code> or <code>atanaka</code> beats <code>xX_aiko_gamer_2009_Xx</code>.</li>
+<li><strong>Your real name, or a stable nickname</strong> you are happy to put on a CV.</li>
+<li><strong>Letters, numbers and single hyphens only.</strong> GitHub does not allow spaces or underscores.</li>
+<li><strong>No year of birth, no jokes you will regret.</strong></li>
+</ul>
+<p>You can change it later in <strong>Settings</strong>, but old links stop working, so it is better to choose well now.</p>
+<h2 id="verify-your-email"><a class="heading-anchor" href="#verify-your-email">Verify Your Email</a></h2>
+<p>GitHub sends you an email with a link or a code. Open it and confirm. A verified email unlocks more features, and it is how GitHub helps you if you ever forget your password. If nothing arrives, check your spam folder, then click your profile picture, <strong>Settings</strong>, <strong>Emails</strong>, and <strong>Resend verification email</strong> under your address.</p>
+<h2 id="turn-on-two-factor-authentication"><a class="heading-anchor" href="#turn-on-two-factor-authentication">Turn On Two-Factor Authentication</a></h2>
+<p>A password is one lock. <strong>Two-factor authentication</strong> (2FA) adds a second lock: to sign in, you need your password <em>and</em> a six-digit code from your phone. A thief who steals your password still cannot get in.</p>
+<p>Your account will hold your code and the keys that let your computer push changes. GitHub also requires 2FA for anyone who contributes code, so turn it on now.</p>
+<ol>
+<li>Install an <strong>authenticator app</strong> on your phone. Good free options: Google Authenticator, Microsoft Authenticator, 2FAS, or the one built into your password manager.</li>
+<li>On GitHub, click your profile picture (top right), then <strong>Settings</strong>.</li>
+<li>In the left sidebar, click <strong>Password and authentication</strong>.</li>
+<li>Click <strong>Enable two-factor authentication</strong>.</li>
+<li>GitHub shows a QR code. Open your authenticator app, add an account, and scan it.</li>
+<li>Type the six-digit code the app shows into GitHub.</li>
+</ol>
+<div class="mermaid">
+flowchart LR
+    P[Password<br/>something you know] --> G{GitHub}
+    C[6-digit code<br/>something you have] --> G
+    G -->|both correct| IN[Signed in]
+
+</div>
+<h2 id="save-your-recovery-codes"><a class="heading-anchor" href="#save-your-recovery-codes">Save Your Recovery Codes</a></h2>
+<p>During setup, GitHub shows a list of <strong>recovery codes</strong>. Each one is a spare key you can use once if you lose your phone. <strong>This is the step people skip and regret.</strong> If you lose your phone and have no recovery codes, you can lose the account for good.</p>
+<ul>
+<li>Click <strong>Download</strong> and keep the file somewhere safe: a password manager is ideal.</li>
+<li>Or print them and keep the paper with your important documents.</li>
+<li>Do not keep them only on the same phone as your authenticator app.</li>
+</ul>
+<h2 id="your-profile-basics"><a class="heading-anchor" href="#your-profile-basics">Your Profile Basics</a></h2>
+<p>Your profile page is <code>github.com/your-username</code>. It is the first thing people see. Click your picture, then <strong>Your profile</strong>, then <strong>Edit profile</strong>:</p>
+<ul>
+<li><strong>Name</strong>: your real name, or the name you use professionally.</li>
+<li><strong>Bio</strong>: one line. "Learning web development. Building small games." is perfect.</li>
+<li><strong>Picture</strong>: a clear face or a simple logo. Optional.</li>
+<li><strong>Location</strong> and <strong>links</strong>: only what you are comfortable sharing publicly.</li>
+</ul>
+<h2 id="public-vs-private"><a class="heading-anchor" href="#public-vs-private">Public vs Private</a></h2>
+<p>Every repository (a project folder on GitHub) is either public or private.</p>
+<ul>
+<li><strong>Public</strong>: anyone on the internet can read every file and every old version. Search engines and automated bots read it too, often within minutes. Good for learning projects and anything you want to show.</li>
+<li><strong>Private</strong>: only you and the people you invite can see it. Good for unfinished work or anything personal.</li>
+</ul>
+<p>Public is how you build a portfolio, but treat it as "printed in a newspaper, forever". Never put passwords, keys, or other people's personal data in a public repository. <a href="t43.html">T43</a> shows you how to keep secrets out.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Git is the program on your computer. GitHub is the website that stores and shares git projects</li>
+<li>Your username appears in every link to your work. Pick one you would put on a CV</li>
+<li>Verify your email, or some features stay locked</li>
+<li>Turn on two-factor authentication with an authenticator app, and store the recovery codes somewhere other than your phone</li>
+<li>Public means anyone, including bots, can read everything, forever. Private means only people you invite</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t40.html">Anterior</a>
+          <a href="t42.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

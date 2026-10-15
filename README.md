@@ -15,7 +15,7 @@ Our philosophy:
 
 ## Primary curriculum
 
-The main learning path lives on the **[KakkoiSchool website](https://school.kakkoi.dev)**: 39 tech lessons (T01-T39) covering HTML, CSS, JavaScript, Node.js, AI, React, TypeScript, Next.js, Nest.js, Web Components, and system design, plus 21 theory lessons (R01-R21) on problem-solving, architecture, career, AI safety, and tech entropy. Trilingual (English / Japanese / Portuguese).
+The main learning path lives on the **[KakkoiSchool website](https://school.kakkoi.dev)**: 46 tech lessons (T01-T46) covering HTML, CSS, JavaScript, Git and GitHub, Node.js, Python with FastAPI, htmx, deployment, AI, React, TypeScript, Next.js, Nest.js, Web Components, and system design, plus 21 theory lessons (R01-R21) on problem-solving, architecture, career, AI safety, and tech entropy. Trilingual (English / Japanese / Portuguese).
 
 Start there. The courses below are optional deep-dives.
 
@@ -51,3 +51,11 @@ Join our Discord server to:
 - Access additional resources
 
 **[Join Discord: https://discord.gg/YrtdssGUJa](https://discord.gg/YrtdssGUJa)**
+
+## Licence
+
+The lessons and other written content (everything under `content/` and `courses/`, and the text of the site) are licensed under [Creative Commons Attribution 4.0 International](./LICENSE) (CC BY 4.0): you may share and adapt them, including commercially, as long as you credit KakkoiSchool and link to the licence.
+
+Code samples inside the lessons, the scripts in `scripts/`, and the website build in `website/` are licensed under the [MIT licence](./LICENSE-CODE).
+
+Work under `submissions/` belongs to the students who submitted it.

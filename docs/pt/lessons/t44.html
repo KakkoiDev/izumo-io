@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="pt" data-page="t44.html" data-lang-paths='{"en":"../../lessons/","ja":"../../ja/lessons/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Putting a Server Online - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Aulas Técnicas</a>
+      <a href="../theory-lessons.html">Teoria</a>
+      <a href="../ai-lessons.html">Aulas de IA</a>
+      <a href="../videos.html">Vídeos</a>
+      <a href="../resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t43.html">Anterior</a>
+          <a href="t45.html">Próxima</a>
+        </div>
+      </nav>
+      <h1 id="t44-putting-a-server-online"><a class="heading-anchor" href="#t44-putting-a-server-online">T44: Putting a Server Online</a></h1>
+<p class="lesson-intro">A website made of HTML, CSS and JavaScript is like a printed menu: you hand out copies and nobody needs to be in the kitchen. A server app is a restaurant. Someone has to be there, cooking, every time a customer walks in. GitHub Pages can hand out menus for free. To run a restaurant, you need a building that stays open. This lesson compares three kinds of building.</p>
+<h2 id="files-vs-a-server"><a class="heading-anchor" href="#files-vs-a-server">Files vs a Server</a></h2>
+<p><strong>GitHub Pages</strong> serves files. It takes a folder and gives each file a web address. That is perfect for plain HTML, CSS and JavaScript sites, like the game in <a href="a18.html">A18</a> or the Next.js static export in <a href="t40.html">T40</a>.</p>
+<p>It cannot run your code on the server side. If your app has any of these, it needs a real computer that is always on:</p>
+<ul>
+<li>A server written in Python (<a href="t45.html">T45</a>) or Node.js (<a href="t21.html">T21</a>)</li>
+<li>A database, even a SQLite file (<a href="t24.html">T24</a>)</li>
+<li>Login, sessions, or anything that must stay secret from the browser</li>
+</ul>
+<div class="mermaid">
+flowchart LR
+    B[Browser] -->|asks for a file| P[GitHub Pages<br/>files only]
+    B -->|asks a question| S[Your server<br/>always on]
+    S --> D[(Database)]
+
+</div>
+<p>There is no single right answer for where that computer lives. Here are three honest options. <strong>Prices and free limits change often</strong>, so check each provider's pricing page before you choose.</p>
+<h2 id="option-1-your-own-machine-with-tailscale-funnel"><a class="heading-anchor" href="#option-1-your-own-machine-with-tailscale-funnel">Option 1: Your Own Machine with Tailscale Funnel</a></h2>
+<p>Run the server on a computer you own (an old laptop, a mini PC, a Raspberry Pi) and let <strong>Tailscale Funnel</strong> give it a public HTTPS address.</p>
+<pre><code># after installing Tailscale and signing in
+# your app is running on port 8000
+tailscale funnel 8000
+</code></pre>
+<p>Tailscale prints an address like <code>https://my-laptop.your-tailnet.ts.net</code> that anyone can open, with HTTPS handled for you. The first time, it may ask you to enable HTTPS and Funnel in the browser.</p>
+<ul>
+<li><strong>Cost:</strong> free for personal use. You pay for electricity.</li>
+<li><strong>Good:</strong> nothing to rent, and your data stays at home.</li>
+<li><strong>Bad:</strong> the machine must stay on and awake. If it sleeps, loses power, or your home internet drops, the site is down. Funnel has bandwidth limits, so it suits demos and small projects, not a busy site.</li>
+</ul>
+<h2 id="option-2-a-small-vps-with-caddy"><a class="heading-anchor" href="#option-2-a-small-vps-with-caddy">Option 2: A Small VPS with Caddy</a></h2>
+<p>A <strong>VPS</strong> (virtual private server) is a computer in a data centre that you rent by the month, from Hetzner, DigitalOcean, Vultr and many others. The smallest size is enough for a learning project.</p>
+<p>You get a fresh Linux machine. You install your app, keep it running with <code>systemd</code>, and put <strong>Caddy</strong> in front: a web server that gets and renews HTTPS certificates by itself. Point a domain name at the server's IP address, and the whole Caddy config can be this short:</p>
+<pre><code># /etc/caddy/Caddyfile
+myapp.example.com {
+    reverse_proxy localhost:8000
+}
+</code></pre>
+<p>Caddy receives visitors on HTTPS and passes each request to your app on port 8000.</p>
+<ul>
+<li><strong>Cost:</strong> a few dollars a month, plus a domain name (about 10 to 15 dollars a year).</li>
+<li><strong>Good:</strong> always on, predictable price, and you learn how servers really work.</li>
+<li><strong>Bad:</strong> you are the maintainer. Security updates, firewall, backups, restarting things at 2 a.m.: all yours.</li>
+</ul>
+<h2 id="option-3-a-platform-fly-io-render-railway"><a class="heading-anchor" href="#option-3-a-platform-fly-io-render-railway">Option 3: A Platform (Fly.io, Render, Railway)</a></h2>
+<p>A <strong>platform</strong> runs your app for you. Connect a GitHub repository or run one command, and it builds your app, gives it an HTTPS address, and restarts it if it crashes.</p>
+<ul>
+<li><strong>Cost:</strong> paid by usage or by plan. Free tiers, where they exist, often sleep when idle (the first visitor waits several seconds).</li>
+<li><strong>Good:</strong> the easiest path. No server to patch. Deploy by pushing to GitHub.</li>
+<li><strong>Bad:</strong> least control, and limits and prices change. Many platforms wipe the disk on every deploy, so a SQLite file needs a <strong>persistent volume</strong>. Check before you store real data.</li>
+</ul>
+<h2 id="comparing-the-three"><a class="heading-anchor" href="#comparing-the-three">Comparing the Three</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Own machine + Funnel</th>
+<th>VPS + Caddy</th>
+<th>Platform</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Money</td>
+<td>Free</td>
+<td>A few $/month</td>
+<td>Varies, often more</td>
+</tr>
+<tr>
+<td>Effort to start</td>
+<td>Low</td>
+<td>Medium to high</td>
+<td>Lowest</td>
+</tr>
+<tr>
+<td>Effort to maintain</td>
+<td>Keep it on</td>
+<td>Updates, backups, security</td>
+<td>Little</td>
+</tr>
+<tr>
+<td>Always on</td>
+<td>Only if your machine is</td>
+<td>Yes</td>
+<td>Yes (paid plans)</td>
+</tr>
+<tr>
+<td>What you learn</td>
+<td>Networking basics</td>
+<td>How servers work</td>
+<td>How deploys work</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-changes-in-production"><a class="heading-anchor" href="#what-changes-in-production">What Changes in Production</a></h2>
+<p>"Production" means the real, public copy that other people use. Four things change compared with your laptop.</p>
+<h3 id="secrets-become-environment-variables"><a class="heading-anchor" href="#secrets-become-environment-variables">Secrets become environment variables</a></h3>
+<p>Never put keys in the code (<a href="t43.html">T43</a>). On a VPS, keep them in an environment file only the app can read. On a platform, use its <strong>secrets</strong> page. The code reads them the same way everywhere:</p>
+<pre><code>import os
+api_key = os.environ[&quot;OPENAI_API_KEY&quot;]
+</code></pre>
+<h3 id="https-everywhere"><a class="heading-anchor" href="#https-everywhere">HTTPS everywhere</a></h3>
+<p>Logins and forms must travel encrypted. All three options give you HTTPS automatically. Never send passwords over plain <code>http://</code>.</p>
+<h3 id="the-database-has-a-home-and-backups"><a class="heading-anchor" href="#the-database-has-a-home-and-backups">The database has a home, and backups</a></h3>
+<p>Decide where the data lives: a SQLite file on the same machine, or a managed database. Then ask: <strong>if this disk dies tonight, what do I lose?</strong> For SQLite, a daily copy made with its own backup command (safe even while the app is writing) is a good start:</p>
+<pre><code>sqlite3 app.db &quot;.backup 'backup-2026-10-15.db'&quot;
+</code></pre>
+<p>Keep copies on another machine or in cloud storage: a backup on the same disk is not a backup. Restore one once, to know it works.</p>
+<h3 id="logs-are-your-eyes"><a class="heading-anchor" href="#logs-are-your-eyes">Logs are your eyes</a></h3>
+<p>On your laptop you watch the terminal. In production nobody is watching, so your app prints what happens and the host keeps it:</p>
+<ul>
+<li>VPS with systemd: <code>journalctl -u myapp -f</code> shows the live log.</li>
+<li>Platforms: a <strong>Logs</strong> tab in the dashboard, or a CLI command.</li>
+</ul>
+<p>When a user says "it broke", the logs tell you what happened.</p>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>GitHub Pages serves files only. A server, a database or a login needs a computer that is always on</li>
+<li>Own machine with Tailscale Funnel: free, but the machine must stay on, and bandwidth is limited</li>
+<li>Small VPS with Caddy: a few dollars a month and automatic HTTPS, but you maintain everything</li>
+<li>A platform like Fly.io, Render or Railway: easiest, paid, and its limits and prices change</li>
+<li>In production: secrets in environment variables, HTTPS always, a known home for the database with tested backups, and logs you can read</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../tech-lessons.html">Voltar para as Aulas Técnicas</a>
+        <div class="lesson-pager">
+          <a href="t43.html">Anterior</a>
+          <a href="t45.html">Próxima</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+
