@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en" data-page="w05.html" data-lang-paths='{"en":"./","ja":"../ja/lessons/","pt":"../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Pages: HTML in Templates - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">Tech Lessons</a>
+      <a href="../theory-lessons.html">Theory</a>
+      <a href="../ai-lessons.html">AI Lessons</a>
+      <a href="../workbench-lessons.html">The Workbench</a>
+      <a href="../videos.html">Videos</a>
+      <a href="../resources.html">Resources</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en" selected>English</option><option value="ja">日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../workbench-lessons.html">Back to The Workbench</a>
+        <div class="lesson-pager">
+          <a href="w04.html">Previous</a>
+          <a href="w06.html">Next</a>
+        </div>
+      </nav>
+      <h1 id="w05-pages-html-in-templates"><a class="heading-anchor" href="#w05-pages-html-in-templates">W05: Pages: HTML in Templates</a></h1>
+<p class="lesson-intro">A wedding invitation printer does not design every card from scratch. They have one beautiful card with blanks: <em>Dear <strong><em>_</em>_, you are invited on </strong>____</em>. For each guest they fill in the blanks. A <strong>template</strong> is that card for web pages. The HTML is written once; Python fills in the blanks for each visitor. The stack uses <strong>Jinja</strong> for this, and every page in your app is a Jinja template.</p>
+<h2 id="html-first"><a class="heading-anchor" href="#html-first">HTML First</a></h2>
+<p>Templates are HTML with a few extras. If tags like <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;form&gt;</code> and <code>&lt;button&gt;</code> are new to you, read <a href="t05.html">T05: HTML Tags</a> and <a href="t06.html">T06: HTML Forms &amp; Blocks</a> first. Everything there applies. The browser never sees Jinja: it only ever receives the finished HTML.</p>
+<h2 id="the-three-jinja-shapes"><a class="heading-anchor" href="#the-three-jinja-shapes">The Three Jinja Shapes</a></h2>
+<p>Jinja adds three things to HTML:</p>
+<table>
+<thead>
+<tr>
+<th>Shape</th>
+<th>Means</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{{ ... }}</code></td>
+<td>print a value here</td>
+<td><code>{{ note.title }}</code></td>
+</tr>
+<tr>
+<td><code>{% ... %}</code></td>
+<td>do something: a loop, a choice, include a file</td>
+<td><code>{% for note in notes %}</code></td>
+</tr>
+<tr>
+<td><code>{# ... #}</code></td>
+<td>a comment, never sent</td>
+<td><code>{# TODO: dates #}</code></td>
+</tr>
+</tbody>
+</table>
+<p>Here is the starter's list of notes, from <code>app/templates/pages/index.html</code>:</p>
+<pre><code>&lt;ul id=&quot;notes&quot; class=&quot;peer grid gap-2&quot;&gt;
+  {% for note in notes %}{% include &quot;fragments/note_item.html&quot; %}{% endfor %}
+&lt;/ul&gt;
+</code></pre>
+<p>For each note, Jinja pastes in the <code>note_item.html</code> fragment, with <code>note</code> filled in.</p>
+<p><strong>Safety for free:</strong> <code>{{ note.title }}</code> is <strong>escaped</strong>. If someone types <code>&lt;script&gt;</code> as a note title, the page shows the text <code>&lt;script&gt;</code>, it does not run it. Never turn this off.</p>
+<h2 id="the-frame-base-html"><a class="heading-anchor" href="#the-frame-base-html">The Frame: base.html</a></h2>
+<p>Every page shares the same <code>&lt;head&gt;</code>, the same scripts and the same outer box. That frame lives once, in <code>app/templates/base.html</code>, with a hole in the middle:</p>
+<pre><code>&lt;main class=&quot;mx-auto max-w-2xl p-4 grid gap-6&quot;&gt;
+{% block content %}{% endblock %}
+&lt;/main&gt;
+</code></pre>
+<p>A page says "use the frame, and here is my middle part":</p>
+<pre><code>{% extends &quot;base.html&quot; %}
+{% block content %}
+  &lt;h1&gt;...&lt;/h1&gt;
+{% endblock %}
+</code></pre>
+<p>Change the frame once, and every page changes. That is the point.</p>
+<h2 id="pages-and-fragments"><a class="heading-anchor" href="#pages-and-fragments">Pages and Fragments</a></h2>
+<p>The stack has one rule about templates: <strong>a route returns a page or a fragment, never both.</strong></p>
+<ul>
+<li>A <strong>page</strong> (in <code>templates/pages/</code>) is a whole document: it extends <code>base.html</code>. You get one when you type an address.</li>
+<li>A <strong>fragment</strong> (in <code>templates/fragments/</code>) is a piece: one note, the form. htmx asks for fragments and swaps them into the page (<a href="w07.html">W07</a>).</li>
+</ul>
+<p>A page <strong>includes</strong> its fragments, so the same piece of HTML is written once and used in both places. The note you see when the page loads and the note htmx adds after you click are the same file.</p>
+<h2 id="where-the-blanks-come-from"><a class="heading-anchor" href="#where-the-blanks-come-from">Where the Blanks Come From</a></h2>
+<p>In <code>app/main.py</code>, a route chooses a template and passes the values:</p>
+<pre><code>@app.get(&quot;/&quot;, response_class=HTMLResponse)
+def index(request: Request) -&gt; HTMLResponse:
+    return render(request, &quot;pages/index.html&quot;, notes=db.notes(connection), title=&quot;&quot;, problems=[])
+</code></pre>
+<p><code>render</code> is a small helper in the starter. It works out the language, gives the template the <code>t()</code> function for words (<a href="w10.html">W10</a>), and sends back the HTML. Every name you pass, like <code>notes=</code>, becomes a blank you can fill with <code>{{ notes }}</code>.</p>
+<h2 id="add-a-page"><a class="heading-anchor" href="#add-a-page">Add a Page</a></h2>
+<p>Say you want an <strong>About</strong> page at <code>/about</code>. It takes three pieces, each in its home:</p>
+<ol>
+<li><strong>The route</strong>, in <code>app/main.py</code>, inside <code>create_app</code> beside the others:</li>
+</ol>
+<pre><code>@app.get(&quot;/about&quot;, response_class=HTMLResponse)
+def about(request: Request) -&gt; HTMLResponse:
+    return render(request, &quot;pages/about.html&quot;)
+</code></pre>
+<ol>
+<li><strong>The page</strong>, <code>app/templates/pages/about.html</code>:</li>
+</ol>
+<pre><code>{% extends &quot;base.html&quot; %}
+{% block content %}
+&lt;h1 class=&quot;text-2xl font-semibold&quot;&gt;{{ t(&quot;about.title&quot;) }}&lt;/h1&gt;
+&lt;p&gt;{{ t(&quot;about.body&quot;) }}&lt;/p&gt;
+{% endblock %}
+</code></pre>
+<ol>
+<li><strong>The words</strong>, in both <code>messages/en.json</code> and <code>messages/ja.json</code>, with the keys <code>about.title</code> and <code>about.body</code>.</li>
+</ol>
+<p>And a test, in <code>tests/test_app.py</code>, that asks for <code>/about</code> and checks the title is there.</p>
+<p>You do not have to type any of this. Ask Pi:</p>
+<p><em>"Add an About page at /about with a title and one paragraph saying what this app is for, in English and Japanese. Link to it from the home page header."</em></p>
+<p>Then read what came back: the route, the page, the two message files, the test. Each is where this lesson said it would be. If Pi put words straight into the HTML, or wrote a whole <code>&lt;html&gt;</code> page without <code>extends</code>, ask it to follow the stack's rules.</p>
+<h2 id="good-html-habits"><a class="heading-anchor" href="#good-html-habits">Good HTML Habits</a></h2>
+<ul>
+<li>One <code>&lt;h1&gt;</code> per page, then <code>&lt;h2&gt;</code> for sections.</li>
+<li>Every <code>&lt;input&gt;</code> has a <code>&lt;label for="..."&gt;</code> (the starter's form does).</li>
+<li>Use real buttons for actions and real links for going somewhere.</li>
+<li>Check the page on a narrow window too. Every page should work at phone width.</li>
+</ul>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<ol>
+<li>Open <code>base.html</code>, <code>pages/index.html</code> and <code>fragments/note_item.html</code>. Find each <code>{{ }}</code> and <code>{% %}</code> and say what it does.</li>
+<li>Ask Pi for the About page. Read the route, the template and the test it wrote.</li>
+<li>Try the escaping: add a note titled <code>&lt;b&gt;hello&lt;/b&gt;</code>. What appears on the page?</li>
+<li>Make your browser window very narrow. Does the About page still read well?</li>
+</ol>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>A template is HTML with blanks: {{ }} prints, {% %} loops and includes, {# #} is a comment</li>
+<li>Values are escaped automatically, so typed text is shown, never run</li>
+<li>base.html is the shared frame; a page extends it and fills its content block</li>
+<li>A route returns a page or a fragment, never both; pages include their fragments</li>
+<li>A new page is a route in main.py, a template in pages/, its words in both message files, and a test</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../workbench-lessons.html">Back to The Workbench</a>
+        <div class="lesson-pager">
+          <a href="w04.html">Previous</a>
+          <a href="w06.html">Next</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

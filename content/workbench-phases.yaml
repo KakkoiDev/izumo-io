@@ -1,0 +1,48 @@
+# Phase metadata for the Workbench track. Same shape as ai-phases.yaml.
+# The course teaches building apps with Pi Workbench (the pi-local-harness repository) on its one stack:
+# FastAPI + Jinja, htmx 4, Basecoat + Tailwind, SQLite, typed Python, English and Japanese.
+# It links to the T, A and R lessons for depth instead of repeating them.
+
+- id: 1
+  title_en: "Part 1: Working with Pi"
+  title_ja: "パート1: Piと働く"
+  title_pt: "Parte 1: Trabalhando com o Pi"
+  subtitle_en: "What the workbench is, how to ask, and how to read what Pi did"
+  subtitle_ja: "ワークベンチとは何か、どう頼むか、Piがしたことをどう読むか"
+  subtitle_pt: "O que é a bancada, como pedir e como ler o que o Pi fez"
+  analogy_en: "Meeting your new apprentice before you hand over the keys"
+  analogy_ja: "鍵を渡す前に、新しい見習いと知り合う"
+  analogy_pt: "Conhecer seu novo aprendiz antes de entregar as chaves"
+
+- id: 2
+  title_en: "Part 2: Your First App"
+  title_ja: "パート2: はじめてのアプリ"
+  title_pt: "Parte 2: Seu Primeiro App"
+  subtitle_en: "The server stack, one piece at a time: pages, looks, htmx, data, rules, two languages"
+  subtitle_ja: "サーバーのスタックを一つずつ: ページ、見た目、htmx、データ、ルール、二つの言語"
+  subtitle_pt: "A pilha do servidor, uma peça por vez: páginas, visual, htmx, dados, regras, dois idiomas"
+  analogy_en: "Learning each room of the house you are building"
+  analogy_ja: "建てている家の部屋を一つずつ知る"
+  analogy_pt: "Conhecer cada cômodo da casa que você está construindo"
+
+- id: 3
+  title_en: "Part 3: Sharing It"
+  title_ja: "パート3: 共有する"
+  title_pt: "Parte 3: Compartilhando"
+  subtitle_en: "History, GitHub, the phone, apps with no server, and putting it online"
+  subtitle_ja: "履歴、GitHub、スマホ、サーバーのないアプリ、そしてオンライン公開"
+  subtitle_pt: "Histórico, GitHub, o celular, apps sem servidor e colocar no ar"
+  analogy_en: "Opening the door so other people can come in"
+  analogy_ja: "ドアを開けて、人が入れるようにする"
+  analogy_pt: "Abrir a porta para outras pessoas entrarem"
+
+- id: 4
+  title_en: "Part 4: Growing It"
+  title_ja: "パート4: 育てる"
+  title_pt: "Parte 4: Fazendo Crescer"
+  subtitle_en: "Accounts, AI inside the app, finding bugs, and shipping for real"
+  subtitle_ja: "アカウント、アプリの中のAI、バグ探し、そして本当に出荷する"
+  subtitle_pt: "Contas, IA dentro do app, encontrar bugs e entregar de verdade"
+  analogy_en: "The house stands. Now you live in it, fix it, and add rooms"
+  analogy_ja: "家は建った。住んで、直して、部屋を増やす"
+  analogy_pt: "A casa está de pé. Agora você mora nela, conserta e aumenta"

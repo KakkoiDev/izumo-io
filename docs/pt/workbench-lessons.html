@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="pt" data-page="workbench-lessons.html" data-lang-paths='{"en":"../","ja":"../ja/","pt":"./"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>The Workbench - KakkoiSchool</title>
+  <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="tech-lessons.html">Aulas Técnicas</a>
+      <a href="theory-lessons.html">Teoria</a>
+      <a href="ai-lessons.html">Aulas de IA</a>
+      <a href="workbench-lessons.html">A Bancada</a>
+      <a href="videos.html">Vídeos</a>
+      <a href="resources.html">Recursos</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja">日本語</option><option value="pt" selected>Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <section class="page-header">
+      <h1 id="a-bancada"><a class="heading-anchor" href="#a-bancada">A Bancada</a></h1>
+      <p>Construa apps reais e fáceis de manter, do zero à produção, com o Pi Workbench, uma bancada local de programação com IA. Não é preciso saber programar nem usar IA.</p>
+    </section>
+
+    
+    <section class="phase">
+      <h2 id="parte-1-trabalhando-com-o-pi"><a class="heading-anchor" href="#parte-1-trabalhando-com-o-pi">Parte 1: Trabalhando com o Pi</a></h2>
+      <p class="phase-subtitle">O que é a bancada, como pedir e como ler o que o Pi fez</p>
+      <p class="phase-analogy">Conhecer seu novo aprendiz antes de entregar as chaves</p>
+      <div class="theory-grid">
+        
+        <a href="lessons/w01.html" class="theory-card">
+          <span class="lesson-id">W01</span>
+          <h3>What the Workbench Is (and the Three AI Risks)</h3>
+          <p>Pi Workbench is a local workshop where an AI agent builds your app and a checker watches every move. What it does, what it does not do, and the three rules that keep you safe.</p>
+          
+        </a>
+        
+        <a href="lessons/w02.html" class="theory-card">
+          <span class="lesson-id">W02</span>
+          <h3>Asking Well: Requests, Context, Pi's Memory</h3>
+          <p>A request is a work order. Say what you want and how you will know it works, point Pi at the right files, and keep standing instructions in AGENTS.md.</p>
+          
+        </a>
+        
+        <a href="lessons/w03.html" class="theory-card">
+          <span class="lesson-id">W03</span>
+          <h3>Reading What Pi Did</h3>
+          <p>The foreman's notebook: the task file, a test that fails then passes, what 'verified' means, the commit the harness makes, and how to go back.</p>
+          
+        </a>
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="parte-2-seu-primeiro-app"><a class="heading-anchor" href="#parte-2-seu-primeiro-app">Parte 2: Seu Primeiro App</a></h2>
+      <p class="phase-subtitle">A pilha do servidor, uma peça por vez: páginas, visual, htmx, dados, regras, dois idiomas</p>
+      <p class="phase-analogy">Conhecer cada cômodo da casa que você está construindo</p>
+      <div class="theory-grid">
+        
+        <a href="lessons/w04.html" class="theory-card">
+          <span class="lesson-id">W04</span>
+          <h3>Your First App from the Starter</h3>
+          <p>Pi never starts from nothing: the starter is a small, working notes app with tests. Make your copy, run it, and learn what each folder is for.</p>
+          
+        </a>
+        
+        <a href="lessons/w05.html" class="theory-card">
+          <span class="lesson-id">W05</span>
+          <h3>Pages: HTML in Templates</h3>
+          <p>A template is a form letter with blanks. Jinja fills the blanks, base.html is the shared frame, pages are whole pages and fragments are pieces. Add your first page.</p>
+          
+        </a>
+        
+        <a href="lessons/w06.html" class="theory-card">
+          <span class="lesson-id">W06</span>
+          <h3>Looking Good: Basecoat and Tailwind</h3>
+          <p>Furniture and floor plan: Basecoat gives ready-made components as class names, Tailwind arranges them. The classes that are almost always right, and the build step behind them.</p>
+          
+        </a>
+        
+        <a href="lessons/w07.html" class="theory-card">
+          <span class="lesson-id">W07</span>
+          <h3>HTML over the Wire: htmx</h3>
+          <p>The kitchen sends finished plates: the server returns HTML fragments and htmx 4 puts them in place. Read the starter's add, delete and error flows, and the htmx 4 rules Pi must follow.</p>
+          
+        </a>
+        
+        <a href="lessons/w08.html" class="theory-card">
+          <span class="lesson-id">W08</span>
+          <h3>Data That Stays: SQLite and Migrations</h3>
+          <p>One file holds all your app's data. Migrations are the numbered renovation plans that change its shape safely, and db.py is the only door in.</p>
+          
+        </a>
+        
+        <a href="lessons/w09.html" class="theory-card">
+          <span class="lesson-id">W09</span>
+          <h3>Rules as Small Typed, Tested Functions</h3>
+          <p>Keep the app's rules in pure functions: data in, data out, no surprises. Types let pyright catch mistakes before anything runs, and small tests check every rule completely.</p>
+          
+        </a>
+        
+        <a href="lessons/w10.html" class="theory-card">
+          <span class="lesson-id">W10</span>
+          <h3>Two Languages: English and Japanese</h3>
+          <p>Every word on the page goes through t("key"), with one dictionary per language. How the language is chosen, how to add a word, and why the starter's test keeps both dictionaries in step.</p>
+          
+        </a>
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="parte-3-compartilhando"><a class="heading-anchor" href="#parte-3-compartilhando">Parte 3: Compartilhando</a></h2>
+      <p class="phase-subtitle">Histórico, GitHub, o celular, apps sem servidor e colocar no ar</p>
+      <p class="phase-analogy">Abrir a porta para outras pessoas entrarem</p>
+      <div class="theory-grid">
+        
+        <a href="lessons/w11.html" class="theory-card">
+          <span class="lesson-id">W11</span>
+          <h3>Git, the Time Machine the Harness Drives</h3>
+          <p>Git records every verified change as a snapshot. Set it up once, read the history, see exactly what changed, go back, and try ideas on a branch.</p>
+          
+        </a>
+        
+        <a href="lessons/w12.html" class="theory-card">
+          <span class="lesson-id">W12</span>
+          <h3>GitHub: Account, Connect, First Repository</h3>
+          <p>Put a copy of your project's history on GitHub: a free account, your computer connected with gh, one command to publish, and the push you do after Pi's commits.</p>
+          
+        </a>
+        
+        <a href="lessons/w13.html" class="theory-card">
+          <span class="lesson-id">W13</span>
+          <h3>On the Phone: an Installable App (PWA)</h3>
+          <p>Your app is already a PWA: a manifest, a service worker, an icon. Open it on your phone over HTTPS, add it to the home screen, and know what works offline.</p>
+          
+        </a>
+        
+        <a href="lessons/w14.html" class="theory-card">
+          <span class="lesson-id">W14</span>
+          <h3>An App with No Server at All</h3>
+          <p>One question decides whether your app needs a server. If not, it runs entirely in the browser: free on GitHub Pages, works offline, nothing to keep on. What you gain, what you lose, and how people can still share live.</p>
+          
+        </a>
+        
+        <a href="lessons/w15.html" class="theory-card">
+          <span class="lesson-id">W15</span>
+          <h3>Native Phone Apps without a Store</h3>
+          <p>When a PWA is not enough: Capacitor wraps the same app in a native shell. Installing it on Android (an APK, GitHub releases, Google's new verification) and on iPhone (what Apple allows, stated plainly).</p>
+          
+        </a>
+        
+        <a href="lessons/w16.html" class="theory-card">
+          <span class="lesson-id">W16</span>
+          <h3>Putting It Online</h3>
+          <p>Three ways, one for each kind of app: GitHub Pages for apps with no server, Tailscale Funnel as the free default for server apps, Fly.io when it must be always on.</p>
+          
+        </a>
+        
+      </div>
+    </section>
+    
+    <section class="phase">
+      <h2 id="parte-4-fazendo-crescer"><a class="heading-anchor" href="#parte-4-fazendo-crescer">Parte 4: Fazendo Crescer</a></h2>
+      <p class="phase-subtitle">Contas, IA dentro do app, encontrar bugs e entregar de verdade</p>
+      <p class="phase-analogy">A casa está de pé. Agora você mora nela, conserta e aumenta</p>
+      <div class="theory-grid">
+        
+        <a href="lessons/w17.html" class="theory-card">
+          <span class="lesson-id">W17</span>
+          <h3>Logins and Accounts</h3>
+          <p>Who are you, and what may you do? When an app needs accounts, the safest login you already have, and the rules for building one: hashed passwords, sessions, CSRF, HTTPS.</p>
+          
+        </a>
+        
+        <a href="lessons/w18.html" class="theory-card">
+          <span class="lesson-id">W18</span>
+          <h3>An App That Uses AI</h3>
+          <p>Your computer already runs a model for Pi. Your app can ask it too: one typed function in the shell, pure logic around it, a test that never calls the real model, and the AI risks, now for your users.</p>
+          
+        </a>
+        
+        <a href="lessons/w19.html" class="theory-card">
+          <span class="lesson-id">W19</span>
+          <h3>Finding Bugs with Pi: Reproduce First</h3>
+          <p>A doctor examines before prescribing. Report a bug with its conditions, have Pi see it fail before fixing it, and let a failing test prove the cause. A true story from the harness itself.</p>
+          
+        </a>
+        
+        <a href="lessons/w20.html" class="theory-card">
+          <span class="lesson-id">W20</span>
+          <h3>Shipping, and What Comes Next</h3>
+          <p>Finishing is a skill: a shipping checklist for your app, keeping it simple so it still runs in two years, and where to go from here.</p>
+          
+        </a>
+        
+      </div>
+    </section>
+    
+
+  </main>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../static/script.js"></script>
+</body>
+</html>
+

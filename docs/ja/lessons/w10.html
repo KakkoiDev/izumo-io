@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ja" data-page="w10.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>Two Languages: English and Japanese - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../ai-lessons.html">AIレッスン</a>
+      <a href="../workbench-lessons.html">ワークベンチ</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../workbench-lessons.html">ワークベンチに戻る</a>
+        <div class="lesson-pager">
+          <a href="w09.html">前へ</a>
+          <a href="w11.html">次へ</a>
+        </div>
+      </nav>
+      <h1 id="w10-two-languages-english-and-japanese"><a class="heading-anchor" href="#w10-two-languages-english-and-japanese">W10: Two Languages: English and Japanese</a></h1>
+<p class="lesson-intro">A museum that welcomes visitors from many countries does not paint its signs in one language and repaint them later. Each sign has a number, and there is a booklet for each language: sign 12 in the English booklet says "Ancient pottery", in the Japanese booklet "古代の陶器". Adding a language means writing one more booklet, not repainting the museum. Your app works like that from day one. Each piece of text has a <strong>key</strong>, and there is one dictionary file per language.</p>
+<h2 id="why-from-the-start"><a class="heading-anchor" href="#why-from-the-start">Why From the Start</a></h2>
+<p>Adding a second language to a finished app is painful: the words are scattered through every page, glued into the HTML. Many people this course is for read Japanese more comfortably than English, and many of their users do too. So in the stack, <strong>every visible word goes through one function, <code>t("key")</code></strong>, from the very first page. A Japanese app costs almost nothing extra.</p>
+<h2 id="the-two-dictionaries"><a class="heading-anchor" href="#the-two-dictionaries">The Two Dictionaries</a></h2>
+<p>The words live in <code>messages/en.json</code> and <code>messages/ja.json</code>. Same keys, different words:</p>
+<pre><code>{
+ &quot;app.name&quot;: &quot;Notes&quot;,
+ &quot;notes.add&quot;: &quot;Add Note&quot;,
+ &quot;error.title_empty&quot;: &quot;Write something first.&quot;
+}
+</code></pre>
+<pre><code>{
+ &quot;app.name&quot;: &quot;メモ&quot;,
+ &quot;notes.add&quot;: &quot;メモを追加&quot;,
+ &quot;error.title_empty&quot;: &quot;何か書いてください。&quot;
+}
+</code></pre>
+<p>Keys are written like <code>area.thing</code>: <code>notes.add</code>, <code>error.title_empty</code>. They say where the word is used, so you can find it later.</p>
+<h2 id="t-in-a-template"><a class="heading-anchor" href="#t-in-a-template">t() in a Template</a></h2>
+<p>In every template, <code>t</code> is ready to use:</p>
+<pre><code>&lt;button class=&quot;btn&quot;&gt;{{ t(&quot;notes.add&quot;) }}&lt;/button&gt;
+</code></pre>
+<p>An English visitor sees "Add Note"; a Japanese visitor sees "メモを追加". The template is the same file.</p>
+<p>Words can have blanks too. If a message is <code>"Hello, {name}"</code>, the template writes <code>{{ t("greeting", name=user) }}</code>. In Japanese the blank can sit wherever Japanese grammar wants it: <code>"{name}さん、こんにちは"</code>. That is why you never build sentences by gluing pieces together in the code: the order of words changes between languages.</p>
+<h2 id="how-the-language-is-chosen"><a class="heading-anchor" href="#how-the-language-is-chosen">How the Language Is Chosen</a></h2>
+<p>In <code>app/i18n.py</code>, the function <code>choose</code> decides, in this order:</p>
+<ol>
+<li><strong>The person's choice.</strong> The 日本語 and English buttons at the top post to <code>/language</code>, which saves a cookie called <code>lang</code> for a year and reloads the page.</li>
+<li><strong>The browser's language.</strong> If there is no cookie, the app reads the <code>Accept-Language</code> header the browser sends, and takes the first language it knows.</li>
+<li><strong>English</strong>, if nothing else matches.</li>
+</ol>
+<p>The person's choice always wins over the browser. The starter has a test for exactly that, in <code>tests/test_app.py</code>: a browser that prefers Japanese, but a person who clicked English, gets English.</p>
+<p>If a key is missing in Japanese, <code>translate</code> falls back to the English text, then to the key itself. The page never breaks, but a missing word shows up in English, which is a bug to fix.</p>
+<h2 id="the-test-that-keeps-both-in-step"><a class="heading-anchor" href="#the-test-that-keeps-both-in-step">The Test That Keeps Both in Step</a></h2>
+<p><code>tests/test_i18n.py</code> checks two things every time the tests run:</p>
+<ul>
+<li>Every language file has <strong>exactly the same keys</strong>.</li>
+<li>Every <code>t("...")</code> key used in a template <strong>exists</strong> in English.</li>
+</ul>
+<p>So if Pi adds a button with <code>t("notes.edit")</code> but forgets <code>ja.json</code>, the tests fail. This is the harness's Red and Green working for languages too (<a href="w03.html">W03</a>). Pi Workbench will do this step for you soon: a check after every edit that also finds visible text written straight into a template, without <code>t()</code>.</p>
+<h2 id="adding-a-word"><a class="heading-anchor" href="#adding-a-word">Adding a Word</a></h2>
+<p>Three steps, always together:</p>
+<ol>
+<li>Use the key in the template: <code>{{ t("notes.edit") }}</code>.</li>
+<li>Add it to <code>messages/en.json</code>: <code>"notes.edit": "Edit"</code>.</li>
+<li>Add it to <code>messages/ja.json</code>: <code>"notes.edit": "編集"</code>.</li>
+</ol>
+<p>When you ask Pi for a change with new words, say so, and give the Japanese if you know it:</p>
+<p><em>"Add an Edit button next to Delete. In Japanese it says 編集."</em></p>
+<p>If you do not know the Japanese, Pi will write some. Machine translation is fine for a first version; ask a Japanese speaker to read it before you ship. The same goes for error messages: they are words too, so the logic returns a key (like <code>error.title_empty</code>, see <a href="w09.html">W09</a>) and the page translates it.</p>
+<h2 id="small-things-that-matter"><a class="heading-anchor" href="#small-things-that-matter">Small Things That Matter</a></h2>
+<ul>
+<li><code>&lt;html lang="..."&gt;</code> in <code>base.html</code> is set to the chosen language, so screen readers and browsers pronounce and format correctly.</li>
+<li>Japanese text has no spaces between words, so long lines wrap differently. Check your pages in Japanese at phone width.</li>
+<li>Dates are written differently too (15 Oct 2026 or 2026年10月15日): ask Pi to format them per language.</li>
+</ul>
+<h2 id="the-rest-of-this-school"><a class="heading-anchor" href="#the-rest-of-this-school">The Rest of This School</a></h2>
+<p>This site is in English, Japanese and Portuguese, and it is built the same way: the English is the source, and the other languages sit beside it. <a href="t40.html">T40</a> tells the story of a real English and Japanese site, including how to break Japanese lines nicely.</p>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<ol>
+<li>Open both message files side by side. Find each key in the templates.</li>
+<li>Click 日本語 in your app, then clear the site's cookies and set your browser to prefer Japanese. Does the app still open in Japanese?</li>
+<li>Ask Pi for the Edit button with its Japanese word. Check all three places changed.</li>
+<li>Remove one key from <code>ja.json</code> by hand and run <code>uv run pytest</code>. Read the failure, then put the key back.</li>
+</ol>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>Every visible word goes through t("key"); the words live in messages/en.json and messages/ja.json with the same keys</li>
+<li>The language comes from the person's choice (a cookie), else the browser's Accept-Language, else English</li>
+<li>Never glue sentences together in code: use blanks like {name}, because word order changes between languages</li>
+<li>test_i18n.py fails when a language misses a key or a template uses an unknown key</li>
+<li>A new word means three changes together: the template, en.json and ja.json</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../workbench-lessons.html">ワークベンチに戻る</a>
+        <div class="lesson-pager">
+          <a href="w09.html">前へ</a>
+          <a href="w11.html">次へ</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+

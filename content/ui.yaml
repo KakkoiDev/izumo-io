@@ -26,6 +26,11 @@ back_to_ai:
   ja: "AIレッスンに戻る"
   pt: "Voltar para as Aulas de IA"
 
+back_to_workbench:
+  en: "Back to The Workbench"
+  ja: "ワークベンチに戻る"
+  pt: "Voltar para A Bancada"
+
 prev_lesson:
   en: "Previous"
   ja: "前へ"
@@ -60,6 +65,11 @@ nav_ai:
   en: "AI Lessons"
   ja: "AIレッスン"
   pt: "Aulas de IA"
+
+nav_workbench:
+  en: "The Workbench"
+  ja: "ワークベンチ"
+  pt: "A Bancada"
 
 nav_videos:
   en: "Videos"
@@ -105,6 +115,16 @@ ai_desc:
   en: "A beginner course on using an AI coding assistant safely and well. No coding experience needed."
   ja: "AIコーディングアシスタントを安全に上手に使うための初心者向けコース。プログラミングの経験は不要です。"
   pt: "Um curso para iniciantes sobre como usar um assistente de programação com IA de forma segura e eficaz. Não é preciso saber programar."
+
+workbench_title:
+  en: "The Workbench"
+  ja: "ワークベンチ"
+  pt: "A Bancada"
+
+workbench_desc:
+  en: "Build real, maintainable apps from zero to production with Pi Workbench, a local AI coding workbench. No coding or AI experience needed."
+  ja: "ローカルのAIコーディング作業台「Pi Workbench」で、本物の、保守しやすいアプリをゼロから本番まで作ります。プログラミングやAIの経験は不要です。"
+  pt: "Construa apps reais e fáceis de manter, do zero à produção, com o Pi Workbench, uma bancada local de programação com IA. Não é preciso saber programar nem usar IA."
 
 videos_title:
   en: "Lesson Videos"

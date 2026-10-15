@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="ja" data-page="w13.html" data-lang-paths='{"en":"../../lessons/","ja":"./","pt":"../../pt/lessons/"}'>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (!t) t = matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
+  <title>On the Phone: an Installable App (PWA) - KakkoiSchool</title>
+  <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../index.html" class="logo">KakkoiSchool</a>
+    <div class="nav-links" id="nav-links">
+      <a href="../tech-lessons.html">技術レッスン</a>
+      <a href="../theory-lessons.html">理論</a>
+      <a href="../ai-lessons.html">AIレッスン</a>
+      <a href="../workbench-lessons.html">ワークベンチ</a>
+      <a href="../videos.html">動画</a>
+      <a href="../resources.html">リソース</a>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+    </button>
+    <select class="lang-switch" aria-label="Language" onchange="switchLang(this.value)">
+      <option value="en">English</option><option value="ja" selected>日本語</option><option value="pt">Português</option>
+    </select>
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <main>
+
+
+    <article class="lesson">
+      <nav class="lesson-breadcrumb">
+        <a href="../workbench-lessons.html">ワークベンチに戻る</a>
+        <div class="lesson-pager">
+          <a href="w12.html">前へ</a>
+          <a href="w14.html">次へ</a>
+        </div>
+      </nav>
+      <h1 id="w13-on-the-phone-an-installable-app-pwa"><a class="heading-anchor" href="#w13-on-the-phone-an-installable-app-pwa">W13: On the Phone: an Installable App (PWA)</a></h1>
+<p class="lesson-intro">A food truck and a restaurant can serve the same dishes. The truck just parks closer to you. A <strong>PWA</strong> (progressive web app) is your same web app, parked on the phone's home screen: an icon, opening full screen with no browser bar, and still showing something when the signal drops. No app store, no second codebase, no new language. The starter is already a PWA. This lesson gets it onto your phone.</p>
+<h2 id="why-a-pwa-first"><a class="heading-anchor" href="#why-a-pwa-first">Why a PWA First</a></h2>
+<p>The stack has one way for phones, and it starts here. A PWA:</p>
+<ul>
+<li>Is the <strong>same code</strong> as your web app: every change reaches the phone too.</li>
+<li>Works on <strong>iPhone and Android</strong>, with <strong>no store</strong>, no review, no fee.</li>
+</ul>
+<p>A native app (<a href="w15.html">W15</a>) is the second step, only when an app needs something a PWA cannot do.</p>
+<h2 id="the-three-pieces"><a class="heading-anchor" href="#the-three-pieces">The Three Pieces</a></h2>
+<p><a href="t17.html">T17: Dynamic Site: Offline</a> explains how PWAs work, and <a href="a18.html">A18</a>'s "Make it installable" builds one for a game. The starter already has all three pieces:</p>
+<p><strong>1. A manifest</strong>, <code>static/manifest.webmanifest</code>, describing the app to the phone:</p>
+<pre><code>{
+ &quot;name&quot;: &quot;Notes&quot;,
+ &quot;short_name&quot;: &quot;Notes&quot;,
+ &quot;start_url&quot;: &quot;/&quot;,
+ &quot;display&quot;: &quot;standalone&quot;,
+ &quot;background_color&quot;: &quot;#ffffff&quot;,
+ &quot;theme_color&quot;: &quot;#000000&quot;,
+ &quot;icons&quot;: [{&quot;src&quot;: &quot;/static/icon.svg&quot;, &quot;sizes&quot;: &quot;any&quot;, &quot;type&quot;: &quot;image/svg+xml&quot;}]
+}
+</code></pre>
+<p><code>"display": "standalone"</code> is the line that removes the browser bar. <code>base.html</code> links it with <code>&lt;link rel="manifest" href="/manifest.webmanifest"&gt;</code>.</p>
+<p><strong>2. A service worker</strong>, <code>static/sw.js</code>: a small script the browser keeps beside your app. It sees every request first. The starter's worker saves the app's shell (the home page, the CSS, htmx, Basecoat's script, the icon) when it installs, then always tries the network first and falls back to the saved copy when there is no connection.</p>
+<p><strong>3. The registration</strong>, one line in <code>base.html</code>:</p>
+<pre><code>&lt;script&gt;if (&quot;serviceWorker&quot; in navigator) navigator.serviceWorker.register(&quot;/sw.js&quot;);&lt;/script&gt;
+</code></pre>
+<p><code>app/main.py</code> serves <code>sw.js</code> from the top of the site (<code>/sw.js</code>), so it can look after the whole app.</p>
+<h2 id="getting-it-onto-your-phone"><a class="heading-anchor" href="#getting-it-onto-your-phone">Getting It onto Your Phone</a></h2>
+<p>Here is the catch. Your app runs at <code>http://127.0.0.1:8000</code>, which means "this computer only". Your phone cannot open it. And service workers only work over <strong>HTTPS</strong> (except on the computer itself). So the phone needs an HTTPS address for your app.</p>
+<p>The workbench already solves this for itself with <strong>Tailscale</strong>, a private network between your own devices. The same works for your app:</p>
+<ol>
+<li>Install Tailscale on your computer and your phone, and sign in to the same account on both. (If you set up phone access for the workbench, this is done.)</li>
+<li>Start your app as usual on port 8000.</li>
+<li>In another terminal, share it on your private network:</li>
+</ol>
+<pre><code>tailscale serve 8000
+</code></pre>
+<p>Tailscale prints an address like <code>https://my-laptop.your-tailnet.ts.net</code>. Only your own devices can open it; it is not public (<a href="w16.html">W16</a> covers public). The first time, it may ask you to enable HTTPS for your network, with a link. It lasts while the command runs; Ctrl+C stops it.</p>
+<p>If you turned on phone access for the workbench, the workbench already uses that main address. Give your app its own port instead, and open <code>https://my-laptop.your-tailnet.ts.net:8443</code>:</p>
+<pre><code>tailscale serve --https=8443 localhost:8000
+</code></pre>
+<p>Pi Workbench will do this step for you soon: the <strong>Preview</strong> will show your running app with a QR code to open it on the phone.</p>
+<h2 id="install-it"><a class="heading-anchor" href="#install-it">Install It</a></h2>
+<p>Open the address on the phone, then:</p>
+<ul>
+<li><strong>iPhone (Safari):</strong> the Share button, then <strong>Add to Home Screen</strong>.</li>
+<li><strong>Android (Chrome):</strong> the menu (⋮), then <strong>Install app</strong> or <strong>Add to Home screen</strong>.</li>
+</ul>
+<p>Open it from the new icon. No browser bar: it looks like an app. Turn on airplane mode and open it again: the home page still appears from the saved copy. Adding a note needs the server, so that fails until you are back online. That is honest: your notes live in the SQLite file on your computer, not on the phone.</p>
+<h2 id="the-stale-copy-trap"><a class="heading-anchor" href="#the-stale-copy-trap">The Stale Copy Trap</a></h2>
+<p><a href="a18.html">A18</a> warns about this, and it applies here too. The saved copy has a name, <code>shell-v1</code>, in <code>sw.js</code>. When you change which files are saved, change the name too (<code>shell-v2</code>), so phones fetch the new set. If a phone keeps showing an old look after an update, this is the first suspect. Ask Pi:</p>
+<p><em>"I changed the styles; make the service worker save a fresh copy, and delete the old one."</em></p>
+<h2 id="make-it-yours"><a class="heading-anchor" href="#make-it-yours">Make It Yours</a></h2>
+<ul>
+<li><em>"Change the app's name and short name in the manifest to My Notes, and the theme colour to dark blue."</em></li>
+<li><em>"Replace the icon with a simple notebook drawing."</em> (Some phones, iPhones especially, show a sharper icon from a PNG; ask Pi to add one if yours looks wrong.)</li>
+<li><em>"When the app is offline, show a small message 'Offline: showing your last copy' instead of failing silently."</em></li>
+</ul>
+<h2 id="this-week-s-exercise"><a class="heading-anchor" href="#this-week-s-exercise">This Week's Exercise</a></h2>
+<ol>
+<li>Read <a href="t17.html">T17</a>, then open <code>static/manifest.webmanifest</code> and <code>static/sw.js</code> and explain each line in plain words.</li>
+<li>Share your app with <code>tailscale serve 8000</code> and open it on your phone.</li>
+<li>Add it to the home screen. Open it in airplane mode and note what works and what does not.</li>
+<li>Ask Pi for the offline message, and test it the same way.</li>
+</ol>
+<div class="takeaways">
+<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<ul>
+<li>A PWA is the same app, installed from the browser: no store, no second codebase, iPhone and Android</li>
+<li>The starter already has the three pieces: a manifest, a service worker at /sw.js, and its registration in base.html</li>
+<li>Phones need an HTTPS address: tailscale serve 8000 gives one, private to your own devices</li>
+<li>Install with Add to Home Screen (iPhone) or Install app (Android)</li>
+<li>Offline shows the saved copy; data still lives on the server. Rename the cache when the saved files change</li>
+</ul>
+</div>
+      <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
+        <a href="../workbench-lessons.html">ワークベンチに戻る</a>
+        <div class="lesson-pager">
+          <a href="w12.html">前へ</a>
+          <a href="w14.html">次へ</a>
+        </div>
+      </nav>
+    </article>
+
+  </main>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif'
+    });
+    // Render after fonts are ready so node boxes are measured with the
+    // same font they render in (otherwise the last glyph can clip).
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { mermaid.run(); });
+    } else {
+      window.addEventListener('load', function () { mermaid.run(); });
+    }
+  </script>
+  
+  <footer>
+    <div class="footer-links">
+      <a href="https://discord.gg/YrtdssGUJa">Discord</a>
+      <a href="https://github.com/KakkoiDev/izumo-io">GitHub</a>
+    </div>
+    <p>2026 KakkoiSchool · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE">CC BY 4.0</a> · <a href="https://github.com/KakkoiDev/izumo-io/blob/master/LICENSE-CODE">MIT</a></p>
+  </footer>
+  <script src="../../static/script.js"></script>
+</body>
+</html>
+
