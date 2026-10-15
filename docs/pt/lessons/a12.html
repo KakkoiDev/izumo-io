@@ -48,9 +48,9 @@
         </div>
       </nav>
       <h1 id="a12-outras-pessoas"><a class="heading-anchor" href="#a12-outras-pessoas">A12: Outras Pessoas</a></h1>
-<p class="lesson-intro">Alguém abre seu jogo no computador deles. O quadrado deles aparece na sua tela e se move quando eles se movem. Este é o passo para o qual todo o percurso tem caminhado.</p>
+<p class="lesson-intro">Outra pessoa abre seu jogo no computador dela. O quadrado dela aparece na sua tela e se move quando ela se move. Este é o passo para o qual todo o percurso tem caminhado.</p>
 <p><strong>Precisa de:</strong> <a href="a11.html">A11</a>. <strong>Oferece:</strong> o quadrado de cada outro jogador, movendo-se ao vivo na sua tela.</p>
-<h2 id="o-jogo-inteiro-e-a-parte-de-hoje"><a class="heading-anchor" href="#o-jogo-inteiro-e-a-parte-de-hoje">O jogo inteiro e a parte de hoje</a></h2>
+<h2 id="o-jogo-completo-e-a-pe-a-de-hoje"><a class="heading-anchor" href="#o-jogo-completo-e-a-pe-a-de-hoje">O jogo completo e a peça de hoje</a></h2>
 <div class="mermaid">
 flowchart LR
     subgraph loop["Round and round, 60 times a second"]
@@ -71,53 +71,66 @@ flowchart LR
     class O now
 
 </div>
-<p>Hoje você constrói a caixa de "outras pessoas". Observe para onde a seta aponta: para <strong>decidir</strong>, exatamente como seu teclado. Para o resto do seu jogo, outro jogador é apenas outro conjunto de números que mudou.</p>
+<p>Hoje você constrói a caixa "outras pessoas". Observe para onde a seta aponta: para <strong>decidir</strong>, exatamente como seu teclado. Para o resto do seu jogo, outro jogador é apenas outro conjunto de números que mudou.</p>
 <h2 id="n-o-h-servidor-e-isso-uma-meia-verdade"><a class="heading-anchor" href="#n-o-h-servidor-e-isso-uma-meia-verdade">Não há servidor, e isso é uma meia-verdade</a></h2>
-<p>Um <strong>servidor</strong> é um computador que está sempre ligado, com o qual o jogo de todos se comunica. A maioria dos jogos online tem um. Ele mantém o mundo, e se ele parar, o jogo para.</p>
+<p>Um <strong>servidor</strong> é um computador que está sempre ligado, com o qual o jogo de todos se comunica. A maioria dos jogos online tem um. Ele mantém o mundo, e se parar, o jogo para.</p>
 <p>Seu jogo não tem um. Seu navegador se comunica diretamente com o navegador da outra pessoa. As imagens na sua tela nunca passam pelo computador de ninguém no meio.</p>
-<p>Aqui está a parte honesta. Dois navegadores não conseguem se encontrar do nada. Eles precisam de um lugar para deixar um recado dizendo <em>"Estou aqui, é assim que você me encontra"</em>. Então seu jogo usa um <strong>quadro de avisos</strong> — um serviço de mensagens público, administrado por outras pessoas, onde qualquer um pode postar pequenas notas. Ambos os navegadores postam uma nota, leem a do outro e então se conectam diretamente. Depois disso, o quadro de avisos não está envolvido.</p>
-<p>Então "sem servidor" é apenas uma meia-verdade. Não há um servidor que mantenha seu jogo. Há um <em>quadro de avisos</em> usado para a introdução. Quando as pessoas dizem que um jogo é sem servidor, é quase sempre isso que elas querem dizer, e agora você sabe perguntar.</p>
-<p><strong>Mais uma coisa verdadeira, e não é sua culpa quando acontece.</strong> Em algumas redes domésticas, e em muitas redes escolares, dois computadores não têm permissão para se comunicar diretamente. A introdução funciona, a conexão nunca se estabelece e nenhum segundo quadrado aparece. Se essa for sua rede, nada nesta etapa está quebrado e você não cometeu um erro. Tudo de <a href="a14.html">A14</a> em diante funciona sem esta etapa, então continue e volte com uma rede diferente.</p>
+<p>Aqui está a parte honesta. Dois navegadores não conseguem se encontrar do nada. Eles precisam de um lugar para deixar um bilhete dizendo <em>"Estou aqui, é assim que você me encontra"</em>. Então seu jogo usa um <strong>quadro de avisos</strong> — um serviço público de mensagens, administrado por outras pessoas, onde qualquer um pode postar pequenos bilhetes. Ambos os navegadores postam um bilhete, leem o do outro e então se conectam diretamente. Depois disso, o quadro de avisos não está envolvido.</p>
+<p>Então "sem servidor" é apenas metade verdade. Não há um servidor mantendo seu jogo. <em>Existe</em> um quadro de avisos usado para a introdução. Quando as pessoas dizem que um jogo é sem servidor, é quase sempre isso que elas querem dizer, e agora você sabe como perguntar.</p>
+<p><strong>Mais uma verdade.</strong> Algumas redes domésticas, móveis, de escritório e escolares não permitem que dois navegadores façam uma conexão WebRTC direta. Esta lição usa o <strong>p2p-core</strong>, que pode informar se seus retransmissores públicos estão respondendo, para que você possa inspecionar o problema em vez de adivinhar. Se os retransmissores responderem, mas duas redes diferentes ainda não conseguirem se conectar, a peça que falta pode ser um retransmissor TURN, e não um bug no seu jogo. Você ainda pode testar A12 em duas abas porque o p2p-core conecta abas do mesmo navegador diretamente, e tudo de <a href="a14.html">A14</a> em diante funciona sem multijogador remoto.</p>
 <h2 id="dividindo-em-blocos"><a class="heading-anchor" href="#dividindo-em-blocos">Dividindo em blocos</a></h2>
-<p>“Outras pessoas aparecem” são três coisas:</p>
+<p>"Outras pessoas aparecem" são três coisas:</p>
 <ol>
-<li><strong>Conectar</strong> — entrar em uma sala e ser avisado quando alguém chega ou sai</li>
+<li><strong>Conectar</strong> — entrar em uma sala e ser informado quando alguém chega ou sai</li>
 <li><strong>Enviar</strong> — dizer a todos onde seu quadrado está, dez vezes por segundo</li>
 <li><strong>Desenhar</strong> — pintar os quadrados de todos os outros</li>
 </ol>
-<p><strong>Por que se preocupar em dividir?</strong> Porque se fosse um bloco só e desse errado, você não conseguiria saber qual parte estava errada. Ninguém na sala significa conectar. Alguém na sala, mas nenhum quadrado se movendo, significa enviar. Números chegando, mas nada na tela, significa desenhar. Três blocos, três perguntas separadas — e você pode responder a cada uma pelo console sem tocar nas outras duas.</p>
-<p>Quase ninguém consegue fazer isso funcionar na primeira vez. Isso é normal aqui, mais do que em qualquer outro lugar no percurso.</p>
+<p><strong>Por que se preocupar em dividir?</strong> Porque se fosse um bloco só e desse errado, você não conseguiria dizer qual parte estava errada. Ninguém na sala significa conectar. Alguém na sala, mas nenhum quadrado se movendo significa enviar. Números chegando, mas nada na tela significa desenhar. Três blocos, três perguntas separadas — e você pode responder a cada uma a partir do console sem tocar nas outras duas.</p>
+<p>Quase ninguém consegue fazer isso funcionar na primeira vez. Isso é normal aqui, mais do que em qualquer outro lugar do percurso.</p>
 <h2 id="bloco-1-conectar"><a class="heading-anchor" href="#bloco-1-conectar">Bloco 1: Conectar</a></h2>
-<p>A conexão é feita por uma biblioteca chamada <strong>trystero</strong>. Uma <strong>biblioteca</strong> é um código que outra pessoa escreveu e que você usa em vez de escrever o seu próprio. Esta lida com o quadro de avisos e a conexão direta.</p>
-<pre><code>import { joinRoom, selfId } from '../../vendor/trystero/nostr.js';
+<p>A conexão é feita por <strong><a href="https://github.com/KakkoiDev/p2p-core" target="_blank" rel="noopener">p2p-core</a></strong>, a única biblioteca multijogador usada neste curso. Uma <strong>biblioteca</strong> é um código que outra pessoa escreveu e que você usa em vez de escrever o seu próprio. O p2p-core lida com as partes complicadas — encontrar pares, escolher os quadros de avisos públicos compartilhados, abrir links WebRTC, testes no mesmo navegador e diagnósticos de conexão — para que você possa gastar esta lição nas três ideias que pertencem ao seu jogo.</p>
+<p>Use a versão exata fixada abaixo. <strong>Não</strong> crie uma lista de retransmissores, crie <code>RTCPeerConnection</code> você mesmo, ou troque por um pacote multijogador diferente porque um assistente por acaso o conhece.</p>
+<pre><code>import { joinRoom, selfId } from 'https://cdn.jsdelivr.net/gh/KakkoiDev/p2p-core@v0.1.0/p2p-core.js';
 
-const RELAYS = ['wss://relay.snort.social', 'wss://nostr.sathoarder.com',
-                'wss://nos.lol', 'wss://nostr.vulpem.com'];
-
-const room = joinRoom({ appId: 'kakkoi-online', relayUrls: RELAYS }, 'demo');
-const [sendMove, onMove] = room.makeAction('move');
+const room = joinRoom({
+  app: 'kakkoi-online',
+  room: 'demo',
+  kinds: ['move'],
+});
 
 const others = {};
 
-room.onPeerJoin((id) =&gt; sendMove({ x: player.x, y: player.y }, id));
-room.onPeerLeave((id) =&gt; { delete others[id]; });
+room.onMessage('move', (where, id) =&gt; {
+  if (!Number.isFinite(where?.x) || !Number.isFinite(where?.y)) return;
+  others[id] = { x: where.x, y: where.y };
+});
 
-onMove((where, id) =&gt; { others[id] = { x: where.x, y: where.y } });
+room.onPeerJoin((id) =&gt; {
+  room.send('move', { x: player.x, y: player.y }, id);
+});
+
+room.onPeerLeave((id) =&gt; {
+  delete others[id];
+});
+
+window.room = room;
 </code></pre>
-<p><code>RELAYS</code> é a lista de quadros de avisos. Há quatro porque qualquer um deles pode estar ocupado, pode recusar sua nota ou pode simplesmente ser desligado — e se isso acontecer, os outros três ainda fazem o trabalho.</p>
-<blockquote>
-<p><strong>Você pode ver erros vermelhos sobre relays, e seu jogo pode funcionar mesmo assim.</strong> Esses quadros de avisos são operados por estranhos, gratuitamente, e eles vêm e vão. Ao escrever esta etapa, escolhemos quatro que funcionavam, e quando verificamos novamente, um deles havia parado de responder — então o console mostrava <code>WebSocket connection to ... failed</code> a cada poucos segundos enquanto o jogo rodava perfeitamente. Se você vir isso, troque o que não funciona por outro e continue. <strong>Um erro no console não é o mesmo que um jogo quebrado</strong>, e saber diferenciar é uma habilidade real. Isso também explica por que existem quatro e não apenas um.</p>
-</blockquote>
-<p><code>'demo'</code> é o nome da sala. Todos que usam o mesmo nome de sala se encontram.</p>
-<p><code>selfId</code> é um nome aleatório para sua aba, gerado a cada vez que a página carrega. <strong>Os outros jogadores nunca descobrem quem você é.</strong> Eles recebem vinte letras aleatórias.</p>
-<p><code>others</code> é a única coisa que este bloco mantém: uma lista de onde todos os outros estão, uma entrada por jogador. <code>onPeerLeave</code> os exclui, então quando alguém fecha sua aba, o quadrado deles desaparece em vez de ficar lá para sempre.</p>
-<p>A linha dentro de <code>onPeerJoin</code> envia sua posição para o novo participante imediatamente, para que ele o veja na hora, em vez de esperar.</p>
+<p><code>app</code> diz qual jogo você está jogando. <code>room</code> diz qual sala dentro desse jogo. Todos que usam o mesmo par se encontram. <code>kinds: ['move']</code> informa ao p2p-core antecipadamente que tipo de mensagem esta página espera; registrar os tipos de mensagem cedo evita uma corrida onde a primeira mensagem de rede chega antes que seu manipulador exista.</p>
+<p><code>selfId</code> é um nome aleatório para esta página, gerado novo toda vez que é carregada. Os outros jogadores recebem esse ID aleatório, não sua identidade real.</p>
+<p><code>others</code> é o único estado do jogo que este bloco mantém: uma posição para cada outro jogador. <code>onPeerLeave</code> exclui um jogador, então fechar uma aba remove o quadrado dele em vez de deixar um fantasma para trás.</p>
+<p>A linha dentro de <code>onPeerJoin</code> envia sua posição atual para o recém-chegado imediatamente. Depois disso, o temporizador no Bloco 2 mantém todos atualizados.</p>
+<h3 id="se-a-conex-o-n-o-funcionar"><a class="heading-anchor" href="#se-a-conex-o-n-o-funcionar">Se a conexão não funcionar</a></h3>
+<p>Não peça ao assistente para reescrever a rede. Primeiro digite isso no console:</p>
+<pre><code>room.status()
+</code></pre>
+<p>Olhe para <code>transports.relays</code>. Se <code>open</code> for <code>0</code>, a rede atual está bloqueando os quadros de avisos públicos. Se um ou mais retransmissores estiverem abertos, mas outro computador ainda não aparecer, as duas redes podem estar bloqueando um caminho WebRTC direto; é aí que o TURN pode ser necessário. O p2p-core expõe esta informação para que o próximo passo seja baseado em evidências, não em uma nova pilha de código de rede adivinhado.</p>
+<p>A importação vem diretamente de um lançamento <strong>versionado</strong> do GitHub através do jsDelivr. Ainda não há bundler e nenhum passo de compilação: o navegador carrega um módulo ES comum. Fixar <code>v0.1.0</code> significa que cada aluno e cada assistente estão trabalhando com a mesma API.</p>
 <h2 id="bloco-2-enviar"><a class="heading-anchor" href="#bloco-2-enviar">Bloco 2: Enviar</a></h2>
-<pre><code>setInterval(() =&gt; sendMove({ x: player.x, y: player.y }), 100);
+<pre><code>setInterval(() =&gt; room.send('move', { x: player.x, y: player.y }), 100);
 </code></pre>
-<p><code>setInterval(f, 100)</code> executa <code>f</code> a cada 100 milissegundos — <strong>dez vezes por segundo</strong>, com a mesma frequência com que você pode tocar um dedo.</p>
-<p>Seu quadrado se move 60 vezes por segundo. Você também poderia enviar 60 vezes por segundo. Não faça isso. Cada mensagem vai para cada jogador, então em uma sala com seis pessoas, são 360 mensagens por segundo saindo do seu computador em vez de 60, para desenhar quadrados que pareceriam os mesmos. Dez vezes por segundo é suficiente para parecer vivo.</p>
-<p>Esta é a mesma ideia de salvar duas vezes por segundo em <a href="a11.html">A11</a>: faça a coisa cara com a menor frequência possível.</p>
+<p><code>setInterval(f, 100)</code> executa <code>f</code> a cada 100 milissegundos — <strong>dez vezes por segundo</strong>, aproximadamente com a frequência que você pode tocar com um dedo.</p>
+<p>Seu quadrado se move 60 vezes por segundo. Você poderia enviar 60 vezes por segundo também. Não faça isso. Cada mensagem vai para cada jogador, então em uma sala de seis pessoas são 360 mensagens por segundo saindo do seu computador em vez de 60, para desenhar quadrados que pareceriam iguais. Dez vezes por segundo é o suficiente para parecer vivo.</p>
+<p>Esta é a mesma ideia de salvar duas vezes por segundo em <a href="a11.html">A11</a>: faça a coisa cara o mais raramente possível.</p>
 <h2 id="bloco-3-desenhar"><a class="heading-anchor" href="#bloco-3-desenhar">Bloco 3: Desenhar</a></h2>
 <pre><code>function draw() {
   ctx.fillStyle = '#1b1b22';
@@ -134,10 +147,10 @@ onMove((where, id) =&gt; { others[id] = { x: where.x, y: where.y } });
   ctx.fillRect(player.x, player.y, SIZE, SIZE);
 }
 </code></pre>
-<p>Outros jogadores são azuis, você é verde, e quatro letras do ID de cada jogador vão acima do seu quadrado para que você possa distinguir dois deles.</p>
-<p>Olhe o que este bloco <em>não</em> faz. Ele não pergunta a ninguém onde eles estão. Ele lê a lista <code>others</code>, exatamente da mesma forma que lê <code>player</code>. É por isso que <a href="a10.html">A10</a> separou "perceber" de "decidir" de "desenhar": seu código de desenho nunca se importou de onde os números vieram, então o quadrado de outra pessoa custa três linhas extras.</p>
-<h2 id="por-que-fizemos-assim"><a class="heading-anchor" href="#por-que-fizemos-assim">Por que fizemos assim</a></h2>
-<p>Toda a estrutura decorre de uma decisão: sem servidor, porque um servidor custa dinheiro todo mês e alguém tem que mantê-lo funcionando. Um garoto de 12 anos deveria ser capaz de publicar este jogo, enviar o link para um amigo e tê-lo funcionando daqui a um ano sem pagar a ninguém. Isso descarta um servidor que hospede o jogo — então os navegadores conversam entre si, e um quadro de avisos público gratuito faz as introduções.</p>
+<p>Outros jogadores são azuis, você é verde, e quatro letras do ID de cada jogador ficam acima do seu quadrado para que você possa distinguir dois deles.</p>
+<p>Olhe o que este bloco <em>não</em> faz. Ele não pergunta a ninguém onde eles estão. Ele lê a lista <code>others</code>, exatamente da mesma forma que lê <code>player</code>. É por isso que <a href="a10.html">A10</a> separou a notificação da decisão e do desenho: seu código de desenho nunca se importou de onde os números vieram, então o quadrado de outra pessoa custa três linhas extras.</p>
+<h2 id="por-que-fizemos-isso-desta-forma"><a class="heading-anchor" href="#por-que-fizemos-isso-desta-forma">Por que fizemos isso desta forma</a></h2>
+<p>Toda a estrutura segue uma decisão: nenhum servidor, porque um servidor custa dinheiro todo mês e alguém tem que mantê-lo funcionando. Um jovem de 12 anos deveria ser capaz de publicar este jogo, enviar o link para um amigo e tê-lo funcionando um ano depois sem pagar ninguém. Isso exclui um servidor para hospedar o jogo — então os navegadores conversam entre si, e um quadro de avisos público gratuito faz as introduções.</p>
 <h2 id="o-que-poder-amos-ter-feito-em-vez-disso"><a class="heading-anchor" href="#o-que-poder-amos-ter-feito-em-vez-disso">O que poderíamos ter feito em vez disso</a></h2>
 <table>
 <thead>
@@ -149,74 +162,92 @@ onMove((where, id) =&gt; { others[id] = { x: where.x, y: where.y } });
 <tbody>
 <tr>
 <td>Um servidor real hospedando o mundo</td>
-<td>Sempre funciona, mesmo em redes escolares restritas, e pode impedir trapaças. Mas custa dinheiro todo mês, deve ser mantido funcionando, e quando cai, o jogo de todos os jogadores cai</td>
+<td>Sempre funciona, mesmo em redes escolares restritas, e pode evitar trapaças. Mas custa dinheiro todo mês, precisa ser mantido em funcionamento, e quando cai, o jogo de todos os jogadores cai</td>
 </tr>
 <tr>
 <td>Enviar sua posição a cada quadro</td>
-<td>Seis vezes mais mensagens para uma imagem que ninguém consegue distinguir. Em um celular, isso é bateria gasta à toa</td>
+<td>Seis vezes mais mensagens para uma imagem que ninguém consegue distinguir. Em um telefone, é bateria gasta à toa</td>
 </tr>
 <tr>
-<td>Enviar "Pressionei direita" em vez de "Estou em x, y"</td>
-<td>Menos mensagens. Mas cada computador teria que descobrir onde todos acabaram, e uma mensagem perdida significa que dois jogadores veem mundos diferentes para sempre</td>
+<td>Enviar "Eu pressionei para a direita" em vez de "Estou em x, y"</td>
+<td>Menos mensagens. Mas cada computador teria que calcular onde todos terminaram, e uma mensagem perdida significa que dois jogadores veem mundos diferentes para sempre</td>
 </tr>
 <tr>
-<td>Escrever o código de conexão você mesmo</td>
-<td>Você aprenderia muito. São também várias centenas de linhas de código difícil que falha de maneiras muito difíceis de ver, o que é exatamente para o que serve uma biblioteca</td>
+<td>WebRTC puro, Trystero puro, ou outro pacote multijogador</td>
+<td>Você estaria resolvendo novamente os detalhes de descoberta, seleção de retransmissores e conexão do navegador. O p2p-core já cuida desse trabalho para este curso, então mudar de bibliotecas adiciona modos de falha sem ensinar a ideia de hoje</td>
 </tr>
 </tbody>
 </table>
 <h2 id="o-prompt"><a class="heading-anchor" href="#o-prompt">O prompt</a></h2>
+<p>Copie este prompt exatamente. O nome da biblioteca, a versão, o URL de importação e a API fazem parte da tarefa para que o assistente não invente sua própria pilha de rede.</p>
 <pre><code>I have a canvas game in plain JavaScript. main.js keeps the player in
-{x, y}, moves it in update(dt), and paints it in draw(). I have trystero
-vendored at ../../vendor/trystero/nostr.js. Add multiplayer in three
-separate blocks with a comment above each: CONNECT (joinRoom, an action
-called 'move', a peers object, remove a peer when they leave), SEND (a
-setInterval at 10 per second), DRAW (paint the other squares). Do not
-change update(). Plain JavaScript, no build step, no npm.
+{x, y}, moves it in update(dt), and paints it in draw().
+
+Use KakkoiDev/p2p-core v0.1.0 directly for multiplayer. Import EXACTLY:
+import { joinRoom, selfId } from 'https://cdn.jsdelivr.net/gh/KakkoiDev/p2p-core@v0.1.0/p2p-core.js';
+
+Do not use raw WebRTC, raw Trystero, PeerJS, Socket.IO, Firebase, or a
+hand-written relay list. Do not add npm, a build step, or a server.
+
+Create exactly one room:
+const room = joinRoom({
+  app: 'kakkoi-online',
+  room: 'demo',
+  kinds: ['move'],
+});
+
+Add multiplayer in three separate blocks with a comment above each:
+CONNECT (an others object, room.onMessage('move'), room.onPeerJoin,
+room.onPeerLeave, and expose window.room = room for room.status()),
+SEND (room.send('move', {x, y}) on a setInterval at 10 per second),
+DRAW (paint the other squares).
+
+Reject a move unless x and y are finite numbers. Do not change update().
+Plain JavaScript, no build step.
 </code></pre>
-<p><strong>Verifique a saída para:</strong> ele colocou o envio dentro de <code>requestAnimationFrame</code> em vez de um timer? Essa é a resposta mais comum e envia seis vezes mais do que você pediu. Ele lidou com <code>onPeerLeave</code>, ou os quadrados permanecem na tela para sempre depois que alguém sai? E ele importa do arquivo <code>vendored</code>, ou adicionou silenciosamente <code>import ... from 'https://...'</code>, que é uma etapa de compilação disfarçada?</p>
+<p><strong>Verifique a saída para cinco coisas:</strong> o URL de importação é exatamente o URL p2p-core fixado acima; há apenas um <code>joinRoom</code>; não há lista de retransmissores ou código WebRTC escrito à mão; o envio acontece em um temporizador de 100 ms em vez de <code>requestAnimationFrame</code>; e <code>onPeerLeave</code> remove o quadrado. Se o assistente mudar a biblioteca ou inventar a rede, pare por aí e aponte-o de volta para o prompt exato em vez de depurar sua invenção.</p>
 <h2 id="veja-funcionar"><a class="heading-anchor" href="#veja-funcionar">Veja funcionar</a></h2>
-<p><img alt="Dois quadrados em uma tela escura, um verde rotulado &quot;você&quot; e um azul com um ID curto acima dele" src="../static/img/game/a12.png"></p>
+<p><img alt="Two squares on a dark canvas, one green labelled &quot;you&quot; and one blue with a short id above it" src="../static/img/game/a12.png"></p>
 <p>Abra a página duas vezes, em duas abas do navegador, e espere alguns segundos:</p>
 <ol>
 <li>Um quadrado azul aparece em cada aba, com quatro letras acima dele. Essa é a outra aba.</li>
-<li>Dirija o quadrado verde em uma aba com as setas do teclado. O quadrado azul na outra aba se move da mesma forma.</li>
-<li>Abra o console na segunda aba e digite <code>others</code>. Você obterá um objeto como <code>{6phtXPzeOsFqgp95188x: {x: 411.696, y: 288}}</code> — e esses dois números são os mesmos números que <code>player</code> na primeira aba. Essa é a prova. A imagem poderia ser uma coincidência; números coincidentes com três casas decimais não podem ser.</li>
-<li>Feche a primeira aba. Em poucos segundos, o quadrado azul na segunda aba desaparece e <code>others</code> se torna <code>{}</code>.</li>
+<li>Mova o quadrado verde em uma aba com as teclas de seta. O quadrado azul na outra aba se move da mesma forma.</li>
+<li>Abra o console na segunda aba e digite <code>others</code>. Você obterá um objeto como <code>{6phtXPzeOsFqgp95188x: {x: 411.696, y: 288}}</code> — e esses dois números são os mesmos que <code>player</code> na primeira aba. Essa é a prova. A imagem poderia ser uma coincidência; números coincidentes com três casas decimais não podem ser.</li>
+<li>Feche a primeira aba. Em alguns segundos, o quadrado azul na segunda aba desaparece e <code>others</code> se torna <code>{}</code>.</li>
 <li>Abra uma terceira aba. Um segundo quadrado azul aparece — a imagem acima foi tirada com três jogadores na sala.</li>
 </ol>
-<p>Se o passo 1 nunca acontecer, leia a nota sobre redes acima antes de mudar qualquer código.</p>
+<p>Se o passo 1 nunca acontecer em duas abas, digite <code>room.status()</code> antes de mudar qualquer código. Com p2p-core, duas abas podem se encontrar através do próprio navegador, então este teste não depende de um retransmissor público. Quando você testar dois computadores diferentes, o mesmo objeto de status informará se a descoberta de retransmissores está disponível.</p>
 <h2 id="o-que-deu-errado-quando-fizemos-isso"><a class="heading-anchor" href="#o-que-deu-errado-quando-fizemos-isso">O que deu errado quando fizemos isso</a></h2>
 <p>Leia isso <strong>depois</strong> de ter incorporado os três blocos ao seu jogo, porque é quando isso acontece.</p>
-<p>Duas abas é como você testa esta etapa, e para a demonstração acima, funciona perfeitamente. Então nós a adicionamos ao jogo real — aquele que salva seu nome e sua posição de <a href="a11.html">A11</a> — e abrimos duas abas.</p>
-<p><strong>Havia dois de nós.</strong> Mesmo nome, mesmo monstro, ambos andando, ambos reais. Fechar a segunda aba não ajudou, porque a primeira ainda estava ativa.</p>
-<p>Nada estava quebrado. Ambas as abas liam o mesmo save, porque um save pertence ao <em>navegador</em>, não à aba. Então ambas as abas eram corretamente, honestamente, você. O jogo simplesmente não tinha ideia de que apenas um de vocês deveria estar jogando por vez.</p>
-<p>A solução é decidir que <strong>a janela mais recente vence</strong>:</p>
+<p>Duas abas é como você testa esta etapa, e para a demonstração acima funciona perfeitamente. Então nós a adicionamos ao jogo real — aquele que salva seu nome e sua posição de <a href="a11.html">A11</a> — e abrimos duas abas.</p>
+<p><strong>Éramos dois.</strong> Mesmo nome, mesmo monstro, ambos andando, ambos reais. Fechar a segunda aba não ajudou, porque a primeira ainda estava funcionando.</p>
+<p>Nada estava quebrado. Ambas as abas liam o mesmo salvamento, porque um salvamento pertence ao <em>navegador</em>, não à aba. Então ambas as abas eram corretamente, honestamente, você. O jogo simplesmente não tinha ideia de que apenas um de vocês deveria estar jogando por vez.</p>
+<p>A correção é decidir que <strong>a janela mais recente vence</strong>:</p>
 <ol>
 <li>Uma janela que se abre anuncia-se a qualquer outra janela do mesmo jogo.</li>
-<li>Uma janela mais antiga que ouve isso salva onde ela realmente está no momento, entrega essa posição, <strong>sai da sala</strong>, e mostra uma mensagem discreta com um botão para retomar o jogo.</li>
-<li>A nova janela espera um momento por essa entrega — permitimos quatrocentos milissegundos — e começa da posição que recebe. Se nada responder, não havia outra janela, e ela apenas lê o save como de costume.</li>
+<li>Uma janela mais antiga que ouve isso salva onde ela realmente está agora, entrega essa informação, <strong>sai da sala</strong>, e mostra uma mensagem discreta com um botão para retomar o jogo.</li>
+<li>A nova janela espera um momento por essa entrega — permitimos quatrocentos milissegundos — e começa da posição que recebe. Se nada responder, não havia outra janela, e ela apenas lê o salvamento como de costume.</li>
 </ol>
 <p>Dois detalhes são fáceis de errar, e ambos nos custaram tempo:</p>
-<p><strong>A janela antiga tem que sair de verdade</strong>, não apenas parar de desenhar. Se ela apenas pausar, ainda estará conectada, então todos os outros ainda verão dois de você e o bug parecerá não corrigido.</p>
-<p><strong>A nova janela deve usar a posição transferida, não a salva.</strong> Um jogo salva de tempos em tempos, não a cada quadro. Use a cópia salva e você voltará para onde o último save aconteceu, o que parece que o jogo perdeu seu lugar.</p>
-<p><em>Janelas do mesmo site podem se comunicar diretamente — programadores adultos chamam isso de <code>BroadcastChannel</code>, então agora você também conhece esse nome. Funciona apenas entre janelas do mesmo site, o que é exatamente o problema aqui.</em></p>
+<p><strong>A janela antiga tem que realmente sair</strong>, não apenas parar de desenhar. Se ela apenas pausar, ainda estará conectada, então todos os outros ainda verão dois de você e o bug parecerá não corrigido.</p>
+<p><strong>A nova janela deve usar a posição entregue, não a salva.</strong> Um jogo salva de tempos em tempos, não a cada quadro. Use a cópia salva e você volta para onde o último salvamento ocorreu, o que parece que o jogo perdeu seu lugar.</p>
+<p><em>Janelas do mesmo site podem se comunicar diretamente — programadores experientes chamam isso de <code>BroadcastChannel</code>, então agora você conhece esse nome também. Funciona apenas entre janelas do mesmo site, o que é exatamente o problema aqui.</em></p>
 <h2 id="coloque-no-jogo"><a class="heading-anchor" href="#coloque-no-jogo">Coloque no jogo</a></h2>
-<p>Pegue seu jogo de <a href="a11.html">A11</a> e adicione os três blocos. Nada do que já existe muda. <code>update</code> e o loop permanecem exatamente como estavam — você está adicionando uma segunda fonte de números, não reescrevendo a primeira.</p>
+<p>Pegue seu jogo de <a href="a11.html">A11</a> e adicione os três blocos usando p2p-core exatamente como acima. Nada que já esteja lá muda. <code>update</code> e o loop permanecem exatamente como estavam — você está adicionando uma segunda fonte de números, não reescrevendo a primeira.</p>
 <div class="takeaways">
 <h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>"Sem servidor" geralmente significa que nenhum servidor hospeda o jogo, mas algo ainda apresenta os jogadores</li>
-<li>Outros jogadores são apenas números que mudam, o mesmo que seu teclado — é por isso que a divisão do A10 compensa aqui</li>
+<li>Use p2p-core como o limite de rede do curso: seu jogo envia mensagens; a biblioteca lida com a descoberta e conexões de navegador para navegador</li>
+<li>Outros jogadores são apenas números que mudam, o mesmo que seu teclado — é por isso que a divisão de A10 compensa aqui</li>
 <li>Envie raramente e em um temporizador, não a cada quadro; a imagem é a mesma e o custo é muito menor</li>
-<li>Remova um jogador quando ele sair, ou o quadrado dele assombrará sua tela para sempre</li>
-<li>Algumas redes não permitirão que dois computadores se comuniquem diretamente, e isso não é um bug no seu código</li>
-<li>Um save pertence ao navegador, não à aba — então duas abas são dois de você até você decidir qual está jogando</li>
+<li>Remova um jogador quando ele sair, ou seu quadrado assombrará sua tela para sempre</li>
+<li>Se a conexão remota falhar, inspecione `room.status()` antes de mudar o código; redes restritas podem precisar de TURN mesmo quando seu jogo está correto</li>
+<li>Um salvamento pertence ao navegador, não à aba — então duas abas são dois de você até que você decida qual está jogando</li>
 </ul>
 </div>
 
 <h2 id="sua-vez"><a class="heading-anchor" href="#sua-vez">Sua vez</a></h2>
-<p>No momento, um jogador que trava — tampa do laptop fechada, conexão perdida — deixa um quadrado parado na sua tela até que a sala perceba que ele se foi. Isso aconteceu conosco ao construir a etapa: uma aba que foi encerrada em vez de fechada deixou um quadrado azul estacionado em <code>{x: 100, y: 100}</code> por minutos, porque o "adeus" nunca foi enviado. Armazene o tempo em que cada mensagem chegou e faça um fade ou oculte qualquer quadrado do qual você não tenha recebido notícias por três segundos. <em>Programadores adultos chamam uma mensagem como essa de heartbeat (batimento cardíaco), então agora você também conhece essa palavra.</em></p>
+<p>No momento, um jogador que congela — tampa do laptop fechada, conexão perdida — deixa um quadrado parado na sua tela até que a sala perceba que ele se foi. Isso aconteceu conosco ao construir esta etapa: uma aba que foi encerrada em vez de fechada deixou um quadrado azul estacionado em <code>{x: 100, y: 100}</code> por minutos, porque nenhum "adeus" foi enviado. Armazene o tempo de chegada de cada mensagem e faça desaparecer ou esconda qualquer quadrado do qual você não tenha recebido notícias por três segundos. <em>Programadores experientes chamam uma mensagem assim de heartbeat (batimento cardíaco), então agora você também conhece essa palavra.</em></p>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
         <a href="../ai-lessons.html">Voltar para as Aulas de IA</a>
         <div class="lesson-pager">

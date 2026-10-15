@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Your First Repository - KakkoiSchool</title>
+  <title>初めてのリポジトリ - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,9 +47,9 @@
           <a href="t44.html">次へ</a>
         </div>
       </nav>
-      <h1 id="t43-your-first-repository"><a class="heading-anchor" href="#t43-your-first-repository">T43: Your First Repository</a></h1>
-<p class="lesson-intro">You have an account (<a href="t41.html">T41</a>) and a computer that GitHub trusts (<a href="t42.html">T42</a>). Now you take a folder of your own work and put it online. Think of it like moving into a new house with glass walls. Before the furniture goes in, you decide what stays in the locked drawer. Once something is on display, people walking past have already seen it.</p>
-<h2 id="the-plan"><a class="heading-anchor" href="#the-plan">The Plan</a></h2>
+      <h1 id="t43-初めてのリポジトリ"><a class="heading-anchor" href="#t43-初めてのリポジトリ">T43: 初めてのリポジトリ</a></h1>
+<p class="lesson-intro">アカウント(<a href="t41.html">T41</a>)とGitHubが信頼するコンピューター(<a href="t42.html">T42</a>)を用意できましたね。次に、あなたの作業フォルダをオンラインに置きます。ガラス張りの新しい家に引っ越すようなものだと考えてください。家具を入れる前に、どのアイテムを鍵付きの引き出しに入れておくかを決めます。何かが展示されると、通り過ぎる人々はすでにそれを見てしまっています。</p>
+<h2 id="計画"><a class="heading-anchor" href="#計画">計画</a></h2>
 <div class="mermaid">
 flowchart LR
     F[A folder<br/>on your computer] --> I[git init]
@@ -59,23 +59,23 @@ flowchart LR
     R --> GH[Your project<br/>on GitHub]
 
 </div>
-<h2 id="1-turn-the-folder-into-a-repository"><a class="heading-anchor" href="#1-turn-the-folder-into-a-repository">1. Turn the Folder into a Repository</a></h2>
-<p>Open a terminal in your project folder. If you do not have one yet, make one:</p>
+<h2 id="1-フォルダをリポジトリにする"><a class="heading-anchor" href="#1-フォルダをリポジトリにする">1. フォルダをリポジトリにする</a></h2>
+<p>プロジェクトフォルダでターミナルを開きます。まだフォルダがない場合は、作成してください。</p>
 <pre><code>mkdir my-project
 cd my-project
 git init -b main
 </code></pre>
-<p><code>git init</code> creates a hidden <code>.git</code> folder where the history will live. <code>-b main</code> names the first branch <code>main</code>, which is what GitHub expects. Nothing is saved yet.</p>
-<h2 id="2-write-the-gitignore-before-anything-else"><a class="heading-anchor" href="#2-write-the-gitignore-before-anything-else">2. Write the .gitignore Before Anything Else</a></h2>
-<p>A <code>.gitignore</code> file lists things git must never save. Write it <strong>before</strong> your first commit. Once a file is committed, removing it later does not remove it from history.</p>
-<p>What goes in it:</p>
+<p><code>git init</code>は、履歴が保存される隠し<code>.git</code>フォルダを作成します。<code>-b main</code>は、GitHubが期待する最初のブランチに<code>main</code>という名前を付けます。まだ何も保存されていません。</p>
+<h2 id="2-何よりも先に-gitignoreを作成する"><a class="heading-anchor" href="#2-何よりも先に-gitignoreを作成する">2. 何よりも先に.gitignoreを作成する</a></h2>
+<p><code>.gitignore</code>ファイルには、Gitが決して保存してはならないものがリストされています。最初のコミットの<strong>前</strong>に作成してください。一度コミットされたファイルは、後で削除しても履歴からは削除されません。</p>
+<p>何を記述するか：</p>
 <ul>
-<li><strong>Secrets.</strong> Passwords, API keys, tokens. They usually live in a file called <code>.env</code>.</li>
-<li><strong>Databases.</strong> Your local <code>app.db</code> holds test users and maybe real data. It does not belong in the code.</li>
-<li><strong>Things you can rebuild.</strong> <code>node_modules/</code> for JavaScript and <code>.venv/</code> for Python are thousands of files you can download again with one command.</li>
-<li><strong>Junk.</strong> Logs, editor settings, the <code>.DS_Store</code> files macOS scatters everywhere.</li>
+<li><strong>秘密情報。</strong> パスワード、APIキー、トークンなどです。通常、<code>.env</code>というファイルに保存されます。</li>
+<li><strong>データベース。</strong> ローカルの<code>app.db</code>にはテストユーザーや実際のデータが含まれている場合があります。これはコードに含めるべきではありません。</li>
+<li><strong>再構築可能なもの。</strong> JavaScriptの<code>node_modules/</code>やPythonの<code>.venv/</code>は、たった1つのコマンドで再度ダウンロードできる何千ものファイルです。</li>
+<li><strong>ジャンク。</strong> ログ、エディタ設定、macOSが至る所に散布する<code>.DS_Store</code>ファイルなどです。</li>
 </ul>
-<p>Create a file called <code>.gitignore</code> in the project folder:</p>
+<p>プロジェクトフォルダに<code>.gitignore</code>というファイルを作成します。</p>
 <pre><code># Secrets
 .env
 .env.*
@@ -95,55 +95,55 @@ dist/
 *.log
 .DS_Store
 </code></pre>
-<p><code>!.env.example</code> means "except this one". An example file with fake values helps the next person, and it is safe to share.</p>
-<h2 id="3-the-first-commit"><a class="heading-anchor" href="#3-the-first-commit">3. The First Commit</a></h2>
+<p><code>!.env.example</code>は「これを除く」という意味です。偽の値を含むサンプルファイルは、次に使用する人の役に立ち、安全に共有できます。</p>
+<h2 id="3-最初のコミット"><a class="heading-anchor" href="#3-最初のコミット">3. 最初のコミット</a></h2>
 <pre><code>git status             # check: is anything there that should not be?
 git add .
 git status             # check again: read the list of green files
 git commit -m &quot;First commit&quot;
 </code></pre>
-<p>Read the <code>git status</code> list every time. It is your last chance to spot a <code>.env</code> or a database before it goes into history.</p>
-<h2 id="4-create-the-repository-on-github-and-push"><a class="heading-anchor" href="#4-create-the-repository-on-github-and-push">4. Create the Repository on GitHub and Push</a></h2>
-<p>One command creates the repository on GitHub, connects it as <code>origin</code>, and pushes your commit:</p>
+<p>毎回<code>git status</code>のリストを読んでください。<code>.env</code>ファイルやデータベースが履歴に残る前に見つける最後のチャンスです。</p>
+<h2 id="4-githubでリポジトリを作成し-プッシュする"><a class="heading-anchor" href="#4-githubでリポジトリを作成し-プッシュする">4. GitHubでリポジトリを作成し、プッシュする</a></h2>
+<p>1つのコマンドでGitHub上にリポジトリを作成し、<code>origin</code>として接続し、コミットをプッシュします。</p>
 <pre><code>gh repo create my-project --public --source=. --push
 </code></pre>
 <ul>
-<li><code>my-project</code> is the name on GitHub.</li>
-<li><code>--public</code> makes it visible to everyone. Use <code>--private</code> instead if only you should see it.</li>
-<li><code>--source=.</code> means "use the repository in this folder".</li>
-<li><code>--push</code> sends your commits up straight away.</li>
+<li><code>my-project</code>はGitHub上の名前です。</li>
+<li><code>--public</code>は誰にでも見えるようにします。あなただけが見るべき場合は、代わりに<code>--private</code>を使用してください。</li>
+<li><code>--source=.</code>は「このフォルダのリポジトリを使用する」という意味です。</li>
+<li><code>--push</code>は、すぐにコミットをアップロードします。</li>
 </ul>
-<p>Open it in your browser:</p>
+<p>ブラウザで開きます。</p>
 <pre><code>gh repo view --web
 </code></pre>
-<p>From now on the daily loop is the one from <a href="t20.html">T20</a>: edit, <code>git add</code>, <code>git commit</code>, <code>git push</code>.</p>
-<h2 id="what-public-really-means"><a class="heading-anchor" href="#what-public-really-means">What Public Really Means</a></h2>
-<p>A public repository can be read by anyone in the world. Not just people: bots scan every new public commit on GitHub, often within seconds, looking for passwords and keys to abuse. Search engines index it. Other people can copy it. You cannot take a copy back once it is made.</p>
-<p>So treat every commit to a public repository as if it were printed in a newspaper. Making the repository private later does not undo what was already seen.</p>
-<h2 id="keeping-secrets-out"><a class="heading-anchor" href="#keeping-secrets-out">Keeping Secrets Out</a></h2>
-<p>The rule: <strong>secrets never go in code</strong>. Your code reads them from the environment instead.</p>
-<p>Put them in a <code>.env</code> file, which is already in <code>.gitignore</code>:</p>
+<p>今後、日々の作業ループは<a href="t20.html">T20</a>で説明されているものになります：編集、<code>git add</code>、<code>git commit</code>、<code>git push</code>。</p>
+<h2 id="公開-が実際に意味すること"><a class="heading-anchor" href="#公開-が実際に意味すること">「公開」が実際に意味すること</a></h2>
+<p>公開リポジトリは世界中の誰でも読み取ることができます。人間だけでなく、ボットもGitHub上の新しい公開コミットを多くの場合数秒以内にスキャンし、悪用できるパスワードやキーを探しています。検索エンジンはそれをインデックス化します。他の人がコピーすることもできます。一度作成されたコピーを取り戻すことはできません。</p>
+<p>したがって、公開リポジトリへのすべてのコミットは、新聞に印刷されたかのように扱ってください。後でリポジトリをプライベートにしても、すでに見られたものを元に戻すことはできません。</p>
+<h2 id="秘密情報の除外"><a class="heading-anchor" href="#秘密情報の除外">秘密情報の除外</a></h2>
+<p>原則：<strong>秘密情報は決してコードに入れない</strong>。代わりに、コードは環境からそれらを読み取ります。</p>
+<p><code>.env</code>ファイルにそれらを記述します。このファイルはすでに<code>.gitignore</code>に含まれています。</p>
 <pre><code># .env  (never committed)
 OPENAI_API_KEY=sk-...your-real-key...
 DATABASE_URL=sqlite:///app.db
 </code></pre>
-<p>Commit a <code>.env.example</code> with the same names and fake values, so others know what to fill in:</p>
+<p>同じ名前と偽の値を含む<code>.env.example</code>をコミットします。これにより、他の人が何を入力すべきかを知ることができます。</p>
 <pre><code># .env.example  (committed)
 OPENAI_API_KEY=put-your-key-here
 DATABASE_URL=sqlite:///app.db
 </code></pre>
-<p>Your code reads the value by name. In Node.js 20.6 or newer, <code>node --env-file=.env server.js</code> loads the file, and the code uses <code>process.env.OPENAI_API_KEY</code>. In Python, <code>os.environ["OPENAI_API_KEY"]</code> reads it (<a href="t45.html">T45</a> shows how).</p>
-<h2 id="if-you-committed-a-secret"><a class="heading-anchor" href="#if-you-committed-a-secret">If You Committed a Secret</a></h2>
-<p>It happens to professionals too. Act fast, in this order:</p>
+<p>コードは名前で値を読み取ります。Node.js 20.6以降では、<code>node --env-file=.env server.js</code>がファイルをロードし、コードは<code>process.env.OPENAI_API_KEY</code>を使用します。Pythonでは、<code>os.environ["OPENAI_API_KEY"]</code>がそれを読み取ります（方法は<a href="t45.html">T45</a>で示されています）。</p>
+<h2 id="秘密情報をコミットしてしまった場合"><a class="heading-anchor" href="#秘密情報をコミットしてしまった場合">秘密情報をコミットしてしまった場合</a></h2>
+<p>プロでもよくあることです。この順序で迅速に行動してください：</p>
 <ol>
-<li><strong>Revoke or rotate the key first.</strong> Go to the service that issued it (OpenAI, Stripe, your database host) and delete that key, then make a new one. This is the only step that actually protects you. Assume the old key is already stolen.</li>
-<li><strong>Put the new key in <code>.env</code></strong>, and make sure <code>.env</code> is in <code>.gitignore</code>.</li>
-<li><strong>Remove the secret from the code</strong> and commit.</li>
+<li><strong>まずキーを無効化またはローテーションします。</strong> キーを発行したサービス（OpenAI、Stripe、データベースホストなど）にアクセスし、そのキーを削除してから新しいキーを作成します。これが実際にあなたを保護する唯一のステップです。古いキーはすでに盗まれていると仮定してください。</li>
+<li><strong>新しいキーを<code>.env</code>に入れ</strong>、<code>.env</code>が<code>.gitignore</code>に含まれていることを確認します。</li>
+<li><strong>コードから秘密情報を削除し</strong>、コミットします。</li>
 </ol>
-<p>Why not just delete the commit? Rewriting history removes it from <em>your</em> repository, but copies already exist: bots, forks, other people's clones, GitHub's own caches. History rewriting is a clean-up step, never the fix. The fix is a key that no longer works.</p>
-<p>GitHub helps here: <strong>push protection</strong> blocks many well-known key formats when you push to a public repository, and shows you a warning. If you see it, do not bypass it. Remove the key.</p>
-<h2 id="a-readme-that-helps"><a class="heading-anchor" href="#a-readme-that-helps">A README That Helps</a></h2>
-<p>A <code>README.md</code> at the top of the repository is the first thing GitHub shows. It answers three questions:</p>
+<p>なぜコミットを削除するだけではだめなのか？履歴を書き換えても、<em>あなたの</em>リポジトリからは削除されますが、すでにコピーが存在します：ボット、フォーク、他の人のクローン、GitHub自身のキャッシュなどです。履歴の書き換えはクリーンアップのステップであり、解決策ではありません。解決策は、機能しなくなったキーです。</p>
+<p>ここでGitHubが役立ちます：公開リポジトリにプッシュする際に、<strong>プッシュ保護</strong>が多くの既知のキー形式をブロックし、警告を表示します。それを見た場合は、バイパスしないでください。キーを削除してください。</p>
+<h2 id="役立つreadme"><a class="heading-anchor" href="#役立つreadme">役立つREADME</a></h2>
+<p>リポジトリのトップにある<code>README.md</code>は、GitHubが最初に表示するものです。これは3つの質問に答えます。</p>
 <pre><code># My Project
 
 A small to-do list app with a Python server and SQLite.
@@ -156,16 +156,16 @@ A small to-do list app with a Python server and SQLite.
 
 Open http://127.0.0.1:8000
 </code></pre>
-<p>What is it, how do I run it, and what do I need first. A stranger, or you in six months, should get it running from the README alone.</p>
+<p>それが何なのか、どうやって実行するのか、最初に何が必要か。見知らぬ人、または6か月後のあなた自身が、READMEだけで実行できるようになるべきです。</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="主なポイント"><a class="heading-anchor" href="#主なポイント">主なポイント</a></h2>
 <ul>
-<li>Write .gitignore before the first commit: secrets, .env, databases, node_modules, .venv</li>
-<li>Read git status before every commit. It is your last chance to catch a secret</li>
-<li>gh repo create my-project --public --source=. --push creates, connects and pushes in one step. Use --private to keep it hidden</li>
-<li>Public means anyone and any bot can read and copy it, forever</li>
-<li>If you commit a secret, revoke the key first. Rewriting history is not enough because copies already exist</li>
-<li>A README says what the project is and how to run it</li>
+<li>最初のコミットの前に.gitignoreを作成する：秘密情報、.env、データベース、node_modules、.venv</li>
+<li>毎回のコミット前にgit statusを読む。これは秘密情報を見つける最後のチャンスです。</li>
+<li>gh repo create my-project --public --source=. --push は、作成、接続、プッシュを一度に行う。非公開にするには--privateを使用する。</li>
+<li>「公開」とは、誰でも、どんなボットでも、永遠にそれを読み取り、コピーできることを意味します。</li>
+<li>秘密情報をコミットしてしまった場合、まずキーを無効化する。コピーが既に存在するため、履歴の書き換えだけでは不十分です。</li>
+<li>READMEは、プロジェクトの内容と実行方法を説明します。</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

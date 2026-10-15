@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Connect Your Computer to GitHub - KakkoiSchool</title>
+  <title>コンピューターをGitHubに接続する - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,45 +47,45 @@
           <a href="t43.html">次へ</a>
         </div>
       </nav>
-      <h1 id="t42-connect-your-computer-to-github"><a class="heading-anchor" href="#t42-connect-your-computer-to-github">T42: Connect Your Computer to GitHub</a></h1>
-<p class="lesson-intro">You have a GitHub account (<a href="t41.html">T41</a>) and git on your computer (<a href="t19.html">T19</a>). Right now they are strangers. When your computer tries to push code, GitHub asks "who are you?", and your computer has no good answer. This lesson gives your computer a key to the door. Think of it like a hotel: your password got you checked in at the front desk, but you still need a key card to open your room, and that key card lives on your computer.</p>
-<h2 id="why-a-push-fails-without-it"><a class="heading-anchor" href="#why-a-push-fails-without-it">Why a Push Fails Without It</a></h2>
-<p>In the early days you could type your GitHub password when git asked. Since 2021, GitHub no longer accepts account passwords for git. If you try, you will see something like:</p>
+      <h1 id="t42-コンピューターをgithubに接続する"><a class="heading-anchor" href="#t42-コンピューターをgithubに接続する">T42: コンピューターをGitHubに接続する</a></h1>
+<p class="lesson-intro">GitHubアカウント（<a href="t41.html">T41</a>）と、コンピューターにgit（<a href="t19.html">T19</a>）がインストールされていますね。今はまだ、これらは別々の存在です。コンピューターがコードをプッシュしようとすると、GitHubは「あなたは誰ですか？」と尋ねますが、コンピューターには良い答えがありません。このレッスンでは、あなたのコンピューターに扉の鍵を渡します。ホテルを考えてみてください。パスワードでフロントデスクでチェックインはできましたが、部屋を開けるにはまだキーカードが必要です。そのキーカードはあなたのコンピューター上にあります。</p>
+<h2 id="これがないとプッシュが失敗する理由"><a class="heading-anchor" href="#これがないとプッシュが失敗する理由">これがないとプッシュが失敗する理由</a></h2>
+<p>初期の頃は、gitが尋ねたときにGitHubのパスワードを入力することができました。しかし、2021年以降、GitHubはgit操作にアカウントパスワードを受け入れなくなりました。試してみると、次のようなメッセージが表示されます。</p>
 <pre><code>remote: Support for password authentication was removed on August 13, 2021.
 fatal: Authentication failed for 'https://github.com/you/my-project.git/'
 </code></pre>
-<p>Instead, git needs a <strong>token</strong> (a long secret string GitHub gives you) or an <strong>SSH key</strong> (a pair of files that prove who you are). You do not need to make or copy a token by hand. The GitHub CLI does it for you.</p>
-<h2 id="the-recommended-path-the-github-cli"><a class="heading-anchor" href="#the-recommended-path-the-github-cli">The Recommended Path: the GitHub CLI</a></h2>
-<p>The <strong>GitHub CLI</strong> is a program called <code>gh</code>. It signs you in through your web browser, stores the key safely, and tells git to use it.</p>
-<h3 id="1-install-gh"><a class="heading-anchor" href="#1-install-gh">1. Install gh</a></h3>
+<p>代わりに、gitには<strong>トークン</strong>（GitHubが発行する長い秘密の文字列）または<strong>SSHキー</strong>（あなたが誰であるかを証明するファイルのペア）が必要です。手動でトークンを作成したりコピーしたりする必要はありません。GitHub CLIがそれを代行します。</p>
+<h2 id="推奨される方法-github-cli"><a class="heading-anchor" href="#推奨される方法-github-cli">推奨される方法：GitHub CLI</a></h2>
+<p><strong>GitHub CLI</strong>は<code>gh</code>というプログラムです。Webブラウザを通じてサインインし、キーを安全に保存し、gitにそれを使用するように指示します。</p>
+<h3 id="1-ghをインストールする"><a class="heading-anchor" href="#1-ghをインストールする">1. ghをインストールする</a></h3>
 <pre><code># macOS (with Homebrew)
 brew install gh
 
 # Windows (in PowerShell or Terminal)
 winget install --id GitHub.cli
 </code></pre>
-<p>On Linux, follow the instructions for your distribution at <a href="https://cli.github.com" target="_blank" rel="noopener">cli.github.com</a>. Close and reopen your terminal after installing, then check it worked:</p>
+<p>Linuxでは、<a href="https://cli.github.com" target="_blank" rel="noopener">cli.github.com</a>であなたのディストリビューション向けの手順に従ってください。インストール後、ターミナルを閉じて再度開き、動作を確認してください。</p>
 <pre><code>gh --version
 </code></pre>
-<h3 id="2-sign-in"><a class="heading-anchor" href="#2-sign-in">2. Sign in</a></h3>
+<h3 id="2-サインインする"><a class="heading-anchor" href="#2-サインインする">2. サインインする</a></h3>
 <pre><code>gh auth login
 </code></pre>
-<p>It asks a few questions. Use the arrow keys and Enter:</p>
+<p>いくつかの質問が表示されます。矢印キーとEnterキーを使用してください。</p>
 <ol>
-<li><strong>Where do you use GitHub?</strong> Choose <strong>GitHub.com</strong>.</li>
-<li><strong>What is your preferred protocol for Git operations?</strong> Choose <strong>HTTPS</strong>.</li>
-<li><strong>Authenticate Git with your GitHub credentials?</strong> Answer <strong>Yes</strong>.</li>
-<li><strong>How would you like to authenticate GitHub CLI?</strong> Choose <strong>Login with a web browser</strong>.</li>
+<li><strong>Where do you use GitHub?</strong> （どこでGitHubを使用しますか？） <strong>GitHub.com</strong>を選択します。</li>
+<li><strong>What is your preferred protocol for Git operations?</strong> （Git操作の優先プロトコルは何ですか？） <strong>HTTPS</strong>を選択します。</li>
+<li><strong>Authenticate Git with your GitHub credentials?</strong> （GitHubの認証情報でGitを認証しますか？） <strong>Yes</strong>と答えます。</li>
+<li><strong>How would you like to authenticate GitHub CLI?</strong> （GitHub CLIをどのように認証しますか？） <strong>Login with a web browser</strong>を選択します。</li>
 </ol>
-<p><code>gh</code> shows a one-time code like <code>ABCD-1234</code> and asks you to press Enter. Your browser opens on GitHub. Sign in if needed (with your two-factor code), paste the code, and click <strong>Authorize</strong>. Back in the terminal you should see a line saying you are logged in.</p>
-<h3 id="3-tell-git-to-use-gh"><a class="heading-anchor" href="#3-tell-git-to-use-gh">3. Tell git to use gh</a></h3>
+<p><code>gh</code>は<code>ABCD-1234</code>のようなワンタイムコードを表示し、Enterキーを押すように求めます。あなたのブラウザがGitHubで開きます。必要であればサインインし（二段階認証コードも使用して）、コードを貼り付けて<strong>Authorize</strong>をクリックします。ターミナルに戻ると、ログインしたことを示す行が表示されるはずです。</p>
+<h3 id="3-ghを使用するようにgitに指示する"><a class="heading-anchor" href="#3-ghを使用するようにgitに指示する">3. ghを使用するようにgitに指示する</a></h3>
 <pre><code>gh auth setup-git
 </code></pre>
-<p>This makes git ask <code>gh</code> for the key every time it talks to GitHub. If you answered Yes in step 3 above, it is already done, and running it again is harmless.</p>
-<h3 id="4-check"><a class="heading-anchor" href="#4-check">4. Check</a></h3>
+<p>これにより、gitはGitHubと通信するたびに<code>gh</code>にキーを要求するようになります。上記のステップ3で「Yes」と答えた場合、これは既に完了しており、再度実行しても問題ありません。</p>
+<h3 id="4-確認する"><a class="heading-anchor" href="#4-確認する">4. 確認する</a></h3>
 <pre><code>gh auth status
 </code></pre>
-<p>You should see <code>Logged in to github.com account your-username</code> and <code>Git operations protocol: https</code>. That is it. <code>git push</code> will now work.</p>
+<p><code>Logged in to github.com account your-username</code>と<code>Git operations protocol: https</code>と表示されるはずです。これで完了です。<code>git push</code>が機能するようになります。</p>
 <div class="mermaid">
 sequenceDiagram
     participant You as Terminal
@@ -101,29 +101,29 @@ sequenceDiagram
     G->>You: accepted
 
 </div>
-<h2 id="tell-git-your-name-and-email"><a class="heading-anchor" href="#tell-git-your-name-and-email">Tell Git Your Name and Email</a></h2>
-<p>Every commit is signed with a name and an email. Git asks for them once per computer:</p>
+<h2 id="gitにあなたの名前とメールを伝える"><a class="heading-anchor" href="#gitにあなたの名前とメールを伝える">Gitにあなたの名前とメールを伝える</a></h2>
+<p>すべてのコミットは名前とメールアドレスで署名されます。Gitはコンピューターごとに一度だけこれらを尋ねます。</p>
 <pre><code>git config --global user.name &quot;Aiko Tanaka&quot;
 git config --global user.email &quot;you@example.com&quot;
 </code></pre>
-<p>The email matters: GitHub uses it to link each commit to your account and show your picture next to it. Use an email that is on your GitHub account.</p>
-<h3 id="keep-your-email-private"><a class="heading-anchor" href="#keep-your-email-private">Keep your email private</a></h3>
-<p>Commits in a public repository are public, and so is the email inside them. Bots collect these for spam. GitHub gives you a private <strong>noreply</strong> address instead:</p>
+<p>メールアドレスは重要です。GitHubはそれを使用して各コミットをあなたのアカウントにリンクし、その隣にあなたの写真を表示します。GitHubアカウントに登録されているメールアドレスを使用してください。</p>
+<h3 id="メールアドレスを非公開にする"><a class="heading-anchor" href="#メールアドレスを非公開にする">メールアドレスを非公開にする</a></h3>
+<p>公開リポジトリのコミットは公開されており、その中のメールアドレスも公開されます。ボットはスパムのためにこれらを収集します。GitHubは代わりにプライベートな<strong>noreply</strong>アドレスを提供しています。</p>
 <ol>
-<li>On GitHub: profile picture &gt; <strong>Settings</strong> &gt; <strong>Emails</strong>.</li>
-<li>Tick <strong>Keep my email addresses private</strong>.</li>
-<li>GitHub shows your noreply address. It looks like <code>12345678+your-username@users.noreply.github.com</code>.</li>
-<li>Use that address in git:</li>
+<li>GitHubで：プロフィール写真 &gt; <strong>Settings</strong> &gt; <strong>Emails</strong>。</li>
+<li><strong>Keep my email addresses private</strong>（メールアドレスを非公開にする）にチェックを入れます。</li>
+<li>GitHubがnoreplyアドレスを表示します。これは<code>12345678+your-username@users.noreply.github.com</code>のようになります。</li>
+<li>そのアドレスをgitで使用します。</li>
 </ol>
 <pre><code>git config --global user.email &quot;12345678+your-username@users.noreply.github.com&quot;
 </code></pre>
-<p>Copy the exact address from the page: the number at the start is your account ID, and it is different for everyone.</p>
-<p>Check what git will use:</p>
+<p>ページから正確なアドレスをコピーしてください。先頭の数字はあなたのアカウントIDであり、人によって異なります。</p>
+<p>gitが何を使用するかを確認するには：</p>
 <pre><code>git config --global --list
 </code></pre>
-<h2 id="alternative-ssh-keys"><a class="heading-anchor" href="#alternative-ssh-keys">Alternative: SSH Keys</a></h2>
-<p>SSH is another way to prove who you are. It uses a <strong>key pair</strong>: a private key that never leaves your computer, and a public key you give to GitHub. It is like a padlock (public, you can hand out copies) and the only key that opens it (private, you keep it).</p>
-<p>HTTPS with <code>gh</code> is simpler, so you do not need this. Use SSH if a course, a job, or a server setup asks for it.</p>
+<h2 id="代替案-sshキー"><a class="heading-anchor" href="#代替案-sshキー">代替案：SSHキー</a></h2>
+<p>SSHはあなたが誰であるかを証明するもう一つの方法です。これは<strong>キーペア</strong>を使用します。あなたのコンピューターから決して離れない秘密鍵と、GitHubに提供する公開鍵です。南京錠（公開され、コピーを配布できる）と、それを開ける唯一の鍵（秘密で、あなたが保管する）のようなものです。</p>
+<p><code>gh</code>を使ったHTTPSの方がシンプルなので、これは必要ありません。コース、仕事、またはサーバーのセットアップで求められた場合にのみSSHを使用してください。</p>
 <pre><code># Make a key pair (press Enter to accept the default file;
 # choosing a passphrase is a good idea)
 ssh-keygen -t ed25519 -C &quot;you@example.com&quot;
@@ -137,30 +137,30 @@ gh ssh-key add ~/.ssh/id_ed25519.pub --title &quot;My laptop&quot;
 # Test it
 ssh -T git@github.com
 </code></pre>
-<p>The test says <code>Hi your-username! You've successfully authenticated</code>. With SSH, repository addresses look like <code>git@github.com:you/my-project.git</code> instead of <code>https://github.com/...</code>.</p>
-<p><strong>Never share or upload the file without <code>.pub</code>.</strong> That one is the private key.</p>
-<h2 id="when-it-says-permission-denied-or-authentication-failed"><a class="heading-anchor" href="#when-it-says-permission-denied-or-authentication-failed">When It Says "Permission denied" or "Authentication failed"</a></h2>
-<p>Read the error, then check these in order:</p>
+<p>テストでは<code>Hi your-username! You've successfully authenticated</code>と表示されます。SSHを使用する場合、リポジトリのアドレスは<code>https://github.com/...</code>ではなく<code>git@github.com:you/my-project.git</code>のようになります。</p>
+<p><strong><code>.pub</code>なしのファイルを共有したりアップロードしたりしないでください。</strong> それは秘密鍵です。</p>
+<h2 id="permission-denied-または-authentication-failed-と表示された場合"><a class="heading-anchor" href="#permission-denied-または-authentication-failed-と表示された場合">「Permission denied」または「Authentication failed」と表示された場合</a></h2>
+<p>エラーメッセージを読み、以下の点を順番に確認してください。</p>
 <ol>
-<li><strong>Are you logged in?</strong> Run <code>gh auth status</code>. If it says you are not logged in, or that the token is invalid, run <code>gh auth login</code> again.</li>
-<li><strong>Is git using gh?</strong> Run <code>gh auth setup-git</code> again.</li>
-<li><strong>Is it the right account?</strong> <code>gh auth status</code> shows which account is active. If you have two accounts, switch with <code>gh auth switch</code>.</li>
-<li><strong>Do you have access to that repository?</strong> You can only push to your own repositories, or ones where the owner added you as a collaborator. Check the address with <code>git remote -v</code>. A typo in the username gives the same error.</li>
-<li><strong>HTTPS or SSH?</strong> If <code>git remote -v</code> shows <code>git@github.com:...</code> but you set up HTTPS, either set up SSH, or switch the address:</li>
+<li><strong>ログインしていますか？</strong> <code>gh auth status</code>を実行してください。ログインしていない、またはトークンが無効であると表示された場合は、<code>gh auth login</code>を再度実行してください。</li>
+<li><strong>gitはghを使用していますか？</strong> <code>gh auth setup-git</code>を再度実行してください。</li>
+<li><strong>正しいアカウントですか？</strong> <code>gh auth status</code>は現在アクティブなアカウントを表示します。2つのアカウントをお持ちの場合は、<code>gh auth switch</code>で切り替えてください。</li>
+<li><strong>そのリポジトリにアクセス権がありますか？</strong> 自分のリポジトリ、またはオーナーが共同作業者としてあなたを追加したリポジトリにのみプッシュできます。<code>git remote -v</code>でアドレスを確認してください。ユーザー名のタイプミスでも同じエラーが発生します。</li>
+<li><strong>HTTPSとSSHのどちらですか？</strong> <code>git remote -v</code>が<code>git@github.com:...</code>と表示されているのにHTTPSを設定した場合、SSHを設定するか、アドレスを切り替えてください。</li>
 </ol>
 <pre><code>git remote set-url origin https://github.com/your-username/my-project.git
 </code></pre>
 <ol>
-<li><strong>SSH says "Permission denied (publickey)"?</strong> Your key is not on GitHub, or the agent is not using it. Run <code>ssh -T git@github.com</code> and check your keys at <strong>Settings &gt; SSH and GPG keys</strong>.</li>
+<li><strong>SSHで「Permission denied (publickey)」と表示されますか？</strong> あなたのキーがGitHubにないか、エージェントがそれを使用していません。<code>ssh -T git@github.com</code>を実行し、<strong>Settings &gt; SSH and GPG keys</strong>でキーを確認してください。</li>
 </ol>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="重要なポイント"><a class="heading-anchor" href="#重要なポイント">重要なポイント</a></h2>
 <ul>
-<li>GitHub no longer accepts your password for git. Your computer needs a token or an SSH key</li>
-<li>The GitHub CLI does it for you: gh auth login, choose HTTPS and the web browser, then gh auth setup-git</li>
-<li>gh auth status tells you who you are logged in as. Run it first whenever a push fails</li>
-<li>Set user.name and user.email once per computer. The noreply address keeps your real email out of public history</li>
-<li>SSH keys are an alternative. Only ever share the .pub file</li>
+<li>GitHubはもはやgitのパスワードを受け入れません。コンピューターにはトークンまたはSSHキーが必要です。</li>
+<li>GitHub CLIがそれらを代行します：`gh auth login`を実行し、HTTPSとウェブブラウザを選択し、次に`gh auth setup-git`を実行します。</li>
+<li>`gh auth status`は、どのユーザーとしてログインしているかを教えてくれます。プッシュが失敗した場合は、まずこれを実行してください。</li>
+<li>`user.name`と`user.email`はコンピューターごとに一度設定します。noreplyアドレスを使用すると、あなたの実際のメールアドレスが公開履歴に残るのを防ぎます。</li>
+<li>SSHキーは代替手段です。常に`.pub`ファイルのみを共有してください。</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

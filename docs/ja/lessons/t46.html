@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>HTML over the Wire with htmx - KakkoiSchool</title>
+  <title>htmxによるHTMLオーバー・ザ・ワイヤー - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           
         </div>
       </nav>
-      <h1 id="t46-html-over-the-wire-with-htmx"><a class="heading-anchor" href="#t46-html-over-the-wire-with-htmx">T46: HTML over the Wire with htmx</a></h1>
-<p class="lesson-intro">In <a href="t15.html">T15</a> the browser fetched JSON and your JavaScript built the HTML. That is like a restaurant that sends raw ingredients to your table with a recipe card: you do the cooking yourself. <strong>htmx</strong> works the other way. The kitchen sends a finished plate, a piece of ready-made HTML, and the waiter puts it in the right spot on the table. You write almost no JavaScript. You add a few attributes to your HTML, and the server does the rest.</p>
-<h2 id="the-idea"><a class="heading-anchor" href="#the-idea">The Idea</a></h2>
-<p>Normally only links and forms talk to the server, and they reload the whole page. htmx lets <strong>any element</strong> send a request, and puts the HTML that comes back into <strong>any part</strong> of the page, without a reload.</p>
+      <h1 id="t46-htmxによるhtmlオーバー・ザ・ワイヤー"><a class="heading-anchor" href="#t46-htmxによるhtmlオーバー・ザ・ワイヤー">T46: htmxによるHTMLオーバー・ザ・ワイヤー</a></h1>
+<p class="lesson-intro"><a href="t15.html">T15</a>では、ブラウザがJSONをフェッチし、JavaScriptがHTMLを構築していました。これは、レシピカードと一緒に生の食材をテーブルに送ってくるレストランのようなものです。自分で料理をするわけです。<strong>htmx</strong>はその逆の動作をします。キッチンが完成した料理、つまり既製のHTMLの断片を送り、ウェイターがそれをテーブルの正しい場所に置きます。JavaScriptをほとんど書く必要はありません。HTMLにいくつかの属性を追加するだけで、残りはサーバーが行います。</p>
+<h2 id="考え方"><a class="heading-anchor" href="#考え方">考え方</a></h2>
+<p>通常、リンクとフォームだけがサーバーと通信し、ページ全体を再読み込みします。htmxは<strong>あらゆる要素</strong>がリクエストを送信することを可能にし、返ってきたHTMLをページの<strong>あらゆる部分</strong>に、再読み込みなしで挿入します。</p>
 <div class="mermaid">
 sequenceDiagram
     participant B as Browser + htmx
@@ -60,43 +60,43 @@ sequenceDiagram
     B->>B: put it at the end of the list
 
 </div>
-<p>Four questions, four attributes:</p>
+<p>4つの質問、4つの属性：</p>
 <table>
 <thead>
 <tr>
-<th>Question</th>
-<th>Attribute</th>
-<th>Example</th>
+<th>質問</th>
+<th>属性</th>
+<th>例</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>What request, to where?</td>
+<td>どのリクエストをどこへ？</td>
 <td><code>hx-get</code>, <code>hx-post</code>, <code>hx-delete</code></td>
 <td><code>hx-post="/items"</code></td>
 </tr>
 <tr>
-<td>Where does the answer go?</td>
+<td>応答はどこへ行くか？</td>
 <td><code>hx-target</code></td>
 <td><code>hx-target="#items"</code></td>
 </tr>
 <tr>
-<td>How does it go in?</td>
+<td>どのように挿入されるか？</td>
 <td><code>hx-swap</code></td>
 <td><code>hx-swap="beforeend"</code></td>
 </tr>
 <tr>
-<td>Ask first?</td>
+<td>最初に尋ねるか？</td>
 <td><code>hx-confirm</code></td>
 <td><code>hx-confirm="Sure?"</code></td>
 </tr>
 </tbody>
 </table>
-<p>Common <code>hx-swap</code> values: <code>innerHTML</code> (replace what is inside the target, the default), <code>outerHTML</code> (replace the whole target), <code>beforeend</code> (add at the end, inside), <code>delete</code> (remove the target).</p>
-<p><code>hx-target</code> takes a CSS selector like <code>#items</code>, or <code>this</code> (the element itself), or <code>closest li</code> (the nearest <code>&lt;li&gt;</code> around the element).</p>
-<p>This lesson uses <strong>htmx 4</strong>, released in 2026. Many tutorials online are for htmx 2, and some details differ.</p>
-<h2 id="the-example-a-shopping-list"><a class="heading-anchor" href="#the-example-a-shopping-list">The Example: a Shopping List</a></h2>
-<p>A list, a form to add items, and a delete button on each item. It builds on the FastAPI project from <a href="t45.html">T45</a>, using <strong>Jinja</strong> templates: HTML files with <code>{{ holes }}</code> that Python fills in.</p>
+<p>一般的な<code>hx-swap</code>の値：<code>innerHTML</code>（ターゲットの中身を置き換える、デフォルト）、<code>outerHTML</code>（ターゲット全体を置き換える）、<code>beforeend</code>（内側の末尾に追加する）、<code>delete</code>（ターゲットを削除する）。</p>
+<p><code>hx-target</code>は、<code>#items</code>のようなCSSセレクター、または<code>this</code>（要素自体）、<code>closest li</code>（要素の周りにある最も近い<code>&lt;li&gt;</code>）を取ります。</p>
+<p>このレッスンでは、2026年にリリースされた<strong>htmx 4</strong>を使用します。オンラインの多くのチュートリアルはhtmx 2向けであり、いくつかの詳細が異なります。</p>
+<h2 id="例-買い物リスト"><a class="heading-anchor" href="#例-買い物リスト">例：買い物リスト</a></h2>
+<p>項目を追加するためのリストとフォーム、そして各項目には削除ボタンがあります。<a href="t45.html">T45</a>のFastAPIプロジェクトを基にして、<strong>Jinja</strong>テンプレート（Pythonが<code>{{ holes }}</code>を埋めるHTMLファイル）を使用します。</p>
 <pre><code>shopping/
   main.py
   templates/
@@ -105,8 +105,8 @@ sequenceDiagram
     _form.html     the add form
     _added.html    the answer after a successful add
 </code></pre>
-<p>Files starting with <code>_</code> are <strong>fragments</strong>: pieces of a page, not whole pages. The full page includes them, and the server also sends them back alone.</p>
-<h3 id="the-full-page"><a class="heading-anchor" href="#the-full-page">The full page</a></h3>
+<p><code>_</code>で始まるファイルは<strong>フラグメント</strong>です。これらはページ全体ではなく、ページの一部です。ページ全体がこれらをインクルードし、サーバーも単体でこれらを返します。</p>
+<h3 id="ページ全体"><a class="heading-anchor" href="#ページ全体">ページ全体</a></h3>
 <pre><code>&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
@@ -125,8 +125,8 @@ sequenceDiagram
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p>The version is pinned to <code>@4.0.0</code> on purpose. Without it, the CDN could give you htmx 2.</p>
-<h3 id="one-item-with-a-delete-button"><a class="heading-anchor" href="#one-item-with-a-delete-button">One item, with a delete button</a></h3>
+<p>意図的にバージョンを<code>@4.0.0</code>に固定しています。これを指定しないと、CDNからhtmx 2が提供される可能性があります。</p>
+<h3 id="削除ボタン付きの1つの項目"><a class="heading-anchor" href="#削除ボタン付きの1つの項目">削除ボタン付きの1つの項目</a></h3>
 <pre><code>&lt;li&gt;
   {{ item.text }}
   &lt;button hx-delete=&quot;/items/{{ item.id }}&quot;
@@ -135,24 +135,24 @@ sequenceDiagram
           hx-swap=&quot;delete&quot;&gt;Delete&lt;/button&gt;
 &lt;/li&gt;
 </code></pre>
-<p>Click: the browser asks "Delete Buy rice?". If you say yes, htmx sends <code>DELETE /items/1</code>. When the server answers, <code>hx-swap="delete"</code> removes the <code>&lt;li&gt;</code>.</p>
-<h3 id="the-form"><a class="heading-anchor" href="#the-form">The form</a></h3>
+<p>クリックすると、ブラウザは「Delete Buy rice?」と尋ねます。はいと答えると、htmxは<code>DELETE /items/1</code>を送信します。サーバーが応答すると、<code>hx-swap="delete"</code>が<code>&lt;li&gt;</code>を削除します。</p>
+<h3 id="フォーム"><a class="heading-anchor" href="#フォーム">フォーム</a></h3>
 <pre><code>&lt;form hx-post=&quot;/items&quot; hx-target=&quot;this&quot; hx-swap=&quot;outerHTML&quot;&gt;
   &lt;input name=&quot;text&quot; placeholder=&quot;Add an item&quot;&gt;
   &lt;button&gt;Add&lt;/button&gt;
   {% if error %}&lt;p class=&quot;error&quot;&gt;{{ error }}&lt;/p&gt;{% endif %}
 &lt;/form&gt;
 </code></pre>
-<p>On submit, htmx sends the form fields with <code>POST /items</code>, then replaces the whole form (<code>outerHTML</code> of <code>this</code>) with whatever comes back. That gives us a fresh, empty form after each add, or the same form with an error message.</p>
-<h3 id="updating-a-second-place-hx-partial"><a class="heading-anchor" href="#updating-a-second-place-hx-partial">Updating a second place: hx-partial</a></h3>
-<p>After a successful add, two places must change: the form must be emptied, and the new item must appear in the list. The answer's main content goes to the form. For the list, wrap the new item in <code>&lt;hx-partial&gt;</code>, which carries its own target and swap:</p>
+<p>送信すると、htmxはフォームフィールドを<code>POST /items</code>で送信し、その後、返ってきた内容でフォーム全体（<code>this</code>の<code>outerHTML</code>）を置き換えます。これにより、項目を追加するたびに新しい空のフォーム、またはエラーメッセージ付きの同じフォームが得られます。</p>
+<h3 id="2番目の場所を更新する-hx-partial"><a class="heading-anchor" href="#2番目の場所を更新する-hx-partial">2番目の場所を更新する：hx-partial</a></h3>
+<p>項目を正常に追加した後、2つの場所が変更される必要があります。フォームは空になり、新しい項目がリストに表示される必要があります。応答の主要なコンテンツはフォームに送られます。リストには、新しい項目を<code>&lt;hx-partial&gt;</code>でラップし、独自のターゲットとスワップを持たせます。</p>
 <pre><code>{% include &quot;_form.html&quot; %}
 &lt;hx-partial hx-target=&quot;#items&quot; hx-swap=&quot;beforeend&quot;&gt;
   {% include &quot;_item.html&quot; %}
 &lt;/hx-partial&gt;
 </code></pre>
-<p>htmx swaps the main content first, then each partial into its own target.</p>
-<h3 id="the-server"><a class="heading-anchor" href="#the-server">The server</a></h3>
+<p>htmxはまず主要なコンテンツをスワップし、その後各パーシャルを独自のターゲットにスワップします。</p>
+<h3 id="サーバー"><a class="heading-anchor" href="#サーバー">サーバー</a></h3>
 <pre><code>from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -188,29 +188,29 @@ def delete_item(item_id: int):
     items[:] = [i for i in items if i[&quot;id&quot;] != item_id]
     return &quot;&quot;
 </code></pre>
-<p>Run it with <code>uv run uvicorn main:app --reload</code> and open <a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a>. The list lives in memory, so it resets when the server restarts. Swap in SQLite from <a href="t45.html">T45</a> to keep it.</p>
-<h2 id="errors-come-back-as-html"><a class="heading-anchor" href="#errors-come-back-as-html">Errors Come Back as HTML</a></h2>
-<p>Look at the empty-text case. The server answers with status <strong>422</strong> (the request was understood, but the data is not acceptable) and the form with an error message inside.</p>
-<p>In htmx 4, <strong>error responses are swapped too</strong>. Only <code>204 No Content</code> and <code>304 Not Modified</code> are skipped. So the 422 answer replaces the form, and the user sees "Write something first." right under the input. The status code stays honest for tests and logs, and the page still shows the message. (htmx 2 ignored error responses by default, so older tutorials work around this.)</p>
-<p>The flip side: if your server crashes and returns an error page, that page lands in the target too. Keep error answers small and meant for where they will go.</p>
-<h2 id="when-htmx-is-the-wrong-tool"><a class="heading-anchor" href="#when-htmx-is-the-wrong-tool">When htmx Is the Wrong Tool</a></h2>
-<p>htmx shines when the server owns the data and the page mostly shows it: lists, forms, dashboards, admin pages, search with results. Every change is a trip to the server, and that is fine when a trip takes a few dozen milliseconds.</p>
-<p>It is the wrong tool when the work happens in the browser, many times a second, without the server:</p>
+<p><code>uv run uvicorn main:app --reload</code>で実行し、<a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a>を開いてください。リストはメモリ上に存在するため、サーバーが再起動するとリセットされます。<a href="t45.html">T45</a>のSQLiteに置き換えることで、データを保持できます。</p>
+<h2 id="エラーもhtmlとして返される"><a class="heading-anchor" href="#エラーもhtmlとして返される">エラーもHTMLとして返される</a></h2>
+<p>空のテキストの場合を見てみましょう。サーバーはステータス<strong>422</strong>（リクエストは理解されたが、データが受け入れられない）と、エラーメッセージが中に含まれたフォームで応答します。</p>
+<p>htmx 4では、<strong>エラー応答も入れ替えられます</strong>。<code>204 No Content</code>と<code>304 Not Modified</code>のみがスキップされます。そのため、422応答はフォームを置き換え、ユーザーは入力の下に「Write something first.」というメッセージを見ます。ステータスコードはテストやログのために正直なままであり、ページは依然としてメッセージを表示します。（htmx 2はデフォルトでエラー応答を無視していたため、古いチュートリアルではこれを回避していました。）</p>
+<p>裏を返せば、サーバーがクラッシュしてエラーページを返した場合、そのページもターゲットに表示されます。エラー応答は小さく、表示されるべき場所に合わせたものにしてください。</p>
+<h2 id="htmxが不適切な場面"><a class="heading-anchor" href="#htmxが不適切な場面">htmxが不適切な場面</a></h2>
+<p>htmxは、サーバーがデータを所有し、ページが主にそれを表示する場合に力を発揮します。リスト、フォーム、ダッシュボード、管理ページ、検索結果などです。すべての変更がサーバーへのアクセスを伴いますが、そのアクセスが数十ミリ秒で完了するなら問題ありません。</p>
+<p>一方、ブラウザ内で1秒間に何度も、サーバーなしで処理が行われる場合は不適切なツールです。</p>
 <ul>
-<li><strong>Games.</strong> A game loop redraws the screen about 60 times a second (<a href="a10.html">A10</a>). That is JavaScript's job.</li>
-<li><strong>Heavy editors.</strong> A drawing app, a spreadsheet, a rich text editor with live formatting. These keep a lot of state in the browser and need instant feedback on every key press.</li>
-<li><strong>Offline apps.</strong> If there is no server to answer, htmx has nothing to swap in.</li>
+<li><strong>ゲーム。</strong> ゲームループは1秒間に約60回画面を描画します (<a href="a10.html">A10</a>)。これはJavaScriptの役割です。</li>
+<li><strong>高度なエディター。</strong> 描画アプリ、スプレッドシート、リアルタイムの書式設定機能を備えたリッチテキストエディターなど。これらはブラウザ内に多くの状態を保持し、すべてのキー入力に対して即座のフィードバックを必要とします。</li>
+<li><strong>オフラインアプリ。</strong> 応答するサーバーがない場合、htmxは何も入れ替えることができません。</li>
 </ul>
-<p>You can mix: htmx for the forms and lists, a bit of JavaScript for the one widget that needs it.</p>
+<p>htmxとJavaScriptを組み合わせることもできます。フォームやリストにはhtmxを使い、特定のウィジェットが必要とする部分に少しのJavaScriptを使用する、といった具合です。</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="主なポイント"><a class="heading-anchor" href="#主なポイント">主なポイント</a></h2>
 <ul>
-<li>With htmx the server sends HTML fragments, and the page swaps them in. Much less JavaScript</li>
-<li>hx-get, hx-post, hx-delete say what to send. hx-target says where the answer goes. hx-swap says how</li>
-<li>hx-confirm asks the user before sending. hx-swap="delete" removes the target</li>
-<li>&lt;hx-partial hx-target hx-swap&gt; in a response updates a second place on the page</li>
-<li>In htmx 4, error responses like 422 are swapped too, so a form can come back with its error message</li>
-<li>Pin htmx to version 4 in the script URL. Do not use htmx for games, heavy editors or offline apps</li>
+<li>htmxを使用すると、サーバーがHTMLの断片を送り、ページがそれらを挿入します。JavaScriptは大幅に少なくなります。</li>
+<li>`hx-get`、`hx-post`、`hx-delete`は送信内容を示し、`hx-target`は応答の送信先を示し、`hx-swap`は挿入方法を示します。</li>
+<li>`hx-confirm`は送信前にユーザーに尋ねます。`hx-swap="delete"`はターゲットを削除します。</li>
+<li>応答内の`<hx-partial hx-target hx-swap>`は、ページの2番目の場所を更新します。</li>
+<li>htmx 4では、422のようなエラー応答も入れ替えられるため、フォームはエラーメッセージ付きで返されることがあります。</li>
+<li>スクリプトURLでhtmxをバージョン4に固定してください。ゲーム、高度なエディター、オフラインアプリにはhtmxを使用しないでください。</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

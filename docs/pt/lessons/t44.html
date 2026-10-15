@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Putting a Server Online - KakkoiSchool</title>
+  <title>Colocando um Servidor Online - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,15 +47,15 @@
           <a href="t45.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t44-putting-a-server-online"><a class="heading-anchor" href="#t44-putting-a-server-online">T44: Putting a Server Online</a></h1>
-<p class="lesson-intro">A website made of HTML, CSS and JavaScript is like a printed menu: you hand out copies and nobody needs to be in the kitchen. A server app is a restaurant. Someone has to be there, cooking, every time a customer walks in. GitHub Pages can hand out menus for free. To run a restaurant, you need a building that stays open. This lesson compares three kinds of building.</p>
-<h2 id="files-vs-a-server"><a class="heading-anchor" href="#files-vs-a-server">Files vs a Server</a></h2>
-<p><strong>GitHub Pages</strong> serves files. It takes a folder and gives each file a web address. That is perfect for plain HTML, CSS and JavaScript sites, like the game in <a href="a18.html">A18</a> or the Next.js static export in <a href="t40.html">T40</a>.</p>
-<p>It cannot run your code on the server side. If your app has any of these, it needs a real computer that is always on:</p>
+      <h1 id="t44-colocando-um-servidor-online"><a class="heading-anchor" href="#t44-colocando-um-servidor-online">T44: Colocando um Servidor Online</a></h1>
+<p class="lesson-intro">Um site feito de HTML, CSS e JavaScript é como um cardápio impresso: você distribui cópias e ninguém precisa estar na cozinha. Um aplicativo de servidor é um restaurante. Alguém tem que estar lá, cozinhando, toda vez que um cliente entra. GitHub Pages pode distribuir cardápios gratuitamente. Para administrar um restaurante, você precisa de um "prédio" que permaneça aberto. Esta lição compara três tipos de "prédios".</p>
+<h2 id="arquivos-vs-um-servidor"><a class="heading-anchor" href="#arquivos-vs-um-servidor">Arquivos vs um Servidor</a></h2>
+<p><strong>GitHub Pages</strong> serve arquivos. Ele pega uma pasta e dá a cada arquivo um endereço web. Isso é perfeito para sites simples de HTML, CSS e JavaScript, como o jogo em <a href="a18.html">A18</a> ou a exportação estática do Next.js em <a href="t40.html">T40</a>.</p>
+<p>Ele não pode executar seu código no lado do servidor (server-side). Se seu aplicativo tiver alguma destas características, ele precisa de um computador real que esteja sempre ligado:</p>
 <ul>
-<li>A server written in Python (<a href="t45.html">T45</a>) or Node.js (<a href="t21.html">T21</a>)</li>
-<li>A database, even a SQLite file (<a href="t24.html">T24</a>)</li>
-<li>Login, sessions, or anything that must stay secret from the browser</li>
+<li>Um servidor escrito em Python (<a href="t45.html">T45</a>) ou Node.js (<a href="t21.html">T21</a>)</li>
+<li>Um banco de dados, mesmo um arquivo SQLite (<a href="t24.html">T24</a>)</li>
+<li>Login, sessões ou qualquer coisa que precise permanecer secreta para o navegador</li>
 </ul>
 <div class="mermaid">
 flowchart LR
@@ -64,112 +64,110 @@ flowchart LR
     S --> D[(Database)]
 
 </div>
-<p>There is no single right answer for where that computer lives. Here are three honest options. <strong>Prices and free limits change often</strong>, so check each provider's pricing page before you choose.</p>
-<h2 id="option-1-your-own-machine-with-tailscale-funnel"><a class="heading-anchor" href="#option-1-your-own-machine-with-tailscale-funnel">Option 1: Your Own Machine with Tailscale Funnel</a></h2>
-<p>Run the server on a computer you own (an old laptop, a mini PC, a Raspberry Pi) and let <strong>Tailscale Funnel</strong> give it a public HTTPS address.</p>
+<p>Não há uma única resposta certa para onde esse computador reside. Aqui estão três opções honestas. <strong>Preços e limites gratuitos mudam frequentemente</strong>, então verifique a página de preços de cada provedor antes de escolher.</p>
+<h2 id="op-o-1-sua-pr-pria-m-quina-com-tailscale-funnel"><a class="heading-anchor" href="#op-o-1-sua-pr-pria-m-quina-com-tailscale-funnel">Opção 1: Sua Própria Máquina com Tailscale Funnel</a></h2>
+<p>Execute o servidor em um computador que você possui (um laptop antigo, um mini PC, um Raspberry Pi) e deixe o <strong>Tailscale Funnel</strong> dar a ele um endereço HTTPS público.</p>
 <pre><code># after installing Tailscale and signing in
 # your app is running on port 8000
 tailscale funnel 8000
 </code></pre>
-<p>Tailscale prints an address like <code>https://my-laptop.your-tailnet.ts.net</code> that anyone can open, with HTTPS handled for you. The first time, it may ask you to enable HTTPS and Funnel in the browser.</p>
+<p>O Tailscale imprime um endereço como <code>https://my-laptop.your-tailnet.ts.net</code> que qualquer pessoa pode abrir, com HTTPS gerenciado para você. Na primeira vez, ele pode pedir para você habilitar HTTPS e Funnel no navegador.</p>
 <ul>
-<li><strong>Cost:</strong> free for personal use. You pay for electricity.</li>
-<li><strong>Good:</strong> nothing to rent, and your data stays at home.</li>
-<li><strong>Bad:</strong> the machine must stay on and awake. If it sleeps, loses power, or your home internet drops, the site is down. Funnel has bandwidth limits, so it suits demos and small projects, not a busy site.</li>
+<li><strong>Custo:</strong> gratuito para uso pessoal. Você paga pela eletricidade.</li>
+<li><strong>Bom:</strong> nada para alugar, e seus dados permanecem em casa.</li>
+<li><strong>Ruim:</strong> a máquina deve permanecer ligada e acordada. Se ela entrar em modo de suspensão, perder energia ou sua internet doméstica cair, o site ficará fora do ar. O Funnel tem limites de largura de banda, então é adequado para demonstrações e pequenos projetos, não para um site movimentado.</li>
 </ul>
-<h2 id="option-2-a-small-vps-with-caddy"><a class="heading-anchor" href="#option-2-a-small-vps-with-caddy">Option 2: A Small VPS with Caddy</a></h2>
-<p>A <strong>VPS</strong> (virtual private server) is a computer in a data centre that you rent by the month, from Hetzner, DigitalOcean, Vultr and many others. The smallest size is enough for a learning project.</p>
-<p>You get a fresh Linux machine. You install your app, keep it running with <code>systemd</code>, and put <strong>Caddy</strong> in front: a web server that gets and renews HTTPS certificates by itself. Point a domain name at the server's IP address, and the whole Caddy config can be this short:</p>
+<h2 id="op-o-2-um-pequeno-vps-com-caddy"><a class="heading-anchor" href="#op-o-2-um-pequeno-vps-com-caddy">Opção 2: Um Pequeno VPS com Caddy</a></h2>
+<p>Um <strong>VPS</strong> (servidor virtual privado) é um computador em um data center que você aluga mensalmente, de Hetzner, DigitalOcean, Vultr e muitos outros. O tamanho menor é suficiente para um projeto de aprendizado.</p>
+<p>Você obtém uma máquina Linux nova. Você instala seu aplicativo, o mantém funcionando com <code>systemd</code> e coloca o <strong>Caddy</strong> na frente: um servidor web que obtém e renova certificados HTTPS por conta própria. Aponte um nome de domínio para o endereço IP do servidor, e a configuração completa do Caddy pode ser assim:</p>
 <pre><code># /etc/caddy/Caddyfile
 myapp.example.com {
     reverse_proxy localhost:8000
 }
 </code></pre>
-<p>Caddy receives visitors on HTTPS and passes each request to your app on port 8000.</p>
+<p>O Caddy recebe visitantes em HTTPS e passa cada requisição para o seu aplicativo na porta 8000.</p>
 <ul>
-<li><strong>Cost:</strong> a few dollars a month, plus a domain name (about 10 to 15 dollars a year).</li>
-<li><strong>Good:</strong> always on, predictable price, and you learn how servers really work.</li>
-<li><strong>Bad:</strong> you are the maintainer. Security updates, firewall, backups, restarting things at 2 a.m.: all yours.</li>
+<li><strong>Custo:</strong> alguns dólares por mês, mais um nome de domínio (cerca de 10 a 15 dólares por ano).</li>
+<li><strong>Bom:</strong> sempre ligado, preço previsível e você aprende como os servidores realmente funcionam.</li>
+<li><strong>Ruim:</strong> você é o mantenedor. Atualizações de segurança, firewall, backups, reiniciar coisas às 2 da manhã: tudo é sua responsabilidade.</li>
 </ul>
-<h2 id="option-3-a-platform-fly-io-render-railway"><a class="heading-anchor" href="#option-3-a-platform-fly-io-render-railway">Option 3: A Platform (Fly.io, Render, Railway)</a></h2>
-<p>A <strong>platform</strong> runs your app for you. Connect a GitHub repository or run one command, and it builds your app, gives it an HTTPS address, and restarts it if it crashes.</p>
+<h2 id="op-o-3-uma-plataforma-fly-io-render-railway"><a class="heading-anchor" href="#op-o-3-uma-plataforma-fly-io-render-railway">Opção 3: Uma Plataforma (Fly.io, Render, Railway)</a></h2>
+<p>Uma <strong>plataforma</strong> executa seu aplicativo para você. Conecte um repositório GitHub ou execute um comando, e ela construirá seu aplicativo, dará a ele um endereço HTTPS e o reiniciará se ele falhar.</p>
 <ul>
-<li><strong>Cost:</strong> paid by usage or by plan. Free tiers, where they exist, often sleep when idle (the first visitor waits several seconds).</li>
-<li><strong>Good:</strong> the easiest path. No server to patch. Deploy by pushing to GitHub.</li>
-<li><strong>Bad:</strong> least control, and limits and prices change. Many platforms wipe the disk on every deploy, so a SQLite file needs a <strong>persistent volume</strong>. Check before you store real data.</li>
+<li><strong>Custo:</strong> pago por uso ou por plano. Camadas gratuitas (free tiers), onde existem, frequentemente entram em modo de suspensão quando ociosas (o primeiro visitante espera vários segundos).</li>
+<li><strong>Bom:</strong> o caminho mais fácil. Nenhum servidor para corrigir. Faça o deploy (implantação) enviando para o GitHub.</li>
+<li><strong>Ruim:</strong> menor controle, e limites e preços mudam. Muitas plataformas limpam o disco a cada deploy, então um arquivo SQLite precisa de um <strong>volume persistente</strong>. Verifique antes de armazenar dados reais.</li>
 </ul>
-<h2 id="comparing-the-three"><a class="heading-anchor" href="#comparing-the-three">Comparing the Three</a></h2>
+<h2 id="comparando-as-tr-s-op-es"><a class="heading-anchor" href="#comparando-as-tr-s-op-es">Comparando as Três Opções</a></h2>
 <table>
 <thead>
 <tr>
 <th></th>
-<th>Own machine + Funnel</th>
+<th>Máquina própria + Funnel</th>
 <th>VPS + Caddy</th>
-<th>Platform</th>
+<th>Plataforma</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Money</td>
-<td>Free</td>
-<td>A few $/month</td>
-<td>Varies, often more</td>
+<td>Dinheiro</td>
+<td>Gratuito</td>
+<td>Alguns $/mês</td>
+<td>Varia, geralmente mais</td>
 </tr>
 <tr>
-<td>Effort to start</td>
-<td>Low</td>
-<td>Medium to high</td>
-<td>Lowest</td>
+<td>Esforço para iniciar</td>
+<td>Baixo</td>
+<td>Médio a alto</td>
+<td>Mais baixo</td>
 </tr>
 <tr>
-<td>Effort to maintain</td>
-<td>Keep it on</td>
-<td>Updates, backups, security</td>
-<td>Little</td>
+<td>Esforço para manter</td>
+<td>Mantê-la ligada</td>
+<td>Atualizações, backups, segurança</td>
+<td>Pouco</td>
 </tr>
 <tr>
-<td>Always on</td>
-<td>Only if your machine is</td>
-<td>Yes</td>
-<td>Yes (paid plans)</td>
+<td>Sempre ligada</td>
+<td>Apenas se sua máquina estiver</td>
+<td>Sim</td>
+<td>Sim (planos pagos)</td>
 </tr>
 <tr>
-<td>What you learn</td>
-<td>Networking basics</td>
-<td>How servers work</td>
-<td>How deploys work</td>
+<td>O que você aprende</td>
+<td>Fundamentos de rede</td>
+<td>Como os servidores funcionam</td>
+<td>Como os deploys funcionam</td>
 </tr>
 </tbody>
 </table>
-<h2 id="what-changes-in-production"><a class="heading-anchor" href="#what-changes-in-production">What Changes in Production</a></h2>
-<p>"Production" means the real, public copy that other people use. Four things change compared with your laptop.</p>
-<h3 id="secrets-become-environment-variables"><a class="heading-anchor" href="#secrets-become-environment-variables">Secrets become environment variables</a></h3>
-<p>Never put keys in the code (<a href="t43.html">T43</a>). On a VPS, keep them in an environment file only the app can read. On a platform, use its <strong>secrets</strong> page. The code reads them the same way everywhere:</p>
+<h2 id="o-que-muda-em-produ-o"><a class="heading-anchor" href="#o-que-muda-em-produ-o">O Que Muda em Produção</a></h2>
+<p>"Produção" significa a cópia real e pública que outras pessoas usam. Quatro coisas mudam em comparação com seu laptop.</p>
+<h3 id="segredos-se-tornam-vari-veis-de-ambiente"><a class="heading-anchor" href="#segredos-se-tornam-vari-veis-de-ambiente">Segredos se tornam variáveis de ambiente</a></h3>
+<p>Nunca coloque chaves no código (<a href="t43.html">T43</a>). Em um VPS, mantenha-as em um arquivo de ambiente que apenas o aplicativo possa ler. Em uma plataforma, use sua página de <strong>segredos</strong>. O código as lê da mesma forma em todos os lugares:</p>
 <pre><code>import os
 api_key = os.environ[&quot;OPENAI_API_KEY&quot;]
 </code></pre>
-<h3 id="https-everywhere"><a class="heading-anchor" href="#https-everywhere">HTTPS everywhere</a></h3>
-<p>Logins and forms must travel encrypted. All three options give you HTTPS automatically. Never send passwords over plain <code>http://</code>.</p>
-<h3 id="the-database-has-a-home-and-backups"><a class="heading-anchor" href="#the-database-has-a-home-and-backups">The database has a home, and backups</a></h3>
-<p>Decide where the data lives: a SQLite file on the same machine, or a managed database. Then ask: <strong>if this disk dies tonight, what do I lose?</strong> For SQLite, a daily copy made with its own backup command (safe even while the app is writing) is a good start:</p>
+<h3 id="https-em-todos-os-lugares"><a class="heading-anchor" href="#https-em-todos-os-lugares">HTTPS em todos os lugares</a></h3>
+<p>Logins e formulários devem viajar criptografados. Todas as três opções oferecem HTTPS automaticamente. Nunca envie senhas por <code>http://</code> simples.</p>
+<h3 id="o-banco-de-dados-tem-um-lar-e-backups"><a class="heading-anchor" href="#o-banco-de-dados-tem-um-lar-e-backups">O banco de dados tem um lar, e backups</a></h3>
+<p>Decida onde os dados residem: um arquivo SQLite na mesma máquina, ou um banco de dados gerenciado. Então pergunte: <strong>se este disco morrer esta noite, o que eu perco?</strong> Para SQLite, uma cópia diária feita com seu próprio comando de backup (seguro mesmo enquanto o aplicativo está escrevendo) é um bom começo:</p>
 <pre><code>sqlite3 app.db &quot;.backup 'backup-2026-10-15.db'&quot;
 </code></pre>
-<p>Keep copies on another machine or in cloud storage: a backup on the same disk is not a backup. Restore one once, to know it works.</p>
-<h3 id="logs-are-your-eyes"><a class="heading-anchor" href="#logs-are-your-eyes">Logs are your eyes</a></h3>
-<p>On your laptop you watch the terminal. In production nobody is watching, so your app prints what happens and the host keeps it:</p>
-<ul>
-<li>VPS with systemd: <code>journalctl -u myapp -f</code> shows the live log.</li>
-<li>Platforms: a <strong>Logs</strong> tab in the dashboard, or a CLI command.</li>
-</ul>
-<p>When a user says "it broke", the logs tell you what happened.</p>
+<p>Mantenha cópias em outra máquina ou em armazenamento na nuvem: um backup no mesmo disco não é um backup. Restaure um uma vez, para saber se funciona.</p>
+<h3 id="logs-s-o-seus-olhos"><a class="heading-anchor" href="#logs-s-o-seus-olhos">Logs são seus olhos</a></h3>
+<p>No seu laptop, você observa o terminal. Em produção, ninguém está observando, então seu aplicativo imprime o que acontece e o host o mantém:
+- VPS com systemd: <code>journalctl -u myapp -f</code> mostra o log ao vivo.
+- Plataformas: uma aba de <strong>Logs</strong> no painel de controle, ou um comando CLI.</p>
+<p>Quando um usuário diz "quebrou", os logs te dizem o que aconteceu.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-conclus-es"><a class="heading-anchor" href="#principais-conclus-es">Principais Conclusões</a></h2>
 <ul>
-<li>GitHub Pages serves files only. A server, a database or a login needs a computer that is always on</li>
-<li>Own machine with Tailscale Funnel: free, but the machine must stay on, and bandwidth is limited</li>
-<li>Small VPS with Caddy: a few dollars a month and automatic HTTPS, but you maintain everything</li>
-<li>A platform like Fly.io, Render or Railway: easiest, paid, and its limits and prices change</li>
-<li>In production: secrets in environment variables, HTTPS always, a known home for the database with tested backups, and logs you can read</li>
+<li>GitHub Pages serve apenas arquivos. Um servidor, um banco de dados ou um login precisa de um computador que esteja sempre ligado</li>
+<li>Máquina própria com Tailscale Funnel: gratuito, mas a máquina deve permanecer ligada, e a largura de banda é limitada</li>
+<li>Pequeno VPS com Caddy: alguns dólares por mês e HTTPS automático, mas você mantém tudo</li>
+<li>Uma plataforma como Fly.io, Render ou Railway: mais fácil, pago, e seus limites e preços mudam</li>
+<li>Em produção: segredos em variáveis de ambiente, HTTPS sempre, um local conhecido para o banco de dados com backups testados e logs que você pode ler</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

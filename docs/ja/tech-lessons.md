@@ -54,9 +54,9 @@
 
 - [T19: Gitの基礎](lessons/t19.md) - タイムマシン: 3つの領域、コミット、ブランチ、恐れずに取り消す。
 - [T20: GitHubとコラボレーション](lessons/t20.md) - 共有工房: リモート、push/pull、GitHub Flow、プルリクエスト。
-- [T41: Your GitHub Account](lessons/t41.md) - The key to the shared workshop: sign up, pick a username, turn on two-factor, public vs private.
-- [T42: Connect Your Computer to GitHub](lessons/t42.md) - The key for the door: the GitHub CLI, your name and email in git, SSH keys, fixing 'Permission denied'.
-- [T43: Your First Repository](lessons/t43.md) - From a folder on your computer to GitHub: .gitignore first, one command to publish, secrets kept out, a README.
+- [T41: GitHubアカウント](lessons/t41.md) - 共有ワークショップへの鍵：サインアップ、ユーザー名の決定、二段階認証の有効化、公開と非公開の違い。
+- [T42: コンピューターをGitHubに接続する](lessons/t42.md) - 扉の鍵：GitHub CLI、gitでの名前とメール、SSHキー、「Permission denied」の修正方法。
+- [T43: 初めてのリポジトリ](lessons/t43.md) - コンピューター上のフォルダからGitHubへ：まず.gitignore、公開コマンドは1つ、秘密は外部に、README。
 
 ## フェーズ6: 厨房 (バックエンド)
 
@@ -69,9 +69,9 @@
 - [T23: JSONデータベース](lessons/t23.md) - レシピブック: ファイルの読み書き, JSONでCRUD。
 - [T24: SQLite](lessons/t24.md) - ファイリングキャビネット: SQL, テーブル, CRUD, スキーマ, 外部キー。
 - [T25: 認証](lessons/t25.md) - ID確認: セッション, クッキー, パスワードハッシュ, ログイン/ログアウト。
-- [T44: Putting a Server Online](lessons/t44.md) - Your kitchen needs a building: your own machine with Tailscale Funnel, a small VPS with Caddy, or a platform. Costs, trade-offs, what changes in production.
-- [T45: A Python Server with FastAPI](lessons/t45.md) - The same kitchen in Python: uv, routes that return HTML and JSON, typed parameters, tests with TestClient.
-- [T46: HTML over the Wire with htmx](lessons/t46.md) - The kitchen sends finished plates: the server returns HTML pieces, htmx swaps them into the page. A FastAPI list with add and delete.
+- [T44: サーバーをオンラインにする](lessons/t44.md) - あなたのキッチンには建物が必要です。Tailscale Funnelを使った自分のマシン、Caddyを使った小さなVPS、またはプラットフォーム。費用、トレードオフ、本番環境での変更点について説明します。
+- [T45: FastAPIでPythonサーバーを構築する](lessons/t45.md) - Pythonで同じ「キッチン」を構築する: uv、HTMLとJSONを返すルート、型付けされたパラメータ、TestClientでのテスト。
+- [T46: htmxによるHTMLオーバー・ザ・ワイヤー](lessons/t46.md) - キッチンが完成した料理を送るように、サーバーがHTMLの断片を返し、htmxがそれらをページに挿入します。追加・削除機能付きのFastAPIリストです。
 
 ## フェーズ7: ロボットシェフ (AI)
 
@@ -93,7 +93,7 @@
 - [T30: TypeScript](lessons/t30.md) - 型安全性: 型注釈、インターフェース、Reactコンポーネントの型付け。
 - [T31: Next.js: ルーティングとレンダリング](lessons/t31.md) - ファイルベースルーティング、サーバーvsクライアントコンポーネント、レイアウト。
 - [T32: Next.js: データとAPI](lessons/t32.md) - サーバーコンポーネントでのデータ取得、APIルート、完全なページの構築。
-- [T40: Case Study: Shipping kakkoi.dev](lessons/t40.md) - A real Next.js site in production: static export, two languages, GitHub Pages, a meta CSP, stale deploys.
+- [T40: ケーススタディ: kakkoi.dev の公開](lessons/t40.md) - 実稼働中のNext.jsサイト: 静的エクスポート、2言語対応、GitHub Pages、メタCSP、古いデプロイの問題。
 
 ## フェーズ9: 本部 (バックエンドフレームワーク)
 

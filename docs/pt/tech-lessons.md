@@ -54,9 +54,9 @@ Rastreie cada mudança, colabore sem pisar no pé um do outro
 
 - [T19: Fundamentos de Git](lessons/t19.md) - A máquina do tempo: três áreas, commits, branches, desfazer sem medo.
 - [T20: GitHub e Colaboração](lessons/t20.md) - A oficina compartilhada: remotes, push/pull, GitHub Flow, pull requests.
-- [T41: Your GitHub Account](lessons/t41.md) - The key to the shared workshop: sign up, pick a username, turn on two-factor, public vs private.
-- [T42: Connect Your Computer to GitHub](lessons/t42.md) - The key for the door: the GitHub CLI, your name and email in git, SSH keys, fixing 'Permission denied'.
-- [T43: Your First Repository](lessons/t43.md) - From a folder on your computer to GitHub: .gitignore first, one command to publish, secrets kept out, a README.
+- [T41: Sua Conta GitHub](lessons/t41.md) - A chave para a oficina compartilhada: cadastre-se, escolha um nome de usuário, ative a autenticação de dois fatores, público vs privado.
+- [T42: Conecte Seu Computador ao GitHub](lessons/t42.md) - A chave para a porta: o GitHub CLI, seu nome e e-mail no git, chaves SSH, corrigindo 'Permission denied'.
+- [T43: Seu Primeiro Repositório](lessons/t43.md) - De uma pasta no seu computador para o GitHub: .gitignore primeiro, um comando para publicar, segredos mantidos fora, um README.
 
 ## Fase 6: A Cozinha (Backend)
 
@@ -69,9 +69,9 @@ Servidores, APIs e bancos de dados
 - [T23: Banco JSON](lessons/t23.md) - O livro de receitas: ler/escrever arquivos, CRUD com JSON.
 - [T24: SQLite](lessons/t24.md) - O arquivo suspenso: SQL, tabelas, CRUD, schema, chaves estrangeiras.
 - [T25: Autenticação](lessons/t25.md) - A conferência de identidade: sessões, cookies, hashing de senha, login/logout.
-- [T44: Putting a Server Online](lessons/t44.md) - Your kitchen needs a building: your own machine with Tailscale Funnel, a small VPS with Caddy, or a platform. Costs, trade-offs, what changes in production.
-- [T45: A Python Server with FastAPI](lessons/t45.md) - The same kitchen in Python: uv, routes that return HTML and JSON, typed parameters, tests with TestClient.
-- [T46: HTML over the Wire with htmx](lessons/t46.md) - The kitchen sends finished plates: the server returns HTML pieces, htmx swaps them into the page. A FastAPI list with add and delete.
+- [T44: Colocando um Servidor Online](lessons/t44.md) - Sua 'cozinha' precisa de um 'prédio': sua própria máquina com Tailscale Funnel, um pequeno VPS com Caddy, ou uma plataforma. Custos, desvantagens, o que muda em produção.
+- [T45: Um Servidor Python com FastAPI](lessons/t45.md) - A mesma cozinha em Python: uv, rotas que retornam HTML e JSON, parâmetros tipados, testes com TestClient.
+- [T46: HTML sobre o Fio com htmx](lessons/t46.md) - A cozinha envia pratos prontos: o servidor retorna pedaços de HTML, e o htmx os insere na página. Uma lista FastAPI com adicionar e excluir.
 
 ## Fase 7: O Chef Robô (IA)
 
@@ -93,7 +93,7 @@ UI baseada em componentes e JavaScript com tipagem segura
 - [T30: TypeScript](lessons/t30.md) - Segurança de tipo: anotações, interfaces, tipando componentes React.
 - [T31: Next.js: Roteamento e Renderização](lessons/t31.md) - Roteamento baseado em arquivos, server vs client components, layouts.
 - [T32: Next.js: Dados e API](lessons/t32.md) - Busca de dados em server components, rotas de API, montando uma página completa.
-- [T40: Case Study: Shipping kakkoi.dev](lessons/t40.md) - A real Next.js site in production: static export, two languages, GitHub Pages, a meta CSP, stale deploys.
+- [T40: Estudo de Caso: Publicando kakkoi.dev](lessons/t40.md) - Um site Next.js real em produção: exportação estática, dois idiomas, GitHub Pages, um CSP meta, deploys defasados.
 
 ## Fase 9: A Sede (Frameworks Backend)
 

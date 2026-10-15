@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>A Python Server with FastAPI - KakkoiSchool</title>
+  <title>Um Servidor Python com FastAPI - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,29 +47,29 @@
           <a href="t46.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t45-a-python-server-with-fastapi"><a class="heading-anchor" href="#t45-a-python-server-with-fastapi">T45: A Python Server with FastAPI</a></h1>
-<p class="lesson-intro">In <a href="t21.html">T21</a> to <a href="t23.html">T23</a> you built a server in Node.js. This lesson builds the same kind of kitchen in Python, with <strong>FastAPI</strong>. Think of FastAPI as a head chef who reads every order before it reaches the stove. If a customer orders "abc" pizzas, the chef sends the order back with a polite note, and the cooks never see it. That checking comes from the <strong>types</strong> you write, and it catches many mistakes for free.</p>
-<h2 id="install-uv"><a class="heading-anchor" href="#install-uv">Install uv</a></h2>
-<p><strong>uv</strong> is a tool that installs Python, creates a private folder of packages for each project, and runs your code. One tool instead of several.</p>
+      <h1 id="t45-um-servidor-python-com-fastapi"><a class="heading-anchor" href="#t45-um-servidor-python-com-fastapi">T45: Um Servidor Python com FastAPI</a></h1>
+<p class="lesson-intro">Em <a href="t21.html">T21</a> a <a href="t23.html">T23</a> você construiu um servidor em Node.js. Esta lição constrói o mesmo tipo de cozinha em Python, com <strong>FastAPI</strong>. Pense em FastAPI como um chef de cozinha que lê cada pedido antes que ele chegue ao fogão. Se um cliente pede pizzas "abc", o chef devolve o pedido com uma nota educada, e os cozinheiros nunca o veem. Essa verificação vem dos <strong>tipos</strong> que você escreve, e ela pega muitos erros gratuitamente.</p>
+<h2 id="instalar-uv"><a class="heading-anchor" href="#instalar-uv">Instalar uv</a></h2>
+<p><strong>uv</strong> é uma ferramenta que instala Python, cria uma pasta privada de pacotes para cada projeto e executa seu código. Uma ferramenta em vez de várias.</p>
 <pre><code># macOS and Linux
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Windows (PowerShell)
 powershell -ExecutionPolicy ByPass -c &quot;irm https://astral.sh/uv/install.ps1 | iex&quot;
 </code></pre>
-<p>Close and reopen your terminal, then check with <code>uv --version</code>. Other install methods are at <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener">docs.astral.sh/uv</a>.</p>
-<h2 id="start-a-project"><a class="heading-anchor" href="#start-a-project">Start a Project</a></h2>
+<p>Feche e reabra seu terminal, então verifique com <code>uv --version</code>. Outros métodos de instalação estão em <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener">docs.astral.sh/uv</a>.</p>
+<h2 id="iniciar-um-projeto"><a class="heading-anchor" href="#iniciar-um-projeto">Iniciar um Projeto</a></h2>
 <pre><code>uv init --no-package hello-api
 cd hello-api
 uv add fastapi uvicorn jinja2 python-multipart
 </code></pre>
 <ul>
-<li><code>uv init</code> creates the project: a <code>pyproject.toml</code> (the list of what the project needs, like <code>package.json</code> in Node.js), a <code>main.py</code>, and a <code>.gitignore</code>. <code>--no-package</code> keeps it a simple app with <code>main.py</code> at the top.</li>
-<li><code>uv add</code> installs packages into a private <code>.venv</code> folder and writes them into <code>pyproject.toml</code>.</li>
-<li><strong>fastapi</strong> is the framework, <strong>uvicorn</strong> is the server program that runs it, <strong>jinja2</strong> fills HTML templates (<a href="t46.html">T46</a>), and <strong>python-multipart</strong> lets FastAPI read HTML forms.</li>
+<li><code>uv init</code> cria o projeto: um <code>pyproject.toml</code> (a lista do que o projeto precisa, como <code>package.json</code> em Node.js), um <code>main.py</code> e um <code>.gitignore</code>. <code>--no-package</code> o mantém como um aplicativo simples com <code>main.py</code> no topo.</li>
+<li><code>uv add</code> instala pacotes em uma pasta privada <code>.venv</code> e os escreve em <code>pyproject.toml</code>.</li>
+<li><strong>fastapi</strong> é o framework, <strong>uvicorn</strong> é o programa de servidor que o executa, <strong>jinja2</strong> preenche templates HTML (<a href="t46.html">T46</a>), e <strong>python-multipart</strong> permite que o FastAPI leia formulários HTML.</li>
 </ul>
-<h2 id="a-first-route-returning-html"><a class="heading-anchor" href="#a-first-route-returning-html">A First Route Returning HTML</a></h2>
-<p>Replace everything in <code>main.py</code> with:</p>
+<h2 id="uma-primeira-rota-retornando-html"><a class="heading-anchor" href="#uma-primeira-rota-retornando-html">Uma Primeira Rota Retornando HTML</a></h2>
+<p>Substitua tudo em <code>main.py</code> por:</p>
 <pre><code>from fastapi import FastAPI, Form, HTTPException
 from fastapi.responses import HTMLResponse
 
@@ -80,13 +80,13 @@ app = FastAPI()
 def home() -&gt; str:
     return &quot;&lt;h1&gt;Hello from Python&lt;/h1&gt;&lt;p&gt;The kitchen is open.&lt;/p&gt;&quot;
 </code></pre>
-<p><code>@app.get("/")</code> means "when a browser asks for <code>/</code> with GET, run this function". The function returns a string, and <code>response_class=HTMLResponse</code> tells FastAPI to send it as a web page.</p>
-<p>Run it:</p>
+<p><code>@app.get("/")</code> significa "quando um navegador solicita <code>/</code> com GET, execute esta função". A função retorna uma string, e <code>response_class=HTMLResponse</code> diz ao FastAPI para enviá-la como uma página web.</p>
+<p>Execute-o:</p>
 <pre><code>uv run uvicorn main:app --reload
 </code></pre>
-<p><code>main:app</code> means "the <code>app</code> object in <code>main.py</code>". <code>--reload</code> restarts the server every time you save. Open <a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a>. Stop it with Ctrl+C.</p>
-<h2 id="a-json-route"><a class="heading-anchor" href="#a-json-route">A JSON Route</a></h2>
-<p>Add a small list of books and a route that returns it. FastAPI turns Python lists and dictionaries into JSON by itself:</p>
+<p><code>main:app</code> significa "o objeto <code>app</code> em <code>main.py</code>". <code>--reload</code> reinicia o servidor toda vez que você salva. Abra <a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a>. Pare-o com Ctrl+C.</p>
+<h2 id="uma-rota-json"><a class="heading-anchor" href="#uma-rota-json">Uma Rota JSON</a></h2>
+<p>Adicione uma pequena lista de livros e uma rota que a retorne. FastAPI transforma listas e dicionários Python em JSON por conta própria:</p>
 <pre><code>books = [
     {&quot;id&quot;: 1, &quot;title&quot;: &quot;The Hobbit&quot;, &quot;pages&quot;: 310},
     {&quot;id&quot;: 2, &quot;title&quot;: &quot;Dune&quot;, &quot;pages&quot;: 412},
@@ -97,17 +97,17 @@ def home() -&gt; str:
 def list_books() -&gt; list[dict]:
     return books
 </code></pre>
-<p>Open <code>/api/books</code>. Then open <code>/docs</code>: FastAPI builds an interactive page listing every route, where you can try each one. You did not write any of it.</p>
-<h2 id="types-why-they-help"><a class="heading-anchor" href="#types-why-they-help">Types: Why They Help</a></h2>
-<p>In Python you can write a <strong>type hint</strong> after a name: <code>book_id: int</code> means "this should be a whole number", <code>title: str</code> means "this should be text", <code>-&gt; dict</code> means "this function returns a dictionary".</p>
-<p>Plain Python does not enforce them. They are notes. But they still help:</p>
+<p>Abra <code>/api/books</code>. Então abra <code>/docs</code>: FastAPI constrói uma página interativa listando cada rota, onde você pode experimentar cada uma. Você não escreveu nada disso.</p>
+<h2 id="tipos-por-que-eles-ajudam"><a class="heading-anchor" href="#tipos-por-que-eles-ajudam">Tipos: Por Que Eles Ajudam</a></h2>
+<p>Em Python você pode escrever uma <strong>dica de tipo</strong> após um nome: <code>book_id: int</code> significa "isso deve ser um número inteiro", <code>title: str</code> significa "isso deve ser texto", <code>-&gt; dict</code> significa "esta função retorna um dicionário".</p>
+<p>Python puro não os impõe. Eles são notas. Mas eles ainda ajudam:</p>
 <ul>
-<li>Your editor reads them and warns you when you mix things up, like adding text to a number, before you even run the code.</li>
-<li>They tell the next reader what a function expects without reading its body.</li>
+<li>Seu editor os lê e avisa quando você mistura as coisas, como adicionar texto a um número, antes mesmo de executar o código.</li>
+<li>Eles dizem ao próximo leitor o que uma função espera sem ler seu corpo.</li>
 </ul>
-<p>FastAPI goes further: <strong>it uses the types to check every request</strong>. If the type says <code>int</code> and the request sends <code>abc</code>, FastAPI answers with a <code>422</code> error explaining what was wrong, and your function never runs.</p>
-<h2 id="path-parameters"><a class="heading-anchor" href="#path-parameters">Path Parameters</a></h2>
-<p>A part of the address in curly braces becomes a function argument:</p>
+<p>FastAPI vai além: <strong>ele usa os tipos para verificar cada requisição</strong>. Se o tipo diz <code>int</code> e a requisição envia <code>abc</code>, FastAPI responde com um erro <code>422</code> explicando o que estava errado, e sua função nunca é executada.</p>
+<h2 id="par-metros-de-caminho"><a class="heading-anchor" href="#par-metros-de-caminho">Parâmetros de Caminho</a></h2>
+<p>Uma parte do endereço entre chaves se torna um argumento de função:</p>
 <pre><code>@app.get(&quot;/api/books/{book_id}&quot;)
 def get_book(book_id: int) -&gt; dict:
     for book in books:
@@ -116,26 +116,26 @@ def get_book(book_id: int) -&gt; dict:
     raise HTTPException(status_code=404, detail=&quot;Book not found&quot;)
 </code></pre>
 <ul>
-<li><code>/api/books/1</code> returns The Hobbit. <code>book_id</code> arrives as the number <code>1</code>, not the text <code>"1"</code>.</li>
-<li><code>/api/books/99</code> returns <code>404 Not Found</code>, from the <code>raise</code>.</li>
-<li><code>/api/books/abc</code> returns <code>422</code> with a message saying it should be a valid integer. You wrote no code for that.</li>
+<li><code>/api/books/1</code> retorna O Hobbit. <code>book_id</code> chega como o número <code>1</code>, não o texto <code>"1"</code>.</li>
+<li><code>/api/books/99</code> retorna <code>404 Not Found</code>, do <code>raise</code>.</li>
+<li><code>/api/books/abc</code> retorna <code>422</code> com uma mensagem dizendo que deveria ser um número inteiro válido. Você não escreveu nenhum código para isso.</li>
 </ul>
-<h2 id="form-parameters"><a class="heading-anchor" href="#form-parameters">Form Parameters</a></h2>
-<p><code>Form()</code> reads a field sent by an HTML form. The type still applies:</p>
+<h2 id="par-metros-de-formul-rio"><a class="heading-anchor" href="#par-metros-de-formul-rio">Parâmetros de Formulário</a></h2>
+<p><code>Form()</code> lê um campo enviado por um formulário HTML. O tipo ainda se aplica:</p>
 <pre><code>@app.post(&quot;/api/books&quot;, status_code=201)
 def add_book(title: str = Form(), pages: int = Form()) -&gt; dict:
     book = {&quot;id&quot;: len(books) + 1, &quot;title&quot;: title, &quot;pages&quot;: pages}
     books.append(book)
     return book
 </code></pre>
-<p>A form like this one sends to it:</p>
+<p>Um formulário como este envia para ele:</p>
 <pre><code>&lt;form method=&quot;post&quot; action=&quot;/api/books&quot;&gt;
   &lt;input name=&quot;title&quot;&gt;
   &lt;input name=&quot;pages&quot; type=&quot;number&quot;&gt;
   &lt;button&gt;Add&lt;/button&gt;
 &lt;/form&gt;
 </code></pre>
-<p>The <code>name</code> of each input matches an argument name. If <code>pages</code> is missing or is not a number, FastAPI answers <code>422</code>.</p>
+<p>O <code>name</code> de cada input corresponde a um nome de argumento. Se <code>pages</code> estiver faltando ou não for um número, FastAPI responde <code>422</code>.</p>
 <div class="mermaid">
 flowchart LR
     R[Request] --> V{FastAPI checks<br/>the types}
@@ -144,8 +144,8 @@ flowchart LR
     F --> J[HTML or JSON]
 
 </div>
-<h2 id="saving-data-with-sqlite"><a class="heading-anchor" href="#saving-data-with-sqlite">Saving Data with SQLite</a></h2>
-<p>The list above is lost when the server restarts. Python comes with SQLite built in, through the <code>sqlite3</code> module. No install needed. The SQL is exactly what you learned in <a href="t24.html">T24</a>:</p>
+<h2 id="salvando-dados-com-sqlite"><a class="heading-anchor" href="#salvando-dados-com-sqlite">Salvando Dados com SQLite</a></h2>
+<p>A lista acima é perdida quando o servidor reinicia. Python vem com SQLite integrado, através do módulo <code>sqlite3</code>. Nenhuma instalação é necessária. O SQL é exatamente o que você aprendeu em <a href="t24.html">T24</a>:</p>
 <pre><code>import sqlite3
 
 db = sqlite3.connect(&quot;app.db&quot;)
@@ -154,12 +154,12 @@ db.execute(&quot;INSERT INTO books (title, pages) VALUES (?, ?)&quot;, (&quot;Du
 db.commit()
 rows = db.execute(&quot;SELECT id, title, pages FROM books&quot;).fetchall()
 </code></pre>
-<p>Always use <code>?</code> placeholders, never build SQL by joining strings, so user input cannot change your query.</p>
-<h2 id="testing-with-testclient"><a class="heading-anchor" href="#testing-with-testclient">Testing with TestClient</a></h2>
-<p>A test is a small program that uses your app and checks the answers. FastAPI's <strong>TestClient</strong> sends requests to your app without starting a real server. Install the test tools as development-only packages:</p>
+<p>Sempre use marcadores <code>?</code>, nunca construa SQL juntando strings, para que a entrada do usuário não possa alterar sua consulta.</p>
+<h2 id="testando-com-testclient"><a class="heading-anchor" href="#testando-com-testclient">Testando com TestClient</a></h2>
+<p>Um teste é um pequeno programa que usa seu aplicativo e verifica as respostas. O <strong>TestClient</strong> do FastAPI envia requisições para seu aplicativo sem iniciar um servidor real. Instale as ferramentas de teste como pacotes apenas de desenvolvimento:</p>
 <pre><code>uv add --dev pytest httpx2
 </code></pre>
-<p>Create <code>test_main.py</code> next to <code>main.py</code>:</p>
+<p>Crie <code>test_main.py</code> ao lado de <code>main.py</code>:</p>
 <pre><code>from fastapi.testclient import TestClient
 
 from main import app
@@ -188,19 +188,19 @@ def test_add_book():
     assert response.status_code == 201
     assert response.json()[&quot;pages&quot;] == 474
 </code></pre>
-<p>Run them:</p>
+<p>Execute-os:</p>
 <pre><code>uv run pytest
 </code></pre>
-<p>Each function whose name starts with <code>test_</code> is one test. <code>assert</code> means "this must be true, or the test fails". Notice the last test sends <code>"474"</code> as text, like a real form does, and gets back the number <code>474</code>: the type did that.</p>
+<p>Cada função cujo nome começa com <code>test_</code> é um teste. <code>assert</code> significa "isso deve ser verdadeiro, ou o teste falha". Observe que o último teste envia <code>"474"</code> como texto, como um formulário real faz, e recebe de volta o número <code>474</code>: o tipo fez isso.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-conclus-es"><a class="heading-anchor" href="#principais-conclus-es">Principais Conclusões</a></h2>
 <ul>
-<li>uv installs Python and packages per project: uv init, uv add, uv run</li>
-<li>A route is a function with a decorator like @app.get("/path"). Return a string for HTML, a dict or list for JSON</li>
-<li>Type hints help your editor and readers. FastAPI also uses them to check every request and answers 422 when the input is wrong</li>
-<li>Path parameters come from {braces} in the address. Form parameters come from Form() and need python-multipart</li>
-<li>Python's built-in sqlite3 module speaks the same SQL as T24. Always use ? placeholders</li>
-<li>TestClient plus pytest tests your app without starting a server: uv run pytest</li>
+<li>uv instala Python e pacotes por projeto: uv init, uv add, uv run</li>
+<li>Uma rota é uma função com um decorador como @app.get("/path"). Retorne uma string para HTML, um dict ou list para JSON</li>
+<li>Dicas de tipo (type hints) ajudam seu editor e leitores. O FastAPI também as usa para verificar cada requisição e responde 422 quando a entrada está errada</li>
+<li>Parâmetros de caminho vêm de {chaves} no endereço. Parâmetros de formulário vêm de Form() e precisam de python-multipart</li>
+<li>O módulo sqlite3 embutido do Python usa o mesmo SQL que T24. Sempre use marcadores ?</li>
+<li>TestClient mais pytest testa seu aplicativo sem iniciar um servidor: uv run pytest</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

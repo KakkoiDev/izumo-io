@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>HTML over the Wire with htmx - KakkoiSchool</title>
+  <title>HTML sobre o Fio com htmx - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,10 +47,10 @@
           
         </div>
       </nav>
-      <h1 id="t46-html-over-the-wire-with-htmx"><a class="heading-anchor" href="#t46-html-over-the-wire-with-htmx">T46: HTML over the Wire with htmx</a></h1>
-<p class="lesson-intro">In <a href="t15.html">T15</a> the browser fetched JSON and your JavaScript built the HTML. That is like a restaurant that sends raw ingredients to your table with a recipe card: you do the cooking yourself. <strong>htmx</strong> works the other way. The kitchen sends a finished plate, a piece of ready-made HTML, and the waiter puts it in the right spot on the table. You write almost no JavaScript. You add a few attributes to your HTML, and the server does the rest.</p>
-<h2 id="the-idea"><a class="heading-anchor" href="#the-idea">The Idea</a></h2>
-<p>Normally only links and forms talk to the server, and they reload the whole page. htmx lets <strong>any element</strong> send a request, and puts the HTML that comes back into <strong>any part</strong> of the page, without a reload.</p>
+      <h1 id="t46-html-sobre-o-fio-com-htmx"><a class="heading-anchor" href="#t46-html-sobre-o-fio-com-htmx">T46: HTML sobre o Fio com htmx</a></h1>
+<p class="lesson-intro">Em <a href="t15.html">T15</a> o navegador buscou JSON e seu JavaScript construiu o HTML. Isso é como um restaurante que envia ingredientes crus para sua mesa com uma receita: você mesmo cozinha. O <strong>htmx</strong> funciona de outra maneira. A cozinha envia um prato pronto, um pedaço de HTML já feito, e o garçom o coloca no lugar certo na mesa. Você escreve quase nenhum JavaScript. Você adiciona alguns atributos ao seu HTML, e o servidor faz o resto.</p>
+<h2 id="a-ideia"><a class="heading-anchor" href="#a-ideia">A Ideia</a></h2>
+<p>Normalmente, apenas links e formulários se comunicam com o servidor, e eles recarregam a página inteira. O htmx permite que <strong>qualquer elemento</strong> envie uma requisição e coloque o HTML que retorna em <strong>qualquer parte</strong> da página, sem recarregamento.</p>
 <div class="mermaid">
 sequenceDiagram
     participant B as Browser + htmx
@@ -60,43 +60,43 @@ sequenceDiagram
     B->>B: put it at the end of the list
 
 </div>
-<p>Four questions, four attributes:</p>
+<p>Quatro perguntas, quatro atributos:</p>
 <table>
 <thead>
 <tr>
-<th>Question</th>
-<th>Attribute</th>
-<th>Example</th>
+<th>Pergunta</th>
+<th>Atributo</th>
+<th>Exemplo</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>What request, to where?</td>
+<td>Que requisição, para onde?</td>
 <td><code>hx-get</code>, <code>hx-post</code>, <code>hx-delete</code></td>
 <td><code>hx-post="/items"</code></td>
 </tr>
 <tr>
-<td>Where does the answer go?</td>
+<td>Para onde vai a resposta?</td>
 <td><code>hx-target</code></td>
 <td><code>hx-target="#items"</code></td>
 </tr>
 <tr>
-<td>How does it go in?</td>
+<td>Como ela entra?</td>
 <td><code>hx-swap</code></td>
 <td><code>hx-swap="beforeend"</code></td>
 </tr>
 <tr>
-<td>Ask first?</td>
+<td>Perguntar primeiro?</td>
 <td><code>hx-confirm</code></td>
-<td><code>hx-confirm="Sure?"</code></td>
+<td><code>hx-confirm="Tem certeza?"</code></td>
 </tr>
 </tbody>
 </table>
-<p>Common <code>hx-swap</code> values: <code>innerHTML</code> (replace what is inside the target, the default), <code>outerHTML</code> (replace the whole target), <code>beforeend</code> (add at the end, inside), <code>delete</code> (remove the target).</p>
-<p><code>hx-target</code> takes a CSS selector like <code>#items</code>, or <code>this</code> (the element itself), or <code>closest li</code> (the nearest <code>&lt;li&gt;</code> around the element).</p>
-<p>This lesson uses <strong>htmx 4</strong>, released in 2026. Many tutorials online are for htmx 2, and some details differ.</p>
-<h2 id="the-example-a-shopping-list"><a class="heading-anchor" href="#the-example-a-shopping-list">The Example: a Shopping List</a></h2>
-<p>A list, a form to add items, and a delete button on each item. It builds on the FastAPI project from <a href="t45.html">T45</a>, using <strong>Jinja</strong> templates: HTML files with <code>{{ holes }}</code> that Python fills in.</p>
+<p>Valores comuns de <code>hx-swap</code>: <code>innerHTML</code> (substitui o que está dentro do alvo, o padrão), <code>outerHTML</code> (substitui o alvo inteiro), <code>beforeend</code> (adiciona no final, por dentro), <code>delete</code> (remove o alvo).</p>
+<p><code>hx-target</code> aceita um seletor CSS como <code>#items</code>, ou <code>this</code> (o próprio elemento), ou <code>closest li</code> (o <code>&lt;li&gt;</code> mais próximo ao redor do elemento).</p>
+<p>Esta lição usa o <strong>htmx 4</strong>, lançado em 2026. Muitos tutoriais online são para o htmx 2, e alguns detalhes diferem.</p>
+<h2 id="o-exemplo-uma-lista-de-compras"><a class="heading-anchor" href="#o-exemplo-uma-lista-de-compras">O Exemplo: uma Lista de Compras</a></h2>
+<p>Uma lista, um formulário para adicionar itens e um botão de exclusão em cada item. Baseia-se no projeto FastAPI de <a href="t45.html">T45</a>, usando templates <strong>Jinja</strong>: arquivos HTML com <code>{{ holes }}</code> que o Python preenche.</p>
 <pre><code>shopping/
   main.py
   templates/
@@ -105,8 +105,8 @@ sequenceDiagram
     _form.html     the add form
     _added.html    the answer after a successful add
 </code></pre>
-<p>Files starting with <code>_</code> are <strong>fragments</strong>: pieces of a page, not whole pages. The full page includes them, and the server also sends them back alone.</p>
-<h3 id="the-full-page"><a class="heading-anchor" href="#the-full-page">The full page</a></h3>
+<p>Arquivos que começam com <code>_</code> são <strong>fragmentos</strong>: pedaços de uma página, não páginas inteiras. A página completa os inclui, e o servidor também os envia de volta sozinhos.</p>
+<h3 id="a-p-gina-completa"><a class="heading-anchor" href="#a-p-gina-completa">A página completa</a></h3>
 <pre><code>&lt;!doctype html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
@@ -125,8 +125,8 @@ sequenceDiagram
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<p>The version is pinned to <code>@4.0.0</code> on purpose. Without it, the CDN could give you htmx 2.</p>
-<h3 id="one-item-with-a-delete-button"><a class="heading-anchor" href="#one-item-with-a-delete-button">One item, with a delete button</a></h3>
+<p>A versão está fixada em <code>@4.0.0</code> de propósito. Sem isso, o CDN poderia entregar o htmx 2.</p>
+<h3 id="um-item-com-um-bot-o-de-exclus-o"><a class="heading-anchor" href="#um-item-com-um-bot-o-de-exclus-o">Um item, com um botão de exclusão</a></h3>
 <pre><code>&lt;li&gt;
   {{ item.text }}
   &lt;button hx-delete=&quot;/items/{{ item.id }}&quot;
@@ -135,24 +135,24 @@ sequenceDiagram
           hx-swap=&quot;delete&quot;&gt;Delete&lt;/button&gt;
 &lt;/li&gt;
 </code></pre>
-<p>Click: the browser asks "Delete Buy rice?". If you say yes, htmx sends <code>DELETE /items/1</code>. When the server answers, <code>hx-swap="delete"</code> removes the <code>&lt;li&gt;</code>.</p>
-<h3 id="the-form"><a class="heading-anchor" href="#the-form">The form</a></h3>
+<p>Clique: o navegador pergunta "Excluir Comprar arroz?". Se você disser sim, o htmx envia <code>DELETE /items/1</code>. Quando o servidor responde, <code>hx-swap="delete"</code> remove o <code>&lt;li&gt;</code>.</p>
+<h3 id="o-formul-rio"><a class="heading-anchor" href="#o-formul-rio">O formulário</a></h3>
 <pre><code>&lt;form hx-post=&quot;/items&quot; hx-target=&quot;this&quot; hx-swap=&quot;outerHTML&quot;&gt;
   &lt;input name=&quot;text&quot; placeholder=&quot;Add an item&quot;&gt;
   &lt;button&gt;Add&lt;/button&gt;
   {% if error %}&lt;p class=&quot;error&quot;&gt;{{ error }}&lt;/p&gt;{% endif %}
 &lt;/form&gt;
 </code></pre>
-<p>On submit, htmx sends the form fields with <code>POST /items</code>, then replaces the whole form (<code>outerHTML</code> of <code>this</code>) with whatever comes back. That gives us a fresh, empty form after each add, or the same form with an error message.</p>
-<h3 id="updating-a-second-place-hx-partial"><a class="heading-anchor" href="#updating-a-second-place-hx-partial">Updating a second place: hx-partial</a></h3>
-<p>After a successful add, two places must change: the form must be emptied, and the new item must appear in the list. The answer's main content goes to the form. For the list, wrap the new item in <code>&lt;hx-partial&gt;</code>, which carries its own target and swap:</p>
+<p>Ao enviar, o htmx envia os campos do formulário com <code>POST /items</code>, então substitui o formulário inteiro (<code>outerHTML</code> de <code>this</code>) com o que quer que retorne. Isso nos dá um formulário novo e vazio após cada adição, ou o mesmo formulário com uma mensagem de erro.</p>
+<h3 id="atualizando-um-segundo-lugar-hx-partial"><a class="heading-anchor" href="#atualizando-um-segundo-lugar-hx-partial">Atualizando um segundo lugar: hx-partial</a></h3>
+<p>Após uma adição bem-sucedida, dois lugares devem mudar: o formulário deve ser esvaziado, e o novo item deve aparecer na lista. O conteúdo principal da resposta vai para o formulário. Para a lista, envolva o novo item em <code>&lt;hx-partial&gt;</code>, que carrega seu próprio alvo e tipo de troca:</p>
 <pre><code>{% include &quot;_form.html&quot; %}
 &lt;hx-partial hx-target=&quot;#items&quot; hx-swap=&quot;beforeend&quot;&gt;
   {% include &quot;_item.html&quot; %}
 &lt;/hx-partial&gt;
 </code></pre>
-<p>htmx swaps the main content first, then each partial into its own target.</p>
-<h3 id="the-server"><a class="heading-anchor" href="#the-server">The server</a></h3>
+<p>O htmx troca o conteúdo principal primeiro, depois cada <code>partial</code> em seu próprio alvo.</p>
+<h3 id="o-servidor"><a class="heading-anchor" href="#o-servidor">O servidor</a></h3>
 <pre><code>from fastapi import FastAPI, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -188,29 +188,29 @@ def delete_item(item_id: int):
     items[:] = [i for i in items if i[&quot;id&quot;] != item_id]
     return &quot;&quot;
 </code></pre>
-<p>Run it with <code>uv run uvicorn main:app --reload</code> and open <a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a>. The list lives in memory, so it resets when the server restarts. Swap in SQLite from <a href="t45.html">T45</a> to keep it.</p>
-<h2 id="errors-come-back-as-html"><a class="heading-anchor" href="#errors-come-back-as-html">Errors Come Back as HTML</a></h2>
-<p>Look at the empty-text case. The server answers with status <strong>422</strong> (the request was understood, but the data is not acceptable) and the form with an error message inside.</p>
-<p>In htmx 4, <strong>error responses are swapped too</strong>. Only <code>204 No Content</code> and <code>304 Not Modified</code> are skipped. So the 422 answer replaces the form, and the user sees "Write something first." right under the input. The status code stays honest for tests and logs, and the page still shows the message. (htmx 2 ignored error responses by default, so older tutorials work around this.)</p>
-<p>The flip side: if your server crashes and returns an error page, that page lands in the target too. Keep error answers small and meant for where they will go.</p>
-<h2 id="when-htmx-is-the-wrong-tool"><a class="heading-anchor" href="#when-htmx-is-the-wrong-tool">When htmx Is the Wrong Tool</a></h2>
-<p>htmx shines when the server owns the data and the page mostly shows it: lists, forms, dashboards, admin pages, search with results. Every change is a trip to the server, and that is fine when a trip takes a few dozen milliseconds.</p>
-<p>It is the wrong tool when the work happens in the browser, many times a second, without the server:</p>
+<p>Execute-o com <code>uv run uvicorn main:app --reload</code> e abra <a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a>. A lista reside na memória, então ela é redefinida quando o servidor reinicia. Substitua por SQLite de <a href="t45.html">T45</a> para mantê-la.</p>
+<h2 id="erros-retornam-como-html"><a class="heading-anchor" href="#erros-retornam-como-html">Erros Retornam como HTML</a></h2>
+<p>Observe o caso de texto vazio. O servidor responde com o status <strong>422</strong> (a requisição foi compreendida, mas os dados não são aceitáveis) e o formulário com uma mensagem de erro dentro.</p>
+<p>No htmx 4, <strong>respostas de erro também são trocadas</strong>. Apenas <code>204 No Content</code> e <code>304 Not Modified</code> são ignoradas. Assim, a resposta 422 substitui o formulário, e o usuário vê "Escreva algo primeiro." logo abaixo do campo de entrada. O código de status permanece fiel para testes e logs, e a página ainda exibe a mensagem. (O htmx 2 ignorava respostas de erro por padrão, então tutoriais antigos contornam isso.)</p>
+<p>O outro lado: se o seu servidor travar e retornar uma página de erro, essa página também aparecerá no alvo. Mantenha as respostas de erro pequenas e destinadas ao local onde serão exibidas.</p>
+<h2 id="quando-htmx-a-ferramenta-errada"><a class="heading-anchor" href="#quando-htmx-a-ferramenta-errada">Quando htmx É a Ferramenta Errada</a></h2>
+<p>O htmx brilha quando o servidor é o proprietário dos dados e a página os exibe principalmente: listas, formulários, painéis, páginas de administração, pesquisa com resultados. Cada alteração é uma ida ao servidor, e isso é aceitável quando uma ida leva algumas dezenas de milissegundos.</p>
+<p>É a ferramenta errada quando o trabalho acontece no navegador, muitas vezes por segundo, sem o servidor:</p>
 <ul>
-<li><strong>Games.</strong> A game loop redraws the screen about 60 times a second (<a href="a10.html">A10</a>). That is JavaScript's job.</li>
-<li><strong>Heavy editors.</strong> A drawing app, a spreadsheet, a rich text editor with live formatting. These keep a lot of state in the browser and need instant feedback on every key press.</li>
-<li><strong>Offline apps.</strong> If there is no server to answer, htmx has nothing to swap in.</li>
+<li><strong>Jogos.</strong> Um loop de jogo redesenha a tela cerca de 60 vezes por segundo (<a href="a10.html">A10</a>). Esse é o trabalho do JavaScript.</li>
+<li><strong>Editores pesados.</strong> Um aplicativo de desenho, uma planilha, um editor de texto rico com formatação em tempo real. Eles mantêm muito estado no navegador e precisam de feedback instantâneo a cada tecla pressionada.</li>
+<li><strong>Aplicativos offline.</strong> Se não houver servidor para responder, o htmx não tem nada para inserir.</li>
 </ul>
-<p>You can mix: htmx for the forms and lists, a bit of JavaScript for the one widget that needs it.</p>
+<p>Você pode misturar: htmx para os formulários e listas, um pouco de JavaScript para o widget que precisar.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-li-es"><a class="heading-anchor" href="#principais-li-es">Principais Lições</a></h2>
 <ul>
-<li>With htmx the server sends HTML fragments, and the page swaps them in. Much less JavaScript</li>
-<li>hx-get, hx-post, hx-delete say what to send. hx-target says where the answer goes. hx-swap says how</li>
-<li>hx-confirm asks the user before sending. hx-swap="delete" removes the target</li>
-<li>&lt;hx-partial hx-target hx-swap&gt; in a response updates a second place on the page</li>
-<li>In htmx 4, error responses like 422 are swapped too, so a form can come back with its error message</li>
-<li>Pin htmx to version 4 in the script URL. Do not use htmx for games, heavy editors or offline apps</li>
+<li>Com htmx, o servidor envia fragmentos de HTML, e a página os insere. Muito menos JavaScript.</li>
+<li>hx-get, hx-post, hx-delete dizem o que enviar. hx-target diz para onde a resposta vai. hx-swap diz como.</li>
+<li>hx-confirm pergunta ao usuário antes de enviar. hx-swap="delete" remove o alvo.</li>
+<li>&lt;hx-partial hx-target hx-swap&gt; em uma resposta atualiza um segundo local na página.</li>
+<li>No htmx 4, respostas de erro como 422 também são trocadas, então um formulário pode retornar com sua mensagem de erro.</li>
+<li>Fixe o htmx na versão 4 na URL do script. Não use htmx para jogos, editores pesados ou aplicativos offline.</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

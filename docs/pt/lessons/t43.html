@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Your First Repository - KakkoiSchool</title>
+  <title>Seu Primeiro Repositório - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,9 +47,9 @@
           <a href="t44.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t43-your-first-repository"><a class="heading-anchor" href="#t43-your-first-repository">T43: Your First Repository</a></h1>
-<p class="lesson-intro">You have an account (<a href="t41.html">T41</a>) and a computer that GitHub trusts (<a href="t42.html">T42</a>). Now you take a folder of your own work and put it online. Think of it like moving into a new house with glass walls. Before the furniture goes in, you decide what stays in the locked drawer. Once something is on display, people walking past have already seen it.</p>
-<h2 id="the-plan"><a class="heading-anchor" href="#the-plan">The Plan</a></h2>
+      <h1 id="t43-seu-primeiro-reposit-rio"><a class="heading-anchor" href="#t43-seu-primeiro-reposit-rio">T43: Seu Primeiro Repositório</a></h1>
+<p class="lesson-intro">Você tem uma conta (<a href="t41.html">T41</a>) e um computador no qual o GitHub confia (<a href="t42.html">T42</a>). Agora você pega uma pasta do seu próprio trabalho e a coloca online. Pense nisso como se mudar para uma casa nova com paredes de vidro. Antes que a mobília entre, você decide o que fica na gaveta trancada. Uma vez que algo está em exibição, as pessoas que passam já viram.</p>
+<h2 id="o-plano"><a class="heading-anchor" href="#o-plano">O Plano</a></h2>
 <div class="mermaid">
 flowchart LR
     F[A folder<br/>on your computer] --> I[git init]
@@ -59,23 +59,23 @@ flowchart LR
     R --> GH[Your project<br/>on GitHub]
 
 </div>
-<h2 id="1-turn-the-folder-into-a-repository"><a class="heading-anchor" href="#1-turn-the-folder-into-a-repository">1. Turn the Folder into a Repository</a></h2>
-<p>Open a terminal in your project folder. If you do not have one yet, make one:</p>
+<h2 id="1-transforme-a-pasta-em-um-reposit-rio"><a class="heading-anchor" href="#1-transforme-a-pasta-em-um-reposit-rio">1. Transforme a Pasta em um Repositório</a></h2>
+<p>Abra um terminal na pasta do seu projeto. Se você ainda não tem um, crie um:</p>
 <pre><code>mkdir my-project
 cd my-project
 git init -b main
 </code></pre>
-<p><code>git init</code> creates a hidden <code>.git</code> folder where the history will live. <code>-b main</code> names the first branch <code>main</code>, which is what GitHub expects. Nothing is saved yet.</p>
-<h2 id="2-write-the-gitignore-before-anything-else"><a class="heading-anchor" href="#2-write-the-gitignore-before-anything-else">2. Write the .gitignore Before Anything Else</a></h2>
-<p>A <code>.gitignore</code> file lists things git must never save. Write it <strong>before</strong> your first commit. Once a file is committed, removing it later does not remove it from history.</p>
-<p>What goes in it:</p>
+<p><code>git init</code> cria uma pasta oculta <code>.git</code> onde o histórico viverá. <code>-b main</code> nomeia a primeira branch <code>main</code>, que é o que o GitHub espera. Nada é salvo ainda.</p>
+<h2 id="2-escreva-o-gitignore-antes-de-qualquer-outra-coisa"><a class="heading-anchor" href="#2-escreva-o-gitignore-antes-de-qualquer-outra-coisa">2. Escreva o .gitignore Antes de Qualquer Outra Coisa</a></h2>
+<p>Um arquivo <code>.gitignore</code> lista coisas que o git nunca deve salvar. Escreva-o <strong>antes</strong> do seu primeiro commit. Uma vez que um arquivo é comitado, removê-lo depois não o remove do histórico.</p>
+<p>O que incluir nele:</p>
 <ul>
-<li><strong>Secrets.</strong> Passwords, API keys, tokens. They usually live in a file called <code>.env</code>.</li>
-<li><strong>Databases.</strong> Your local <code>app.db</code> holds test users and maybe real data. It does not belong in the code.</li>
-<li><strong>Things you can rebuild.</strong> <code>node_modules/</code> for JavaScript and <code>.venv/</code> for Python are thousands of files you can download again with one command.</li>
-<li><strong>Junk.</strong> Logs, editor settings, the <code>.DS_Store</code> files macOS scatters everywhere.</li>
+<li><strong>Segredos.</strong> Senhas, chaves de API, tokens. Eles geralmente ficam em um arquivo chamado <code>.env</code>.</li>
+<li><strong>Bancos de dados.</strong> Seu <code>app.db</code> local contém usuários de teste e talvez dados reais. Ele não pertence ao código.</li>
+<li><strong>Coisas que você pode reconstruir.</strong> <code>node_modules/</code> para JavaScript e <code>.venv/</code> para Python são milhares de arquivos que você pode baixar novamente com um único comando.</li>
+<li><strong>Lixo.</strong> Logs, configurações do editor, os arquivos <code>.DS_Store</code> que o macOS espalha por toda parte.</li>
 </ul>
-<p>Create a file called <code>.gitignore</code> in the project folder:</p>
+<p>Crie um arquivo chamado <code>.gitignore</code> na pasta do projeto:</p>
 <pre><code># Secrets
 .env
 .env.*
@@ -95,55 +95,55 @@ dist/
 *.log
 .DS_Store
 </code></pre>
-<p><code>!.env.example</code> means "except this one". An example file with fake values helps the next person, and it is safe to share.</p>
-<h2 id="3-the-first-commit"><a class="heading-anchor" href="#3-the-first-commit">3. The First Commit</a></h2>
+<p><code>!.env.example</code> significa "exceto este". Um arquivo de exemplo com valores falsos ajuda a próxima pessoa, e é seguro compartilhar.</p>
+<h2 id="3-o-primeiro-commit"><a class="heading-anchor" href="#3-o-primeiro-commit">3. O Primeiro Commit</a></h2>
 <pre><code>git status             # check: is anything there that should not be?
 git add .
 git status             # check again: read the list of green files
 git commit -m &quot;First commit&quot;
 </code></pre>
-<p>Read the <code>git status</code> list every time. It is your last chance to spot a <code>.env</code> or a database before it goes into history.</p>
-<h2 id="4-create-the-repository-on-github-and-push"><a class="heading-anchor" href="#4-create-the-repository-on-github-and-push">4. Create the Repository on GitHub and Push</a></h2>
-<p>One command creates the repository on GitHub, connects it as <code>origin</code>, and pushes your commit:</p>
+<p>Leia a lista do <code>git status</code> toda vez. É sua última chance de identificar um <code>.env</code> ou um banco de dados antes que ele vá para o histórico.</p>
+<h2 id="4-crie-o-reposit-rio-no-github-e-fa-a-push"><a class="heading-anchor" href="#4-crie-o-reposit-rio-no-github-e-fa-a-push">4. Crie o Repositório no GitHub e Faça Push</a></h2>
+<p>Um comando cria o repositório no GitHub, o conecta como <code>origin</code> e envia seu commit:</p>
 <pre><code>gh repo create my-project --public --source=. --push
 </code></pre>
 <ul>
-<li><code>my-project</code> is the name on GitHub.</li>
-<li><code>--public</code> makes it visible to everyone. Use <code>--private</code> instead if only you should see it.</li>
-<li><code>--source=.</code> means "use the repository in this folder".</li>
-<li><code>--push</code> sends your commits up straight away.</li>
+<li><code>my-project</code> é o nome no GitHub.</li>
+<li><code>--public</code> o torna visível para todos. Use <code>--private</code> em vez disso, se apenas você deve vê-lo.</li>
+<li><code>--source=.</code> significa "usar o repositório nesta pasta".</li>
+<li><code>--push</code> envia seus commits imediatamente.</li>
 </ul>
-<p>Open it in your browser:</p>
+<p>Abra-o no seu navegador:</p>
 <pre><code>gh repo view --web
 </code></pre>
-<p>From now on the daily loop is the one from <a href="t20.html">T20</a>: edit, <code>git add</code>, <code>git commit</code>, <code>git push</code>.</p>
-<h2 id="what-public-really-means"><a class="heading-anchor" href="#what-public-really-means">What Public Really Means</a></h2>
-<p>A public repository can be read by anyone in the world. Not just people: bots scan every new public commit on GitHub, often within seconds, looking for passwords and keys to abuse. Search engines index it. Other people can copy it. You cannot take a copy back once it is made.</p>
-<p>So treat every commit to a public repository as if it were printed in a newspaper. Making the repository private later does not undo what was already seen.</p>
-<h2 id="keeping-secrets-out"><a class="heading-anchor" href="#keeping-secrets-out">Keeping Secrets Out</a></h2>
-<p>The rule: <strong>secrets never go in code</strong>. Your code reads them from the environment instead.</p>
-<p>Put them in a <code>.env</code> file, which is already in <code>.gitignore</code>:</p>
+<p>A partir de agora, o ciclo diário é o de <a href="t20.html">T20</a>: editar, <code>git add</code>, <code>git commit</code>, <code>git push</code>.</p>
+<h2 id="o-que-p-blico-realmente-significa"><a class="heading-anchor" href="#o-que-p-blico-realmente-significa">O Que "Público" Realmente Significa</a></h2>
+<p>Um repositório público pode ser lido por qualquer pessoa no mundo. Não apenas pessoas: bots escaneiam cada novo commit público no GitHub, muitas vezes em segundos, procurando senhas e chaves para abusar. Motores de busca o indexam. Outras pessoas podem copiá-lo. Você não pode reaver uma cópia depois de feita.</p>
+<p>Portanto, trate cada commit para um repositório público como se fosse impresso em um jornal. Tornar o repositório privado mais tarde não desfaz o que já foi visto.</p>
+<h2 id="mantendo-segredos-fora"><a class="heading-anchor" href="#mantendo-segredos-fora">Mantendo Segredos Fora</a></h2>
+<p>A regra: <strong>segredos nunca vão no código</strong>. Seu código os lê do ambiente em vez disso.</p>
+<p>Coloque-os em um arquivo <code>.env</code>, que já está no <code>.gitignore</code>:</p>
 <pre><code># .env  (never committed)
 OPENAI_API_KEY=sk-...your-real-key...
 DATABASE_URL=sqlite:///app.db
 </code></pre>
-<p>Commit a <code>.env.example</code> with the same names and fake values, so others know what to fill in:</p>
+<p>Comite um <code>.env.example</code> com os mesmos nomes e valores falsos, para que outros saibam o que preencher:</p>
 <pre><code># .env.example  (committed)
 OPENAI_API_KEY=put-your-key-here
 DATABASE_URL=sqlite:///app.db
 </code></pre>
-<p>Your code reads the value by name. In Node.js 20.6 or newer, <code>node --env-file=.env server.js</code> loads the file, and the code uses <code>process.env.OPENAI_API_KEY</code>. In Python, <code>os.environ["OPENAI_API_KEY"]</code> reads it (<a href="t45.html">T45</a> shows how).</p>
-<h2 id="if-you-committed-a-secret"><a class="heading-anchor" href="#if-you-committed-a-secret">If You Committed a Secret</a></h2>
-<p>It happens to professionals too. Act fast, in this order:</p>
+<p>Seu código lê o valor pelo nome. No Node.js 20.6 ou mais recente, <code>node --env-file=.env server.js</code> carrega o arquivo, e o código usa <code>process.env.OPENAI_API_KEY</code>. Em Python, <code>os.environ["OPENAI_API_KEY"]</code> o lê (<a href="t45.html">T45</a> mostra como).</p>
+<h2 id="se-voc-comitou-um-segredo"><a class="heading-anchor" href="#se-voc-comitou-um-segredo">Se Você Comitou um Segredo</a></h2>
+<p>Isso acontece com profissionais também. Aja rápido, nesta ordem:</p>
 <ol>
-<li><strong>Revoke or rotate the key first.</strong> Go to the service that issued it (OpenAI, Stripe, your database host) and delete that key, then make a new one. This is the only step that actually protects you. Assume the old key is already stolen.</li>
-<li><strong>Put the new key in <code>.env</code></strong>, and make sure <code>.env</code> is in <code>.gitignore</code>.</li>
-<li><strong>Remove the secret from the code</strong> and commit.</li>
+<li><strong>Revogue ou rotacione a chave primeiro.</strong> Vá para o serviço que a emitiu (OpenAI, Stripe, seu host de banco de dados) e exclua essa chave, depois crie uma nova. Este é o único passo que realmente o protege. Assuma que a chave antiga já foi roubada.</li>
+<li><strong>Coloque a nova chave em <code>.env</code></strong>, e certifique-se de que <code>.env</code> esteja no <code>.gitignore</code>.</li>
+<li><strong>Remova o segredo do código</strong> e faça commit.</li>
 </ol>
-<p>Why not just delete the commit? Rewriting history removes it from <em>your</em> repository, but copies already exist: bots, forks, other people's clones, GitHub's own caches. History rewriting is a clean-up step, never the fix. The fix is a key that no longer works.</p>
-<p>GitHub helps here: <strong>push protection</strong> blocks many well-known key formats when you push to a public repository, and shows you a warning. If you see it, do not bypass it. Remove the key.</p>
-<h2 id="a-readme-that-helps"><a class="heading-anchor" href="#a-readme-that-helps">A README That Helps</a></h2>
-<p>A <code>README.md</code> at the top of the repository is the first thing GitHub shows. It answers three questions:</p>
+<p>Por que não apenas deletar o commit? Reescrever o histórico o remove do <em>seu</em> repositório, mas cópias já existem: bots, forks, clones de outras pessoas, caches do próprio GitHub. A reescrita do histórico é uma etapa de limpeza, nunca a solução. A solução é uma chave que não funciona mais.</p>
+<p>O GitHub ajuda aqui: a <strong>proteção de push</strong> bloqueia muitos formatos de chave conhecidos quando você faz push para um repositório público e mostra um aviso. Se você o vir, não o ignore. Remova a chave.</p>
+<h2 id="um-readme-que-ajuda"><a class="heading-anchor" href="#um-readme-que-ajuda">Um README Que Ajuda</a></h2>
+<p>Um <code>README.md</code> no topo do repositório é a primeira coisa que o GitHub mostra. Ele responde a três perguntas:</p>
 <pre><code># My Project
 
 A small to-do list app with a Python server and SQLite.
@@ -156,16 +156,16 @@ A small to-do list app with a Python server and SQLite.
 
 Open http://127.0.0.1:8000
 </code></pre>
-<p>What is it, how do I run it, and what do I need first. A stranger, or you in six months, should get it running from the README alone.</p>
+<p>O que é, como executá-lo e o que preciso primeiro. Um estranho, ou você em seis meses, deve conseguir executá-lo apenas com o README.</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-conclus-es"><a class="heading-anchor" href="#principais-conclus-es">Principais Conclusões</a></h2>
 <ul>
-<li>Write .gitignore before the first commit: secrets, .env, databases, node_modules, .venv</li>
-<li>Read git status before every commit. It is your last chance to catch a secret</li>
-<li>gh repo create my-project --public --source=. --push creates, connects and pushes in one step. Use --private to keep it hidden</li>
-<li>Public means anyone and any bot can read and copy it, forever</li>
-<li>If you commit a secret, revoke the key first. Rewriting history is not enough because copies already exist</li>
-<li>A README says what the project is and how to run it</li>
+<li>Escreva o .gitignore antes do primeiro commit: segredos, .env, bancos de dados, node_modules, .venv</li>
+<li>Leia o git status antes de cada commit. É sua última chance de pegar um segredo</li>
+<li>gh repo create my-project --public --source=. --push cria, conecta e faz push em uma única etapa. Use --private para mantê-lo oculto</li>
+<li>Público significa que qualquer pessoa e qualquer bot pode ler e copiar, para sempre</li>
+<li>Se você comitar um segredo, revogue a chave primeiro. Reescrever o histórico não é suficiente porque cópias já existem</li>
+<li>Um README diz o que o projeto é e como executá-lo</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

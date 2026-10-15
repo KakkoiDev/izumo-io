@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>A Python Server with FastAPI - KakkoiSchool</title>
+  <title>FastAPIでPythonサーバーを構築する - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,29 +47,29 @@
           <a href="t46.html">次へ</a>
         </div>
       </nav>
-      <h1 id="t45-a-python-server-with-fastapi"><a class="heading-anchor" href="#t45-a-python-server-with-fastapi">T45: A Python Server with FastAPI</a></h1>
-<p class="lesson-intro">In <a href="t21.html">T21</a> to <a href="t23.html">T23</a> you built a server in Node.js. This lesson builds the same kind of kitchen in Python, with <strong>FastAPI</strong>. Think of FastAPI as a head chef who reads every order before it reaches the stove. If a customer orders "abc" pizzas, the chef sends the order back with a polite note, and the cooks never see it. That checking comes from the <strong>types</strong> you write, and it catches many mistakes for free.</p>
-<h2 id="install-uv"><a class="heading-anchor" href="#install-uv">Install uv</a></h2>
-<p><strong>uv</strong> is a tool that installs Python, creates a private folder of packages for each project, and runs your code. One tool instead of several.</p>
+      <h1 id="t45-fastapiでpythonサーバーを構築する"><a class="heading-anchor" href="#t45-fastapiでpythonサーバーを構築する">T45: FastAPIでPythonサーバーを構築する</a></h1>
+<p class="lesson-intro"><a href="t21.html">T21</a> と <a href="t23.html">T23</a> では、Node.jsでサーバーを構築しました。このレッスンでは、<strong>FastAPI</strong>を使ってPythonで同じ種類の「キッチン」を構築します。FastAPIは、すべての注文がコンロに届く前に読み取るヘッドシェフだと考えてください。顧客が「abc」ピザを注文した場合、シェフは丁寧なメモを添えて注文を差し戻し、料理人はそれを目にすることはありません。このチェックは、記述した<strong>型</strong>から来ており、多くの間違いを無料で捕捉します。</p>
+<h2 id="uvのインストール"><a class="heading-anchor" href="#uvのインストール">uvのインストール</a></h2>
+<p><strong>uv</strong> は、Pythonをインストールし、プロジェクトごとにパッケージのプライベートフォルダーを作成し、コードを実行するツールです。複数のツールではなく、1つのツールです。</p>
 <pre><code># macOS and Linux
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Windows (PowerShell)
 powershell -ExecutionPolicy ByPass -c &quot;irm https://astral.sh/uv/install.ps1 | iex&quot;
 </code></pre>
-<p>Close and reopen your terminal, then check with <code>uv --version</code>. Other install methods are at <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener">docs.astral.sh/uv</a>.</p>
-<h2 id="start-a-project"><a class="heading-anchor" href="#start-a-project">Start a Project</a></h2>
+<p>ターミナルを閉じて再度開き、<code>uv --version</code> で確認してください。他のインストール方法は <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener">docs.astral.sh/uv</a> にあります。</p>
+<h2 id="プロジェクトの開始"><a class="heading-anchor" href="#プロジェクトの開始">プロジェクトの開始</a></h2>
 <pre><code>uv init --no-package hello-api
 cd hello-api
 uv add fastapi uvicorn jinja2 python-multipart
 </code></pre>
 <ul>
-<li><code>uv init</code> creates the project: a <code>pyproject.toml</code> (the list of what the project needs, like <code>package.json</code> in Node.js), a <code>main.py</code>, and a <code>.gitignore</code>. <code>--no-package</code> keeps it a simple app with <code>main.py</code> at the top.</li>
-<li><code>uv add</code> installs packages into a private <code>.venv</code> folder and writes them into <code>pyproject.toml</code>.</li>
-<li><strong>fastapi</strong> is the framework, <strong>uvicorn</strong> is the server program that runs it, <strong>jinja2</strong> fills HTML templates (<a href="t46.html">T46</a>), and <strong>python-multipart</strong> lets FastAPI read HTML forms.</li>
+<li><code>uv init</code> はプロジェクトを作成します: <code>pyproject.toml</code> (Node.jsの <code>package.json</code> のように、プロジェクトが必要とするもののリスト)、<code>main.py</code>、および <code>.gitignore</code>。<code>--no-package</code> は、<code>main.py</code> がトップにあるシンプルなアプリとして保持します。</li>
+<li><code>uv add</code> は、パッケージをプライベートな <code>.venv</code> フォルダーにインストールし、それらを <code>pyproject.toml</code> に書き込みます。</li>
+<li><strong>fastapi</strong> はフレームワーク、<strong>uvicorn</strong> はそれを実行するサーバープログラム、<strong>jinja2</strong> はHTMLテンプレートを埋めます (<a href="t46.html">T46</a>)、<strong>python-multipart</strong> はFastAPIがHTMLフォームを読み取ることを可能にします。</li>
 </ul>
-<h2 id="a-first-route-returning-html"><a class="heading-anchor" href="#a-first-route-returning-html">A First Route Returning HTML</a></h2>
-<p>Replace everything in <code>main.py</code> with:</p>
+<h2 id="htmlを返す最初のルート"><a class="heading-anchor" href="#htmlを返す最初のルート">HTMLを返す最初のルート</a></h2>
+<p><code>main.py</code> の内容をすべて以下に置き換えてください。</p>
 <pre><code>from fastapi import FastAPI, Form, HTTPException
 from fastapi.responses import HTMLResponse
 
@@ -80,13 +80,13 @@ app = FastAPI()
 def home() -&gt; str:
     return &quot;&lt;h1&gt;Hello from Python&lt;/h1&gt;&lt;p&gt;The kitchen is open.&lt;/p&gt;&quot;
 </code></pre>
-<p><code>@app.get("/")</code> means "when a browser asks for <code>/</code> with GET, run this function". The function returns a string, and <code>response_class=HTMLResponse</code> tells FastAPI to send it as a web page.</p>
-<p>Run it:</p>
+<p><code>@app.get("/")</code> は「ブラウザがGETで <code>/</code> を要求したときに、この関数を実行する」という意味です。この関数は文字列を返し、<code>response_class=HTMLResponse</code> はFastAPIにそれをウェブページとして送信するよう指示します。</p>
+<p>実行します:</p>
 <pre><code>uv run uvicorn main:app --reload
 </code></pre>
-<p><code>main:app</code> means "the <code>app</code> object in <code>main.py</code>". <code>--reload</code> restarts the server every time you save. Open <a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a>. Stop it with Ctrl+C.</p>
-<h2 id="a-json-route"><a class="heading-anchor" href="#a-json-route">A JSON Route</a></h2>
-<p>Add a small list of books and a route that returns it. FastAPI turns Python lists and dictionaries into JSON by itself:</p>
+<p><code>main:app</code> は「<code>main.py</code> 内の <code>app</code> オブジェクト」を意味します。<code>--reload</code> は、保存するたびにサーバーを再起動します。<a href="http://127.0.0.1:8000" target="_blank" rel="noopener">http://127.0.0.1:8000</a> を開いてください。Ctrl+Cで停止します。</p>
+<h2 id="jsonルート"><a class="heading-anchor" href="#jsonルート">JSONルート</a></h2>
+<p>書籍の小さなリストと、それを返すルートを追加します。FastAPIはPythonのリストと辞書を自動的にJSONに変換します。</p>
 <pre><code>books = [
     {&quot;id&quot;: 1, &quot;title&quot;: &quot;The Hobbit&quot;, &quot;pages&quot;: 310},
     {&quot;id&quot;: 2, &quot;title&quot;: &quot;Dune&quot;, &quot;pages&quot;: 412},
@@ -97,17 +97,17 @@ def home() -&gt; str:
 def list_books() -&gt; list[dict]:
     return books
 </code></pre>
-<p>Open <code>/api/books</code>. Then open <code>/docs</code>: FastAPI builds an interactive page listing every route, where you can try each one. You did not write any of it.</p>
-<h2 id="types-why-they-help"><a class="heading-anchor" href="#types-why-they-help">Types: Why They Help</a></h2>
-<p>In Python you can write a <strong>type hint</strong> after a name: <code>book_id: int</code> means "this should be a whole number", <code>title: str</code> means "this should be text", <code>-&gt; dict</code> means "this function returns a dictionary".</p>
-<p>Plain Python does not enforce them. They are notes. But they still help:</p>
+<p><code>/api/books</code> を開きます。次に <code>/docs</code> を開きます。FastAPIは、すべてのルートをリストアップしたインタラクティブなページを構築し、そこでそれぞれを試すことができます。これらはあなたが何も書いていません。</p>
+<h2 id="型-なぜ役立つのか"><a class="heading-anchor" href="#型-なぜ役立つのか">型: なぜ役立つのか</a></h2>
+<p>Pythonでは、名前の後に<strong>型ヒント</strong>を記述できます: <code>book_id: int</code> は「これは整数であるべきだ」を意味し、<code>title: str</code> は「これはテキストであるべきだ」を意味し、<code>-&gt; dict</code> は「この関数は辞書を返す」を意味します。</p>
+<p>通常のPythonはそれらを強制しません。これらは単なるメモです。しかし、それでも役立ちます:</p>
 <ul>
-<li>Your editor reads them and warns you when you mix things up, like adding text to a number, before you even run the code.</li>
-<li>They tell the next reader what a function expects without reading its body.</li>
+<li>エディタがそれらを読み取り、コードを実行する前であっても、テキストを数値に追加するなどの混同があった場合に警告してくれます。</li>
+<li>関数の本体を読まずに、その関数が何を期待しているかを次に読む人に伝えます。</li>
 </ul>
-<p>FastAPI goes further: <strong>it uses the types to check every request</strong>. If the type says <code>int</code> and the request sends <code>abc</code>, FastAPI answers with a <code>422</code> error explaining what was wrong, and your function never runs.</p>
-<h2 id="path-parameters"><a class="heading-anchor" href="#path-parameters">Path Parameters</a></h2>
-<p>A part of the address in curly braces becomes a function argument:</p>
+<p>FastAPIはさらに踏み込みます:<strong>すべてのリクエストをチェックするために型を使用します</strong>。型が <code>int</code> で、リクエストが <code>abc</code> を送信した場合、FastAPIは何が間違っていたかを説明する <code>422</code> エラーで応答し、あなたの関数は決して実行されません。</p>
+<h2 id="パスパラメータ"><a class="heading-anchor" href="#パスパラメータ">パスパラメータ</a></h2>
+<p>アドレスの波括弧で囲まれた部分は、関数の引数になります。</p>
 <pre><code>@app.get(&quot;/api/books/{book_id}&quot;)
 def get_book(book_id: int) -&gt; dict:
     for book in books:
@@ -116,26 +116,26 @@ def get_book(book_id: int) -&gt; dict:
     raise HTTPException(status_code=404, detail=&quot;Book not found&quot;)
 </code></pre>
 <ul>
-<li><code>/api/books/1</code> returns The Hobbit. <code>book_id</code> arrives as the number <code>1</code>, not the text <code>"1"</code>.</li>
-<li><code>/api/books/99</code> returns <code>404 Not Found</code>, from the <code>raise</code>.</li>
-<li><code>/api/books/abc</code> returns <code>422</code> with a message saying it should be a valid integer. You wrote no code for that.</li>
+<li><code>/api/books/1</code> は『ホビット』を返します。<code>book_id</code> はテキストの <code>"1"</code> ではなく、数値の <code>1</code> として届きます。</li>
+<li><code>/api/books/99</code> は <code>raise</code> から <code>404 Not Found</code> を返します。</li>
+<li><code>/api/books/abc</code> は、有効な整数であるべきだと伝えるメッセージとともに <code>422</code> を返します。あなたはそれについて何もコードを書いていません。</li>
 </ul>
-<h2 id="form-parameters"><a class="heading-anchor" href="#form-parameters">Form Parameters</a></h2>
-<p><code>Form()</code> reads a field sent by an HTML form. The type still applies:</p>
+<h2 id="フォームパラメータ"><a class="heading-anchor" href="#フォームパラメータ">フォームパラメータ</a></h2>
+<p><code>Form()</code> はHTMLフォームによって送信されたフィールドを読み取ります。型は引き続き適用されます。</p>
 <pre><code>@app.post(&quot;/api/books&quot;, status_code=201)
 def add_book(title: str = Form(), pages: int = Form()) -&gt; dict:
     book = {&quot;id&quot;: len(books) + 1, &quot;title&quot;: title, &quot;pages&quot;: pages}
     books.append(book)
     return book
 </code></pre>
-<p>A form like this one sends to it:</p>
+<p>次のようなフォームがこれに送信されます。</p>
 <pre><code>&lt;form method=&quot;post&quot; action=&quot;/api/books&quot;&gt;
   &lt;input name=&quot;title&quot;&gt;
   &lt;input name=&quot;pages&quot; type=&quot;number&quot;&gt;
   &lt;button&gt;Add&lt;/button&gt;
 &lt;/form&gt;
 </code></pre>
-<p>The <code>name</code> of each input matches an argument name. If <code>pages</code> is missing or is not a number, FastAPI answers <code>422</code>.</p>
+<p>各入力の <code>name</code> は引数名と一致します。<code>pages</code> が欠落しているか、数値でない場合、FastAPIは <code>422</code> で応答します。</p>
 <div class="mermaid">
 flowchart LR
     R[Request] --> V{FastAPI checks<br/>the types}
@@ -144,8 +144,8 @@ flowchart LR
     F --> J[HTML or JSON]
 
 </div>
-<h2 id="saving-data-with-sqlite"><a class="heading-anchor" href="#saving-data-with-sqlite">Saving Data with SQLite</a></h2>
-<p>The list above is lost when the server restarts. Python comes with SQLite built in, through the <code>sqlite3</code> module. No install needed. The SQL is exactly what you learned in <a href="t24.html">T24</a>:</p>
+<h2 id="sqliteでデータを保存する"><a class="heading-anchor" href="#sqliteでデータを保存する">SQLiteでデータを保存する</a></h2>
+<p>上記のリストは、サーバーが再起動すると失われます。Pythonには <code>sqlite3</code> モジュールを通じてSQLiteが組み込まれています。インストールは不要です。SQLは <a href="t24.html">T24</a> で学習した内容と全く同じです。</p>
 <pre><code>import sqlite3
 
 db = sqlite3.connect(&quot;app.db&quot;)
@@ -154,12 +154,12 @@ db.execute(&quot;INSERT INTO books (title, pages) VALUES (?, ?)&quot;, (&quot;Du
 db.commit()
 rows = db.execute(&quot;SELECT id, title, pages FROM books&quot;).fetchall()
 </code></pre>
-<p>Always use <code>?</code> placeholders, never build SQL by joining strings, so user input cannot change your query.</p>
-<h2 id="testing-with-testclient"><a class="heading-anchor" href="#testing-with-testclient">Testing with TestClient</a></h2>
-<p>A test is a small program that uses your app and checks the answers. FastAPI's <strong>TestClient</strong> sends requests to your app without starting a real server. Install the test tools as development-only packages:</p>
+<p>常に <code>?</code> プレースホルダーを使用し、文字列を結合してSQLを作成しないでください。これにより、ユーザー入力がクエリを変更することを防ぎます。</p>
+<h2 id="testclientを使ったテスト"><a class="heading-anchor" href="#testclientを使ったテスト">TestClientを使ったテスト</a></h2>
+<p>テストとは、アプリを使用し、その応答をチェックする小さなプログラムのことです。FastAPIの<strong>TestClient</strong>は、実際のサーバーを起動せずにアプリにリクエストを送信します。テストツールを開発専用パッケージとしてインストールします。</p>
 <pre><code>uv add --dev pytest httpx2
 </code></pre>
-<p>Create <code>test_main.py</code> next to <code>main.py</code>:</p>
+<p><code>main.py</code> の隣に <code>test_main.py</code> を作成します。</p>
 <pre><code>from fastapi.testclient import TestClient
 
 from main import app
@@ -188,19 +188,19 @@ def test_add_book():
     assert response.status_code == 201
     assert response.json()[&quot;pages&quot;] == 474
 </code></pre>
-<p>Run them:</p>
+<p>それらを実行します。</p>
 <pre><code>uv run pytest
 </code></pre>
-<p>Each function whose name starts with <code>test_</code> is one test. <code>assert</code> means "this must be true, or the test fails". Notice the last test sends <code>"474"</code> as text, like a real form does, and gets back the number <code>474</code>: the type did that.</p>
+<p><code>test_</code> で始まる名前の各関数が1つのテストです。<code>assert</code> は「これは真でなければならず、そうでなければテストは失敗する」という意味です。最後のテストが実際のフォームのように <code>"474"</code> をテキストとして送信し、数値 <code>474</code> を返していることに注目してください。これは型によって行われました。</p>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="主なポイント"><a class="heading-anchor" href="#主なポイント">主なポイント</a></h2>
 <ul>
-<li>uv installs Python and packages per project: uv init, uv add, uv run</li>
-<li>A route is a function with a decorator like @app.get("/path"). Return a string for HTML, a dict or list for JSON</li>
-<li>Type hints help your editor and readers. FastAPI also uses them to check every request and answers 422 when the input is wrong</li>
-<li>Path parameters come from {braces} in the address. Form parameters come from Form() and need python-multipart</li>
-<li>Python's built-in sqlite3 module speaks the same SQL as T24. Always use ? placeholders</li>
-<li>TestClient plus pytest tests your app without starting a server: uv run pytest</li>
+<li>uvはPythonとプロジェクトごとのパッケージをインストールします: uv init, uv add, uv run</li>
+<li>ルートは@app.get("/path")のようなデコレータを持つ関数です。HTMLには文字列、JSONには辞書またはリストを返します。</li>
+<li>型ヒントはエディタと読者の助けになります。FastAPIはそれらを使ってすべてのリクエストをチェックし、入力が間違っている場合は422で応答します。</li>
+<li>パスパラメータはアドレスの{波括弧}から来ます。フォームパラメータはForm()から来て、python-multipartが必要です。</li>
+<li>Pythonの組み込みsqlite3モジュールはT24と同じSQLを扱います。常に?プレースホルダーを使用してください。</li>
+<li>TestClientとpytestはサーバーを起動せずにアプリをテストします: uv run pytest</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">

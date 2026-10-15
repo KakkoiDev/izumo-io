@@ -11,7 +11,7 @@
       document.documentElement.dataset.theme = t;
     })();
   </script>
-  <title>Connect Your Computer to GitHub - KakkoiSchool</title>
+  <title>Conecte Seu Computador ao GitHub - KakkoiSchool</title>
   <link rel="icon" href="../../static/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="../../static/style.css">
 </head>
@@ -47,45 +47,45 @@
           <a href="t43.html">Próxima</a>
         </div>
       </nav>
-      <h1 id="t42-connect-your-computer-to-github"><a class="heading-anchor" href="#t42-connect-your-computer-to-github">T42: Connect Your Computer to GitHub</a></h1>
-<p class="lesson-intro">You have a GitHub account (<a href="t41.html">T41</a>) and git on your computer (<a href="t19.html">T19</a>). Right now they are strangers. When your computer tries to push code, GitHub asks "who are you?", and your computer has no good answer. This lesson gives your computer a key to the door. Think of it like a hotel: your password got you checked in at the front desk, but you still need a key card to open your room, and that key card lives on your computer.</p>
-<h2 id="why-a-push-fails-without-it"><a class="heading-anchor" href="#why-a-push-fails-without-it">Why a Push Fails Without It</a></h2>
-<p>In the early days you could type your GitHub password when git asked. Since 2021, GitHub no longer accepts account passwords for git. If you try, you will see something like:</p>
+      <h1 id="t42-conecte-seu-computador-ao-github"><a class="heading-anchor" href="#t42-conecte-seu-computador-ao-github">T42: Conecte Seu Computador ao GitHub</a></h1>
+<p class="lesson-intro">Você tem uma conta GitHub (<a href="t41.html">T41</a>) e git no seu computador (<a href="t19.html">T19</a>). No momento, eles são estranhos. Quando seu computador tenta enviar código, o GitHub pergunta "quem é você?", e seu computador não tem uma boa resposta. Esta lição dá ao seu computador uma chave para a porta. Pense nisso como um hotel: sua senha o registrou na recepção, mas você ainda precisa de um cartão-chave para abrir seu quarto, e esse cartão-chave vive no seu computador.</p>
+<h2 id="por-que-um-push-falha-sem-isso"><a class="heading-anchor" href="#por-que-um-push-falha-sem-isso">Por que um Push Falha Sem Isso</a></h2>
+<p>Antigamente, você podia digitar sua senha do GitHub quando o git perguntava. Desde 2021, o GitHub não aceita mais senhas de conta para git. Se você tentar, verá algo como:</p>
 <pre><code>remote: Support for password authentication was removed on August 13, 2021.
 fatal: Authentication failed for 'https://github.com/you/my-project.git/'
 </code></pre>
-<p>Instead, git needs a <strong>token</strong> (a long secret string GitHub gives you) or an <strong>SSH key</strong> (a pair of files that prove who you are). You do not need to make or copy a token by hand. The GitHub CLI does it for you.</p>
-<h2 id="the-recommended-path-the-github-cli"><a class="heading-anchor" href="#the-recommended-path-the-github-cli">The Recommended Path: the GitHub CLI</a></h2>
-<p>The <strong>GitHub CLI</strong> is a program called <code>gh</code>. It signs you in through your web browser, stores the key safely, and tells git to use it.</p>
-<h3 id="1-install-gh"><a class="heading-anchor" href="#1-install-gh">1. Install gh</a></h3>
+<p>Em vez disso, o git precisa de um <strong>token</strong> (uma longa string secreta que o GitHub lhe dá) ou uma <strong>chave SSH</strong> (um par de arquivos que comprovam quem você é). Você não precisa criar ou copiar um token manualmente. O GitHub CLI faz isso por você.</p>
+<h2 id="o-caminho-recomendado-o-github-cli"><a class="heading-anchor" href="#o-caminho-recomendado-o-github-cli">O Caminho Recomendado: o GitHub CLI</a></h2>
+<p>O <strong>GitHub CLI</strong> é um programa chamado <code>gh</code>. Ele o conecta através do seu navegador da web, armazena a chave com segurança e informa ao git para usá-la.</p>
+<h3 id="1-instalar-gh"><a class="heading-anchor" href="#1-instalar-gh">1. Instalar gh</a></h3>
 <pre><code># macOS (with Homebrew)
 brew install gh
 
 # Windows (in PowerShell or Terminal)
 winget install --id GitHub.cli
 </code></pre>
-<p>On Linux, follow the instructions for your distribution at <a href="https://cli.github.com" target="_blank" rel="noopener">cli.github.com</a>. Close and reopen your terminal after installing, then check it worked:</p>
+<p>No Linux, siga as instruções para sua distribuição em <a href="https://cli.github.com" target="_blank" rel="noopener">cli.github.com</a>. Feche e reabra seu terminal após a instalação e, em seguida, verifique se funcionou:</p>
 <pre><code>gh --version
 </code></pre>
-<h3 id="2-sign-in"><a class="heading-anchor" href="#2-sign-in">2. Sign in</a></h3>
+<h3 id="2-entrar"><a class="heading-anchor" href="#2-entrar">2. Entrar</a></h3>
 <pre><code>gh auth login
 </code></pre>
-<p>It asks a few questions. Use the arrow keys and Enter:</p>
+<p>Ele faz algumas perguntas. Use as setas e Enter:</p>
 <ol>
-<li><strong>Where do you use GitHub?</strong> Choose <strong>GitHub.com</strong>.</li>
-<li><strong>What is your preferred protocol for Git operations?</strong> Choose <strong>HTTPS</strong>.</li>
-<li><strong>Authenticate Git with your GitHub credentials?</strong> Answer <strong>Yes</strong>.</li>
-<li><strong>How would you like to authenticate GitHub CLI?</strong> Choose <strong>Login with a web browser</strong>.</li>
+<li><strong>Onde você usa o GitHub?</strong> Escolha <strong>GitHub.com</strong>.</li>
+<li><strong>Qual é o seu protocolo preferido para operações Git?</strong> Escolha <strong>HTTPS</strong>.</li>
+<li><strong>Autenticar Git com suas credenciais do GitHub?</strong> Responda <strong>Sim</strong>.</li>
+<li><strong>Como você gostaria de autenticar o GitHub CLI?</strong> Escolha <strong>Login com um navegador da web</strong>.</li>
 </ol>
-<p><code>gh</code> shows a one-time code like <code>ABCD-1234</code> and asks you to press Enter. Your browser opens on GitHub. Sign in if needed (with your two-factor code), paste the code, and click <strong>Authorize</strong>. Back in the terminal you should see a line saying you are logged in.</p>
-<h3 id="3-tell-git-to-use-gh"><a class="heading-anchor" href="#3-tell-git-to-use-gh">3. Tell git to use gh</a></h3>
+<p><code>gh</code> mostra um código de uso único como <code>ABCD-1234</code> e pede para você pressionar Enter. Seu navegador abre no GitHub. Faça login se necessário (com seu código de dois fatores), cole o código e clique em <strong>Autorizar</strong>. De volta ao terminal, você deve ver uma linha dizendo que você está logado.</p>
+<h3 id="3-diga-ao-git-para-usar-gh"><a class="heading-anchor" href="#3-diga-ao-git-para-usar-gh">3. Diga ao git para usar gh</a></h3>
 <pre><code>gh auth setup-git
 </code></pre>
-<p>This makes git ask <code>gh</code> for the key every time it talks to GitHub. If you answered Yes in step 3 above, it is already done, and running it again is harmless.</p>
-<h3 id="4-check"><a class="heading-anchor" href="#4-check">4. Check</a></h3>
+<p>Isso faz com que o git peça a <code>gh</code> a chave toda vez que se comunica com o GitHub. Se você respondeu Sim na etapa 3 acima, já está feito, e executá-lo novamente é inofensivo.</p>
+<h3 id="4-verificar"><a class="heading-anchor" href="#4-verificar">4. Verificar</a></h3>
 <pre><code>gh auth status
 </code></pre>
-<p>You should see <code>Logged in to github.com account your-username</code> and <code>Git operations protocol: https</code>. That is it. <code>git push</code> will now work.</p>
+<p>Você deve ver <code>Logged in to github.com account your-username</code> e <code>Git operations protocol: https</code>. É isso. <code>git push</code> agora funcionará.</p>
 <div class="mermaid">
 sequenceDiagram
     participant You as Terminal
@@ -101,29 +101,29 @@ sequenceDiagram
     G->>You: accepted
 
 </div>
-<h2 id="tell-git-your-name-and-email"><a class="heading-anchor" href="#tell-git-your-name-and-email">Tell Git Your Name and Email</a></h2>
-<p>Every commit is signed with a name and an email. Git asks for them once per computer:</p>
+<h2 id="diga-ao-git-seu-nome-e-email"><a class="heading-anchor" href="#diga-ao-git-seu-nome-e-email">Diga ao Git Seu Nome e Email</a></h2>
+<p>Cada commit é assinado com um nome e um e-mail. O Git pede por eles uma vez por computador:</p>
 <pre><code>git config --global user.name &quot;Aiko Tanaka&quot;
 git config --global user.email &quot;you@example.com&quot;
 </code></pre>
-<p>The email matters: GitHub uses it to link each commit to your account and show your picture next to it. Use an email that is on your GitHub account.</p>
-<h3 id="keep-your-email-private"><a class="heading-anchor" href="#keep-your-email-private">Keep your email private</a></h3>
-<p>Commits in a public repository are public, and so is the email inside them. Bots collect these for spam. GitHub gives you a private <strong>noreply</strong> address instead:</p>
+<p>O e-mail importa: o GitHub o usa para vincular cada commit à sua conta e mostrar sua foto ao lado dele. Use um e-mail que esteja na sua conta GitHub.</p>
+<h3 id="mantenha-seu-e-mail-privado"><a class="heading-anchor" href="#mantenha-seu-e-mail-privado">Mantenha seu e-mail privado</a></h3>
+<p>Commits em um repositório público são públicos, e o e-mail dentro deles também. Bots coletam esses e-mails para spam. O GitHub oferece um endereço <strong>noreply</strong> privado em vez disso:</p>
 <ol>
-<li>On GitHub: profile picture &gt; <strong>Settings</strong> &gt; <strong>Emails</strong>.</li>
-<li>Tick <strong>Keep my email addresses private</strong>.</li>
-<li>GitHub shows your noreply address. It looks like <code>12345678+your-username@users.noreply.github.com</code>.</li>
-<li>Use that address in git:</li>
+<li>No GitHub: foto de perfil &gt; <strong>Settings</strong> (Configurações) &gt; <strong>Emails</strong>.</li>
+<li>Marque <strong>Keep my email addresses private</strong> (Manter meus endereços de e-mail privados).</li>
+<li>O GitHub mostra seu endereço noreply. Ele se parece com <code>12345678+your-username@users.noreply.github.com</code>.</li>
+<li>Use esse endereço no git:</li>
 </ol>
 <pre><code>git config --global user.email &quot;12345678+your-username@users.noreply.github.com&quot;
 </code></pre>
-<p>Copy the exact address from the page: the number at the start is your account ID, and it is different for everyone.</p>
-<p>Check what git will use:</p>
+<p>Copie o endereço exato da página: o número no início é o ID da sua conta, e é diferente para cada pessoa.</p>
+<p>Verifique o que o git usará:</p>
 <pre><code>git config --global --list
 </code></pre>
-<h2 id="alternative-ssh-keys"><a class="heading-anchor" href="#alternative-ssh-keys">Alternative: SSH Keys</a></h2>
-<p>SSH is another way to prove who you are. It uses a <strong>key pair</strong>: a private key that never leaves your computer, and a public key you give to GitHub. It is like a padlock (public, you can hand out copies) and the only key that opens it (private, you keep it).</p>
-<p>HTTPS with <code>gh</code> is simpler, so you do not need this. Use SSH if a course, a job, or a server setup asks for it.</p>
+<h2 id="alternativa-chaves-ssh"><a class="heading-anchor" href="#alternativa-chaves-ssh">Alternativa: Chaves SSH</a></h2>
+<p>SSH é outra maneira de provar quem você é. Ele usa um <strong>par de chaves</strong>: uma chave privada que nunca sai do seu computador e uma chave pública que você dá ao GitHub. É como um cadeado (público, você pode distribuir cópias) e a única chave que o abre (privada, você a mantém).</p>
+<p>HTTPS com <code>gh</code> é mais simples, então você não precisa disso. Use SSH se um curso, um trabalho ou uma configuração de servidor pedir por isso.</p>
 <pre><code># Make a key pair (press Enter to accept the default file;
 # choosing a passphrase is a good idea)
 ssh-keygen -t ed25519 -C &quot;you@example.com&quot;
@@ -137,30 +137,30 @@ gh ssh-key add ~/.ssh/id_ed25519.pub --title &quot;My laptop&quot;
 # Test it
 ssh -T git@github.com
 </code></pre>
-<p>The test says <code>Hi your-username! You've successfully authenticated</code>. With SSH, repository addresses look like <code>git@github.com:you/my-project.git</code> instead of <code>https://github.com/...</code>.</p>
-<p><strong>Never share or upload the file without <code>.pub</code>.</strong> That one is the private key.</p>
-<h2 id="when-it-says-permission-denied-or-authentication-failed"><a class="heading-anchor" href="#when-it-says-permission-denied-or-authentication-failed">When It Says "Permission denied" or "Authentication failed"</a></h2>
-<p>Read the error, then check these in order:</p>
+<p>O teste diz <code>Hi your-username! You've successfully authenticated</code>. Com SSH, os endereços de repositório se parecem com <code>git@github.com:you/my-project.git</code> em vez de <code>https://github.com/...</code>.</p>
+<p><strong>Nunca compartilhe ou faça upload do arquivo sem <code>.pub</code>.</strong> Esse é a chave privada.</p>
+<h2 id="quando-diz-permission-denied-ou-authentication-failed"><a class="heading-anchor" href="#quando-diz-permission-denied-ou-authentication-failed">Quando Diz "Permission denied" ou "Authentication failed"</a></h2>
+<p>Leia o erro e, em seguida, verifique estes itens em ordem:</p>
 <ol>
-<li><strong>Are you logged in?</strong> Run <code>gh auth status</code>. If it says you are not logged in, or that the token is invalid, run <code>gh auth login</code> again.</li>
-<li><strong>Is git using gh?</strong> Run <code>gh auth setup-git</code> again.</li>
-<li><strong>Is it the right account?</strong> <code>gh auth status</code> shows which account is active. If you have two accounts, switch with <code>gh auth switch</code>.</li>
-<li><strong>Do you have access to that repository?</strong> You can only push to your own repositories, or ones where the owner added you as a collaborator. Check the address with <code>git remote -v</code>. A typo in the username gives the same error.</li>
-<li><strong>HTTPS or SSH?</strong> If <code>git remote -v</code> shows <code>git@github.com:...</code> but you set up HTTPS, either set up SSH, or switch the address:</li>
+<li><strong>Você está logado?</strong> Execute <code>gh auth status</code>. Se disser que você não está logado ou que o token é inválido, execute <code>gh auth login</code> novamente.</li>
+<li><strong>O git está usando gh?</strong> Execute <code>gh auth setup-git</code> novamente.</li>
+<li><strong>É a conta certa?</strong> <code>gh auth status</code> mostra qual conta está ativa. Se você tem duas contas, alterne com <code>gh auth switch</code>.</li>
+<li><strong>Você tem acesso a esse repositório?</strong> Você só pode enviar para seus próprios repositórios ou para aqueles onde o proprietário o adicionou como colaborador. Verifique o endereço com <code>git remote -v</code>. Um erro de digitação no nome de usuário resulta no mesmo erro.</li>
+<li><strong>HTTPS ou SSH?</strong> Se <code>git remote -v</code> mostra <code>git@github.com:...</code> mas você configurou HTTPS, configure SSH ou altere o endereço:</li>
 </ol>
 <pre><code>git remote set-url origin https://github.com/your-username/my-project.git
 </code></pre>
 <ol>
-<li><strong>SSH says "Permission denied (publickey)"?</strong> Your key is not on GitHub, or the agent is not using it. Run <code>ssh -T git@github.com</code> and check your keys at <strong>Settings &gt; SSH and GPG keys</strong>.</li>
+<li><strong>SSH diz "Permission denied (publickey)"?</strong> Sua chave não está no GitHub, ou o agente não está usando-a. Execute <code>ssh -T git@github.com</code> e verifique suas chaves em <strong>Settings &gt; SSH and GPG keys</strong>.</li>
 </ol>
 <div class="takeaways">
-<h2 id="key-takeaways"><a class="heading-anchor" href="#key-takeaways">Key Takeaways</a></h2>
+<h2 id="principais-pontos"><a class="heading-anchor" href="#principais-pontos">Principais Pontos</a></h2>
 <ul>
-<li>GitHub no longer accepts your password for git. Your computer needs a token or an SSH key</li>
-<li>The GitHub CLI does it for you: gh auth login, choose HTTPS and the web browser, then gh auth setup-git</li>
-<li>gh auth status tells you who you are logged in as. Run it first whenever a push fails</li>
-<li>Set user.name and user.email once per computer. The noreply address keeps your real email out of public history</li>
-<li>SSH keys are an alternative. Only ever share the .pub file</li>
+<li>O GitHub não aceita mais sua senha para o git. Seu computador precisa de um token ou uma chave SSH</li>
+<li>O GitHub CLI faz isso por você: gh auth login, escolha HTTPS e o navegador da web, depois gh auth setup-git</li>
+<li>gh auth status informa com qual conta você está logado. Execute-o primeiro sempre que um push falhar</li>
+<li>Configure user.name e user.email uma vez por computador. O endereço noreply mantém seu e-mail real fora do histórico público</li>
+<li>Chaves SSH são uma alternativa. Compartilhe apenas o arquivo .pub</li>
 </ul>
 </div>
       <nav class="lesson-breadcrumb lesson-breadcrumb-bottom">
