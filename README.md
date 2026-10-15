@@ -51,3 +51,11 @@ Join our Discord server to:
 - Access additional resources
 
 **[Join Discord: https://discord.gg/YrtdssGUJa](https://discord.gg/YrtdssGUJa)**
+
+## Licence
+
+The lessons and other written content (everything under `content/` and `courses/`, and the text of the site) are licensed under [Creative Commons Attribution 4.0 International](./LICENSE) (CC BY 4.0): you may share and adapt them, including commercially, as long as you credit KakkoiSchool and link to the licence.
+
+Code samples inside the lessons, the scripts in `scripts/`, and the website build in `website/` are licensed under the [MIT licence](./LICENSE-CODE).
+
+Work under `submissions/` belongs to the students who submitted it.
