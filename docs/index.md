@@ -16,6 +16,7 @@ Hands-on lessons teaching the 20% that covers 80% of real-world development. Fro
 - [Tech Lessons](tech-lessons.md) - Hands-on lessons from HTML to full-stack AI applications. Build real projects step by step.
 - [Theory](theory-lessons.md) - The thinking behind great software and great developers.
 - [AI Lessons](ai-lessons.md) - A beginner course on using an AI coding assistant safely and well. No coding experience needed.
+- [The Workbench](workbench-lessons.md) - Build real, maintainable apps from zero to production with Pi Workbench, a local AI coding workbench. No coding or AI experience needed.
 - [Videos](videos.md) - Watch previous lesson recordings on YouTube.
 - [Resources](resources.md) - Curated tools and platforms to level up your skills.
 

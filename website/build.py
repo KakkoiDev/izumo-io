@@ -24,9 +24,11 @@ _DATA = load_all()
 LESSONS = _DATA['LESSONS']
 TECH_PHASES = _DATA['TECH_PHASES']
 AI_PHASES = _DATA['AI_PHASES']
+WORKBENCH_PHASES = _DATA['WORKBENCH_PHASES']
 TECH_LESSONS = _DATA['TECH_LESSONS']
 THEORY_LESSONS = _DATA['THEORY_LESSONS']
 AI_LESSONS = _DATA['AI_LESSONS']
+WORKBENCH_LESSONS = _DATA['WORKBENCH_LESSONS']
 UI = _DATA['UI']
 VIDEOS = _DATA['VIDEOS']
 RESOURCES = _DATA['RESOURCES']
@@ -48,6 +50,7 @@ PAGE_TITLES = {
     'tech-lessons.html': {'en': 'Technical Lessons', 'ja': '\u6280\u8853\u30ec\u30c3\u30b9\u30f3'},
     'theory-lessons.html': {'en': 'Theory & Life Lessons', 'ja': '\u7406\u8ad6\u3068\u30e9\u30a4\u30d5\u30ec\u30c3\u30b9\u30f3'},
     'ai-lessons.html': {'en': 'AI Lessons', 'ja': 'AI\u30ec\u30c3\u30b9\u30f3'},
+    'workbench-lessons.html': {'en': 'The Workbench', 'ja': '\u30ef\u30fc\u30af\u30d9\u30f3\u30c1'},
     'videos.html': {'en': 'Lesson Videos', 'ja': '\u30ec\u30c3\u30b9\u30f3\u52d5\u753b'},
     'resources.html': {'en': 'Resources', 'ja': '\u30ea\u30bd\u30fc\u30b9'},
 }
@@ -187,9 +190,11 @@ def build_context(lang, page_file):
 
     tech_phases = localize_list(TECH_PHASES, lang)
     ai_phases = localize_list(AI_PHASES, lang)
+    workbench_phases = localize_list(WORKBENCH_PHASES, lang)
     tech_lessons = localize_list(TECH_LESSONS, lang)
     theory_lessons = localize_list(THEORY_LESSONS, lang)
     ai_lessons = localize_list(AI_LESSONS, lang)
+    workbench_lessons = localize_list(WORKBENCH_LESSONS, lang)
     videos = localize_list(VIDEOS, lang)
     resources = localize_list(RESOURCES, lang)
 
@@ -216,9 +221,11 @@ def build_context(lang, page_file):
         **ui,
         'tech_phases': tech_phases,
         'ai_phases': ai_phases,
+        'workbench_phases': workbench_phases,
         'tech_lessons': tech_lessons,
         'theory_lessons': theory_lessons,
         'ai_lessons': ai_lessons,
+        'workbench_lessons': workbench_lessons,
         'videos': videos,
         'resources': resources,
     }
@@ -230,7 +237,7 @@ def build_lesson_context(lang, lesson_id, page_file):
     ui = {k: t(v, lang) for k, v in UI.items()}
 
     # Find lesson metadata for title, preferring current lang then EN fallback.
-    all_lessons = TECH_LESSONS + THEORY_LESSONS + AI_LESSONS
+    all_lessons = TECH_LESSONS + THEORY_LESSONS + AI_LESSONS + WORKBENCH_LESSONS
     lesson_meta = next((l for l in all_lessons if l['id'] == lesson_id), {})
     page_title = (lesson_meta.get(f'title_{lang}')
                   or lesson_meta.get('title_en')
@@ -240,6 +247,10 @@ def build_lesson_context(lang, lesson_id, page_file):
         back_url = '../ai-lessons.html'
         back_label = ui.get('back_to_ai', '')
         group_lessons = AI_LESSONS
+    elif lesson_id.startswith('W'):
+        back_url = '../workbench-lessons.html'
+        back_label = ui.get('back_to_workbench', '')
+        group_lessons = WORKBENCH_LESSONS
     elif lesson_id.startswith('T'):
         back_url = '../tech-lessons.html'
         back_label = ui.get('back_to_tech', '')
@@ -312,6 +323,7 @@ def build_index_md(lang):
         f"- [{ui['nav_tech']}](tech-lessons.md) - {ui['tech_desc']}",
         f"- [{ui['nav_theory']}](theory-lessons.md) - {ui['theory_desc']}",
         f"- [{ui['nav_ai']}](ai-lessons.md) - {ui['ai_desc']}",
+        f"- [{ui['nav_workbench']}](workbench-lessons.md) - {ui['workbench_desc']}",
         f"- [{ui['nav_videos']}](videos.md) - {ui['videos_desc']}",
         f"- [{ui['nav_resources']}](resources.md) - {ui['resources_desc']}",
         '',
@@ -369,11 +381,11 @@ def build_theory_lessons_md(lang):
     return '\n'.join(lines)
 
 
-def build_ai_lessons_md(lang):
+def _phased_lessons_md(lang, title_key, all_phases, all_lessons):
     ui = _ui(lang)
-    phases = localize_list(AI_PHASES, lang)
-    lessons = localize_list(AI_LESSONS, lang)
-    lines = [f"# {ui['ai_title']}", '']
+    phases = localize_list(all_phases, lang)
+    lessons = localize_list(all_lessons, lang)
+    lines = [f"# {ui[title_key]}", '']
     for phase in phases:
         lines.append(f"## {phase.get('title', '')}")
         lines.append('')
@@ -391,6 +403,14 @@ def build_ai_lessons_md(lang):
             lines.append(f"- [{lesson['id']}: {title}](lessons/{slug}.md){suffix}")
         lines.append('')
     return '\n'.join(lines)
+
+
+def build_ai_lessons_md(lang):
+    return _phased_lessons_md(lang, 'ai_title', AI_PHASES, AI_LESSONS)
+
+
+def build_workbench_lessons_md(lang):
+    return _phased_lessons_md(lang, 'workbench_title', WORKBENCH_PHASES, WORKBENCH_LESSONS)
 
 
 def build_videos_md(lang):
@@ -426,6 +446,7 @@ PAGE_MD_BUILDERS = {
     'tech-lessons.html': build_tech_lessons_md,
     'theory-lessons.html': build_theory_lessons_md,
     'ai-lessons.html': build_ai_lessons_md,
+    'workbench-lessons.html': build_workbench_lessons_md,
     'videos.html': build_videos_md,
     'resources.html': build_resources_md,
 }
@@ -436,6 +457,8 @@ def lesson_source_path(lesson_id, lang):
     slug = lesson_id.lower()
     if lesson_id.startswith('A'):
         sub = 'ai'
+    elif lesson_id.startswith('W'):
+        sub = 'workbench'
     elif lesson_id.startswith('T'):
         sub = 'tech'
     else:

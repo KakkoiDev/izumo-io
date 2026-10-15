@@ -10,8 +10,10 @@ Produces:
   TECH_LESSONS     [{id, phase, status, title_en/ja, desc_en/ja, ...}]
   THEORY_LESSONS   [{id, title_en/ja, desc_en/ja, analogy_en/ja}]
   AI_LESSONS       [{id, title_en/ja, desc_en/ja}]
+  WORKBENCH_LESSONS same shape, for the Workbench track (building apps with Pi Workbench)
   TECH_PHASES      [{id, title_en/ja, subtitle_en/ja, analogy_en/ja}]
   AI_PHASES        same shape, for the AI track (Part 1 using AI / Part 2 the game)
+  WORKBENCH_PHASES same shape, for the Workbench track
   UI               {key: {lang: string}}
   VIDEOS           [{youtube_id, title_en/ja, desc_en/ja}]
   RESOURCES        [{url, domain, title_en/ja, desc_en/ja}]
@@ -103,9 +105,9 @@ def parse_frontmatter(text: str) -> tuple[dict, str]:
 # -------- lesson loading --------
 
 def _lesson_paths() -> list[Path]:
-    """Every .md file under content/tech, content/theory and content/ai."""
+    """Every .md file under content/tech, content/theory, content/ai and content/workbench."""
     paths = []
-    for sub in ('tech', 'theory', 'ai'):
+    for sub in ('tech', 'theory', 'ai', 'workbench'):
         paths.extend((CONTENT / sub).glob('*.md'))
     return sorted(paths)
 
@@ -141,7 +143,7 @@ def load_all() -> dict:
     # build.py used. Metadata lives on the EN file (id, phase, status) and
     # on each lang's file (title, desc, analogy). Collect title/desc/analogy
     # for every supported language so localize_list can pick the right one.
-    tech, theory, ai = [], [], []
+    tech, theory, ai, workbench = [], [], [], []
     for lid in lesson_data:
         en_meta = lesson_data[lid].get('en', {}).get('meta', {})
         entry = {'id': lid}
@@ -158,6 +160,8 @@ def load_all() -> dict:
 
         if lid.startswith('A'):
             ai.append(entry)
+        elif lid.startswith('W'):
+            workbench.append(entry)
         elif lid.startswith('T'):
             tech.append(entry)
         else:
@@ -171,6 +175,7 @@ def load_all() -> dict:
     tech.sort(key=lambda e: _num(e['id']))
     theory.sort(key=lambda e: _num(e['id']))
     ai.sort(key=lambda e: _num(e['id']))
+    workbench.sort(key=lambda e: _num(e['id']))
 
     # -- YAML data files ---------------------------------------------
     def _y(path):
@@ -181,6 +186,7 @@ def load_all() -> dict:
 
     tech_phases = _y('phases.yaml')
     ai_phases = _y('ai-phases.yaml')
+    workbench_phases = _y('workbench-phases.yaml')
     videos = _y('videos.yaml')
     resources = _y('resources.yaml')
 
@@ -191,8 +197,10 @@ def load_all() -> dict:
         'TECH_LESSONS': tech,
         'THEORY_LESSONS': theory,
         'AI_LESSONS': ai,
+        'WORKBENCH_LESSONS': workbench,
         'TECH_PHASES': tech_phases,
         'AI_PHASES': ai_phases,
+        'WORKBENCH_PHASES': workbench_phases,
         'VIDEOS': videos,
         'RESOURCES': resources,
         'UI': ui_raw,
