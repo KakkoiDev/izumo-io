@@ -1,0 +1,41 @@
+name: Test
+
+# The testing protocol shared with Pi Workbench and test-core (SCENARIOS.md): every scenario has one end-to-end
+# test named after it that ran and passed, every control of the site has an e2e step, no flaky patterns.
+# Offline: the tests serve the site on 127.0.0.1 and give every outside request a stand-in.
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements-dev.txt
+      - name: Browser (the official Playwright install, CI only)
+        run: PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD= python -m playwright install --with-deps chromium
+      - name: No flaky patterns in the tests
+        run: python tools/test-core/flaky_lint.py tests
+      - name: Every control of the site has an e2e step
+        run: python tools/test-core/e2e_coverage.py --pages 'website/pages/*.html' 'website/templates/*.html' --tests 'tests/e2e/*.py'
+      - name: End-to-end tests (site, build, translator)
+        run: python -m pytest --junitxml=.test-output/pytest-junit.xml
+      - name: Each scenario in SCENARIOS.md has a test that ran and passed
+        run: python tools/test-core/scenarios.py check SCENARIOS.md --tests tests/e2e/test_*.py --junit .test-output/pytest-junit.xml
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-output
+          path: .test-output/

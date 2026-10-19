@@ -27,3 +27,6 @@ LEARN.md
 
 # Database / local data
 db.json
+
+# Test reports
+.test-output/

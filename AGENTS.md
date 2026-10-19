@@ -23,6 +23,50 @@ languages. Lessons a01 to a08 translate it. Mermaid blocks, code, paths and imag
 deterministic, so a rebuild with no content change produces no diff. Commit the regenerated `docs/`
 alongside any `content/` change.
 
+## Tests: scenarios first, one e2e test each
+
+Same protocol as Pi Workbench and test-core. Every feature of the site, the build and the translator has
+Given/When/Then scenarios in `SCENARIOS.md` (`### Scenario: <title>`), and each has one end-to-end test in
+`tests/e2e/` named after its title (`@pytest.mark.scenario("<title>")` on `def test_<title in snake case>`): Playwright
+for the site, the real command on a scratch copy for the build and the translator. Write the scenario first, see the
+test fail, then change the code. Removing a feature removes its scenario and test in the same commit.
+Tests are offline (outside requests get stand-ins; the Gemini client is `tests/e2e/stand_ins/`), wait for state never
+time, and every Chromium launch passes `--use-mock-keychain --password-store=basic` (`tests/e2e/conftest.py`).
+
+The gate, as `.github/workflows/test.yml` runs it (`pip install -r requirements-dev.txt` once; the browser from
+`python -m playwright install chromium`, or point PLAYWRIGHT_CHROMIUM at an existing Chromium):
+
+```sh
+python tools/test-core/flaky_lint.py tests
+python tools/test-core/e2e_coverage.py --pages 'website/pages/*.html' 'website/templates/*.html' --tests 'tests/e2e/*.py'
+python -m pytest --junitxml=.test-output/pytest-junit.xml
+python tools/test-core/scenarios.py check SCENARIOS.md --tests tests/e2e/test_*.py --junit .test-output/pytest-junit.xml
+```
+
+A new control in a template needs an e2e step; `docs/` must match a fresh `make build` (a test checks it).
+
+## Tests: scenarios first, one e2e test each
+
+Same protocol as Pi Workbench and test-core. Every feature of the site, the build and the translator has
+Given/When/Then scenarios in `SCENARIOS.md` (`### Scenario: <title>`), and each has one end-to-end test in
+`tests/e2e/` named after its title (`@pytest.mark.scenario("<title>")` on `def test_<title in snake case>`): Playwright
+for the site, the real command on a scratch copy for the build and the translator. Write the scenario first, see the
+test fail, then change the code. Removing a feature removes its scenario and test in the same commit.
+Tests are offline (outside requests get stand-ins; the Gemini client is `tests/e2e/stand_ins/`), wait for state never
+time, and every Chromium launch passes `--use-mock-keychain --password-store=basic` (`tests/e2e/conftest.py`).
+
+The gate, as `.github/workflows/test.yml` runs it (`pip install -r requirements-dev.txt` once; the browser from
+`python -m playwright install chromium`, or point PLAYWRIGHT_CHROMIUM at an existing Chromium):
+
+```sh
+python tools/test-core/flaky_lint.py tests
+python tools/test-core/e2e_coverage.py --pages 'website/pages/*.html' 'website/templates/*.html' --tests 'tests/e2e/*.py'
+python -m pytest --junitxml=.test-output/pytest-junit.xml
+python tools/test-core/scenarios.py check SCENARIOS.md --tests tests/e2e/test_*.py --junit .test-output/pytest-junit.xml
+```
+
+A new control in a template needs an e2e step; `docs/` must match a fresh `make build` (a test checks it).
+
 ## Maintaining this file
 
 Keep this file for knowledge useful to almost every future agent session in this project.
